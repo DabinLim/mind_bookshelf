@@ -1,14 +1,16 @@
 import React from 'react';
+import {history} from '../redux/configStore';
 import styled from 'styled-components';
 import BookShelf from '../components/BookShelf';
 import BookDetail from '../components/BookDetail';
 import {useSelector, useDispatch} from 'react-redux';
-import {changeDate} from '../redux/modules/books';
+import {changeDate, setComponent} from '../redux/modules/books';
 import {api as booksActions} from '../redux/modules/books';
-import { ArrowLeft, ArrowRight } from '@material-ui/icons';
+import MyQuestion from '../components/MyQuestion';
 
 const MyBook = (props) => {
     const dispatch = useDispatch();
+    const component = useSelector(state => state.books.component)
     const date = useSelector(state => state.books.date)
     const formated_date = useSelector(state => state.books.formated_date)
     let url = window.location.href.split('/');
@@ -18,38 +20,23 @@ const MyBook = (props) => {
     React.useEffect(() => {
         dispatch(changeDate(0))
         dispatch(booksActions.getBooks(date))
+        dispatch(setComponent(''))
     },[])
     return(
         <React.Fragment>
             <Container>
-            <DateContainer>
-            <ForDate>
-            <ArrowLeft onClick={() => {dispatch(changeDate(1))}} /><span>{formated_date}</span><ArrowRight onClick={() => {dispatch(changeDate(2))}}/>
-            </ForDate>
-            <BookContainer>
-                {id === 'mybook' ? <BookShelf date={date}/> : <BookDetail/>}
-            </BookContainer>
-            </DateContainer>
-            <ProfileContainer/>
+                {id === 'mybook' && component === '' &&
+                <BookShelf date={date}/>
+                }
+                {component === 'myquestion' && <MyQuestion/>}
+                {id !=='mybook' && component === '' &&
+                <BookDetail date={date}/>}
+
+            <ProfileContainer><button onClick={()=>{dispatch(setComponent('myquestion'))}}>나의질문</button></ProfileContainer>
             </Container>
         </React.Fragment>
     )
 }
-
-
-const DateContainer= styled.div`
-    width:100%;
-    display:flex;
-    flex-direction:column;
-`;
-
-const ForDate = styled.div`
-    width:100%;
-    height: 50px;
-    display:flex;
-    flex-direction:row;
-    justify-content:center;
-`;
 
 const Container = styled.div`
     margin:20px;
@@ -58,18 +45,6 @@ const Container = styled.div`
     display:flex;
     flex-direction:row;
     justify-content:space-around;
-`;
-
-const BookContainer = styled.section`
-    margin: 0px auto;
-    width: 80%;
-    height: 100%;
-    border: 1px solid black;
-    background-color: gray;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    border-radius: 2rem;
 `;
 
 const ProfileContainer = styled.section`
