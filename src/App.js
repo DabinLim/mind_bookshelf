@@ -8,6 +8,7 @@ import {useDispatch} from 'react-redux';
 import {api as userActions} from './redux/modules/user';
 import MyBook from './pages/MyBooks';
 import Sidebar from "./components/Sidebar";
+import Main from "./components/Main";
 import Header from "./components/Header";
 
 function App() {
@@ -15,28 +16,24 @@ function App() {
 
   return (
     <React.Fragment>
-      <Header />
-      <Container>
-      <Sidebar />
-      <BrowserRouter>
-      <ConnectedRouter history={history}>
+  <Header />
+      <ContentFrame>
+        <Sidebar />
+        <ConnectedRouter history={history}>
         <Route exact path='/mybook' component={MyBook}></Route>
         <Route exact path='/mybook/:id' component={MyBook}></Route>
-    </ConnectedRouter>
-      </BrowserRouter>
-      </Container>
-    </React.Fragment>
+          <Route exact path="/" component={Main} />
+        </ConnectedRouter>
+      </ContentFrame>
+      </React.Fragment>
   );
 }
 
-const Container = styled.div`
-  margin-top: 55px;
-  width:100%;
-  height:100%;
-  display:flex;
-  flex-direction:row;
+const ContentFrame = styled.div`
+  display: flex;
+  position: relative;
+  top: 55px;
+  height: 90%;
 `;
-
-
 
 export default App;
