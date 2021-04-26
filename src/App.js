@@ -16,6 +16,7 @@ function App() {
   return (
     <React.Fragment>
       <Header />
+      <Container>
       <Sidebar />
       <BrowserRouter>
       <ConnectedRouter history={history}>
@@ -23,9 +24,18 @@ function App() {
         <Route exact path='/mybook/:id' component={MyBook}></Route>
     </ConnectedRouter>
       </BrowserRouter>
+      </Container>
     </React.Fragment>
   );
 }
+
+const Container = styled.div`
+  margin-top: 55px;
+  width:100%;
+  height:100%;
+  display:flex;
+  flex-direction:row;
+`;
 
 
 

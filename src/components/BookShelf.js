@@ -3,21 +3,15 @@ import styled from 'styled-components';
 import {history} from '../redux/configStore';
 
 const BookShelf = (props) => {
-    let num = 32;
-    let booklist = [];
-    for(let i = 1; i<num; i++){
-        booklist.push(i)
-    }
+    console.log(props)
+    const date = props.date.format('YYMMDD')
+    const day = props.date.format('DD')
 
     return(
         <React.Fragment>
             <Container>
                 <WeeklyBooks>
-                    {booklist.map((v,idx) => {
-                        return(
-                                <Book onClick={() => {history.push(`/mybook/${v}`)}} key={idx}>{v}</Book>
-                        )
-                    })}
+                <Book onClick={() => {history.push(`/mybook/${date}`)}}>{day}</Book>
                 </WeeklyBooks>
             </Container>
         </React.Fragment>
