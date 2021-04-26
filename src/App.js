@@ -4,8 +4,11 @@ import { ConnectedRouter } from 'connected-react-router';
 import { BrowserRouter, Route } from 'react-router-dom';
 import {history} from './redux/configStore';
 import {useDispatch} from 'react-redux';
-import {setUser} from './redux/modules/user';
 import {api as userActions} from './redux/modules/user';
+
+import Header from './components/Header'
+
+
 
 function App() {
   const dispatch = useDispatch()
@@ -16,9 +19,9 @@ function App() {
   },[])
   return (
     <React.Fragment>
+      <Header/>
       <BrowserRouter>
       <ConnectedRouter history={history}>
-        <div>이거 지우고 시작</div>
       </ConnectedRouter>
       </BrowserRouter>
     </React.Fragment>
