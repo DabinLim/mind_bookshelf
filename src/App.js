@@ -7,19 +7,21 @@ import {history} from './redux/configStore';
 import {useDispatch} from 'react-redux';
 import {api as userActions} from './redux/modules/user';
 import MyBook from './pages/MyBooks';
+import Sidebar from "./components/Sidebar";
+import Header from "./components/Header";
 
 function App() {
   const dispatch = useDispatch()
 
-  // 예시입니다. 
-
   return (
     <React.Fragment>
+      <Header />
+      <Sidebar />
       <BrowserRouter>
       <ConnectedRouter history={history}>
         <Route exact path='/mybook' component={MyBook}></Route>
         <Route exact path='/mybook/:id' component={MyBook}></Route>
-      </ConnectedRouter>
+    </ConnectedRouter>
       </BrowserRouter>
     </React.Fragment>
   );
