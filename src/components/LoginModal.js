@@ -12,15 +12,15 @@ const LoginModal = (props) => {
           Login
         </Header>
         <ButtonContainer>
-          <Button style={{background: "#FFFFFF", borderBottom: "1px solid #e9ecef"}} >
+          <Button style={{background: "#FFFFFF", borderBottom: "1px solid #e9ecef"}} href="http://lkj99.shop/auth/google" >
             <ButtonIcon src="https://www.freedomforuminstitute.org/wp-content/uploads/2016/10/google-icon.png" />
             <ButtonText>구글로 로그인</ButtonText>
           </Button>
-          <Button style={{background: "#FAE100"}} >
+          <Button style={{background: "#FAE100"}} href="http://lkj99.shop/auth/kakao"  >
             <ButtonIcon src="https://blog.kakaocdn.net/dn/RvGHm/btq0c3b6Thg/7CI0zUHJcapuNgqLP1K5xK/img.png" />
             <ButtonText>카카오로 로그인</ButtonText>
           </Button>
-          <Button style={{background: "#00C300"}} >
+          <Button style={{background: "#00C300"}} href="http://lkj99.shop/auth/naver" >
             <ButtonIcon src="https://blog.kakaocdn.net/dn/czMTX6/btqNbvGUwIu/xxqSeZd4eRMvTHqbfIZUd0/img.png" />
             <ButtonText style={{color: "white", fontWeight: "400"}} >네이버로 로그인</ButtonText>
           </Button>
@@ -84,6 +84,8 @@ const Button = styled.a`
   align-items: center;
   cursor: pointer;
   border-radius: 5px;
+  text-decoration: none;
+  color: black;
   @media (max-width: 500px){
     margin-right: 8px;
     margin-left: 8px;
