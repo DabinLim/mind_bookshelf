@@ -8,6 +8,8 @@ import { setUser } from "./redux/modules/user";
 import { api as userActions } from "./redux/modules/user";
 import Sidebar from "./components/Sidebar";
 
+import Header from "./components/Header";
+
 function App() {
   const dispatch = useDispatch();
 
@@ -17,6 +19,7 @@ function App() {
   }, []);
   return (
     <React.Fragment>
+      <Header />
       <BrowserRouter>
         <Sidebar />
         <ConnectedRouter history={history}></ConnectedRouter>
