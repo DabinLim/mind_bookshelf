@@ -1,88 +1,144 @@
-.cardnone {
-    border-right:0.5px solid black;
-    width: 100%;
+.defaultpage {
+    position:relative;
+    width: 50%;
     height: 100%;
-    box-sizing: border-box;
-    padding:20px;
-    background-color: whitesmoke;
-    display:flex;
-    flex-wrap: wrap;
-    transition:linear 1s;
-    transform: perspective(1000px) rotateY(90deg);
+    transform: rotateY(90deg);
+    transition: linear 0.5s;
+    transform-style: preserve-3d;
+    border-right: 1px solid black;
     transform-origin: 100%;
-
-}
-.diarynone {
-    border-left:0.5px solid black;
-    width: 100%;
-    height: 100%;
-    box-sizing: border-box;
-    padding:20px;
-    background-color: whitesmoke;
-    display:flex;
-    flex-wrap: wrap;
-    transition:linear 1s;
-    transform: perspective(1000px) rotateY(-90deg);
-    transform-origin: 0%;
-
 }
 
-.cardpage {
-    border-right:0.5px solid black;
-    width: 100%;
+.page {
+    position:relative;
+    width: 50%;
     height: 100%;
-    box-sizing: border-box;
-    padding:20px;
-    background-color: whitesmoke;
-    display:flex;
-    flex-wrap: wrap;
-    transition:linear 1s;
-    transform: perspective(1000px) rotateY(0deg);
+    transform: rotateY(0deg);
+    transition: linear 0.5s;
+    transform-style: preserve-3d;
+    border-right: 1px solid black;
     transform-origin: 100%;
-
 }
 
-.diarypage {
-    border-left:0.5px solid black;
-    width: 100%;
-    height: 100%;
-    box-sizing: border-box;
-    padding:20px;
-    background-color: whitesmoke;
+.page-flip {
+    position:relative;
     display:flex;
-    flex-wrap: wrap;
-    transition:linear 1s;
-    transform: perspective(1000px) rotateY(0deg);
-    transform-origin: 0%;
-
-}
-
-.previouspage {
-    border-left:0.5px solid black;
-    width: 100%;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
     height: 100%;
-    box-sizing: border-box;
-    padding:20px;
-    background-color: whitesmoke;
-    display:flex;
-    flex-wrap: wrap;
-    transition:linear 1s;
-    transform: perspective(1000px) rotateY(180deg);
+    transform: rotateY(180deg);
+    transition: linear 0.5s;
+    transform-style: preserve-3d;
+    border-right: 1px solid black;
     transform-origin: 100%;
+}
+
+.page-origin {
+    position:relative;
+    width: 50%;
+    height: 100%;
+    transform: rotateY(0deg);
+    transform-style: preserve-3d;
+    border-right: 1px solid black;
+    transform-origin: 100%;
+}
+
+
+.page-side {
+    box-sizing: border-box;
+    padding:30px;
+    display:flex;
+    position:absolute;
+    flex-wrap: wrap;
+    left:0;
+    top:0;
+    width:100%;
+    height: 100%;
+    backface-visibility: hidden;
+}
+
+.page-side-front {
+    background: whitesmoke;
+    z-index:1;
+}
+
+.page-side-back {
+    background: whitesmoke;
+    transform: rotateY(180deg);
 
 }
 
-.nextpage {
-    border-left:0.5px solid black;
-    width: 100%;
+.defaultdiary {
+    position:relative;
+    width: 50%;
     height: 100%;
-    box-sizing: border-box;
-    padding:20px;
-    background-color: whitesmoke;
-    display:flex;
-    flex-wrap: wrap;
-    transition:linear 1s;
-    transform: perspective(1000px) rotateY(-180deg);
+    transform: rotateY(-90deg);
+    transition: linear 0.5s;
+    transform-style: preserve-3d;
+    border-left: 1px solid black;
     transform-origin: 0%;
+}
 
+.diary {
+    position:relative;
+    width: 50%;
+    height: 100%;
+    transform: rotateY(0deg);
+    transition: linear 0.5s;
+    transform-style: preserve-3d;
+    border-left: 1px solid black;
+    transform-origin: 0%;
+}
+
+.diary-flip {
+    position:relative;
+    width: 50%;
+    height: 100%;
+    transform: rotateY(-180deg);
+    transition: linear 0.5s;
+    transform-style: preserve-3d;
+    border-left: 1px solid black;
+    transform-origin: 0%;
+}
+
+.diary-origin {
+    position:relative;
+    width: 50%;
+    height: 100%;
+    transform: rotateY(0deg);
+    transform-style: preserve-3d;
+    border-left: 1px solid black;
+    transform-origin: 0%;
+}
+
+
+.diary-side {
+    box-sizing: border-box;
+    padding:30px;
+    display:flex;
+    position:absolute;
+    flex-wrap: wrap;
+    left:0;
+    top:0;
+    width:100%;
+    height: 100%;
+    backface-visibility: hidden;
+}
+
+.diary-side-front {
+    background: whitesmoke;
+    z-index:1;
+}
+
+.diary-side-back {
+    background: whitesmoke;
+    transform: rotateY(-180deg);
+
+}
+
+.spinner-on {
+    margin:auto;
+    font-size: 40px;
+    font-weight: 600;
 }

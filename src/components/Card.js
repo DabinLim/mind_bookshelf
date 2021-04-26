@@ -2,11 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Card = (props) => {
-    const {width} = props
+    const {width, display} = props
     console.log(props)
     return(
         <React.Fragment>
-            <Container width={width}>
+            <Container display={display} width={width}>
                 <Subject>#사랑</Subject>
                 <Question>하고 싶은 일과 잘하는 일 무엇을 해야 할까요?</Question>
                 <div style={{width:'100%', position:'relative',display:'flex', flexDirection:'row', justifyContent:'flex-end', alignItems:'center'}}><Profile1/><Profile2/><Profile3/><Writing>75명이 낙서중</Writing></div>
@@ -16,7 +16,8 @@ const Card = (props) => {
 }
 
 Card.defaultProps = {
-    width:'45%'
+    width:'45%',
+    display:'flex'
 }
 
 const Container = styled.div`
@@ -25,7 +26,7 @@ const Container = styled.div`
     width:${props => props.width};
     height:35%;
     border: 1px solid black;
-    display:flex;
+    display:${props => props.display};
     flex-direction:column;
     background-color:lightgray;
     border-radius: 1em;
