@@ -28,15 +28,13 @@ const Sidebar = (props) => {
 
 const SideFrame = styled.nav`
   width: 14%;
-  height: 100vh;
   background: rgba(196, 196, 196, 0.3);
 `;
 
 const SideUl = styled.ul`
   margin: 0 0 0 30px;
-  padding: 0;
+  padding: 60px 0;
   position: relative;
-  top: 20%;
 `;
 
 const SideLi = styled.li`
