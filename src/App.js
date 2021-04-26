@@ -14,6 +14,10 @@ import Header from "./components/Header";
 function App() {
   const dispatch = useDispatch()
 
+  // 로그인이 되어있는지 확인하고 유저정보를 가져옵니다.
+  React.useEffect(() => {
+    dispatch(userActions.LoginCheckAX());
+  }, []);
   return (
     <React.Fragment>
   <Header />
