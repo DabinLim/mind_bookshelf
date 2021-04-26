@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { history } from "../redux/configStore";
 import "../static/henrystyle.css";
 
 const Sidebar = (props) => {
@@ -15,7 +16,7 @@ const Sidebar = (props) => {
             <SideBtn className="sidebtn active">오늘의 낙서</SideBtn>
           </SideLi>
           <SideLi>
-            <SideBtn className="sidebtn">나의 책장</SideBtn>
+            <SideBtn  onClick={()=> {history.push('/mybook')}} className="sidebtn">나의 책장</SideBtn>
           </SideLi>
           <SideLi>
             <SideBtn className="sidebtn">커뮤니티</SideBtn>

@@ -1,34 +1,35 @@
-import React from "react";
-import "./static/App.css";
-import styled from "styled-components";
-import { ConnectedRouter } from "connected-react-router";
-import { BrowserRouter, Route } from "react-router-dom";
-import { history } from "./redux/configStore";
-import { useDispatch } from "react-redux";
-import { setUser } from "./redux/modules/user";
-import { api as userActions } from "./redux/modules/user";
-
+import React from 'react';
+import './static/App.css';
+import styled from 'styled-components';
+import { ConnectedRouter } from 'connected-react-router';
+import { BrowserRouter, Route } from 'react-router-dom';
+import {history} from './redux/configStore';
+import {useDispatch} from 'react-redux';
+import {api as userActions} from './redux/modules/user';
+import MyBook from './pages/MyBooks';
 import Sidebar from "./components/Sidebar";
 import Main from "./components/Main";
 import Header from "./components/Header";
 
 function App() {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
-  // 예시입니다.
+  // 로그인이 되어있는지 확인하고 유저정보를 가져옵니다.
   React.useEffect(() => {
-    dispatch(userActions.exDispatch("유저정보"));
+    dispatch(userActions.LoginCheckAX());
   }, []);
   return (
-    <>
-      <Header />
+    <React.Fragment>
+  <Header />
       <ContentFrame>
         <Sidebar />
         <ConnectedRouter history={history}>
+        <Route exact path='/mybook' component={MyBook}></Route>
+        <Route exact path='/mybook/:id' component={MyBook}></Route>
           <Route exact path="/" component={Main} />
         </ConnectedRouter>
       </ContentFrame>
-    </>
+      </React.Fragment>
   );
 }
 
