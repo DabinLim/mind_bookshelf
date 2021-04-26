@@ -1,12 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import {config} from "../../shared/config"
 
-axios.defaults.baseURL = '';
+// axios.defaults.baseURL = 'http://lkj99.shop';
 
 const userSlice = createSlice({
   name: "user",
   initialState: {
     user: null,
+    is_login: false,
   },
   reducers: {
     setUser: (state, action) => {
@@ -18,9 +20,12 @@ const userSlice = createSlice({
 
 // 예시입니다.
 
-const exDispatch = (exText) => {
+const LoginCheckAX = () => {
     return function(dispatch) {
-        dispatch(setUser(exText))
+      axios.get(`${config.api}/auth/user`)
+        .then((response) => {
+          console.log(response)
+        })
     }
 }
 
@@ -30,7 +35,7 @@ const exDispatch = (exText) => {
 export const { setUser } = userSlice.actions;
 
 export const api = {
-    exDispatch
+  LoginCheckAX
 };
 
 export default userSlice.reducer;

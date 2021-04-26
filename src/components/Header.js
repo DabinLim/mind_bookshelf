@@ -3,29 +3,44 @@ import styled from 'styled-components'
 
 import LoginModal from './LoginModal'
 
-
+import {useSelector} from 'react-redux'
 
 const Header = () => {
-
+  const is_login = useSelector((state) => state.user.is_login)
   const [loginModal, setLogin] = useState(false) 
 
   const closeLoginModal = () => {
     setLogin(false)
   }
 
-  return (
-    <React.Fragment>
-      {loginModal? 
-      <LoginModal close={closeLoginModal} />
-      :null}
-      <HeaderContainer>
-        <HeaderInnerContainer>
-          <TextBtn onClick={()=>{setLogin(true)}} >Login</TextBtn>
-        </HeaderInnerContainer>
-      </HeaderContainer>
-    </React.Fragment>
-
-  )
+  console.log(is_login)
+  
+  if(is_login){
+    return(
+      <React.Fragment>
+        <HeaderContainer>
+          <HeaderInnerContainer>
+          <TextBtn onClick >Logout</TextBtn>
+          </HeaderInnerContainer>
+        </HeaderContainer>
+      
+      </React.Fragment>
+    )
+  }
+      
+    return(
+        <React.Fragment>
+          {loginModal? 
+          <LoginModal close={closeLoginModal} />
+          :null}
+          <HeaderContainer>
+            <HeaderInnerContainer>
+              <TextBtn onClick={()=>{setLogin(true)}} >Login</TextBtn>
+            </HeaderInnerContainer>
+          </HeaderContainer>
+        </React.Fragment>
+    )
+  
 
 
 }
