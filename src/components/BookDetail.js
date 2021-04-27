@@ -7,42 +7,48 @@ import { history } from "../redux/configStore";
 
 const BookDetail = (props) => {
   const url = window.location.href.split("/");
-const [page, setPage] = React.useState('defaultpage')
-const [diary, setDiary] = React.useState('defaultdiary')
-const [display, setDisplay] = React.useState(false);
+  const [page, setPage] = React.useState("defaultpage");
+  const [diary, setDiary] = React.useState("defaultdiary");
+  const [display, setDisplay] = React.useState(false);
 
-if(page === 'page-origin') {
-    setTimeout(function(){setPage('page')},50)
-}
-if(diary === 'diary-origin') {
-    setTimeout(function(){setDiary('diary')},50)
-}
+  if (page === "page-origin") {
+    setTimeout(function () {
+      setPage("page");
+    }, 50);
+  }
+  if (diary === "diary-origin") {
+    setTimeout(function () {
+      setDiary("diary");
+    }, 50);
+  }
 
-if(display === false ) {
-    setTimeout(function(){setDisplay(true)},550);
-}
+  if (display === false) {
+    setTimeout(function () {
+      setDisplay(true);
+    }, 550);
+  }
 
   const previousPage = () => {
-    setDisplay(false)
-    setPage('page-flip')
-    setTimeout(function(){
-        setDisplay(true)
-        setPage('page-origin')
-    },510)
+    setDisplay(false);
+    setPage("page-flip");
+    setTimeout(function () {
+      setDisplay(true);
+      setPage("page-origin");
+    }, 510);
   };
 
   const nextPage = () => {
-    setDisplay(false)
-    setDiary('diary-flip')
-    setTimeout(function(){
-        setDisplay(true)
-        setDiary('diary-origin')
-    },510)
+    setDisplay(false);
+    setDiary("diary-flip");
+    setTimeout(function () {
+      setDisplay(true);
+      setDiary("diary-origin");
+    }, 510);
   };
 
   React.useEffect(() => {
-    setPage('page')
-    setDiary('diary')
+    setPage("page");
+    setDiary("diary");
   }, []);
 
   return (
@@ -50,33 +56,56 @@ if(display === false ) {
       <Container>
         <ArrowLeft onClick={previousPage} fontSize="large" />
         <BookContainer>
-            <div className={page}>
-                <div className='page-side page-side-front'>
-                    {display ? <><Card width='100%'></Card>
-                    <Card width='100%'></Card></> : <span className='spinner-on'>Logo</span> }
-                </div>
-                <div className='page-side page-side-back'>
-                    {display ? <><Card width='100%'></Card>
-                    <Card width='100%'></Card></> : <span className='spinner-on'>Logo</span> }
-                </div>
+          <div className={page}>
+            <div className="page-side page-side-front">
+              {display ? (
+                <>
+                  <Card width="100%"></Card>
+                  <Card width="100%"></Card>
+                </>
+              ) : (
+                <span className="spinner-on">Logo</span>
+              )}
             </div>
-            <div className={diary}>
-                <div className='diary-side diary-side-front'>
-                    {display ? <><Card width='100%'></Card>
-                    <Card width='100%'></Card></> : <span className='spinner-on'>Logo</span> }
-                </div>
-                <div className='diary-side diary-side-back'>
-                    {display ? <><Card width='100%'></Card>
-                    <Card width='100%'></Card></> : <span className='spinner-on'>Logo</span> }
-                </div>
+            <div className="page-side page-side-back">
+              {display ? (
+                <>
+                  <Card width="100%"></Card>
+                  <Card width="100%"></Card>
+                </>
+              ) : (
+                <span className="spinner-on">Logo</span>
+              )}
             </div>
+          </div>
+          <div className={diary}>
+            <div className="diary-side diary-side-front">
+              {display ? (
+                <>
+                  <Card width="100%"></Card>
+                  <Card width="100%"></Card>
+                </>
+              ) : (
+                <span className="spinner-on">Logo</span>
+              )}
+            </div>
+            <div className="diary-side diary-side-back">
+              {display ? (
+                <>
+                  <Card width="100%"></Card>
+                  <Card width="100%"></Card>
+                </>
+              ) : (
+                <span className="spinner-on">Logo</span>
+              )}
+            </div>
+          </div>
         </BookContainer>
         <ArrowRight onClick={nextPage} fontSize="large" />
       </Container>
     </React.Fragment>
   );
 };
-
 
 const Container = styled.div`
   position: relative;
