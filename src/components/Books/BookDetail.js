@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { ArrowLeft, ArrowRight } from "@material-ui/icons";
+import {history} from '../../redux/configStore';
 import {useSelector, useDispatch} from 'react-redux';
 import {api as booksActions} from '../../redux/modules/books';
 import AnswerCard from './AnswerCard';
@@ -9,25 +10,34 @@ const BookDetail = (props) => {
   const dispatch = useDispatch();
   const url = window.location.href.split("/");
   const current_date = url[url.length-1];
-  
+  const date = useSelector(state => state.books.date);
 
-  
+  const previousDay = () => {
+    const previous_day = date.subtract(1, 'd').format('YYMMDD');
+    history.push(`/mybook/${previous_day}`);
+  }
+
+  const nextDay = () => {
+    const next_day = date.add(1, 'd').format('YYMMDD');
+    history.push(`/mybook/${next_day}`);
+  }
 
   React.useEffect(() => {
+    console.log('hi')
     dispatch(booksActions.getBookDetail(current_date));
 
-  }, []);
+  }, url);
 
   return (
     <React.Fragment>
       <Container>
-        <ArrowLeft/>
+        <ArrowLeft onClick={previousDay}/>
         <CardContainer>
           <AnswerCard num={1}/>
           <AnswerCard num={2}/>
           <AnswerCard num={3}/>
         </CardContainer>
-        <ArrowRight/>
+        <ArrowRight onClick={nextDay}/>
       </Container>
     </React.Fragment>
   );

@@ -2,11 +2,17 @@ import React from 'react';
 import styled from 'styled-components';
 import '../../static/AnswerCard.scss';
 import AnswerDetail from './AnswerDetail';
+import {useDispatch, useSelector} from 'react-redux';
+import {setSelect} from '../../redux/modules/books';
 
 const AnswerCard = (props) => {
+    const dispatch = useDispatch();
+    const now_selected = useSelector(state => state.books.selected_card);
 
     const [modalVisible, setModalVisible] = React.useState(false);
-
+    const [scale, setScale] = React.useState('scale(1)');
+    const [z_index, setZ] = React.useState(1);
+    const [height, setHeight] = React.useState('50%');
     const openModal = () => {
         setModalVisible(true);
       };
@@ -15,10 +21,30 @@ const AnswerCard = (props) => {
         setModalVisible(false);
       };
 
+      if(props.num !== now_selected && scale === 'scale(1.5)'){
+        setScale('scale(1)');
+        setZ(1);
+        setHeight('50%');
+        };
+
+      const changeScale = () => {
+          dispatch(setSelect(props.num))
+          if(scale === 'scale(1)'){
+            setScale('scale(1.5)')
+            setZ(2);
+            setHeight('60%');
+          }
+          if(scale === 'scale(1.5)'){
+              setScale('scale(1)')
+              setZ(1)
+              setHeight('50%');
+          }
+      }
+
 
     return(
         <React.Fragment>
-            <Container onClick={openModal}>
+            <Container scale={scale} z_index={z_index} height={height} onClick={changeScale}>
                 <Head>
                     <Profile>
                     <ProfileImg/>
@@ -43,16 +69,18 @@ const AnswerCard = (props) => {
 }
 
 const Container = styled.div`
+    z-index: ${props => props.z_index};
     box-sizing: border-box;
     padding:20px;
     margin:20px;
     display: flex;
     flex-direction: column;
     width:30%;
-    height:50%;
+    height: ${props => props.height};
     background-color:lavender;
     box-shadow: gray 2px 2px 2px 2px;
-    transition:linear 0.5s;
+    transition:linear 0.2s;
+    transform: ${props => props.scale};
 `;
 
 const Head = styled.div`

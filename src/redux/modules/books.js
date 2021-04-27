@@ -13,6 +13,7 @@ const booksSlice = createSlice({
     date: moment(),
     formated_date: 0,
     component:'',
+    selected_card:0,
   },
   reducers: {
 
@@ -37,6 +38,9 @@ const booksSlice = createSlice({
     },
     setComponent: (state, action) => {
         state.component = action.payload
+    },
+    setSelect : (state, action) => {
+        state.selected_card = action.payload
     }
   },
 });
@@ -115,7 +119,8 @@ const addQuest = (topic, contents) => {
 export const { 
     setBooks,
     changeDate,
-    setComponent
+    setComponent,
+    setSelect
  } = booksSlice.actions;
 
 export const api = {
