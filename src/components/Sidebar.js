@@ -116,6 +116,7 @@ const SideFrame = styled.nav`
   width: 14%;
   min-width: 192px;
   background: rgba(196, 196, 196, 0.3);
+  min-height: 100%;
 `;
 
 const SideUl = styled.ul`

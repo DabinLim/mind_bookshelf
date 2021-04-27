@@ -1,15 +1,17 @@
 import { combineReducers } from "redux";
-import { configureStore, getDefaultMiddleware} from "@reduxjs/toolkit";
+import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
 import { createBrowserHistory } from "history";
 import { connectRouter } from "connected-react-router";
-import User from '../redux/modules/user';
-import Books from '../redux/modules/books';
+import User from "../redux/modules/user";
+import Books from "../redux/modules/books";
+import Answer from "../redux/modules/answer";
 
 export const history = createBrowserHistory();
 
 const rootReducer = combineReducers({
-  books:Books,
+  books: Books,
   user: User,
+  answer: Answer,
   router: connectRouter(history),
 });
 
@@ -17,9 +19,12 @@ const { logger } = require("redux-logger");
 
 let store = configureStore({
   reducer: rootReducer,
-  middleware: [...getDefaultMiddleware({
-    serializableCheck: false,
-  }), logger],
+  middleware: [
+    ...getDefaultMiddleware({
+      serializableCheck: false,
+    }),
+    logger,
+  ],
   devTools: process.env.NODE_ENV !== "production",
 });
 
