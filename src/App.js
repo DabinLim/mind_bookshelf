@@ -20,6 +20,7 @@ function App() {
   // 로그인이 되어있는지 확인하고 유저정보를 가져옵니다.
   React.useEffect(() => {
     //쿠키 안에 토큰값이 있으면 회원정보를 불러오고 리덕스에도 로그인상태 true가 됩니다.
+    console.log("ㅎㅇ")
     if(cookie){
       dispatch(userActions.LoginCheckAX());
     }
@@ -30,10 +31,10 @@ function App() {
       <ContentFrame>
         <Sidebar />
         <ConnectedRouter history={history}>
-          <Route exact path='/mybook' component={MyBook}></Route>
-          <Route exact path='/mybook/:id' component={MyBook}></Route>
           <Route exact path="/" component={Main} />
           <Route exact path="/auth/:id" component={Auth} />
+          <Route exact path='/mybook' component={MyBook}></Route>
+          <Route exact path='/mybook/:id' component={MyBook}></Route>
         </ConnectedRouter>
       </ContentFrame>
     </React.Fragment>

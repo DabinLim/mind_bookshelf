@@ -2,12 +2,24 @@ import React, {useState} from 'react'
 import styled from 'styled-components'
 import CreateIcon from '@material-ui/icons/Create';
 import Upload from '../shared/Upload'
-import {useSelector} from 'react-redux'
+import {useSelector, useDispatch} from 'react-redux'
+import {api as userActions} from '../redux/modules/user';
 
 const ProfileUpdateModal = (props) => {
+  const dispatch = useDispatch()
   const user_info = useSelector((state) => state.user.user)
-  const [edit_introduce, setIntroduce] = useState(false)
-  const [edit_nickname, setNickname] = useState(false)
+  const [edit_introduce, editIntroduce] = useState(false)
+  const [edit_nickname, editNickname] = useState(false)
+  const [nickname, setNickname] = useState(user_info.nickname? user_info.nickname : "")
+  const [introduce, setIntroduce] = useState(user_info.introduce? user_info.introduce : "자신의 대해서 적어주세요.")
+
+  const changeNickname = (e) => {
+    setNickname(e.target.value)
+  }
+
+  const changeIntroduce = (e) => {
+    setIntroduce(e.target.value)
+  }
 
   return(
     <React.Fragment>
@@ -19,24 +31,26 @@ const ProfileUpdateModal = (props) => {
         </ImageUpdate>
         {edit_nickname? 
         <InputContainer>
-          <Input value={user_info.nickname} />
-          <InputButton onClick={()=> {setNickname(false)}} >확인</InputButton>
+          <Input value={nickname} onChange={changeNickname} />
+          <InputButton onClick={()=> {dispatch(userActions.UpdateNicknameAX(nickname)); editNickname(false);}} >확인</InputButton>
+          <InputButton onClick={() => {editNickname(false);}} >취소</InputButton>
         </InputContainer>
         : 
         <InputContainer>
           <String>{user_info.nickname}</String>
-          <StringButton onClick={()=> {setNickname(true)}} ><CreateIcon/></StringButton>
+          <StringButton onClick={()=> {editNickname(true)}} ><CreateIcon/></StringButton>
         </InputContainer>
         }
         {edit_introduce? 
         <InputContainer>
-          <Input value={user_info.introduce? user_info.introduce : "자신의 대해서 적어주세요."} />
-          <InputButton onClick={()=> {setIntroduce(false)}} >확인</InputButton>
+          <Input value={introduce} onChange={changeIntroduce} />
+          <InputButton onClick={()=> {dispatch(userActions.UpdateIntroduceAX(introduce)); editIntroduce(false)}} >확인</InputButton>
+          <InputButton onClick={() => {editIntroduce(false)}} >취소</InputButton>
         </InputContainer>
         : 
         <InputContainer>
           <String>{user_info.introduce? user_info.introduce : "자신의 대해서 적어주세요."}</String>
-          <StringButton onClick={()=> {setIntroduce(true)}} ><CreateIcon/></StringButton>
+          <StringButton onClick={()=> {editIntroduce(true)}} ><CreateIcon/></StringButton>
         </InputContainer>
         }
       </UpdateBox>

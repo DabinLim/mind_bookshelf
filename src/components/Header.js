@@ -73,7 +73,6 @@ const HeaderInnerContainer = styled.div`
 const TextBtn = styled.div`
   font-size: 18px;
   cursor: pointer;
-
 `
 
 export default Header

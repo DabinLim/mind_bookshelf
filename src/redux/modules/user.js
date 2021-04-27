@@ -10,7 +10,11 @@ import { getCookie, deleteCookie } from '../../shared/Cookie';
 const userSlice = createSlice({
   name: "user",
   initialState: {
-    user: null,
+    user: {
+      introduce: "",
+      profileImg: "",
+      nickname: "",
+    },
     is_login: false,
   },
   reducers: {
@@ -18,7 +22,10 @@ const userSlice = createSlice({
       state.user = action.payload;
       state.is_login = true;
     },
-    logOut: (state, action) => {
+    editUser: (state, action) => {
+      state.user = {...state.user, ...action.payload}
+    },
+    logOut: (state) => {
       deleteCookie('is_login');
       state.user = null;
       state.is_login = false;
@@ -34,7 +41,7 @@ const LoginCheckAX = () => {
       let token = {
         headers : { authorization: `Bearer ${jwtToken}`}
       }
-      axios(`${config.api}/auth/user`, token)
+      axios.get(`${config.api}/auth/user`, token)
       .then((res) => {
         console.log(res)
         dispatch(setUser({
@@ -53,7 +60,7 @@ const SocialLoginAX = (jwtToken) => {
     let token = {
       headers : { authorization: `Bearer ${jwtToken}`}
     }
-    axios(`${config.api}/auth/user`, token)
+    axios.get(`${config.api}/auth/user`, token)
       .then((res) => {
         console.log(res)
         dispatch(setUser({
@@ -68,19 +75,45 @@ const SocialLoginAX = (jwtToken) => {
   }
 }
 
-
-const UserUpdateAX = () => {
+const UpdateNicknameAX = (nickname) => {
   return function(dispatch){
-    
+    const jwtToken = getCookie('is_login');
+      let token = {
+        headers : { authorization: `Bearer ${jwtToken}`}
+      }
+    axios.patch(`${config.api}/myPage/profile/nickname`, {nickname : nickname}, token)
+      .then((res) => {
+        console.log(res)
+        dispatch(editUser({nickname : nickname}))
+      }).catch((err)=> {
+        console.log(err)
+      })
   }
 }
 
+const UpdateIntroduceAX = (introduce) => {
+  return function(dispatch){
+    const jwtToken = getCookie('is_login');
+      let token = {
+        headers : { authorization: `Bearer ${jwtToken}`}
+      }
+    axios.patch(`${config.api}/mypage/profile/introduce`, {introduce : introduce}, token)
+      .then((res) => {
+        console.log(res)
+        dispatch(editUser({introduce : introduce}))
+      }).catch((err) => {
+        console.log(err)
+      })
+  }
+}
 
-export const { setUser, logOut } = userSlice.actions;
+export const { setUser, logOut, editUser } = userSlice.actions;
 
 export const api = {
   LoginCheckAX,
-  SocialLoginAX
+  SocialLoginAX,
+  UpdateNicknameAX,
+  UpdateIntroduceAX
 };
 
 export default userSlice.reducer;
