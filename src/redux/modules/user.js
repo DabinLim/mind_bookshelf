@@ -119,6 +119,12 @@ const DeleteProfileImgAX = () => {
   }
 }
 
+const searchOthersAX = (words) => {
+  return function(dispatch){
+    axios.post(`${config.api}/bookshelf/searchUser`, {words: words})
+  }
+}
+
 export const { setUser, logOut, editUser } = userSlice.actions;
 
 export const api = {
@@ -127,7 +133,7 @@ export const api = {
   UpdateNicknameAX,
   UpdateIntroduceAX,
   UpdateProfileImgAX,
-  DeleteProfileImgAX
+  DeleteProfileImgAX,
 };
 
 export default userSlice.reducer;
