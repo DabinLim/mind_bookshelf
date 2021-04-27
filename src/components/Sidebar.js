@@ -47,7 +47,7 @@ const Sidebar = (props) => {
                 className="sidebtn active"
                 data-name="오늘의 낙서"
                 onClick={() => {
-                  history.push("/mybook");
+                  history.push("/");
                   dispatch(setComponent(""));
                 }}
               >
@@ -71,7 +71,7 @@ const Sidebar = (props) => {
             <SideLi style={{ background: "white" }}>
               <SideBtn
                 onClick={() => {
-                  history.push("/");
+                  history.push("/mybook");
                 }}
                 className="sidebtn"
                 data-name="나의 책장"
@@ -113,9 +113,9 @@ const Sidebar = (props) => {
 };
 
 const SideFrame = styled.nav`
-  width: 14%;
-  min-width: 192px;
+  min-width: 160px;
   background: rgba(196, 196, 196, 0.3);
+  min-height: 100%;
 `;
 
 const SideUl = styled.ul`
