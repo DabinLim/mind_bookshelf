@@ -1,8 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import moment from 'moment';
+import { getCookie, deleteCookie } from '../../shared/Cookie';
 
 axios.defaults.baseURL = 'http://lkj99.shop';
+axios.defaults.headers.common["Authorization"]= `Bearer ${getCookie('is_login')}`;
 
 const booksSlice = createSlice({
   name: "books",
@@ -13,6 +15,11 @@ const booksSlice = createSlice({
     component:'',
   },
   reducers: {
+
+    setBooks:(state, action) => {
+        state.books = action.payload
+    },
+
     changeDate: (state, action) => {
         console.log(action.payload)
         if(action.payload === 2){
@@ -46,6 +53,7 @@ const getBooks = (getdate) => {
         };
         axios(options).then((response) => {
             console.log(response.data)
+            dispatch(setBooks(response.data.books))
         }).catch((err) => {
             console.log(err)
             if(err.response){
@@ -58,8 +66,9 @@ const getBooks = (getdate) => {
 
 const getBookDetail = (date) => {
     return function(dispatch) {
+        console.log('??')
         const options = {
-            url:`bookshelf/book/${date}`,
+            url:`bookshelf/bookDetail/${date}`,
             method:'GET',
         };
         axios(options).then((response) => {
@@ -74,15 +83,38 @@ const getBookDetail = (date) => {
 
 }
 
+const addQuest = (topic, contents) => {
+    return function(){
+        const options = {
+            url:'bookshelf/question',
+            method:'POST',
+            data: {
+                topic:topic,
+                contents:contents
+            }
+        };
+        axios(options).then((response)=> {
+            console.log(response.data)
+        }).catch((err) => {
+            console.log(err)
+            if(err.response){
+                console.log(err.response.data)
+            }
+        })
+    }
+}
+
 
 export const { 
-    setUser,
+    setBooks,
     changeDate,
     setComponent
  } = booksSlice.actions;
 
 export const api = {
-    getBooks
+    getBooks,
+    getBookDetail,
+    addQuest
 };
 
 export default booksSlice.reducer;

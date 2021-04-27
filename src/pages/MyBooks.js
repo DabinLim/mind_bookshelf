@@ -6,7 +6,6 @@ import BookDetail from '../components/BookDetail';
 import Profile from '../components/Profile'
 import {useSelector, useDispatch} from 'react-redux';
 import {changeDate, setComponent} from '../redux/modules/books';
-import {api as booksActions} from '../redux/modules/books';
 import MyQuestion from '../components/MyQuestion';
 
 const MyBook = (props) => {
@@ -16,11 +15,10 @@ const MyBook = (props) => {
     const formated_date = useSelector(state => state.books.formated_date)
     let url = window.location.href.split('/');
     let id = url[url.length -1];
-    console.log(id)
+    
 
     React.useEffect(() => {
         dispatch(changeDate(0))
-        dispatch(booksActions.getBooks(date))
         dispatch(setComponent(''))
     },[])
     return(

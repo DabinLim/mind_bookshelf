@@ -4,9 +4,13 @@ import "../static/BookDetail.scss";
 import { ArrowLeft, ArrowRight } from "@material-ui/icons";
 import Card from "./Card";
 import { history } from "../redux/configStore";
+import {useSelector, useDispatch} from 'react-redux';
+import {api as booksActions} from '../redux/modules/books';
 
 const BookDetail = (props) => {
+  const dispatch = useDispatch();
   const url = window.location.href.split("/");
+  const current_date = url[url.length-1];
   const [page, setPage] = React.useState("defaultpage");
   const [diary, setDiary] = React.useState("defaultdiary");
   const [display, setDisplay] = React.useState(false);
@@ -47,6 +51,7 @@ const BookDetail = (props) => {
   };
 
   React.useEffect(() => {
+    dispatch(booksActions.getBookDetail(current_date));
     setPage("page");
     setDiary("diary");
   }, []);

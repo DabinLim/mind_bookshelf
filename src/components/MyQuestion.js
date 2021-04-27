@@ -1,15 +1,29 @@
 import React from 'react';
 import styled from 'styled-components';
 import Card from './Card';
+import {useDispatch} from 'react-redux';
+import NewQuestion from './NewQuestion';
 
 const MyQuestion = (props) => {
+    const dispatch = useDispatch()
+    const [modalVisible, setModalVisible] = React.useState(false);
+
+    const openModal = () => {
+        setModalVisible(true);
+      };
+    
+      const closeModal = () => {
+        setModalVisible(false);
+      };
+
 
     return(
         <React.Fragment>
             <Container>
                 <TitleContainer>
                 <Title>생각낙서님의 질문은 27개 입니다.</Title>
-                <AddQuestion> 질문 등록하기 </AddQuestion>
+
+                <AddQuestion onClick={openModal}> 질문 등록하기 </AddQuestion>
                 </TitleContainer>
                 <CardContainer>
                     <Card/>
@@ -19,6 +33,11 @@ const MyQuestion = (props) => {
                     <Card/>
                 </CardContainer>
             </Container>
+            <NewQuestion
+            visible={modalVisible}
+            onClose={closeModal}
+            maskClosable={true}
+            closable={true}/>
         </React.Fragment>
     )
 }
