@@ -1,0 +1,26 @@
+.deactivate {
+    box-sizing: border-box;
+    padding:20px;
+    margin:20px;
+    display: flex;
+    flex-direction: column;
+    width:30%;
+    height:50%;
+    background-color:lavender;
+    box-shadow: gray 2px 2px 2px 2px;
+    transition:linear 0.5s;
+}
+
+.activate {
+    position:absolute;
+    box-sizing: border-box;
+    padding:20px;
+    margin:20px;
+    display: flex;
+    flex-direction: column;
+    width:400px;
+    height:600px;
+    background-color:lavender;
+    box-shadow: gray 2px 2px 2px 2px;
+    transition:linear 0.5s;
+}

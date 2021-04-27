@@ -5,7 +5,7 @@ import BookShelf from '../components/Books/BookShelf';
 import BookDetail from '../components/Books/BookDetail';
 import Profile from '../components/Profile'
 import {useSelector, useDispatch} from 'react-redux';
-import {changeDate, setComponent} from '../redux/modules/books';
+import {setComponent} from '../redux/modules/books';
 import MyQuestion from '../components/MyQuestion';
 
 const MyBook = (props) => {
@@ -17,7 +17,6 @@ const MyBook = (props) => {
     
 
     React.useEffect(() => {
-        dispatch(changeDate(0))
         dispatch(setComponent(''))
     },[])
     return(
