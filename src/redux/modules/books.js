@@ -10,6 +10,7 @@ const booksSlice = createSlice({
     books: [],
     date: moment(),
     formated_date: 0,
+    component:'',
   },
   reducers: {
     changeDate: (state, action) => {
@@ -26,6 +27,9 @@ const booksSlice = createSlice({
         else if(action.payload === 0){
             state.formated_date = state.date.format('YYYY . MM')
         }
+    },
+    setComponent: (state, action) => {
+        state.component = action.payload
     }
   },
 });
@@ -74,6 +78,7 @@ const getBookDetail = (date) => {
 export const { 
     setUser,
     changeDate,
+    setComponent
  } = booksSlice.actions;
 
 export const api = {

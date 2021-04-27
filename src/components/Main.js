@@ -1,11 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 import Typewriter from "typewriter-effect";
+import CardFlipper from "./CardFlipper";
 
 function Main() {
   return (
     <MainFrame>
-      <Typewriter
+      {/* <Typewriter
         onInit={(typewriter) => {
           typewriter
             .typeString(
@@ -16,7 +17,8 @@ function Main() {
             .typeString("당신의 생각은 무엇인가요?")
             .start();
         }}
-      />
+      /> */}
+      <CardFlipper />
     </MainFrame>
   );
 }
@@ -24,8 +26,10 @@ function Main() {
 const MainFrame = styled.div`
   width: 100%;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  padding-top: 50px;
   align-items: center;
+  justify-content: space-between;
   font-size: 24px;
 `;
 
