@@ -16,6 +16,11 @@ const userSlice = createSlice({
       profileImg: "",
       nickname: "",
     },
+    other: {
+      introduce: "",
+      profileImg: "",
+      nickname: "",
+    },
     is_login: false,
   },
   reducers: {
@@ -30,6 +35,9 @@ const userSlice = createSlice({
       deleteCookie('is_login');
       state.user = null;
       state.is_login = false;
+    },
+    setOther: (state, action) => {
+      state.other = action.payload;
     }
   },
 });
@@ -119,13 +127,22 @@ const DeleteProfileImgAX = () => {
   }
 }
 
-const searchOthersAX = (words) => {
+const othersInfoAX = (id) => {
   return function(dispatch){
-    axios.post(`${config.api}/bookshelf/searchUser`, {words: words})
+    console.log(id)
+    axios.get(`${config.api}/bookshelf/auth/user/${id}`)
+      .then((res)=> {
+        console.log(res)
+        dispatch(setOther({
+          introduce: res.data.introduce,
+          profileImg: res.data.profileImg,
+          nickname: res.data.nickname,
+        }))
+      })
   }
 }
 
-export const { setUser, logOut, editUser } = userSlice.actions;
+export const { setUser, logOut, editUser, setOther } = userSlice.actions;
 
 export const api = {
   LoginCheckAX,
@@ -134,6 +151,7 @@ export const api = {
   UpdateIntroduceAX,
   UpdateProfileImgAX,
   DeleteProfileImgAX,
+  othersInfoAX,
 };
 
 export default userSlice.reducer;

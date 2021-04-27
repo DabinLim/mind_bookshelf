@@ -30,8 +30,6 @@ const MyBook = (props) => {
                 {id !=='mybook' && component === '' &&
                 <BookDetail date={date}/>}
             <ProfileContainer>
-                <button onClick={()=>{dispatch(setComponent('myquestion'))}}>나의질문</button>
-                <button onClick={()=>{history.push('/othersbooks/ggg')}}>친구페이지</button>
                 <Profile/>
             </ProfileContainer>
             </Container>
