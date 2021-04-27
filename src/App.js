@@ -44,9 +44,8 @@ function App() {
 
 const ContentFrame = styled.div`
   display: flex;
-  position: relative;
+  padding-top: 55px;
   width: 100%;
-  padding: 55px 0 0 0;
   height: 100%;
 `;
 
