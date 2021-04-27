@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import moment from 'moment';
-import { getCookie, deleteCookie } from '../../shared/Cookie';
+import { getCookie } from '../../shared/Cookie';
 
 axios.defaults.baseURL = 'http://lkj99.shop';
 axios.defaults.headers.common["Authorization"]= `Bearer ${getCookie('is_login')}`;
@@ -43,9 +43,17 @@ const booksSlice = createSlice({
 
 
 
-const getBooks = (getdate) => {
+const getBooks = (towhen) => {
     return function( dispatch, getState ) {
-        const date = getdate.format('YYMM')
+
+        if(towhen === 1){
+            dispatch(changeDate(1));
+        }
+        if(towhen === 2) {
+            dispatch(changeDate(2));
+        }
+
+        const date = getState().books.date.format('YYMM')
         console.log(date)
         const options = {
             url:`/bookshelf/books/${date}`,
@@ -65,8 +73,7 @@ const getBooks = (getdate) => {
 
 
 const getBookDetail = (date) => {
-    return function(dispatch) {
-        console.log('??')
+    return function(dispatch) { 
         const options = {
             url:`bookshelf/bookDetail/${date}`,
             method:'GET',
