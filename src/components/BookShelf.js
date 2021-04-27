@@ -4,23 +4,44 @@ import {history} from '../redux/configStore';
 import { ArrowLeft, ArrowRight } from '@material-ui/icons';
 import {changeDate, setComponent} from '../redux/modules/books';
 import {useSelector, useDispatch} from 'react-redux';
+import {api as booksActions} from '../redux/modules/books';
 
 const BookShelf = (props) => {
     const dispatch = useDispatch();
     const formated_date = useSelector(state => state.books.formated_date)
+    const book_list = useSelector(state => state.books.books);
     const date = props.date.format('YYMMDD')
     const day = props.date.format('DD')
+    console.log(props)
+
+    const previousMonth = () => {
+        dispatch(changeDate(1));
+        dispatch(booksActions.getBooks(props.date.subtract(1,'M')))
+    }
+
+    const nextMonth = () => {
+        dispatch(changeDate(2));
+        dispatch(booksActions.getBooks(props.date.add(1,'M')));
+    }
+
+    React.useEffect(() => {
+        dispatch(booksActions.getBooks(props.date))
+    },[])
 
     return(
         <React.Fragment>
             <Container>
                 <ForDate>
-                <ArrowLeft onClick={() => {dispatch(changeDate(1))}} /><span>{formated_date}</span><ArrowRight onClick={() => {dispatch(changeDate(2))}}/>
+                <ArrowLeft onClick={previousMonth} /><span>{formated_date}</span><ArrowRight onClick={nextMonth}/>
                 </ForDate>
                 <Shelf>
             <BookContainer>
                 <BookRow>
-                <Book onClick={() => {history.push(`/mybook/${date}`)}}>{day}</Book>
+                    {book_list.length && book_list.map((v,idx) => {
+                        return(
+                            <Book key={idx} onClick={() => {history.push(`/mybook/${date}`)}}>{v.YYMMDD}</Book>
+                        )
+                    })}
                 </BookRow>
             </BookContainer>
                 </Shelf>
