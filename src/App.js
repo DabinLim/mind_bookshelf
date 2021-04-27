@@ -6,11 +6,11 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import {history} from './redux/configStore';
 import {useDispatch} from 'react-redux';
 import {api as userActions} from './redux/modules/user';
-import MyBook from './pages/MyBooks';
 import Sidebar from "./components/Sidebar";
 import Main from "./components/Main";
 import Header from "./components/Header";
 import Auth from "./pages/Auth"
+import MyBook from './pages/MyBooks';
 import { getCookie } from './shared/Cookie';
 
 

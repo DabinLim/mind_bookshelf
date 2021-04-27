@@ -29,6 +29,10 @@ const ProfileUpdateModal = (props) => {
           <Upload/>
           <ImageIcon src="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-camera-512.png" />
         </ImageUpdate>
+        <RemoveProfileBtn onClick={()=>{dispatch(userActions.DeleteProfileImgAX())}} >
+          프로필이미지 삭제
+        </RemoveProfileBtn>
+
         {edit_nickname? 
         <InputContainer>
           <Input value={nickname} onChange={changeNickname} />
@@ -86,7 +90,7 @@ const UpdateBox = styled.div`
 
 const ImageUpdate = styled.div`
   position: relative;
-  margin: 50px 0;
+  margin: 50px 0 20px 0;
 `
 
 const ImageIcon = styled.img`
@@ -98,6 +102,13 @@ const ImageIcon = styled.img`
   border-radius: 30px;
   background: silver;
   padding: 5px;
+  cursor: pointer;
+`
+
+const RemoveProfileBtn = styled.button`
+  margin-bottom: 30px;
+  font-size: 18px;
+  font-weight: 600;
   cursor: pointer;
 `
 

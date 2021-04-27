@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import { history } from "../redux/configStore";
-import {setComponent} from '../redux/modules/books';
-import {useDispatch} from 'react-redux';
-import "../static/henrystyle.css";
+import { setComponent } from "../redux/modules/books";
+import { useDispatch } from "react-redux";
+import "../static/henrystyle.scss";
 
 const Sidebar = (props) => {
   //const sideBtns = document.querySelector(".sidebtn");
@@ -19,10 +19,15 @@ const Sidebar = (props) => {
             <SideBtn className="sidebtn active">오늘의 낙서</SideBtn>
           </SideLi>
           <SideLi>
-            <SideBtn  onClick={()=> {
-              history.push('/mybook')
-              dispatch(setComponent(''))
-          }} className="sidebtn">나의 책장</SideBtn>
+            <SideBtn
+              onClick={() => {
+                history.push("/mybook");
+                dispatch(setComponent(""));
+              }}
+              className="sidebtn"
+            >
+              나의 책장
+            </SideBtn>
           </SideLi>
           <SideLi>
             <SideBtn className="sidebtn">커뮤니티</SideBtn>

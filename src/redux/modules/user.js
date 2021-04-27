@@ -78,9 +78,9 @@ const SocialLoginAX = (jwtToken) => {
 const UpdateNicknameAX = (nickname) => {
   return function(dispatch){
     const jwtToken = getCookie('is_login');
-      let token = {
-        headers : { authorization: `Bearer ${jwtToken}`}
-      }
+    let token = {
+      headers : { authorization: `Bearer ${jwtToken}`}
+    }
     axios.patch(`${config.api}/myPage/profile/nickname`, {nickname : nickname}, token)
       .then((res) => {
         console.log(res)
@@ -107,13 +107,50 @@ const UpdateIntroduceAX = (introduce) => {
   }
 }
 
+const UpdateProfileImgAX = (profileImg) => {
+  return function(dispatch){
+    const jwtToken = getCookie('is_login');
+      let token = {
+        headers : { authorization: `Bearer ${jwtToken}`}
+      }
+    const formData = new FormData();
+    formData.append("profileImg", profileImg )
+    axios.patch(`${config.api}/mypage/profile/profileImg`, formData, token)
+      .then((res)=> {
+        console.log(res)
+        dispatch(editUser({profileImg: res.data.profileImg}))
+      }).catch((err)=> {
+        console.log(err)
+      })
+  }
+}
+
+const DeleteProfileImgAX = () => {
+  return function(dispatch){
+    const jwtToken = getCookie('is_login');
+      let token = {
+        headers : { authorization: `Bearer ${jwtToken}`}
+      }
+    console.log(token)
+    axios.patch(`${config.api}/mypage/profile/defaultImg`, token)
+      .then((res)=> {
+        console.log(res)
+        dispatch(editUser({profileImg : res.data.profileImg}))
+      }).catch((err)=> {
+        console.log(err)
+      })
+  }
+}
+
 export const { setUser, logOut, editUser } = userSlice.actions;
 
 export const api = {
   LoginCheckAX,
   SocialLoginAX,
   UpdateNicknameAX,
-  UpdateIntroduceAX
+  UpdateIntroduceAX,
+  UpdateProfileImgAX,
+  DeleteProfileImgAX
 };
 
 export default userSlice.reducer;

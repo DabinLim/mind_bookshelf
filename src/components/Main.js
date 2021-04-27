@@ -1,12 +1,15 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import Typewriter from "typewriter-effect";
 import CardFlipper from "./CardFlipper";
+
+import "../static/henrystyle.scss";
 
 function Main() {
   return (
     <MainFrame>
-      {/* <Typewriter
+      <>
+        {/* <Typewriter
         onInit={(typewriter) => {
           typewriter
             .typeString(
@@ -18,7 +21,10 @@ function Main() {
             .start();
         }}
       /> */}
-      <CardFlipper />
+        <CardFrame>
+          <CardFlipper />
+        </CardFrame>
+      </>
     </MainFrame>
   );
 }
@@ -31,6 +37,23 @@ const MainFrame = styled.div`
   align-items: center;
   justify-content: space-between;
   font-size: 24px;
+`;
+
+const bounce = keyframes`
+  0% {
+    transform: scale(0)
+  }
+  50% {
+    transform: scale(.7)
+  }
+
+  100% {
+    transform: scale(1)
+  }
+`;
+
+const CardFrame = styled.div`
+  animation: ${bounce} 2s;
 `;
 
 export default Main;
