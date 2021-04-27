@@ -11,6 +11,7 @@ import Main from "./components/Main";
 import Header from "./components/Header";
 import Auth from "./pages/Auth"
 import MyBook from './pages/MyBooks';
+import OtherBooks from './pages/OtherBooks';
 import { getCookie } from './shared/Cookie';
 
 
@@ -35,6 +36,7 @@ function App() {
           <Route exact path="/auth/:id" component={Auth} />
           <Route exact path='/mybook' component={MyBook}></Route>
           <Route exact path='/mybook/:id' component={MyBook}></Route>
+          <Route exact path='/other' component={OtherBooks} />
         </ConnectedRouter>
       </ContentFrame>
     </React.Fragment>

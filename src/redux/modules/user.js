@@ -6,6 +6,7 @@ import {history} from "../configStore"
 import { getCookie, deleteCookie } from '../../shared/Cookie';
 
 // axios.defaults.baseURL = 'http://lkj99.shop';
+axios.defaults.headers.common["Authorization"]= `Bearer ${getCookie('is_login')}`;
 
 const userSlice = createSlice({
   name: "user",
@@ -37,11 +38,7 @@ const userSlice = createSlice({
 
 const LoginCheckAX = () => {
     return function(dispatch) {
-      const jwtToken = getCookie('is_login');
-      let token = {
-        headers : { authorization: `Bearer ${jwtToken}`}
-      }
-      axios.get(`${config.api}/auth/user`, token)
+      axios.get(`${config.api}/auth/user`)
       .then((res) => {
         console.log(res)
         dispatch(setUser({
@@ -57,10 +54,7 @@ const LoginCheckAX = () => {
 
 const SocialLoginAX = (jwtToken) => {
   return function(dispatch){
-    let token = {
-      headers : { authorization: `Bearer ${jwtToken}`}
-    }
-    axios.get(`${config.api}/auth/user`, token)
+    axios.get(`${config.api}/auth/user`)
       .then((res) => {
         console.log(res)
         dispatch(setUser({
@@ -77,11 +71,7 @@ const SocialLoginAX = (jwtToken) => {
 
 const UpdateNicknameAX = (nickname) => {
   return function(dispatch){
-    const jwtToken = getCookie('is_login');
-    let token = {
-      headers : { authorization: `Bearer ${jwtToken}`}
-    }
-    axios.patch(`${config.api}/myPage/profile/nickname`, {nickname : nickname}, token)
+    axios.patch(`${config.api}/myPage/profile/nickname`, {nickname : nickname})
       .then((res) => {
         console.log(res)
         dispatch(editUser({nickname : nickname}))
@@ -93,11 +83,7 @@ const UpdateNicknameAX = (nickname) => {
 
 const UpdateIntroduceAX = (introduce) => {
   return function(dispatch){
-    const jwtToken = getCookie('is_login');
-      let token = {
-        headers : { authorization: `Bearer ${jwtToken}`}
-      }
-    axios.patch(`${config.api}/mypage/profile/introduce`, {introduce : introduce}, token)
+    axios.patch(`${config.api}/mypage/profile/introduce`, {introduce : introduce})
       .then((res) => {
         console.log(res)
         dispatch(editUser({introduce : introduce}))
@@ -109,13 +95,9 @@ const UpdateIntroduceAX = (introduce) => {
 
 const UpdateProfileImgAX = (profileImg) => {
   return function(dispatch){
-    const jwtToken = getCookie('is_login');
-      let token = {
-        headers : { authorization: `Bearer ${jwtToken}`}
-      }
     const formData = new FormData();
     formData.append("profileImg", profileImg )
-    axios.patch(`${config.api}/mypage/profile/profileImg`, formData, token)
+    axios.patch(`${config.api}/mypage/profile/profileImg`, formData)
       .then((res)=> {
         console.log(res)
         dispatch(editUser({profileImg: res.data.profileImg}))
@@ -127,12 +109,7 @@ const UpdateProfileImgAX = (profileImg) => {
 
 const DeleteProfileImgAX = () => {
   return function(dispatch){
-    const jwtToken = getCookie('is_login');
-      let token = {
-        headers : { authorization: `Bearer ${jwtToken}`}
-      }
-    console.log(token)
-    axios.patch(`${config.api}/mypage/profile/defaultImg`, token)
+    axios.patch(`${config.api}/mypage/profile/defaultImg`)
       .then((res)=> {
         console.log(res)
         dispatch(editUser({profileImg : res.data.profileImg}))
