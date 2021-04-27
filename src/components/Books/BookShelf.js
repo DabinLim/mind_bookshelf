@@ -1,31 +1,32 @@
 import React from 'react';
 import styled from 'styled-components';
-import {history} from '../redux/configStore';
+import {history} from '../../redux/configStore';
 import { ArrowLeft, ArrowRight } from '@material-ui/icons';
-import {changeDate, setComponent} from '../redux/modules/books';
+import {changeDate, setComponent} from '../../redux/modules/books';
 import {useSelector, useDispatch} from 'react-redux';
-import {api as booksActions} from '../redux/modules/books';
+import {api as booksActions} from '../../redux/modules/books';
 
 const BookShelf = (props) => {
     const dispatch = useDispatch();
     const formated_date = useSelector(state => state.books.formated_date)
     const book_list = useSelector(state => state.books.books);
+    if(book_list.length){
+        
+    }
     const date = props.date.format('YYMMDD')
     const day = props.date.format('DD')
     console.log(props)
 
     const previousMonth = () => {
-        dispatch(changeDate(1));
-        dispatch(booksActions.getBooks(props.date.subtract(1,'M')))
+        dispatch(booksActions.getBooks(1));
     }
 
     const nextMonth = () => {
-        dispatch(changeDate(2));
-        dispatch(booksActions.getBooks(props.date.add(1,'M')));
+        dispatch(booksActions.getBooks(2));
     }
 
     React.useEffect(() => {
-        dispatch(booksActions.getBooks(props.date))
+        dispatch(booksActions.getBooks(0))
     },[])
 
     return(
@@ -39,7 +40,7 @@ const BookShelf = (props) => {
                 <BookRow>
                     {book_list.length && book_list.map((v,idx) => {
                         return(
-                            <Book key={idx} onClick={() => {history.push(`/mybook/${date}`)}}>{v.YYMMDD}</Book>
+                            <Book key={idx} onClick={() => {history.push(`/mybook/${date}`)}}><span style={{margin:'auto'}}>{v._id.charAt(v._id.length -2)}{v._id.charAt(v._id.length -1)}</span></Book>
                         )
                     })}
                 </BookRow>
@@ -99,6 +100,9 @@ const BookRow = styled.div`
 const Book = styled.div`
     margin:2px;
     position: relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
     width: 10.5%;
     height: 24%;
     box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.4);

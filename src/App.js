@@ -1,27 +1,26 @@
-import React from 'react';
-import './static/App.css';
-import styled from 'styled-components';
-import { ConnectedRouter } from 'connected-react-router';
-import { BrowserRouter, Route } from 'react-router-dom';
-import {history} from './redux/configStore';
-import {useDispatch} from 'react-redux';
-import {api as userActions} from './redux/modules/user';
+import React from "react";
+import "./static/App.css";
+import styled from "styled-components";
+import { ConnectedRouter } from "connected-react-router";
+import { Route } from "react-router-dom";
+import { history } from "./redux/configStore";
+import { useDispatch } from "react-redux";
+import { api as userActions } from "./redux/modules/user";
 import Sidebar from "./components/Sidebar";
 import Main from "./components/Main";
 import Header from "./components/Header";
-import Auth from "./pages/Auth"
-import MyBook from './pages/MyBooks';
-import { getCookie } from './shared/Cookie';
-
+import Auth from "./pages/Auth";
+import MyBook from "./pages/MyBooks";
+import OtherBooks from "./pages/OthersBooks";
+import { getCookie } from "./shared/Cookie";
 
 function App() {
-  const dispatch = useDispatch()
-  const cookie = getCookie('is_login') ? true : false;
+  const dispatch = useDispatch();
+  const cookie = getCookie("is_login") ? true : false;
   // 로그인이 되어있는지 확인하고 유저정보를 가져옵니다.
   React.useEffect(() => {
     //쿠키 안에 토큰값이 있으면 회원정보를 불러오고 리덕스에도 로그인상태 true가 됩니다.
-    console.log("ㅎㅇ")
-    if(cookie){
+    if (cookie) {
       dispatch(userActions.LoginCheckAX());
     }
   }, []);
@@ -33,8 +32,9 @@ function App() {
         <ConnectedRouter history={history}>
           <Route exact path="/" component={Main} />
           <Route exact path="/auth/:id" component={Auth} />
-          <Route exact path='/mybook' component={MyBook}></Route>
-          <Route exact path='/mybook/:id' component={MyBook}></Route>
+          <Route exact path="/mybook" component={MyBook}></Route>
+          <Route exact path="/mybook/:id" component={MyBook}></Route>
+          <Route exact path="/other/:id" component={OtherBooks} />
         </ConnectedRouter>
       </ContentFrame>
     </React.Fragment>
@@ -44,8 +44,9 @@ function App() {
 const ContentFrame = styled.div`
   display: flex;
   position: relative;
-  top: 55px;
-  height: 90%;
+  width: 100%;
+  padding: 55px 0 0 0;
+  height: 100%;
 `;
 
 export default App;

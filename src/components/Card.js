@@ -3,7 +3,6 @@ import styled from 'styled-components';
 
 const Card = (props) => {
     const {width, display} = props
-    console.log(props)
     return(
         <React.Fragment>
             <Container display={display} width={width}>

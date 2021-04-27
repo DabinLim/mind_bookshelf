@@ -1,11 +1,11 @@
 import React from "react";
 import styled from "styled-components";
-import "../static/BookDetail.scss";
+import "../../static/BookDetail.scss";
 import { ArrowLeft, ArrowRight } from "@material-ui/icons";
-import Card from "./Card";
-import { history } from "../redux/configStore";
+import Card from "../Card";
+import { history } from "../../redux/configStore";
 import {useSelector, useDispatch} from 'react-redux';
-import {api as booksActions} from '../redux/modules/books';
+import {api as booksActions} from '../../redux/modules/books';
 
 const BookDetail = (props) => {
   const dispatch = useDispatch();
@@ -118,6 +118,8 @@ const Container = styled.div`
   padding: 50px 20px;
   margin: 20px;
   width: 100%;
+  max-width:1000px;
+  min-width:800px;
   height: 100%;
   background-color: lightgray;
   display: flex;
@@ -135,7 +137,7 @@ const BookContainer = styled.div`
   flex-direction: row;
   align-items: center;
   transition: linear 1s;
-  box-shadow: gray 5px 5px 5px 5px;
+  box-shadow: gray 2px 3px 6px 10px;
   transform-style: preserve-3d;
 `;
 

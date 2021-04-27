@@ -1,19 +1,20 @@
 import React from 'react';
 import {history} from '../redux/configStore';
 import styled from 'styled-components';
-import BookShelf from '../components/Books/BookShelf';
-import BookDetail from '../components/Books/BookDetail';
+import BookShelf from '../components/BookShelf';
+import BookDetail from '../components/BookDetail';
 import Profile from '../components/Profile'
 import {useSelector, useDispatch} from 'react-redux';
 import {changeDate, setComponent} from '../redux/modules/books';
 import MyQuestion from '../components/MyQuestion';
 
-const MyBook = (props) => {
+const OthersBooks = (props) => {
     const dispatch = useDispatch();
     const component = useSelector(state => state.books.component)
     const date = useSelector(state => state.books.date)
+    const formated_date = useSelector(state => state.books.formated_date)
     let url = window.location.href.split('/');
-    let id = url[url.length -1];
+    let id = url[url.length -2];
     
 
     React.useEffect(() => {
@@ -23,15 +24,14 @@ const MyBook = (props) => {
     return(
         <React.Fragment>
             <Container>
-                {id === 'mybook' && component === '' &&
+                {id === 'othersbooks' && component === '' &&
                 <BookShelf date={date}/>
                 }
                 {component === 'myquestion' && <MyQuestion/>}
-                {id !=='mybook' && component === '' &&
+                {id !=='othersbooks' && component === '' &&
                 <BookDetail date={date}/>}
             <ProfileContainer>
                 <button onClick={()=>{dispatch(setComponent('myquestion'))}}>나의질문</button>
-                <button onClick={()=>{history.push('/othersbooks/ggg')}}>친구페이지</button>
                 <Profile/>
             </ProfileContainer>
             </Container>
@@ -58,4 +58,4 @@ const ProfileContainer = styled.section`
     align-items: center;
 `
 
-export default MyBook;
+export default OthersBooks;

@@ -3,8 +3,6 @@ import styled, { keyframes } from "styled-components";
 import Typewriter from "typewriter-effect";
 import CardFlipper from "./CardFlipper";
 
-import "../static/henrystyle.scss";
-
 function Main() {
   return (
     <MainFrame>
@@ -29,9 +27,10 @@ function Main() {
 
 const MainFrame = styled.div`
   width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
-  padding-top: 50px;
+  padding-top: 40px;
   align-items: center;
   justify-content: space-between;
   font-size: 24px;
