@@ -5,7 +5,7 @@
     transform: rotateY(90deg);
     transition: ease-out 0.5s;
     transform-style: preserve-3d;
-    border-right: 3px solid darkgray;
+    border-right: 3px solid black;
     transform-origin: 100%;
 }
 
@@ -16,7 +16,7 @@
     transform: rotateY(0deg);
     transition: ease-out 0.5s;
     transform-style: preserve-3d;
-    border-right: 3px solid darkgray;
+    border-right: 3px solid black;
     transform-origin: 100%; 
 }
 
@@ -30,7 +30,7 @@
     transform: rotateY(180deg);
     transition: ease-out 0.5s;
     transform-style: preserve-3d;
-    border-right: 3px solid darkgray;
+    border-right: 3px solid black;
     transform-origin: 100%;
 }
 
@@ -40,12 +40,13 @@
     height: 100%;
     transform: rotateY(0deg);
     transform-style: preserve-3d;
-    border-right: 3px solid darkgray;
+    border-right: 3px solid black;
     transform-origin: 100%;
 }
 
 
 .page-side {
+    // box-shadow: gray -1px 0px 5px 5px ;
     box-sizing: border-box;
     padding:30px;
     display:flex;
@@ -76,7 +77,7 @@
     transform: rotateY(-90deg);
     transition: ease-out 0.5s;
     transform-style: preserve-3d;
-    border-left: 3px solid darkgray;
+    border-left: 3px solid black;
     transform-origin: 0%;
 }
 
@@ -87,7 +88,7 @@
     transform: rotateY(0deg);
     transition: ease-out 0.5s;
     transform-style: preserve-3d;
-    border-left: 3px solid darkgray;
+    border-left: 3px solid black;
     transform-origin: 0%;
 }
 
@@ -98,7 +99,7 @@
     transform: rotateY(-180deg);
     transition: ease-out 0.5s;
     transform-style: preserve-3d;
-    border-left: 3px solid darkgray;
+    border-left: 3px solid black;
     transform-origin: 0%;
 }
 
@@ -108,12 +109,13 @@
     height: 100%;
     transform: rotateY(0deg);
     transform-style: preserve-3d;
-    border-left: 3px solid darkgray;
+    border-left: 3px solid black;
     transform-origin: 0%;
 }
 
 
 .diary-side {
+    // box-shadow: gray 5px 0px 5px 5px;
     box-sizing: border-box;
     padding:30px;
     display:flex;
