@@ -1,6 +1,8 @@
 import ReactCardFlip from "react-card-flip";
 import React, { useState } from "react";
 
+import styled from "styled-components";
+
 import CardFront from "./CardFront";
 import CardBack from "./CardBack";
 
