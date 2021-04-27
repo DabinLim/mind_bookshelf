@@ -1,7 +1,26 @@
 import React from "react";
 import styled from "styled-components";
+import swal from "sweetalert";
 
 const CardFront = (props) => {
+  // contents upload
+  const [contents, setContents] = React.useState("");
+  const changeContents = (e) => {
+    setContents(e.target.value);
+  };
+
+  const addAnswer = () => {
+    if (contents === "") {
+      swal({
+        title: "업로드에 실패하였습니다 😥",
+        text: "답변이 공란입니다.",
+        icon: "error",
+      });
+      return;
+    }
+  };
+  // 유효성 체크
+
   return (
     <>
       <CardFrame>
@@ -16,10 +35,16 @@ const CardFront = (props) => {
           <CardWriters> 74명이 작성 중</CardWriters>
         </CardWriterInfo>
 
-        <ElTextarea rows={3} />
+        <ElTextarea
+          rows={3}
+          wrap="hard"
+          placeholder="무슨 생각을 하고 계시나요?"
+          onChange={changeContents}
+          value={contents}
+        />
         <BtnGroup>
           <PastMe onClick={props.onClick}>과거의 나</PastMe>
-          <SubmitBtn>답변하기</SubmitBtn>
+          <SubmitBtn onClick={addAnswer}>답변하기</SubmitBtn>
         </BtnGroup>
       </CardFrame>
     </>
