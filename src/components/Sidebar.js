@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { history } from "../redux/configStore";
 import { setComponent } from "../redux/modules/books";
@@ -11,27 +11,101 @@ const Sidebar = (props) => {
   //     sideBtns.classList.add("active");
   //   });
   const dispatch = useDispatch();
+
+  const [isJot, setJot] = useState(true);
+  const [isShelf, setShelf] = useState(false);
+  const [isCom, setCom] = useState(false);
+
+  const onClick = (e) => {
+    if (e.target.dataset.name === undefined) {
+      return;
+    }
+    if (e.target.dataset.name === "오늘의 낙서") {
+      setJot(true);
+      setShelf(false);
+      setCom(false);
+    }
+    if (e.target.dataset.name === "나의 책장") {
+      setJot(false);
+      setShelf(true);
+      setCom(false);
+    }
+    if (e.target.dataset.name === "커뮤니티") {
+      setJot(false);
+      setShelf(false);
+      setCom(true);
+    }
+  };
+
   return (
     <>
       <SideFrame>
-        <SideUl>
-          <SideLi>
-            <SideBtn className="sidebtn active">오늘의 낙서</SideBtn>
-          </SideLi>
-          <SideLi>
-            <SideBtn
-              onClick={() => {
-                history.push("/mybook");
-                dispatch(setComponent(""));
-              }}
-              className="sidebtn"
-            >
-              나의 책장
-            </SideBtn>
-          </SideLi>
-          <SideLi>
-            <SideBtn className="sidebtn">커뮤니티</SideBtn>
-          </SideLi>
+        <SideUl onClick={onClick}>
+          {isJot ? (
+            <SideLi style={{ background: "white" }}>
+              <SideBtn
+                className="sidebtn active"
+                data-name="오늘의 낙서"
+                onClick={() => {
+                  history.push("/mybook");
+                  dispatch(setComponent(""));
+                }}
+              >
+                오늘의 낙서
+              </SideBtn>
+            </SideLi>
+          ) : (
+            <SideLi style={{ background: "none" }}>
+              <SideBtn
+                className="sidebtn active"
+                data-name="오늘의 낙서"
+                onClick={() => {
+                  history.push("/");
+                }}
+              >
+                오늘의 낙서
+              </SideBtn>
+            </SideLi>
+          )}
+          {isShelf ? (
+            <SideLi style={{ background: "white" }}>
+              <SideBtn
+                onClick={() => {
+                  history.push("/");
+                }}
+                className="sidebtn"
+                data-name="나의 책장"
+              >
+                나의 책장
+              </SideBtn>
+            </SideLi>
+          ) : (
+            <SideLi style={{ background: "none" }}>
+              <SideBtn
+                onClick={() => {
+                  history.push("/mybook");
+                  dispatch(setComponent(""));
+                }}
+                className="sidebtn"
+                data-name="나의 책장"
+              >
+                나의 책장
+              </SideBtn>
+            </SideLi>
+          )}
+          {isCom ? (
+            <SideLi style={{ background: "white" }}>
+              <SideBtn className="sidebtn" data-name="커뮤니티">
+                커뮤니티
+              </SideBtn>
+            </SideLi>
+          ) : (
+            <SideLi style={{ background: "none" }}>
+              <SideBtn className="sidebtn" data-name="커뮤니티">
+                커뮤니티
+              </SideBtn>
+            </SideLi>
+          )}
         </SideUl>
       </SideFrame>
     </>
@@ -53,6 +127,8 @@ const SideUl = styled.ul`
 const SideLi = styled.li`
   margin-bottom: 20px;
   list-style: none;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
 
   & > button:hover {
     background: white;

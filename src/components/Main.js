@@ -10,17 +10,15 @@ function Main() {
     <MainFrame>
       <>
         {/* <Typewriter
-        onInit={(typewriter) => {
-          typewriter
-            .typeString(
-              "이번 생애 마지막 사랑을 만난다면 꼭 결혼을 해야할까요?"
-            )
-            .pauseFor(4000)
-            .deleteAll()
-            .typeString("당신의 생각은 무엇인가요?")
-            .start();
-        }}
-      /> */}
+          onInit={(typewriter) => {
+            typewriter
+              .typeString("하고 싶은 일과 잘하고 싶은 일, 무엇을 해야 할까요?")
+              .pauseFor(4000)
+              .deleteAll()
+              .typeString("당신의 생각은 무엇인가요?")
+              .start();
+          }}
+        /> */}
         <CardFrame>
           <CardFlipper />
         </CardFrame>
@@ -40,7 +38,30 @@ const MainFrame = styled.div`
 `;
 
 const bounce = keyframes`
-  0% {
+ from {
+    margin-left: 100%;
+  }
+
+  /* 60% {
+    font-size: 150%;
+    margin-left: 25%;
+  }
+
+  90% {
+    font-size: 100%;
+    margin-left: 10%;
+    transform: scale(1.1);
+  } */
+
+  90% {
+    transform: scale(1.1);
+  }
+
+  to {
+    margin-left: 0%;
+  }
+  /* 0% {
+    left: 0;
     transform: scale(0)
   }
   50% {
@@ -49,7 +70,7 @@ const bounce = keyframes`
 
   100% {
     transform: scale(1)
-  }
+  } */
 `;
 
 const CardFrame = styled.div`
