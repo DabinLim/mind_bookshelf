@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import BookShelf from '../components/BookShelf';
 import BookDetail from '../components/BookDetail';
+import Profile from '../components/Profile'
 import {useSelector, useDispatch} from 'react-redux';
 import {changeDate} from '../redux/modules/books';
 import {api as booksActions} from '../redux/modules/books';
@@ -30,7 +31,9 @@ const MyBook = (props) => {
                 {id === 'mybook' ? <BookShelf date={date}/> : <BookDetail/>}
             </BookContainer>
             </DateContainer>
-            <ProfileContainer/>
+            <ProfileContainer>
+                <Profile/>
+            </ProfileContainer>
             </Container>
         </React.Fragment>
     )
@@ -73,9 +76,13 @@ const BookContainer = styled.section`
 `;
 
 const ProfileContainer = styled.section`
-    width:20%;
+    position: relative;
+    width:25%;
     height:100%;
     border: 1px solid black;
-`;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+`
 
 export default MyBook;
