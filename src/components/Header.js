@@ -1,11 +1,11 @@
 import React, {useState} from 'react' 
 import styled from 'styled-components'
-
 import LoginModal from './LoginModal'
-
-import {useSelector} from 'react-redux'
+import {useSelector, useDispatch} from 'react-redux'
+import {logOut} from '../redux/modules/user'
 
 const Header = () => {
+  const dispatch = useDispatch()
   const is_login = useSelector((state) => state.user.is_login)
   const [loginModal, setLogin] = useState(false) 
 
@@ -20,7 +20,7 @@ const Header = () => {
       <React.Fragment>
         <HeaderContainer>
           <HeaderInnerContainer>
-          <TextBtn onClick >Logout</TextBtn>
+          <TextBtn onClick={() => {dispatch(logOut())}}>Logout</TextBtn>
           </HeaderInnerContainer>
         </HeaderContainer>
       
@@ -73,7 +73,6 @@ const HeaderInnerContainer = styled.div`
 const TextBtn = styled.div`
   font-size: 18px;
   cursor: pointer;
-
 `
 
 export default Header
