@@ -1,27 +1,57 @@
 import React from "react";
+import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
+import swal from "sweetalert";
 
-const CardBack = (props) => {
+import { api as answerActions } from "../redux/modules/answer";
+
+const Post = (props) => {
+  const dispatch = useDispatch();
+  const user_info = useSelector((state) => state.user.user);
+  // contents upload
+  const [contents, setContents] = React.useState("");
+  const changeContents = (e) => {
+    setContents(e.target.value);
+  };
+
+  const addAnswer = () => {
+    if (contents === "") {
+      swal({
+        title: "업로드에 실패하였습니다 😥",
+        text: "답변이 공란입니다.",
+        icon: "error",
+      });
+      return;
+    }
+    console.log(props.cardId, contents);
+    dispatch(answerActions.sendAnswerAX(props.cardId, contents));
+    setContents("");
+  };
+  // 유효성 체크
   return (
     <>
       <CardFrame>
         {/* 질문 정보 (작성자 정보 포함) */}
         <CardInfo>
           <CardWriterInfo>
-            <CardWriterProfile></CardWriterProfile>
-            <CardWriter>생각낙서님의 질문</CardWriter>
+            <CardWriterProfile src={user_info?.profileImg}></CardWriterProfile>
+            <CardWriter>
+              <b>{user_info?.nickname}</b>님의 질문
+            </CardWriter>
           </CardWriterInfo>
-          <HashTag>#사랑</HashTag>
+          <HashTag>#{props.topic}</HashTag>
         </CardInfo>
         {/* 질문 보여주는 곳 */}
-        <CardContent>
-          하고 싶은 일과 잘하고 싶은 일, 무엇을 해야 할까요?
-        </CardContent>
+        <CardContent>{props.contents}</CardContent>
         {/*  포스트 작성하는 곳 */}
         <PostBox>
-          <ElTextarea rows={8}></ElTextarea>
+          <ElTextarea
+            rows={8}
+            onChange={changeContents}
+            value={contents}
+          ></ElTextarea>
           <BtnGroup>
-            <SubmitBtn>답변하기</SubmitBtn>
+            <SubmitBtn onClick={addAnswer}>답변하기</SubmitBtn>
           </BtnGroup>
         </PostBox>
       </CardFrame>
@@ -114,4 +144,4 @@ const SubmitBtn = styled.button`
   background: gray;
 `;
 
-export default CardBack;
+export default Post;

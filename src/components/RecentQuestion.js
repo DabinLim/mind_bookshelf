@@ -2,13 +2,14 @@ import React from "react";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
 
-const Question = (props) => {
-  const { onClick } = props;
-
+const RecentQuestion = (props) => {
   return (
     <>
-      <CardFrame onClick={onClick}>
-        <HashTag>#{props.topic}</HashTag>
+      <CardFrame>
+        <WriterInfo>
+          <CardWriterProfile src={props.profileImg} />
+          <HashTag>{props.nickname}</HashTag>
+        </WriterInfo>
 
         <CardContent>{props.contents}</CardContent>
       </CardFrame>
@@ -16,7 +17,7 @@ const Question = (props) => {
   );
 };
 
-Question.defaultProps = {
+RecentQuestion.defaultProps = {
   onClick: () => {},
 };
 
@@ -28,8 +29,24 @@ const CardFrame = styled.div`
   background: #c4c4c4;
 `;
 
+const WriterInfo = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const CardWriterProfile = styled.img`
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: gray;
+  :hover {
+    cursor: pointer;
+  }
+`;
+
 const HashTag = styled.span`
   padding: 6px 14px;
+  margin-left: 8px;
   background: #ececec;
   border-radius: 24px;
 `;
@@ -39,4 +56,4 @@ const CardContent = styled.p`
   font-weight: bolder;
 `;
 
-export default Question;
+export default RecentQuestion;
