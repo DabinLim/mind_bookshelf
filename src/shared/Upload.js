@@ -33,10 +33,10 @@ const Upload = (props) => {
 
   return(
     <ImageLabel style={{backgroundImage:`url(${user_info.profileImg})`}} >
-        
+
         <input id={"file-input"} style={{ display: 'none' }} type="file" name="imageFile"
           onChange={selectFile} ref={fileInput}/>
-          
+
     </ImageLabel>  
   )
 
@@ -51,6 +51,5 @@ const ImageLabel = styled.label`
   background-size: cover;
   cursor:pointer;
 `
-
 
 export default Upload
