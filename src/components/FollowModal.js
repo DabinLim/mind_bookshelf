@@ -19,6 +19,11 @@ const FollowModal = (props) => {
     keyPress(e.target.value)
   }
 
+  const clickOther = (id) => {
+    history.push(`/other/${id}`);
+    props.close()
+  }
+
   return(
 
     <React.Fragment>
@@ -28,7 +33,7 @@ const FollowModal = (props) => {
         <UserContainer>
           {userInput.length !== 0 ?
           userInput.map((f) => {
-            return  <UserInfoContainer  >
+            return  <UserInfoContainer onClick={() => clickOther(f.id)} >
                       <ProfileImage src={f.profileImg} />
                       <Username>{f.nickname}</Username>
                     </UserInfoContainer>
