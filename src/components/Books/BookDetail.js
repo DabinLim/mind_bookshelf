@@ -11,6 +11,8 @@ const BookDetail = (props) => {
   const url = window.location.href.split("/");
   const current_date = url[url.length-1];
   const date = useSelector(state => state.books.date);
+  const book_detail = useSelector(state => state.books.book_detail);
+
 
   const previousDay = () => {
     const previous_day = date.subtract(1, 'd').format('YYMMDD');
@@ -23,7 +25,6 @@ const BookDetail = (props) => {
   }
 
   React.useEffect(() => {
-    console.log('hi')
     dispatch(booksActions.getBookDetail(current_date));
 
   }, url);
@@ -33,9 +34,13 @@ const BookDetail = (props) => {
       <Container>
         <ArrowLeft onClick={previousDay}/>
         <CardContainer>
-          <AnswerCard num={1}/>
-          <AnswerCard num={2}/>
-          <AnswerCard num={3}/>
+          {book_detail.map((v,idx) => {
+            if(idx < 3){
+              return(
+                <AnswerCard key={idx} num={idx+1} info={v}/>
+              )
+            }
+          })}
         </CardContainer>
         <ArrowRight onClick={nextDay}/>
       </Container>

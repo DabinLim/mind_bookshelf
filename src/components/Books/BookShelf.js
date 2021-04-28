@@ -11,7 +11,7 @@ const BookShelf = (props) => {
     const formated_date = useSelector(state => state.books.formated_date);
     const book_list = useSelector(state => state.books.books);
 
-    const date = props.date.format('YYMMDD');
+    const date = useSelector(state => state.books.date)
 
     const previousMonth = () => {
         dispatch(booksActions.getBooks(1));
@@ -21,14 +21,6 @@ const BookShelf = (props) => {
         dispatch(booksActions.getBooks(2));
     }
 
-    const intoDetail = () => {
-        const year = date.charAt(0) + date.charAt(1);
-        const month = date.charAt(3) + date.charAt(4);
-        const day = date.charAt(5) + date.charAt(6);
-        const new_date = props.date.year(year).month(month).day(day);
-        console.log(new_date);
-        history.push(`/mybook/${date}`);
-    }
 
     React.useEffect(() => {
         dispatch(changeDate(0));
@@ -44,9 +36,13 @@ const BookShelf = (props) => {
                 <Shelf>
             <BookContainer>
                 <BookRow>
-                    {book_list.length && book_list.map((v,idx) => {
+                    {book_list && book_list.map((v,idx) => {
                         return(
-                            <Book key={idx} onClick={intoDetail}><span style={{margin:'auto'}}>{v._id.charAt(v._id.length -2)}{v._id.charAt(v._id.length -1)}</span></Book>
+                            <Book key={idx} onClick={()=>{
+                                dispatch(changeDate(`20${v._id}`))
+                                history.push(`/mybook/${v._id}`)
+
+                            }}><span style={{margin:'auto'}}>{v._id.charAt(v._id.length -2)}{v._id.charAt(v._id.length -1)}</span></Book>
                         )
                     })}
                 </BookRow>

@@ -7,6 +7,7 @@ import Profile from '../components/Profile'
 import {useSelector, useDispatch} from 'react-redux';
 import {setComponent} from '../redux/modules/books';
 import MyQuestion from '../components/MyQuestion';
+import { getCookie } from '../shared/Cookie';
 
 const MyBook = (props) => {
     const dispatch = useDispatch();
@@ -17,8 +18,12 @@ const MyBook = (props) => {
     
 
     React.useEffect(() => {
+        if(!getCookie('is_login')){
+            window.alert('로그인 상태가 아닙니다.');
+            history.replace('/');
+        };
         dispatch(setComponent(''))
-    },[])
+    },url)
     return(
         <React.Fragment>
             <Container>

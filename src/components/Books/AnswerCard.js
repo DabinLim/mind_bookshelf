@@ -1,69 +1,80 @@
 import React from 'react';
 import styled from 'styled-components';
 import '../../static/AnswerCard.scss';
-import AnswerDetail from './AnswerDetail';
 import {useDispatch, useSelector} from 'react-redux';
+import {api as booksActions} from '../../redux/modules/books';
 import {setSelect} from '../../redux/modules/books';
+import RecommendCard from './RecommendCard';
 
 const AnswerCard = (props) => {
+    console.log(props)
     const dispatch = useDispatch();
     const now_selected = useSelector(state => state.books.selected_card);
-
-    const [modalVisible, setModalVisible] = React.useState(false);
+    const card_answers = useSelector(state => state.books.card_answers);
+    const url = window.location.href.split("/");
+    const current_date = url[url.length-1];
     const [scale, setScale] = React.useState('scale(1)');
     const [z_index, setZ] = React.useState(1);
+    const [width, setWidth] = React.useState('30%');
     const [height, setHeight] = React.useState('50%');
-    const openModal = () => {
-        setModalVisible(true);
-      };
-    
-      const closeModal = () => {
-        setModalVisible(false);
-      };
+
 
       if(props.num !== now_selected && scale === 'scale(1.5)'){
         setScale('scale(1)');
         setZ(1);
         setHeight('50%');
+        setWidth('30%');
         };
 
       const changeScale = () => {
+          console.log(props.info.questionId)
+        dispatch(booksActions.getCardAnswers(current_date,props.info.questionId))
           dispatch(setSelect(props.num))
           if(scale === 'scale(1)'){
-            setScale('scale(1.5)')
+            setScale('scale(2)')
             setZ(2);
             setHeight('60%');
+            setWidth('50%');
           }
-          if(scale === 'scale(1.5)'){
+          if(scale === 'scale(2)'){
               setScale('scale(1)')
               setZ(1)
               setHeight('50%');
+              setWidth('30%');
           }
       }
+
+      React.useEffect(() => {
+        
+      },[])
 
 
     return(
         <React.Fragment>
-            <Container scale={scale} z_index={z_index} height={height} onClick={changeScale}>
+            <Container scale={scale} z_index={z_index} width={width} height={height} onClick={changeScale}>
                 <Head>
                     <Profile>
-                    <ProfileImg/>
-                    <span>나의 답변</span>
+                    <ProfileImg src={props.info.questionCreatedUserProfileImg}/>
+                    <span>{props.info.questionCreatedUserNickname}</span>
                     </Profile>
                     <Subject>#사랑</Subject>
                 </Head>
                 <Body>
-                <Title>하고 싶은 일과 잘하는 일 무엇을 해야 할까요?</Title>
+                <Title>{props.info.questionContents}</Title>
                 <Answer>
-                    하고 싶은 일을 해야 한다고 생각합니다.
+                    {props.info.answerContents}
                 </Answer>
                 </Body>
+                <Recommend>
+                {scale === 'scale(2)' && card_answers &&card_answers.other.map((v,idx) => {
+                    if(idx<3){
+                        return(
+                            <RecommendCard info={v}/>
+                        )
+                    }
+                })}
+                </Recommend>
             </Container>
-            <AnswerDetail
-            visible={modalVisible}
-            onClose={closeModal}
-            maskClosable={true}
-            closable={true}/>
         </React.Fragment>
     )
 }
@@ -75,7 +86,7 @@ const Container = styled.div`
     margin:20px;
     display: flex;
     flex-direction: column;
-    width:30%;
+    width: ${props => props.width};
     height: ${props => props.height};
     background-color:lavender;
     box-shadow: gray 2px 2px 2px 2px;
@@ -107,7 +118,7 @@ const ProfileImg = styled.div`
     height: 36px;
     border-radius: 36px; 
     background-position: center;
-    background-image: url('https://user-images.githubusercontent.com/77574867/116261377-8a39e780-a7b2-11eb-8037-4bb6ebb559b0.jpeg');
+    background-image: url('${props => props.src}');
     background-size: cover;
     margin: 0px 10px 0px 0px;
 `;
@@ -145,6 +156,14 @@ const Answer = styled.div`
     height:auto;
     margin: 20px 0px;
     font-size:15px;
+`;
+
+const Recommend = styled.div`
+    display:flex;
+    flex-direction:row;
+    width:100%;
+    height:auto;
+    justify-content:space-between;
 `;
 
 export default AnswerCard;
