@@ -8,6 +8,7 @@ import Post from "./Post";
 import answer, { api as answerActions } from "../redux/modules/answer";
 import { changeQ } from "../redux/modules/answer";
 import { useDispatch, useSelector } from "react-redux";
+import { getCookie } from "../shared/Cookie";
 
 import { Switch } from "antd";
 import moment from "moment";
@@ -38,7 +39,11 @@ function Main() {
   const answer_id = useSelector((state) => state.answer.answer_id);
 
   React.useEffect(() => {
-    dispatch(answerActions.getQuestionAX());
+    if (getCookie("is_login")) {
+      dispatch(answerActions.getQuestionAX());
+      return;
+    }
+    dispatch(answerActions.getQuestionAX_NOTLOGIN());
   }, []);
 
   React.useEffect(() => {
@@ -47,55 +52,78 @@ function Main() {
 
   return (
     <MainFrame>
-      {/* 메인 왼쪽 편 */}
-      <MainLeft>
-        <ToggleBox>
-          <Switch />
-        </ToggleBox>
-        <DateIndicator>{displayedDate}</DateIndicator>
-        <QuestionIndicator>
-          <b>{user_info?.nickname}님</b>의 머리속은?
-        </QuestionIndicator>
-        {/* 메인 카드 박스 */}
-        <QuestionBox>
-          {question_list?.map((q, idx) => {
-            return (
-              <>
-                <Question
-                  key={idx + "msg"}
-                  {...q}
-                  onClick={() => {
-                    dispatch(changeQ(q));
-                  }}
-                />
-              </>
-            );
-          })}
-        </QuestionBox>
-      </MainLeft>
-      {/* 메인 오른쪽 편 */}
-      <MainRight>
-        <SubLeft>
-          <Post {...question_info} />
-        </SubLeft>
-        <SubRight>
-          <AnsweringInfo>
-            <AnsweringUsers>
-              <b>{question_info?.answerCount}</b>명이 낙서중
-            </AnsweringUsers>
-            <ToCommunityBtn>더보기</ToCommunityBtn>
-          </AnsweringInfo>
-          <CommunitySeductor>
-            {answer_list?.map((a, idx) => {
-              return (
-                <>
-                  <RecentQuestion key={idx + "msg"} {...a} />
-                </>
-              );
-            })}
-          </CommunitySeductor>
-        </SubRight>
-      </MainRight>
+      {question_list?.length > 0 ? (
+        <>
+          {/* 메인 왼쪽 편 */}
+          <MainLeft>
+            <ToggleBox>
+              <Switch />
+            </ToggleBox>
+            <DateIndicator>{displayedDate}</DateIndicator>
+            <QuestionIndicator>
+              <b>{user_info?.nickname ? user_info?.nickname : "고객"}님</b>의
+              머리속은?
+            </QuestionIndicator>
+            {/* 메인 카드 박스 */}
+            <QuestionBox>
+              {question_list?.map((q, idx) => {
+                return (
+                  <>
+                    <Question
+                      key={idx + "msg"}
+                      {...q}
+                      onClick={() => {
+                        dispatch(changeQ(q));
+                      }}
+                    />
+                  </>
+                );
+              })}
+            </QuestionBox>
+          </MainLeft>
+          {/* 메인 오른쪽 편 */}
+          <MainRight>
+            <SubLeft>
+              <Post {...question_info} blank={" "} />
+            </SubLeft>
+            <SubRight>
+              <AnsweringInfo>
+                <AnsweringUsers>
+                  <b>{question_info?.answerCount}</b>명이 낙서중
+                </AnsweringUsers>
+                <ToCommunityBtn>더보기</ToCommunityBtn>
+              </AnsweringInfo>
+              <CommunitySeductor>
+                {answer_list?.map((a, idx) => {
+                  return (
+                    <>
+                      <RecentQuestion key={idx + "msg"} {...a} />
+                    </>
+                  );
+                })}
+              </CommunitySeductor>
+            </SubRight>
+          </MainRight>
+        </>
+      ) : (
+        <>
+          <CompletedMain>
+            <CompletedMainTitle>
+              오늘 답변이 모두 끝났습니다!
+            </CompletedMainTitle>
+            <CompletedMainSubTitle>
+              이제 다른 답변들도 보러 갈까요?
+            </CompletedMainSubTitle>
+            <CompletedMainInvitation>
+              아래 버튼 중 맘에 드는 것부터 가보죠!
+            </CompletedMainInvitation>
+            <CompletedMainBtnGroup>
+              <ToBookShelfBtn>나의 책장 가기</ToBookShelfBtn>
+              <ToCommunBtn>커뮤니티 가기</ToCommunBtn>
+            </CompletedMainBtnGroup>
+          </CompletedMain>
+        </>
+      )}
     </MainFrame>
   );
 }
@@ -176,5 +204,24 @@ const ToCommunityBtn = styled.button`
   background: none;
   cursor: pointer;
 `;
+
+// 답변이 다 됐을 때의 뷰
+const CompletedMain = styled.div`
+  text-align: center;
+  width: 100%;
+  padding-top: 55px;
+`;
+
+const CompletedMainTitle = styled.h1``;
+
+const CompletedMainSubTitle = styled.h2``;
+
+const CompletedMainInvitation = styled.h3``;
+
+const CompletedMainBtnGroup = styled.div``;
+
+const ToBookShelfBtn = styled.button``;
+
+const ToCommunBtn = styled.button``;
 
 export default Main;
