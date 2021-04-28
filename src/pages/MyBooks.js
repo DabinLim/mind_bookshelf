@@ -7,6 +7,7 @@ import Profile from '../components/Profile'
 import {useSelector, useDispatch} from 'react-redux';
 import {setComponent} from '../redux/modules/books';
 import MyQuestion from '../components/MyQuestion';
+import {api as userActions} from '../redux/modules/user'
 
 const MyBook = (props) => {
     const dispatch = useDispatch();
@@ -18,6 +19,7 @@ const MyBook = (props) => {
 
     React.useEffect(() => {
         dispatch(setComponent(''))
+        dispatch(userActions.myFollowListAX())
     },[])
     return(
         <React.Fragment>
@@ -41,18 +43,14 @@ const Container = styled.div`
     width: 100%;
     height: 80vh;
     display:flex;
-    flex-direction:row;
-    justify-content:space-around;
+    justify-content:space-between;
 `;
 
 const ProfileContainer = styled.section`
-    position: relative;
-    width:25%;
+    width: 300px;
     height:100%;
-    border: 1px solid black;
     display: flex;
     flex-direction: column;
-    align-items: center;
 `
 
 export default MyBook;

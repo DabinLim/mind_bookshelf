@@ -2,18 +2,19 @@ import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { setCookie, getCookie, deleteCookie } from "../shared/Cookie";
 import { api as userActions } from "../redux/modules/user";
-import { api as answerActions } from "../redux/modules/answer";
 import styled from "styled-components";
 import Loader from "react-loader-spinner";
+import axios from "axios";
 
 const Auth = (props) => {
   const jwtToken = props.match.params.id;
   const dispatch = useDispatch();
   useEffect(() => {
-    console.log(jwtToken);
     setCookie("is_login", jwtToken);
-    dispatch(userActions.SocialLoginAX(jwtToken));
-    dispatch(answerActions.getQuestionAX());
+    axios.defaults.headers.common["Authorization"] = `Bearer ${getCookie(
+      "is_login"
+    )}`;
+    dispatch(userActions.SocialLoginAX());
   }, []);
 
   return (

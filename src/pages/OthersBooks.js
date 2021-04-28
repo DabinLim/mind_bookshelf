@@ -20,10 +20,10 @@ const OthersBooks = (props) => {
     
 
     React.useEffect(() => {
-        console.log(userId)
         dispatch(userActions.othersInfoAX(userId))
         dispatch(changeDate(0))
         dispatch(setComponent(''))
+        dispatch(userActions.myFollowListAX())
     },[userId])
     return(
         <React.Fragment>
@@ -44,21 +44,18 @@ const OthersBooks = (props) => {
 
 const Container = styled.div`
     margin:20px;
+    margin-left: 100px;
     width: 100%;
     height: 80vh;
     display:flex;
-    flex-direction:row;
-    justify-content:space-around;
+    justify-content:space-between;
 `;
 
 const ProfileContainer = styled.section`
-    position: relative;
-    width:25%;
+    width: 300px;
     height:100%;
-    border: 1px solid black;
     display: flex;
     flex-direction: column;
-    align-items: center;
 `
 
 export default OthersBooks;

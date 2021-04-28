@@ -8,7 +8,6 @@ import {history} from '../redux/configStore'
 const Search = (props) => {
   const [loading, setLoading] = useState(false);
   const [user_list, setUser] = useState();
-  const [userModal, setUserModal] = useState(false);
 
   const debounce = _.debounce((words) => {
     const searchUsers = async() => {
@@ -33,27 +32,26 @@ const Search = (props) => {
   }
 
   const clickOther = (id) => {
-    console.log("하이")
     history.push(`/other/${id}`);
-    setUserModal(false)
+    props.close()
   }
 
-  const closeModal = (event) => { 
-    if (event === undefined) { 
-      setUserModal(false); 
-      return; 
-    } 
-    // 현재 함수가 걸려있는 target 과 구분해주기 위함. 
-    if (event.target !== event.currentTarget) { 
-      return; 
-    } setUserModal(false); };
+  // const closeModal = (event) => { 
+  //   if (event === undefined) { 
+  //     setUserModal(false); 
+  //     return; 
+  //   } 
+  //   // 현재 함수가 걸려있는 target 과 구분해주기 위함. 
+  //   if (event.target !== event.currentTarget) { 
+  //     return; 
+  //   } setUserModal(false); };
 
   return(
     <React.Fragment>
-      <SearchContainer onFocus={() => {setUserModal(true)}}>
-        {userModal?
-          <>
-            <UserModal onClick={closeModal} >
+      <Background onClick={props.close} />
+      <SearchContainer>
+            <SearchInput  onChange={onChange}   />
+            <UserContainer>
               {user_list ? 
               user_list.map((u) => {
                 return  <UserInfoContainer onClick={() => clickOther(u.userId)} >
@@ -61,48 +59,52 @@ const Search = (props) => {
                           <Username>{u.nickname}</Username>
                         </UserInfoContainer>
               })
-              : null }
-            </UserModal>
-          </> 
-          :null}
-        <SearchInput  onChange={onChange}   />
+              : <UserText>찾으시는 유저가 없습니다.</UserText> }
+            </UserContainer>
       </SearchContainer>
     </React.Fragment>
   )
 }
 
 const SearchContainer = styled.div`
-  margin-right: 50px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 500px;
+  height: 600px;
+  background: #FFFFFF;
+  align-items: center;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 3px 6px rgba(0,0,0,0.12), 0 2px 5px rgba(0,0,0,0.24);
+  z-index: 30;
+  display: flex;
+  flex-direction: column;
 `
 
 const SearchInput = styled.input`
   width: 300px;
   font-size: 20px;
-  padding: 5px 8px;
-  background: #FAFAFA;
+  padding: 5px 15px;
+  background: #FFFFFF;
+  margin-top: 30px;
+  border-radius: 30px;
+  outline: none;
 `
-const UserModal = styled.div`
-  position:fixed;
-  top: 70px;
-  right: 200px;
-  width: 350px;
-  height: 500px;
-  background-color: #FFFFFF;
-  z-index: 10;
+const UserContainer = styled.div`
+  margin-top: 30px;
+  margin-bottom: 15px;
+  width: 80%;
   display: flex;
   flex-direction: column;
   overflow-y: scroll;
   ::-webkit-scrollbar {
     display: none;
     };
-  box-shadow: 0 3px 6px rgba(0,0,0,0.12), 0 2px 5px rgba(0,0,0,0.24);
 `
 
 const UserInfoContainer = styled.div`
   display: flex;
-  margin-top: 15px;
-  margin-bottom: 15px;
-  margin-left: 30px;
+  padding: 15px 8px;
   cursor: pointer;
   &:hover{
     background: silver;
@@ -122,8 +124,19 @@ const Username = styled.div`
 `
 
 const Background = styled.div`
-  
+  position: fixed;
+  top: 0;
+  left:0;
+  opacity: 0.4;
+  height: 100vh;
+  width: 100vw;
+  background-color: black;
+  z-index: 20;
+`
 
-
+const UserText = styled.div`
+  margin: auto;
+  font-weight: 600;
+  font-size: 18px;
 `
 export default Search

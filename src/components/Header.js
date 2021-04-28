@@ -4,14 +4,19 @@ import LoginModal from './LoginModal'
 import Search from '../shared/Search'
 import {useSelector, useDispatch} from 'react-redux'
 import {logOut} from '../redux/modules/user'
-
+import SearchIcon from '@material-ui/icons/Search';
+import {history} from '../redux/configStore'
 
 
 const Header = () => {
   const dispatch = useDispatch()
   const is_login = useSelector((state) => state.user.is_login)
   const [loginModal, setLogin] = useState(false); 
+  const [searchModal, setSearch] = useState(false);
 
+  const closeSearchModal = () => {
+    setSearch(false)
+  }
 
   const closeLoginModal = () => {
     setLogin(false)
@@ -21,10 +26,15 @@ const Header = () => {
   if (is_login) {
     return (
       <React.Fragment>
+        {searchModal? 
+        <Search close={closeSearchModal} />
+        :null}
         <HeaderContainer>
           <HeaderInnerContainer>
-            <Search/>
-            <TextBtn onClick={() => {dispatch(logOut())}}>Logout</TextBtn>
+            <Icon onClick={() => {setSearch(true)}} >
+              <SearchIcon/>
+            </Icon>
+            <TextBtn onClick={() => {dispatch(logOut()); history.replace('/')}}>Logout</TextBtn>
           </HeaderInnerContainer>
         </HeaderContainer>
       </React.Fragment>
@@ -38,7 +48,9 @@ const Header = () => {
           :null}
           <HeaderContainer>
             <HeaderInnerContainer>
-              <Search/>
+              <Icon onClick={() => {setSearch(true)}} >
+                <SearchIcon/>
+              </Icon>
               <TextBtn onClick={()=>{setLogin(true)}} >Login</TextBtn>
             </HeaderInnerContainer>
           </HeaderContainer>
@@ -77,7 +89,11 @@ const TextBtn = styled.div`
   cursor: pointer;
 `;
 
-
+const Icon = styled.div`
+  margin-right: 20px;
+  margin-top: 9px;
+  cursor: pointer;
+`
 
 
 export default Header;
