@@ -1,9 +1,9 @@
-import { RepeatOneSharp } from "@material-ui/icons";
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import {config} from "../../shared/config"
 import {history} from "../configStore"
 import { getCookie, deleteCookie } from '../../shared/Cookie';
+import swal from "sweetalert"
 
 // axios.defaults.baseURL = 'http://lkj99.shop';
 axios.defaults.headers.common["Authorization"]= `Bearer ${getCookie('is_login')}`;
@@ -16,6 +16,14 @@ const userSlice = createSlice({
       profileImg: "",
       nickname: "",
     },
+    other: {
+      introduce: "",
+      profileImg: "",
+      nickname: "",
+    },
+    friends: [
+
+    ],
     is_login: false,
   },
   reducers: {
@@ -30,6 +38,15 @@ const userSlice = createSlice({
       deleteCookie('is_login');
       state.user = null;
       state.is_login = false;
+    },
+    setOther: (state, action) => {
+      state.other = action.payload;
+    },
+    setFriend: (state, action) => {
+      state.friends = action.payload
+    },
+    addFriend: (state, action) => {
+      state.friends.unshift(action.payload)
     }
   },
 });
@@ -52,7 +69,7 @@ const LoginCheckAX = () => {
     }
 }
 
-const SocialLoginAX = (jwtToken) => {
+const SocialLoginAX = () => {
   return function(dispatch){
     axios.get(`${config.api}/auth/user`)
       .then((res) => {
@@ -119,7 +136,77 @@ const DeleteProfileImgAX = () => {
   }
 }
 
-export const { setUser, logOut, editUser } = userSlice.actions;
+const othersInfoAX = (id) => {
+  return function(dispatch){
+    console.log(id)
+    axios.get(`${config.api}/bookshelf/auth/user/${id}`)
+      .then((res)=> {
+        console.log(res)
+        dispatch(setOther({
+          introduce: res.data.introduce,
+          profileImg: res.data.profileImg,
+          nickname: res.data.nickname,
+        }))
+      })
+  }
+}
+
+
+const followOtherAX = (id, nickname, profileImg) => {
+  return function(dispatch){
+    console.log(id)
+    axios.post(`${config.api}/bookshelf/addfriend`, {friendId: id})
+      .then((res) => {
+        console.log(res)
+
+        dispatch(addFriend({
+          id: id,
+          nickname: nickname,
+          profileImg: profileImg,
+        }))
+
+        swal({
+          title: "정상적으로 추가되었습니다. 😀",
+          text: `${nickname}님과 친구가 되었습니다.`,
+          icon: "success",
+        })
+      })
+  }
+} 
+
+const myFollowListAX = () => {
+  return function(dispatch){
+    axios.get(`${config.api}/bookshelf/friendList`)
+      .then((res) => {
+        console.log(res)
+        let friend_list = [];
+        res.data.friends.forEach((_friend) => {
+          let friend = {
+            id: _friend.friendId,
+            nickname: _friend.friendNickname,
+            profileImg: _friend.friendProfileImg,
+          }
+          friend_list.push(friend)
+        })
+        console.log(friend_list)
+
+        dispatch(setFriend(friend_list))
+      })
+  }
+}
+
+const otherFriendListAX = (id) => {
+  return function(dispatch){
+    console.log(id)
+    axios.get(`${config.api}/bookshelf/other/friendList/${id}`)
+      .then((res) => {
+        console.log(res)
+      })
+  }
+}
+
+
+export const { setUser, logOut, editUser, setOther, setFriend, addFriend } = userSlice.actions;
 
 export const api = {
   LoginCheckAX,
@@ -127,7 +214,11 @@ export const api = {
   UpdateNicknameAX,
   UpdateIntroduceAX,
   UpdateProfileImgAX,
-  DeleteProfileImgAX
+  DeleteProfileImgAX,
+  othersInfoAX,
+  followOtherAX,
+  myFollowListAX,
+  otherFriendListAX,
 };
 
 export default userSlice.reducer;

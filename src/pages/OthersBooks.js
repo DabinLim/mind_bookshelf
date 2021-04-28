@@ -1,15 +1,17 @@
 import React from 'react';
 import {history} from '../redux/configStore';
 import styled from 'styled-components';
-import BookShelf from '../components/BookShelf';
-import BookDetail from '../components/BookDetail';
+import BookShelf from '../components/Books/BookShelf';
+import BookDetail from '../components/Books/BookDetail';
 import Profile from '../components/Profile'
+import {api as userActions} from '../redux/modules/user';
 import {useSelector, useDispatch} from 'react-redux';
 import {changeDate, setComponent} from '../redux/modules/books';
 import MyQuestion from '../components/MyQuestion';
 
 const OthersBooks = (props) => {
     const dispatch = useDispatch();
+    const userId = props.match.params.id;
     const component = useSelector(state => state.books.component)
     const date = useSelector(state => state.books.date)
     const formated_date = useSelector(state => state.books.formated_date)
@@ -18,9 +20,11 @@ const OthersBooks = (props) => {
     
 
     React.useEffect(() => {
+        dispatch(userActions.othersInfoAX(userId))
         dispatch(changeDate(0))
         dispatch(setComponent(''))
-    },[])
+        dispatch(userActions.myFollowListAX())
+    },[userId])
     return(
         <React.Fragment>
             <Container>
@@ -31,8 +35,7 @@ const OthersBooks = (props) => {
                 {id !=='othersbooks' && component === '' &&
                 <BookDetail date={date}/>}
             <ProfileContainer>
-                <button onClick={()=>{dispatch(setComponent('myquestion'))}}>나의질문</button>
-                <Profile/>
+                <Profile id={userId} />
             </ProfileContainer>
             </Container>
         </React.Fragment>
@@ -41,21 +44,18 @@ const OthersBooks = (props) => {
 
 const Container = styled.div`
     margin:20px;
+    margin-left: 100px;
     width: 100%;
     height: 80vh;
     display:flex;
-    flex-direction:row;
-    justify-content:space-around;
+    justify-content:space-between;
 `;
 
 const ProfileContainer = styled.section`
-    position: relative;
-    width:25%;
+    width: 300px;
     height:100%;
-    border: 1px solid black;
     display: flex;
     flex-direction: column;
-    align-items: center;
 `
 
 export default OthersBooks;

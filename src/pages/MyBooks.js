@@ -8,6 +8,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import {setComponent} from '../redux/modules/books';
 import MyQuestion from '../components/MyQuestion';
 import { getCookie } from '../shared/Cookie';
+import {api as userActions} from '../redux/modules/user'
 
 const MyBook = (props) => {
     const dispatch = useDispatch();
@@ -23,7 +24,8 @@ const MyBook = (props) => {
             history.replace('/');
         };
         dispatch(setComponent(''))
-    },url)
+        dispatch(userActions.myFollowListAX())
+    },[])
     return(
         <React.Fragment>
             <Container>
@@ -34,8 +36,6 @@ const MyBook = (props) => {
                 {id !=='mybook' && component === '' &&
                 <BookDetail date={date}/>}
             <ProfileContainer>
-                <button onClick={()=>{dispatch(setComponent('myquestion'))}}>나의질문</button>
-                <button onClick={()=>{history.push('/othersbooks/ggg')}}>친구페이지</button>
                 <Profile/>
             </ProfileContainer>
             </Container>
@@ -48,18 +48,14 @@ const Container = styled.div`
     width: 100%;
     height: 80vh;
     display:flex;
-    flex-direction:row;
-    justify-content:space-around;
+    justify-content:space-between;
 `;
 
 const ProfileContainer = styled.section`
-    position: relative;
-    width:25%;
+    width: 300px;
     height:100%;
-    border: 1px solid black;
     display: flex;
     flex-direction: column;
-    align-items: center;
 `
 
 export default MyBook;

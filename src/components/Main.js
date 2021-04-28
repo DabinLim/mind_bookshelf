@@ -1,17 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import styled, { keyframes } from "styled-components";
 import Typewriter from "typewriter-effect";
 
 import Question from "./Question";
+import RecentQuestion from "./RecentQuestion";
 import Post from "./Post";
+import answer, { api as answerActions } from "../redux/modules/answer";
+import { changeQ } from "../redux/modules/answer";
+import { useDispatch, useSelector } from "react-redux";
 
 import { Switch } from "antd";
 import moment from "moment";
 
 function Main() {
-  function onChange(checked) {
-    console.log(`switch to ${checked}`);
-  }
+  const dispatch = useDispatch();
+  const user_info = useSelector((state) => state.user.user);
+  // function onChange(checked) {
+  //   console.log(`switch to ${checked}`);
+  // }
 
   let today = moment().format("YYYY-MM-DD").split("-");
   let month = today[1];
@@ -26,6 +32,19 @@ function Main() {
 
   let displayedDate = month + "월" + " " + day + "일";
 
+  const question_list = useSelector((state) => state.answer.question_list);
+  const question_info = useSelector((state) => state.answer.question);
+  const answer_list = useSelector((state) => state.answer.answer_list);
+  const answer_id = useSelector((state) => state.answer.answer_id);
+
+  React.useEffect(() => {
+    dispatch(answerActions.getQuestionAX());
+  }, []);
+
+  React.useEffect(() => {
+    dispatch(answerActions.getRecentAnswerAX(answer_id));
+  }, [answer_id]);
+
   return (
     <MainFrame>
       {/* 메인 왼쪽 편 */}
@@ -34,41 +53,49 @@ function Main() {
           <Switch />
         </ToggleBox>
         <DateIndicator>{displayedDate}</DateIndicator>
-        <QuestionIndicator>User의 머리속은?</QuestionIndicator>
+        <QuestionIndicator>
+          <b>{user_info?.nickname}님</b>의 머리속은?
+        </QuestionIndicator>
         {/* 메인 카드 박스 */}
         <QuestionBox>
-          <Question />
-          <Question />
-          <Question />
+          {question_list?.map((q, idx) => {
+            return (
+              <>
+                <Question
+                  key={idx + "msg"}
+                  {...q}
+                  onClick={() => {
+                    dispatch(changeQ(q));
+                  }}
+                />
+              </>
+            );
+          })}
         </QuestionBox>
       </MainLeft>
       {/* 메인 오른쪽 편 */}
       <MainRight>
         <SubLeft>
-          <Post />
+          <Post {...question_info} />
         </SubLeft>
         <SubRight>
           <AnsweringInfo>
-            <AnsweringUsers>75명이 낙서중</AnsweringUsers>
+            <AnsweringUsers>
+              <b>{question_info?.answerCount}</b>명이 낙서중
+            </AnsweringUsers>
             <ToCommunityBtn>더보기</ToCommunityBtn>
           </AnsweringInfo>
           <CommunitySeductor>
-            <Question />
-            <Question />
-            <Question />
+            {answer_list?.map((a, idx) => {
+              return (
+                <>
+                  <RecentQuestion key={idx + "msg"} {...a} />
+                </>
+              );
+            })}
           </CommunitySeductor>
         </SubRight>
       </MainRight>
-      {/* <Typewriter
-          onInit={(typewriter) => {
-            typewriter
-              .typeString("하고 싶은 일과 잘하고 싶은 일, 무엇을 해야 할까요?")
-              .pauseFor(4000)
-              .deleteAll()
-              .typeString("당신의 생각은 무엇인가요?")
-              .start();
-          }}
-        /> */}
     </MainFrame>
   );
 }
@@ -93,7 +120,9 @@ const ToggleBox = styled.div``;
 
 const DateIndicator = styled.h2``;
 
-const QuestionIndicator = styled.h3``;
+const QuestionIndicator = styled.h3`
+  margin: 40px 0;
+`;
 
 const QuestionBox = styled.section`
   & > div {
@@ -122,6 +151,7 @@ const SubRight = styled.div`
 
 const CommunitySeductor = styled.div`
   display: flex;
+  flex-direction: column;
   & > div {
     margin-right: 8px;
   }
@@ -146,45 +176,5 @@ const ToCommunityBtn = styled.button`
   background: none;
   cursor: pointer;
 `;
-
-// const bounce = keyframes`
-//  from {
-//     margin-left: 100%;
-//   }
-
-//   /* 60% {
-//     font-size: 150%;
-//     margin-left: 25%;
-//   }
-
-//   90% {
-//     font-size: 100%;
-//     margin-left: 10%;
-//     transform: scale(1.1);
-//   } */
-
-//   90% {
-//     transform: scale(1.1);
-//   }
-
-//   to {
-//     margin-left: 0%;
-//   }
-//   /* 0% {
-//     left: 0;
-//     transform: scale(0)
-//   }
-//   50% {
-//     transform: scale(.7)
-//   }
-
-//   100% {
-//     transform: scale(1)
-//   } */
-// `;
-
-// const CardFrame = styled.div`
-//   animation: ${bounce} 2s;
-// `;
 
 export default Main;

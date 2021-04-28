@@ -86,6 +86,7 @@ const UpdateBox = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.12), 0 2px 5px rgba(0,0,0,0.24);
 `
 
 const ImageUpdate = styled.div`
