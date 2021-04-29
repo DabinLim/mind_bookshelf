@@ -14,7 +14,7 @@ const CommunityQnA = (props) => {
             props.answers.map((a) => {
               return <Answer>
                         <AnswerHeader>
-                          <AnswerProfileImg onClick={()=>{history.push(`/others/${a.id}`)}} src={a.profileImg} />
+                          <AnswerProfileImg onClick={()=>{history.push(`/others/${a.userId}`)}} src={a.profileImg} />
                           <AnswerNickname>{a.nickname}</AnswerNickname>
                         </AnswerHeader>
                           <AnswerContents>
