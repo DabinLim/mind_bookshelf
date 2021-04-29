@@ -6,15 +6,10 @@ import { Route } from "react-router-dom";
 import { history } from "./redux/configStore";
 import { useDispatch } from "react-redux";
 import { api as userActions } from "./redux/modules/user";
-import Sidebar from "./shared/Sidebar";
-import Main from "./components/Main/Main";
-import Header from "./shared/Header";
-import Auth from "./pages/Auth";
-import MyBook from "./pages/MyBooks";
-import OthersBooks from "./pages/OthersBooks";
-import Community from "./pages/Community";
+import {Sidebar, Header} from "./shared/sharedindex";
+import {Main, Auth, MyBooks, OthersBooks, Community} from './pages/pagesindex';
 import { getCookie } from "./shared/Cookie";
-import QuestionDetail from './components/QuestionDetail';
+import QuestionDetail from './components/Community/QuestionDetail';
 
 function App() {
   const dispatch = useDispatch();
@@ -35,8 +30,8 @@ function App() {
         <ConnectedRouter history={history}>
           <Route exact path="/" component={Main} />
           <Route exact path="/auth/:id" component={Auth} />
-          <Route exact path="/mybook" component={MyBook}></Route>
-          <Route exact path="/mybook/:date" component={MyBook}></Route>
+          <Route exact path="/mybook" component={MyBooks}></Route>
+          <Route exact path="/mybook/:date" component={MyBooks}></Route>
           <Route exact path="/others/:id" component={OthersBooks} />
           <Route exact path="/others/:id/:date" component={OthersBooks} />
           <Route exact path="/community" component={Community} />

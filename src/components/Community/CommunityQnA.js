@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { history } from "../redux/configStore";
-import CardModal from "./CardModal";
+import { history } from "../../redux/configStore";
+import {CardModal} from "./communityindex";
 
 const CommunityQnA = (props) => {
   const [cardModal, setCardModal] = useState();
@@ -26,7 +26,13 @@ const CommunityQnA = (props) => {
           {props.answers.map((a) => {
             return (
               <Answer>
-                {cardModal ? <CardModal close={closeCardModal} {...a} /> : null}
+                {cardModal ? (
+                  <CardModal
+                    close={closeCardModal}
+                    {...a}
+                    post={props.contents}
+                  />
+                ) : null}
                 <AnswerHeader
                   onClick={() => {
                     history.push(`/others/${a.userId}`);

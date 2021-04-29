@@ -1,8 +1,7 @@
 import ReactCardFlip from "react-card-flip";
 import React, { useState } from "react";
-
-import CardFront from "./CardFront";
-import CardBack from "./CardBack";
+// import CardFront from "./CardFront";
+// import CardBack from "./CardBack";
 
 const CardFlipper = (props) => {
   const [isFlipped, setFlip] = useState(false);
@@ -18,10 +17,10 @@ const CardFlipper = (props) => {
     <>
       <ReactCardFlip isFlipped={isFlipped} flipDirection="horizontal">
         <>
-          <CardFront onClick={onClick}></CardFront>
+          {/* <CardFront onClick={onClick}></CardFront> */}
         </>
         <>
-          <CardBack onClick={onClick}></CardBack>
+          {/* <CardBack onClick={onClick}></CardBack> */}
         </>
       </ReactCardFlip>
     </>

@@ -1,7 +1,7 @@
 import React, {useState} from 'react' 
 import styled from 'styled-components'
 import CreateIcon from '@material-ui/icons/Create';
-import Upload from '../../shared/Upload'
+import {Upload} from '../../shared/sharedindex';
 import {useSelector, useDispatch} from 'react-redux'
 import {api as userActions} from '../../redux/modules/user';
 
