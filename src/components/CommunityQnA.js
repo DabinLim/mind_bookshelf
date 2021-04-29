@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import {history} from '../redux/configStore';
 
 const CommunityQnA = (props) => {
-
+  console.log(props)
   return(
     <React.Fragment>
       <QnAContainer>

@@ -40,7 +40,7 @@ const OtherBookShelf = (props) => {
                         return(
                             <Book key={idx} onClick={()=>{
                                 dispatch(changeDate(`20${v._id}`))
-                                history.push(`/mybook/${v._id}`)
+                                history.push(`/others/${v._id}`)
 
                             }}><span style={{margin:'auto'}}>{v._id.charAt(v._id.length -2)}{v._id.charAt(v._id.length -1)}</span></Book>
                         )
