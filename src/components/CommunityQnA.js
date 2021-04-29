@@ -33,7 +33,7 @@ const QnAContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: start;
-  @media (max-width: 1600px){
+  @media (max-width: 1800px){
     margin-bottom: 60px;
   }
 `
