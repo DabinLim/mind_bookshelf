@@ -27,6 +27,9 @@ const answerSlice = createSlice({
       state.answer_list = action.payload;
     },
     setQ: (state, action) => {
+      if (state.question_list.length === 0) {
+        return;
+      }
       state.question = state.question_list[0];
       state.answer_id = state.question_list[0].cardId;
     },
@@ -64,9 +67,34 @@ const getQuestionAX = () => {
   };
 };
 
+const getQuestionAX_NOTLOGIN = () => {
+  return function (dispatch, getState) {
+    delete axios.defaults.headers.common["Authorization"];
+    const options = {
+      url: `/card/daily`,
+      method: "GET",
+    };
+    axios(options)
+      .then((response) => {
+        console.log(response.data.cards);
+        dispatch(setQuestion(response.data.cards));
+        dispatch(setQ(response.data.cards[0]));
+      })
+      .catch((err) => {
+        console.log(err);
+        if (err.response) {
+          console.log(err.response.data);
+        }
+      });
+  };
+};
+
 const getRecentAnswerAX = (cardId) => {
   console.log(cardId);
   return function (dispatch, getState) {
+    if (!cardId) {
+      return;
+    }
     const options = {
       url: `/card/recentAnswer/${cardId}`,
       method: "GET",
@@ -131,6 +159,7 @@ export const api = {
   getQuestionAX,
   sendAnswerAX,
   getRecentAnswerAX,
+  getQuestionAX_NOTLOGIN,
 };
 
 export default answerSlice.reducer;

@@ -6,6 +6,7 @@ import { getCookie } from '../../shared/Cookie';
 axios.defaults.baseURL = 'http://lkj99.shop';
 axios.defaults.headers.common["Authorization"]= `Bearer ${getCookie('is_login')}`;
 
+
 const booksSlice = createSlice({
   name: "books",
   initialState: {
@@ -14,8 +15,17 @@ const booksSlice = createSlice({
     formated_date: 0,
     component:'',
     selected_card:0,
+    book_detail:[],
+    card_answers:null,
   },
   reducers: {
+    setCardAnswers:(state, action) => {
+        state.card_answers = action.payload;
+    },
+
+    setBookDetail: (state,action) => {
+        state.book_detail = action.payload;
+    },
 
     setBooks:(state, action) => {
         state.books = action.payload
@@ -34,6 +44,11 @@ const booksSlice = createSlice({
         }
         else if(action.payload === 0){
             state.formated_date = state.date.format('YYYY . MM')
+        } else {
+            const new_date = moment(action.payload, 'YYYYMMDD');
+            console.log(new_date)
+            state.date = new_date;
+            state.formated_date = new_date.format('YYYY . MM');
         }
     },
     setComponent: (state, action) => {
@@ -45,6 +60,24 @@ const booksSlice = createSlice({
   },
 });
 
+
+const getCardAnswers = (date,question_id) => {
+    return function(dispatch){
+        const options = {
+            url:`/bookshelf/bookCardDetail/${date}/${question_id}`,
+            method:'GET',
+        }
+        axios(options).then((response) => {
+            console.log(response.data)
+            dispatch(setCardAnswers(response.data));
+        }).catch(err => {
+            console.log(err);
+            if(err.response){
+                console.log(err.response.data)
+            }
+        })
+    }
+}
 
 
 const getBooks = (towhen) => {
@@ -83,7 +116,7 @@ const getBookDetail = (date) => {
             method:'GET',
         };
         axios(options).then((response) => {
-            console.log(response.data)
+            dispatch(setBookDetail(response.data.booksDiary))
         }).catch((err) => {
             console.log(err);
             if(err.response){
@@ -120,13 +153,16 @@ export const {
     setBooks,
     changeDate,
     setComponent,
-    setSelect
+    setSelect,
+    setBookDetail,
+    setCardAnswers
  } = booksSlice.actions;
 
 export const api = {
     getBooks,
     getBookDetail,
-    addQuest
+    addQuest,
+    getCardAnswers
 };
 
 export default booksSlice.reducer;
