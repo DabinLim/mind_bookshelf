@@ -4,7 +4,7 @@ import { ArrowLeft, ArrowRight } from "@material-ui/icons";
 import {history} from '../../redux/configStore';
 import {useSelector, useDispatch} from 'react-redux';
 import {api as booksActions} from '../../redux/modules/books';
-import AnswerCard from './AnswerCard';
+import AnswerCard from '../../shared/AnswerCard';
 
 const BookDetail = (props) => {
   const dispatch = useDispatch();
@@ -51,7 +51,7 @@ const BookDetail = (props) => {
           {book_detail.map((v,idx) => {
             if(idx < 3){
               return(
-                <AnswerCard key={idx} num={idx+1} info={v}/>
+                <AnswerCard key={idx} num={idx+1} {...v}/>
               )
             }
           })}
@@ -78,12 +78,14 @@ const Container = styled.div`
 `;
 
 const CardContainer = styled.div`
+  box-sizing:border-box;
+  padding:5%;
   position: relative;
   width: 100%;
   height: 100%;
   background: whitesmoke;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
 `;

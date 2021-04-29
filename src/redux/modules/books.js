@@ -14,18 +14,17 @@ const booksSlice = createSlice({
     date: moment(),
     formated_date: 0,
     component:'',
-    selected_card:0,
+    // selected_card:0,
     book_detail:[],
-    card_answers:null,
-    other:null,
+    // card_answers:null,
   },
   reducers: {
-    setOther:(state, action) => {
-        state.other = action.payload;
-    },
-    setCardAnswers:(state, action) => {
-        state.card_answers = action.payload;
-    },
+    // setOther:(state, action) => {
+    //     state.other = action.payload;
+    // },
+    // setCardAnswers:(state, action) => {
+    //     state.card_answers = action.payload;
+    // },
 
     setBookDetail: (state,action) => {
         state.book_detail = action.payload;
@@ -58,79 +57,11 @@ const booksSlice = createSlice({
     setComponent: (state, action) => {
         state.component = action.payload
     },
-    setSelect : (state, action) => {
-        state.selected_card = action.payload
-    }
+    // setSelect : (state, action) => {
+    //     state.selected_card = action.payload
+    // }
   },
 });
-
-
-const getOthersBooks = (towhen, id) => {
-    return function( dispatch, getState ) {
-
-        if(towhen === 1){
-            dispatch(changeDate(1));
-        }
-        if(towhen === 2) {
-            dispatch(changeDate(2));
-        }
-
-        const date = getState().books.date.format('YYMM')
-        console.log(date)
-        const options = {
-            url:`/bookshelf/other/books/${date}/${id}`,
-            method:'GET',
-        };
-        axios(options).then((response) => {
-            console.log(response.data)
-            dispatch(setBooks(response.data.books))
-        }).catch((err) => {
-            console.log(err)
-            if(err.response){
-                console.log(err.response.data)
-            }
-        })
-    }
-}
-
-const getOthersBookDetail = (date,id) => {
-    console.log('hi')
-    return function(dispatch) { 
-        const options = {
-            url:`bookshelf/other/bookDetail/${date}/${id}`,
-            method:'GET',
-        };
-        axios(options).then((response) => {
-            dispatch(setBookDetail(response.data.booksDiary))
-        }).catch((err) => {
-            console.log(err);
-            if(err.response){
-                console.log(err.response.data)
-            }
-        })
-    }
-
-}
-
-
-const getCardAnswers = (date,question_id) => {
-    return function(dispatch){
-        const options = {
-            url:`/bookshelf/bookCardDetail/${date}/${question_id}`,
-            method:'GET',
-        }
-        axios(options).then((response) => {
-            console.log(response.data)
-            dispatch(setCardAnswers(response.data));
-        }).catch(err => {
-            console.log(err);
-            if(err.response){
-                console.log(err.response.data)
-            }
-        })
-    }
-}
-
 
 
 const getBooks = (towhen) => {
@@ -181,6 +112,52 @@ const getBookDetail = (date) => {
 
 }
 
+const getOthersBooks = (towhen, id) => {
+    return function( dispatch, getState ) {
+
+        if(towhen === 1){
+            dispatch(changeDate(1));
+        }
+        if(towhen === 2) {
+            dispatch(changeDate(2));
+        }
+
+        const date = getState().books.date.format('YYMM')
+        console.log(date)
+        const options = {
+            url:`/bookshelf/other/books/${date}/${id}`,
+            method:'GET',
+        };
+        axios(options).then((response) => {
+            console.log(response.data)
+            dispatch(setBooks(response.data.books))
+        }).catch((err) => {
+            console.log(err)
+            if(err.response){
+                console.log(err.response.data)
+            }
+        })
+    }
+}
+
+const getOthersBookDetail = (date,id) => {
+    return function(dispatch) { 
+        const options = {
+            url:`bookshelf/other/bookDetail/${date}/${id}`,
+            method:'GET',
+        };
+        axios(options).then((response) => {
+            dispatch(setBookDetail(response.data.booksDiary))
+        }).catch((err) => {
+            console.log(err);
+            if(err.response){
+                console.log(err.response.data)
+            }
+        })
+    }
+
+}
+
 const addQuest = (topic, contents) => {
     return function(){
         const options = {
@@ -203,21 +180,40 @@ const addQuest = (topic, contents) => {
 }
 
 
+// const getCardAnswers = (date,question_id) => {
+//     return function(dispatch){
+//         const options = {
+//             url:`/bookshelf/bookCardDetail/${date}/${question_id}`,
+//             method:'GET',
+//         }
+//         axios(options).then((response) => {
+//             console.log(response.data)
+//             dispatch(setCardAnswers(response.data));
+//         }).catch(err => {
+//             console.log(err);
+//             if(err.response){
+//                 console.log(err.response.data)
+//             }
+//         })
+//     }
+// }
+
+
 export const { 
     setBooks,
     changeDate,
     setComponent,
-    setSelect,
+    // setSelect,
     setBookDetail,
-    setCardAnswers,
-    setOther
+    // setCardAnswers,
+    // setOther
  } = booksSlice.actions;
 
 export const api = {
     getBooks,
     getBookDetail,
     addQuest,
-    getCardAnswers,
+    // getCardAnswers,
     getOthersBooks,
     getOthersBookDetail
 };
