@@ -22,7 +22,7 @@ const userSlice = createSlice({
       nickname: "",
     },
     friends: [
-
+      
     ],
     is_login: false,
   },
