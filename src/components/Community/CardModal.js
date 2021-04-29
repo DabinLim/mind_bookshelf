@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { api as commentActions } from "../redux/modules/comment";
+import { api as commentActions } from "../../redux/modules/comment";
 import { useDispatch, useSelector } from "react-redux";
 
 import CommentList from "./CommentList";

@@ -1,8 +1,7 @@
 import React, {useState} from 'react'
 import styled from 'styled-components'
 import {useSelector, useDispatch} from 'react-redux'
-import ProfileUpdateModal from './ProfileUpdateModal'
-import {FollowModal} from './booksindex'
+import {FollowModal, ProfileUpdateModal} from './booksindex'
 import {setComponent} from '../../redux/modules/books'
 import {api as userActions} from '../../redux/modules/user'
 

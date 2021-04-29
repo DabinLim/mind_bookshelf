@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import AnswerCard from '../shared/AnswerCard2';
-import {response} from '../redux/Mock/Answers';
+import AnswerCard from '../../shared/AnswerCard2';
+// import {response} from '../redux/Mock/Answers';
 import {useDispatch, useSelector} from 'react-redux';
-import {api as communityActions} from '../redux/modules/community';
-import {setPage, setNext, resetAnswers} from '../redux/modules/community';
+import {api as communityActions} from '../../redux/modules/community';
+import {setPage, setNext, resetAnswers} from '../../redux/modules/community';
 
 const QuestionDetail = (props) => {
     const dispatch = useDispatch()

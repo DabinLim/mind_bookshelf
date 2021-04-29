@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { history } from "../redux/configStore";
-import CardModal from "./CardModal";
+import { history } from "../../redux/configStore";
+import {CardModal} from "./communityindex";
 
 const CommunityQnA = (props) => {
   const [cardModal, setCardModal] = useState();
