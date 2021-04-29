@@ -24,7 +24,7 @@ const Post = (props) => {
     if (!user_info.is_login) {
       swal({
         title: "로그인 필수!",
-        text: "로그인 하시고 작성쓰!",
+        text: "로그인 후 이용가능해요😊",
         icon: "info",
       });
       return;
