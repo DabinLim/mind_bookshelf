@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import swal from "sweetalert";
 
-import { api as answerActions } from "../redux/modules/answer";
+import { api as answerActions } from "../../redux/modules/answer";
 
 const Post = (props) => {
   const dispatch = useDispatch();

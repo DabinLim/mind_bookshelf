@@ -1,8 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import Card from './Card';
+import {Card, NewQuestion} from './booksindex';
 import {useDispatch} from 'react-redux';
-import NewQuestion from './NewQuestion';
 
 const MyQuestion = (props) => {
     const dispatch = useDispatch()

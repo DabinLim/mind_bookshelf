@@ -5,7 +5,7 @@ import { setComponent } from "../redux/modules/books";
 import { useDispatch } from "react-redux";
 import "../static/henrystyle.scss";
 import swal from "sweetalert";
-import { getCookie } from "../shared/Cookie";
+import { getCookie } from "./Cookie";
 
 const Sidebar = (props) => {
   const dispatch = useDispatch();

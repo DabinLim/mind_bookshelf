@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
-import {api as booksActions} from '../redux/modules/books';
+import {api as booksActions} from '../../redux/modules/books';
 
 const NewQuestion = (props) => {
   const { className, visible, maskClosable,  onClose } = props;

@@ -1,7 +1,7 @@
 import React, {useState} from 'react'  
 import styled from  'styled-components'
 import _ from "lodash";
-import {history} from '../redux/configStore'
+import {history} from '../../redux/configStore'
 
 const FollowModal = (props) => {
   const [userInput, setInput] = useState(props.friend_list)
