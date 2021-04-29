@@ -140,7 +140,7 @@ const AnswerContents = styled.div`
 const AnswerLikes = styled.div`
   text-align: right;
   font-weight: 600;
-`
+`;
 
 const Topic = styled.div`
   margin-top: 30px;

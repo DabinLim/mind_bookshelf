@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import CommentList from "./CommentList";
 
 const CardModal = (props) => {
+  console.log(props);
   const dispatch = useDispatch();
 
   const [comments, setComments] = useState();
@@ -44,6 +45,7 @@ const CardModal = (props) => {
               </CardWriter>
             </CardWriterInfo>
           </CardInfo>
+          <h3>{props.contents}</h3>
           {/* 댓글 달리는 곳! */}
           <CommentList />
           <ModalCmtInputBox>
