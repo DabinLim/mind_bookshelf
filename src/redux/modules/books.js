@@ -109,6 +109,7 @@ const getBooks = (towhen) => {
 }
 
 
+
 const getBookDetail = (date) => {
     return function(dispatch) { 
         const options = {
@@ -162,7 +163,7 @@ export const api = {
     getBooks,
     getBookDetail,
     addQuest,
-    getCardAnswers
+    getCardAnswers,
 };
 
 export default booksSlice.reducer;

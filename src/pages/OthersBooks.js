@@ -17,6 +17,7 @@ const OthersBooks = (props) => {
     const formated_date = useSelector(state => state.books.formated_date)
     let url = window.location.href.split('/');
     let id = url[url.length -2];
+    let others_id = url[url.length -1];
     
 
     React.useEffect(() => {
@@ -33,11 +34,11 @@ const OthersBooks = (props) => {
     return(
         <React.Fragment>
             <Container>
-                {id === 'othersbooks' && component === '' &&
+                {id === 'others' && component === '' &&
                 <BookShelf date={date}/>
                 }
-                {component === 'myquestion' && <MyQuestion/>}
-                {id !=='othersbooks' && component === '' &&
+                {component === 'othersquestion' && <MyQuestion/>}
+                {id !=='others' && component === '' &&
                 <BookDetail date={date}/>}
             <ProfileContainer>
                 <Profile id={userId} />
