@@ -8,11 +8,6 @@ import swal from "sweetalert";
 import { getCookie } from "../shared/Cookie";
 
 const Sidebar = (props) => {
-  console.log(window.location.href.split("/"));
-  //const sideBtns = document.querySelector(".sidebtn");
-  //   document.addEventListener("click", (event) => {
-  //     sideBtns.classList.add("active");
-  //   });
   const dispatch = useDispatch();
 
   const [isJot, setJot] = useState(true);
@@ -28,7 +23,7 @@ const Sidebar = (props) => {
       setShelf(false);
       setCom(false);
     }
-    if (e.target.dataset.name === "나의 책장") {
+    if (e.target.dataset.name === "나의 책장" && getCookie("is_login")) {
       setJot(false);
       setShelf(true);
       setCom(false);
