@@ -32,7 +32,7 @@ const Search = (props) => {
   }
 
   const clickOther = (id) => {
-    history.push(`/other/${id}`);
+    history.push(`/others/${id}`);
     props.close()
   }
 
