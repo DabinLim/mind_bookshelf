@@ -10,6 +10,7 @@ const communitySlice = createSlice({
   name: "community",
   initialState: {
     question : [],
+    
   },
   reducers: {
     setCommunity: (state, action) => {
