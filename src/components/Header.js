@@ -43,6 +43,9 @@ const Header = () => {
       
     return(
         <React.Fragment>
+          {searchModal? 
+          <Search close={closeSearchModal} />
+          :null}
           {loginModal? 
           <LoginModal close={closeLoginModal} />
           :null}

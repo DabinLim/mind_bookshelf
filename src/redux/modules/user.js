@@ -99,6 +99,7 @@ const SocialLoginAX = () => {
           })
         );
         history.replace("/");
+        // window.location.href ='http://thinknote.shop.s3-website.ap-northeast-2.amazonaws.com'
       })
       .catch((error) => {
         console.log(error);

@@ -34,6 +34,10 @@ const CommunityBox = styled.div`
   margin: 0 60px 60px 60px;
   display: flex;
   justify-content: space-around;
+  @media (max-width: 1600px){
+    flex-direction: column;
+    margin-top: 60px;
+  }
 `
 
 const CommunityContainer = styled.div`

@@ -21,7 +21,6 @@ const CommunityQnA = (props) => {
                       </Answer>
             })
           }
-          
         </AnswerContainer>
       </QnAContainer>
     </React.Fragment>
@@ -34,6 +33,9 @@ const QnAContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: start;
+  @media (max-width: 1600px){
+    margin-bottom: 60px;
+  }
 `
 const Question = styled.div`
   font-size: 30px;
