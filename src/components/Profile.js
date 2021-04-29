@@ -14,6 +14,7 @@ const Profile = (props) => {
   const is_other = props.id? true : false;
   const other_info = useSelector((state) => state.user.other)
   const myfriend_list = useSelector((state) => state.user.friends)
+  const otherfriend_list = useSelector((state) => state.user.otherFriends)
   const idx = myfriend_list.findIndex((f) => f.id === props.id)
   const followed = idx !== -1? true :false;
 
@@ -30,6 +31,7 @@ const Profile = (props) => {
     <>
       {is_other? 
           <React.Fragment>
+            {followModal? <FollowModal friend_list={otherfriend_list} close={closeFollowModal} /> : null}
             <ProfileImg src={other_info.profileImg} style={{marginTop: "50px"}} />
             <Nickname>{other_info.nickname}</Nickname>
             <SubjectContainer>
@@ -37,9 +39,9 @@ const Profile = (props) => {
               <Subject>#추억</Subject>
             </SubjectContainer>
             <Introduce>{other_info.introduce}</Introduce>
-            <Myfollowers onClick={() => {dispatch(userActions.otherFriendListAX(props.id))}} >팔로잉 998명</Myfollowers>
+            <Myfollowers onClick={() => {setFollowModal(true)}} >팔로잉 {otherfriend_list.length}명</Myfollowers>
             {followed? 
-            <FollowerBtn>팔로우취소</FollowerBtn>
+            <FollowerBtn onClick={() => {dispatch(userActions.unfollowOtherAX(props.id, other_info.nickname))}} >팔로우취소</FollowerBtn>
             : <FollowerBtn onClick={()=>{dispatch(userActions.followOtherAX(props.id, other_info.nickname, other_info.profileImg))}} >팔로우하기</FollowerBtn>
             }
             

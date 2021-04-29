@@ -20,11 +20,16 @@ const OthersBooks = (props) => {
     
 
     React.useEffect(() => {
-        dispatch(userActions.othersInfoAX(userId))
         dispatch(changeDate(0))
         dispatch(setComponent(''))
         dispatch(userActions.myFollowListAX())
+    },[])
+
+    React.useEffect(() => {
+        dispatch(userActions.othersInfoAX(userId))
+        dispatch(userActions.otherFriendListAX(userId))
     },[userId])
+
     return(
         <React.Fragment>
             <Container>
