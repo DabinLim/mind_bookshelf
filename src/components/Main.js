@@ -56,9 +56,9 @@ function Main() {
         <>
           {/* 메인 왼쪽 편 */}
           <MainLeft>
-            <ToggleBox>
+            {/* <ToggleBox>
               <Switch />
-            </ToggleBox>
+            </ToggleBox> */}
             <DateIndicator>{displayedDate}</DateIndicator>
             <QuestionIndicator>
               <b>{user_info?.nickname ? user_info?.nickname : "고객"}님</b>의
@@ -149,7 +149,7 @@ const ToggleBox = styled.div``;
 const DateIndicator = styled.h2``;
 
 const QuestionIndicator = styled.h3`
-  margin: 40px 0;
+  margin: 20px 0;
 `;
 
 const QuestionBox = styled.section`

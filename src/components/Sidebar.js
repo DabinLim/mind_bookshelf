@@ -4,8 +4,11 @@ import { history } from "../redux/configStore";
 import { setComponent } from "../redux/modules/books";
 import { useDispatch } from "react-redux";
 import "../static/henrystyle.scss";
+import swal from "sweetalert";
+import { getCookie } from "../shared/Cookie";
 
 const Sidebar = (props) => {
+  console.log(window.location.href.split("/"));
   //const sideBtns = document.querySelector(".sidebtn");
   //   document.addEventListener("click", (event) => {
   //     sideBtns.classList.add("active");
@@ -71,6 +74,14 @@ const Sidebar = (props) => {
             <SideLi style={{ background: "white" }}>
               <SideBtn
                 onClick={() => {
+                  if (!getCookie("is_login")) {
+                    swal({
+                      title: "로그인 필수!",
+                      text: "로그인 후 이용가능해요😊",
+                      icon: "info",
+                    });
+                    return;
+                  }
                   history.push("/mybook");
                 }}
                 className="sidebtn"
@@ -83,6 +94,15 @@ const Sidebar = (props) => {
             <SideLi style={{ background: "none" }}>
               <SideBtn
                 onClick={() => {
+                  if (!getCookie("is_login")) {
+                    swal({
+                      title: "로그인 필수!",
+                      text: "로그인 후 이용가능해요😊",
+                      icon: "info",
+                    });
+
+                    return;
+                  }
                   history.push("/mybook");
                   dispatch(setComponent(""));
                 }}
@@ -99,19 +119,21 @@ const Sidebar = (props) => {
                 onClick={() => {
                   history.push("/community");
                 }}
-                className="sidebtn" 
-                data-name="커뮤니티">
+                className="sidebtn"
+                data-name="커뮤니티"
+              >
                 커뮤니티
               </SideBtn>
             </SideLi>
           ) : (
             <SideLi style={{ background: "none" }}>
-              <SideBtn 
+              <SideBtn
                 onClick={() => {
                   history.push("/community");
                 }}
-                className="sidebtn" 
-                data-name="커뮤니티">
+                className="sidebtn"
+                data-name="커뮤니티"
+              >
                 커뮤니티
               </SideBtn>
             </SideLi>
