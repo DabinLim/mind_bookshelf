@@ -98,8 +98,8 @@ const SocialLoginAX = () => {
             nickname: res.data.nickname,
           })
         );
-        history.replace("/");
-        // window.location.href ='http://thinknote.shop.s3-website.ap-northeast-2.amazonaws.com'
+        // history.replace("/");
+        window.location.href ='http://localhost:3000'
       })
       .catch((error) => {
         console.log(error);
