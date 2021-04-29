@@ -42,6 +42,7 @@ const CommunityQnA = (props) => {
                 >
                   {a.contents}
                 </AnswerContents>
+                <AnswerLikes>110 Likes</AnswerLikes>
               </Answer>
             );
           })}
@@ -82,6 +83,7 @@ const Answer = styled.div`
   height: 150px;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   padding: 13px;
   background-color: #c4c4c4;
   border-radius: 30px;
@@ -119,6 +121,11 @@ const AnswerContents = styled.div`
   }
   cursor: pointer;
 `;
+
+const AnswerLikes = styled.div`
+  text-align: right;
+  font-weight: 600;
+`
 
 const Topic = styled.div`
   margin-top: 30px;
