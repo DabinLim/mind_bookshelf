@@ -1,7 +1,7 @@
 import React, {useState} from 'react' 
 import styled from 'styled-components'
 import LoginModal from './LoginModal'
-import Search from '../shared/Search'
+import Search from './Search'
 import {useSelector, useDispatch} from 'react-redux'
 import {logOut} from '../redux/modules/user'
 import SearchIcon from '@material-ui/icons/Search';

@@ -1,12 +1,9 @@
 import React from 'react';
 import {history} from '../redux/configStore';
 import styled from 'styled-components';
-import BookShelf from '../components/Books/BookShelf';
-import BookDetail from '../components/Books/BookDetail';
-import Profile from '../components/Profile'
+import {BookShelf, BookDetail, Profile, MyQuestion} from '../components/Books/booksindex';
 import {useSelector, useDispatch} from 'react-redux';
 import {setComponent} from '../redux/modules/books';
-import MyQuestion from '../components/MyQuestion';
 import { getCookie } from '../shared/Cookie';
 import {api as userActions} from '../redux/modules/user'
 

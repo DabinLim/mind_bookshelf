@@ -48,6 +48,7 @@ const CommunityQnA = (props) => {
                 >
                   {a.contents}
                 </AnswerContents>
+                <AnswerLikes>110 Likes</AnswerLikes>
               </Answer>
             );
           })}
@@ -88,6 +89,7 @@ const Answer = styled.div`
   height: 150px;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   padding: 13px;
   background-color: #c4c4c4;
   border-radius: 30px;
@@ -110,6 +112,10 @@ const AnswerProfileImg = styled.img`
 
 const AnswerNickname = styled.div`
   font-weight: 600;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 `;
 
 const AnswerContents = styled.div`
@@ -125,6 +131,11 @@ const AnswerContents = styled.div`
   }
   cursor: pointer;
 `;
+
+const AnswerLikes = styled.div`
+  text-align: right;
+  font-weight: 600;
+`
 
 const Topic = styled.div`
   margin-top: 30px;
