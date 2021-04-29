@@ -1,24 +1,44 @@
 import React from 'react';
 import styled from 'styled-components';
-import RecentQuestion from '../components/RecentQuestion';
+import AnswerCard from '../shared/AnswerCard2';
 import {response} from '../redux/Mock/Answers';
+import {useDispatch, useSelector} from 'react-redux';
+import {api as communityActions} from '../redux/modules/community';
+import {setPage, setNext, resetAnswers} from '../redux/modules/community';
 
 const QuestionDetail = (props) => {
+    const dispatch = useDispatch()
+    const url = window.location.href.split('/');
+    const id = url[url.length -1];
+    const question_info = useSelector(state => state.community.question_info)
+    console.log(question_info)
+    const answers = useSelector(state => state.community.answers)
+
+    React.useEffect(() => {
+        dispatch(communityActions.getQuestionInfo(id));
+        dispatch(communityActions.getAnswers(id));
+        return () => {
+            dispatch(resetAnswers());
+            dispatch(setNext(true));
+            dispatch(setPage(1));
+        }
+    },[])
 
     return(
         <React.Fragment>
             <Container>
 
                 <QuestionTitle>
-                    질문 내용
+                    {question_info ? question_info.questionContents : '질문 내용'}
                 </QuestionTitle>
+                <button onClick={()=>{dispatch(communityActions.getAnswers(id))}}>더보기</button>
                 <Subject>
                     <span>#사랑</span>
                 </Subject>
                 <AnswersBox>
-                    {response.answer_detail.map((v,idx) => {
+                    {answers.length && answers.map((v,idx) => {
                         return(
-                            <RecentQuestion key={idx} {...v} />
+                            <AnswerCard key={idx} {...v} />
                         )
                     })}
                 </AnswersBox>
@@ -56,7 +76,7 @@ const Subject = styled.div`
 const AnswersBox = styled.div`
     margin: 20px 0px;
     width:100%;
-    height:auto;
+    max-height:500px;
     display:flex;
     flex-direction: row;
     justify-content: flex-start;
