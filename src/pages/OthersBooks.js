@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import {BookShelf, BookDetail, Profile, MyQuestion} from '../components/Books/booksindex';
 import {api as userActions} from '../redux/modules/user';
 import {useSelector, useDispatch} from 'react-redux';
+import { getCookie } from "../shared/Cookie";
 import {changeDate, setComponent, setOther} from '../redux/modules/books';
 
 const OthersBooks = (props) => {
@@ -11,7 +12,7 @@ const OthersBooks = (props) => {
     const component = useSelector(state => state.books.component);
     const date = useSelector(state => state.books.date);
     const formated_date = useSelector(state => state.books.formated_date);
-    const is_login = useSelector(state => state.user.is_login);
+    const cookie = getCookie("is_login") ? true : false;
     let url = window.location.href.split('/');
     console.log(url)
     let id = url[url.length -2];
@@ -21,7 +22,7 @@ const OthersBooks = (props) => {
     React.useEffect(() => {
         dispatch(changeDate(0))
         dispatch(setComponent(''))
-        if(is_login){
+        if(cookie){
             dispatch(userActions.myFollowListAX())
         }
     },[])
