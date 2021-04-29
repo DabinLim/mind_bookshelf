@@ -26,7 +26,13 @@ const CommunityQnA = (props) => {
           {props.answers.map((a) => {
             return (
               <Answer>
-                {cardModal ? <CardModal close={closeCardModal} {...a} /> : null}
+                {cardModal ? (
+                  <CardModal
+                    close={closeCardModal}
+                    {...a}
+                    post={props.contents}
+                  />
+                ) : null}
                 <AnswerHeader
                   onClick={() => {
                     history.push(`/others/${a.userId}`);

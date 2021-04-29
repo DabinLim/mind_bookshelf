@@ -21,7 +21,7 @@ const commentSlice = createSlice({
       state.list = action.payload;
     },
     addComment: (state, action) => {
-      state.list[action.payload.question_id].unshift(action.payload.comment);
+      state.list.unshift(action.payload);
     },
     deleteComment: (state, action) => {
       const index = state.list[action.payload.question_id].findIndex(
@@ -35,27 +35,30 @@ const commentSlice = createSlice({
 const getCommentAX = (cardId) => {
   return function (dispatch, getState) {
     console.log(cardId);
-    // const options = {
-    //   url: `/comment/${cardId}`,
-    //   method: "GET",
-    // };
-    // axios(options)
-    //   .then((response) => {
-    //     console.log(response.data);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //     if (err.response) {
-    //       console.log(err.response.data);
-    //     }
-    //   });
+    const options = {
+      url: `/comment/${cardId}`,
+      method: "GET",
+    };
+    axios(options)
+      .then((response) => {
+        console.log(response.data.comments);
+        dispatch(setComment(response.data.comments));
+      })
+      .catch((err) => {
+        console.log(err);
+        if (err.response) {
+          console.log(err.response.data);
+        }
+      });
   };
 };
 
 const sendCommentAX = (cardId, content) => {
   return function (dispatch, getState) {
+    // console.log(cardId, content);
+    // return;
     let comment_data = {
-      contents: content,
+      commentContents: content,
     };
     const options = {
       url: `/comment/${cardId}`,
@@ -64,7 +67,8 @@ const sendCommentAX = (cardId, content) => {
     };
     axios(options)
       .then((response) => {
-        console.log(response.data);
+        console.log(response.data.result);
+        dispatch(addComment(response.data.result));
       })
       .catch((err) => {
         console.log(err);
