@@ -119,19 +119,21 @@ const Sidebar = (props) => {
                 onClick={() => {
                   history.push("/community");
                 }}
-                className="sidebtn" 
-                data-name="커뮤니티">
+                className="sidebtn"
+                data-name="커뮤니티"
+              >
                 커뮤니티
               </SideBtn>
             </SideLi>
           ) : (
             <SideLi style={{ background: "none" }}>
-              <SideBtn 
+              <SideBtn
                 onClick={() => {
                   history.push("/community");
                 }}
-                className="sidebtn" 
-                data-name="커뮤니티">
+                className="sidebtn"
+                data-name="커뮤니티"
+              >
                 커뮤니티
               </SideBtn>
             </SideLi>
