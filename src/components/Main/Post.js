@@ -62,6 +62,7 @@ const Post = (props) => {
             rows={8}
             onChange={changeContents}
             value={contents}
+            onKeyPress={(e)=>{if(e.key === 'Enter'){addAnswer()}}}
           ></ElTextarea>
           <BtnGroup>
             <SubmitBtn onClick={addAnswer}>답변하기</SubmitBtn>
