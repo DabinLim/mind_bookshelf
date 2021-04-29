@@ -116,6 +116,15 @@ const getRecentAnswerAX = (cardId) => {
 const sendAnswerAX = (question_id, content) => {
   return function (dispatch, getState) {
     let first_question = getState().answer.question_list[0];
+    let userInfo = getState().user.user;
+    if (userInfo.nickname === "") {
+      swal({
+        title: "로그인 필수!",
+        text: "로그인 후 이용가능해요😊",
+        icon: "info",
+      });
+      return;
+    }
     let answer_data = {
       questionId: question_id,
       contents: content,
@@ -127,14 +136,6 @@ const sendAnswerAX = (question_id, content) => {
     };
     axios(options)
       .then((response) => {
-        if (getCookie("is_login") === false) {
-          swal({
-            title: "로그인 필수!",
-            text: "로그인 후 이용가능해요😊",
-            icon: "info",
-          });
-          return;
-        }
         console.log(response.data);
         // 여기서 delete 를 써서 리덕스 정리 한 번 업데이트 해준다.
         dispatch(deleteQuestion(question_id));

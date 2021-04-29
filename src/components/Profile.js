@@ -17,6 +17,7 @@ const Profile = (props) => {
   const otherfriend_list = useSelector((state) => state.user.otherFriends)
   const idx = myfriend_list.findIndex((f) => f.id === props.id)
   const followed = idx !== -1? true :false;
+  const is_login  = useSelector((state)=> state.user.is_login)
 
 
   const closeUpdateModal = () => {
@@ -40,12 +41,11 @@ const Profile = (props) => {
             </SubjectContainer>
             <Introduce>{other_info.introduce}</Introduce>
             <Myfollowers onClick={() => {setFollowModal(true)}} >팔로잉 {otherfriend_list.length}명</Myfollowers>
-            {followed? 
+            {is_login?
+            followed? 
             <FollowerBtn onClick={() => {dispatch(userActions.unfollowOtherAX(props.id, other_info.nickname))}} >팔로우취소</FollowerBtn>
             : <FollowerBtn onClick={()=>{dispatch(userActions.followOtherAX(props.id, other_info.nickname, other_info.profileImg))}} >팔로우하기</FollowerBtn>
-            }
-            
-            <MyQuestionBtn onClick={()=>{dispatch(setComponent('myquestion'))}}>나의질문</MyQuestionBtn>
+            :null}
           </React.Fragment>
         :
           <React.Fragment>
