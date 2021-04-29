@@ -1,8 +1,15 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
 import {history} from '../redux/configStore';
+import CardModal from './CardModal'
 
 const CommunityQnA = (props) => {
+  const [cardModal, setCardModal] = useState();
+  
+  const closeCardModal = () => {
+    setCardModal(false)
+  }
+
   return(
     <React.Fragment>
       <QnAContainer>
@@ -13,11 +20,13 @@ const CommunityQnA = (props) => {
           {
             props.answers.map((a) => {
               return <Answer>
-                        <AnswerHeader>
-                          <AnswerProfileImg onClick={()=>{history.push(`/others/${a.userId}`)}} src={a.profileImg} />
+                        {cardModal? <CardModal close={closeCardModal} />
+                        :null}
+                        <AnswerHeader onClick={()=>{history.push(`/others/${a.userId}`)}} >
+                          <AnswerProfileImg  src={a.profileImg} />
                           <AnswerNickname>{a.nickname}</AnswerNickname>
                         </AnswerHeader>
-                          <AnswerContents>
+                          <AnswerContents onClick={() => {setCardModal(true)}} >
                             {a.contents}
                           </AnswerContents>
                       </Answer>
@@ -71,6 +80,7 @@ const AnswerHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  cursor: pointer;
 `
 
 const AnswerProfileImg = styled.img`
@@ -92,6 +102,10 @@ const AnswerContents = styled.div`
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+  &:hover{
+    font-weight: 600;
+  };
+  cursor: pointer;
 `
 
 const Topic = styled.div`

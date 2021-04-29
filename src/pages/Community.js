@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react' 
+import React, {useEffect, useState} from 'react' 
 import CommunityQnA from '../components/CommunityQnA'
 import styled from 'styled-components'
 import {useDispatch, useSelector} from 'react-redux'
@@ -12,6 +12,8 @@ const Community = () => {
   useEffect(() => {
     dispatch(communityActions.communityQuestionAX())
   },[])
+
+  
 
   return(
     <React.Fragment>
