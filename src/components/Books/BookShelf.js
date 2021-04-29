@@ -10,21 +10,34 @@ const BookShelf = (props) => {
     const dispatch = useDispatch();
     const formated_date = useSelector(state => state.books.formated_date);
     const book_list = useSelector(state => state.books.books);
-
+    const url = window.location.href.split('/');
+    let id = url[url.length -1];
     const date = useSelector(state => state.books.date)
 
     const previousMonth = () => {
-        dispatch(booksActions.getBooks(1));
+        if(id === 'mybook'){
+            dispatch(booksActions.getBooks(1));
+            return
+        } 
+        dispatch(booksActions.getOthersBooks(1,id));
     }
 
     const nextMonth = () => {
-        dispatch(booksActions.getBooks(2));
+        if(id === 'mybook'){
+            dispatch(booksActions.getBooks(2));
+            return
+        }
+        dispatch(booksActions.getOthersBooks(2,id));
     }
 
 
     React.useEffect(() => {
         dispatch(changeDate(0));
-        dispatch(booksActions.getBooks(0));
+        if(id === 'mybook'){
+            dispatch(booksActions.getBooks(0));
+        } else {
+            dispatch(booksActions.getOthersBooks(0,id));
+        }
     },[]);
 
     return(
@@ -40,7 +53,11 @@ const BookShelf = (props) => {
                         return(
                             <Book key={idx} onClick={()=>{
                                 dispatch(changeDate(`20${v._id}`))
-                                history.push(`/mybook/${v._id}`)
+                                if(id === 'mybook'){
+                                    history.push(`/mybook/${v._id}`)
+                                } else {
+                                    history.push(`/others/${id}/${v._id}`)
+                                }
 
                             }}><span style={{margin:'auto'}}>{v._id.charAt(v._id.length -2)}{v._id.charAt(v._id.length -1)}</span></Book>
                         )

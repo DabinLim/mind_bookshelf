@@ -14,6 +14,7 @@ import MyBook from "./pages/MyBooks";
 import OthersBooks from "./pages/OthersBooks";
 import Community from "./pages/Community";
 import { getCookie } from "./shared/Cookie";
+import QuestionDetail from './components/QuestionDetail';
 
 function App() {
   const dispatch = useDispatch();
@@ -39,6 +40,7 @@ function App() {
           <Route exact path="/others/:id" component={OthersBooks} />
           <Route exact path="/others/:id/:date" component={OthersBooks} />
           <Route exact path="/community" component={Community} />
+          <Route exact path="/community/:id" component={QuestionDetail} />
         </ConnectedRouter>
       </ContentFrame>
     </React.Fragment>

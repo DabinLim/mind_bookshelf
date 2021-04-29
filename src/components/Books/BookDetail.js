@@ -10,22 +10,36 @@ const BookDetail = (props) => {
   const dispatch = useDispatch();
   const url = window.location.href.split("/");
   const current_date = url[url.length-1];
+  const id = url[url.length-2];
   const date = useSelector(state => state.books.date);
   const book_detail = useSelector(state => state.books.book_detail);
 
 
   const previousDay = () => {
     const previous_day = date.subtract(1, 'd').format('YYMMDD');
-    history.push(`/mybook/${previous_day}`);
+    if(id === 'mybook'){
+      history.push(`/mybook/${previous_day}`);
+      return
+    }
+    history.push(`/others/${id}/${previous_day}`)
   }
 
   const nextDay = () => {
     const next_day = date.add(1, 'd').format('YYMMDD');
-    history.push(`/mybook/${next_day}`);
+    if(id === 'mybook'){
+      history.push(`/mybook/${next_day}`);
+      return
+    }
+    history.push(`/others/${id}/${next_day}`)
   }
 
   React.useEffect(() => {
-    dispatch(booksActions.getBookDetail(current_date));
+    if(id === 'mybook'){
+      dispatch(booksActions.getBookDetail(current_date));
+    } else
+    {
+      dispatch(booksActions.getOthersBookDetail(current_date,id));
+    }
 
   }, url);
 

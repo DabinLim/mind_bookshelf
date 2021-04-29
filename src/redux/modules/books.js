@@ -17,8 +17,12 @@ const booksSlice = createSlice({
     selected_card:0,
     book_detail:[],
     card_answers:null,
+    other:null,
   },
   reducers: {
+    setOther:(state, action) => {
+        state.other = action.payload;
+    },
     setCardAnswers:(state, action) => {
         state.card_answers = action.payload;
     },
@@ -61,6 +65,54 @@ const booksSlice = createSlice({
 });
 
 
+const getOthersBooks = (towhen, id) => {
+    return function( dispatch, getState ) {
+
+        if(towhen === 1){
+            dispatch(changeDate(1));
+        }
+        if(towhen === 2) {
+            dispatch(changeDate(2));
+        }
+
+        const date = getState().books.date.format('YYMM')
+        console.log(date)
+        const options = {
+            url:`/bookshelf/other/books/${date}/${id}`,
+            method:'GET',
+        };
+        axios(options).then((response) => {
+            console.log(response.data)
+            dispatch(setBooks(response.data.books))
+        }).catch((err) => {
+            console.log(err)
+            if(err.response){
+                console.log(err.response.data)
+            }
+        })
+    }
+}
+
+const getOthersBookDetail = (date,id) => {
+    console.log('hi')
+    return function(dispatch) { 
+        const options = {
+            url:`bookshelf/other/bookDetail/${date}/${id}`,
+            method:'GET',
+        };
+        axios(options).then((response) => {
+            dispatch(setBookDetail(response.data.booksDiary))
+        }).catch((err) => {
+            console.log(err);
+            if(err.response){
+                console.log(err.response.data)
+            }
+        })
+    }
+
+}
+
+
 const getCardAnswers = (date,question_id) => {
     return function(dispatch){
         const options = {
@@ -78,6 +130,7 @@ const getCardAnswers = (date,question_id) => {
         })
     }
 }
+
 
 
 const getBooks = (towhen) => {
@@ -156,7 +209,8 @@ export const {
     setComponent,
     setSelect,
     setBookDetail,
-    setCardAnswers
+    setCardAnswers,
+    setOther
  } = booksSlice.actions;
 
 export const api = {
@@ -164,6 +218,8 @@ export const api = {
     getBookDetail,
     addQuest,
     getCardAnswers,
+    getOthersBooks,
+    getOthersBookDetail
 };
 
 export default booksSlice.reducer;
