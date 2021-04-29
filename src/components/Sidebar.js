@@ -115,13 +115,23 @@ const Sidebar = (props) => {
           )}
           {isCom ? (
             <SideLi style={{ background: "white" }}>
-              <SideBtn className="sidebtn" data-name="커뮤니티">
+              <SideBtn
+                onClick={() => {
+                  history.push("/community");
+                }}
+                className="sidebtn" 
+                data-name="커뮤니티">
                 커뮤니티
               </SideBtn>
             </SideLi>
           ) : (
             <SideLi style={{ background: "none" }}>
-              <SideBtn className="sidebtn" data-name="커뮤니티">
+              <SideBtn 
+                onClick={() => {
+                  history.push("/community");
+                }}
+                className="sidebtn" 
+                data-name="커뮤니티">
                 커뮤니티
               </SideBtn>
             </SideLi>

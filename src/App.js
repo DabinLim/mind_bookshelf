@@ -12,6 +12,7 @@ import Header from "./components/Header";
 import Auth from "./pages/Auth";
 import MyBook from "./pages/MyBooks";
 import OtherBooks from "./pages/OthersBooks";
+import Community from "./pages/Community";
 import { getCookie } from "./shared/Cookie";
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
           <Route exact path="/mybook" component={MyBook}></Route>
           <Route exact path="/mybook/:id" component={MyBook}></Route>
           <Route exact path="/other/:id" component={OtherBooks} />
+          <Route exact path="/community" component={Community} />
         </ConnectedRouter>
       </ContentFrame>
     </React.Fragment>

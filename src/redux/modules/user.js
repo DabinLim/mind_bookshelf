@@ -23,7 +23,9 @@ const userSlice = createSlice({
       profileImg: "",
       nickname: "",
     },
-    friends: [],
+    friends: [
+      
+    ],
     is_login: false,
   },
   reducers: {
