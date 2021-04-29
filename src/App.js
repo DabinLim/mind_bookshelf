@@ -7,7 +7,7 @@ import { history } from "./redux/configStore";
 import { useDispatch } from "react-redux";
 import { api as userActions } from "./redux/modules/user";
 import Sidebar from "./shared/Sidebar";
-import Main from "./components/Main/Main";
+import Main from "./pages/Main";
 import Header from "./shared/Header";
 import Auth from "./pages/Auth";
 import MyBook from "./pages/MyBooks";
