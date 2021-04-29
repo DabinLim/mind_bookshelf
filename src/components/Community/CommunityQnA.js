@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { history } from "../../redux/configStore";
-import {CardModal} from "./communityindex";
+import { CardModal } from "./communityindex";
 
 const CommunityQnA = (props) => {
   const [cardModal, setCardModal] = useState();
@@ -135,7 +135,7 @@ const AnswerContents = styled.div`
 const AnswerLikes = styled.div`
   text-align: right;
   font-weight: 600;
-`
+`;
 
 const Topic = styled.div`
   margin-top: 30px;
