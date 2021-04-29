@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { history } from "../../redux/configStore";
 import {CardModal} from "./communityindex";
+import {useSelector} from "react-redux"
 
 const CommunityQnA = (props) => {
   const [cardModal, setCardModal] = useState();
+  const user = useSelector(state => state.user.user)
 
   const closeCardModal = () => {
     setCardModal(false);
@@ -25,7 +27,7 @@ const CommunityQnA = (props) => {
         <AnswerContainer>
           {props.answers.map((a) => {
             return (
-              <Answer>
+              <Answer key={a.id}>
                 {cardModal ? (
                   <CardModal
                     close={closeCardModal}
@@ -35,6 +37,9 @@ const CommunityQnA = (props) => {
                 ) : null}
                 <AnswerHeader
                   onClick={() => {
+                    if(a.userId === user.id){
+                      history.push('/mybook')
+                    }
                     history.push(`/others/${a.userId}`);
                   }}
                 >

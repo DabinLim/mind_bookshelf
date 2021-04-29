@@ -4,10 +4,12 @@ import axios from 'axios'
 import {config} from '../shared/config'
 import _ from "lodash";
 import {history} from '../redux/configStore'
+import {useSelector} from 'react-redux'
 
 const Search = (props) => {
   const [loading, setLoading] = useState(false);
   const [user_list, setUser] = useState();
+  const user = useSelector(state => state.user.user)
 
   const debounce = _.debounce((words) => {
     const searchUsers = async() => {
@@ -32,6 +34,10 @@ const Search = (props) => {
   }
 
   const clickOther = (id) => {
+    if(id === user.id){
+      history.push(`/mybook`)
+      return
+    }
     history.push(`/others/${id}`);
     props.close()
   }
@@ -54,7 +60,7 @@ const Search = (props) => {
             <UserContainer>
               {user_list ? 
               user_list.map((u) => {
-                return  <UserInfoContainer onClick={() => clickOther(u.userId)} >
+                return  <UserInfoContainer key={u.id} onClick={() => clickOther(u.userId)} >
                           <ProfileImage src={u.profileImg} />
                           <Username>{u.nickname}</Username>
                         </UserInfoContainer>
