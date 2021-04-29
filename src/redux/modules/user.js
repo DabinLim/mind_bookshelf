@@ -98,8 +98,8 @@ const SocialLoginAX = () => {
             nickname: res.data.nickname,
           })
         );
-        // history.replace("/");
-        window.location.href ='http://localhost:3000'
+        history.replace("/");
+        // window.location.href ='http://localhost:3000/';
       })
       .catch((error) => {
         console.log(error);
