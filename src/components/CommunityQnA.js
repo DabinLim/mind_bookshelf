@@ -34,7 +34,6 @@ const QnAContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: start;
-  margin-bottom: 40px;
 `
 const Question = styled.div`
   font-size: 30px;

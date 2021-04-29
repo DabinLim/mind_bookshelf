@@ -16,21 +16,31 @@ const Community = () => {
   return(
     <React.Fragment>
       <CommunityContainer>
+      <div></div>
+      <CommunityBox>
         {question_list !== 0 ?
         question_list.map((q) => {
           return <CommunityQnA key={q.id} {...q} />
         }):null}
+      </CommunityBox>
       </CommunityContainer>
     </React.Fragment>
   )
 
 }
 
-const CommunityContainer = styled.div`
+const CommunityBox = styled.div`
   width: 100%;
-  margin: 400px 60px 0 60px;
+  margin: 0 60px 60px 60px;
   display: flex;
   justify-content: space-around;
+`
+
+const CommunityContainer = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 `
 
 export default Community
