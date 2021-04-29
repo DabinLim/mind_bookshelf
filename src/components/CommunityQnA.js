@@ -14,7 +14,7 @@ const CommunityQnA = (props) => {
             props.answers.map((a) => {
               return <Answer>
                         <AnswerHeader>
-                          <AnswerProfileImg onClick={()=>{history.push(`/others/${a.id}`)}} src={a.profileImg} />
+                          <AnswerProfileImg onClick={()=>{history.push(`/others/${a.userId}`)}} src={a.profileImg} />
                           <AnswerNickname>{a.nickname}</AnswerNickname>
                         </AnswerHeader>
                           <AnswerContents>
@@ -35,7 +35,7 @@ const QnAContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: start;
-  @media (max-width: 1600px){
+  @media (max-width: 1800px){
     margin-bottom: 60px;
   }
 `
