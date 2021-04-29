@@ -5,7 +5,7 @@ import Typewriter from "typewriter-effect";
 import Question from "./Question";
 import RecentQuestion from "./RecentQuestion";
 import Post from "./Post";
-import answer, { api as answerActions } from "../redux/modules/answer";
+import { api as answerActions } from "../redux/modules/answer";
 import { changeQ } from "../redux/modules/answer";
 import { useDispatch, useSelector } from "react-redux";
 import { getCookie } from "../shared/Cookie";
