@@ -3,11 +3,11 @@ import styled from 'styled-components';
 import {history} from '../redux/configStore';
 
 const CommunityQnA = (props) => {
-  console.log(props)
   return(
     <React.Fragment>
       <QnAContainer>
         <Question>{props.contents}</Question>
+        <button onClick={()=>{history.push(`/community/${props.id}`)}}>더보기</button>
         <Topic>#{props.topic}</Topic>
         <AnswerContainer>
           {

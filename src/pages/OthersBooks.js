@@ -6,16 +6,17 @@ import BookDetail from '../components/Books/BookDetail';
 import Profile from '../components/Profile'
 import {api as userActions} from '../redux/modules/user';
 import {useSelector, useDispatch} from 'react-redux';
-import {changeDate, setComponent} from '../redux/modules/books';
+import {changeDate, setComponent, setOther} from '../redux/modules/books';
 import MyQuestion from '../components/MyQuestion';
 
 const OthersBooks = (props) => {
     const dispatch = useDispatch();
     const userId = props.match.params.id;
-    const component = useSelector(state => state.books.component)
-    const date = useSelector(state => state.books.date)
-    const formated_date = useSelector(state => state.books.formated_date)
+    const component = useSelector(state => state.books.component);
+    const date = useSelector(state => state.books.date);
+    const formated_date = useSelector(state => state.books.formated_date);
     let url = window.location.href.split('/');
+    console.log(url)
     let id = url[url.length -2];
     let others_id = url[url.length -1];
     
