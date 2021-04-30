@@ -123,6 +123,16 @@ const UpdateNicknameAX = (nickname) => {
   };
 };
 
+const getNicknameAX = () => {
+  return function (dispatch){
+    axios
+      .get('myPage/profile/random-nickname')
+      .then((res) => {
+        console.log(res.data)
+      })
+  }
+}
+
 const UpdateIntroduceAX = (introduce) => {
   return function (dispatch) {
     axios
@@ -291,6 +301,7 @@ export const api = {
   myFollowListAX,
   otherFriendListAX,
   unfollowOtherAX,
+  getNicknameAX,
 };
 
 export default userSlice.reducer;
