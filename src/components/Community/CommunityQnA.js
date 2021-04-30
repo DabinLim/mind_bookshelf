@@ -1,12 +1,16 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { history } from "../../redux/configStore";
-import {CardModal} from "./communityindex";
-import {useSelector} from "react-redux"
+import { CardModal } from "./communityindex";
+import { useSelector, useDispatch } from "react-redux";
+
+import { api as commentActions } from "../../redux/modules/comment";
+import { setAnswerInfo } from "../../redux/modules/comment";
 
 const CommunityQnA = (props) => {
+  const dispatch = useDispatch();
   const [cardModal, setCardModal] = useState();
-  const user = useSelector(state => state.user.user)
+  const user = useSelector((state) => state.user.user);
 
   const closeCardModal = () => {
     setCardModal(false);
@@ -28,17 +32,11 @@ const CommunityQnA = (props) => {
           {props.answers.map((a) => {
             return (
               <Answer key={a.id}>
-                {cardModal ? (
-                  <CardModal
-                    close={closeCardModal}
-                    {...a}
-                    post={props.contents}
-                  />
-                ) : null}
+                {cardModal ? <CardModal close={closeCardModal} /> : null}
                 <AnswerHeader
                   onClick={() => {
-                    if(a.userId === user.id){
-                      history.push('/mybook')
+                    if (a.userId === user.id) {
+                      history.push("/mybook");
                     }
                     history.push(`/others/${a.userId}`);
                   }}
@@ -49,6 +47,8 @@ const CommunityQnA = (props) => {
                 <AnswerContents
                   onClick={() => {
                     setCardModal(true);
+                    dispatch(setAnswerInfo({ ...a, content: props.contents }));
+                    dispatch(commentActions.getCommentAX(a.answerId));
                   }}
                 >
                   {a.contents}
