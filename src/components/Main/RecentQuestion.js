@@ -2,12 +2,19 @@ import React from "react";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
 
+import { history } from "../../redux/configStore";
+
 const RecentQuestion = (props) => {
   return (
     <>
       <CardFrame>
         <WriterInfo>
-          <CardWriterProfile src={props.profileImg} />
+          <CardWriterProfile
+            src={props.profileImg}
+            onClick={() => {
+              history.push(`/others/${props.userId}`);
+            }}
+          />
           <HashTag>{props.nickname}</HashTag>
         </WriterInfo>
 

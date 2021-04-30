@@ -28,6 +28,7 @@ const Comment = (props) => {
 
 const CommentFrame = styled.div`
   display: flex;
+  align-items: center;
 `;
 
 const CommentProfileInfo = styled.div`
@@ -47,9 +48,12 @@ const CommentProfile = styled.img`
 
 const CommentProfileName = styled.span`
   margin-left: 8px;
+  font-weight: bold;
 `;
 
-const CommentContent = styled.p``;
+const CommentContent = styled.p`
+  margin: 0 0 0 8px;
+`;
 
 const DeleteBtn = styled.button``;
 

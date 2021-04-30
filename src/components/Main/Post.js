@@ -2,6 +2,7 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import swal from "sweetalert";
+import { history } from "../../redux/configStore";
 
 import { api as answerActions } from "../../redux/modules/answer";
 
@@ -40,6 +41,9 @@ const Post = (props) => {
         <CardInfo>
           <CardWriterInfo>
             <CardWriterProfile
+              onClick={() => {
+                history.push("/mybook");
+              }}
               src={
                 user_info?.profileImg
                   ? user_info?.profileImg

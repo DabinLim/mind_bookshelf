@@ -54,7 +54,6 @@ const getQuestionAX = () => {
     };
     axios(options)
       .then((response) => {
-        console.log(response.data.cards);
         dispatch(setQuestion(response.data.cards));
         dispatch(setQ(response.data.cards[0]));
       })
@@ -76,7 +75,6 @@ const getQuestionAX_NOTLOGIN = () => {
     };
     axios(options)
       .then((response) => {
-        console.log(response.data.cards);
         dispatch(setQuestion(response.data.cards));
         dispatch(setQ(response.data.cards[0]));
       })
@@ -90,7 +88,6 @@ const getQuestionAX_NOTLOGIN = () => {
 };
 
 const getRecentAnswerAX = (cardId) => {
-  console.log(cardId);
   return function (dispatch, getState) {
     if (!cardId) {
       return;
@@ -101,7 +98,6 @@ const getRecentAnswerAX = (cardId) => {
     };
     axios(options)
       .then((response) => {
-        console.log(response.data.answerData);
         dispatch(setAnswer(response.data.answerData));
       })
       .catch((err) => {
@@ -136,7 +132,6 @@ const sendAnswerAX = (question_id, content) => {
     };
     axios(options)
       .then((response) => {
-        console.log(response.data);
         // 여기서 delete 를 써서 리덕스 정리 한 번 업데이트 해준다.
         dispatch(deleteQuestion(question_id));
         // 배열의 첫 번째 질문을 보여주는 것!
