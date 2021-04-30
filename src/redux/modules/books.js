@@ -49,7 +49,7 @@ const booksSlice = createSlice({
             state.formated_date = state.date.format('YYYY . MM')
         } else {
             const new_date = moment(action.payload, 'YYYYMMDD');
-            console.log(new_date)
+            // console.log(new_date)
             state.date = new_date;
             state.formated_date = new_date.format('YYYY . MM');
         }
@@ -75,13 +75,13 @@ const getBooks = (towhen) => {
         }
 
         const date = getState().books.date.format('YYMM')
-        console.log(date)
+        // console.log(date)
         const options = {
             url:`/bookshelf/books/${date}`,
             method:'GET',
         };
         axios(options).then((response) => {
-            console.log(response.data)
+            // console.log(response.data)
             dispatch(setBooks(response.data.books))
         }).catch((err) => {
             console.log(err)
@@ -123,7 +123,7 @@ const getOthersBooks = (towhen, id) => {
         }
 
         const date = getState().books.date.format('YYMM')
-        console.log(date)
+        // console.log(date)
         const options = {
             url:`/bookshelf/other/books/${date}/${id}`,
             method:'GET',
