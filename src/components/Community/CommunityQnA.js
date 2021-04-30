@@ -37,6 +37,7 @@ const CommunityQnA = (props) => {
                   onClick={() => {
                     if (a.userId === user.id) {
                       history.push("/mybook");
+                      return;
                     }
                     history.push(`/others/${a.userId}`);
                   }}
@@ -47,7 +48,13 @@ const CommunityQnA = (props) => {
                 <AnswerContents
                   onClick={() => {
                     setCardModal(true);
-                    dispatch(setAnswerInfo({ ...a, content: props.contents, questionId: props.id }));
+                    dispatch(
+                      setAnswerInfo({
+                        ...a,
+                        content: props.contents,
+                        questionId: props.id,
+                      })
+                    );
                     dispatch(commentActions.getCommentAX(a.answerId));
                   }}
                 >
