@@ -7,7 +7,7 @@ import {Comment} from "./communityindex";
 const CommentList = (props) => {
   const comment_list = useSelector((state) => state.comment.list);
   return (
-    <>
+    <CommentContainer>
       {comment_list?.map((c, idx) => {
         return (
           <>
@@ -15,8 +15,20 @@ const CommentList = (props) => {
           </>
         );
       })}
-    </>
+    </CommentContainer>
   );
 };
+
+const CommentContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 400px;
+  overflow-y: scroll;
+  ::-webkit-scrollbar {
+    display: none;
+    };
+
+
+`
 
 export default CommentList;

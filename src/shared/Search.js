@@ -18,7 +18,7 @@ const Search = (props) => {
       console.log(words)
       const result = await axios.post(`${config.api}/bookshelf/searchUser`, {words: words})
       console.log(result)
-      if(result.data.userInfo === "none"){
+      if(result.data.userInfo === "none" || result.data.userInfo.length === 0){
         setUser()
         setLoading(false)
       }else{
@@ -27,7 +27,7 @@ const Search = (props) => {
       }
     }
     searchUsers()
-  }, 1000);
+  }, 500);
   console.log(user_list)
 
   const keyPress = React.useCallback(debounce, []);
@@ -39,6 +39,7 @@ const Search = (props) => {
   const clickOther = (id) => {
     if(id === user.id){
       history.push(`/mybook`)
+      props.close()
       return
     }
     history.push(`/others/${id}`);
@@ -62,7 +63,7 @@ const Search = (props) => {
             <SearchInput  onChange={onChange}/>
             {loading?
             <SpinContainer>
-              <Loader type="Oval" color="#3d66ba" height={120} width={120} />
+              <Loader type="Oval" color="#3d66ba" height={50} width={50} />
             </SpinContainer>
             :
             <UserContainer>
@@ -118,9 +119,7 @@ const UserContainer = styled.div`
 `
 
 const SpinContainer = styled.div`
-
-
-
+    margin-top: 80px;
 `
 
 const UserInfoContainer = styled.div`

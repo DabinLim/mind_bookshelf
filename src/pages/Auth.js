@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { setCookie, getCookie, deleteCookie } from "../shared/Cookie";
+import { setCookie, getCookie } from "../shared/Cookie";
 import { api as userActions } from "../redux/modules/user";
 import styled from "styled-components";
 import Loader from "react-loader-spinner";
