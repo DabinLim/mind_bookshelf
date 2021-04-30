@@ -84,6 +84,7 @@ const addLikeAX = (answerId, questionId) => {
     axios
       .post("/bookshelf/like/answerCard", { answerCardId: answerId })
       .then((res) => {
+        console.log(res)
         dispatch(
           editAnswerInfo({
             likeCount: res.data.likeCountNum,
@@ -108,7 +109,7 @@ const addLikeAX = (answerId, questionId) => {
 const deleteLikeAX = (answerId, questionId) => {
   return function (dispatch) {
     axios
-      .delete("/bookshelf/like/answerCard", { answerCardId: answerId })
+      .patch("/bookshelf/like/answerCard", { answerCardId: answerId })
       .then((res) => {
         console.log(res)
         console.log(answerId, questionId)
@@ -125,9 +126,6 @@ const deleteLikeAX = (answerId, questionId) => {
       }).catch((err)=> {
         console.log(err)
       })
-      .catch((err) => {
-        console.log(err);
-      });
   };
 };
 
