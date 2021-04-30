@@ -94,6 +94,8 @@ const deleteLikeAX = (answerId, questionId) => {
   return function(dispatch){
     axios.delete('/bookshelf/like/answerCard', {answerCardId:answerId})
       .then((res) => {
+        console.log(res)
+        console.log(answerId, questionId)
         dispatch(editAnswerInfo({
           likeCount: res.data.likeCountNum,
           like: res.data.currentLike,
