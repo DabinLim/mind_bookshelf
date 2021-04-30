@@ -2,6 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { api as commentActions } from "../../redux/modules/comment";
+import { history } from "../../redux/configStore";
+
 const Comment = (props) => {
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.user.user);
@@ -14,7 +16,16 @@ const Comment = (props) => {
     <>
       <CommentFrame>
         <CommentProfileInfo>
-          <CommentProfile src={props.profileImg} />
+          <CommentProfile
+            src={props.profileImg}
+            onClick={() => {
+              if (userInfo?.id === props.userId) {
+                history.push(`/mybook`);
+                return;
+              }
+              history.push(`/others/${props.userId}`);
+            }}
+          />
           <CommentProfileName>{props.nickname}</CommentProfileName>
         </CommentProfileInfo>
         <CommentContent>{props.commentContents}</CommentContent>
