@@ -6,35 +6,48 @@ import {useSelector, useDispatch} from 'react-redux'
 import {logOut} from '../redux/modules/user'
 import SearchIcon from '@material-ui/icons/Search';
 import {history} from '../redux/configStore'
-
+import NotificationsIcon from '@material-ui/icons/Notifications';
+import Notification from '../components/Notification/Notification'
+import { api as notiActions } from "../redux/modules/noti";
 
 const Header = () => {
   const dispatch = useDispatch()
   const is_login = useSelector((state) => state.user.is_login)
   const [loginModal, setLogin] = useState(false); 
   const [searchModal, setSearch] = useState(false);
+  const [notiModal, setNoti] = useState(false)
+  const noti_list = useSelector((state) => state.noti.noti_list)
+
+  const closeNotiModal = () => {
+    setNoti(false)
+  }
 
   const closeSearchModal = () => {
     setSearch(false)
   }
-
+  
   const closeLoginModal = () => {
     setLogin(false)
   }
 
-
   if (is_login) {
     return (
       <React.Fragment>
+        {notiModal? <Notification close={closeNotiModal} />
+        :null}
         {searchModal? 
         <Search close={closeSearchModal} />
         :null}
         <HeaderContainer>
           <HeaderInnerContainer>
+            <Icon onClick={()=> {setNoti(true)}} >
+              <AlarmNumber>{noti_list.length}</AlarmNumber>
+              <NotificationsIcon/>
+            </Icon>
             <Icon onClick={() => {setSearch(true)}} >
               <SearchIcon/>
             </Icon>
-            <TextBtn onClick={() => {dispatch(logOut()); history.replace('/')}}>Logout</TextBtn>
+            <TextBtn onClick={() => {dispatch(notiActions.leaveAlarmIO()); dispatch(logOut())}}>Logout</TextBtn>
           </HeaderInnerContainer>
         </HeaderContainer>
       </React.Fragment>
@@ -51,7 +64,7 @@ const Header = () => {
           :null}
           <HeaderContainer>
             <HeaderInnerContainer>
-              <Icon onClick={() => {setSearch(true)}} >
+            <Icon onClick={() => { setSearch(true); dispatch(notiActions.openAlarmIO());}} >
                 <SearchIcon/>
               </Icon>
               <TextBtn onClick={()=>{setLogin(true)}} >Login</TextBtn>
@@ -93,9 +106,26 @@ const TextBtn = styled.div`
 `;
 
 const Icon = styled.div`
+  position: relative;
   margin-right: 20px;
   margin-top: 9px;
   cursor: pointer;
+  padding: 6px 11px;
+  // background-color: silver;
+`
+
+const AlarmNumber = styled.div`
+  background-color: red;
+  width: 15px;
+  height: 15px;
+  font-size: 9px;
+  text-align: center;
+  border-radius: 10px;
+  position: absolute;
+  color: white;
+  font-weight: 600;
+  right: 7px;
+  top: 3px;
 `
 
 

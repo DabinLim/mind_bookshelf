@@ -81,6 +81,7 @@ const communityQuestionAX = () => {
 
 const addLikeAX = (answerId, questionId) => {
   return function (dispatch) {
+    console.log(answerId, questionId)
     axios
       .post("/bookshelf/like/answerCard", { answerCardId: answerId })
       .then((res) => {

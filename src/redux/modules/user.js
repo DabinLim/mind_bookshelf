@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { history } from "../configStore";
 import { getCookie, deleteCookie } from "../../shared/Cookie";
+import { api as notiActions } from './noti'
 import swal from "sweetalert";
 
 axios.defaults.baseURL = 'http://lkj99.shop';
@@ -42,6 +43,7 @@ const userSlice = createSlice({
       deleteCookie("is_login");
       state.user = null;
       state.is_login = false;
+      history.replace('/');
     },
     setOther: (state, action) => {
       state.other = action.payload;
@@ -79,6 +81,7 @@ const LoginCheckAX = () => {
             id: res.data.userId,
           })
         );
+        dispatch(notiActions.joinAlarmIO());
       })
       .catch((error) => {
         console.log(error);
@@ -100,6 +103,9 @@ const SocialLoginAX = () => {
             id: res.data.userId,
           })
         );
+        
+        dispatch(notiActions.joinAlarmIO());
+
         history.replace("/");
         // window.location.href ='http://localhost:3000/';
       })
