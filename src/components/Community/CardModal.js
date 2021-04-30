@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { api as commentActions } from "../../redux/modules/comment";
+import { api as communityActions } from "../../redux/modules/community"
 import { useDispatch, useSelector } from "react-redux";
-
+import FavoriteIcon from '@material-ui/icons/Favorite';
 import CommentList from "./CommentList";
 
 const CardModal = (props) => {
@@ -44,6 +45,14 @@ const CardModal = (props) => {
           <h3>{answerInfo?.contents}</h3>
           {/* 댓글 달리는 곳! */}
           <CommentList />
+          <LikeContainer>
+            {answerInfo.like? 
+            <LikeBtn style={{color:"red"}} onClick={()=>{dispatch(communityActions.deleteLikeAX(answerInfo.answerId, answerInfo.questionId))}} ><FavoriteIcon/></LikeBtn>
+            : 
+            <LikeBtn style={{color:"pink"}} onClick={()=>{dispatch(communityActions.addLikeAX(answerInfo.answerId, answerInfo.questionId))}} ><FavoriteIcon/></LikeBtn>
+            }
+            <LikeCount>{answerInfo.likeCount}개</LikeCount>
+          </LikeContainer>
           <ModalCmtInputBox>
             <ModalCmtInput
               type="text"
@@ -58,7 +67,6 @@ const CardModal = (props) => {
             />
             {ok_submit ? (
               <ModalUpload onClick={addComment} style={{ cursor: "pointer" }}>
-                게시
               </ModalUpload>
             ) : (
               <ModalUpload style={{ opacity: "0.3" }}>게시</ModalUpload>
@@ -113,6 +121,7 @@ const ModalRightContainer = styled.div`
   height: 600px;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   border-left: 1px solid #efefef;
 `;
 
@@ -160,8 +169,22 @@ const ModalCmtInput = styled.input`
 const ModalUpload = styled.div`
   font-size: 14px;
   color: #3897f0;
-
   font-weight: 600;
 `;
+
+const LikeContainer = styled.div`
+  display:flex;
+  justify-content: space-between;
+  margin: 0 10px;
+`
+const LikeBtn = styled.div`
+  font-size: 18px;
+  cursor: pointer;
+`
+
+const LikeCount = styled.div`
+  font-size: 17px;
+
+`
 
 export default CardModal;

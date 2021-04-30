@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { getCookie } from '../../shared/Cookie';
 import axios from "axios";
+import { editAnswerInfo } from "./comment";
 
 axios.defaults.baseURL = 'http://lkj99.shop';
 axios.defaults.headers.common["Authorization"]= `Bearer ${getCookie('is_login')}`;
@@ -37,6 +38,11 @@ const communitySlice = createSlice({
       console.log(action.payload)
       state.question = action.payload;
     },
+    editLikeInfo: (state, action) => {
+      let idx = state.question.findIndex((q) => q.id === action.payload.questionId)
+      let answerIdx = state.question[idx].answers.findIndex((a) => a.answerId === action.payload.answerId) 
+      state.question[idx].answers[answerIdx] = {...state.question[idx].answers[answerIdx], like: action.payload.like, likeCount: action.payload.likeCount}
+    },
   },
 });
 
@@ -64,6 +70,46 @@ const communityQuestionAX = () => {
   }
 }
 
+const addLikeAX = (answerId, questionId) => {
+  return function(dispatch){
+    axios.post('/bookshelf/like/answerCard', {answerCardId:answerId} )
+      .then((res) => {
+        dispatch(editAnswerInfo({
+          likeCount: res.data.likeCountNum,
+          like: res.data.currentLike,
+        }))
+        dispatch(editLikeInfo({
+          likeCount: res.data.likeCountNum,
+          like: res.data.currentLike,
+          answerId: answerId,
+          questionId: questionId,
+        }))
+      }).catch((err)=> {
+        console.log(err)
+      })
+  }
+}
+
+const deleteLikeAX = (answerId, questionId) => {
+  return function(dispatch){
+    axios.delete('/bookshelf/like/answerCard', {answerCardId:answerId})
+      .then((res) => {
+        dispatch(editAnswerInfo({
+          likeCount: res.data.likeCountNum,
+          like: res.data.currentLike,
+        }));
+        dispatch(editLikeInfo({
+          likeCount: res.data.likeCountNum,
+          like: res.data.currentLike,
+          answerId: answerId,
+          questionId: questionId,
+        }));
+      }).catch((err)=> {
+        console.log(err)
+      })
+  }
+}
+
 const getAnswers = (id) => {
   return function(dispatch, getState) {
 
@@ -73,7 +119,6 @@ const getAnswers = (id) => {
       return
     }
     const page = getState().community.page;
-
     const options = {
       url:`/bookshelf/moreInfoCard/${id}?page=${page}`,
       method:'GET'
@@ -110,13 +155,16 @@ export const {
   resetAnswers,
   setPage,
   setNext,
-  setQuestionInfo
+  setQuestionInfo,
+  editLikeInfo,
  } = communitySlice.actions;
 
 export const api = {
   communityQuestionAX,
   getAnswers,
-  getQuestionInfo
+  getQuestionInfo,
+  addLikeAX,
+  deleteLikeAX,
 };
 
 export default communitySlice.reducer;

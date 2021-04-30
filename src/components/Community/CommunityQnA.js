@@ -47,13 +47,13 @@ const CommunityQnA = (props) => {
                 <AnswerContents
                   onClick={() => {
                     setCardModal(true);
-                    dispatch(setAnswerInfo({ ...a, content: props.contents }));
+                    dispatch(setAnswerInfo({ ...a, content: props.contents, questionId: props.id }));
                     dispatch(commentActions.getCommentAX(a.answerId));
                   }}
                 >
                   {a.contents}
                 </AnswerContents>
-                <AnswerLikes>110 Likes</AnswerLikes>
+                <AnswerLikes>{a.likeCount} Likes</AnswerLikes>
               </Answer>
             );
           })}

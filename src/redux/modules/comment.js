@@ -21,6 +21,10 @@ const commentSlice = createSlice({
     setAnswerInfo: (state, action) => {
       state.answer_info = action.payload;
     },
+    editAnswerInfo: (state, action) => {
+      state.answer_info.likeCount = action.payload.likeCount;
+      state.answer_info.like = action.payload.like;
+    },
     setComment: (state, action) => {
       state.list = action.payload;
     },
@@ -53,6 +57,8 @@ const getCommentAX = (cardId) => {
       });
   };
 };
+
+
 
 const sendCommentAX = (cardId, content) => {
   return function (dispatch, getState) {
@@ -104,6 +110,7 @@ export const {
   addComment,
   deleteComment,
   setAnswerInfo,
+  editAnswerInfo,
 } = commentSlice.actions;
 
 export const api = {
