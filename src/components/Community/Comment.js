@@ -1,7 +1,15 @@
 import React from "react";
 import styled from "styled-components";
-
+import { useSelector, useDispatch } from "react-redux";
+import { api as commentActions } from "../../redux/modules/comment";
 const Comment = (props) => {
+  const dispatch = useDispatch();
+  const userInfo = useSelector((state) => state.user.user);
+
+  const deleteComment = () => {
+    dispatch(commentActions.deleteCommentAX(props.commentId));
+  };
+
   return (
     <>
       <CommentFrame>
@@ -10,6 +18,9 @@ const Comment = (props) => {
           <CommentProfileName>{props.nickname}</CommentProfileName>
         </CommentProfileInfo>
         <CommentContent>{props.commentContents}</CommentContent>
+        {userInfo?.id === props.userId ? (
+          <DeleteBtn onClick={deleteComment}>삭제</DeleteBtn>
+        ) : null}
       </CommentFrame>
     </>
   );
@@ -39,5 +50,7 @@ const CommentProfileName = styled.span`
 `;
 
 const CommentContent = styled.p``;
+
+const DeleteBtn = styled.button``;
 
 export default Comment;
