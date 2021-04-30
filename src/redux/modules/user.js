@@ -76,6 +76,7 @@ const LoginCheckAX = () => {
             introduce: res.data.introduce,
             profileImg: res.data.profileImg,
             nickname: res.data.nickname,
+            id: res.data.userId,
           })
         );
       })
@@ -96,6 +97,7 @@ const SocialLoginAX = () => {
             introduce: res.data.introduce,
             profileImg: res.data.profileImg,
             nickname: res.data.nickname,
+            id: res.data.userId,
           })
         );
         history.replace("/");

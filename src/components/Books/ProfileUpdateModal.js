@@ -11,7 +11,7 @@ const ProfileUpdateModal = (props) => {
   const [edit_introduce, editIntroduce] = useState(false)
   const [edit_nickname, editNickname] = useState(false)
   const [nickname, setNickname] = useState(user_info.nickname? user_info.nickname : "")
-  const [introduce, setIntroduce] = useState(user_info.introduce? user_info.introduce : "자신의 대해서 적어주세요.")
+  const [introduce, setIntroduce] = useState(user_info.introduce? user_info.introduce : "자신에 대해서 적어주세요.")
 
   const changeNickname = (e) => {
     setNickname(e.target.value)
@@ -35,9 +35,9 @@ const ProfileUpdateModal = (props) => {
 
         {edit_nickname? 
         <InputContainer>
-          <Input value={nickname} onChange={changeNickname} />
+          <Input placeholder={nickname} onChange={changeNickname} />
           <InputButton onClick={()=> {dispatch(userActions.UpdateNicknameAX(nickname)); editNickname(false);}} >확인</InputButton>
-          <InputButton onClick={() => {editNickname(false);}} >취소</InputButton>
+          <InputButton onClick={() => {editNickname(false); setNickname(user_info.nickname)}} >취소</InputButton>
         </InputContainer>
         : 
         <InputContainer>
@@ -47,13 +47,13 @@ const ProfileUpdateModal = (props) => {
         }
         {edit_introduce? 
         <InputContainer>
-          <Input value={introduce} onChange={changeIntroduce} />
+          <Input placeholder={introduce} onChange={changeIntroduce} />
           <InputButton onClick={()=> {dispatch(userActions.UpdateIntroduceAX(introduce)); editIntroduce(false)}} >확인</InputButton>
-          <InputButton onClick={() => {editIntroduce(false)}} >취소</InputButton>
+          <InputButton onClick={() => {editIntroduce(false); setIntroduce(user_info.introduce)}} >취소</InputButton>
         </InputContainer>
         : 
         <InputContainer>
-          <String>{user_info.introduce? user_info.introduce : "자신의 대해서 적어주세요."}</String>
+          <String>{user_info.introduce? user_info.introduce : "자신에 대해서 적어주세요."}</String>
           <StringButton onClick={()=> {editIntroduce(true)}} ><CreateIcon/></StringButton>
         </InputContainer>
         }
