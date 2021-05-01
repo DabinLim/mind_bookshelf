@@ -4,6 +4,7 @@ import {useSelector, useDispatch} from 'react-redux'
 import {FollowModal, ProfileUpdateModal} from './booksindex'
 import {setComponent} from '../../redux/modules/books'
 import {api as userActions} from '../../redux/modules/user'
+import {setPageOwner} from '../../redux/modules/books';
 
 const Profile = (props) => {
   const dispatch = useDispatch()
@@ -18,7 +19,6 @@ const Profile = (props) => {
   const followed = idx !== -1? true :false;
   const is_login  = useSelector((state)=> state.user.is_login)
 
-
   const closeUpdateModal = () => {
     setUpdateModal(false)
   }
@@ -26,6 +26,10 @@ const Profile = (props) => {
   const closeFollowModal = () => {
     setFollowModal(false)
   }
+
+  React.useEffect(() => {
+    dispatch(setPageOwner(props.id));
+  },[])
   
   return(
     <>
@@ -45,6 +49,9 @@ const Profile = (props) => {
             <FollowerBtn onClick={() => {dispatch(userActions.unfollowOtherAX(props.id, other_info.nickname))}} >팔로우취소</FollowerBtn>
             : <FollowerBtn onClick={()=>{dispatch(userActions.followOtherAX(props.id, other_info.nickname, other_info.profileImg))}} >팔로우하기</FollowerBtn>
             :null}
+            <MyQuestionBtn onClick={()=>{
+              dispatch(setComponent('othersquestion'))
+          }}>{other_info.nickname}님의 질문</MyQuestionBtn>
           </React.Fragment>
         :
           <React.Fragment>

@@ -36,7 +36,7 @@ const communitySlice = createSlice({
       state.page = action.payload;
     },
     setCommunity: (state, action) => {
-      console.log(action.payload);
+      // console.log(action.payload)
       state.question = action.payload;
     },
     editLikeInfo: (state, action) => {
@@ -60,6 +60,7 @@ const communityQuestionAX = () => {
     axios
       .get("/ourPlace/cards")
       .then((res) => {
+        // console.log(res)
         let question_list = [];
         res.data.result.forEach((_question) => {
           let question = {
@@ -143,8 +144,9 @@ const getAnswers = (id) => {
       method: "GET",
     };
     axios(options).then((response) => {
-      if (!response.data.answer.length) {
-        window.alert("질문에 대한 답변이 더 이상 없습니다.");
+      // console.log(response.data);
+      if(!response.data.answer.length){
+        window.alert('질문에 대한 답변이 더 이상 없습니다.');
         dispatch(setNext(false));
         return;
       }
@@ -161,10 +163,11 @@ const getQuestionInfo = (id) => {
       method: "GET",
     };
     axios(options).then((response) => {
-      dispatch(setQuestionInfo(response.data));
-    });
-  };
-};
+      // console.log(response.data)
+      dispatch(setQuestionInfo(response.data))
+    })
+  }
+}
 
 export const {
   setCommunity,

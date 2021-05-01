@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import {BookShelf, BookDetail, Profile, MyQuestion} from '../components/Books/booksindex';
+import {BookShelf, BookDetail, Profile, OthersQuestion} from '../components/Books/booksindex';
 import {api as userActions} from '../redux/modules/user';
 import {useSelector, useDispatch} from 'react-redux';
 import { getCookie } from "../shared/Cookie";
@@ -38,7 +38,7 @@ const OthersBooks = (props) => {
                 {id === 'others' && component === '' &&
                 <BookShelf date={date}/>
                 }
-                {component === 'othersquestion' && <MyQuestion/>}
+                {component === 'othersquestion' && <OthersQuestion/>}
                 {id !=='others' && component === '' &&
                 <BookDetail date={date}/>}
             <ProfileContainer>

@@ -25,6 +25,7 @@ const NewQuestion = (props) => {
       window.alert('주제 또는 내용을 입력하세요')
       return
     }
+    console.log(topic.current.value, content.current.value)
     dispatch(booksActions.addQuest(topic.current.value, content.current.value))
   }
 
@@ -39,8 +40,8 @@ const NewQuestion = (props) => {
         >
           <ModalInner tabIndex="0">
             <Container>
-            <input type='text' placeholder='topic'/>
-            <textarea type='text' placeholder='content'/>
+            <input type='text' placeholder='topic' ref={topic}/>
+            <textarea type='text' placeholder='content' ref={content}/>
             <button onClick={addQuestion}>질문등록하기</button>
             </Container>
           </ModalInner>
