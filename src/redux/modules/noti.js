@@ -7,6 +7,7 @@ const notiSlice = createSlice({
   name: "noti",
   initialState: {
     noti_list: [],
+    new_list: [],
     is_checked: false,
   },
   reducers: {
@@ -15,23 +16,22 @@ const notiSlice = createSlice({
       state.is_checked = action.payload.checked;
     },
     addNoti: (state, action) => {
-      let idx = state.noti_list.findIndex(
+      let idx = state.new_list.findIndex(
         (n) => n.cardId === action.payload.cardId
       );
-
       if(idx !== -1){
         console.log(1)
-        if(state.noti_list.findIndex(
+        if(state.new_list.findIndex(
           (n) => n.recentNickname === action.payload.recentNickname
         ) === -1){
           console.log(1)
-          state.noti_list.unshift(action.payload);
+          state.new_list.unshift(action.payload);
           state.is_checked = true;
           return         
         }
         return
       }
-      state.noti_list.unshift(action.payload);
+      state.new_list.unshift(action.payload);
       state.is_checked = true;
     },
     alarmChecked: (state) => {
