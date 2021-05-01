@@ -4,7 +4,7 @@ import { time } from "../../shared/Time";
 
 const Noti = (props) => {
   let eventType = "";
-  let time_data = time(props.time);
+  let time_data = time(`20${props.time}`);
   if (props.eventType === "like") {
     eventType = "좋아요";
   } else if (props.eventType === "comment") {

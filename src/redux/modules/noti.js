@@ -16,21 +16,21 @@ const notiSlice = createSlice({
       state.is_checked = action.payload.checked;
     },
     addNoti: (state, action) => {
-      let idx = state.new_list.findIndex(
-        (n) => n.cardId === action.payload.cardId
-      );
-      if(idx !== -1){
-        console.log(1)
-        if(state.new_list.findIndex(
-          (n) => n.recentNickname === action.payload.recentNickname
-        ) === -1){
-          console.log(1)
-          state.new_list.unshift(action.payload);
-          state.is_checked = true;
-          return         
-        }
-        return
-      }
+      // let idx = state.new_list.findIndex(
+      //   (n) => n.cardId === action.payload.cardId
+      // );
+      // if(idx !== -1){
+      //   console.log(1)
+      //   if(state.new_list.findIndex(
+      //     (n) => n.recentNickname === action.payload.recentNickname
+      //   ) === -1){
+      //     console.log(1)
+      //     state.new_list.unshift(action.payload);
+      //     state.is_checked = true;
+      //     return
+      //   }
+      //   return
+      // }
       state.new_list.unshift(action.payload);
       state.is_checked = true;
     },
