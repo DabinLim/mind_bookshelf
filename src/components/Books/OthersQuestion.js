@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import {Card, NewQuestion} from './booksindex';
 import {useDispatch, useSelector} from 'react-redux';
-import {api as booksActions, setPage, setNext, resetCustiomQuestion} from '../../redux/modules/books';
+import {api as booksActions, setPage, setNext, resetCustomQuestion} from '../../redux/modules/books';
 const OthersQuestion = (props) => {
     const dispatch = useDispatch()
     const [modalVisible, setModalVisible] = React.useState(false);
@@ -21,7 +21,7 @@ const OthersQuestion = (props) => {
             dispatch(booksActions.getOthersQuest(page_owner_id));
         
         return () => {
-            dispatch(resetCustiomQuestion());
+            dispatch(resetCustomQuestion());
             dispatch(setPage(1));
             dispatch(setNext(true));
         }

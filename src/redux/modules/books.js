@@ -75,7 +75,7 @@ const booksSlice = createSlice({
             state.custom_question.push(v);
         })
     },
-    resetCustiomQuestion: (state) => {
+    resetCustomQuestion: (state) => {
         state.custom_question = [];
     }
     // setSelect : (state, action) => {
@@ -294,7 +294,7 @@ export const {
     setPage,
     setNext,
     setCustomQuestion,
-    resetCustiomQuestion,
+    resetCustomQuestion,
     setPageOwner
     // setCardAnswers,
     // setOther
