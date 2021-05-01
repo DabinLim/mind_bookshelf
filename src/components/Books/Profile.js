@@ -5,6 +5,7 @@ import {FollowModal, ProfileUpdateModal} from './booksindex'
 import {setComponent} from '../../redux/modules/books'
 import {api as userActions} from '../../redux/modules/user'
 import Loader from "react-loader-spinner";
+import { setPageOwner } from '../../redux/modules/books'
 
 const Profile = (props) => {
   const dispatch = useDispatch()
@@ -20,6 +21,7 @@ const Profile = (props) => {
   const is_login  = useSelector((state)=> state.user.is_login)
   const userLoading = useSelector((state)=> state.user.is_userLoading)
   const friendLoading = useSelector((state) => state.user.is_friendLoading)
+
 
   const closeUpdateModal = () => {
     setUpdateModal(false)
