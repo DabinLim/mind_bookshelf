@@ -252,7 +252,7 @@ const getMyQuest = () => {
 
 const getOthersQuest = (id) => {
     return function(dispatch, getState){
-
+        console.log(id)
 
 
         const page = getState().books.page;
@@ -264,7 +264,7 @@ const getOthersQuest = (id) => {
         }
 
         const options = {
-            url:`/bookshelf/other/${id}/question/?page=${page}`,
+            url:`/bookshelf/other/${id}/question?page=${page}`,
             method:"GET"
         };
         axios(options).then(response => {

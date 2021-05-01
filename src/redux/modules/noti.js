@@ -22,7 +22,7 @@ const notiSlice = createSlice({
       if(idx !== -1){
         console.log(1)
         if(state.new_list.findIndex(
-          (n) => n.recentNickname === action.payload.recentNickname
+          (n) => n.recentNickname === action.payload.recentNickname && n.eventType === action.payload.eventType
         ) === -1){
           console.log(1)
           state.new_list.unshift(action.payload);

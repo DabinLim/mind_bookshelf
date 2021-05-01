@@ -32,6 +32,7 @@ const QuestionDetail = (props) => {
                     {question_info ? question_info.questionContents : '질문 내용'}
                 </QuestionTitle>
                 <button onClick={()=>{dispatch(communityActions.getAnswers(id))}}>더보기</button>
+                <button onClick={()=>{dispatch(communityActions.getFriendsAnswer(id))}}>test</button>
                 <Subject>
                     <span>#사랑</span>
                 </Subject>
