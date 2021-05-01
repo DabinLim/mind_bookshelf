@@ -8,13 +8,9 @@ const NotiList = (props) => {
   return (
     <>
       <NotiListFrame>
-        {noti_list?.length > 0 ? (
-          noti_list?.map((n, idx) => {
-            return <Noti key={idx} {...n} />;
-          })
-        ) : (
-          <No_Noti>알림이 없습니다.</No_Noti>
-        )}
+        {noti_list?.map((n, idx) => {
+          return <Noti key={idx} {...n} />;
+        })}
       </NotiListFrame>
     </>
   );
@@ -22,20 +18,6 @@ const NotiList = (props) => {
 
 const NotiListFrame = styled.div`
   width: 100%;
-  max-height: 100%;
-  overflow: auto;
-  ::-webkit-scrollbar {
-    width: 12px; /* width of the entire scrollbar */
-  }
-
-  ::-webkit-scrollbar-track {
-    background: white; /* color of the tracking area */
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background-color: #d8d9dc; /* color of the scroll thumb */
-    border-radius: 20px; /* roundness of the scroll thumb */
-  }
 `;
 
 const No_Noti = styled.div``;
