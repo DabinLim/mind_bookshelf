@@ -3,6 +3,7 @@ import { getCookie } from "../../shared/Cookie";
 import socketIOClient from 'socket.io-client';
 import {config} from '../../shared/config';
 
+
 const notiSlice = createSlice({
   name: "noti",
   initialState: {
@@ -11,12 +12,14 @@ const notiSlice = createSlice({
   reducers: {
     setNoti: (state, action) => {
       state.noti_list = action.payload;
-    }
+    },
+    addNoti: (state, action) => {
+      state.noti_list.unshift(action.payload)
+    },
   },
-
 });
 
-const socket = socketIOClient(`${config.api}/alarm`)
+export const socket = socketIOClient(`${config.api}/alarm`)
 
 
 const joinAlarmIO = () => {
@@ -38,13 +41,9 @@ const leaveAlarmIO = () => {
   }
 }
 
-socket.on('AlarmEvent', function(data) {
-  console.log(data)
-  console.log('하이')
-})
-
 const openAlarmIO = () => {
   return function (dispatch){
+    console.log('하이')
     socket.emit('openAlarm')
     }
 }
@@ -52,6 +51,7 @@ const openAlarmIO = () => {
 
 export const {
   setNoti,
+  addNoti,
 } = notiSlice.actions;
 
 export const api = {

@@ -30,11 +30,14 @@ const userSlice = createSlice({
 
     ],
     is_login: false,
+    is_userLoading: true,
+    is_friendLoading: true,
   },
   reducers: {
     setUser: (state, action) => {
       state.user = action.payload;
       state.is_login = true;
+      state.is_userLoading = false;
     },
     editUser: (state, action) => {
       state.user = { ...state.user, ...action.payload };
@@ -43,13 +46,14 @@ const userSlice = createSlice({
       deleteCookie("is_login");
       state.user = null;
       state.is_login = false;
-      history.replace('/');
     },
     setOther: (state, action) => {
       state.other = action.payload;
+      // state.is_userLoading = false;
     },
     setFriend: (state, action) => {
       state.friends = action.payload;
+      state.is_friendLoading = false;
     },
     addFriend: (state, action) => {
       state.friends.unshift(action.payload);
@@ -64,11 +68,18 @@ const userSlice = createSlice({
     setOtherFriend: (state, action) => {
       state.otherFriends = action.payload;
     },
+    userLoading: (state, action) => {
+      state.is_userLoading = action.payload;
+    },
+    friendLoading: (state, action) => {
+      state.is_friendLoading = action.payload;
+    },
   },
 });
 
 const LoginCheckAX = () => {
   return function (dispatch) {
+    // dispatch(userLoading(true))
     axios
       .get(`/auth/user`)
       .then((res) => {
@@ -103,11 +114,8 @@ const SocialLoginAX = () => {
             id: res.data.userId,
           })
         );
-        
         dispatch(notiActions.joinAlarmIO());
-
         history.replace("/");
-        // window.location.href ='http://localhost:3000/';
       })
       .catch((error) => {
         console.log(error);
@@ -120,7 +128,6 @@ const UpdateNicknameAX = (nickname) => {
     axios
       .patch(`/myPage/profile/nickname`, { nickname: nickname })
       .then((res) => {
-        console.log(res);
         dispatch(editUser({ nickname: nickname }));
       })
       .catch((err) => {
@@ -129,15 +136,16 @@ const UpdateNicknameAX = (nickname) => {
   };
 };
 
-const getNicknameAX = () => {
-  return function (dispatch){
-    axios
-      .get('myPage/profile/random-nickname')
-      .then((res) => {
-        console.log(res.data)
-      })
-  }
-}
+//랜덤 닉네임 가져오는 함수
+// const getNicknameAX = () => {
+//   return function (dispatch){
+//     axios
+//       .get('myPage/profile/random-nickname')
+//       .then((res) => {
+//         console.log(res.data)
+//       })
+//   }
+// }
 
 const UpdateIntroduceAX = (introduce) => {
   return function (dispatch) {
@@ -184,6 +192,7 @@ const DeleteProfileImgAX = () => {
 };
 
 const othersInfoAX = (id) => {
+  userLoading()
   return function (dispatch) {
     console.log(id);
     axios.get(`/bookshelf/auth/user/${id}`).then((res) => {
@@ -204,8 +213,6 @@ const followOtherAX = (id, nickname, profileImg) => {
     console.log(id);
     axios.post(`/bookshelf/addfriend`, { friendId: id })
       .then((res) => {
-        console.log(res);
-
         dispatch(
           addFriend({
             id: id,
@@ -244,6 +251,7 @@ const unfollowOtherAX = (id, nickname) => {
 
 const myFollowListAX = () => {
   return function (dispatch) {
+    // dispatch(friendLoading(true))
     axios.get(`/bookshelf/friendList`).then((res) => {
       console.log(res);
       let friend_list = [];
@@ -263,6 +271,7 @@ const myFollowListAX = () => {
 };
 
 const otherFriendListAX = (id) => {
+  friendLoading()
   return function (dispatch) {
     console.log(id);
     axios.get(`/bookshelf/other/friendList/${id}`).then((res) => {
@@ -293,6 +302,8 @@ export const {
   addFriend,
   deleteFriend,
   setOtherFriend,
+  userLoading,
+  friendLoading,
 } = userSlice.actions;
 
 export const api = {
@@ -307,7 +318,6 @@ export const api = {
   myFollowListAX,
   otherFriendListAX,
   unfollowOtherAX,
-  getNicknameAX,
 };
 
 export default userSlice.reducer;
