@@ -17,8 +17,7 @@ const Header = () => {
   const [searchModal, setSearch] = useState(false);
   const [notiModal, setNoti] = useState(false);
   const noti_list = useSelector((state) => state.noti.noti_list);
-  const user = useSelector((state) => state.user.user)
-
+  const user = useSelector((state) => state.user.user);
 
   const closeNotiModal = () => {
     setNoti(false);
@@ -42,6 +41,7 @@ const Header = () => {
             <Icon
               onClick={() => {
                 setNoti(true);
+                dispatch(notiActions.openAlarmIO());
               }}
             >
               <AlarmNumber>{noti_list.length}</AlarmNumber>
@@ -50,7 +50,6 @@ const Header = () => {
             <Icon
               onClick={() => {
                 setSearch(true);
-                dispatch(notiActions.openAlarmIO());
               }}
             >
               <SearchIcon />
@@ -59,7 +58,7 @@ const Header = () => {
               onClick={() => {
                 dispatch(notiActions.leaveAlarmIO(user.id));
                 dispatch(logOut());
-                history.replace('/');
+                history.replace("/");
               }}
             >
               Logout
@@ -79,7 +78,8 @@ const Header = () => {
           <Icon
             onClick={() => {
               setSearch(true);
-              dispatch(notiActions.openAlarmIO());
+              console.log("HIHIHIH");
+              // dispatch(notiActions.openAlarmIO());
             }}
           >
             <SearchIcon />
