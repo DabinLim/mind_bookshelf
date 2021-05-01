@@ -20,7 +20,23 @@ const NotiList = (props) => {
   );
 };
 
-const NotiListFrame = styled.div``;
+const NotiListFrame = styled.div`
+  width: 100%;
+  max-height: 100%;
+  overflow: auto;
+  ::-webkit-scrollbar {
+    width: 12px; /* width of the entire scrollbar */
+  }
+
+  ::-webkit-scrollbar-track {
+    background: white; /* color of the tracking area */
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: #d8d9dc; /* color of the scroll thumb */
+    border-radius: 20px; /* roundness of the scroll thumb */
+  }
+`;
 
 const No_Noti = styled.div``;
 

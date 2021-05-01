@@ -1,9 +1,10 @@
 import React from "react";
 import styled from "styled-components";
+import { time } from "../../shared/Time";
 
 const Noti = (props) => {
   let eventType = "";
-
+  let time_data = time(props.time);
   if (props.eventType === "like") {
     eventType = "좋아요";
   } else if (props.eventType === "comment") {
@@ -14,14 +15,12 @@ const Noti = (props) => {
 
   return (
     <NotiFrame>
-      <NotiFrame>
-        <NotiProfileInfo>
-          <NotiProfile src={props.recentProfileImg}></NotiProfile>
-          <NotiProfileName>{props.recentNickname}</NotiProfileName>
-        </NotiProfileInfo>
-
-        <NotiContent> 으로부터 {eventType} 알림이 있어요!</NotiContent>
-      </NotiFrame>
+      <NotiProfileInfo>
+        <NotiProfile src={props.recentProfileImg}></NotiProfile>
+        <NotiProfileName>{props.recentNickname}님</NotiProfileName>
+      </NotiProfileInfo>
+      <NotiContent>으로부터 {eventType} 알림이 있어요!</NotiContent>
+      <NotiTime>{time_data}</NotiTime>
     </NotiFrame>
   );
 };
@@ -31,7 +30,7 @@ const NotiFrame = styled.div`
   align-items: center;
   width: 100%;
   border: 1px solid #ececec;
-  border-radius: 12px;
+  padding: 12px 16px;
 `;
 
 const NotiProfileInfo = styled.div`
@@ -55,7 +54,8 @@ const NotiProfileName = styled.span`
 `;
 
 const NotiContent = styled.p`
-  margin: 0 0 0 8px;
+  margin: 0 0 0 0px;
 `;
+const NotiTime = styled.span``;
 
 export default Noti;
