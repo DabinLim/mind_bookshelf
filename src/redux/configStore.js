@@ -7,10 +7,12 @@ import Books from "../redux/modules/books";
 import Answer from "../redux/modules/answer";
 import Community from "../redux/modules/community";
 import Comment from "../redux/modules/comment";
+import Noti from "../redux/modules/noti"
 
 export const history = createBrowserHistory();
 
 const rootReducer = combineReducers({
+  noti: Noti,
   books: Books,
   user: User,
   answer: Answer,

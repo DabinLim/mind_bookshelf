@@ -1,13 +1,25 @@
 import React from "react";
 import styled from "styled-components";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+
+import { history } from "../../redux/configStore";
 
 const RecentQuestion = (props) => {
+  const user = useSelector((state) => state.user.user);
   return (
     <>
       <CardFrame>
         <WriterInfo>
-          <CardWriterProfile src={props.profileImg} />
+          <CardWriterProfile
+            src={props.profileImg}
+            onClick={() => {
+              if (user?.id === props.userId) {
+                history.push(`/mybook`);
+                return;
+              }
+              history.push(`/others/${props.userId}`);
+            }}
+          />
           <HashTag>{props.nickname}</HashTag>
         </WriterInfo>
 

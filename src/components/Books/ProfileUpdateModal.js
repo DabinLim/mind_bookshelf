@@ -4,6 +4,10 @@ import CreateIcon from '@material-ui/icons/Create';
 import {Upload} from '../../shared/sharedindex';
 import {useSelector, useDispatch} from 'react-redux'
 import {api as userActions} from '../../redux/modules/user';
+import Loader from "react-loader-spinner";
+import axios from 'axios';
+
+axios.defaults.baseURL = 'http://lkj99.shop';
 
 const ProfileUpdateModal = (props) => {
   const dispatch = useDispatch()
@@ -12,6 +16,13 @@ const ProfileUpdateModal = (props) => {
   const [edit_nickname, editNickname] = useState(false)
   const [nickname, setNickname] = useState(user_info.nickname? user_info.nickname : "")
   const [introduce, setIntroduce] = useState(user_info.introduce? user_info.introduce : "자신에 대해서 적어주세요.")
+  const [loading, setLoading] = useState(false);
+
+  const getNicknameAX = async() => {
+    const result = await axios.get(`/myPage/profile/random-nickname`)
+    setNickname(result.data.nickname)
+    setLoading(false)
+  }
 
   const changeNickname = (e) => {
     setNickname(e.target.value)
@@ -35,7 +46,14 @@ const ProfileUpdateModal = (props) => {
 
         {edit_nickname? 
         <InputContainer>
-          <Input placeholder={nickname} onChange={changeNickname} />
+          {loading? 
+          <InputRandom>
+            <Loader type="Oval" color="#3d66ba" height={20} width={20} />
+          </InputRandom>
+          : 
+          <InputRandom onClick={()=> {setLoading(true); getNicknameAX()}} >랜덤</InputRandom>
+          }
+          <Input value={nickname} onChange={changeNickname} />
           <InputButton onClick={()=> {dispatch(userActions.UpdateNicknameAX(nickname)); editNickname(false);}} >확인</InputButton>
           <InputButton onClick={() => {editNickname(false); setNickname(user_info.nickname)}} >취소</InputButton>
         </InputContainer>
@@ -116,6 +134,7 @@ const RemoveProfileBtn = styled.button`
 const InputContainer = styled.div`
   margin-bottom: 60px;
   display: flex;
+  position: relative;
 `
 
 const Input = styled.input`
@@ -128,6 +147,14 @@ const Input = styled.input`
   font-size: 20px;
   width: 350px;
   border-box: box-sizing;
+`
+
+const InputRandom = styled.div`
+  position: absolute;
+  cursor: pointer;
+  right: 140px;
+  top: 10px;
+  z-index: 5;
 `
 
 const InputButton = styled.div`
@@ -146,5 +173,6 @@ const StringButton = styled.div`
   margin-left: 20px;
   cursor:pointer;
 `
+
 
 export default ProfileUpdateModal

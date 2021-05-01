@@ -5,6 +5,7 @@ import {config} from '../shared/config'
 import _ from "lodash";
 import {history} from '../redux/configStore'
 import {useSelector} from 'react-redux'
+import Loader from "react-loader-spinner";
 
 const Search = (props) => {
   const [loading, setLoading] = useState(false);
@@ -12,19 +13,21 @@ const Search = (props) => {
   const user = useSelector(state => state.user.user)
 
   const debounce = _.debounce((words) => {
+    setLoading(true)
     const searchUsers = async() => {
-      setLoading(true)
       console.log(words)
       const result = await axios.post(`${config.api}/bookshelf/searchUser`, {words: words})
       console.log(result)
-      if(result.data.userInfo === "none"){
+      if(result.data.userInfo === "none" || result.data.userInfo.length === 0){
         setUser()
+        setLoading(false)
       }else{
         setUser(result.data.userInfo)
+        setLoading(false)
       }
     }
     searchUsers()
-  }, 1000);
+  }, 500);
   console.log(user_list)
 
   const keyPress = React.useCallback(debounce, []);
@@ -36,6 +39,7 @@ const Search = (props) => {
   const clickOther = (id) => {
     if(id === user.id){
       history.push(`/mybook`)
+      props.close()
       return
     }
     history.push(`/others/${id}`);
@@ -54,9 +58,14 @@ const Search = (props) => {
 
   return(
     <React.Fragment>
-      <Background onClick={props.close} />
+      <Background onClick={props.close}/>
       <SearchContainer>
-            <SearchInput  onChange={onChange}   />
+            <SearchInput  onChange={onChange}/>
+            {loading?
+            <SpinContainer>
+              <Loader type="Oval" color="#3d66ba" height={50} width={50} />
+            </SpinContainer>
+            :
             <UserContainer>
               {user_list ? 
               user_list.map((u) => {
@@ -67,6 +76,7 @@ const Search = (props) => {
               })
               : <UserText>찾으시는 유저가 없습니다.</UserText> }
             </UserContainer>
+            }
       </SearchContainer>
     </React.Fragment>
   )
@@ -106,6 +116,10 @@ const UserContainer = styled.div`
   ::-webkit-scrollbar {
     display: none;
     };
+`
+
+const SpinContainer = styled.div`
+    margin-top: 80px;
 `
 
 const UserInfoContainer = styled.div`

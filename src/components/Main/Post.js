@@ -2,6 +2,7 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import swal from "sweetalert";
+import { history } from "../../redux/configStore";
 
 import { api as answerActions } from "../../redux/modules/answer";
 
@@ -29,7 +30,6 @@ const Post = (props) => {
       });
       return;
     }
-    console.log(props.cardId, contents);
     dispatch(answerActions.sendAnswerAX(props.cardId, contents));
     setContents("");
   };
@@ -41,6 +41,9 @@ const Post = (props) => {
         <CardInfo>
           <CardWriterInfo>
             <CardWriterProfile
+              onClick={() => {
+                history.push("/mybook");
+              }}
               src={
                 user_info?.profileImg
                   ? user_info?.profileImg
@@ -62,7 +65,11 @@ const Post = (props) => {
             rows={8}
             onChange={changeContents}
             value={contents}
-            onKeyPress={(e)=>{if(e.key === 'Enter'){addAnswer()}}}
+            onKeyPress={(e) => {
+              if (e.key === "Enter") {
+                addAnswer();
+              }
+            }}
           ></ElTextarea>
           <BtnGroup>
             <SubmitBtn onClick={addAnswer}>답변하기</SubmitBtn>

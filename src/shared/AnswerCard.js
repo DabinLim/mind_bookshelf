@@ -1,18 +1,31 @@
 import React from "react";
 import styled from "styled-components";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { history } from "../redux/configStore";
 
 const AnswerCard = (props) => {
+  const user_info = useSelector((state) => state.user.user);
   return (
     <>
       <CardFrame>
         <WriterInfo>
-          <CardWriterProfile src={props.questionCreatedUserProfileImg} />
+          <CardWriterProfile
+            src={props.questionCreatedUserProfileImg}
+            onClick={() => {
+              if (user_info?.id === props.questionCreatedUserId) {
+                history.push(`/mybook`);
+                return;
+              }
+              history.push(`/others/${props.questionCreatedUserId}`);
+            }}
+          />
           <CardWriter>{props.questionCreatedUserNickname}</CardWriter>
           <span>님의 질문</span>
         </WriterInfo>
         <CardQuestion>{props.questionContents}</CardQuestion>
-        <span style={{fontWeight:'600', paddingTop:'20px'}}>내가 남긴 답변</span>
+        <span style={{ fontWeight: "600", paddingTop: "20px" }}>
+          내가 남긴 답변
+        </span>
         <CardContent>{props.answerContents}</CardContent>
       </CardFrame>
     </>
@@ -41,23 +54,22 @@ const CardWriterProfile = styled.img`
   height: 30px;
   border-radius: 50%;
   background: gray;
-    cursor: pointer;
-
+  cursor: pointer;
 `;
 
 const CardWriter = styled.span`
-  padding:0px 10px;
-  font-weight:600;
+  padding: 0px 10px;
+  font-weight: 600;
 `;
 
 const CardQuestion = styled.h3`
-    margin-top:10px;
-    font-weight:600;
+  margin-top: 10px;
+  font-weight: 600;
 `;
 
 const CardContent = styled.p`
-    height:100%;
-    overflow-y:auto;
+  height: 100%;
+  overflow-y: auto;
   margin-top: 10px;
 `;
 

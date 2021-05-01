@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import styled, { keyframes } from "styled-components";
 import Typewriter from "typewriter-effect";
 
-import {Question, RecentQuestion, Post} from "../components/Main/mainindex";
+import { Question, RecentQuestion, Post } from "../components/Main/mainindex";
 import { api as answerActions } from "../redux/modules/answer";
 import { changeQ } from "../redux/modules/answer";
 import { useDispatch, useSelector } from "react-redux";
 import { getCookie } from "../shared/Cookie";
-
+import { history } from "../redux/configStore";
 import { Switch } from "antd";
 import moment from "moment";
 
@@ -89,7 +89,13 @@ function Main() {
                 <AnsweringUsers>
                   <b>{question_info?.answerCount}</b>명이 낙서중
                 </AnsweringUsers>
-                <ToCommunityBtn>더보기</ToCommunityBtn>
+                <ToCommunityBtn
+                  onClick={() => {
+                    history.push(`/community/${answer_id}`);
+                  }}
+                >
+                  더보기
+                </ToCommunityBtn>
               </AnsweringInfo>
               <CommunitySeductor>
                 {answer_list?.map((a, idx) => {

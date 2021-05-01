@@ -2,44 +2,20 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { history } from "../redux/configStore";
 import { setComponent } from "../redux/modules/books";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import "../static/henrystyle.scss";
 import swal from "sweetalert";
 import { getCookie } from "./Cookie";
 
 const Sidebar = (props) => {
   const dispatch = useDispatch();
-
-  const [isJot, setJot] = useState(true);
-  const [isShelf, setShelf] = useState(false);
-  const [isCom, setCom] = useState(false);
-
-  const onClick = (e) => {
-    if (e.target.dataset.name === undefined) {
-      return;
-    }
-    if (e.target.dataset.name === "오늘의 낙서") {
-      setJot(true);
-      setShelf(false);
-      setCom(false);
-    }
-    if (e.target.dataset.name === "나의 책장" && getCookie("is_login")) {
-      setJot(false);
-      setShelf(true);
-      setCom(false);
-    }
-    if (e.target.dataset.name === "커뮤니티") {
-      setJot(false);
-      setShelf(false);
-      setCom(true);
-    }
-  };
+  const location = useSelector((state) => state.router.location.pathname);
 
   return (
     <>
       <SideFrame>
-        <SideUl onClick={onClick}>
-          {isJot ? (
+        <SideUl>
+          {location === "/" ? (
             <SideLi style={{ background: "white" }}>
               <SideBtn
                 className="sidebtn active"
@@ -65,7 +41,7 @@ const Sidebar = (props) => {
               </SideBtn>
             </SideLi>
           )}
-          {isShelf ? (
+          {location === "/mybook" || location.includes("/others") ? (
             <SideLi style={{ background: "white" }}>
               <SideBtn
                 onClick={() => {
@@ -108,7 +84,7 @@ const Sidebar = (props) => {
               </SideBtn>
             </SideLi>
           )}
-          {isCom ? (
+          {location === "/community" ? (
             <SideLi style={{ background: "white" }}>
               <SideBtn
                 onClick={() => {

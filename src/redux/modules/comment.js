@@ -15,8 +15,16 @@ const commentSlice = createSlice({
   name: "comment",
   initialState: {
     list: [],
+    answer_info: {},
   },
   reducers: {
+    setAnswerInfo: (state, action) => {
+      state.answer_info = action.payload;
+    },
+    editAnswerInfo: (state, action) => {
+      state.answer_info.likeCount = action.payload.likeCount;
+      state.answer_info.like = action.payload.like;
+    },
     setComment: (state, action) => {
       state.list = action.payload;
     },
@@ -24,10 +32,8 @@ const commentSlice = createSlice({
       state.list.unshift(action.payload);
     },
     deleteComment: (state, action) => {
-      const index = state.list[action.payload.question_id].findIndex(
-        (c) => c.commentId === action.payload.commentId
-      );
-      state.list[action.payload.question_id].splice(index, 1);
+      const index = state.list.findIndex((c) => c.commentId === action.payload);
+      state.list.splice(index, 1);
     },
   },
 });
@@ -41,7 +47,6 @@ const getCommentAX = (cardId) => {
     };
     axios(options)
       .then((response) => {
-        console.log(response.data.comments);
         dispatch(setComment(response.data.comments));
       })
       .catch((err) => {
@@ -52,6 +57,8 @@ const getCommentAX = (cardId) => {
       });
   };
 };
+
+
 
 const sendCommentAX = (cardId, content) => {
   return function (dispatch, getState) {
@@ -67,7 +74,6 @@ const sendCommentAX = (cardId, content) => {
     };
     axios(options)
       .then((response) => {
-        console.log(response.data.result);
         dispatch(addComment(response.data.result));
       })
       .catch((err) => {
@@ -79,16 +85,15 @@ const sendCommentAX = (cardId, content) => {
   };
 };
 
-const deleteCommentAX = (cardId, commentId) => {
-  console.log(cardId, commentId);
-  return function (dispatch, getState, { history }) {
+const deleteCommentAX = (commentId) => {
+  console.log(commentId);
+  return function (dispatch, getState) {
     axios({
       method: "DELETE",
       url: `/comment/${commentId}`,
-      data: { commentId: commentId },
     })
       .then((res) => {
-        console.log(res.data);
+        dispatch(deleteComment(commentId));
       })
       .catch((err) => {
         swal({
@@ -100,7 +105,13 @@ const deleteCommentAX = (cardId, commentId) => {
   };
 };
 
-export const { setComment, addComment, deleteComment } = commentSlice.actions;
+export const {
+  setComment,
+  addComment,
+  deleteComment,
+  setAnswerInfo,
+  editAnswerInfo,
+} = commentSlice.actions;
 
 export const api = {
   getCommentAX,
