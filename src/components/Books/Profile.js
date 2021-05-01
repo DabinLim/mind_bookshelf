@@ -28,6 +28,10 @@ const Profile = (props) => {
   const closeFollowModal = () => {
     setFollowModal(false)
   }
+
+  React.useEffect(() => {
+    dispatch(setPageOwner(props.id));
+  },[])
   
   return(
     <>
@@ -47,6 +51,9 @@ const Profile = (props) => {
             <FollowerBtn onClick={() => {dispatch(userActions.unfollowOtherAX(props.id, other_info.nickname))}} >팔로우취소</FollowerBtn>
             : <FollowerBtn onClick={()=>{dispatch(userActions.followOtherAX(props.id, other_info.nickname, other_info.profileImg))}} >팔로우하기</FollowerBtn>
             :null}
+            <MyQuestionBtn onClick={()=>{
+              dispatch(setComponent('othersquestion'))
+          }}>{other_info.nickname}님의 질문</MyQuestionBtn>
           </React.Fragment>
         :
           <React.Fragment>
@@ -156,7 +163,7 @@ const Myfollowers = styled.div`
 
 const SpinnerContainer = styled.div`
   text-align: center;
-  
+
 
 
 

@@ -27,6 +27,10 @@ const AnswerCard = (props) => {
           내가 남긴 답변
         </span>
         <CardContent>{props.answerContents}</CardContent>
+        <Counts>
+        <AnswerCount>{props.commentCount} Comments</AnswerCount>
+        <AnswerCount>{props.likeCount} Likes</AnswerCount>
+        </Counts>
       </CardFrame>
     </>
   );
@@ -68,9 +72,19 @@ const CardQuestion = styled.h3`
 `;
 
 const CardContent = styled.p`
-  height: 100%;
+  height: auto;
   overflow-y: auto;
   margin-top: 10px;
+`;
+
+const Counts = styled.div`
+  display:flex;
+  flex-direction:row;
+  justify-content:flex-end;
+`;
+const AnswerCount = styled.span`
+  margin:0px 10px;
+  font-weight: 600;
 `;
 
 export default AnswerCard;
