@@ -1,22 +1,19 @@
 import React, { useState } from "react";
 import styled, { keyframes } from "styled-components";
 import Typewriter from "typewriter-effect";
-
+import Loader from "react-loader-spinner";
 import { Question, RecentQuestion, Post } from "../components/Main/mainindex";
 import { api as answerActions } from "../redux/modules/answer";
-import { changeQ } from "../redux/modules/answer";
+import { changeQ, setLoading } from "../redux/modules/answer";
 import { useDispatch, useSelector } from "react-redux";
 import { getCookie } from "../shared/Cookie";
 import { history } from "../redux/configStore";
-import { Switch } from "antd";
 import moment from "moment";
 
 function Main() {
   const dispatch = useDispatch();
   const user_info = useSelector((state) => state.user.user);
-  // function onChange(checked) {
-  //   console.log(`switch to ${checked}`);
-  // }
+  const is_loading = useSelector((state) => state.answer.is_loading);
 
   let today = moment().format("YYYY-MM-DD").split("-");
   let month = today[1];
@@ -50,13 +47,11 @@ function Main() {
 
   return (
     <MainFrame>
-      {question_list?.length > 0 ? (
+      {is_loading ? (
+        <Loader type="Oval" color="#3d66ba" height={20} width={20} />
+      ) : question_list?.length > 0 ? (
         <>
-          {/* 메인 왼쪽 편 */}
           <MainLeft>
-            {/* <ToggleBox>
-              <Switch />
-            </ToggleBox> */}
             <DateIndicator>{displayedDate}</DateIndicator>
             <QuestionIndicator>
               <b>{user_info?.nickname ? user_info?.nickname : "고객"}님</b>의

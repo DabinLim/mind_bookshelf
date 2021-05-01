@@ -5,6 +5,8 @@ import { api as communityActions } from "../../redux/modules/community";
 import { useDispatch, useSelector } from "react-redux";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import CommentList from "./CommentList";
+import HideModal from "./HideModal";
+import { MoreOutlined } from "@ant-design/icons";
 import { history } from "../../redux/configStore";
 
 const CardModal = (props) => {
@@ -22,6 +24,17 @@ const CardModal = (props) => {
   const addComment = () => {
     dispatch(commentActions.sendCommentAX(answerInfo?.answerId, comments));
     setComments("");
+  };
+
+  // HideModal function
+  const [isOpen, setOpen] = useState(false);
+
+  const openHide = () => {
+    setOpen(true);
+  };
+
+  const closeHide = () => {
+    setOpen(false);
   };
 
   return (
@@ -49,8 +62,13 @@ const CardModal = (props) => {
               <CardWriter>
                 <b>{answerInfo?.nickname ? answerInfo?.nickname : "고객"}</b>
               </CardWriter>
+              {/* 더보기 아이콘 */}
             </CardWriterInfo>
+            <MoreBtn onClick={openHide}>
+              <MoreOutlined />
+            </MoreBtn>
           </CardInfo>
+          {isOpen && <HideModal close={closeHide} />}
           <h3>{answerInfo?.contents}</h3>
           {/* 댓글 달리는 곳! */}
           <CommentList />
@@ -237,4 +255,16 @@ const LikeCount = styled.div`
   font-size: 17px;
 `;
 
+const MoreBtn = styled.button`
+  font-size: 20px;
+  outline: none;
+  border: none;
+  background: none;
+  cursor: pointer;
+
+  :hover {
+    background: #c4c4c4;
+    border-radius: 50%;
+  }
+`;
 export default CardModal;
