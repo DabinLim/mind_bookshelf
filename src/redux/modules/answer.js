@@ -17,21 +17,28 @@ const answerSlice = createSlice({
     question: {},
     answer_id: null,
     answer_list: [],
-    question_list: [],
+    question_list: null,
+    is_loading: false,
   },
   reducers: {
+    setLoading: (state, action) => {
+      state.is_loading = action.payload;
+    },
     setQuestion: (state, action) => {
       state.question_list = action.payload;
     },
     setAnswer: (state, action) => {
       state.answer_list = action.payload;
+      state.is_loading = false;
     },
     setQ: (state, action) => {
       if (state.question_list.length === 0) {
+        state.is_loading = false;
         return;
       }
       state.question = state.question_list[0];
       state.answer_id = state.question_list[0].cardId;
+      state.is_loading = false;
     },
     changeQ: (state, action) => {
       state.question = action.payload;
@@ -48,6 +55,7 @@ const answerSlice = createSlice({
 
 const getQuestionAX = () => {
   return function (dispatch, getState) {
+    dispatch(setLoading(true));
     const options = {
       url: `/card/daily`,
       method: "GET",
@@ -68,6 +76,7 @@ const getQuestionAX = () => {
 
 const getQuestionAX_NOTLOGIN = () => {
   return function (dispatch, getState) {
+    dispatch(setLoading(true));
     delete axios.defaults.headers.common["Authorization"];
     const options = {
       url: `/card/daily`,
@@ -89,6 +98,7 @@ const getQuestionAX_NOTLOGIN = () => {
 
 const getRecentAnswerAX = (cardId) => {
   return function (dispatch, getState) {
+    dispatch(setLoading(true));
     if (!cardId) {
       return;
     }
@@ -157,6 +167,7 @@ export const {
   setQ,
   setAnswer,
   changeQ,
+  setLoading,
 } = answerSlice.actions;
 
 export const api = {
