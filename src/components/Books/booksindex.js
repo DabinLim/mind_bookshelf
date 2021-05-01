@@ -6,5 +6,6 @@ import MyQuestion from './MyQuestion';
 import NewQuestion from './NewQuestion';
 import Profile from './Profile';
 import ProfileUpdateModal from './ProfileUpdateModal';
+import OthersQuestion from './OthersQuestion'
 
-export {BookDetail, BookShelf, Card, FollowModal, MyQuestion, NewQuestion, Profile, ProfileUpdateModal};
+export {BookDetail, BookShelf, Card, FollowModal, MyQuestion, OthersQuestion, NewQuestion, Profile, ProfileUpdateModal};

@@ -3,10 +3,11 @@ import styled from 'styled-components';
 import {Card, NewQuestion} from './booksindex';
 import {useDispatch, useSelector} from 'react-redux';
 import {api as booksActions, setPage, setNext, resetCustiomQuestion} from '../../redux/modules/books';
-const MyQuestion = (props) => {
+const OthersQuestion = (props) => {
     const dispatch = useDispatch()
     const [modalVisible, setModalVisible] = React.useState(false);
     const custom_question = useSelector(state => state.books.custom_question);
+    const page_owner_id = useSelector(state => state.books.page_owner);
     const openModal = () => {
         setModalVisible(true);
       };
@@ -17,7 +18,7 @@ const MyQuestion = (props) => {
 
     React.useEffect(() => {
         
-            dispatch(booksActions.getMyQuest());
+            dispatch(booksActions.getOthersQuest(page_owner_id));
         
         return () => {
             dispatch(resetCustiomQuestion());
@@ -33,7 +34,7 @@ const MyQuestion = (props) => {
                 <TitleContainer>
                 <Title>생각낙서님의 질문은 27개 입니다.</Title>
                 <AddQuestion onClick={openModal}> 질문 등록하기 </AddQuestion>
-                <button onClick={() => {dispatch(booksActions.getMyQuest())}}>더 보기</button>
+                <button onClick={() => {dispatch(booksActions.getOthersQuest())}}>더 보기</button>
                 </TitleContainer>
                 <CardContainer>
                     {custom_question && custom_question.map((v,idx) => {
@@ -91,4 +92,4 @@ const CardContainer = styled.section`
     overflow:auto;
 `;
 
-export default MyQuestion;
+export default OthersQuestion;
