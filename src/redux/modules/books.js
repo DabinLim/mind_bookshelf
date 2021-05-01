@@ -20,6 +20,7 @@ const booksSlice = createSlice({
     next:true,
     custom_question:[],
     page_owner:null,
+    book_loading: true,
     // card_answers:null,
   },
   reducers: {
@@ -77,10 +78,14 @@ const booksSlice = createSlice({
     },
     resetCustomQuestion: (state) => {
         state.custom_question = [];
+    },
+    setBookLoading: (state, action) => {
+        state.book_loading = action.payload;
     }
     // setSelect : (state, action) => {
     //     state.selected_card = action.payload
     // }
+
   },
 });
 
@@ -117,17 +122,20 @@ const getBooks = (towhen) => {
 
 const getBookDetail = (date) => {
     return function(dispatch) { 
+
         const options = {
             url:`bookshelf/bookDetail/${date}`,
             method:'GET',
         };
         axios(options).then((response) => {
             dispatch(setBookDetail(response.data.booksDiary))
+            dispatch(setBookLoading(false))
         }).catch((err) => {
             console.log(err);
             if(err.response){
                 console.log(err.response.data)
             }
+            dispatch(setBookLoading(false))
         })
     }
 
@@ -135,6 +143,7 @@ const getBookDetail = (date) => {
 
 const getOthersBooks = (towhen, id) => {
     return function( dispatch, getState ) {
+
 
         if(towhen === 1){
             dispatch(changeDate(1));
@@ -163,17 +172,22 @@ const getOthersBooks = (towhen, id) => {
 
 const getOthersBookDetail = (date,id) => {
     return function(dispatch) { 
+
+        dispatch(setBookLoading(true));
+
         const options = {
             url:`bookshelf/other/bookDetail/${date}/${id}`,
             method:'GET',
         };
         axios(options).then((response) => {
-            dispatch(setBookDetail(response.data.booksDiary))
+            dispatch(setBookDetail(response.data.booksDiary));
+            dispatch(setBookLoading(false));
         }).catch((err) => {
             console.log(err);
             if(err.response){
-                console.log(err.response.data)
-            }
+                console.log(err.response.data);
+            };
+            dispatch(setBookLoading(false));
         })
     }
 
@@ -204,6 +218,7 @@ const addQuest = (topic, contents) => {
 
 const getMyQuest = () => {
     return function(dispatch, getState){
+
         const page = getState().books.page;
         const next = getState().books.next;
 
@@ -222,6 +237,7 @@ const getMyQuest = () => {
                 dispatch(setNext(false));
                 window.alert('다음 질문이 없습니다.');
             }
+
             dispatch(setCustomQuestion(response.data.myQuestion))
             dispatch(setPage(page+1))
         }).catch(err => {
@@ -229,12 +245,16 @@ const getMyQuest = () => {
             if(err.response){
                 console.log(err.response.data);
             };
+
         })
     }
 }
 
 const getOthersQuest = (id) => {
     return function(dispatch, getState){
+
+
+
         const page = getState().books.page;
         const next = getState().books.next;
 
@@ -255,11 +275,13 @@ const getOthersQuest = (id) => {
             // }
             // dispatch(setCustomQuestion(response.data.myQuestion))
             // dispatch(setPage(page+1))
+
         }).catch(err => {
             console.log(err);
             if(err.response){
                 console.log(err.response.data);
             };
+
         })
     }
 }
@@ -295,7 +317,8 @@ export const {
     setNext,
     setCustomQuestion,
     resetCustomQuestion,
-    setPageOwner
+    setPageOwner,
+    setBookLoading
     // setCardAnswers,
     // setOther
  } = booksSlice.actions;
