@@ -7,15 +7,21 @@ import {config} from '../../shared/config';
 const notiSlice = createSlice({
   name: "noti",
   initialState: {
-    noti_list: []
+    noti_list: [],
+    is_checked: false,
   },
   reducers: {
     setNoti: (state, action) => {
-      state.noti_list = action.payload;
+      state.noti_list = action.payload.msg;
+      state.is_checked = action.payload.checked;
     },
     addNoti: (state, action) => {
-      state.noti_list.unshift(action.payload)
+      state.noti_list.unshift(action.payload);
+      state.is_checked = true;
     },
+    alarmChecked : (state) => {
+      state.is_checked = false;
+    }
   },
 });
 
@@ -28,8 +34,7 @@ const joinAlarmIO = () => {
     console.log(token)
     socket.emit('joinAlarm', {token: token})
     socket.on('joinAlarm', function(data) {
-      console.log(data)
-      dispatch(setNoti(data.msg))
+      dispatch(setNoti(data))
     })
   }
 }
@@ -43,8 +48,9 @@ const leaveAlarmIO = () => {
 
 const openAlarmIO = () => {
   return function (dispatch){
-    console.log('하이')
+    // console.log('하이')
     socket.emit('openAlarm')
+    dispatch(alarmChecked())
     }
 }
 
@@ -52,6 +58,7 @@ const openAlarmIO = () => {
 export const {
   setNoti,
   addNoti,
+  alarmChecked,
 } = notiSlice.actions;
 
 export const api = {

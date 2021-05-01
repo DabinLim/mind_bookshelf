@@ -17,7 +17,8 @@ const Header = () => {
   const [searchModal, setSearch] = useState(false);
   const [notiModal, setNoti] = useState(false);
   const noti_list = useSelector((state) => state.noti.noti_list);
-  const user = useSelector((state) => state.user.user)
+  const is_checked = useSelector((state) => state.noti.is_checked);
+  const user = useSelector((state) => state.user.user);
 
 
   const closeNotiModal = () => {
@@ -42,15 +43,17 @@ const Header = () => {
             <Icon
               onClick={() => {
                 setNoti(true);
+                dispatch(notiActions.openAlarmIO());
               }}
             >
-              <AlarmNumber>{noti_list.length}</AlarmNumber>
+              {is_checked? 
+              <AlarmBadge/>
+              :null}
               <NotificationsIcon />
             </Icon>
             <Icon
               onClick={() => {
                 setSearch(true);
-                dispatch(notiActions.openAlarmIO());
               }}
             >
               <SearchIcon />
@@ -136,18 +139,18 @@ const Icon = styled.div`
   // background-color: silver;
 `;
 
-const AlarmNumber = styled.div`
+const AlarmBadge = styled.div`
   background-color: red;
-  width: 15px;
-  height: 15px;
+  width: 10px;
+  height: 10px;
   font-size: 9px;
   text-align: center;
   border-radius: 10px;
   position: absolute;
   color: white;
   font-weight: 600;
-  right: 7px;
-  top: 3px;
+  right: 12px;
+  top: 5px;
 `;
 
 export default Header;
