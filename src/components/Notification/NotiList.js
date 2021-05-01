@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import Noti from "./Noti";
 
 const NotiList = (props) => {
-  const noti_list = useSelector((state) => state.noti.noti_list);
+  const noti_list = useSelector((state) => state.noti.new_list);
   return (
     <>
       <NotiListFrame>
