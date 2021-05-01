@@ -3,12 +3,14 @@ import styled from "styled-components";
 
 import { useSelector } from "react-redux";
 import NotiList from "./NotiList";
+import NewNotiList from "./NewNotiList";
 
 const Notification = (props) => {
   return (
     <React.Fragment>
       <Background onClick={props.close} />
       <SearchContainer>
+        <NewNotiList />
         <NotiList />
       </SearchContainer>
     </React.Fragment>
