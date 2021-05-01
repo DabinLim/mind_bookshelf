@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 import { useSelector } from "react-redux";
-import {Comment} from "./communityindex";
+import { Comment } from "./communityindex";
 
 const CommentList = (props) => {
   const comment_list = useSelector((state) => state.comment.list);
@@ -11,7 +11,7 @@ const CommentList = (props) => {
       {comment_list?.map((c, idx) => {
         return (
           <>
-            <Comment {...c} />
+            <Comment key={idx} {...c} />
           </>
         );
       })}
@@ -26,9 +26,7 @@ const CommentContainer = styled.div`
   overflow-y: scroll;
   ::-webkit-scrollbar {
     display: none;
-    };
-
-
-`
+  }
+`;
 
 export default CommentList;

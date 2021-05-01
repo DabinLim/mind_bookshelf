@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import swal from "sweetalert";
+import { Switch } from "antd";
 import { history } from "../../redux/configStore";
 
 import { api as answerActions } from "../../redux/modules/answer";
@@ -10,6 +11,15 @@ const Post = (props) => {
   const dispatch = useDispatch();
   const user_info = useSelector((state) => state.user.user);
   const answer_id = useSelector((state) => state.answer.answer_id);
+
+  const [isChecked, setCheck] = useState(true);
+
+  // Switch function
+  function onChange(checked) {
+    setCheck(checked);
+    console.log(isChecked);
+  }
+
   // contents upload
   const [contents, setContents] = React.useState("");
 
@@ -56,6 +66,12 @@ const Post = (props) => {
             </CardWriter>
           </CardWriterInfo>
           <HashTag>#{props.topic}</HashTag>
+          <Switch
+            checkedChildren="공개"
+            unCheckedChildren="비공개"
+            defaultChecked
+            onChange={onChange}
+          />
         </CardInfo>
         {/* 질문 보여주는 곳 */}
         <CardContent>{props.contents}</CardContent>
@@ -63,6 +79,9 @@ const Post = (props) => {
         <PostBox>
           <ElTextarea
             rows={8}
+            placeholder={`${
+              user_info?.nickname ? user_info?.nickname : "고객"
+            }님이라면 어떻게 답변하시겠어요?`}
             onChange={changeContents}
             value={contents}
             onKeyPress={(e) => {

@@ -20,7 +20,6 @@ const Header = () => {
   const is_checked = useSelector((state) => state.noti.is_checked);
   const user = useSelector((state) => state.user.user);
 
-
   const closeNotiModal = () => {
     setNoti(false);
   };
@@ -46,9 +45,7 @@ const Header = () => {
                 dispatch(notiActions.openAlarmIO());
               }}
             >
-              {is_checked? 
-              <AlarmBadge/>
-              :null}
+              {is_checked ? <AlarmBadge /> : null}
               <NotificationsIcon />
             </Icon>
             <Icon
@@ -62,7 +59,7 @@ const Header = () => {
               onClick={() => {
                 dispatch(notiActions.leaveAlarmIO(user.id));
                 dispatch(logOut());
-                history.replace('/');
+                history.replace("/");
               }}
             >
               Logout
@@ -82,7 +79,8 @@ const Header = () => {
           <Icon
             onClick={() => {
               setSearch(true);
-              dispatch(notiActions.openAlarmIO());
+              console.log("HIHIHIH");
+              // dispatch(notiActions.openAlarmIO());
             }}
           >
             <SearchIcon />

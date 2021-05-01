@@ -1,8 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { getCookie } from "../../shared/Cookie";
-import socketIOClient from 'socket.io-client';
-import {config} from '../../shared/config';
-
+import socketIOClient from "socket.io-client";
+import { config } from "../../shared/config";
 
 const notiSlice = createSlice({
   name: "noti",
@@ -35,47 +34,41 @@ const notiSlice = createSlice({
       state.noti_list.unshift(action.payload);
       state.is_checked = true;
     },
-    alarmChecked : (state) => {
+    alarmChecked: (state) => {
       state.is_checked = false;
-    }
+    },
   },
 });
 
-export const socket = socketIOClient(`${config.api}/alarm`)
-
+export const socket = socketIOClient(`${config.api}/alarm`);
 
 const joinAlarmIO = () => {
-  return function (dispatch){
-    const token = getCookie('is_login')
-    console.log(token)
-    socket.emit('joinAlarm', {token: token})
-    socket.on('joinAlarm', function(data) {
-      dispatch(setNoti(data))
-    })
-  }
-}
+  return function (dispatch) {
+    const token = getCookie("is_login");
+    console.log(token);
+    socket.emit("joinAlarm", { token: token });
+    socket.on("joinAlarm", function (data) {
+      dispatch(setNoti(data));
+    });
+  };
+};
 
 const leaveAlarmIO = () => {
-  return function (dispatch){
+  return function (dispatch) {
     // socket.emit('leave')
-    console.log('로그아웃 성공')
-  }
-}
+    console.log("로그아웃 성공");
+  };
+};
 
 const openAlarmIO = () => {
-  return function (dispatch){
+  return function (dispatch) {
     // console.log('하이')
-    socket.emit('openAlarm')
-    dispatch(alarmChecked())
-    }
-}
+    socket.emit("openAlarm");
+    dispatch(alarmChecked());
+  };
+};
 
-
-export const {
-  setNoti,
-  addNoti,
-  alarmChecked,
-} = notiSlice.actions;
+export const { setNoti, addNoti, alarmChecked } = notiSlice.actions;
 
 export const api = {
   joinAlarmIO,

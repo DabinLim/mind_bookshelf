@@ -1,22 +1,37 @@
 import React from "react";
-import styled from "styled-components"
+import styled from "styled-components";
 
 const Noti = (props) => {
-    return (<><NotiFrame>
+  let eventType = "";
+
+  if (props.eventType === "like") {
+    eventType = "좋아요";
+  } else if (props.eventType === "comment") {
+    eventType = "댓글";
+  } else {
+    eventType = "커스텀";
+  }
+
+  return (
+    <NotiFrame>
+      <NotiFrame>
         <NotiProfileInfo>
-          <NotiProfile>프사<NotiProfile/>
-          <NotiProfileName>닉넴</NotiProfileName>
+          <NotiProfile src={props.recentProfileImg}></NotiProfile>
+          <NotiProfileName>{props.recentNickname}</NotiProfileName>
         </NotiProfileInfo>
-        <NotiContent>알림내용</NotiContent>
-      </NotiFrame></>)
-}
+
+        <NotiContent> 으로부터 {eventType} 알림이 있어요!</NotiContent>
+      </NotiFrame>
+    </NotiFrame>
+  );
+};
 
 const NotiFrame = styled.div`
   display: flex;
   align-items: center;
   width: 100%;
-    border: 1px solid #ececec;
-    border-radius: 12px;
+  border: 1px solid #ececec;
+  border-radius: 12px;
 `;
 
 const NotiProfileInfo = styled.div`
@@ -42,6 +57,5 @@ const NotiProfileName = styled.span`
 const NotiContent = styled.p`
   margin: 0 0 0 8px;
 `;
-
 
 export default Noti;
