@@ -17,6 +17,8 @@ const Header = () => {
   const [searchModal, setSearch] = useState(false);
   const [notiModal, setNoti] = useState(false);
   const noti_list = useSelector((state) => state.noti.noti_list);
+  const user = useSelector((state) => state.user.user)
+
 
   const closeNotiModal = () => {
     setNoti(false);
@@ -55,8 +57,9 @@ const Header = () => {
             </Icon>
             <TextBtn
               onClick={() => {
-                dispatch(notiActions.leaveAlarmIO());
+                dispatch(notiActions.leaveAlarmIO(user.id));
                 dispatch(logOut());
+                history.replace('/');
               }}
             >
               Logout

@@ -4,6 +4,7 @@ import {useSelector, useDispatch} from 'react-redux'
 import {FollowModal, ProfileUpdateModal} from './booksindex'
 import {setComponent} from '../../redux/modules/books'
 import {api as userActions} from '../../redux/modules/user'
+import Loader from "react-loader-spinner";
 
 const Profile = (props) => {
   const dispatch = useDispatch()
@@ -17,7 +18,8 @@ const Profile = (props) => {
   const idx = myfriend_list.findIndex((f) => f.id === props.id)
   const followed = idx !== -1? true :false;
   const is_login  = useSelector((state)=> state.user.is_login)
-
+  const userLoading = useSelector((state)=> state.user.is_userLoading)
+  const friendLoading = useSelector((state) => state.user.is_friendLoading)
 
   const closeUpdateModal = () => {
     setUpdateModal(false)
@@ -52,6 +54,14 @@ const Profile = (props) => {
             {UpdateModal? 
               <ProfileUpdateModal close={closeUpdateModal} />
             :null}
+
+          
+            {friendLoading? 
+            <SpinnerContainer>
+              <Loader type="Oval" color="#3d66ba" height={50} width={50} />
+            </SpinnerContainer>
+            :
+            <>
             <ProfileImgContainer onClick={() => {setUpdateModal(true)}} >
               <ProfileImg style={{cursor:"pointer"}} src={user_info.profileImg} />
               <SettingIcon src="https://cdn4.iconfinder.com/data/icons/forgen-phone-settings/48/setting-512.png" />
@@ -64,6 +74,8 @@ const Profile = (props) => {
             <Introduce>{user_info.introduce}</Introduce>
             <Myfollowers onClick={() => {setFollowModal(true)}} >팔로잉 {myfriend_list.length}명</Myfollowers>
             <MyQuestionBtn onClick={()=>{dispatch(setComponent('myquestion'))}}>나의질문</MyQuestionBtn>
+            </>
+            }
           </React.Fragment>
         
       }
@@ -142,7 +154,13 @@ const Myfollowers = styled.div`
   font-weight: 600;
 `
 
+const SpinnerContainer = styled.div`
+  text-align: center;
+  
 
+
+
+`
 
 
 export default Profile
