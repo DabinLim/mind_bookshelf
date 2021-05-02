@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCookie } from "../shared/Cookie";
 import { history } from "../redux/configStore";
 import moment from "moment";
+import CheckedQuestion from "../components/Main/CheckedQuestion";
 
 function Main() {
   const dispatch = useDispatch();
@@ -29,6 +30,7 @@ function Main() {
   let displayedDate = month + "월" + " " + day + "일";
 
   const question_list = useSelector((state) => state.answer.question_list);
+  console.log(question_list);
   const question_info = useSelector((state) => state.answer.question);
   const answer_list = useSelector((state) => state.answer.answer_list);
   const answer_id = useSelector((state) => state.answer.answer_id);
@@ -49,7 +51,7 @@ function Main() {
     <MainFrame>
       {is_loading ? (
         <Loader type="Oval" color="#3d66ba" height={20} width={20} />
-      ) : question_list?.length > 0 ? (
+      ) : (
         <>
           <MainLeft>
             <DateIndicator>{displayedDate}</DateIndicator>
@@ -60,6 +62,19 @@ function Main() {
             {/* 메인 카드 박스 */}
             <QuestionBox>
               {question_list?.map((q, idx) => {
+                if (!q.available) {
+                  return (
+                    <>
+                      <CheckedQuestion
+                        key={idx}
+                        onClick={() => {
+                          dispatch(changeQ(q));
+                        }}
+                        {...q}
+                      />
+                    </>
+                  );
+                }
                 return (
                   <>
                     <Question
@@ -103,24 +118,6 @@ function Main() {
               </CommunitySeductor>
             </SubRight>
           </MainRight>
-        </>
-      ) : (
-        <>
-          <CompletedMain>
-            <CompletedMainTitle>
-              오늘 답변이 모두 끝났습니다!
-            </CompletedMainTitle>
-            <CompletedMainSubTitle>
-              이제 다른 답변들도 보러 갈까요?
-            </CompletedMainSubTitle>
-            <CompletedMainInvitation>
-              아래 버튼 중 맘에 드는 것부터 가보죠!
-            </CompletedMainInvitation>
-            <CompletedMainBtnGroup>
-              <ToBookShelfBtn>나의 책장 가기</ToBookShelfBtn>
-              <ToCommunBtn>커뮤니티 가기</ToCommunBtn>
-            </CompletedMainBtnGroup>
-          </CompletedMain>
         </>
       )}
     </MainFrame>

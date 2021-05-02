@@ -17,8 +17,8 @@ const answerSlice = createSlice({
     question: {},
     answer_id: null,
     answer_list: [],
-    question_list: null,
-    is_loading: true,
+    question_list: [],
+    is_loading: false,
   },
   reducers: {
     setLoading: (state, action) => {
@@ -121,7 +121,6 @@ const getRecentAnswerAX = (cardId) => {
 
 const sendAnswerAX = (question_id, content) => {
   return function (dispatch, getState) {
-    let first_question = getState().answer.question_list[0];
     let userInfo = getState().user.user;
     if (userInfo.nickname === "") {
       swal({
@@ -143,9 +142,11 @@ const sendAnswerAX = (question_id, content) => {
     axios(options)
       .then((response) => {
         // 여기서 delete 를 써서 리덕스 정리 한 번 업데이트 해준다.
-        dispatch(deleteQuestion(question_id));
-        // 배열의 첫 번째 질문을 보여주는 것!
-        dispatch(setQ(first_question));
+        // dispatch(deleteQuestion(question_id));
+        // // 배열의 첫 번째 질문을 보여주는 것!
+
+        dispatch(setQuestion(response.data.cards));
+        dispatch(setQ(response.data.result));
         swal({
           title: "답변 완료✌",
           text: "답변이 등록되었어요 🤩",
