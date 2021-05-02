@@ -79,7 +79,6 @@ const userSlice = createSlice({
 
 const LoginCheckAX = () => {
   return function (dispatch) {
-    // dispatch(userLoading(true))
     axios
       .get(`/auth/user`)
       .then((res) => {
@@ -291,7 +290,15 @@ const otherFriendListAX = (id) => {
   };
 };
 
-
+const withdrawalAX = () => {
+  return function (dispatch){
+    axios.delete('/myPage/profile/quit').then((res) => {
+      console.log(res)
+      history.replace('/');
+      dispatch(logOut());
+    }).catch((err)=> {console.log(err)})
+  }
+}
 
 export const {
   setUser,
@@ -318,6 +325,7 @@ export const api = {
   myFollowListAX,
   otherFriendListAX,
   unfollowOtherAX,
+  withdrawalAX,
 };
 
 export default userSlice.reducer;

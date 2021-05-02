@@ -32,8 +32,8 @@ const FollowModal = (props) => {
         <SearchInput onChange={onChange} />
         <UserContainer>
           {userInput.length !== 0 ?
-          userInput.map((f) => {
-            return  <UserInfoContainer onClick={() => clickOther(f.id)} >
+          userInput.map((f, idx) => {
+            return  <UserInfoContainer key={idx} onClick={() => clickOther(f.id)} >
                       <ProfileImage src={f.profileImg} />
                       <Username>{f.nickname}</Username>
                     </UserInfoContainer>

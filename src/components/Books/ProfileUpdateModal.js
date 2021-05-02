@@ -134,6 +134,7 @@ const ProfileUpdateModal = (props) => {
             </StringButton>
           </InputContainer>
         )}
+        <Withdrawal onClick={() => {dispatch(userActions.withdrawalAX())}} >회원탈퇴</Withdrawal>
       </UpdateBox>
     </React.Fragment>
   );
@@ -231,5 +232,15 @@ const StringButton = styled.div`
   margin-left: 20px;
   cursor: pointer;
 `;
+
+const Withdrawal = styled.div`
+  margin-bottom: 30px;
+  font-weight: 600;
+  cursor: pointer;
+  opacity: 0.1;
+  &:hover{
+    opacity: 1;
+  }
+`
 
 export default ProfileUpdateModal;

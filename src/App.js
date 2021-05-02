@@ -21,6 +21,7 @@ function App() {
     console.log(data);
     dispatch(addNoti(data));
   })
+
   // 로그인이 되어있는지 확인하고 유저정보를 가져옵니다.
   React.useEffect(() => {
     //쿠키 안에 토큰값이 있으면 회원정보를 불러오고 리덕스에도 로그인상태 true가 됩니다.

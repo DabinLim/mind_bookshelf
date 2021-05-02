@@ -156,6 +156,20 @@ const getAnswers = (id) => {
   };
 };
 
+const getFriendsAnswer = (id) => {
+  return function(dispatch, getState){
+    const page = 1
+    const options = {
+      url:`/bookshelf/moreInfoCard/friend/${id}?page=${page}`,
+      method:"GET"
+    };
+    axios(options).then((response) => {
+      console.log(response.data)
+    })
+
+  } 
+}
+
 const getQuestionInfo = (id) => {
   return function (dispatch) {
     const options = {
@@ -168,6 +182,7 @@ const getQuestionInfo = (id) => {
     })
   }
 }
+
 
 export const {
   setCommunity,
@@ -185,6 +200,7 @@ export const api = {
   getQuestionInfo,
   addLikeAX,
   deleteLikeAX,
+  getFriendsAnswer
 };
 
 export default communitySlice.reducer;
