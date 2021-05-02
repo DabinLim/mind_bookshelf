@@ -16,8 +16,12 @@ const communitySlice = createSlice({
     answers: [],
     page: 1,
     next: true,
+    is_loading: true,
   },
   reducers: {
+    setLoading: (state, action) => {
+      state.is_loading = action.payload
+    },
     setQuestionInfo: (state, action) => {
       state.question_info = action.payload;
     },
@@ -36,8 +40,8 @@ const communitySlice = createSlice({
       state.page = action.payload;
     },
     setCommunity: (state, action) => {
-      // console.log(action.payload)
       state.question = action.payload;
+      state.is_loading = false;
     },
     editLikeInfo: (state, action) => {
       let idx = state.question.findIndex(
@@ -192,6 +196,7 @@ export const {
   setNext,
   setQuestionInfo,
   editLikeInfo,
+  setLoading,
 } = communitySlice.actions;
 
 export const api = {

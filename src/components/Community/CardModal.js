@@ -8,16 +8,31 @@ import CommentList from "./CommentList";
 import HideModal from "./HideModal";
 import { MoreOutlined } from "@ant-design/icons";
 import { history } from "../../redux/configStore";
+import { LocalConvenienceStoreOutlined } from "@material-ui/icons";
 
 const CardModal = (props) => {
   const answerInfo = useSelector((state) => state.comment.answer_info);
   const user_info = useSelector((state) => state.user.user);
   const dispatch = useDispatch();
-
+  const [user, setUser] = useState();
   const [comments, setComments] = useState();
   const ok_submit = comments ? true : false;
 
+
   const selectComment = (e) => {
+    if(e.target.value){
+      if(e.target.value.includes('@')){
+        console.log(e.target.value, e.target.value.split('@')[1])
+        let tag = e.target.value.split('@')[1]
+        if(tag.includes(' ')){
+          console.log(tag.split(' ')[0])
+          setUser(tag.split(' ')[0])
+        }else{
+          console.log(tag)
+          setUser(tag)
+        }
+      }
+    }
     setComments(e.target.value);
   };
 

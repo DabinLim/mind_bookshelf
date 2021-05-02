@@ -18,7 +18,7 @@ const answerSlice = createSlice({
     answer_id: null,
     answer_list: [],
     question_list: null,
-    is_loading: false,
+    is_loading: true,
   },
   reducers: {
     setLoading: (state, action) => {

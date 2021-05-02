@@ -2,6 +2,9 @@ import { createSlice } from "@reduxjs/toolkit";
 import { getCookie } from "../../shared/Cookie";
 import socketIOClient from "socket.io-client";
 import { config } from "../../shared/config";
+import { logOut } from "./user";
+import { setLoading } from "./answer";
+import { history } from "../configStore";
 
 const notiSlice = createSlice({
   name: "noti",
@@ -55,14 +58,15 @@ const joinAlarmIO = () => {
 
 const leaveAlarmIO = () => {
   return function (dispatch) {
-    // socket.emit('leave')
-    console.log("로그아웃 성공");
+    socket.emit('leave');
+    dispatch(setLoading(true))
+    dispatch(logOut());
+    history.replace("/");
   };
 };
 
 const openAlarmIO = () => {
   return function (dispatch) {
-    // console.log('하이')
     socket.emit("openAlarm");
     dispatch(alarmChecked());
   };
