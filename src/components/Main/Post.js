@@ -165,7 +165,7 @@ const HashTag = styled.span`
   font: normal normal bold 14px/19px Roboto;
   letter-spacing: 0px;
   color: #363636;
-  margin-right: 10px;
+  font-size: 12px;
   :hover {
     cursor: pointer;
   }
