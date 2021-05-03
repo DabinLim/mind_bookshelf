@@ -6,6 +6,7 @@ import { Switch } from "antd";
 import { history } from "../../redux/configStore";
 
 import { api as answerActions } from "../../redux/modules/answer";
+import { setComment } from "../../redux/modules/comment";
 
 const Post = (props) => {
   const dispatch = useDispatch();
@@ -14,6 +15,9 @@ const Post = (props) => {
 
   const [isChecked, setCheck] = useState(true);
 
+  // comment counter
+  const [count, setCount] = useState(0);
+  const [stop, setStop] = useState(false);
   // Switch function
   function onChange(checked) {
     setCheck(checked);
@@ -22,13 +26,14 @@ const Post = (props) => {
 
   // contents upload
   const [contents, setContents] = React.useState("");
-
+  const ok_submit = contents ? true : false;
   React.useEffect(() => {
     setContents("");
   }, [answer_id]);
 
   const changeContents = (e) => {
     setContents(e.target.value);
+    setCount(e.target.value.length);
   };
 
   const addAnswer = () => {
@@ -42,6 +47,7 @@ const Post = (props) => {
     }
     dispatch(answerActions.sendAnswerAX(props.cardId, contents));
     setContents("");
+    setCount(0);
   };
   // 유효성 체크
   return (
@@ -64,24 +70,32 @@ const Post = (props) => {
               <b>{props.createdUser}님</b>의 질문
             </CardWriter>
           </CardWriterInfo>
-          <HashTag>#{props.topic}</HashTag>
-          {props.available ? (
-            <Switch
-              checkedChildren="공개"
-              unCheckedChildren="비공개"
-              defaultChecked
-              onChange={onChange}
-            />
-          ) : null}
+          <ExtraGroup>
+            <AnswerInfo>
+              <b>{props.answerCount}명</b>이 답변
+            </AnswerInfo>
+            {props.available ? (
+              <Switch
+                checkedChildren="공개"
+                unCheckedChildren="비공개"
+                defaultChecked
+                onChange={onChange}
+              />
+            ) : null}
+          </ExtraGroup>
         </CardInfo>
         {/* 질문 보여주는 곳 */}
-        <CardContent>{props.contents}</CardContent>
+        <CardContent>
+          <HashTag>#{props.topic}</HashTag>
+          {props.contents}
+        </CardContent>
         {/*  포스트 작성하는 곳 */}
         <PostBox>
           {props.available ? (
             <>
               <ElTextarea
-                rows={8}
+                rows={6}
+                maxlength="200"
                 placeholder={`${
                   user_info?.nickname ? user_info?.nickname : "고객"
                 }님이라면 어떻게 답변하시겠어요?`}
@@ -94,11 +108,26 @@ const Post = (props) => {
                 }}
               ></ElTextarea>
               <BtnGroup>
-                <SubmitBtn onClick={addAnswer}>답변하기</SubmitBtn>
+                {count}/200
+                {ok_submit ? (
+                  <SubmitBtn
+                    onClick={addAnswer}
+                    style={{
+                      background: "#1890FF",
+                      transition: "all 200ms ease-in-out",
+                    }}
+                  >
+                    답변하기
+                  </SubmitBtn>
+                ) : (
+                  <SubmitBtn onClick={addAnswer}>답변하기</SubmitBtn>
+                )}
               </BtnGroup>
             </>
           ) : (
-            "이미 해당 질문에 대한 답변을 하셨습니다!"
+            <div style={{ height: "200px" }}>
+              이미 해당 질문에 대한 답변을 하셨습니다!
+            </div>
           )}
         </PostBox>
       </CardFrame>
@@ -107,10 +136,11 @@ const Post = (props) => {
 };
 
 const CardFrame = styled.div`
-  border-radius: 24px;
+  width: 100%;
   padding: 16px 24px;
-  background: #ececec;
+  background: white;
   text-align: center;
+  border-top-left-radius: 20px;
 `;
 
 const CardInfo = styled.div`
@@ -118,10 +148,24 @@ const CardInfo = styled.div`
   justify-content: space-between;
 `;
 
+const ExtraGroup = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const AnswerInfo = styled.span`
+  margin-right: 8px;
+`;
+
 const HashTag = styled.span`
   padding: 6px 14px;
-  background: #c4c4c4;
+  background: #ededed 0% 0% no-repeat padding-box;
   border-radius: 24px;
+  text-align: left;
+  font: normal normal bold 14px/19px Roboto;
+  letter-spacing: 0px;
+  color: #363636;
+  margin-right: 10px;
   :hover {
     cursor: pointer;
   }
@@ -131,6 +175,8 @@ const CardContent = styled.p`
   margin-top: 20px;
   font-size: 20px;
   font-weight: bolder;
+  display: flex;
+  align-items: center;
 `;
 
 const CardWriterInfo = styled.div`
@@ -155,7 +201,7 @@ const CardWriter = styled.span`
 const PostBox = styled.div``;
 
 const ElTextarea = styled.textarea`
-  padding: 0 16px 40px;
+  padding: 0 16px;
   box-sizing: border-box;
   width: 100%;
   font-size: 20px;
@@ -175,14 +221,16 @@ const ElTextarea = styled.textarea`
 `;
 
 const BtnGroup = styled.div`
-  width: 90%;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
   margin: auto;
   & > button {
     cursor: pointer;
   }
 `;
 const SubmitBtn = styled.button`
-  width: 100%;
+  width: 30%;
   padding: 8px 12px;
   border: none;
   outline: none;

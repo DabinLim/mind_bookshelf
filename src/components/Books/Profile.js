@@ -2,10 +2,9 @@ import React, {useState} from 'react'
 import styled from 'styled-components'
 import {useSelector, useDispatch} from 'react-redux'
 import {FollowModal, ProfileUpdateModal} from './booksindex'
-import {setComponent} from '../../redux/modules/books'
+import {setComponent,setPageOwner, api as booksActions} from '../../redux/modules/books'
 import {api as userActions} from '../../redux/modules/user'
 import Loader from "react-loader-spinner";
-import { setPageOwner } from '../../redux/modules/books'
 
 const Profile = (props) => {
   const dispatch = useDispatch()
@@ -22,6 +21,8 @@ const Profile = (props) => {
   const userLoading = useSelector((state)=> state.user.is_userLoading)
   const friendLoading = useSelector((state) => state.user.is_friendLoading)
 
+  console.log(user_info);
+  console.log(other_info);
 
   const closeUpdateModal = () => {
     setUpdateModal(false)
@@ -32,6 +33,10 @@ const Profile = (props) => {
   }
 
   React.useEffect(() => {
+    // if(is_other){
+    //   dispatch(booksActions.setOthersQuestCount())
+    //   dispatch(booksActions.setQuestCount(props.id))
+    // }
     dispatch(setPageOwner(props.id));
   },[])
   
@@ -40,22 +45,33 @@ const Profile = (props) => {
       {is_other? 
           <React.Fragment>
             {followModal? <FollowModal friend_list={otherfriend_list} close={closeFollowModal} /> : null}
-            <ProfileImg src={other_info.profileImg} style={{marginTop: "50px"}} />
+            <ProfileImgContainer onClick={() => {setUpdateModal(true)}} >
+              <ProfileImg style={{cursor:"pointer"}} src={other_info.profileImg} />
+              <SettingIcon src="https://cdn4.iconfinder.com/data/icons/forgen-phone-settings/48/setting-512.png" />
+            </ProfileImgContainer>
+            <ProfileDetail>
+              <Head>
             <Nickname>{other_info.nickname}</Nickname>
             <SubjectContainer>
               <Subject>#사랑</Subject>
               <Subject>#추억</Subject>
             </SubjectContainer>
-            <Introduce>{other_info.introduce}</Introduce>
-            <Myfollowers onClick={() => {setFollowModal(true)}} >팔로잉 {otherfriend_list.length}명</Myfollowers>
+              </Head>
+              <Body>
+                <Answers>
+                  낙서
+                <span style={{fontSize:'16px', fontWeight:'600',marginLeft:'5px'}}>{other_info.otherAnswerCount}</span>
+                </Answers>
+            <MyQuestionBtn onClick={()=>{dispatch(setComponent('othersquestion'))}}>질문<span style={{fontSize:'16px', fontWeight:'600',marginLeft:'5px'}}>{other_info.otherCustomQuestionCount}</span></MyQuestionBtn>
+            <Myfollowers onClick={() => {setFollowModal(true)}} >구독중<span style={{fontSize:'16px', fontWeight:'600',marginLeft:'5px'}}>{otherfriend_list.length}</span></Myfollowers>
             {is_login?
             followed? 
             <FollowerBtn onClick={() => {dispatch(userActions.unfollowOtherAX(props.id, other_info.nickname))}} >팔로우취소</FollowerBtn>
             : <FollowerBtn onClick={()=>{dispatch(userActions.followOtherAX(props.id, other_info.nickname, other_info.profileImg))}} >팔로우하기</FollowerBtn>
             :null}
-            <MyQuestionBtn onClick={()=>{
-              dispatch(setComponent('othersquestion'))
-          }}>{other_info.nickname}님의 질문</MyQuestionBtn>
+              </Body>
+            <Introduce>{other_info.introduce}</Introduce>
+            </ProfileDetail>
           </React.Fragment>
         :
           <React.Fragment>
@@ -75,14 +91,27 @@ const Profile = (props) => {
               <ProfileImg style={{cursor:"pointer"}} src={user_info.profileImg} />
               <SettingIcon src="https://cdn4.iconfinder.com/data/icons/forgen-phone-settings/48/setting-512.png" />
             </ProfileImgContainer>
+            <ProfileDetail>
+              <Head>
             <Nickname>{user_info.nickname}</Nickname>
             <SubjectContainer>
               <Subject>#사랑</Subject>
               <Subject>#추억</Subject>
             </SubjectContainer>
+              </Head>
+              <Body>
+                <Answers>
+                  낙서
+                  <span style={{fontSize:'16px', fontWeight:'600',marginLeft:'5px'}}>{user_info.myAnswerCount}</span>
+                </Answers>
+            <MyQuestionBtn onClick={()=>{dispatch(setComponent('myquestion'))}}>질문
+            <span style={{fontSize:'16px', fontWeight:'600',marginLeft:'5px'}}>{user_info.myCustomQuestionCount}</span>
+            </MyQuestionBtn>
+            <Myfollowers onClick={() => {setFollowModal(true)}} >구독중<span style={{fontSize:'16px', fontWeight:'600',marginLeft:'5px'}}>{myfriend_list.length}</span></Myfollowers>
+              </Body>
             <Introduce>{user_info.introduce}</Introduce>
-            <Myfollowers onClick={() => {setFollowModal(true)}} >팔로잉 {myfriend_list.length}명</Myfollowers>
-            <MyQuestionBtn onClick={()=>{dispatch(setComponent('myquestion'))}}>나의질문</MyQuestionBtn>
+            </ProfileDetail>
+
             </>
             }
           </React.Fragment>
@@ -95,7 +124,6 @@ const Profile = (props) => {
 
 const ProfileImgContainer = styled.div`
   position: relative;
-  margin-top: 50px;
   width: 150px;
 `
 
@@ -118,6 +146,27 @@ const SettingIcon = styled.img`
   cursor: pointer;
 `
 
+const ProfileDetail = styled.div`
+  margin:0px 0px 0px 40px;
+  width:100%;
+  display:flex;
+  flex-direction:column;
+`;
+
+const Head = styled.div`
+  display:flex;
+  width:100%;
+  flex-direction:row;
+  justify-content:space-between;
+`;
+
+const Body = styled.div`
+  display:flex;
+  width:100%;
+  flex-direction:row;
+  align-items:center;
+`;
+
 const Nickname = styled.div`
   margin-top: 20px;
   font-weight: 600;
@@ -130,17 +179,23 @@ const Introduce = styled.div`
   font-size: 16px;
 `
 
+const Answers = styled.div`
+  margin-right:20px;
+  font-weight: 400;
+  font-size: 16px;
+`;
+
 const FollowerBtn = styled.div`
-  margin-top: 30px;
+  margin-right:20px;
   cursor: pointer;
   font-weight: 600;
   font-size: 18px;
 `
 const MyQuestionBtn = styled.div`
-  margin-top: 30px;
+margin-right:20px;
   cursor: pointer;
-  font-weight: 600;
-  font-size: 18px;
+  font-weight: 400;
+  font-size: 16px;
 `
 
 const SubjectContainer = styled.div`
@@ -150,17 +205,17 @@ const SubjectContainer = styled.div`
 const Subject = styled.div`
   display: inline-block;
   background-color: #E5E5E5;
-  margin-right: 10px;
+  margin-left: 10px;
   padding: 5px 14px;
   border-radius: 18px;
   font-weight: 600;
 `
 
 const Myfollowers = styled.div`
-  font-size: 18px;
-  margin-top: 30px;
+margin-right:20px;
+  font-size: 16px;
   cursor: pointer;
-  font-weight: 600;
+  font-weight: 400;
 `
 
 const SpinnerContainer = styled.div`

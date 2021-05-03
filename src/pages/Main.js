@@ -9,7 +9,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCookie } from "../shared/Cookie";
 import { history } from "../redux/configStore";
 import moment from "moment";
-import CheckedQuestion from "../components/Main/CheckedQuestion";
+import { FaArrowAltCircleRight, FaArrowAltCircleLeft } from "react-icons/fa";
+import { Carousel } from "3d-react-carousal";
+import '../static/Card.css'
 
 function Main() {
   const dispatch = useDispatch();
@@ -34,6 +36,32 @@ function Main() {
   const question_info = useSelector((state) => state.answer.question);
   const answer_list = useSelector((state) => state.answer.answer_list);
   const answer_id = useSelector((state) => state.answer.answer_id);
+  const isChanged = useSelector((state) => state.answer.isChanged);
+  const [card_1, setCard1 ] = React.useState('preselected');
+  const [card_2, setCard2 ] = React.useState('selected');
+  const [card_3, setCard3 ] = React.useState('proselected');
+
+  const turnLeft = () => {
+    if(card_1 === 'selected'){
+      setCard1('proselected');
+      setCard2('preselected');
+      setCard3('selected');
+    }
+    if(card_2 === 'selected'){
+      setCard1('selected');
+      setCard2('proselected');
+      setCard3('preselected');
+    }
+    if(card_3 === 'selected'){
+      setCard1('preselected');
+      setCard2('selected');
+      setCard3('proselected');
+    }
+  }
+
+  const turnRight = () => {
+    
+  }
 
   React.useEffect(() => {
     if (getCookie("is_login")) {
@@ -41,11 +69,17 @@ function Main() {
       return;
     }
     dispatch(answerActions.getQuestionAX_NOTLOGIN());
-  }, []);
+  }, [isChanged]);
 
   React.useEffect(() => {
     dispatch(answerActions.getRecentAnswerAX(answer_id));
   }, [answer_id]);
+
+  let slides = question_list?.map((q) => {
+    return <Post {...q} />;
+  });
+
+  const num = [1,2,3];
 
   return (
     <MainFrame>
@@ -53,48 +87,16 @@ function Main() {
         <Loader type="Oval" color="#3d66ba" height={20} width={20} />
       ) : (
         <>
-          <MainLeft>
-            <DateIndicator>{displayedDate}</DateIndicator>
-            <QuestionIndicator>
-              <b>{user_info?.nickname ? user_info?.nickname : "고객"}님</b>의
-              머리속은?
-            </QuestionIndicator>
-            {/* 메인 카드 박스 */}
-            <QuestionBox>
-              {question_list?.map((q, idx) => {
-                if (!q.available) {
-                  return (
-                    <>
-                      <CheckedQuestion
-                        key={idx}
-                        onClick={() => {
-                          dispatch(changeQ(q));
-                        }}
-                        {...q}
-                      />
-                    </>
-                  );
-                }
-                return (
-                  <>
-                    <Question
-                      key={idx + "msg"}
-                      {...q}
-                      onClick={() => {
-                        dispatch(changeQ(q));
-                      }}
-                    />
-                  </>
-                );
-              })}
-            </QuestionBox>
-          </MainLeft>
-          {/* 메인 오른쪽 편 */}
-          <MainRight>
+          {/* 메인 위쪽 편 */}
+          <MainUpper>
             <SubLeft>
-              <Post {...question_info} blank={" "} />
+              <DateIndicator>{displayedDate}</DateIndicator>
+              <QuestionIndicator>
+                <b>{user_info?.nickname ? user_info?.nickname : "고객"}님</b>의
+                머리속은?
+              </QuestionIndicator>
             </SubLeft>
-            <SubRight>
+            {/* <SubRight>
               <AnsweringInfo>
                 <AnsweringUsers>
                   <b>{question_info?.answerCount}</b>명이 낙서중
@@ -116,8 +118,21 @@ function Main() {
                   );
                 })}
               </CommunitySeductor>
-            </SubRight>
-          </MainRight>
+            </SubRight> */}
+          </MainUpper>
+          {/* 메인 아래쪽 */}
+          <MainLower>
+            {/* <Carousel slides={slides} autoplay={false} /> */}
+            <Fuck>
+              <button onClick={turnLeft}>left</button>
+            <CardContainer>
+              <div className={card_1}>1</div>
+              <div className={card_2}>2</div>
+              <div className={card_3}>3</div>
+            </CardContainer>
+              <button onClick={turnRight}>right</button>
+            </Fuck>
+          </MainLower>
         </>
       )}
     </MainFrame>
@@ -128,96 +143,58 @@ const MainFrame = styled.div`
   padding-top: 10px;
   width: 100%;
   height: 100%;
+`;
+
+// 메인의 위쪽 부분
+
+const MainUpper = styled.section`
   display: flex;
+  justify-content: center;
 `;
-
-// 메인의 왼쪽 부분
-
-const MainLeft = styled.section`
-  flex-basis: 30%;
-  padding-left: 16px;
-`;
-
-const ToggleBox = styled.div``;
 
 // 토글버튼 있어야한다..
 
-const DateIndicator = styled.h2``;
+const DateIndicator = styled.h2`
+  text-align: center;
+  text-align: center;
+  font: normal normal bold 20px/26px Roboto;
+  letter-spacing: 0px;
+  color: #262626;
+  opacity: 1;
+`;
 
 const QuestionIndicator = styled.h3`
-  margin: 20px 0;
+  text-align: center;
+  font: normal normal normal 46px/60px Roboto;
+  letter-spacing: 0px;
+  color: #262626;
 `;
 
-const QuestionBox = styled.section`
-  & > div {
-    :hover {
-      background: yellow;
-      cursor: pointer;
-    }
-  }
-`;
+// 메인의 아래쪽
 
-// 메인의 오른쪽
-
-const MainRight = styled.section`
-  flex-basis: 70%;
-  display: flex;
-`;
-
-const SubLeft = styled.div`
-  flex-basis: 50%;
-`;
-
-const SubRight = styled.div`
-  flex-basis: 50%;
-  padding-left: 16px;
-`;
-
-const CommunitySeductor = styled.div`
+const MainLower = styled.section`
   display: flex;
   flex-direction: column;
-  & > div {
-    margin-right: 8px;
-  }
-
-  & > div > span:hover {
-    cursor: pointer;
-  }
 `;
 
-const AnsweringInfo = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 0 8px;
+const Fuck = styled.div`
+  width:100%;
+  height:100%;
+  display:flex;
+  flex-direction:row;
 `;
 
-const AnsweringUsers = styled.div``;
-
-const ToCommunityBtn = styled.button`
-  border: none;
-  outline: none;
-  background: none;
-  cursor: pointer;
+const CardContainer = styled.div`
+  width:1000px;
+  height:100vh;
+  display:flex;
+  flex-direction:row;
+  justify-content:center;
+  align-items:center;
 `;
 
-// 답변이 다 됐을 때의 뷰
-const CompletedMain = styled.div`
-  text-align: center;
-  width: 100%;
-  padding-top: 55px;
+
+const SubLeft = styled.div`
+  padding: 100px 0;
 `;
-
-const CompletedMainTitle = styled.h1``;
-
-const CompletedMainSubTitle = styled.h2``;
-
-const CompletedMainInvitation = styled.h3``;
-
-const CompletedMainBtnGroup = styled.div``;
-
-const ToBookShelfBtn = styled.button``;
-
-const ToCommunBtn = styled.button``;
-
 export default Main;

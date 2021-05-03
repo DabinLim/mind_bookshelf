@@ -10,6 +10,62 @@
   pointer-events: none;
 }
 
+
+.react-3d-carousel .slider-container .slider-right div {
+  color: #707070 !important;
+  top: 649px;
+  left: 1501px;
+  width: 109px;
+  height: 109px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 60px;
+  background: #ffffff 0% 0% no-repeat padding-box;
+  box-shadow: 0px 0px 20px #0000001f;
+  opacity: 0.8;
+  border: none !important;
+}
+
+.react-3d-carousel .slider-container .slider-left div {
+  color: #707070 !important;
+  box-sizing: border-box;
+  padding-top:10px;
+  top: 649px;
+  left: -73px !important;
+  width: 109px;
+  height: 109px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 60px;
+  background: #ffffff;
+  box-shadow: 0px 0px 20px #0000001f;
+  opacity: 0.8;
+  border: none !important;
+}
+
+/* 
+.slider-left {
+  background-image:url('https://user-images.githubusercontent.com/77574867/116895862-94565d00-ac6e-11eb-94df-bf6c1ab6390e.png');
+  background-size:contain;
+  background-repeat:no-repeat;
+} */
+
+
+.react-3d-carousel
+  .slider-container
+  .slider-content
+  .slider-single
+  .slider-single-content {
+  border-top-left-radius: 20px;
+  max-height: 400px;
+  max-width: 600px;
+  margin:auto;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
@@ -38,4 +94,10 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.fa-arrow-left{
+  background-image:url('https://d29fhpw069ctt2.cloudfront.net/icon/image/39092/preview.png');
+  background-size: contain;
+  background-repeat:no-repeat;
 }

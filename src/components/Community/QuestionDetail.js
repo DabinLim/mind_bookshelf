@@ -3,24 +3,24 @@ import styled from 'styled-components';
 import AnswerCard from '../../shared/AnswerCard2';
 // import {response} from '../redux/Mock/Answers';
 import {useDispatch, useSelector} from 'react-redux';
-import {api as communityActions} from '../../redux/modules/community';
-import {setPage, setNext, resetAnswers} from '../../redux/modules/community';
+import {api as moreviewActions, resetAll, setView} from '../../redux/modules/moreview';
 
 const QuestionDetail = (props) => {
     const dispatch = useDispatch()
     const url = window.location.href.split('/');
     const id = url[url.length -1];
-    const question_info = useSelector(state => state.community.question_info)
+    const now_view = useSelector(state => state.moreview.now_view);
+    const question_info = useSelector(state => state.moreview.question_info);
     console.log(question_info)
-    const answers = useSelector(state => state.community.answers)
+    const answers = useSelector(state => state.moreview.answers);
+    const like_answers = useSelector(state => state.moreview.like_answers);
+    const friends_answers = useSelector(state => state.moreview.friends_answers);
 
     React.useEffect(() => {
-        dispatch(communityActions.getQuestionInfo(id));
-        dispatch(communityActions.getAnswers(id));
+        dispatch(moreviewActions.getQuestionInfo(id));
+        dispatch(moreviewActions.getAnswers(id));
         return () => {
-            dispatch(resetAnswers());
-            dispatch(setNext(true));
-            dispatch(setPage(1));
+            dispatch(resetAll());
         }
     },[])
 
@@ -31,13 +31,33 @@ const QuestionDetail = (props) => {
                 <QuestionTitle>
                     {question_info ? question_info.questionContents : '질문 내용'}
                 </QuestionTitle>
-                <button onClick={()=>{dispatch(communityActions.getAnswers(id))}}>더보기</button>
-                <button onClick={()=>{dispatch(communityActions.getFriendsAnswer(id))}}>test</button>
+                <button onClick={()=>{
+                    dispatch(moreviewActions.getAnswers(id))
+                    dispatch(setView('new'));
+                }}>더보기</button>
+                <button onClick={()=>{
+                    dispatch(moreviewActions.getLikeAnswer(id))
+                    dispatch(setView('like'));   
+                    }}>좋아요 순서</button>
+                <button onClick={()=>{
+                    dispatch(moreviewActions.getFriendsAnswer(id))
+                    dispatch(setView('friends'));
+                    }}>친구 답변</button>
                 <Subject>
                     <span>#사랑</span>
                 </Subject>
                 <AnswersBox>
-                    {answers.length && answers.map((v,idx) => {
+                    {now_view === 'new' && answers.length && answers.map((v,idx) => {
+                        return(
+                            <AnswerCard key={idx} {...v} />
+                        )
+                    })}
+                    {now_view === 'like' && like_answers.length && like_answers.map((v,idx) => {
+                        return(
+                            <AnswerCard key={idx} {...v} />
+                        )
+                    })}
+                    {now_view === 'friends' && friends_answers.length && friends_answers.map((v,idx) => {
                         return(
                             <AnswerCard key={idx} {...v} />
                         )

@@ -26,33 +26,75 @@ const MyBook = (props) => {
     return(
         <React.Fragment>
             <Container>
+            {id === 'mybook' && component === '' && <ImgLeft/>}
+            <ProfileContainer>
+                <Profile/>
+            </ProfileContainer>
                 {id === 'mybook' && component === '' &&
                 <BookShelf date={date}/>
                 }
                 {component === 'myquestion' && <MyQuestion/>}
                 {id !=='mybook' && component === '' &&
                 <BookDetail date={date}/>}
-            <ProfileContainer>
-                <Profile/>
-            </ProfileContainer>
+                {id === 'mybook' && component === '' && <ImgRight/>}
             </Container>
         </React.Fragment>
     )
 }
 
 const Container = styled.div`
-    margin:20px;
     width: 100%;
-    height: 80vh;
+    height: 100%;
     display:flex;
+    flex-direction:column;
     justify-content:space-between;
+    align-items:center;
 `;
 
 const ProfileContainer = styled.section`
-    width: 300px;
-    height:100%;
+    box-sizing:border-box;
+    padding:20px 0px;
+    width: 100%;
+    max-width:975px;
+    height:400px;
     display: flex;
-    flex-direction: column;
-`
+    flex-direction: row;
+`;
+
+const ImgRight = styled.div`
+    z-index:2;
+    position:fixed;
+    background-image:url('https://user-images.githubusercontent.com/77574867/116865619-ed110000-ac44-11eb-94d6-a47a23118a2a.png');
+    background-size:contain;
+    background-repeat:no-repeat;
+    right:-70px;
+    bottom:-13px;
+    width:593px;
+    height:731px;
+    opacity:0.7;
+    pointer-events: none;
+    @media (max-width:1400px){
+        display:none;
+    }
+    
+`;
+
+
+const ImgLeft = styled.div`
+    z-index:2;
+    position:fixed;
+    background-image:url('https://user-images.githubusercontent.com/77574867/116865611-eb473c80-ac44-11eb-81b9-0cfb5d202074.png');
+    background-size:contain;
+    background-repeat:no-repeat;
+    left:-20px;
+    top:249px;
+    width:365px;
+    height:341px;
+    opacity:0.7;
+    pointer-events: none;
+    @media (max-width:1400px){
+        display:none;
+    }
+`;
 
 export default MyBook;
