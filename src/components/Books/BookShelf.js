@@ -7,21 +7,21 @@ import { useSelector, useDispatch } from "react-redux";
 import { api as booksActions } from "../../redux/modules/books";
 
 const BookShelf = (props) => {
-  let num = 31;
-  let book = [];
-  for (let i = 1; i < num; i++) {
-    book.push(i);
-  }
-const book_1 = book.filter((v, idx) => {
-    if (idx < 15) {
-      return true;
-    }
-  });
-  const book_2 = book.filter((v, idx) => {
-    if (idx >= 15) {
-      return true;
-    }
-  });
+//   let num = 32;
+//   let book = [];
+//   for (let i = 1; i < num; i++) {
+//     book.push(i);
+//   }
+// const book_1 = book.filter((v, idx) => {
+//     if (idx < 15) {
+//       return true;
+//     }
+//   });
+//   const book_2 = book.filter((v, idx) => {
+//     if (idx >= 15) {
+//       return true;
+//     }
+//   });
   
   const dispatch = useDispatch();
   const formated_date = useSelector((state) => state.books.formated_date);
@@ -30,16 +30,16 @@ const book_1 = book.filter((v, idx) => {
   let id = url[url.length - 1];
   const date = useSelector((state) => state.books.date);
 
-//   const book_1 = book_list.filter((v, idx) => {
-//     if (idx < 15) {
-//       return true;
-//     }
-//   });
-//   const book_2 = book_list.filter((v, idx) => {
-//     if (idx >= 15) {
-//       return true;
-//     }
-//   });
+  const book_1 = book_list.filter((v, idx) => {
+    if (idx < 15) {
+      return true;
+    }
+  });
+  const book_2 = book_list.filter((v, idx) => {
+    if (idx >= 15) {
+      return true;
+    }
+  });
 
   console.log(book_1)
   console.log(book_2)
@@ -84,21 +84,21 @@ const book_1 = book.filter((v, idx) => {
               book_1.map((v, idx) => {
                 return (
                   <Book
-                    key={idx}/>
-                //     onClick={() => {
-                //       dispatch(changeDate(`20${v._id}`));
-                //       if (id === "mybook") {
-                //         history.push(`/mybook/${v._id}`);
-                //       } else {
-                //         history.push(`/others/${id}/${v._id}`);
-                //       }
-                //     }}
-                //   >
-                //     <span style={{ margin: "auto" }}>
-                //       {v._id.charAt(v._id.length - 2)}
-                //       {v._id.charAt(v._id.length - 1)}
-                //     </span>
-                //   </Book>
+                    key={idx}
+                    onClick={() => {
+                      dispatch(changeDate(`20${v._id}`));
+                      if (id === "mybook") {
+                        history.push(`/mybook/${v._id}`);
+                      } else {
+                        history.push(`/others/${id}/${v._id}`);
+                      }
+                    }}
+                  >
+                    <span style={{ margin: "auto" }}>
+                      {v._id.charAt(v._id.length - 2)}
+                      {v._id.charAt(v._id.length - 1)}
+                    </span>
+                  </Book>
                 );
               })}
           </BookRow>
@@ -110,21 +110,21 @@ const book_1 = book.filter((v, idx) => {
               book_2.map((v, idx) => {
                 return (
                   <Book
-                    key={idx}/>
-                //     onClick={() => {
-                //       dispatch(changeDate(`20${v._id}`));
-                //       if (id === "mybook") {
-                //         history.push(`/mybook/${v._id}`);
-                //       } else {
-                //         history.push(`/others/${id}/${v._id}`);
-                //       }
-                //     }}
-                //   >
-                //     <span>
-                //       {v._id.charAt(v._id.length - 2)}
-                //       {v._id.charAt(v._id.length - 1)}
-                //     </span>
-                //   </Book>
+                    key={idx}
+                    onClick={() => {
+                      dispatch(changeDate(`20${v._id}`));
+                      if (id === "mybook") {
+                        history.push(`/mybook/${v._id}`);
+                      } else {
+                        history.push(`/others/${id}/${v._id}`);
+                      }
+                    }}
+                  >
+                    <span>
+                      {v._id.charAt(v._id.length - 2)}
+                      {v._id.charAt(v._id.length - 1)}
+                    </span>
+                  </Book>
                 );
               })}
           </BookRow>
@@ -173,13 +173,18 @@ const BookRow = styled.div`
   flex-direction: row;
   width: 100%;
   height:180px;
-  max-width: 975px;
-  margin: 10px 0px -5px 0px;
-  @media (max-width:950px){
-        margin:0px 5px;
-        width:765px;
+  max-width: 1040px;
+  margin: 10px 0px -5px 65px;
+  @media (max-width:1000px){
+        
+        width:900px;
     }
+@media (max-width:1040px){
+    margin:10px 0px -5px 0px;
+}
 `;
+
+
 
 const Book = styled.div`
     display:flex;
@@ -192,16 +197,19 @@ const Book = styled.div`
   border-radius: 5px;
   background: linear-gradient(
     to right,
-    rgb(245 180 255 / 90%) 0px,
+    rgb(245 180 255 / 100%) 0px,
     rgb(245 180 255 / 60%) 49.9%,
     rgb(245 180 255 / 60%) 50.1%,
-    rgb(245 180 255 / 90%) 100%
+    rgb(245 180 255 / 100%) 100%
   );
+  box-shadow: 0px 10px 15px #00000029;
+    mix-blend-mode: normal;
   cursor: pointer;
-  @media (max-width:950px){
-        margin:0px 6px;
+  @media (max-width:1000px){
+    margin: 0px 5px;
     }
 `;
+
 
 // const ImgRight = styled.div`
 //     z-index:2;
