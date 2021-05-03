@@ -3,19 +3,28 @@ import { CommunityQnA } from "../components/Community/communityindex";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { api as communityActions } from "../redux/modules/community";
+import Loader from "react-loader-spinner";
+import { setLoading } from "../redux/modules/community"
 
 const Community = () => {
   const dispatch = useDispatch();
   const question_list = useSelector((state) => state.community.question);
+  const is_loading = useSelector((state) => state.community.is_loading)
 
   useEffect(() => {
     dispatch(communityActions.communityQuestionAX());
+    return() => {
+      dispatch(setLoading(true));
+    }
   }, []);
 
   return (
     <React.Fragment>
       <CommunityContainer>
         <div></div>
+        {is_loading? 
+        <Loader type="Oval" color="#3d66ba" height={50} width={50} />
+        :
         <CommunityBox>
           {question_list !== 0
             ? question_list.map((q) => {
@@ -23,6 +32,7 @@ const Community = () => {
               })
             : null}
         </CommunityBox>
+        }
       </CommunityContainer>
     </React.Fragment>
   );

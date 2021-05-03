@@ -165,10 +165,6 @@ const Myfollowers = styled.div`
 
 const SpinnerContainer = styled.div`
   text-align: center;
-
-
-
-
 `
 
 
