@@ -7,21 +7,21 @@ import { useSelector, useDispatch } from "react-redux";
 import { api as booksActions } from "../../redux/modules/books";
 
 const BookShelf = (props) => {
-//   let num = 32;
-//   let book = [];
-//   for (let i = 1; i < num; i++) {
-//     book.push(i);
-//   }
-// const book_1 = book.filter((v, idx) => {
-//     if (idx < 15) {
-//       return true;
-//     }
-//   });
-//   const book_2 = book.filter((v, idx) => {
-//     if (idx >= 15) {
-//       return true;
-//     }
-//   });
+  let num = 32;
+  let book = [];
+  for (let i = 1; i < num; i++) {
+    book.push(i);
+  }
+const book_1 = book.filter((v, idx) => {
+    if (idx < 15) {
+      return true;
+    }
+  });
+  const book_2 = book.filter((v, idx) => {
+    if (idx >= 15) {
+      return true;
+    }
+  });
   
   const dispatch = useDispatch();
   const formated_date = useSelector((state) => state.books.formated_date);
@@ -30,16 +30,16 @@ const BookShelf = (props) => {
   let id = url[url.length - 1];
   const date = useSelector((state) => state.books.date);
 
-  const book_1 = book_list.filter((v, idx) => {
-    if (idx < 15) {
-      return true;
-    }
-  });
-  const book_2 = book_list.filter((v, idx) => {
-    if (idx >= 15) {
-      return true;
-    }
-  });
+  // const book_1 = book_list.filter((v, idx) => {
+  //   if (idx < 15) {
+  //     return true;
+  //   }
+  // });
+  // const book_2 = book_list.filter((v, idx) => {
+  //   if (idx >= 15) {
+  //     return true;
+  //   }
+  // });
 
   console.log(book_1)
   console.log(book_2)
@@ -83,24 +83,26 @@ const BookShelf = (props) => {
             {book_1 &&
               book_1.map((v, idx) => {
                 return (
-                  <Book
-                    key={idx}
-                    onClick={() => {
-                      dispatch(changeDate(`20${v._id}`));
-                      if (id === "mybook") {
-                        history.push(`/mybook/${v._id}`);
-                      } else {
-                        history.push(`/others/${id}/${v._id}`);
-                      }
-                    }}
-                  >
-                    <span>
-                      {v._id.charAt(v._id.length - 2)}
-                      {v._id.charAt(v._id.length - 1)}
-                    </span>
-                    <BookRadiusTop/>
-                    <BookRadiusBottom/>
+                  <Book key={idx}>
+                  <BookRadiusTop/>
+                  <BookRadiusBottom/>
                   </Book>
+              //       onClick={() => {
+              //         dispatch(changeDate(`20${v._id}`));
+              //         if (id === "mybook") {
+              //           history.push(`/mybook/${v._id}`);
+              //         } else {
+              //           history.push(`/others/${id}/${v._id}`);
+              //         }
+              //       }}
+              //     >
+              //       <span>
+              //         {v._id.charAt(v._id.length - 2)}
+              //         {v._id.charAt(v._id.length - 1)}
+              //       </span>
+              //       <BookRadiusTop/>
+              //       <BookRadiusBottom/>
+              //     </Book>
                 );
               })}
           </BookRow>
@@ -112,25 +114,31 @@ const BookShelf = (props) => {
               book_2.map((v, idx) => {
                 return (
                   <Book
-                    key={idx}
-                    onClick={() => {
-                      dispatch(changeDate(`20${v._id}`));
-                      if (id === "mybook") {
-                        history.push(`/mybook/${v._id}`);
-                      } else {
-                        history.push(`/others/${id}/${v._id}`);
-                      }
-                    }}
-                  >
-                    <span>
-                      {v._id.charAt(v._id.length - 2)}
-                      {v._id.charAt(v._id.length - 1)}
-                    </span>
-                    <BookRadiusTop/>
-                    <BookRadiusBottom/>
+                    key={idx}>
+                  <BookRadiusTop/>
+                  <BookRadiusBottom/>
                   </Book>
+
+
+                  //   onClick={() => {
+                  //     dispatch(changeDate(`20${v._id}`));
+                  //     if (id === "mybook") {
+                  //       history.push(`/mybook/${v._id}`);
+                  //     } else {
+                  //       history.push(`/others/${id}/${v._id}`);
+                  //     }
+                  //   }}
+                  // >
+                  //   <span>
+                  //     {v._id.charAt(v._id.length - 2)}
+                  //     {v._id.charAt(v._id.length - 1)}
+                  //   </span>
+                  //   <BookRadiusTop/>
+                  //   <BookRadiusBottom/>
+                  // </Book>
                 );
               })}
+              
           </BookRow>
           <Shelf></Shelf>
         </ShelfBox>

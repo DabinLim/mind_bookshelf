@@ -83,9 +83,8 @@ const CardModal = (props) => {
               <MoreOutlined />
             </MoreBtn>
           </CardInfo>
+          <Line/>
           {isOpen && <HideModal close={closeHide} />}
-          <h3>{answerInfo?.contents}</h3>
-          {/* 댓글 달리는 곳! */}
           <CommentList />
           <LikeContainer>
             {answerInfo.like ? (
@@ -157,13 +156,15 @@ const Component = styled.div`
 `;
 
 const ModalComponent = styled.div`
+  overflow:hidden;
+  border-radius:50px;
   position: fixed;
-  width: 950px;
-  height: 600px;
+  width: 840px;
+  height: 500px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: white;
+  background-color: lightgray;
   z-index: 20;
   display: flex;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.12), 0 2px 5px rgba(0, 0, 0, 0.24);
@@ -176,25 +177,36 @@ const ModalComponent = styled.div`
 `;
 
 const ModalContent = styled.div`
-  width: 550px;
-  height: 600px;
+    box-sizing:border-box;
+  padding:40px;
+  width: 500px;
+  height: 500px;
   @media (max-width: 950px) {
     display: none;
   }
 `;
 
 const ModalRightContainer = styled.div`
+  box-sizing:border-box;
+  padding:15px 0px 0px 0px;
   width: 400px;
-  height: 600px;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  border-left: 1px solid #efefef;
+  background-color:white;
 `;
 
 const CardInfo = styled.div`
+  margin: 0px 15px;
   display: flex;
   justify-content: space-between;
+`;
+
+const Line = styled.hr`
+
+  margin: 10px 0px;
+  border: 1px dotted #dbdbdb;
 `;
 
 const CardWriterInfo = styled.div`

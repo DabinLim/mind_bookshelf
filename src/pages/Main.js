@@ -122,7 +122,7 @@ function Main() {
           </MainUpper>
           {/* 메인 아래쪽 */}
           <MainLower>
-            {/* <Carousel slides={slides} autoplay={false} /> */}
+            <Carousel slides={slides} autoplay={false} />
             <Fuck>
               <button onClick={turnLeft}>left</button>
             <CardContainer>

@@ -20,6 +20,7 @@ const CommentList = (props) => {
 };
 
 const CommentContainer = styled.div`
+  margin: 0px 15px;
   display: flex;
   flex-direction: column;
   height: 400px;
