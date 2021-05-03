@@ -39,7 +39,7 @@ const commentSlice = createSlice({
 });
 
 const getCommentAX = (cardId) => {
-  return function (dispatch, getState) {
+  return function (dispatch) {
     console.log(cardId);
     const options = {
       url: `/comment/${cardId}`,
@@ -47,6 +47,7 @@ const getCommentAX = (cardId) => {
     };
     axios(options)
       .then((response) => {
+        console.log(response.data.comments)
         dispatch(setComment(response.data.comments));
       })
       .catch((err) => {
@@ -60,28 +61,30 @@ const getCommentAX = (cardId) => {
 
 
 
-const sendCommentAX = (cardId, content) => {
-  return function (dispatch, getState) {
+const sendCommentAX = (cardId, content, tagId = []) => {
+  return function (dispatch) {
     // console.log(cardId, content);
     // return;
-    let comment_data = {
-      commentContents: content,
-    };
-    const options = {
-      url: `/comment/${cardId}`,
-      method: "POST",
-      data: comment_data,
-    };
-    axios(options)
-      .then((response) => {
-        dispatch(addComment(response.data.result));
-      })
-      .catch((err) => {
-        console.log(err);
-        if (err.response) {
-          console.log(err.response.data);
-        }
-      });
+      console.log(tagId)
+      let comment_data = {
+        commentContents: content,
+        tag : tagId,
+      };
+      const options = {
+        url: `/comment/${cardId}`,
+        method: "POST",
+        data: comment_data,
+      };
+      axios(options)
+        .then((response) => {
+          dispatch(addComment(response.data.result));
+        })
+        .catch((err) => {
+          console.log(err);
+          if (err.response) {
+            console.log(err.response.data);
+          }
+        });
   };
 };
 
