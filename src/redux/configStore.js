@@ -8,6 +8,7 @@ import Answer from "../redux/modules/answer";
 import Community from "../redux/modules/community";
 import Comment from "../redux/modules/comment";
 import Noti from "../redux/modules/noti"
+import Moreview from "../redux/modules/moreview"
 
 export const history = createBrowserHistory();
 
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
   answer: Answer,
   community: Community,
   comment: Comment,
+  moreview: Moreview,
   router: connectRouter(history),
 });
 
