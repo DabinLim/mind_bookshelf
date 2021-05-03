@@ -1,45 +1,153 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import styled from "styled-components";
-import { api as commentActions } from "../../redux/modules/comment";
+import { api as commentActions, setComment } from "../../redux/modules/comment";
 import { api as communityActions } from "../../redux/modules/community";
 import { useDispatch, useSelector } from "react-redux";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import CommentList from "./CommentList";
 import HideModal from "./HideModal";
+import TagModal from "./TagModal"
 import { MoreOutlined } from "@ant-design/icons";
 import { history } from "../../redux/configStore";
-import { LocalConvenienceStoreOutlined } from "@material-ui/icons";
+import axios from 'axios'
+import {config} from '../../shared/config'
+import _ from "lodash";
 
 const CardModal = (props) => {
   const answerInfo = useSelector((state) => state.comment.answer_info);
   const user_info = useSelector((state) => state.user.user);
   const dispatch = useDispatch();
-  const [user, setUser] = useState();
+  const [loading, setLoading] = useState(false);
+  const [user_list, setUser_list] = useState();
+  // const [user, setUser] = useState(); 
   const [comments, setComments] = useState();
+  const [tagModal, setTagModal] = useState(false);
+  const cmtInput = useRef()
   const ok_submit = comments ? true : false;
+  
 
-
-  const selectComment = (e) => {
-    if(e.target.value){
-      if(e.target.value.includes('@')){
-        console.log(e.target.value, e.target.value.split('@')[1])
-        let tag = e.target.value.split('@')[1]
-        if(tag.includes(' ')){
-          console.log(tag.split(' ')[0])
-          setUser(tag.split(' ')[0])
-        }else{
-          console.log(tag)
-          setUser(tag)
-        }
+  const debounce = _.debounce((words) => {
+    setLoading(true)
+    const searchUsers = async() => {
+      const result = await axios.post(`${config.api}/bookshelf/searchUser`, {words: words})
+      if(result.data.userInfo === "none" || result.data.userInfo.length === 0){
+        setUser_list()
+        setLoading(false)
+      }else{
+        setUser_list(result.data.userInfo)
+        setLoading(false)
       }
     }
+    searchUsers()
+  }, 500);
+
+  const keyPress = React.useCallback(debounce, []);
+  
+  const tagSetting = (start, text) => {
+    console.log(start ,text)
+    if(text[start-1] === "@"){
+      return(true)
+    }
+    for(let i = start-1; i >= 0; i--){
+      console.log(i, text[i])
+      if(text[i] === " "){
+        console.log(3)
+        return false 
+      } else if(text[i] === "@"){
+        console.log(5)
+        return text.substring(i+1, start)
+      }
+    }
+    console.log(4)
+    return false
+  }
+
+  const getUserTag = (nickname) => {
+    let start = cmtInput.current.selectionStart
+    let text = cmtInput.current.value
+    for(let i = start-1; i >= 0; i--){
+      if(text[i] === "@"){
+        let end_point = start;
+        while(end_point < text.length && text[end_point]!=" "){
+          end_point += 1;
+        }
+        let cmt = text.substr(0, i+1) + nickname + text.substr(end_point, text.length);
+        setComments(cmt)
+        return
+      } 
+    }
+  }
+
+  const selectComment = (e) => {
+    console.log(e.target.selectionStart) 
+      console.log(e.target.value)
+      console.log(0)
+      const word = tagSetting(e.target.selectionStart, e.target.value)
+      console.log(word)
+      if(word){
+        console.log(word)
+        setTagModal(true)
+        keyPress(word)
+      }else{
+        setTagModal(false)
+      }
     setComments(e.target.value);
   };
 
-  const addComment = () => {
-    dispatch(commentActions.sendCommentAX(answerInfo?.answerId, comments));
+  const CheckTagAX = async(words) => {
+    const result = await axios.post(`${config.api}/bookshelf/searchUser`, {words: words})
+      if(result.data.userInfo === "none" || result.data.userInfo.length === 0){
+        return
+      }else{
+        let userInfo = result.data.userInfo;
+        console.log(userInfo)
+        for(let user of userInfo){
+          if(words === user.nickname){
+            return user.userId
+          }
+        }
+        return
+      }
+  }
+
+  const CheckTag = async () => {
+    let status = 0;
+    let temp  = "";
+    let list = [];
+    for(let i = 0; i < comments.length; i++){
+      if(comments[i] === "@"){
+        status = 1;
+      }else if(status === 1 && comments[i] !== " "){
+        temp += comments[i]
+      }else if(comments[i] === " "){
+        status = 0;
+        if(temp){
+          console.log(temp)
+          let tag = await CheckTagAX(temp);
+            if(tag){
+              list.push(tag);
+            }
+          temp = "";
+        }
+      }
+    }
+    if(temp){
+      console.log(temp)
+      let tag = await CheckTagAX(temp);
+        if(tag){
+          list.push(tag);
+        }
+    }
+    return list
+  }
+
+  const addComment = async () => {
+    let tagId = await CheckTag()
+    dispatch(commentActions.sendCommentAX(answerInfo?.answerId, comments, tagId));
     setComments("");
   };
+
+  
 
   // HideModal function
   const [isOpen, setOpen] = useState(false);
@@ -124,12 +232,20 @@ const CardModal = (props) => {
               type="text"
               placeholder="댓글달기..."
               onChange={selectComment}
+              value
               value={comments}
+              ref={cmtInput}
+              
               onKeyPress={(e) => {
                 if (e.key === "Enter") {
-                  addComment();
+                  addComment();}
+              }}
+              onKeyUp={(e)=>{
+                if (e.key === "ArrowRight" || e.key === "ArrowLeft"){
+                  selectComment(e)
                 }
               }}
+              onClick={selectComment}
             />
             {ok_submit ? (
               <ModalUpload onClick={addComment} style={{ cursor: "pointer" }}>
@@ -139,6 +255,9 @@ const CardModal = (props) => {
               <ModalUpload style={{ opacity: "0.3" }}>게시</ModalUpload>
             )}
           </ModalCmtInputBox>
+          {tagModal? 
+          <TagModal loading={loading} user_list={user_list} getUserTag={getUserTag} />
+          :null}
         </ModalRightContainer>
       </ModalComponent>
     </React.Fragment>
@@ -184,6 +303,7 @@ const ModalContent = styled.div`
 `;
 
 const ModalRightContainer = styled.div`
+  position: relative;
   width: 400px;
   height: 600px;
   display: flex;
