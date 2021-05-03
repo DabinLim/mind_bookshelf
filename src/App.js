@@ -6,21 +6,27 @@ import { Route } from "react-router-dom";
 import { history } from "./redux/configStore";
 import { useDispatch } from "react-redux";
 import { api as userActions } from "./redux/modules/user";
-import {Sidebar, Header} from "./shared/sharedindex";
-import {Main, Auth, MyBooks, OthersBooks, Community} from './pages/pagesindex';
+import { Sidebar, Header } from "./shared/sharedindex";
+import {
+  Main,
+  Auth,
+  MyBooks,
+  OthersBooks,
+  Community,
+} from "./pages/pagesindex";
 import { getCookie } from "./shared/Cookie";
-import QuestionDetail from './components/Community/QuestionDetail';
-import {socket, addNoti} from './redux/modules/noti'
-
+import QuestionDetail from "./components/Community/QuestionDetail";
+import { socket, addNoti } from "./redux/modules/noti";
+import ComponentSlider from "./components/Main/ComponentSlider";
 
 function App() {
   const dispatch = useDispatch();
   const cookie = getCookie("is_login") ? true : false;
-  
-  socket.on('AlarmEvent', function(data) {
+
+  socket.on("AlarmEvent", function (data) {
     console.log(data);
     dispatch(addNoti(data));
-  })
+  });
 
   // 로그인이 되어있는지 확인하고 유저정보를 가져옵니다.
   React.useEffect(() => {
@@ -33,7 +39,7 @@ function App() {
     <React.Fragment>
       <Header />
       <ContentFrame>
-        <Sidebar />
+        {/* <Sidebar /> */}
         <ConnectedRouter history={history}>
           <Route exact path="/" component={Main} />
           <Route exact path="/auth/:id" component={Auth} />
@@ -43,6 +49,7 @@ function App() {
           <Route exact path="/others/:id/:date" component={OthersBooks} />
           <Route exact path="/community" component={Community} />
           <Route exact path="/community/:id" component={QuestionDetail} />
+          <Route exact path="/test" component={ComponentSlider} />
         </ConnectedRouter>
       </ContentFrame>
     </React.Fragment>

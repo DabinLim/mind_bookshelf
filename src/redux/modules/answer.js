@@ -26,20 +26,21 @@ const answerSlice = createSlice({
     },
     setQuestion: (state, action) => {
       state.question_list = action.payload;
+      state.is_loading = false;
     },
     setAnswer: (state, action) => {
       state.answer_list = action.payload;
       state.is_loading = false;
     },
-    setQ: (state, action) => {
-      if (state.question_list.length === 0) {
-        state.is_loading = false;
-        return;
-      }
-      state.question = state.question_list[0];
-      state.answer_id = state.question_list[0].cardId;
-      state.is_loading = false;
-    },
+    // setQ: (state, action) => {
+    //   if (state.question_list.length === 0) {
+    //     state.is_loading = false;
+    //     return;
+    //   }
+    //   state.question = state.question_list[0];
+    //   state.answer_id = state.question_list[0].cardId;
+    //   state.is_loading = false;
+    // },
     changeQ: (state, action) => {
       state.question = action.payload;
       state.answer_id = action.payload.cardId;
@@ -63,7 +64,7 @@ const getQuestionAX = () => {
     axios(options)
       .then((response) => {
         dispatch(setQuestion(response.data.cards));
-        dispatch(setQ(response.data.cards[0]));
+        // dispatch(setQ(response.data.cards[0]));
       })
       .catch((err) => {
         console.log(err);
@@ -85,7 +86,7 @@ const getQuestionAX_NOTLOGIN = () => {
     axios(options)
       .then((response) => {
         dispatch(setQuestion(response.data.cards));
-        dispatch(setQ(response.data.cards[0]));
+        // dispatch(setQ(response.data.cards[0]));
       })
       .catch((err) => {
         console.log(err);
@@ -146,7 +147,7 @@ const sendAnswerAX = (question_id, content) => {
         // // 배열의 첫 번째 질문을 보여주는 것!
 
         dispatch(setQuestion(response.data.cards));
-        dispatch(setQ(response.data.result));
+        // dispatch(setQ(response.data.result));
         swal({
           title: "답변 완료✌",
           text: "답변이 등록되었어요 🤩",
