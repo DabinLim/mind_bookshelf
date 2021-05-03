@@ -82,9 +82,11 @@ const LoginCheckAX = () => {
     axios
       .get(`/auth/user`)
       .then((res) => {
-        console.log(res);
+        console.log(res.data);
         dispatch(
           setUser({
+            myAnswerCount: res.data.myAnswerCount,
+            myCustomQuestionCount : res.data.myCustomQuestionCount,
             introduce: res.data.introduce,
             profileImg: res.data.profileImg,
             nickname: res.data.nickname,
@@ -104,9 +106,11 @@ const SocialLoginAX = () => {
     axios
       .get(`/auth/user`)
       .then((res) => {
-        console.log(res);
+        console.log(res.data);
         dispatch(
           setUser({
+            myAnswerCount: res.data.myAnswerCount,
+            myCustomQuestionCount : res.data.myCustomQuestionCount,
             introduce: res.data.introduce,
             profileImg: res.data.profileImg,
             nickname: res.data.nickname,
@@ -195,9 +199,11 @@ const othersInfoAX = (id) => {
   return function (dispatch) {
     console.log(id);
     axios.get(`/bookshelf/auth/user/${id}`).then((res) => {
-      console.log(res);
+      console.log(res.data);
       dispatch(
         setOther({
+          otherAnswerCount: res.data.otherAnswerCount,
+          otherCustomQuestionCount : res.data.otherCustomQuestionCount,
           introduce: res.data.introduce,
           profileImg: res.data.profileImg,
           nickname: res.data.nickname,
@@ -272,9 +278,9 @@ const myFollowListAX = () => {
 const otherFriendListAX = (id) => {
   friendLoading()
   return function (dispatch) {
-    console.log(id);
+    // console.log(id);
     axios.get(`/bookshelf/other/friendList/${id}`).then((res) => {
-      console.log(res);
+      // console.log(res.data);
       let otherFriend_list = [];
       res.data.othersFriend.forEach((_friend) => {
         let friend = {

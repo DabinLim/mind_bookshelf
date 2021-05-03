@@ -26,7 +26,7 @@ const MyBook = (props) => {
     return(
         <React.Fragment>
             <Container>
-                <ImgLeft/>
+            {id === 'mybook' && component === '' && <ImgLeft/>}
             <ProfileContainer>
                 <Profile/>
             </ProfileContainer>
@@ -36,7 +36,7 @@ const MyBook = (props) => {
                 {component === 'myquestion' && <MyQuestion/>}
                 {id !=='mybook' && component === '' &&
                 <BookDetail date={date}/>}
-                <ImgRight/>
+                {id === 'mybook' && component === '' && <ImgRight/>}
             </Container>
         </React.Fragment>
     )
@@ -44,7 +44,7 @@ const MyBook = (props) => {
 
 const Container = styled.div`
     width: 100%;
-    height: 80vh;
+    height: 100%;
     display:flex;
     flex-direction:column;
     justify-content:space-between;
@@ -52,39 +52,49 @@ const Container = styled.div`
 `;
 
 const ProfileContainer = styled.section`
+    box-sizing:border-box;
+    padding:20px 0px;
     width: 100%;
-    max-width:900px;
+    max-width:975px;
     height:400px;
     display: flex;
     flex-direction: row;
-    border: 1px solid black;
 `;
 
 const ImgRight = styled.div`
     z-index:2;
-    position:absolute;
-    background-image:url('https://user-images.githubusercontent.com/77574867/116843082-cbe6ea00-ac19-11eb-934f-a8c5535229d4.png');
+    position:fixed;
+    background-image:url('https://user-images.githubusercontent.com/77574867/116865619-ed110000-ac44-11eb-94d6-a47a23118a2a.png');
     background-size:contain;
     background-repeat:no-repeat;
-    right:0;
-    bottom:0;
-    width:500px;
-    height:635px;
+    right:-70px;
+    bottom:-13px;
+    width:593px;
+    height:731px;
+    opacity:0.7;
+    pointer-events: none;
+    @media (max-width:1400px){
+        display:none;
+    }
     
 `;
 
 
 const ImgLeft = styled.div`
     z-index:2;
-    position:absolute;
-    background-image:url('https://user-images.githubusercontent.com/77574867/116843085-cdb0ad80-ac19-11eb-914e-23580b56f529.png');
+    position:fixed;
+    background-image:url('https://user-images.githubusercontent.com/77574867/116865611-eb473c80-ac44-11eb-81b9-0cfb5d202074.png');
     background-size:contain;
     background-repeat:no-repeat;
-    left:0;
-    bottom:45%;
-    width:400px;
-    height:400px;
-    
+    left:-20px;
+    top:249px;
+    width:365px;
+    height:341px;
+    opacity:0.7;
+    pointer-events: none;
+    @media (max-width:1400px){
+        display:none;
+    }
 `;
 
 export default MyBook;
