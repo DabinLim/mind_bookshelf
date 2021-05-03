@@ -8,6 +8,9 @@ const Comment = (props) => {
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.user.user);
 
+  // const comment = props.commentContents.replace(``)
+
+
   const deleteComment = () => {
     dispatch(commentActions.deleteCommentAX(props.commentId));
   };
