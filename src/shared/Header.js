@@ -58,8 +58,6 @@ const Header = () => {
             <TextBtn
               onClick={() => {
                 dispatch(notiActions.leaveAlarmIO(user.id));
-                dispatch(logOut());
-                history.replace("/");
               }}
             >
               Logout
@@ -79,8 +77,6 @@ const Header = () => {
           <Icon
             onClick={() => {
               setSearch(true);
-              console.log("HIHIHIH");
-              // dispatch(notiActions.openAlarmIO());
             }}
           >
             <SearchIcon />

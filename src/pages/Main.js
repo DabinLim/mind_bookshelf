@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCookie } from "../shared/Cookie";
 import { history } from "../redux/configStore";
 import moment from "moment";
-import CheckedQuestion from "../components/Main/CheckedQuestion";
+import { FaArrowAltCircleRight, FaArrowAltCircleLeft } from "react-icons/fa";
 
 function Main() {
   const dispatch = useDispatch();
@@ -47,52 +47,31 @@ function Main() {
     dispatch(answerActions.getRecentAnswerAX(answer_id));
   }, [answer_id]);
 
+  const [current, setCurrent] = useState(0);
+  const length = question_list?.length;
+
+  const nextSlide = () => {
+    setCurrent(current === length - 1 ? 0 : current + 1);
+  };
+
+  const prevSlide = () => {
+    setCurrent(current === 0 ? length - 1 : current - 1);
+  };
+
   return (
     <MainFrame>
       {is_loading ? (
         <Loader type="Oval" color="#3d66ba" height={20} width={20} />
       ) : (
         <>
-          <MainLeft>
-            <DateIndicator>{displayedDate}</DateIndicator>
-            <QuestionIndicator>
-              <b>{user_info?.nickname ? user_info?.nickname : "고객"}님</b>의
-              머리속은?
-            </QuestionIndicator>
-            {/* 메인 카드 박스 */}
-            <QuestionBox>
-              {question_list?.map((q, idx) => {
-                if (!q.available) {
-                  return (
-                    <>
-                      <CheckedQuestion
-                        key={idx}
-                        onClick={() => {
-                          dispatch(changeQ(q));
-                        }}
-                        {...q}
-                      />
-                    </>
-                  );
-                }
-                return (
-                  <>
-                    <Question
-                      key={idx + "msg"}
-                      {...q}
-                      onClick={() => {
-                        dispatch(changeQ(q));
-                      }}
-                    />
-                  </>
-                );
-              })}
-            </QuestionBox>
-          </MainLeft>
-          {/* 메인 오른쪽 편 */}
-          <MainRight>
+          {/* 메인 위쪽 편 */}
+          <MainUpper>
             <SubLeft>
-              <Post {...question_info} blank={" "} />
+              <DateIndicator>{displayedDate}</DateIndicator>
+              <QuestionIndicator>
+                <b>{user_info?.nickname ? user_info?.nickname : "고객"}님</b>의
+                머리속은?
+              </QuestionIndicator>
             </SubLeft>
             <SubRight>
               <AnsweringInfo>
@@ -117,24 +96,90 @@ function Main() {
                 })}
               </CommunitySeductor>
             </SubRight>
-          </MainRight>
+          </MainUpper>
+          {/* 메인 아래쪽 */}
+          <MainLower>
+            <Slider className="slider">
+              <LeftArrow>
+                <FaArrowAltCircleLeft
+                  className="left-arrow"
+                  onClick={prevSlide}
+                />
+              </LeftArrow>
+              <RightArrow>
+                <FaArrowAltCircleRight
+                  className="rightt-arrow"
+                  onClick={nextSlide}
+                />
+              </RightArrow>
+              {/* 메인 카드 박스 */}
+
+              {question_list?.map((q, idx) => {
+                return (
+                  <PostBox
+                    className={idx === current ? "slide active" : "slide"}
+                  >
+                    {idx === current && (
+                      <Post
+                        key={idx + "msg"}
+                        {...q}
+                        // onClick={() => {
+                        //   dispatch(changeQ(q));
+                        // }}
+                      />
+                    )}
+                  </PostBox>
+                );
+              })}
+              {/* 디자인 용
+            <Post {...question_list[0]} /> */}
+            </Slider>
+          </MainLower>
         </>
       )}
     </MainFrame>
   );
 }
 
+const Slider = styled.section`
+  position: relative;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const PostBox = styled.div``;
+
+const RightArrow = styled.button`
+  position: absolute;
+  top: 50%;
+  right: 32px;
+  font-size: 3rem;
+  z-index: 10;
+  cursor: pointer;
+  user-select: none;
+`;
+const LeftArrow = styled.button`
+  position: absolute;
+  top: 50%;
+  left: 32px;
+  font-size: 3rem;
+  z-index: 10;
+  cursor: pointer;
+  user-select: none;
+`;
+
 const MainFrame = styled.div`
   padding-top: 10px;
   width: 100%;
   height: 100%;
-  display: flex;
 `;
 
 // 메인의 왼쪽 부분
 
-const MainLeft = styled.section`
-  flex-basis: 30%;
+const MainUpper = styled.section`
+  display: flex;
   padding-left: 16px;
 `;
 
@@ -148,19 +193,18 @@ const QuestionIndicator = styled.h3`
   margin: 20px 0;
 `;
 
-const QuestionBox = styled.section`
-  & > div {
-    :hover {
-      background: yellow;
-      cursor: pointer;
-    }
-  }
-`;
+// const QuestionBox = styled.section`
+//   & > div {
+//     :hover {
+//       background: yellow;
+//       cursor: pointer;
+//     }
+//   }
+// `;
 
 // 메인의 오른쪽
 
-const MainRight = styled.section`
-  flex-basis: 70%;
+const MainLower = styled.section`
   display: flex;
 `;
 
@@ -200,24 +244,5 @@ const ToCommunityBtn = styled.button`
   background: none;
   cursor: pointer;
 `;
-
-// 답변이 다 됐을 때의 뷰
-const CompletedMain = styled.div`
-  text-align: center;
-  width: 100%;
-  padding-top: 55px;
-`;
-
-const CompletedMainTitle = styled.h1``;
-
-const CompletedMainSubTitle = styled.h2``;
-
-const CompletedMainInvitation = styled.h3``;
-
-const CompletedMainBtnGroup = styled.div``;
-
-const ToBookShelfBtn = styled.button``;
-
-const ToCommunBtn = styled.button``;
 
 export default Main;
