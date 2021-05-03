@@ -26,15 +26,15 @@ const MyBook = (props) => {
     return(
         <React.Fragment>
             <Container>
+            <ProfileContainer>
+                <Profile/>
+            </ProfileContainer>
                 {id === 'mybook' && component === '' &&
                 <BookShelf date={date}/>
                 }
                 {component === 'myquestion' && <MyQuestion/>}
                 {id !=='mybook' && component === '' &&
                 <BookDetail date={date}/>}
-            <ProfileContainer>
-                <Profile/>
-            </ProfileContainer>
             </Container>
         </React.Fragment>
     )
@@ -45,14 +45,15 @@ const Container = styled.div`
     width: 100%;
     height: 80vh;
     display:flex;
+    flex-direction:column;
     justify-content:space-between;
 `;
 
 const ProfileContainer = styled.section`
-    width: 300px;
-    height:100%;
+    width: 100%;
+    height:400px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
 `
 
 export default MyBook;
