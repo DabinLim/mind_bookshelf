@@ -30,7 +30,7 @@
 .react-3d-carousel .slider-container .slider-left div {
   color: #707070 !important;
   top: 649px;
-  left: -60px !important;
+  left: -73px !important;
   width: 109px;
   height: 109px;
   border-radius: 50%;
@@ -50,6 +50,7 @@
   .slider-single
   .slider-single-content {
   border-top-left-radius: 20px;
+  max-height: 400px;
 }
 
 @media (prefers-reduced-motion: no-preference) {

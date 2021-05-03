@@ -94,7 +94,7 @@ function Main() {
           </MainUpper>
           {/* 메인 아래쪽 */}
           <MainLower>
-            <Carousel slides={slides} autoplay={false} interval={1000} />
+            <Carousel slides={slides} autoplay={false} />
           </MainLower>
         </>
       )}
@@ -114,8 +114,6 @@ const MainUpper = styled.section`
   display: flex;
   justify-content: center;
 `;
-
-const ToggleBox = styled.div``;
 
 // 토글버튼 있어야한다..
 
@@ -142,39 +140,7 @@ const MainLower = styled.section`
   flex-direction: column;
 `;
 
-const SubLeft = styled.div``;
-
-const SubRight = styled.div`
-  flex-basis: 50%;
-  padding-left: 16px;
+const SubLeft = styled.div`
+  padding: 100px 0;
 `;
-
-const CommunitySeductor = styled.div`
-  display: flex;
-  flex-direction: column;
-  & > div {
-    margin-right: 8px;
-  }
-
-  & > div > span:hover {
-    cursor: pointer;
-  }
-`;
-
-const AnsweringInfo = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 0 8px;
-`;
-
-const AnsweringUsers = styled.div``;
-
-const ToCommunityBtn = styled.button`
-  border: none;
-  outline: none;
-  background: none;
-  cursor: pointer;
-`;
-
 export default Main;
