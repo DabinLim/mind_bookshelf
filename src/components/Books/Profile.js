@@ -21,7 +21,7 @@ const Profile = (props) => {
   const userLoading = useSelector((state)=> state.user.is_userLoading)
   const friendLoading = useSelector((state) => state.user.is_friendLoading)
 
-  console.log(props);
+  console.log(user_info);
   console.log(other_info);
 
   const closeUpdateModal = () => {
@@ -58,8 +58,12 @@ const Profile = (props) => {
             </SubjectContainer>
               </Head>
               <Body>
-            <Myfollowers onClick={() => {setFollowModal(true)}} >구독중 <span style={{fontSize:'18px', fontWeight:'600'}}>{otherfriend_list.length}</span></Myfollowers>
-            <MyQuestionBtn onClick={()=>{dispatch(setComponent('othersquestion'))}}>질문</MyQuestionBtn>
+                <Answers>
+                  낙서
+                <span style={{fontSize:'16px', fontWeight:'600',marginLeft:'5px'}}>{other_info.otherAnswerCount}</span>
+                </Answers>
+            <MyQuestionBtn onClick={()=>{dispatch(setComponent('othersquestion'))}}>질문<span style={{fontSize:'16px', fontWeight:'600',marginLeft:'5px'}}>{other_info.otherCustomQuestionCount}</span></MyQuestionBtn>
+            <Myfollowers onClick={() => {setFollowModal(true)}} >구독중<span style={{fontSize:'16px', fontWeight:'600',marginLeft:'5px'}}>{otherfriend_list.length}</span></Myfollowers>
             {is_login?
             followed? 
             <FollowerBtn onClick={() => {dispatch(userActions.unfollowOtherAX(props.id, other_info.nickname))}} >팔로우취소</FollowerBtn>
@@ -96,8 +100,14 @@ const Profile = (props) => {
             </SubjectContainer>
               </Head>
               <Body>
-            <Myfollowers onClick={() => {setFollowModal(true)}} >구독중 <span style={{fontSize:'18px', fontWeight:'600'}}>{myfriend_list.length}</span></Myfollowers>
-            <MyQuestionBtn onClick={()=>{dispatch(setComponent('myquestion'))}}>나의질문</MyQuestionBtn>
+                <Answers>
+                  낙서
+                  <span style={{fontSize:'16px', fontWeight:'600',marginLeft:'5px'}}>{user_info.myAnswerCount}</span>
+                </Answers>
+            <MyQuestionBtn onClick={()=>{dispatch(setComponent('myquestion'))}}>질문
+            <span style={{fontSize:'16px', fontWeight:'600',marginLeft:'5px'}}>{user_info.myCustomQuestionCount}</span>
+            </MyQuestionBtn>
+            <Myfollowers onClick={() => {setFollowModal(true)}} >구독중<span style={{fontSize:'16px', fontWeight:'600',marginLeft:'5px'}}>{myfriend_list.length}</span></Myfollowers>
               </Body>
             <Introduce>{user_info.introduce}</Introduce>
             </ProfileDetail>
@@ -168,6 +178,12 @@ const Introduce = styled.div`
   margin-top: 20px;
   font-size: 16px;
 `
+
+const Answers = styled.div`
+  margin-right:20px;
+  font-weight: 400;
+  font-size: 16px;
+`;
 
 const FollowerBtn = styled.div`
   margin-right:20px;

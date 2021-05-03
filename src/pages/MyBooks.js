@@ -64,13 +64,13 @@ const ProfileContainer = styled.section`
 const ImgRight = styled.div`
     z-index:2;
     position:fixed;
-    background-image:url('https://user-images.githubusercontent.com/77574867/116843082-cbe6ea00-ac19-11eb-934f-a8c5535229d4.png');
+    background-image:url('https://user-images.githubusercontent.com/77574867/116865619-ed110000-ac44-11eb-94d6-a47a23118a2a.png');
     background-size:contain;
     background-repeat:no-repeat;
-    right:0;
-    bottom:0;
-    width:500px;
-    height:635px;
+    right:-70px;
+    bottom:-13px;
+    width:593px;
+    height:731px;
     opacity:0.7;
     pointer-events: none;
     @media (max-width:1400px){
@@ -83,13 +83,13 @@ const ImgRight = styled.div`
 const ImgLeft = styled.div`
     z-index:2;
     position:fixed;
-    background-image:url('https://user-images.githubusercontent.com/77574867/116843085-cdb0ad80-ac19-11eb-914e-23580b56f529.png');
+    background-image:url('https://user-images.githubusercontent.com/77574867/116865611-eb473c80-ac44-11eb-81b9-0cfb5d202074.png');
     background-size:contain;
     background-repeat:no-repeat;
-    left:0;
-    bottom:45%;
-    width:400px;
-    height:400px;
+    left:-20px;
+    top:249px;
+    width:365px;
+    height:341px;
     opacity:0.7;
     pointer-events: none;
     @media (max-width:1400px){

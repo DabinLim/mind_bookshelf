@@ -94,10 +94,12 @@ const BookShelf = (props) => {
                       }
                     }}
                   >
-                    <span style={{ margin: "auto" }}>
+                    <span>
                       {v._id.charAt(v._id.length - 2)}
                       {v._id.charAt(v._id.length - 1)}
                     </span>
+                    <BookRadiusTop/>
+                    <BookRadiusBottom/>
                   </Book>
                 );
               })}
@@ -124,6 +126,8 @@ const BookShelf = (props) => {
                       {v._id.charAt(v._id.length - 2)}
                       {v._id.charAt(v._id.length - 1)}
                     </span>
+                    <BookRadiusTop/>
+                    <BookRadiusBottom/>
                   </Book>
                 );
               })}
@@ -174,6 +178,7 @@ const BookRow = styled.div`
   width: 100%;
   height:180px;
   max-width: 1040px;
+  overflow:hidden;
   margin: 10px 0px -5px 65px;
   @media (max-width:1000px){
         
@@ -187,6 +192,7 @@ const BookRow = styled.div`
 
 
 const Book = styled.div`
+    position:relative;
     display:flex;
     align-items:center;
     justify-content:center;
@@ -209,6 +215,29 @@ const Book = styled.div`
     margin: 0px 5px;
     }
 `;
+
+const BookRadiusTop = styled.div`
+    position:absolute;
+    top:-88px;
+    left:-22.5px;
+    width:90px;
+    height:90px;
+    border-radius:45px;
+    background-color:white;
+    z-index:1.5;
+`;
+
+const BookRadiusBottom = styled.div`
+    position:absolute;
+    bottom:-88px;
+    left:-22.5px;
+    width:90px;
+    height:90px;
+    border-radius:45px;
+    background-color:lightgray;
+    z-index:1.5;
+`;
+
 
 
 // const ImgRight = styled.div`
