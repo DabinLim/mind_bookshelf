@@ -8,7 +8,7 @@ import {api as booksActions} from '../../redux/modules/books';
 
 const BookShelf = (props) => {
 
-    let num = 32;
+    let num = 31;
     let book = [];
     for(let i = 1; i<num; i++){
         book.push(i);
@@ -65,6 +65,7 @@ const BookShelf = (props) => {
                 <ArrowLeft onClick={previousMonth} /><span>{formated_date}</span><ArrowRight onClick={nextMonth}/>
                 </ForDate>
                 <ShelfBox>
+                    {/* <ImgLeft/> */}
                     <BookRow>
                     {book_1.map((v,idx) => {
                         return(<Book key={idx}/>)
@@ -80,10 +81,10 @@ const BookShelf = (props) => {
                     })}
                     </BookRow>
                 <Shelf>
-                    <ImgRight src='../../static/ㅎㅇㅎㅇ-removebg-preview.png'/>
                 </Shelf>
                 </ShelfBox>
                 </Container>
+                    {/* <ImgRight/> */}
         </React.Fragment>
     )
 }
@@ -92,6 +93,7 @@ const Container= styled.section`
     width:100%;
     display:flex;
     flex-direction:column;
+    margin:80px 0px;
 `; 
 
 const ForDate = styled.div`
@@ -103,6 +105,7 @@ const ForDate = styled.div`
 `;
 
 const ShelfBox = styled.div`
+    position:relative; 
     width:100%;
     height:100%;
     display:flex;
@@ -113,9 +116,10 @@ const ShelfBox = styled.div`
 
 const Shelf = styled.div`
     position:relative;  
+    margin:0px 0px 40px 0px;
     width:100%;
     height: 34px;
-    border: 1px solid black;
+    background-color:lightgray;
 `;
 
 const BookRow = styled.div`
@@ -123,24 +127,43 @@ const BookRow = styled.div`
     flex-direction:row;
     width:100%;
     max-width:975px;
-    border:1px solid black;
-    margin: 10px 0px -10px 0px;
+    margin: 10px 0px -5px 0px;
 `;
 
 const Book = styled.div`
+    z-index:1;
     width:45px;
     height:180px;
-    border: 1px solid black;
     margin: 0px 10px;
+    border-radius:5px;
+    background: linear-gradient(to right,rgb(245 180 255 / 90%) 0px, rgb(245 180 255 / 60%) 49.9%, rgb(245 180 255 / 60%) 50.1%,rgb(245 180 255 / 90%) 100%);
 `;
 
-const ImgRight = styled.img`
-    position:absolute;
-    left:80%;
-    width:520px;
-    height:720px;
+// const ImgRight = styled.div`
+//     z-index:2;
+//     position:absolute;
+//     background-image:url('https://user-images.githubusercontent.com/77574867/116843082-cbe6ea00-ac19-11eb-934f-a8c5535229d4.png');
+//     background-size:contain;
+//     background-repeat:no-repeat;
+//     right:0;
+//     bottom:0;
+//     width:500px;
+//     height:635px;
     
-`;
+// `;
+
+// const ImgLeft = styled.div`
+//     z-index:2;
+//     position:absolute;
+//     background-image:url('https://user-images.githubusercontent.com/77574867/116843085-cdb0ad80-ac19-11eb-914e-23580b56f529.png');
+//     background-size:contain;
+//     background-repeat:no-repeat;
+//     left:0;
+//     bottom:20;
+//     width:450px;
+//     height:450px;
+    
+// `;
 
 
 

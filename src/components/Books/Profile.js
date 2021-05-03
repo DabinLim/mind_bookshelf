@@ -75,6 +75,7 @@ const Profile = (props) => {
               <ProfileImg style={{cursor:"pointer"}} src={user_info.profileImg} />
               <SettingIcon src="https://cdn4.iconfinder.com/data/icons/forgen-phone-settings/48/setting-512.png" />
             </ProfileImgContainer>
+            <ProfileDetail>
             <Nickname>{user_info.nickname}</Nickname>
             <SubjectContainer>
               <Subject>#사랑</Subject>
@@ -83,6 +84,8 @@ const Profile = (props) => {
             <Introduce>{user_info.introduce}</Introduce>
             <Myfollowers onClick={() => {setFollowModal(true)}} >팔로잉 {myfriend_list.length}명</Myfollowers>
             <MyQuestionBtn onClick={()=>{dispatch(setComponent('myquestion'))}}>나의질문</MyQuestionBtn>
+            </ProfileDetail>
+
             </>
             }
           </React.Fragment>
@@ -117,6 +120,11 @@ const SettingIcon = styled.img`
   padding: 3px;
   cursor: pointer;
 `
+
+const ProfileDetail = styled.div`
+  display:flex;
+  flex-direction:column;
+`;
 
 const Nickname = styled.div`
   margin-top: 20px;

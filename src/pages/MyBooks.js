@@ -26,6 +26,7 @@ const MyBook = (props) => {
     return(
         <React.Fragment>
             <Container>
+                <ImgLeft/>
             <ProfileContainer>
                 <Profile/>
             </ProfileContainer>
@@ -35,25 +36,55 @@ const MyBook = (props) => {
                 {component === 'myquestion' && <MyQuestion/>}
                 {id !=='mybook' && component === '' &&
                 <BookDetail date={date}/>}
+                <ImgRight/>
             </Container>
         </React.Fragment>
     )
 }
 
 const Container = styled.div`
-    margin:20px;
     width: 100%;
     height: 80vh;
     display:flex;
     flex-direction:column;
     justify-content:space-between;
+    align-items:center;
 `;
 
 const ProfileContainer = styled.section`
     width: 100%;
+    max-width:900px;
     height:400px;
     display: flex;
     flex-direction: row;
-`
+    border: 1px solid black;
+`;
+
+const ImgRight = styled.div`
+    z-index:2;
+    position:absolute;
+    background-image:url('https://user-images.githubusercontent.com/77574867/116843082-cbe6ea00-ac19-11eb-934f-a8c5535229d4.png');
+    background-size:contain;
+    background-repeat:no-repeat;
+    right:0;
+    bottom:0;
+    width:500px;
+    height:635px;
+    
+`;
+
+
+const ImgLeft = styled.div`
+    z-index:2;
+    position:absolute;
+    background-image:url('https://user-images.githubusercontent.com/77574867/116843085-cdb0ad80-ac19-11eb-914e-23580b56f529.png');
+    background-size:contain;
+    background-repeat:no-repeat;
+    left:0;
+    bottom:45%;
+    width:400px;
+    height:400px;
+    
+`;
 
 export default MyBook;
