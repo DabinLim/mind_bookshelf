@@ -10,7 +10,9 @@ const CheckedQuestion = (props) => {
     <>
       <CardFrame onClick={onClick}>
         <CheckMarkBox>
-          <HashTag>#{props.topic}</HashTag>
+          {props.topic.map((t) => {
+            return <HashTag>#{t}</HashTag>;
+          })}
           <CheckMark>
             <CheckCircleOutlined />
           </CheckMark>

@@ -8,7 +8,9 @@ const Question = (props) => {
   return (
     <>
       <CardFrame onClick={onClick}>
-        <HashTag>#{props.topic}</HashTag>
+        {props.topic.map((t) => {
+          return <HashTag>#{t}</HashTag>;
+        })}
 
         <CardContent>{props.contents}</CardContent>
       </CardFrame>
