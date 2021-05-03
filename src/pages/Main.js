@@ -11,6 +11,7 @@ import { history } from "../redux/configStore";
 import moment from "moment";
 import { FaArrowAltCircleRight, FaArrowAltCircleLeft } from "react-icons/fa";
 import { Carousel } from "3d-react-carousal";
+import '../static/Card.css'
 
 function Main() {
   const dispatch = useDispatch();
@@ -36,6 +37,31 @@ function Main() {
   const answer_list = useSelector((state) => state.answer.answer_list);
   const answer_id = useSelector((state) => state.answer.answer_id);
   const isChanged = useSelector((state) => state.answer.isChanged);
+  const [card_1, setCard1 ] = React.useState('preselected');
+  const [card_2, setCard2 ] = React.useState('selected');
+  const [card_3, setCard3 ] = React.useState('proselected');
+
+  const turnLeft = () => {
+    if(card_1 === 'selected'){
+      setCard1('proselected');
+      setCard2('preselected');
+      setCard3('selected');
+    }
+    if(card_2 === 'selected'){
+      setCard1('selected');
+      setCard2('proselected');
+      setCard3('preselected');
+    }
+    if(card_3 === 'selected'){
+      setCard1('preselected');
+      setCard2('selected');
+      setCard3('proselected');
+    }
+  }
+
+  const turnRight = () => {
+    
+  }
 
   React.useEffect(() => {
     if (getCookie("is_login")) {
@@ -52,6 +78,8 @@ function Main() {
   let slides = question_list?.map((q) => {
     return <Post {...q} />;
   });
+
+  const num = [1,2,3];
 
   return (
     <MainFrame>
@@ -94,7 +122,16 @@ function Main() {
           </MainUpper>
           {/* 메인 아래쪽 */}
           <MainLower>
-            <Carousel slides={slides} autoplay={false} />
+            {/* <Carousel slides={slides} autoplay={false} /> */}
+            <Fuck>
+              <button onClick={turnLeft}>left</button>
+            <CardContainer>
+              <div className={card_1}>1</div>
+              <div className={card_2}>2</div>
+              <div className={card_3}>3</div>
+            </CardContainer>
+              <button onClick={turnRight}>right</button>
+            </Fuck>
           </MainLower>
         </>
       )}
@@ -139,6 +176,23 @@ const MainLower = styled.section`
   display: flex;
   flex-direction: column;
 `;
+
+const Fuck = styled.div`
+  width:100%;
+  height:100%;
+  display:flex;
+  flex-direction:row;
+`;
+
+const CardContainer = styled.div`
+  width:1000px;
+  height:100vh;
+  display:flex;
+  flex-direction:row;
+  justify-content:center;
+  align-items:center;
+`;
+
 
 const SubLeft = styled.div`
   padding: 100px 0;

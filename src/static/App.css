@@ -10,6 +10,7 @@
   pointer-events: none;
 }
 
+
 .react-3d-carousel .slider-container .slider-right div {
   color: #707070 !important;
   top: 649px;
@@ -29,6 +30,8 @@
 
 .react-3d-carousel .slider-container .slider-left div {
   color: #707070 !important;
+  box-sizing: border-box;
+  padding-top:10px;
   top: 649px;
   left: -73px !important;
   width: 109px;
@@ -38,11 +41,19 @@
   justify-content: center;
   align-items: center;
   font-size: 60px;
-  background: #ffffff 0% 0% no-repeat padding-box;
+  background: #ffffff;
   box-shadow: 0px 0px 20px #0000001f;
   opacity: 0.8;
   border: none !important;
 }
+
+/* 
+.slider-left {
+  background-image:url('https://user-images.githubusercontent.com/77574867/116895862-94565d00-ac6e-11eb-94df-bf6c1ab6390e.png');
+  background-size:contain;
+  background-repeat:no-repeat;
+} */
+
 
 .react-3d-carousel
   .slider-container
@@ -83,4 +94,10 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.fa-arrow-left{
+  background-image:url('https://d29fhpw069ctt2.cloudfront.net/icon/image/39092/preview.png');
+  background-size: contain;
+  background-repeat:no-repeat;
 }
