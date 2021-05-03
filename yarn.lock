@@ -2,6 +2,13 @@
 # yarn lockfile v1
 
 
+"3d-react-carousal@^3.1.0":
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/3d-react-carousal/-/3d-react-carousal-3.1.0.tgz#533433ffe101ed3020d0d28ef2e08c0d914e328a"
+  integrity sha512-1eevbOougKHviNNQGs9aVqn4nIsFJSiKTx8k9XWOtWBhaJ5/BxMI4W0+Gt6ek90XBpe1F5VMczf5H/PjBZmxeA==
+  dependencies:
+    react-fast-compare "^3.0.2"
+
 "@ant-design/colors@^6.0.0":
   version "6.0.0"
   resolved "https://registry.yarnpkg.com/@ant-design/colors/-/colors-6.0.0.tgz#9b9366257cffcc47db42b9d0203bb592c13c0298"
@@ -10310,6 +10317,11 @@ react-error-overlay@^6.0.9:
   version "6.0.9"
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-6.0.9.tgz#3c743010c9359608c375ecd6bc76f35d93995b0a"
   integrity sha512-nQTTcUu+ATDbrSD1BZHr5kgSD4oF8OFjxun8uAaL8RwPBacGBNPf/yAuVVdx17N8XNzRDMrZ9XcKZHCjPW+9ew==
+
+react-fast-compare@^3.0.2:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/react-fast-compare/-/react-fast-compare-3.2.0.tgz#641a9da81b6a6320f270e89724fb45a0b39e43bb"
+  integrity sha512-rtGImPZ0YyLrscKI9xTpV8psd6I8VAtjKCzQDlzyDvqJA8XOW78TXYQwNRNd8g8JZnDu8q9Fu/1v4HPAVwVdHA==
 
 react-icons@^4.2.0:
   version "4.2.0"

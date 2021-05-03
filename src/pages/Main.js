@@ -10,6 +10,7 @@ import { getCookie } from "../shared/Cookie";
 import { history } from "../redux/configStore";
 import moment from "moment";
 import { FaArrowAltCircleRight, FaArrowAltCircleLeft } from "react-icons/fa";
+import { Carousel } from "3d-react-carousal";
 
 function Main() {
   const dispatch = useDispatch();
@@ -34,6 +35,7 @@ function Main() {
   const question_info = useSelector((state) => state.answer.question);
   const answer_list = useSelector((state) => state.answer.answer_list);
   const answer_id = useSelector((state) => state.answer.answer_id);
+  const isChanged = useSelector((state) => state.answer.isChanged);
 
   React.useEffect(() => {
     if (getCookie("is_login")) {
@@ -41,22 +43,15 @@ function Main() {
       return;
     }
     dispatch(answerActions.getQuestionAX_NOTLOGIN());
-  }, []);
+  }, [isChanged]);
 
   React.useEffect(() => {
     dispatch(answerActions.getRecentAnswerAX(answer_id));
   }, [answer_id]);
 
-  const [current, setCurrent] = useState(0);
-  const length = question_list?.length;
-
-  const nextSlide = () => {
-    setCurrent(current === length - 1 ? 0 : current + 1);
-  };
-
-  const prevSlide = () => {
-    setCurrent(current === 0 ? length - 1 : current - 1);
-  };
+  let slides = question_list?.map((q) => {
+    return <Post {...q} />;
+  });
 
   return (
     <MainFrame>
@@ -73,7 +68,7 @@ function Main() {
                 머리속은?
               </QuestionIndicator>
             </SubLeft>
-            <SubRight>
+            {/* <SubRight>
               <AnsweringInfo>
                 <AnsweringUsers>
                   <b>{question_info?.answerCount}</b>명이 낙서중
@@ -95,45 +90,11 @@ function Main() {
                   );
                 })}
               </CommunitySeductor>
-            </SubRight>
+            </SubRight> */}
           </MainUpper>
           {/* 메인 아래쪽 */}
           <MainLower>
-            <Slider className="slider">
-              <LeftArrow>
-                <FaArrowAltCircleLeft
-                  className="left-arrow"
-                  onClick={prevSlide}
-                />
-              </LeftArrow>
-              <RightArrow>
-                <FaArrowAltCircleRight
-                  className="rightt-arrow"
-                  onClick={nextSlide}
-                />
-              </RightArrow>
-              {/* 메인 카드 박스 */}
-
-              {question_list?.map((q, idx) => {
-                return (
-                  <PostBox
-                    className={idx === current ? "slide active" : "slide"}
-                  >
-                    {idx === current && (
-                      <Post
-                        key={idx + "msg"}
-                        {...q}
-                        // onClick={() => {
-                        //   dispatch(changeQ(q));
-                        // }}
-                      />
-                    )}
-                  </PostBox>
-                );
-              })}
-              {/* 디자인 용
-            <Post {...question_list[0]} /> */}
-            </Slider>
+            <Carousel slides={slides} autoplay={false} interval={1000} />
           </MainLower>
         </>
       )}
@@ -141,76 +102,47 @@ function Main() {
   );
 }
 
-const Slider = styled.section`
-  position: relative;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const PostBox = styled.div``;
-
-const RightArrow = styled.button`
-  position: absolute;
-  top: 50%;
-  right: 32px;
-  font-size: 3rem;
-  z-index: 10;
-  cursor: pointer;
-  user-select: none;
-`;
-const LeftArrow = styled.button`
-  position: absolute;
-  top: 50%;
-  left: 32px;
-  font-size: 3rem;
-  z-index: 10;
-  cursor: pointer;
-  user-select: none;
-`;
-
 const MainFrame = styled.div`
   padding-top: 10px;
   width: 100%;
   height: 100%;
 `;
 
-// 메인의 왼쪽 부분
+// 메인의 위쪽 부분
 
 const MainUpper = styled.section`
   display: flex;
-  padding-left: 16px;
+  justify-content: center;
 `;
 
 const ToggleBox = styled.div``;
 
 // 토글버튼 있어야한다..
 
-const DateIndicator = styled.h2``;
-
-const QuestionIndicator = styled.h3`
-  margin: 20px 0;
+const DateIndicator = styled.h2`
+  text-align: center;
+  text-align: center;
+  font: normal normal bold 20px/26px Roboto;
+  letter-spacing: 0px;
+  color: #262626;
+  opacity: 1;
 `;
 
-// const QuestionBox = styled.section`
-//   & > div {
-//     :hover {
-//       background: yellow;
-//       cursor: pointer;
-//     }
-//   }
-// `;
+const QuestionIndicator = styled.h3`
+  text-align: center;
+  font: normal normal normal 46px/60px Roboto;
+  letter-spacing: 0px;
+  color: #262626;
+`;
 
-// 메인의 오른쪽
+// 메인의 아래쪽
 
 const MainLower = styled.section`
   display: flex;
+  flex-direction: column;
 `;
 
-const SubLeft = styled.div`
-  flex-basis: 50%;
-`;
+const SubLeft = styled.div``;
 
 const SubRight = styled.div`
   flex-basis: 50%;

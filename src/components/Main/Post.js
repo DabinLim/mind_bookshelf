@@ -64,7 +64,6 @@ const Post = (props) => {
               <b>{props.createdUser}님</b>의 질문
             </CardWriter>
           </CardWriterInfo>
-          <HashTag>#{props.topic}</HashTag>
           {props.available ? (
             <Switch
               checkedChildren="공개"
@@ -75,7 +74,10 @@ const Post = (props) => {
           ) : null}
         </CardInfo>
         {/* 질문 보여주는 곳 */}
-        <CardContent>{props.contents}</CardContent>
+        <CardContent>
+          <HashTag>#{props.topic}</HashTag>
+          {props.contents}
+        </CardContent>
         {/*  포스트 작성하는 곳 */}
         <PostBox>
           {props.available ? (
@@ -98,7 +100,9 @@ const Post = (props) => {
               </BtnGroup>
             </>
           ) : (
-            "이미 해당 질문에 대한 답변을 하셨습니다!"
+            <div style={{ height: "300px" }}>
+              이미 해당 질문에 대한 답변을 하셨습니다!
+            </div>
           )}
         </PostBox>
       </CardFrame>
@@ -107,10 +111,11 @@ const Post = (props) => {
 };
 
 const CardFrame = styled.div`
-  border-radius: 24px;
+  width: 100%;
   padding: 16px 24px;
-  background: #ececec;
+  background: white;
   text-align: center;
+  border-top-left-radius: 20px;
 `;
 
 const CardInfo = styled.div`
@@ -120,8 +125,13 @@ const CardInfo = styled.div`
 
 const HashTag = styled.span`
   padding: 6px 14px;
-  background: #c4c4c4;
+  background: #ededed 0% 0% no-repeat padding-box;
   border-radius: 24px;
+  text-align: left;
+  font: normal normal bold 14px/19px Roboto;
+  letter-spacing: 0px;
+  color: #363636;
+  margin-right: 10px;
   :hover {
     cursor: pointer;
   }
@@ -131,6 +141,8 @@ const CardContent = styled.p`
   margin-top: 20px;
   font-size: 20px;
   font-weight: bolder;
+  display: flex;
+  align-items: center;
 `;
 
 const CardWriterInfo = styled.div`

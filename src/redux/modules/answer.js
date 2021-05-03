@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-// import moment from "moment";
 import { getCookie, deleteCookie } from "../../shared/Cookie";
 import swal from "sweetalert";
 
@@ -19,10 +18,14 @@ const answerSlice = createSlice({
     answer_list: [],
     question_list: [],
     is_loading: false,
+    is_changed: false,
   },
   reducers: {
     setLoading: (state, action) => {
       state.is_loading = action.payload;
+    },
+    detectChange: (state, action) => {
+      state.isChanged = action.payload;
     },
     setQuestion: (state, action) => {
       state.question_list = action.payload;
@@ -32,24 +35,9 @@ const answerSlice = createSlice({
       state.answer_list = action.payload;
       state.is_loading = false;
     },
-    // setQ: (state, action) => {
-    //   if (state.question_list.length === 0) {
-    //     state.is_loading = false;
-    //     return;
-    //   }
-    //   state.question = state.question_list[0];
-    //   state.answer_id = state.question_list[0].cardId;
-    //   state.is_loading = false;
-    // },
     changeQ: (state, action) => {
       state.question = action.payload;
       state.answer_id = action.payload.cardId;
-    },
-    deleteQuestion: (state, action) => {
-      const index = state.question_list.findIndex(
-        (q) => q.cardId === action.payload
-      );
-      state.question_list.splice(index, 1);
     },
   },
 });
@@ -64,6 +52,9 @@ const getQuestionAX = () => {
     axios(options)
       .then((response) => {
         dispatch(setQuestion(response.data.cards));
+        if (getState().answer.is_changed) {
+          dispatch(setChanged(false));
+        }
         // dispatch(setQ(response.data.cards[0]));
       })
       .catch((err) => {
@@ -86,6 +77,9 @@ const getQuestionAX_NOTLOGIN = () => {
     axios(options)
       .then((response) => {
         dispatch(setQuestion(response.data.cards));
+        if (getState().answer.is_changed) {
+          dispatch(setChanged(false));
+        }
         // dispatch(setQ(response.data.cards[0]));
       })
       .catch((err) => {
@@ -122,6 +116,7 @@ const getRecentAnswerAX = (cardId) => {
 
 const sendAnswerAX = (question_id, content) => {
   return function (dispatch, getState) {
+    dispatch(setChanged(true));
     let userInfo = getState().user.user;
     if (userInfo.nickname === "") {
       swal({
@@ -165,11 +160,11 @@ const sendAnswerAX = (question_id, content) => {
 
 export const {
   setQuestion,
-  deleteQuestion,
   setQ,
   setAnswer,
   changeQ,
   setLoading,
+  setChanged,
 } = answerSlice.actions;
 
 export const api = {
