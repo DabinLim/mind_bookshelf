@@ -53,7 +53,7 @@ const getQuestionAX = () => {
       .then((response) => {
         dispatch(setQuestion(response.data.cards));
         if (getState().answer.is_changed) {
-          dispatch(setChanged(false));
+          dispatch(detectChange(false));
         }
         // dispatch(setQ(response.data.cards[0]));
       })
@@ -78,7 +78,7 @@ const getQuestionAX_NOTLOGIN = () => {
       .then((response) => {
         dispatch(setQuestion(response.data.cards));
         if (getState().answer.is_changed) {
-          dispatch(setChanged(false));
+          dispatch(detectChange(false));
         }
         // dispatch(setQ(response.data.cards[0]));
       })
@@ -116,7 +116,7 @@ const getRecentAnswerAX = (cardId) => {
 
 const sendAnswerAX = (question_id, content) => {
   return function (dispatch, getState) {
-    dispatch(setChanged(true));
+    dispatch(detectChange(true));
     let userInfo = getState().user.user;
     if (userInfo.nickname === "") {
       swal({
@@ -164,7 +164,7 @@ export const {
   setAnswer,
   changeQ,
   setLoading,
-  setChanged,
+  detectChange,
 } = answerSlice.actions;
 
 export const api = {

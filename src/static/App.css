@@ -52,7 +52,7 @@
   border-top-left-radius: 20px;
   max-height: 400px;
   max-width: 600px;
-  margin:auto;
+  margin: auto;
 }
 
 @media (prefers-reduced-motion: no-preference) {
