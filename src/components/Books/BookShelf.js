@@ -152,7 +152,7 @@ const Container = styled.section`
   width: 100%;
   display: flex;
   flex-direction: column;
-  margin: 80px 0px;
+  margin: 20px 0px;
 `;
 
 const ForDate = styled.div`
@@ -173,11 +173,12 @@ const ShelfBox = styled.div`
 `;
 
 const Shelf = styled.div`
+  opacity: 0.3;
   position: relative;
   margin: 0px 0px 40px 0px;
   width: 100%;
   height: 34px;
-  background-color: lightgray;
+  background-color: #ffffff;
 `;
 
 const BookRow = styled.div`
@@ -197,7 +198,7 @@ const BookRow = styled.div`
 }
 `;
 
-
+ 
 
 const Book = styled.div`
     position:relative;
@@ -231,18 +232,19 @@ const BookRadiusTop = styled.div`
     width:90px;
     height:90px;
     border-radius:45px;
-    background-color:white;
+    background-color: #e5c5ff;
     z-index:1.5;
 `;
 
 const BookRadiusBottom = styled.div`
+    opacity:0.9;
     position:absolute;
     bottom:-88px;
     left:-22.5px;
     width:90px;
     height:90px;
     border-radius:45px;
-    background-color:lightgray;
+    background-color:#bec6ff;
     z-index:1.5;
 `;
 

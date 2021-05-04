@@ -199,10 +199,10 @@ const CardModal = (props) => {
               <MoreOutlined />
             </MoreBtn>
           </CardInfo>
-          <Line/>
+
           {isOpen && <HideModal close={closeHide} />}
           <CommentList />
-          <Line/>
+
           <LikeContainer>
             {answerInfo.like ? (
               <LikeBtn
@@ -360,12 +360,8 @@ const CardInfo = styled.div`
   margin: 0px 15px;
   display: flex;
   justify-content: space-between;
-`;
-
-const Line = styled.hr`
-
-  margin: 10px 0px;
-  border: 1px dotted #dbdbdb;
+  padding-bottom:15px;
+  border-bottom: 1px solid #efefef;
 `;
 
 const CardWriterInfo = styled.div`
@@ -384,6 +380,7 @@ const CardWriterProfile = styled.img`
 `;
 
 const CardWriter = styled.span`
+
   margin-left: 8px;
 `;
 
@@ -432,7 +429,9 @@ const LikeContainer = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items:center;
-  margin: 0px 10px 10px 10px;
+  box-sizing:border-box;
+  padding: 10px;
+  border-top: 1px solid #efefef;
 `;
 const LikeBtn = styled.div`
   display:flex;

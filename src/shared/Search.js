@@ -83,9 +83,9 @@ const Search = (props) => {
 }
 
 const SearchContainer = styled.div`
-  position: fixed;
-  top: 50%;
-  left: 50%;
+  position: absolute;
+  top: 400px;
+  right: -200px;
   width: 500px;
   height: 600px;
   background: #FFFFFF;

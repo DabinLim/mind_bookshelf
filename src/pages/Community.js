@@ -40,6 +40,7 @@ const Community = () => {
 
 const CommunityBox = styled.div`
   width: 100%;
+  height:100%;
   margin: 0 60px 60px 60px;
   display: flex;
   justify-content: space-around;

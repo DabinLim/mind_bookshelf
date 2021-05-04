@@ -39,7 +39,6 @@ const Header = () => {
     return (
       <React.Fragment>
         {notiModal ? <Notification close={closeNotiModal} /> : null}
-        {searchModal ? <Search close={closeSearchModal} /> : null}
         <HeaderContainer>
           <HeaderInnerContainer>
             <NaviContainer>
@@ -81,7 +80,10 @@ const Header = () => {
                 setSearch(true);
               }}
             >
+              <div style={{position:'relative'}}>
+              {searchModal ? <Search close={closeSearchModal} /> : null}
               <SearchIcon />
+              </div>
             </Icon>
             <TextBtn
               onClick={() => {

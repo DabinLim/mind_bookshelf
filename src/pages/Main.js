@@ -151,6 +151,7 @@ const MainFrame = styled.div`
 // 메인의 위쪽 부분
 
 const MainUpper = styled.section`
+  margin-top:150px;
   text-align: center;
 `;
 
@@ -179,7 +180,7 @@ const MainLower = styled.section``;
 const SlideBox = styled.div`
   width: 100%;
   height: 100%;
-  margin-top: 250px;
+  margin-top: 300px;
   display: flex;
   position: relative;
   flex-direction: column;
