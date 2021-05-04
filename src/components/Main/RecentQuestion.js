@@ -7,7 +7,7 @@ import { history } from "../../redux/configStore";
 const RecentQuestion = (props) => {
   const user = useSelector((state) => state.user.user);
   return (
-    <>
+    <Component onClick={props.close}>
       <CardFrame>
         <WriterInfo>
           <CardWriterProfile
@@ -26,7 +26,7 @@ const RecentQuestion = (props) => {
 
         {/* <CardContent>{props.contents}</CardContent> */}
       </CardFrame>
-    </>
+    </Component>
   );
 };
 
@@ -34,8 +34,19 @@ RecentQuestion.defaultProps = {
   onClick: () => {},
 };
 
+const Component = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  opacity: 0.4;
+  height: 100vh;
+  width: 100vw;
+  z-index: 10;
+`;
+
 const CardFrame = styled.div`
   width: 80%;
+  z-index: 20;
   border-radius: 24px;
   padding: 16px 24px;
   margin-bottom: 12px;

@@ -32,6 +32,7 @@ function Main() {
   const question_info = useSelector((state) => state.answer.question);
   const answer_list = useSelector((state) => state.answer.answer_list);
   const answer_id = useSelector((state) => state.answer.answer_id);
+  const user_id = useSelector((state) => state.user.user.id);
   // const is_changed = useSelector((state) => state.answer.is_changed);
   const [card_1, setCard1] = React.useState("preselected");
   const [card_2, setCard2] = React.useState("selected");
@@ -76,6 +77,7 @@ function Main() {
   React.useEffect(() => {
     if (getCookie("is_login")) {
       dispatch(answerActions.getQuestionAX());
+      dispatch(answerActions.getRecentAnswerAX(user_id));
       return;
     }
     dispatch(answerActions.getQuestionAX_NOTLOGIN());

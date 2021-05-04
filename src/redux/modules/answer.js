@@ -101,18 +101,16 @@ const getQuestionAX_NOTLOGIN = () => {
   };
 };
 
-const getRecentAnswerAX = (cardId) => {
+const getRecentAnswerAX = (userId) => {
   return function (dispatch, getState) {
     // dispatch(setLoading(true));
-    if (!cardId) {
-      return;
-    }
     const options = {
-      url: `/card/recentAnswer/${cardId}`,
+      url: `/card/recentAnswer/${userId}`,
       method: "GET",
     };
     axios(options)
       .then((response) => {
+        console.log(response.data);
         dispatch(setAnswer(response.data.answerData));
       })
       .catch((err) => {
