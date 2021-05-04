@@ -171,7 +171,7 @@ const ShelfBox = styled.div`
 const Shelf = styled.div`
   opacity: 0.3;
   position: relative;
-  margin: 0px 0px 40px 0px;
+  margin: -20px 0px 40px 0px;
   width: 100%;
   height: 34px;
   background-color: #ffffff;
@@ -181,10 +181,10 @@ const BookRow = styled.div`
   display: flex;
   flex-direction: row;
   width: 100%;
-  height:190px;
-  max-width: 1040px;
+  height: 210px;
+  max-width: 1055px;
   overflow:hidden;
-  margin: 0px 0px -5px 65px;
+  margin: 10px 0px -5px 65px;
   @media (max-width:1000px){
         
         width:900px;
@@ -202,8 +202,8 @@ const Book = styled.div`
     align-items:center;
     justify-content:center;
   z-index: 1;
-  width: 45px;
-  height: 190px;
+  width: 46px;
+  height: 210px;
   margin: 0px 10px;
   cursor: pointer;
   /* background-image:url('');
