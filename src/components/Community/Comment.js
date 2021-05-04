@@ -28,7 +28,7 @@ const Comment = (props) => {
   let contents = props.commentContents;
   props.tag.map((t) => {
     contents = reactStringReplace(contents, `@${t[0]}`, (match, i) => (
-      <span key={i} style={{color: "#37628B", cursor: "pointer"}} onClick={() => {history.push(`/others/${t[1]}`)}}>{match}</span>
+      <span key={t[1]} style={{color: "#37628B", cursor: "pointer"}} onClick={() => {history.push(`/others/${t[1]}`)}}>{match}</span>
     ))
   });
 

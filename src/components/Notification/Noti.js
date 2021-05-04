@@ -9,6 +9,8 @@ const Noti = (props) => {
     eventType = "좋아요";
   } else if (props.eventType === "comment") {
     eventType = "댓글";
+  } else if(props.eventType === "tag"){
+    eventType = "태그";
   } else {
     eventType = "커스텀";
   }
