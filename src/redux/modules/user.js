@@ -2,10 +2,10 @@ import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { history } from "../configStore";
 import { getCookie, deleteCookie } from "../../shared/Cookie";
-import { api as notiActions } from './noti'
+import { api as notiActions } from "./noti";
 import swal from "sweetalert";
 
-axios.defaults.baseURL = 'http://lkj99.shop';
+axios.defaults.baseURL = "http://lkj99.shop";
 axios.defaults.headers.common["Authorization"] = `Bearer ${getCookie(
   "is_login"
 )}`;
@@ -23,12 +23,8 @@ const userSlice = createSlice({
       profileImg: "",
       nickname: "",
     },
-    friends: [
-      
-    ],
-    otherFriends: [
-
-    ],
+    friends: [],
+    otherFriends: [],
     is_login: false,
     is_userLoading: true,
     is_friendLoading: true,
@@ -46,6 +42,7 @@ const userSlice = createSlice({
       deleteCookie("is_login");
       state.user = null;
       state.is_login = false;
+      window.location.reload();
     },
     setOther: (state, action) => {
       state.other = action.payload;
@@ -60,10 +57,10 @@ const userSlice = createSlice({
     },
     deleteFriend: (state, action) => {
       state.friends = state.friends.filter((f) => {
-        if(f.id !== action.payload){
-          return [...state.friends, f]
+        if (f.id !== action.payload) {
+          return [...state.friends, f];
         }
-      })
+      });
     },
     setOtherFriend: (state, action) => {
       state.otherFriends = action.payload;
@@ -86,7 +83,7 @@ const LoginCheckAX = () => {
         dispatch(
           setUser({
             myAnswerCount: res.data.myAnswerCount,
-            myCustomQuestionCount : res.data.myCustomQuestionCount,
+            myCustomQuestionCount: res.data.myCustomQuestionCount,
             introduce: res.data.introduce,
             profileImg: res.data.profileImg,
             nickname: res.data.nickname,
@@ -110,7 +107,7 @@ const SocialLoginAX = () => {
         dispatch(
           setUser({
             myAnswerCount: res.data.myAnswerCount,
-            myCustomQuestionCount : res.data.myCustomQuestionCount,
+            myCustomQuestionCount: res.data.myCustomQuestionCount,
             introduce: res.data.introduce,
             profileImg: res.data.profileImg,
             nickname: res.data.nickname,
@@ -195,7 +192,7 @@ const DeleteProfileImgAX = () => {
 };
 
 const othersInfoAX = (id) => {
-  userLoading()
+  userLoading();
   return function (dispatch) {
     console.log(id);
     axios.get(`/bookshelf/auth/user/${id}`).then((res) => {
@@ -203,7 +200,7 @@ const othersInfoAX = (id) => {
       dispatch(
         setOther({
           otherAnswerCount: res.data.otherAnswerCount,
-          otherCustomQuestionCount : res.data.otherCustomQuestionCount,
+          otherCustomQuestionCount: res.data.otherCustomQuestionCount,
           introduce: res.data.introduce,
           profileImg: res.data.profileImg,
           nickname: res.data.nickname,
@@ -216,28 +213,28 @@ const othersInfoAX = (id) => {
 const followOtherAX = (id, nickname, profileImg) => {
   return function (dispatch) {
     console.log(id);
-    axios.post(`/bookshelf/addfriend`, { friendId: id })
-      .then((res) => {
-        dispatch(
-          addFriend({
-            id: id,
-            nickname: nickname,
-            profileImg: profileImg,
-          })
-        );
+    axios.post(`/bookshelf/addfriend`, { friendId: id }).then((res) => {
+      dispatch(
+        addFriend({
+          id: id,
+          nickname: nickname,
+          profileImg: profileImg,
+        })
+      );
 
-        swal({
-          title: "정상적으로 추가되었습니다. 😀",
-          text: `${nickname}님과 친구가 되었습니다.`,
-          icon: "success",
-        });
+      swal({
+        title: "정상적으로 추가되었습니다. 😀",
+        text: `${nickname}님과 친구가 되었습니다.`,
+        icon: "success",
       });
+    });
   };
 };
 
 const unfollowOtherAX = (id, nickname) => {
   return function (dispatch) {
-    axios.delete('/bookshelf/friend', {friendId: id})
+    axios
+      .delete("/bookshelf/friend", { friendId: id })
       .then((res) => {
         console.log(res);
         dispatch(deleteFriend(id));
@@ -247,12 +244,12 @@ const unfollowOtherAX = (id, nickname) => {
           text: `${nickname}님이 친구삭제 되었습니다.`,
           icon: "success",
         });
-
-      }).catch((err)=> {
-        console.log(err)
       })
-  }
-}
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+};
 
 const myFollowListAX = () => {
   return function (dispatch) {
@@ -276,7 +273,7 @@ const myFollowListAX = () => {
 };
 
 const otherFriendListAX = (id) => {
-  friendLoading()
+  friendLoading();
   return function (dispatch) {
     // console.log(id);
     axios.get(`/bookshelf/other/friendList/${id}`).then((res) => {
@@ -287,24 +284,29 @@ const otherFriendListAX = (id) => {
           id: _friend.otherFriendId,
           nickname: _friend.otherFriendNickname,
           profileImg: _friend.otherFriendProfileImg,
-        }
+        };
         otherFriend_list.push(friend);
       });
-      console.log(otherFriend_list)
-      dispatch(setOtherFriend(otherFriend_list))
+      console.log(otherFriend_list);
+      dispatch(setOtherFriend(otherFriend_list));
     });
   };
 };
 
 const withdrawalAX = () => {
-  return function (dispatch){
-    axios.delete('/myPage/profile/quit').then((res) => {
-      console.log(res)
-      history.replace('/');
-      dispatch(logOut());
-    }).catch((err)=> {console.log(err)})
-  }
-}
+  return function (dispatch) {
+    axios
+      .delete("/myPage/profile/quit")
+      .then((res) => {
+        console.log(res);
+        history.replace("/");
+        dispatch(logOut());
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+};
 
 export const {
   setUser,

@@ -36,7 +36,7 @@ function Main() {
   const question_info = useSelector((state) => state.answer.question);
   const answer_list = useSelector((state) => state.answer.answer_list);
   const answer_id = useSelector((state) => state.answer.answer_id);
-  const isChanged = useSelector((state) => state.answer.is_changed);
+  // const is_changed = useSelector((state) => state.answer.is_changed);
   const [card_1, setCard1] = React.useState("preselected");
   const [card_2, setCard2] = React.useState("selected");
   const [card_3, setCard3] = React.useState("proselected");
@@ -83,17 +83,13 @@ function Main() {
       return;
     }
     dispatch(answerActions.getQuestionAX_NOTLOGIN());
-  }, [isChanged]);
-
-  React.useEffect(() => {
-    dispatch(answerActions.getRecentAnswerAX(answer_id));
-  }, [answer_id]);
+  }, []);
 
   let slides = question_list?.map((q) => {
     return <Post {...q} />;
   });
 
-  const num = [1, 2, 3];
+  // const num = [1, 2, 3];
 
   return (
     <MainFrame>
