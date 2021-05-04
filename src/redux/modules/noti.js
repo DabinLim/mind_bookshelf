@@ -23,28 +23,37 @@ const notiSlice = createSlice({
       state.is_checked = action.payload.checked;
     },
     addNoti: (state, action) => {
-      let idx = state.new_list.findIndex(
-        (n) => n.cardId === action.payload.cardId
-      );
-      console.log(idx);
-      if (idx !== -1) {
-        console.log(1);
-        if (
-          state.new_list.findIndex(
-            (n) =>
-              n.recentNickname === action.payload.recentNickname &&
-              n.eventType === action.payload.eventType
-          ) === -1
-        ) {
-          console.log(1);
-          state.new_list.unshift(action.payload);
-          state.is_checked = true;
-          return;
+      if(action.payload.eventType !== 'tag'){
+        if(state.new_list.findIndex(
+          (n) => n.cardId === action.payload.cardId &&
+                n.recentNickname === action.payload.recentNickname &&
+                n.eventType === action.payload.eventType
+        ) !== -1){
+          return
         }
+        state.new_list.unshift(action.payload);
+        state.is_checked = true;
         return;
       }
       state.new_list.unshift(action.payload);
       state.is_checked = true;
+      
+      // if (idx !== -1) {
+      //   console.log(1);
+      //   if (
+      //     state.new_list.findIndex(
+      //       (n) =>
+      //         n.recentNickname === action.payload.recentNickname &&
+      //         n.eventType === action.payload.eventType
+      //     ) === -1
+      //   ) {
+      //     console.log(1);
+      //     state.new_list.unshift(action.payload);
+      //     state.is_checked = true;
+      //     return;
+      //   }
+      //   return;
+      // }
     },
     alarmChecked: (state) => {
       state.is_checked = false;
