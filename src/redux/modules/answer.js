@@ -122,7 +122,7 @@ const getRecentAnswerAX = (userId) => {
   };
 };
 
-const sendAnswerAX = (question_id, content) => {
+const sendAnswerAX = (question_id, content, isChecked) => {
   return function (dispatch, getState) {
     // dispatch(detectChange(true));
     let userInfo = getState().user.user;
@@ -137,6 +137,7 @@ const sendAnswerAX = (question_id, content) => {
     let answer_data = {
       questionId: question_id,
       contents: content,
+      isOpen: isChecked,
     };
     const options = {
       url: `/card`,

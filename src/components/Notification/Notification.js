@@ -41,7 +41,7 @@ const Background = styled.div`
   opacity: 0;
   height: 100vh;
   width: 100vw;
-  background-color: black;
+  background-color: transparent;
   z-index: 20;
 `;
 

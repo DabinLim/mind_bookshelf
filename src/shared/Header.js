@@ -17,7 +17,7 @@ const Header = () => {
   const dispatch = useDispatch();
   const is_login = useSelector((state) => state.user.is_login);
   const [loginModal, setLogin] = useState(false);
-  const searchModal = useSelector(state=>state.noti.searchModal);
+  const searchModal = useSelector((state) => state.noti.searchModal);
   const [notiModal, setNoti] = useState(false);
   const noti_list = useSelector((state) => state.noti.noti_list);
   const is_checked = useSelector((state) => state.noti.is_checked);
@@ -41,12 +41,31 @@ const Header = () => {
         <HeaderContainer>
           <HeaderInnerContainer>
             <NaviContainer>
-              <span style={{marginRight:'40px',fontSize:'18px',fontWeight:'800'}}>Logo</span>
-              <span onClick={() => {
+              <span
+                style={{
+                  marginRight: "40px",
+                  fontSize: "18px",
+                  fontWeight: "800",
+                }}
+              >
+                Logo
+              </span>
+              <span
+                onClick={() => {
                   history.push("/");
                   dispatch(setComponent(""));
-                }} style={{margin:'10px',fontSize:'14px',fontWeight:'600',cursor:'pointer'}}>오늘의 낙서</span>
-              <span onClick={() => {
+                }}
+                style={{
+                  margin: "10px",
+                  fontSize: "14px",
+                  fontWeight: "600",
+                  cursor: "pointer",
+                }}
+              >
+                오늘의 낙서
+              </span>
+              <span
+                onClick={() => {
                   if (!getCookie("is_login")) {
                     swal({
                       title: "로그인 필수!",
@@ -57,45 +76,67 @@ const Header = () => {
                   }
                   dispatch(setComponent(""));
                   history.push("/mybook");
-                }}style={{margin:'10px',fontSize:'14px',fontWeight:'600',cursor:'pointer'}}>나의 책장</span>
-              <span onClick={() => {
+                }}
+                style={{
+                  margin: "10px",
+                  fontSize: "14px",
+                  fontWeight: "600",
+                  cursor: "pointer",
+                }}
+              >
+                나의 책장
+              </span>
+              <span
+                onClick={() => {
                   history.push("/community");
                   dispatch(setComponent(""));
                 }}
-                style={{margin:'10px',fontSize:'14px',fontWeight:'600',cursor:'pointer'}}>커뮤니티</span>
+                style={{
+                  margin: "10px",
+                  fontSize: "14px",
+                  fontWeight: "600",
+                  cursor: "pointer",
+                }}
+              >
+                커뮤니티
+              </span>
             </NaviContainer>
             <IconContainer>
-            <Icon
+              <Icon
               // onClick={() => {
               //   setNoti(true);
               //   dispatch(notiActions.openAlarmIO());
               // }}
-            >
-              {is_checked ? <AlarmBadge /> : null}
-              {notiModal ? <Notification close={closeNotiModal} /> : null}
-              <NotificationsIcon onClick={() => {
-                setNoti(true);
-                dispatch(notiActions.openAlarmIO());
-              }}/>
-            </Icon>
-            <Icon
+              >
+                {is_checked ? <AlarmBadge /> : null}
+                {notiModal ? <Notification close={closeNotiModal} /> : null}
+                <NotificationsIcon
+                  onClick={() => {
+                    setNoti(true);
+                    dispatch(notiActions.openAlarmIO(user.id));
+                  }}
+                />
+              </Icon>
+              <Icon
               // onClick={() => {
               //   console.log('왜 니가?')
               //   dispatch(setSearch(true));
               // }}
-            >
-              {searchModal ? <Search/> : null}
-              <SearchIcon onClick={() => {
-                dispatch(setSearch(true));
-              }} />
-            </Icon>
-            <TextBtn
-              onClick={() => {
-                dispatch(notiActions.leaveAlarmIO(user.id));
-              }}
-            >
-              Logout
-            </TextBtn>
+              >
+                {searchModal ? <Search /> : null}
+                <SearchIcon
+                  onClick={() => {
+                    dispatch(setSearch(true));
+                  }}
+                />
+              </Icon>
+              <TextBtn
+                onClick={() => {
+                  dispatch(notiActions.leaveAlarmIO(user.id));
+                }}
+              >
+                Logout
+              </TextBtn>
             </IconContainer>
           </HeaderInnerContainer>
         </HeaderContainer>
@@ -155,8 +196,8 @@ const HeaderInnerContainer = styled.div`
 
 const NaviContainer = styled.div`
   display: flex;
-  flex-direction:row;
-  width:auto;
+  flex-direction: row;
+  width: auto;
   align-items: center;
   height: 100%;
   justify-content: flex-start;
@@ -164,7 +205,7 @@ const NaviContainer = styled.div`
 
 const IconContainer = styled.div`
   display: flex;
-  width:auto;
+  width: auto;
   align-items: center;
   height: 100%;
   justify-content: flex-end;

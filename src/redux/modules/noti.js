@@ -26,17 +26,22 @@ const notiSlice = createSlice({
       let idx = state.new_list.findIndex(
         (n) => n.cardId === action.payload.cardId
       );
-      if(idx !== -1){
-        console.log(1)
-        if(state.new_list.findIndex(
-          (n) => n.recentNickname === action.payload.recentNickname && n.eventType === action.payload.eventType
-        ) === -1){
-          console.log(1)
+      console.log(idx);
+      if (idx !== -1) {
+        console.log(1);
+        if (
+          state.new_list.findIndex(
+            (n) =>
+              n.recentNickname === action.payload.recentNickname &&
+              n.eventType === action.payload.eventType
+          ) === -1
+        ) {
+          console.log(1);
           state.new_list.unshift(action.payload);
           state.is_checked = true;
-          return         
+          return;
         }
-        return
+        return;
       }
       state.new_list.unshift(action.payload);
       state.is_checked = true;
@@ -62,16 +67,16 @@ const joinAlarmIO = () => {
 
 const leaveAlarmIO = () => {
   return function (dispatch) {
-    socket.emit('leave');
-    dispatch(setLoading(true))
+    socket.emit("leave");
+    dispatch(setLoading(true));
     dispatch(logOut());
     history.replace("/");
   };
 };
 
-const openAlarmIO = () => {
+const openAlarmIO = (user_id) => {
   return function (dispatch) {
-    socket.emit("openAlarm");
+    socket.emit("openAlarm", { id: user_id });
     dispatch(alarmChecked());
   };
 };
