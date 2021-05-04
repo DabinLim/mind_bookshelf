@@ -67,20 +67,20 @@ const CommentList = (props) => {
 
   return (
     <CommentContainer>
-      {comment_list?.map( async(c, idx) => {
-        // let comment = await CheckTag(c.commentContents)
-        return (
-          <>
-            <Comment key={idx} {...c} />
-          </>
-        );
-      })}
-    </CommentContainer>
+    {comment_list?.map((c, idx) => {
+      // let comment = await CheckTag(c.commentContents)
+      return (
+        <>
+          <Comment key={idx} {...c} />
+        </>
+      );
+    })}
+  </CommentContainer>
   );
 };
 
 const CommentContainer = styled.div`
-  margin: 0px 15px;
+  margin-left:15px;
   display: flex;
   flex-direction: column;
   height: 400px;

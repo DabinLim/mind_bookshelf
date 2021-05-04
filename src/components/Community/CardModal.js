@@ -16,6 +16,7 @@ import _ from "lodash";
 const CardModal = (props) => {
   const answerInfo = useSelector((state) => state.comment.answer_info);
   const user_info = useSelector((state) => state.user.user);
+  console.log(answerInfo)
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const [user_list, setUser_list] = useState();
@@ -164,7 +165,14 @@ const CardModal = (props) => {
     <React.Fragment>
       <Component onClick={props.close} />
       <ModalComponent>
-        <ModalContent>{answerInfo?.content}</ModalContent>
+        <ModalContent>
+        <CardWriterInfoLeft>
+          <CardWriterLeft>
+            <CardWriterProfileLeft src={answerInfo?.profileImg}/>
+          </CardWriterLeft>
+        </CardWriterInfoLeft>
+          {answerInfo?.content}
+          </ModalContent>
         <ModalRightContainer>
           <CardInfo>
             <CardWriterInfo>
@@ -194,6 +202,7 @@ const CardModal = (props) => {
           <Line/>
           {isOpen && <HideModal close={closeHide} />}
           <CommentList />
+          <Line/>
           <LikeContainer>
             {answerInfo.like ? (
               <LikeBtn
@@ -305,6 +314,36 @@ const ModalContent = styled.div`
   }
 `;
 
+const CardWriterInfoLeft = styled.div`
+  display:flex;
+  flex-direction:row;
+  justify-content:space-between;
+  align-items:center;
+  width:100%;
+  height:36px;
+`;
+
+const CardWriterLeft = styled.div`
+  display: flex;
+  flex-direction:row;
+  justify-content:flex-start;
+  align-items:center;
+  width:auto;
+  height:100%;
+`;
+
+const CardWriterProfileLeft = styled.div`
+  width:36px;
+  height:36px;
+  border-radius:50%;
+  background-image:url(${props => props.src});
+  background-size: cover;
+`;
+
+const CardWriterNicknameLeft = styled.span`
+
+`;
+
 const ModalRightContainer = styled.div`
   box-sizing:border-box;
   padding:15px 0px 0px 0px;
@@ -383,6 +422,7 @@ const ModalCmtInput = styled.input`
 `;
 
 const ModalUpload = styled.div`
+  margin-right:20px;
   font-size: 14px;
   color: #3897f0;
   font-weight: 600;
@@ -390,10 +430,14 @@ const ModalUpload = styled.div`
 
 const LikeContainer = styled.div`
   display: flex;
-  justify-content: space-between;
-  margin: 0 10px;
+  justify-content: flex-start;
+  align-items:center;
+  margin: 0px 10px 10px 10px;
 `;
 const LikeBtn = styled.div`
+  display:flex;
+  justify-content:center;
+  align-items:center;
   font-size: 18px;
   cursor: pointer;
 `;

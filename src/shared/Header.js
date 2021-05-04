@@ -127,7 +127,6 @@ const HeaderContainer = styled.div`
   position: fixed;
   width: 100vw;
   height: 55px;
-  background-color: white;
   border-bottom: 1px solid #e9ecef;
   left: 0;
   top: 0;
