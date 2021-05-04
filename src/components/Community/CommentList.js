@@ -71,24 +71,19 @@ const CommentList = (props) => {
 
   return (
     <CommentContainer>
-      {comment_list?.map((c, idx) => {
-        // console.log(c)
-        //   c.tag?.map((t)=>{
-        //   let contents = reactStringReplace(c.commentContents, `@${t[0]}`, (match, i)=> (
-        //       <span key={i} style={{color: "blue", cursor: "pointer"}} onClick={() => {history.push(`/others/${t[1]}`)}}>{match}</span>
-        //     ))
-        //   })
-        return (
-          <>
-            <Comment key={idx} {...c} contents = {contents}/>
-          </>
-        );
-      })}
-    </CommentContainer>
-  );
+    {comment_list?.map((c, idx) => {
+      return (
+        <>
+          <Comment key={idx} {...c} />
+        </>
+      );
+    })}
+  </CommentContainer>
+   );
 };
 
 const CommentContainer = styled.div`
+  margin-left:15px;
   display: flex;
   flex-direction: column;
   height: 400px;

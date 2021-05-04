@@ -52,6 +52,7 @@ const Container = styled.div`
 `;
 
 const ProfileContainer = styled.section`
+    margin-top:80px;
     box-sizing:border-box;
     padding:20px 0px;
     width: 100%;
@@ -64,14 +65,14 @@ const ProfileContainer = styled.section`
 const ImgRight = styled.div`
     z-index:2;
     position:fixed;
-    background-image:url('https://user-images.githubusercontent.com/77574867/116865619-ed110000-ac44-11eb-94d6-a47a23118a2a.png');
+    background-image:url('https://user-images.githubusercontent.com/77574867/116996886-0c785d80-ad17-11eb-9afd-175a104b7f33.png');
     background-size:contain;
     background-repeat:no-repeat;
     right:-70px;
     bottom:-13px;
     width:593px;
     height:731px;
-    opacity:0.7;
+    opacity:0.8;
     pointer-events: none;
     @media (max-width:1400px){
         display:none;
@@ -83,14 +84,14 @@ const ImgRight = styled.div`
 const ImgLeft = styled.div`
     z-index:2;
     position:fixed;
-    background-image:url('https://user-images.githubusercontent.com/77574867/116865611-eb473c80-ac44-11eb-81b9-0cfb5d202074.png');
+    background-image:url('https://user-images.githubusercontent.com/77574867/116996878-0b473080-ad17-11eb-8910-108950e25cb8.png');
     background-size:contain;
     background-repeat:no-repeat;
     left:-20px;
     top:249px;
     width:365px;
     height:341px;
-    opacity:0.7;
+    opacity:0.8;
     pointer-events: none;
     @media (max-width:1400px){
         display:none;

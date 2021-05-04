@@ -1,17 +1,16 @@
-import React, { useState } from "react";
-import styled, { keyframes } from "styled-components";
-import Typewriter from "typewriter-effect";
+import React from "react";
+import styled from "styled-components";
 import Loader from "react-loader-spinner";
-import { Question, RecentQuestion, Post } from "../components/Main/mainindex";
 import { api as answerActions } from "../redux/modules/answer";
-import { changeQ, setLoading } from "../redux/modules/answer";
 import { useDispatch, useSelector } from "react-redux";
 import { getCookie } from "../shared/Cookie";
 import { history } from "../redux/configStore";
 import moment from "moment";
+import Post from "../components/Main/Post";
 import { LeftOutlined, RightOutlined } from "@ant-design/icons";
-import { FaArrowAltCircleRight, FaArrowAltCircleLeft } from "react-icons/fa";
-import { Carousel } from "3d-react-carousal";
+import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
+import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
+import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord";
 import "../static/Card.css";
 
 function Main() {
@@ -26,9 +25,6 @@ function Main() {
     month = month[1];
   }
   let day = today[2];
-  if (day.length === 2 && day[0] === "0") {
-    day = day[1];
-  }
 
   let displayedDate = month + "월" + " " + day + "일";
 
@@ -36,26 +32,43 @@ function Main() {
   const question_info = useSelector((state) => state.answer.question);
   const answer_list = useSelector((state) => state.answer.answer_list);
   const answer_id = useSelector((state) => state.answer.answer_id);
+  const user_id = useSelector((state) => state.user.user.id);
   // const is_changed = useSelector((state) => state.answer.is_changed);
   const [card_1, setCard1] = React.useState("preselected");
   const [card_2, setCard2] = React.useState("selected");
   const [card_3, setCard3] = React.useState("proselected");
+
+  const [dot_1, setDot1] = React.useState("preselectedDot");
+  const [dot_2, setDot2] = React.useState("selectedDot");
+  const [dot_3, setDot3] = React.useState("proselectedDot");
 
   const turnLeft = () => {
     if (card_1 === "selected") {
       setCard1("proselected");
       setCard2("preselected");
       setCard3("selected");
+
+      setDot1("proselectedDot");
+      setDot2("preselectedDot");
+      setDot3("selectedDot");
     }
     if (card_2 === "selected") {
       setCard1("selected");
       setCard2("proselected");
       setCard3("preselected");
+
+      setDot1("selectedDot");
+      setDot2("proselectedDot");
+      setDot3("preselectedDot");
     }
     if (card_3 === "selected") {
       setCard1("preselected");
       setCard2("selected");
       setCard3("proselected");
+
+      setDot1("preselectedDot");
+      setDot2("selectedDot");
+      setDot3("proselectedDot");
     }
   };
 
@@ -64,32 +77,39 @@ function Main() {
       setCard1("preselected");
       setCard2("selected");
       setCard3("proselected");
+
+      setDot1("preselectedDot");
+      setDot2("selectedDot");
+      setDot3("proselectedDot");
     }
     if (card_2 === "selected") {
       setCard1("proselected");
       setCard2("preselected");
       setCard3("selected");
+
+      setDot1("proselectedDot");
+      setDot2("preselectedDot");
+      setDot3("selectedDot");
     }
     if (card_3 === "selected") {
       setCard1("selected");
       setCard2("proselected");
       setCard3("preselected");
+
+      setDot1("selectedDot");
+      setDot2("proselectedDot");
+      setDot3("preselectedDot");
     }
   };
 
   React.useEffect(() => {
     if (getCookie("is_login")) {
       dispatch(answerActions.getQuestionAX());
+      dispatch(answerActions.getRecentAnswerAX(user_id));
       return;
     }
     dispatch(answerActions.getQuestionAX_NOTLOGIN());
   }, []);
-
-  let slides = question_list?.map((q) => {
-    return <Post {...q} />;
-  });
-
-  // const num = [1, 2, 3];
 
   return (
     <MainFrame>
@@ -99,59 +119,71 @@ function Main() {
         <>
           {/* 메인 위쪽 편 */}
           <MainUpper>
-            <SubLeft>
-              <DateIndicator>{displayedDate}</DateIndicator>
-              <QuestionIndicator>
-                <b>{user_info?.nickname ? user_info?.nickname : "고객"}님</b>의
-                머리속은?
-              </QuestionIndicator>
-            </SubLeft>
-            {/* <SubRight>
-              <AnsweringInfo>
-                <AnsweringUsers>
-                  <b>{question_info?.answerCount}</b>명이 낙서중
-                </AnsweringUsers>
-                <ToCommunityBtn
-                  onClick={() => {
-                    history.push(`/community/${answer_id}`);
-                  }}
-                >
-                  더보기
-                </ToCommunityBtn>
-              </AnsweringInfo>
-              <CommunitySeductor>
-                {answer_list?.map((a, idx) => {
-                  return (
-                    <>
-                      <RecentQuestion key={idx + "msg"} {...a} />
-                    </>
-                  );
-                })}
-              </CommunitySeductor>
-            </SubRight> */}
+            <DotQueue>
+              <FiberManualRecordIcon
+                style={{
+                  fontSize: "20px",
+                  margin: "0 5px",
+                }}
+                className={dot_1}
+              />
+              <FiberManualRecordIcon
+                style={{
+                  fontSize: "20px",
+                  margin: "0 5px",
+                }}
+                className={dot_2}
+              />
+              <FiberManualRecordIcon
+                style={{
+                  fontSize: "20px",
+                  margin: "0 5px",
+                }}
+                className={dot_3}
+              />
+            </DotQueue>
+            <DateIndicator>{displayedDate}</DateIndicator>
+            <QuestionIndicator>
+              <b>{user_info?.nickname ? user_info?.nickname : "고객"}님</b>의
+              머리속은?
+            </QuestionIndicator>
           </MainUpper>
           {/* 메인 아래쪽 */}
           <MainLower>
-            {/* <Carousel slides={slides} autoplay={false} /> */}
-            <Fuck>
-              <LeftArrowBtn onClick={turnLeft}>
-                <LeftOutlined />
-              </LeftArrowBtn>
-              <RightArrowBtn onClick={turnRight}>
-                <RightOutlined />
-              </RightArrowBtn>
-              <CardContainer>
-                <EachCard className={card_1}>
-                  <Post {...question_list[0]} />
-                </EachCard>
-                <EachCard className={card_2}>
-                  <Post {...question_list[1]} />
-                </EachCard>
-                <EachCard className={card_3}>
-                  <Post {...question_list[2]} />
-                </EachCard>
-              </CardContainer>
-            </Fuck>
+            <div>
+              <SlideBox>
+                <LeftArrowBtn onClick={turnLeft}>
+                  <ArrowBackIosIcon
+                    style={{
+                      fontSize: "60px",
+                    }}
+                  />
+                </LeftArrowBtn>
+                <RightArrowBtn onClick={turnRight}>
+                  <ArrowForwardIosIcon
+                    style={{
+                      fontSize: "60px",
+                    }}
+                  />
+                </RightArrowBtn>
+                <CardContainer>
+                  <EachCard className={card_1}>
+                    <Post {...question_list[0]} />
+                  </EachCard>
+                  <EachCard className={card_2}>
+                    <Post {...question_list[1]} />
+                  </EachCard>
+                  <EachCard className={card_3}>
+                    <Post {...question_list[2]} />
+                  </EachCard>
+                  {/* <DotQueue>
+                    <FiberManualRecordIcon />
+                    <FiberManualRecordIcon />
+                    <FiberManualRecordIcon />
+                  </DotQueue> */}
+                </CardContainer>
+              </SlideBox>
+            </div>
           </MainLower>
         </>
       )}
@@ -160,7 +192,6 @@ function Main() {
 }
 
 const MainFrame = styled.div`
-  padding-top: 10px;
   width: 100%;
   height: 100%;
 `;
@@ -168,8 +199,8 @@ const MainFrame = styled.div`
 // 메인의 위쪽 부분
 
 const MainUpper = styled.section`
-  display: flex;
-  justify-content: center;
+  margin-top: 150px;
+  text-align: center;
 `;
 
 // 토글버튼 있어야한다..
@@ -194,11 +225,12 @@ const QuestionIndicator = styled.h3`
 
 const MainLower = styled.section``;
 
-const Fuck = styled.div`
+const SlideBox = styled.div`
   width: 100%;
-  height: 100vh;
+  margin-top: 300px;
   display: flex;
   position: relative;
+  flex-direction: column;
 `;
 
 const EachCard = styled.div`
@@ -209,13 +241,9 @@ const EachCard = styled.div`
 const CardContainer = styled.div`
   width: 100%;
   display: flex;
-  flex-direction: row;
   justify-content: center;
   align-items: center;
-`;
-
-const SubLeft = styled.div`
-  padding: 100px 0;
+  position: relative;
 `;
 
 const LeftArrowBtn = styled.button`
@@ -227,13 +255,21 @@ const LeftArrowBtn = styled.button`
   border: none;
   opacity: 1;
   position: absolute;
-  left: 60px;
-  top: 300px;
-  font-size: 30px;
-  background: white;
-  color: #c4c4c4;
-  box-shadow: 0px 0px 20px #0000001f;
+  left: 140px;
+  top: -50px;
+  color: #ffffff;
   cursor: pointer;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 20px;
+  background: none;
+
+  :hover {
+    transform: scale(1.1);
+    box-shadow: 0px 0px 20px #0000001f;
+  }
 `;
 
 const RightArrowBtn = styled.button`
@@ -245,12 +281,29 @@ const RightArrowBtn = styled.button`
   border: none;
   opacity: 1;
   position: absolute;
-  right: 60px;
-  top: 300px;
-  font-size: 30px;
-  background: white;
-  color: #c4c4c4;
-  box-shadow: 0px 0px 20px #0000001f;
+  right: 140px;
+  top: -50px;
+  background: none;
+  color: #ffffff;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 20px;
+  background: none;
+
+  :hover {
+    transform: scale(1.1);
+    box-shadow: 0px 0px 20px #0000001f;
+  }
 `;
+
+const DotQueue = styled.div`
+  display: flex;
+  justify-content: center;
+  position:absolute;
+  top:850px;
+  left:45%;
+`;
+
 export default Main;

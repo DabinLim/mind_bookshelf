@@ -69,6 +69,7 @@ const Comment = (props) => {
 };
 
 const CommentFrame = styled.div`
+  margin-bottom:15px;
   display: flex;
   align-items: center;
 `;

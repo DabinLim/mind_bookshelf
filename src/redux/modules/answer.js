@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { getCookie, deleteCookie } from "../../shared/Cookie";
+import { getCookie } from "../../shared/Cookie";
 import swal from "sweetalert";
 import { setAnswers } from "./moreview";
 
@@ -101,18 +101,16 @@ const getQuestionAX_NOTLOGIN = () => {
   };
 };
 
-const getRecentAnswerAX = (cardId) => {
+const getRecentAnswerAX = (userId) => {
   return function (dispatch, getState) {
     // dispatch(setLoading(true));
-    if (!cardId) {
-      return;
-    }
     const options = {
-      url: `/card/recentAnswer/${cardId}`,
+      url: `/card/recentAnswer/${userId}`,
       method: "GET",
     };
     axios(options)
       .then((response) => {
+        console.log(response.data);
         dispatch(setAnswer(response.data.answerData));
       })
       .catch((err) => {

@@ -6,21 +6,29 @@ import { Switch } from "antd";
 import { history } from "../../redux/configStore";
 
 import { api as answerActions } from "../../redux/modules/answer";
-import { setAnswerId } from "../../redux/modules/answer";
-import { setComment } from "../../redux/modules/comment";
 import RecentQuestion from "./RecentQuestion";
 
 const Post = (props) => {
   const dispatch = useDispatch();
   const user_info = useSelector((state) => state.user.user);
-  const answer_list = useSelector((state) => state.answer.answer_list);
-  const answer_id = props.cardId;
+  // const answer_list = useSelector((state) => state.answer.answer_list);
+  // const answer_id = props.cardId;
 
   const [isChecked, setCheck] = useState(true);
+  const [isRecentOpen, setRecentOpen] = useState(false);
+
+  // Recent modal
+  const openRecent = () => {
+    setRecentOpen(true);
+  };
+
+  const closeRecent = () => {
+    setRecentOpen(false);
+  };
 
   // comment counter
   const [count, setCount] = useState(0);
-  const [stop, setStop] = useState(false);
+
   // Switch function
   function onChange(checked) {
     setCheck(checked);
@@ -31,12 +39,12 @@ const Post = (props) => {
   const [contents, setContents] = React.useState("");
   const ok_submit = contents ? true : false;
 
-  React.useEffect(() => {
-    setContents("");
-    dispatch(answerActions.getRecentAnswerAX(answer_id));
-  }, [answer_id]);
-
   const changeContents = (e) => {
+    if (count === 200) {
+      setContents(contents.substring(0, contents.length - 1));
+      setCount(contents.length - 1);
+      return;
+    }
     setContents(e.target.value);
     setCount(e.target.value.length);
   };
@@ -54,10 +62,20 @@ const Post = (props) => {
     setContents("");
     setCount(0);
   };
+
+  React.useEffect(() => {
+    setContents("");
+  }, []);
+
   // 유효성 체크
   return (
     <>
       <CardFrame>
+        {isRecentOpen ? (
+          <CommunitySeductor>
+            <RecentQuestion close={closeRecent} />
+          </CommunitySeductor>
+        ) : null}
         {/* <CommunitySeductor>
           {answer_list?.map((a, idx) => {
             return (
@@ -85,11 +103,7 @@ const Post = (props) => {
             </CardWriter>
           </CardWriterInfo>
           <ExtraGroup>
-            <AnswerInfo
-              onClick={() => {
-                dispatch(setAnswerId(props.cardId));
-              }}
-            >
+            <AnswerInfo onClick={openRecent}>
               <b>{props.answerCount}명</b>이 답변
             </AnswerInfo>
             {props.available ? (
@@ -160,7 +174,6 @@ const Post = (props) => {
 };
 
 const CommunitySeductor = styled.div`
-  position: absolute;
   display: flex;
 `;
 
@@ -170,7 +183,6 @@ const CardFrame = styled.div`
   background: white;
   text-align: center;
   border-top-left-radius: 20px;
-  position: relative;
 `;
 
 const CardInfo = styled.div`

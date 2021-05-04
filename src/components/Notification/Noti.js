@@ -39,8 +39,8 @@ const NotiProfileInfo = styled.div`
 `;
 
 const NotiProfile = styled.img`
-  width: 30px;
-  height: 30px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
   background: gray;
   :hover {
@@ -51,11 +51,16 @@ const NotiProfile = styled.img`
 const NotiProfileName = styled.span`
   margin-left: 8px;
   font-weight: bold;
+  font-size:14px;
 `;
 
 const NotiContent = styled.p`
   margin: 0 0 0 0px;
+  font-size:14px;
 `;
-const NotiTime = styled.span``;
+const NotiTime = styled.span`
+  margin-left:4px;
+  font-size:10px;
+`;
 
 export default Noti;
