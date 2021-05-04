@@ -8,7 +8,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import { history } from "../redux/configStore";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import Notification from "../components/Notification/Notification";
-import { api as notiActions } from "../redux/modules/noti";
+import { api as notiActions, setSearch } from "../redux/modules/noti";
 import { setComponent } from "../redux/modules/books";
 import swal from "sweetalert";
 import { getCookie } from "./Cookie";
@@ -17,7 +17,7 @@ const Header = () => {
   const dispatch = useDispatch();
   const is_login = useSelector((state) => state.user.is_login);
   const [loginModal, setLogin] = useState(false);
-  const [searchModal, setSearch] = useState(false);
+  const searchModal = useSelector(state=>state.noti.searchModal);
   const [notiModal, setNoti] = useState(false);
   const noti_list = useSelector((state) => state.noti.noti_list);
   const is_checked = useSelector((state) => state.noti.is_checked);
@@ -27,9 +27,9 @@ const Header = () => {
     setNoti(false);
   };
 
-  const closeSearchModal = () => {
-    setSearch(false);
-  };
+  // const closeSearchModal = () => {
+  //   setSearch(false);
+  // };
 
   const closeLoginModal = () => {
     setLogin(false);
@@ -38,7 +38,6 @@ const Header = () => {
   if (is_login) {
     return (
       <React.Fragment>
-        {notiModal ? <Notification close={closeNotiModal} /> : null}
         <HeaderContainer>
           <HeaderInnerContainer>
             <NaviContainer>
@@ -67,23 +66,28 @@ const Header = () => {
             </NaviContainer>
             <IconContainer>
             <Icon
-              onClick={() => {
-                setNoti(true);
-                dispatch(notiActions.openAlarmIO());
-              }}
+              // onClick={() => {
+              //   setNoti(true);
+              //   dispatch(notiActions.openAlarmIO());
+              // }}
             >
               {is_checked ? <AlarmBadge /> : null}
-              <NotificationsIcon />
+              {notiModal ? <Notification close={closeNotiModal} /> : null}
+              <NotificationsIcon onClick={() => {
+                setNoti(true);
+                dispatch(notiActions.openAlarmIO());
+              }}/>
             </Icon>
             <Icon
-              onClick={() => {
-                setSearch(true);
-              }}
+              // onClick={() => {
+              //   console.log('왜 니가?')
+              //   dispatch(setSearch(true));
+              // }}
             >
-              <div style={{position:'relative'}}>
-              {searchModal ? <Search close={closeSearchModal} /> : null}
-              <SearchIcon />
-              </div>
+              {searchModal ? <Search/> : null}
+              <SearchIcon onClick={() => {
+                dispatch(setSearch(true));
+              }} />
             </Icon>
             <TextBtn
               onClick={() => {
@@ -101,7 +105,6 @@ const Header = () => {
 
   return (
     <React.Fragment>
-      {searchModal ? <Search close={closeSearchModal} /> : null}
       {loginModal ? <LoginModal close={closeLoginModal} /> : null}
       <HeaderContainer>
         <HeaderInnerContainer>
@@ -110,6 +113,7 @@ const Header = () => {
               setSearch(true);
             }}
           >
+            {searchModal ? <Search /> : null}
             <SearchIcon />
           </Icon>
           <TextBtn
