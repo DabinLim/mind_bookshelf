@@ -7,9 +7,8 @@ import { history } from "../../redux/configStore";
 const Comment = (props) => {
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.user.user);
-
   // const comment = props.commentContents.replace(``)
-
+  console.log(props.comment)
 
   const deleteComment = () => {
     dispatch(commentActions.deleteCommentAX(props.commentId));
@@ -31,7 +30,7 @@ const Comment = (props) => {
           />
           <CommentProfileName>{props.nickname}</CommentProfileName>
         </CommentProfileInfo>
-        <CommentContent>{props.commentContents}</CommentContent>
+        <CommentContent>{props.comment}</CommentContent>
         {userInfo?.id === props.userId ? (
           <DeleteBtn onClick={deleteComment}>삭제</DeleteBtn>
         ) : null}
