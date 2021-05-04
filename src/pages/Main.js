@@ -176,11 +176,6 @@ function Main() {
                   <EachCard className={card_3}>
                     <Post {...question_list[2]} />
                   </EachCard>
-                  {/* <DotQueue>
-                    <FiberManualRecordIcon />
-                    <FiberManualRecordIcon />
-                    <FiberManualRecordIcon />
-                  </DotQueue> */}
                 </CardContainer>
               </SlideBox>
             </div>
