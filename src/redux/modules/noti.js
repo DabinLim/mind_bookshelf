@@ -12,8 +12,12 @@ const notiSlice = createSlice({
     noti_list: [],
     new_list: [],
     is_checked: false,
+    searchModal: false,
   },
   reducers: {
+    setSearch: (state, action) => {
+      state.searchModal = action.payload;
+    },
     setNoti: (state, action) => {
       state.noti_list = action.payload.msg;
       state.is_checked = action.payload.checked;
@@ -72,7 +76,7 @@ const openAlarmIO = () => {
   };
 };
 
-export const { setNoti, addNoti, alarmChecked } = notiSlice.actions;
+export const { setNoti, addNoti, alarmChecked, setSearch } = notiSlice.actions;
 
 export const api = {
   joinAlarmIO,

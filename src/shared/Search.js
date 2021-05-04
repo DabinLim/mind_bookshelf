@@ -4,10 +4,12 @@ import axios from 'axios'
 import {config} from '../shared/config'
 import _ from "lodash";
 import {history} from '../redux/configStore'
-import {useSelector} from 'react-redux'
+import {useSelector, useDispatch} from 'react-redux'
 import Loader from "react-loader-spinner";
+import {setSearch} from '../redux/modules/noti';
 
 const Search = (props) => {
+  const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const [user_list, setUser] = useState();
   const user = useSelector(state => state.user.user)
@@ -58,9 +60,9 @@ const Search = (props) => {
 
   return(
     <React.Fragment>
-      <Background onClick={props.close}/>
+      <Background onClick={()=> {dispatch(setSearch(false))}}/>
       <SearchContainer>
-            <SearchInput  onChange={onChange}/>
+            <SearchInput placeholder='유저를 검색해보세요.' onChange={onChange}/>
             {loading?
             <SpinContainer>
               <Loader type="Oval" color="#3d66ba" height={50} width={50} />
@@ -84,27 +86,30 @@ const Search = (props) => {
 
 const SearchContainer = styled.div`
   position: absolute;
-  top: 400px;
-  right: -200px;
-  width: 500px;
-  height: 600px;
+  border-radius:20px;
+  top: 190px;
+  right: -115px;
+  width: 250px;
+  height: 300px;
   background: #FFFFFF;
   align-items: center;
   transform: translate(-50%, -50%);
-  box-shadow: 0 3px 6px rgba(0,0,0,0.12), 0 2px 5px rgba(0,0,0,0.24);
+  box-shadow: 0px 0px 15px #0000001A;
   z-index: 30;
   display: flex;
   flex-direction: column;
 `
 
 const SearchInput = styled.input`
-  width: 300px;
-  font-size: 20px;
+  width: 200px;
+  height:35px;
+  font-size: 13px;
   padding: 5px 15px;
-  background: #FFFFFF;
+  background: #F2F2F2;
+  opacity:0.8;
   margin-top: 30px;
   border-radius: 30px;
-  outline: none;
+  border-style: none;
 `
 const UserContainer = styled.div`
   margin-top: 30px;
@@ -124,7 +129,7 @@ const SpinContainer = styled.div`
 
 const UserInfoContainer = styled.div`
   display: flex;
-  padding: 15px 8px;
+  padding:5px;
   cursor: pointer;
   &:hover{
     background: silver;
@@ -133,13 +138,14 @@ const UserInfoContainer = styled.div`
 const ProfileImage = styled.img`
   border-radius: 50%;
   background-size: cover;
-  height: 30px;
-  width: 30px;
-  margin-right: 20px;
+  height: 28px;
+  width: 28px;
+  margin-right: 10px;
 `
 
 const Username = styled.div`
-  font-size: 18px;
+  margin: auto 0px;
+  font-size: 14px;
   font-weight: 600;
 `
 
@@ -147,16 +153,17 @@ const Background = styled.div`
   position: fixed;
   top: 0;
   left:0;
-  opacity: 0.4;
+  opacity: 0;
   height: 100vh;
   width: 100vw;
   background-color: black;
   z-index: 20;
+  /* pointer-events: none; */
 `
 
 const UserText = styled.div`
   margin: auto;
   font-weight: 600;
-  font-size: 18px;
+  font-size: 14px;
 `
 export default Search

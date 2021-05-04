@@ -296,6 +296,9 @@ const RightArrowBtn = styled.button`
 const DotQueue = styled.div`
   display: flex;
   justify-content: center;
+  position:absolute;
+  top:850px;
+  left:45%;
 `;
 
 export default Main;

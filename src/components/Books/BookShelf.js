@@ -83,10 +83,9 @@ const book_1 = book.filter((v, idx) => {
             {book_1 &&
               book_1.map((v, idx) => {
                 return (
-                  <Book key={idx}>
-                  <BookRadiusTop/>
-                  <BookRadiusBottom/>
-                  </Book>
+                  <Book
+                    key={idx}><BookImage src='https://user-images.githubusercontent.com/77574867/117013284-b0b7cf80-ad2a-11eb-910a-252130e01287.png'/></Book>
+
               //       onClick={() => {
               //         dispatch(changeDate(`20${v._id}`));
               //         if (id === "mybook") {
@@ -114,10 +113,7 @@ const book_1 = book.filter((v, idx) => {
               book_2.map((v, idx) => {
                 return (
                   <Book
-                    key={idx}>
-                  <BookRadiusTop/>
-                  <BookRadiusBottom/>
-                  </Book>
+                    key={idx}><BookImage src='https://user-images.githubusercontent.com/77574867/117013284-b0b7cf80-ad2a-11eb-910a-252130e01287.png'/></Book>
 
 
                   //   onClick={() => {
@@ -185,10 +181,10 @@ const BookRow = styled.div`
   display: flex;
   flex-direction: row;
   width: 100%;
-  height:180px;
+  height:190px;
   max-width: 1040px;
   overflow:hidden;
-  margin: 10px 0px -5px 65px;
+  margin: 0px 0px -5px 65px;
   @media (max-width:1000px){
         
         width:900px;
@@ -207,45 +203,20 @@ const Book = styled.div`
     justify-content:center;
   z-index: 1;
   width: 45px;
-  height: 180px;
+  height: 190px;
   margin: 0px 10px;
-  border-radius: 5px;
-  background: linear-gradient(
-    to right,
-    rgb(245 180 255 / 100%) 0px,
-    rgb(245 180 255 / 60%) 49.9%,
-    rgb(245 180 255 / 60%) 50.1%,
-    rgb(245 180 255 / 100%) 100%
-  );
-  box-shadow: 0px 10px 15px #00000029;
-    mix-blend-mode: normal;
   cursor: pointer;
+  /* background-image:url('');
+  background-size:cover; */
   @media (max-width:1000px){
     margin: 0px 5px;
     }
 `;
 
-const BookRadiusTop = styled.div`
-    position:absolute;
-    top:-88px;
-    left:-22.5px;
-    width:90px;
-    height:90px;
-    border-radius:45px;
-    background-color: #e5c5ff;
-    z-index:1.5;
-`;
-
-const BookRadiusBottom = styled.div`
-    opacity:0.9;
-    position:absolute;
-    bottom:-88px;
-    left:-22.5px;
-    width:90px;
-    height:90px;
-    border-radius:45px;
-    background-color:#bec6ff;
-    z-index:1.5;
+const BookImage = styled.img`
+  position:absolute;
+  top:-10px;
+  left:-23px;
 `;
 
 

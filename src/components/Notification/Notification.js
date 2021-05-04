@@ -18,25 +18,27 @@ const Notification = (props) => {
 };
 
 const SearchContainer = styled.div`
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  width: 500px;
-  height: 600px;
+  border-radius:20px;
+  position: absolute;
+  top: 190px;
+  right: -180px;
+  width: 380px;
+  height: 300px;
   background: #ffffff;
   align-items: center;
   transform: translate(-50%, -50%);
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.12), 0 2px 5px rgba(0, 0, 0, 0.24);
+  box-shadow: 0px 0px 15px #0000001A;
   z-index: 30;
   display: flex;
   flex-direction: column;
+  overflow:hidden;
 `;
 
 const Background = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  opacity: 0.4;
+  opacity: 0;
   height: 100vh;
   width: 100vw;
   background-color: black;
