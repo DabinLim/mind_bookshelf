@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { getCookie, deleteCookie } from "../../shared/Cookie";
+import { getCookie } from "../../shared/Cookie";
 import swal from "sweetalert";
 import { setAnswers } from "./moreview";
 

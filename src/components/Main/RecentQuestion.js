@@ -11,19 +11,20 @@ const RecentQuestion = (props) => {
       <CardFrame>
         <WriterInfo>
           <CardWriterProfile
-            src={props.profileImg}
-            onClick={() => {
-              if (user?.id === props.userId) {
-                history.push(`/mybook`);
-                return;
-              }
-              history.push(`/others/${props.userId}`);
-            }}
+          // src={props.profileImg}
+          // onClick={() => {
+          //   if (user?.id === props.userId) {
+          //     history.push(`/mybook`);
+          //     return;
+          //   }
+          //   history.push(`/others/${props.userId}`);
+          // }}
           />
-          <HashTag>{props.nickname}</HashTag>
+          {/* <HashTag>{props.nickname}</HashTag> */}
+          메롱메롱
         </WriterInfo>
 
-        <CardContent>{props.contents}</CardContent>
+        {/* <CardContent>{props.contents}</CardContent> */}
       </CardFrame>
     </>
   );

@@ -1,17 +1,13 @@
-import React, { useState } from "react";
-import styled, { keyframes } from "styled-components";
-import Typewriter from "typewriter-effect";
+import React from "react";
+import styled from "styled-components";
 import Loader from "react-loader-spinner";
-import { Question, RecentQuestion, Post } from "../components/Main/mainindex";
 import { api as answerActions } from "../redux/modules/answer";
-import { changeQ, setLoading } from "../redux/modules/answer";
 import { useDispatch, useSelector } from "react-redux";
 import { getCookie } from "../shared/Cookie";
 import { history } from "../redux/configStore";
 import moment from "moment";
+import Post from "../components/Main/Post";
 import { LeftOutlined, RightOutlined } from "@ant-design/icons";
-import { FaArrowAltCircleRight, FaArrowAltCircleLeft } from "react-icons/fa";
-import { Carousel } from "3d-react-carousal";
 import "../static/Card.css";
 
 function Main() {
@@ -85,12 +81,6 @@ function Main() {
     dispatch(answerActions.getQuestionAX_NOTLOGIN());
   }, []);
 
-  let slides = question_list?.map((q) => {
-    return <Post {...q} />;
-  });
-
-  // const num = [1, 2, 3];
-
   return (
     <MainFrame>
       {is_loading ? (
@@ -106,34 +96,10 @@ function Main() {
                 머리속은?
               </QuestionIndicator>
             </SubLeft>
-            {/* <SubRight>
-              <AnsweringInfo>
-                <AnsweringUsers>
-                  <b>{question_info?.answerCount}</b>명이 낙서중
-                </AnsweringUsers>
-                <ToCommunityBtn
-                  onClick={() => {
-                    history.push(`/community/${answer_id}`);
-                  }}
-                >
-                  더보기
-                </ToCommunityBtn>
-              </AnsweringInfo>
-              <CommunitySeductor>
-                {answer_list?.map((a, idx) => {
-                  return (
-                    <>
-                      <RecentQuestion key={idx + "msg"} {...a} />
-                    </>
-                  );
-                })}
-              </CommunitySeductor>
-            </SubRight> */}
           </MainUpper>
           {/* 메인 아래쪽 */}
           <MainLower>
-            {/* <Carousel slides={slides} autoplay={false} /> */}
-            <Fuck>
+            <SlideBox>
               <LeftArrowBtn onClick={turnLeft}>
                 <LeftOutlined />
               </LeftArrowBtn>
@@ -151,7 +117,7 @@ function Main() {
                   <Post {...question_list[2]} />
                 </EachCard>
               </CardContainer>
-            </Fuck>
+            </SlideBox>
           </MainLower>
         </>
       )}
@@ -194,7 +160,7 @@ const QuestionIndicator = styled.h3`
 
 const MainLower = styled.section``;
 
-const Fuck = styled.div`
+const SlideBox = styled.div`
   width: 100%;
   height: 100vh;
   display: flex;

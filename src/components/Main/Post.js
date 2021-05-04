@@ -6,8 +6,6 @@ import { Switch } from "antd";
 import { history } from "../../redux/configStore";
 
 import { api as answerActions } from "../../redux/modules/answer";
-import { setAnswerId } from "../../redux/modules/answer";
-import { setComment } from "../../redux/modules/comment";
 import RecentQuestion from "./RecentQuestion";
 
 const Post = (props) => {
@@ -20,7 +18,7 @@ const Post = (props) => {
 
   // comment counter
   const [count, setCount] = useState(0);
-  const [stop, setStop] = useState(false);
+
   // Switch function
   function onChange(checked) {
     setCheck(checked);
@@ -37,6 +35,11 @@ const Post = (props) => {
   }, [answer_id]);
 
   const changeContents = (e) => {
+    if (count === 200) {
+      setContents(contents.substring(0, contents.length - 1));
+      setCount(contents.length - 1);
+      return;
+    }
     setContents(e.target.value);
     setCount(e.target.value.length);
   };
@@ -58,6 +61,10 @@ const Post = (props) => {
   return (
     <>
       <CardFrame>
+        <CommunitySeductor>
+          <RecentQuestion />
+        </CommunitySeductor>
+
         {/* <CommunitySeductor>
           {answer_list?.map((a, idx) => {
             return (
@@ -86,9 +93,9 @@ const Post = (props) => {
           </CardWriterInfo>
           <ExtraGroup>
             <AnswerInfo
-              onClick={() => {
-                dispatch(setAnswerId(props.cardId));
-              }}
+            // onClick={() => {
+            //   dispatch(setAnswerId(props.cardId));
+            // }}
             >
               <b>{props.answerCount}명</b>이 답변
             </AnswerInfo>
