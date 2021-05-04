@@ -1,21 +1,49 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { api as commentActions } from "../../redux/modules/comment";
 import { history } from "../../redux/configStore";
+import reactStringReplace from "react-string-replace"
 
 const Comment = (props) => {
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.user.user);
+  // let contents = props.CommentContent
   // const comment = props.commentContents.replace(``)
-  console.log(props.comment)
+  // console.log(props.comment)
+
 
   const deleteComment = () => {
     dispatch(commentActions.deleteCommentAX(props.commentId));
   };
 
+//   let test = reactStringReplace('내 이름은 이대호', '이대호', (match, i)=> (
+//     <span key={i} style={{color: "blue", cursor: "pointer"}} onClick={() => {history.push('/')}}>{match}</span>
+// ));
+
+  // {reactStringReplace(props.conmmentContents, /\@[a-zA-Zㄱ-ㅎㅏ-ㅣ가-힣0-9~!@#$%^&*()_]*/g, (match, i)=>(
+  //   <span key={i} style={{color: "blue", cursor: "pointer"}} onClick={() => {history.push(`/others/${props.tag[i-1][1]}`)}}>{match}</span>
+  // ))}
+
+  let contents = props.commentContents;
+  props.tag.map((t) => {
+    contents = reactStringReplace(contents, `@${t[0]}`, (match, i) => (
+      <span key={i} style={{color: "#37628B", cursor: "pointer"}} onClick={() => {history.push(`/others/${t[1]}`)}}>{match}</span>
+    ))
+  });
+
+  
+  // let contents;
+  //   props.tag.map((t, idx)=> {
+  //     contents = props.commentContents.replace(`@${t[0]}`,<span style={{color:'blue'}} onClick={()=>{
+  //       history.push(`/others/${t[1]}`)}}>{t[0]}</span>)
+  //   })
+  // console.log(JSON.stringify(contents))
+  // console.log(contents)
+  // console.log(props.commentContents, contents)
+  console.log(props.commentContents)
+
   return (
-    <>
       <CommentFrame>
         <CommentProfileInfo>
           <CommentProfile
@@ -30,12 +58,13 @@ const Comment = (props) => {
           />
           <CommentProfileName>{props.nickname}</CommentProfileName>
         </CommentProfileInfo>
-        <CommentContent>{props.comment}</CommentContent>
+        <CommentContent>
+          {contents}
+        </CommentContent>
         {userInfo?.id === props.userId ? (
           <DeleteBtn onClick={deleteComment}>삭제</DeleteBtn>
         ) : null}
       </CommentFrame>
-    </>
   );
 };
 

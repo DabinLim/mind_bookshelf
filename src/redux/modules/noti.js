@@ -26,6 +26,7 @@ const notiSlice = createSlice({
       let idx = state.new_list.findIndex(
         (n) => n.cardId === action.payload.cardId
       );
+      console.log(idx);
       if (idx !== -1) {
         console.log(1);
         if (
