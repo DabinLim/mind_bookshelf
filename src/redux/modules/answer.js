@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { getCookie, deleteCookie } from "../../shared/Cookie";
 import swal from "sweetalert";
+import { setAnswers } from "./moreview";
 
 axios.defaults.baseURL = "http://lkj99.shop";
 if (getCookie("is_login")) {
@@ -31,9 +32,16 @@ const answerSlice = createSlice({
       state.question_list = action.payload;
       state.is_loading = false;
     },
+    setAnwerId: (state, action) => {
+      state.answer_id = action.payload;
+    },
     setAnswer: (state, action) => {
       state.answer_list = action.payload;
       state.is_loading = false;
+    },
+    setQ: (state, action) => {
+      state.question = action.payload;
+      state.answer_id = action.payload.cardId;
     },
     changeQ: (state, action) => {
       state.question = action.payload;
@@ -44,18 +52,19 @@ const answerSlice = createSlice({
 
 const getQuestionAX = () => {
   return function (dispatch, getState) {
-    dispatch(setLoading(true));
+    // dispatch(setLoading(true));
     const options = {
       url: `/card/daily`,
       method: "GET",
     };
     axios(options)
       .then((response) => {
+        console.log(response.data);
         dispatch(setQuestion(response.data.cards));
-        if (getState().answer.is_changed) {
-          dispatch(setChanged(false));
-        }
-        // dispatch(setQ(response.data.cards[0]));
+        // if (getState().answer.is_changed) {
+        //   dispatch(detectChange(false));
+        // }
+        // dispatch(setQ(response.data.cards[1]));
       })
       .catch((err) => {
         console.log(err);
@@ -68,7 +77,7 @@ const getQuestionAX = () => {
 
 const getQuestionAX_NOTLOGIN = () => {
   return function (dispatch, getState) {
-    dispatch(setLoading(true));
+    // dispatch(setLoading(true));
     delete axios.defaults.headers.common["Authorization"];
     const options = {
       url: `/card/daily`,
@@ -76,11 +85,12 @@ const getQuestionAX_NOTLOGIN = () => {
     };
     axios(options)
       .then((response) => {
+        console.log(response);
         dispatch(setQuestion(response.data.cards));
-        if (getState().answer.is_changed) {
-          dispatch(setChanged(false));
-        }
-        // dispatch(setQ(response.data.cards[0]));
+        // if (getState().answer.is_changed) {
+        //   dispatch(detectChange(false));
+        // }
+        // dispatch(setQ(response.data.cards[1]));
       })
       .catch((err) => {
         console.log(err);
@@ -93,7 +103,7 @@ const getQuestionAX_NOTLOGIN = () => {
 
 const getRecentAnswerAX = (cardId) => {
   return function (dispatch, getState) {
-    dispatch(setLoading(true));
+    // dispatch(setLoading(true));
     if (!cardId) {
       return;
     }
@@ -116,7 +126,7 @@ const getRecentAnswerAX = (cardId) => {
 
 const sendAnswerAX = (question_id, content) => {
   return function (dispatch, getState) {
-    dispatch(setChanged(true));
+    // dispatch(detectChange(true));
     let userInfo = getState().user.user;
     if (userInfo.nickname === "") {
       swal({
@@ -142,7 +152,6 @@ const sendAnswerAX = (question_id, content) => {
         // // 배열의 첫 번째 질문을 보여주는 것!
 
         dispatch(setQuestion(response.data.cards));
-        // dispatch(setQ(response.data.result));
         swal({
           title: "답변 완료✌",
           text: "답변이 등록되었어요 🤩",
@@ -163,8 +172,9 @@ export const {
   setQ,
   setAnswer,
   changeQ,
+  setAnswerId,
   setLoading,
-  setChanged,
+  detectChange,
 } = answerSlice.actions;
 
 export const api = {
