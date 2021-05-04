@@ -29,6 +29,14 @@ function Main() {
   let displayedDate = month + "월" + " " + day + "일";
 
   const question_list = useSelector((state) => state.answer.question_list);
+  const checkedAvailable = question_list?.map((a) => {
+    return a.available;
+  });
+  let allChecked = false;
+  if (checkedAvailable.reduce((a, b) => a + b, 0) === 0) {
+    allChecked = true;
+  }
+
   const question_info = useSelector((state) => state.answer.question);
   const answer_list = useSelector((state) => state.answer.answer_list);
   const answer_id = useSelector((state) => state.answer.answer_id);
@@ -168,13 +176,13 @@ function Main() {
                 </RightArrowBtn>
                 <CardContainer>
                   <EachCard className={card_1}>
-                    <Post {...question_list[0]} />
+                    <Post {...question_list[0]} allChecked={allChecked} />
                   </EachCard>
                   <EachCard className={card_2}>
-                    <Post {...question_list[1]} />
+                    <Post {...question_list[1]} allChecked={allChecked} />
                   </EachCard>
                   <EachCard className={card_3}>
-                    <Post {...question_list[2]} />
+                    <Post {...question_list[2]} allChecked={allChecked} />
                   </EachCard>
                 </CardContainer>
               </SlideBox>
@@ -296,9 +304,9 @@ const RightArrowBtn = styled.button`
 const DotQueue = styled.div`
   display: flex;
   justify-content: center;
-  position:absolute;
-  top:850px;
-  left:45%;
+  position: absolute;
+  top: 850px;
+  left: 45%;
 `;
 
 export default Main;

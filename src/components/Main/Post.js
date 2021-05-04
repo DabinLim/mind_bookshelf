@@ -59,7 +59,7 @@ const Post = (props) => {
       });
       return;
     }
-    dispatch(answerActions.sendAnswerAX(props.cardId, contents));
+    dispatch(answerActions.sendAnswerAX(props.cardId, contents, isChecked));
     setContents("");
     setCount(0);
   };
@@ -192,7 +192,17 @@ const Post = (props) => {
                 style={{ fontSize: "60px", marginBottom: "10px" }}
               />
               <br />
-              <p style={{ fontSize: "24px" }}>답변완료</p>
+              <p style={{ fontSize: "24px", margin: "0" }}>답변완료</p>
+              {props.allChecked ? (
+                <>
+                  <p style={{ fontSize: "16px", margin: "0" }}>
+                    오늘 질문은 모두 끝났습니다.
+                  </p>
+                  <p style={{ fontSize: "16px", margin: "0" }}>
+                    내일을 기대해주세요!
+                  </p>
+                </>
+              ) : null}
             </CompletedBox>
           )}
         </PostBox>
