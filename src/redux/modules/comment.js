@@ -3,6 +3,9 @@ import axios from "axios";
 // import moment from "moment";
 import { getCookie, deleteCookie } from "../../shared/Cookie";
 import swal from "sweetalert";
+import reactStringReplace from "react-string-replace"
+
+
 
 axios.defaults.baseURL = "http://lkj99.shop";
 if (getCookie("is_login")) {
@@ -48,7 +51,17 @@ const getCommentAX = (cardId) => {
     axios(options)
       .then((response) => {
         console.log(response.data.comments)
+      //   let test = reactStringReplace('내 이름은 이대호', '이대호', (match, i)=> (
+      //     <span>{match}</span>
+      // ));
+      //   console.log(test)
         dispatch(setComment(response.data.comments));
+        // let comment = response.data.comments
+        // comment.commentTag.map((t)=>{
+        //   comment.commentContents = reactStringReplace(comment.commentContents, `@${t[0]}`, (match, i)=> (
+        //     <span key={i} style={{color: "blue", cursor: "pointer"}} onClick={() => { history.push(`/others/${t[1]}`)}}>{match}</span>
+        //   ))
+        // })
       })
       .catch((err) => {
         console.log(err);
@@ -77,6 +90,7 @@ const sendCommentAX = (cardId, content, tagId = []) => {
       };
       axios(options)
         .then((response) => {
+
           dispatch(addComment(response.data.result));
         })
         .catch((err) => {

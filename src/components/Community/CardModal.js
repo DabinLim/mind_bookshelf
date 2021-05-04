@@ -19,7 +19,6 @@ const CardModal = (props) => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const [user_list, setUser_list] = useState();
-  // const [user, setUser] = useState(); 
   const [comments, setComments] = useState();
   const [tagModal, setTagModal] = useState(false);
   const cmtInput = useRef()
@@ -51,14 +50,11 @@ const CardModal = (props) => {
     for(let i = start-1; i >= 0; i--){
       console.log(i, text[i])
       if(text[i] === " "){
-        console.log(3)
         return false 
       } else if(text[i] === "@"){
-        console.log(5)
         return text.substring(i+1, start)
       }
     }
-    console.log(4)
     return false
   }
 
@@ -79,13 +75,8 @@ const CardModal = (props) => {
   }
 
   const selectComment = (e) => {
-    console.log(e.target.selectionStart) 
-      console.log(e.target.value)
-      console.log(0)
       const word = tagSetting(e.target.selectionStart, e.target.value)
-      console.log(word)
       if(word){
-        console.log(word)
         setTagModal(true)
         keyPress(word)
       }else{
@@ -103,7 +94,7 @@ const CardModal = (props) => {
         console.log(userInfo)
         for(let user of userInfo){
           if(words === user.nickname){
-            return user.userId
+            return [user.nickname, user.userId]
           }
         }
         return
