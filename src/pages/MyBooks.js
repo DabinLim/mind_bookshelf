@@ -52,7 +52,7 @@ const Container = styled.div`
 `;
 
 const ProfileContainer = styled.section`
-    margin-top:80px;
+    margin-top:60px;
     box-sizing:border-box;
     padding:20px 0px;
     width: 100%;
