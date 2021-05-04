@@ -25,9 +25,6 @@ function Main() {
     month = month[1];
   }
   let day = today[2];
-  if (day.length === 2 && day[0] === "0") {
-    day = day[1];
-  }
 
   let displayedDate = month + "월" + " " + day + "일";
 
@@ -41,21 +38,37 @@ function Main() {
   const [card_2, setCard2] = React.useState("selected");
   const [card_3, setCard3] = React.useState("proselected");
 
+  const [dot_1, setDot1] = React.useState("preselectedDot");
+  const [dot_2, setDot2] = React.useState("selectedDot");
+  const [dot_3, setDot3] = React.useState("proselectedDot");
+
   const turnLeft = () => {
     if (card_1 === "selected") {
       setCard1("proselected");
       setCard2("preselected");
       setCard3("selected");
+
+      setDot1("proselectedDot");
+      setDot2("preselectedDot");
+      setDot3("selectedDot");
     }
     if (card_2 === "selected") {
       setCard1("selected");
       setCard2("proselected");
       setCard3("preselected");
+
+      setDot1("selectedDot");
+      setDot2("proselectedDot");
+      setDot3("preselectedDot");
     }
     if (card_3 === "selected") {
       setCard1("preselected");
       setCard2("selected");
       setCard3("proselected");
+
+      setDot1("preselectedDot");
+      setDot2("selectedDot");
+      setDot3("proselectedDot");
     }
   };
 
@@ -64,16 +77,28 @@ function Main() {
       setCard1("preselected");
       setCard2("selected");
       setCard3("proselected");
+
+      setDot1("preselectedDot");
+      setDot2("selectedDot");
+      setDot3("proselectedDot");
     }
     if (card_2 === "selected") {
       setCard1("proselected");
       setCard2("preselected");
       setCard3("selected");
+
+      setDot1("proselectedDot");
+      setDot2("preselectedDot");
+      setDot3("selectedDot");
     }
     if (card_3 === "selected") {
       setCard1("selected");
       setCard2("proselected");
       setCard3("preselected");
+
+      setDot1("selectedDot");
+      setDot2("proselectedDot");
+      setDot3("preselectedDot");
     }
   };
 
@@ -94,6 +119,29 @@ function Main() {
         <>
           {/* 메인 위쪽 편 */}
           <MainUpper>
+            <DotQueue>
+              <FiberManualRecordIcon
+                style={{
+                  fontSize: "20px",
+                  margin: "0 5px",
+                }}
+                className={dot_1}
+              />
+              <FiberManualRecordIcon
+                style={{
+                  fontSize: "20px",
+                  margin: "0 5px",
+                }}
+                className={dot_2}
+              />
+              <FiberManualRecordIcon
+                style={{
+                  fontSize: "20px",
+                  margin: "0 5px",
+                }}
+                className={dot_3}
+              />
+            </DotQueue>
             <DateIndicator>{displayedDate}</DateIndicator>
             <QuestionIndicator>
               <b>{user_info?.nickname ? user_info?.nickname : "고객"}님</b>의
@@ -128,12 +176,12 @@ function Main() {
                   <EachCard className={card_3}>
                     <Post {...question_list[2]} />
                   </EachCard>
+                  {/* <DotQueue>
+                    <FiberManualRecordIcon />
+                    <FiberManualRecordIcon />
+                    <FiberManualRecordIcon />
+                  </DotQueue> */}
                 </CardContainer>
-                <DotQueue>
-                  <FiberManualRecordIcon />
-                  <FiberManualRecordIcon />
-                  <FiberManualRecordIcon />
-                </DotQueue>
               </SlideBox>
             </div>
           </MainLower>
@@ -151,7 +199,7 @@ const MainFrame = styled.div`
 // 메인의 위쪽 부분
 
 const MainUpper = styled.section`
-  margin-top:150px;
+  margin-top: 150px;
   text-align: center;
 `;
 
@@ -179,7 +227,6 @@ const MainLower = styled.section``;
 
 const SlideBox = styled.div`
   width: 100%;
-  height: 100%;
   margin-top: 300px;
   display: flex;
   position: relative;
@@ -196,6 +243,7 @@ const CardContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
 `;
 
 const LeftArrowBtn = styled.button`
