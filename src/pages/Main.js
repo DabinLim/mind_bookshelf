@@ -8,6 +8,9 @@ import { history } from "../redux/configStore";
 import moment from "moment";
 import Post from "../components/Main/Post";
 import { LeftOutlined, RightOutlined } from "@ant-design/icons";
+import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
+import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
+import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord";
 import "../static/Card.css";
 
 function Main() {
@@ -91,35 +94,48 @@ function Main() {
         <>
           {/* 메인 위쪽 편 */}
           <MainUpper>
-            <SubLeft>
-              <DateIndicator>{displayedDate}</DateIndicator>
-              <QuestionIndicator>
-                <b>{user_info?.nickname ? user_info?.nickname : "고객"}님</b>의
-                머리속은?
-              </QuestionIndicator>
-            </SubLeft>
+            <DateIndicator>{displayedDate}</DateIndicator>
+            <QuestionIndicator>
+              <b>{user_info?.nickname ? user_info?.nickname : "고객"}님</b>의
+              머리속은?
+            </QuestionIndicator>
           </MainUpper>
           {/* 메인 아래쪽 */}
           <MainLower>
-            <SlideBox>
-              <LeftArrowBtn onClick={turnLeft}>
-                <LeftOutlined />
-              </LeftArrowBtn>
-              <RightArrowBtn onClick={turnRight}>
-                <RightOutlined />
-              </RightArrowBtn>
-              <CardContainer>
-                <EachCard className={card_1}>
-                  <Post {...question_list[0]} />
-                </EachCard>
-                <EachCard className={card_2}>
-                  <Post {...question_list[1]} />
-                </EachCard>
-                <EachCard className={card_3}>
-                  <Post {...question_list[2]} />
-                </EachCard>
-              </CardContainer>
-            </SlideBox>
+            <div>
+              <SlideBox>
+                <LeftArrowBtn onClick={turnLeft}>
+                  <ArrowBackIosIcon
+                    style={{
+                      fontSize: "60px",
+                    }}
+                  />
+                </LeftArrowBtn>
+                <RightArrowBtn onClick={turnRight}>
+                  <ArrowForwardIosIcon
+                    style={{
+                      fontSize: "60px",
+                    }}
+                  />
+                </RightArrowBtn>
+                <CardContainer>
+                  <EachCard className={card_1}>
+                    <Post {...question_list[0]} />
+                  </EachCard>
+                  <EachCard className={card_2}>
+                    <Post {...question_list[1]} />
+                  </EachCard>
+                  <EachCard className={card_3}>
+                    <Post {...question_list[2]} />
+                  </EachCard>
+                </CardContainer>
+                <DotQueue>
+                  <FiberManualRecordIcon />
+                  <FiberManualRecordIcon />
+                  <FiberManualRecordIcon />
+                </DotQueue>
+              </SlideBox>
+            </div>
           </MainLower>
         </>
       )}
@@ -128,7 +144,6 @@ function Main() {
 }
 
 const MainFrame = styled.div`
-  padding-top: 10px;
   width: 100%;
   height: 100%;
 `;
@@ -136,8 +151,7 @@ const MainFrame = styled.div`
 // 메인의 위쪽 부분
 
 const MainUpper = styled.section`
-  display: flex;
-  justify-content: center;
+  text-align: center;
 `;
 
 // 토글버튼 있어야한다..
@@ -164,9 +178,11 @@ const MainLower = styled.section``;
 
 const SlideBox = styled.div`
   width: 100%;
-  height: 100vh;
+  height: 100%;
+  margin-top: 250px;
   display: flex;
   position: relative;
+  flex-direction: column;
 `;
 
 const EachCard = styled.div`
@@ -177,13 +193,8 @@ const EachCard = styled.div`
 const CardContainer = styled.div`
   width: 100%;
   display: flex;
-  flex-direction: row;
   justify-content: center;
   align-items: center;
-`;
-
-const SubLeft = styled.div`
-  padding: 100px 0;
 `;
 
 const LeftArrowBtn = styled.button`
@@ -195,13 +206,21 @@ const LeftArrowBtn = styled.button`
   border: none;
   opacity: 1;
   position: absolute;
-  left: 60px;
-  top: 300px;
-  font-size: 30px;
-  background: white;
-  color: #c4c4c4;
-  box-shadow: 0px 0px 20px #0000001f;
+  left: 140px;
+  top: -50px;
+  color: #ffffff;
   cursor: pointer;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 20px;
+  background: none;
+
+  :hover {
+    transform: scale(1.1);
+    box-shadow: 0px 0px 20px #0000001f;
+  }
 `;
 
 const RightArrowBtn = styled.button`
@@ -213,12 +232,26 @@ const RightArrowBtn = styled.button`
   border: none;
   opacity: 1;
   position: absolute;
-  right: 60px;
-  top: 300px;
-  font-size: 30px;
-  background: white;
-  color: #c4c4c4;
-  box-shadow: 0px 0px 20px #0000001f;
+  right: 140px;
+  top: -50px;
+  background: none;
+  color: #ffffff;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 20px;
+  background: none;
+
+  :hover {
+    transform: scale(1.1);
+    box-shadow: 0px 0px 20px #0000001f;
+  }
 `;
+
+const DotQueue = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
 export default Main;
