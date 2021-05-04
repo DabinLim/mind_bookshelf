@@ -1,17 +1,14 @@
-import React, { useState } from "react";
-import styled, { keyframes } from "styled-components";
-import Typewriter from "typewriter-effect";
+import React from "react";
+import styled from "styled-components";
 import Loader from "react-loader-spinner";
-import { Question, RecentQuestion, Post } from "../components/Main/mainindex";
 import { api as answerActions } from "../redux/modules/answer";
-import { changeQ, setLoading } from "../redux/modules/answer";
 import { useDispatch, useSelector } from "react-redux";
 import { getCookie } from "../shared/Cookie";
 import { history } from "../redux/configStore";
 import moment from "moment";
-import { FaArrowAltCircleRight, FaArrowAltCircleLeft } from "react-icons/fa";
-import { Carousel } from "3d-react-carousal";
-import '../static/Card.css'
+import Post from "../components/Main/Post";
+import { LeftOutlined, RightOutlined } from "@ant-design/icons";
+import "../static/Card.css";
 
 function Main() {
   const dispatch = useDispatch();
@@ -32,54 +29,59 @@ function Main() {
   let displayedDate = month + "월" + " " + day + "일";
 
   const question_list = useSelector((state) => state.answer.question_list);
-  console.log(question_list);
   const question_info = useSelector((state) => state.answer.question);
   const answer_list = useSelector((state) => state.answer.answer_list);
   const answer_id = useSelector((state) => state.answer.answer_id);
-  const isChanged = useSelector((state) => state.answer.isChanged);
-  const [card_1, setCard1 ] = React.useState('preselected');
-  const [card_2, setCard2 ] = React.useState('selected');
-  const [card_3, setCard3 ] = React.useState('proselected');
+  const user_id = useSelector((state) => state.user.user.id);
+  // const is_changed = useSelector((state) => state.answer.is_changed);
+  const [card_1, setCard1] = React.useState("preselected");
+  const [card_2, setCard2] = React.useState("selected");
+  const [card_3, setCard3] = React.useState("proselected");
 
   const turnLeft = () => {
-    if(card_1 === 'selected'){
-      setCard1('proselected');
-      setCard2('preselected');
-      setCard3('selected');
+    if (card_1 === "selected") {
+      setCard1("proselected");
+      setCard2("preselected");
+      setCard3("selected");
     }
-    if(card_2 === 'selected'){
-      setCard1('selected');
-      setCard2('proselected');
-      setCard3('preselected');
+    if (card_2 === "selected") {
+      setCard1("selected");
+      setCard2("proselected");
+      setCard3("preselected");
     }
-    if(card_3 === 'selected'){
-      setCard1('preselected');
-      setCard2('selected');
-      setCard3('proselected');
+    if (card_3 === "selected") {
+      setCard1("preselected");
+      setCard2("selected");
+      setCard3("proselected");
     }
-  }
+  };
 
   const turnRight = () => {
-    
-  }
+    if (card_1 === "selected") {
+      setCard1("preselected");
+      setCard2("selected");
+      setCard3("proselected");
+    }
+    if (card_2 === "selected") {
+      setCard1("proselected");
+      setCard2("preselected");
+      setCard3("selected");
+    }
+    if (card_3 === "selected") {
+      setCard1("selected");
+      setCard2("proselected");
+      setCard3("preselected");
+    }
+  };
 
   React.useEffect(() => {
     if (getCookie("is_login")) {
       dispatch(answerActions.getQuestionAX());
+      dispatch(answerActions.getRecentAnswerAX(user_id));
       return;
     }
     dispatch(answerActions.getQuestionAX_NOTLOGIN());
-  }, [isChanged]);
-
-  React.useEffect(() => {
-    dispatch(answerActions.getRecentAnswerAX(answer_id));
-  }, [answer_id]);
-
-  let slides = question_list?.map((q) => {
-    return <Post {...q} />;
-  });
-
-  const num = [1,2,3];
+  }, []);
 
   return (
     <MainFrame>
@@ -96,42 +98,28 @@ function Main() {
                 머리속은?
               </QuestionIndicator>
             </SubLeft>
-            {/* <SubRight>
-              <AnsweringInfo>
-                <AnsweringUsers>
-                  <b>{question_info?.answerCount}</b>명이 낙서중
-                </AnsweringUsers>
-                <ToCommunityBtn
-                  onClick={() => {
-                    history.push(`/community/${answer_id}`);
-                  }}
-                >
-                  더보기
-                </ToCommunityBtn>
-              </AnsweringInfo>
-              <CommunitySeductor>
-                {answer_list?.map((a, idx) => {
-                  return (
-                    <>
-                      <RecentQuestion key={idx + "msg"} {...a} />
-                    </>
-                  );
-                })}
-              </CommunitySeductor>
-            </SubRight> */}
           </MainUpper>
           {/* 메인 아래쪽 */}
           <MainLower>
-            <Carousel slides={slides} autoplay={false} />
-            <Fuck>
-              <button onClick={turnLeft}>left</button>
-            <CardContainer>
-              <div className={card_1}>1</div>
-              <div className={card_2}>2</div>
-              <div className={card_3}>3</div>
-            </CardContainer>
-              <button onClick={turnRight}>right</button>
-            </Fuck>
+            <SlideBox>
+              <LeftArrowBtn onClick={turnLeft}>
+                <LeftOutlined />
+              </LeftArrowBtn>
+              <RightArrowBtn onClick={turnRight}>
+                <RightOutlined />
+              </RightArrowBtn>
+              <CardContainer>
+                <EachCard className={card_1}>
+                  <Post {...question_list[0]} />
+                </EachCard>
+                <EachCard className={card_2}>
+                  <Post {...question_list[1]} />
+                </EachCard>
+                <EachCard className={card_3}>
+                  <Post {...question_list[2]} />
+                </EachCard>
+              </CardContainer>
+            </SlideBox>
           </MainLower>
         </>
       )}
@@ -172,29 +160,65 @@ const QuestionIndicator = styled.h3`
 
 // 메인의 아래쪽
 
-const MainLower = styled.section`
+const MainLower = styled.section``;
+
+const SlideBox = styled.div`
+  width: 100%;
+  height: 100vh;
   display: flex;
-  flex-direction: column;
+  position: relative;
 `;
 
-const Fuck = styled.div`
-  width:100%;
-  height:100%;
-  display:flex;
-  flex-direction:row;
+const EachCard = styled.div`
+  width: 100%;
+  border-top-left-radius: none;
 `;
 
 const CardContainer = styled.div`
-  width:1000px;
-  height:100vh;
-  display:flex;
-  flex-direction:row;
-  justify-content:center;
-  align-items:center;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 `;
-
 
 const SubLeft = styled.div`
   padding: 100px 0;
+`;
+
+const LeftArrowBtn = styled.button`
+  z-index: 2;
+  width: 109px;
+  height: 109px;
+  border-radius: 50%;
+  outline: none;
+  border: none;
+  opacity: 1;
+  position: absolute;
+  left: 60px;
+  top: 300px;
+  font-size: 30px;
+  background: white;
+  color: #c4c4c4;
+  box-shadow: 0px 0px 20px #0000001f;
+  cursor: pointer;
+`;
+
+const RightArrowBtn = styled.button`
+  z-index: 2;
+  width: 109px;
+  height: 109px;
+  border-radius: 50%;
+  outline: none;
+  border: none;
+  opacity: 1;
+  position: absolute;
+  right: 60px;
+  top: 300px;
+  font-size: 30px;
+  background: white;
+  color: #c4c4c4;
+  box-shadow: 0px 0px 20px #0000001f;
+  cursor: pointer;
 `;
 export default Main;
