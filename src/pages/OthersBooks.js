@@ -51,9 +51,10 @@ const OthersBooks = (props) => {
     )
 }
 
+
 const Container = styled.div`
     width: 100%;
-    height: 80vh;
+    height: 100%;
     display:flex;
     flex-direction:column;
     justify-content:space-between;
@@ -61,11 +62,13 @@ const Container = styled.div`
 `;
 
 const ProfileContainer = styled.section`
+    position:relative;
+    margin-top:60px;
     box-sizing:border-box;
-    padding:20px 0px;
+    padding:30px;
     width: 100%;
-    max-width:975px;
-    height:400px;
+    max-width:988px;
+    min-height:190px;
     display: flex;
     flex-direction: row;
 `;
