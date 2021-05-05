@@ -51,8 +51,8 @@ const Profile = (props) => {
             {followModal? <FollowModal friend_list={otherfriend_list} close={closeFollowModal} /> : null}
             <Background/>
             <ProfileImgContainer onClick={() => {setUpdateModal(true)}} >
-              <ProfileImg style={{cursor:"pointer"}} src={other_info.profileImg} />
-              <SettingIcon src="https://cdn4.iconfinder.com/data/icons/forgen-phone-settings/48/setting-512.png" />
+              <ProfileImg src={other_info.profileImg} />
+              {/* <SettingIcon src="https://cdn4.iconfinder.com/data/icons/forgen-phone-settings/48/setting-512.png" /> */}
             </ProfileImgContainer>
             <ProfileDetail>
               <Head>

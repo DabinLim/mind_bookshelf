@@ -20,14 +20,16 @@ const CommunityQnA = (props) => {
   return (
     <React.Fragment>
       <QnAContainer>
-        <Question>{props.contents}</Question>
-        <button
-          onClick={() => {
-            history.push(`/community/${props.id}`);
-          }}
-        >
-          더보기
-        </button>
+        <QuestionBox>
+          <Question>{props.contents}</Question>
+          <DetailBtn
+            onClick={() => {
+              history.push(`/community/${props.id}`);
+            }}
+          >
+            더보기
+          </DetailBtn>
+        </QuestionBox>
         <Topic>#{props.topic}</Topic>
         <AnswerContainer>
           {props.answers.map((a, idx) => {
@@ -87,17 +89,30 @@ const QnAContainer = styled.div`
     margin-bottom: 60px;
   }
 `;
+
+const QuestionBox = styled.div`
+  display: flex;
+  justify-content: space-between;
+
+`
+
 const Question = styled.div`
   font-size: 30px;
   font-weight: 600;
   width: 400px;
-  height: 100px;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  // height: 100px;
+  // display: -webkit-box;
+  // -webkit-line-clamp: 2;
+  // -webkit-box-orient: vertical;
+  // overflow: hidden;
+  // text-overflow: ellipsis;
 `;
+
+const DetailBtn = styled.div`
+  cursor: pointer;
+
+
+`
 
 const AnswerContainer = styled.div`
   display: flex;

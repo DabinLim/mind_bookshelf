@@ -39,19 +39,17 @@ const Community = () => {
 };
 
 const CommunityBox = styled.div`
-  width: 100%;
-  height:100%;
-  margin: 0 60px 60px 60px;
+  // width: 100%;
+  height:100vh;
+  margin: 40px 0px 0px 291px;
   display: flex;
-  justify-content: space-around;
-  @media (max-width: 1800px) {
-    flex-direction: column;
-    margin-top: 60px;
-  }
+  flex-direction: column;
+  overflow-y:auto;
 `;
 
 const CommunityContainer = styled.div`
   width: 100%;
+  // height:100vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
