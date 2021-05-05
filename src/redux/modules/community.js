@@ -14,8 +14,12 @@ const communitySlice = createSlice({
     question: [],
     question_info: null,
     is_loading: true,
+    card_detail:{},
   },
   reducers: {
+    setCardDetail: (state, action) => {
+      state.card_detail = action.payload;
+  },
     setLoading: (state, action) => {
       state.is_loading = action.payload
     },
@@ -115,18 +119,39 @@ const deleteLikeAX = (answerId, questionId) => {
   };
 };
 
+const getCardDetail = (a_id) => {
+  return function(dispatch, getState){
+      
+      const options = {
+          url:`/bookshelf/bookCardDetail/${a_id}`,
+          method:"GET",
+      };
+      axios(options).then((response) => {
+          console.log(response.data)
+          dispatch(setCardDetail(response.data.bookCardDetail[0]))
+      }).catch((err) => {
+        console.log(err)
+        if(err.response){
+          console.log(err.response)
+        }
+      })
+  }
+}
+
 
 
 export const {
   setCommunity,
   editLikeInfo,
   setLoading,
+  setCardDetail
 } = communitySlice.actions;
 
 export const api = {
   communityQuestionAX,
   addLikeAX,
   deleteLikeAX,
+  getCardDetail
 };
 
 export default communitySlice.reducer;
