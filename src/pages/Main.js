@@ -7,7 +7,7 @@ import { getCookie } from "../shared/Cookie";
 import { history } from "../redux/configStore";
 import moment from "moment";
 import Post from "../components/Main/Post";
-import { LeftOutlined, RightOutlined } from "@ant-design/icons";
+import { RightOutlined } from "@ant-design/icons";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord";
@@ -113,7 +113,6 @@ function Main() {
   React.useEffect(() => {
     if (getCookie("is_login")) {
       dispatch(answerActions.getQuestionAX());
-      dispatch(answerActions.getRecentAnswerAX(user_id));
       return;
     }
     dispatch(answerActions.getQuestionAX_NOTLOGIN());
@@ -152,9 +151,18 @@ function Main() {
             </DotQueue>
             <DateIndicator>{displayedDate}</DateIndicator>
             <QuestionIndicator>
-              <b>{user_info?.nickname ? user_info?.nickname : "고객"}님</b>의
-              머리속은?
+              <b>{user_info?.nickname ? user_info?.nickname + "님" : "당신"}</b>
+              의 머리속은?
             </QuestionIndicator>
+            {user_info && (
+              <ToMyBookShelf
+                onClick={() => {
+                  history.push("/mybook");
+                }}
+              >
+                나의 책장으로 가기 <RightOutlined />
+              </ToMyBookShelf>
+            )}
           </MainUpper>
           {/* 메인 아래쪽 */}
           <MainLower>
@@ -223,6 +231,19 @@ const QuestionIndicator = styled.h3`
   font: normal normal normal 46px/60px Roboto;
   letter-spacing: 0px;
   color: #262626;
+`;
+
+const ToMyBookShelf = styled.button`
+  margin: 0;
+  background: none;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  font: normal normal medium 14px/19px Roboto;
+  letter-spacing: 0px;
+  color: #333333;
+  opacity: 1;
 `;
 
 // 메인의 아래쪽

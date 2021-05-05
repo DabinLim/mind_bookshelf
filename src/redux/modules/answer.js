@@ -59,7 +59,6 @@ const getQuestionAX = () => {
     };
     axios(options)
       .then((response) => {
-        console.log(response.data);
         dispatch(setQuestion(response.data.cards));
         // if (getState().answer.is_changed) {
         //   dispatch(detectChange(false));
@@ -85,7 +84,6 @@ const getQuestionAX_NOTLOGIN = () => {
     };
     axios(options)
       .then((response) => {
-        console.log(response);
         dispatch(setQuestion(response.data.cards));
         // if (getState().answer.is_changed) {
         //   dispatch(detectChange(false));
@@ -110,7 +108,6 @@ const getRecentAnswerAX = (userId) => {
     };
     axios(options)
       .then((response) => {
-        console.log(response.data);
         dispatch(setAnswer(response.data.answerData));
       })
       .catch((err) => {
