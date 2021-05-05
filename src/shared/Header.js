@@ -9,9 +9,11 @@ import { history } from "../redux/configStore";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import Notification from "../components/Notification/Notification";
 import { api as notiActions, setSearch } from "../redux/modules/noti";
+import { api as userActions } from "../redux/modules/user";
 import { setComponent } from "../redux/modules/books";
 import swal from "sweetalert";
 import { getCookie } from "./Cookie";
+import axios from 'axios'
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -22,6 +24,8 @@ const Header = () => {
   const noti_list = useSelector((state) => state.noti.noti_list);
   const is_checked = useSelector((state) => state.noti.is_checked);
   const user = useSelector((state) => state.user.user);
+  const [recent_list, setRecent] = useState();
+  const [loading, setLoading] = useState(true)
 
   const closeNotiModal = () => {
     setNoti(false);
@@ -30,6 +34,18 @@ const Header = () => {
   // const closeSearchModal = () => {
   //   setSearch(false);
   // };
+
+  const recentUser = async() => {
+    const result = await axios.get("/bookshelf/searchUser")
+    console.log(result)
+    if(result.data.result.searchUser.length === 0){
+      setRecent();
+      setLoading(false);
+    }else{
+      setRecent(result.data.result.searchUser);
+      setLoading(false);
+    }
+  }
 
   const closeLoginModal = () => {
     setLogin(false);
@@ -123,9 +139,11 @@ const Header = () => {
               //   dispatch(setSearch(true));
               // }}
               >
-                {searchModal ? <Search /> : null}
+                {searchModal ? <Search recent_list={recent_list} setLoading={setLoading} loading={loading} /> : null}
                 <SearchIcon
                   onClick={() => {
+                    recentUser()
+                    // dispatch(userActions.getRecentUserAX())
                     dispatch(setSearch(true));
                   }}
                 />
@@ -151,10 +169,12 @@ const Header = () => {
         <HeaderInnerContainer>
           <Icon
             onClick={() => {
+              recentUser()
+              // dispatch(userActions.getRecentUserAX())
               setSearch(true);
             }}
           >
-            {searchModal ? <Search /> : null}
+            {searchModal ? <Search recent_list={recent_list} setLoading={setLoading} loading={loading} /> : null}
             <SearchIcon />
           </Icon>
           <TextBtn

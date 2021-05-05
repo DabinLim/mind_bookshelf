@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { api as userActions } from "../../redux/modules/user";
 import Loader from "react-loader-spinner";
 import axios from "axios";
+import { NavigateBeforeRounded } from "@material-ui/icons";
 
 axios.defaults.baseURL = "http://lkj99.shop";
 
@@ -21,6 +22,16 @@ const ProfileUpdateModal = (props) => {
     user_info.introduce ? user_info.introduce : "자신에 대해서 적어주세요."
   );
   const [loading, setLoading] = useState(false);
+  const checkedType = {
+    love:false, 
+    relationship:false, 
+    friendship:false,
+    worth:false,
+    dream:false,
+    myself:false, 
+  };
+
+  console.log(Object.values(checkedType))
 
   const getNicknameAX = async () => {
     const result = await axios.get(`/myPage/profile/random-nickname`);
@@ -35,6 +46,110 @@ const ProfileUpdateModal = (props) => {
   const changeIntroduce = (e) => {
     setIntroduce(e.target.value);
   };
+
+  const numberChecked = () => {
+    let check = Object.values(checkedType)
+    let count = 0;
+    for(let i = 0; i < check.length; i++){
+      if(check[i] === true){
+        count ++
+        if(count == 4){
+          return
+        }
+      }
+    }
+    return true
+  }
+
+  const checkedLove = (e) => {
+    if(e.target.checked){
+      checkedType.love = true;
+      console.log(checkedType)
+      if(!numberChecked()){
+        window.alert('어허')
+        e.target.checked = false;
+        checkedType.love = false;
+      }
+    } else{
+      checkedType.love = false;
+      console.log(checkedType)
+    }
+  }
+
+  const checkedFriendShip = (e) => {
+    if(e.target.checked){
+      checkedType.friendship = true;
+      console.log(checkedType)
+      if(!numberChecked()){
+        window.alert('어허')
+        e.target.checked = false;
+        checkedType.friendship = false;
+      }
+    } else{
+      checkedType.friendship = false;
+      console.log(checkedType)
+    }
+  }
+
+  const checkedRelationship = (e) => {
+    if(e.target.checked){
+      checkedType.relationship = true;
+      console.log(checkedType)
+      if(!numberChecked()){
+        window.alert('어허')
+        e.target.checked = false;
+        checkedType.relationship = false;
+      }
+    } else{
+      checkedType.relationship = false;
+      console.log(checkedType)
+    }
+  }
+
+  const checkedWorth = (e) => {
+    if(e.target.checked){
+      checkedType.worth = true;
+      console.log(checkedType)
+      if(!numberChecked()){
+        window.alert('어허')
+        e.target.checked = false;
+        checkedType.worth = false;
+      }
+    } else{
+      checkedType.worth = false;
+      console.log(checkedType)
+    }
+  }
+
+  const checkedDream = (e) => {
+    if(e.target.checked){
+      checkedType.dream = true;
+      console.log(checkedType)
+      if(!numberChecked()){
+        window.alert('어허')
+        e.target.checked = false;
+        checkedType.dream = false;
+      }
+    } else{
+      checkedType.dream = false;
+      console.log(checkedType)
+    }
+  }
+
+  const checkedMyself = (e) => {
+    if(e.target.checked){
+      checkedType.myself = true;
+      console.log(checkedType)
+      if(!numberChecked()){
+        window.alert('어허')
+        e.target.checked = false;
+        checkedType.myself = false;
+      }
+    } else{
+      checkedType.myself = false;
+      console.log(checkedType)
+    }
+  }
 
   return (
     <React.Fragment>
@@ -51,6 +166,23 @@ const ProfileUpdateModal = (props) => {
         >
           프로필이미지 삭제
         </RemoveProfileBtn>
+        
+        <div>
+          {checkedType.relationship? 
+            <>
+            <input type="checkbox" defaultChecked onChange={checkedRelationship} name="action" id="relationship" value="관계" /><label for="relationship">관계 </label>
+            </>
+            :
+            <>
+            <input type="checkbox" onChange={checkedRelationship} name="action" id="relationship" value="관계" /><label for="relationship">관계 </label>
+            </>
+          }
+          <input type="checkbox" onChange={checkedFriendShip} name="action" id="friendship" value="우정"  /><label for="friendship">우정</label>
+          <input type="checkbox" onChange={checkedLove} name="action" id="love" value="사랑" /><label for="love">사랑 </label>
+          <input type="checkbox" onChange={checkedWorth} name="action" id="worth" value="가치" /><label for="worth">가치 </label>
+          <input type="checkbox" onChange={checkedDream} name="action" id="dream" value="꿈" /><label for="dream">꿈 </label>
+          <input type="checkbox" onChange={checkedMyself} name="action" id="myself" value="나" /><label for="myself">나 </label>
+        </div>
 
         {edit_nickname ? (
           <InputContainer>
@@ -185,13 +317,13 @@ const ImageIcon = styled.img`
 
 const RemoveProfileBtn = styled.button`
   margin-bottom: 30px;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 600;
   cursor: pointer;
 `;
 
 const InputContainer = styled.div`
-  margin-bottom: 60px;
+  margin-bottom: 30px;
   display: flex;
   position: relative;
 `;

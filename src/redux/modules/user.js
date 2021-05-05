@@ -308,6 +308,21 @@ const withdrawalAX = () => {
   };
 };
 
+// 유저 검색 완료(검색 유저 클릭)
+const addRecentUserAX = (id) => {
+  return function (dispatch) {
+    axios
+      .post("/bookshelf/searchUserDetail", {id: id})
+        .then((res) => {
+          console.log(res)
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+  }
+}
+
+
 export const {
   setUser,
   logOut,
@@ -319,6 +334,8 @@ export const {
   setOtherFriend,
   userLoading,
   friendLoading,
+  getRecent,
+  addRecent,
 } = userSlice.actions;
 
 export const api = {
@@ -334,6 +351,7 @@ export const api = {
   otherFriendListAX,
   unfollowOtherAX,
   withdrawalAX,
+  addRecentUserAX,
 };
 
 export default userSlice.reducer;

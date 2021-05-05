@@ -7,25 +7,26 @@ import {history} from '../redux/configStore'
 import {useSelector, useDispatch} from 'react-redux'
 import Loader from "react-loader-spinner";
 import {setSearch} from '../redux/modules/noti';
+import {api as userActions} from '../redux/modules/user'
 
 const Search = (props) => {
   const dispatch = useDispatch();
-  const [loading, setLoading] = useState(false);
   const [user_list, setUser] = useState();
   const user = useSelector(state => state.user.user)
 
+  console.log(props.recent_list)
   const debounce = _.debounce((words) => {
-    setLoading(true)
+    props.setLoading(true)
     const searchUsers = async() => {
       console.log(words)
       const result = await axios.post(`${config.api}/bookshelf/searchUser`, {words: words})
       console.log(result)
       if(result.data.userInfo === "none" || result.data.userInfo.length === 0){
         setUser()
-        setLoading(false)
+        props.setLoading(false)
       }else{
         setUser(result.data.userInfo)
-        setLoading(false)
+        props.setLoading(false)
       }
     }
     searchUsers()
@@ -39,13 +40,14 @@ const Search = (props) => {
   }
 
   const clickOther = (id) => {
+    dispatch(userActions.addRecentUserAX(id))
     if(id === user.id){
       history.push(`/mybook`)
-      props.close()
+      dispatch(setSearch(false));
       return
     }
     history.push(`/others/${id}`);
-    props.close()
+    dispatch(setSearch(false));
   }
 
   // const closeModal = (event) => { 
@@ -63,21 +65,37 @@ const Search = (props) => {
       <Background onClick={()=> {dispatch(setSearch(false))}}/>
       <SearchContainer>
             <SearchInput placeholder='유저를 검색해보세요.' onChange={onChange}/>
-            {loading?
+            {props.loading?
             <SpinContainer>
               <Loader type="Oval" color="#3d66ba" height={50} width={50} />
             </SpinContainer>
             :
+            <>
+            {user_list ? 
             <UserContainer>
-              {user_list ? 
-              user_list.map((u) => {
+              {user_list.map((u) => {
                 return  <UserInfoContainer key={u.id} onClick={() => clickOther(u.userId)} >
                           <ProfileImage src={u.profileImg} />
                           <Username>{u.nickname}</Username>
                         </UserInfoContainer>
-              })
-              : <UserText>찾으시는 유저가 없습니다.</UserText> }
+              })}
             </UserContainer>
+            :
+            <UserContainer>
+              <RecentSearch>최신검색</RecentSearch>
+              {props.recent_list ? 
+              props.recent_list.map((r) => {
+                return  <UserInfoContainer style={{marginTop: "10px"}} key={r.id} onClick={() => clickOther(r.userId)} >
+                          <ProfileImage src={r.profileImg} />
+                          <Username>{r.nickname}</Username>
+                        </UserInfoContainer>
+              })
+              :
+              <UserText>최신 유저 목록이 없습니다.</UserText> 
+              }
+            </UserContainer>
+            }
+            </>
             }
       </SearchContainer>
     </React.Fragment>
@@ -110,9 +128,10 @@ const SearchInput = styled.input`
   margin-top: 30px;
   border-radius: 30px;
   border-style: none;
+  outline: none;
 `
 const UserContainer = styled.div`
-  margin-top: 30px;
+  margin-top: 20px;
   margin-bottom: 15px;
   width: 80%;
   display: flex;
@@ -163,7 +182,14 @@ const Background = styled.div`
 
 const UserText = styled.div`
   margin: auto;
+  margin-top: 30px;
+  // font-weight: 600;
+  font-size: 14px;
+`
+
+const RecentSearch = styled.div`
   font-weight: 600;
   font-size: 14px;
+  margin-left: 8px;
 `
 export default Search
