@@ -210,6 +210,8 @@ const Post = (props) => {
 
 const CardFrame = styled.div`
   width: 100%;
+  min-height: 462px;
+  max-height: 462px;
   padding: 16px 24px;
   background: white;
   text-align: center;
