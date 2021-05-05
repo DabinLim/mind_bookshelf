@@ -15,9 +15,12 @@ import "../static/Card.css";
 
 function Main() {
   const dispatch = useDispatch();
+  // 유저 인포 확인하는 것 (아마 이 안에서 is_login 으로 확인해야할듯)
   const user_info = useSelector((state) => state.user.user);
+  // 스피너 먹이려고
   const is_loading = useSelector((state) => state.answer.is_loading);
 
+  // 날짜 지정
   let today = moment().format("YYYY-MM-DD").split("-");
   let month = today[1];
   // 두 자리 수인데 한 자리 숫자인 경우는 04 -> 4 로 바꿔준다 & day 에도 마찬가지
@@ -28,20 +31,19 @@ function Main() {
 
   let displayedDate = month + "월" + " " + day + "일";
 
+  // 질문 카드 받아오기
   const question_list = useSelector((state) => state.answer.question_list);
+  // 질문 카드 답변 상태 알아내기
   const checkedAvailable = question_list?.map((a) => {
     return a.available;
   });
+  // allChecked 의 기본값을 false 로 두고 마지막 질문까지 작성이 되었을시에 allchecked true 로 바뀜
   let allChecked = false;
   if (checkedAvailable.reduce((a, b) => a + b, 0) === 0) {
     allChecked = true;
   }
 
-  const question_info = useSelector((state) => state.answer.question);
-  const answer_list = useSelector((state) => state.answer.answer_list);
-  const answer_id = useSelector((state) => state.answer.answer_id);
-  const user_id = useSelector((state) => state.user.user.id);
-  // const is_changed = useSelector((state) => state.answer.is_changed);
+  // 슬라이드 & 점점점 만들기 (클래스 이름을 state 변경때마다 바꿔주면서 애니메이션 준다)
   const [card_1, setCard1] = React.useState("preselected");
   const [card_2, setCard2] = React.useState("selected");
   const [card_3, setCard3] = React.useState("proselected");
@@ -110,6 +112,7 @@ function Main() {
     }
   };
 
+  // 렌더링시 로그인 상태 확인하고 질문카드 뿌려주는 것
   React.useEffect(() => {
     if (getCookie("is_login")) {
       dispatch(answerActions.getQuestionAX());
@@ -154,7 +157,7 @@ function Main() {
               <b>{user_info?.nickname ? user_info?.nickname + "님" : "당신"}</b>
               의 머리속은?
             </QuestionIndicator>
-            {user_info && (
+            {user_info?.is_login ? (
               <ToMyBookShelf
                 onClick={() => {
                   history.push("/mybook");
@@ -162,7 +165,7 @@ function Main() {
               >
                 나의 책장으로 가기 <RightOutlined />
               </ToMyBookShelf>
-            )}
+            ) : null}
           </MainUpper>
           {/* 메인 아래쪽 */}
           <MainLower>
@@ -205,7 +208,7 @@ function Main() {
 const MainFrame = styled.div`
   width: 100%;
   height: 100%;
-  overflow-y :auto;
+  overflow-y: auto;
 `;
 
 // 메인의 위쪽 부분

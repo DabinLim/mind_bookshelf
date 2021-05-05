@@ -2,40 +2,20 @@ import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import swal from "sweetalert";
-import { Switch } from "antd";
 import { history } from "../../redux/configStore";
 
 import { api as answerActions } from "../../redux/modules/answer";
-import RecentQuestion from "./RecentQuestion";
 import { CheckCircleOutlined } from "@ant-design/icons";
 import CustomSwitch from "../../shared/CustomSwitch";
 
 const Post = (props) => {
   const dispatch = useDispatch();
   const user_info = useSelector((state) => state.user.user);
-  // const answer_list = useSelector((state) => state.answer.answer_list);
-  // const answer_id = props.cardId;
-
-  const [isChecked, setCheck] = useState(true);
-  const [isRecentOpen, setRecentOpen] = useState(false);
-
-  // Recent modal
-  const openRecent = () => {
-    setRecentOpen(true);
-  };
-
-  const closeRecent = () => {
-    setRecentOpen(false);
-  };
 
   // comment counter
   const [count, setCount] = useState(0);
 
   // Switch function
-  function onChange(checked) {
-    setCheck(checked);
-    console.log(isChecked);
-  }
 
   const [isOpen, setOpen] = useState(true);
 
@@ -81,24 +61,9 @@ const Post = (props) => {
 
   let opacity = props.available ? 1 : 0.4;
 
-  // 유효성 체크
   return (
     <>
       <CardFrame>
-        {/* {isRecentOpen ? (
-          <CommunitySeductor>
-            <RecentQuestion close={closeRecent} />
-          </CommunitySeductor>
-        ) : null} */}
-        {/* <CommunitySeductor>
-          {answer_list?.map((a, idx) => {
-            return (
-              <>
-                <RecentQuestion key={idx + "msg"} {...a} />
-              </>
-            );
-          })}
-        </CommunitySeductor> */}
         {/* 질문 정보 (작성자 정보 포함) */}
         <CardInfo>
           <CardWriterInfo>
@@ -127,7 +92,7 @@ const Post = (props) => {
                 </ThreeProfileBox>
               ) : null}
               <span
-                style={{ opacity: opacity }}
+                style={{ opacity: opacity, margin: "0 0 0 8px" }}
                 onClick={() => {
                   history.push(`/community/${props.cardId}`);
                 }}
@@ -216,10 +181,17 @@ const Post = (props) => {
               <p style={{ fontSize: "24px", margin: "0" }}>답변완료</p>
               {props.allChecked ? (
                 <>
-                  <div style={{ fontSize: "16px", margin: "0" }}>
-                    오늘 질문은 모두 끝났습니다.
-                    <br />
-                    내일을 기대해주세요!
+                  <div
+                    style={{
+                      fontSize: "16px",
+                      margin: "0",
+                      display: "flex",
+                      flexDirection: "column",
+                      lineHeight: "1",
+                    }}
+                  >
+                    <span>오늘 질문은 모두 끝났습니다.</span>
+                    <span>내일을 기대해주세요!</span>
                   </div>
                 </>
               ) : null}
@@ -230,10 +202,6 @@ const Post = (props) => {
     </>
   );
 };
-
-const CommunitySeductor = styled.div`
-  display: flex;
-`;
 
 const CardFrame = styled.div`
   width: 100%;
@@ -258,21 +226,36 @@ const AnswerInfo = styled.span`
   cursor: pointer;
   display: flex;
   align-items: center;
-  :hover {
-    transform: scale(1.1);
-    transition: all 200ms ease-in-out;
-  }
 `;
 
-const ThreeProfileBox = styled.div`
-  margin-right: 8px;
-`;
+const ThreeProfileBox = styled.div``;
 
 const UserProfile = styled.img`
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  background: gray;
+  &:nth-child(1) {
+    :hover {
+      transform: translate(0, -100%) scale(1.5);
+      transition: all 200ms ease-in-out;
+    }
+  }
+
+  &:nth-child(2) {
+    transform: translateX(-40%);
+    :hover {
+      transform: translate(-40%, -100%) scale(1.5);
+      transition: all 200ms ease-in-out;
+    }
+  }
+
+  &:nth-child(3) {
+    transform: translateX(-80%);
+    :hover {
+      transform: translate(-80%, -100%) scale(1.5);
+      transition: all 200ms ease-in-out;
+    }
+  }
   :hover {
     cursor: pointer;
   }
@@ -328,15 +311,14 @@ const CardWriterProfile = styled.img`
   width: 30px;
   height: 30px;
   border-radius: 50%;
+  margin-right: 8px;
   background: gray;
   :hover {
     cursor: pointer;
   }
 `;
 
-const CardWriter = styled.span`
-  margin-left: 8px;
-`;
+const CardWriter = styled.span``;
 
 const PostBox = styled.div``;
 
@@ -398,14 +380,4 @@ const CompletedBox = styled.div`
   height: 200px;
 `;
 
-const AnsweredCard = styled.div`
-  position: fixed;
-  background: white;
-  width: 40%;
-  height: 40%;
-  opacity: 0.8;
-  z-index: 30;
-`;
-
-const AnsweredComment = styled.div``;
 export default Post;
