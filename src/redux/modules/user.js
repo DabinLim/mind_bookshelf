@@ -33,7 +33,7 @@ const userSlice = createSlice({
     setUser: (state, action) => {
       state.user = action.payload;
       state.is_login = true;
-      state.is_userLoading = false;
+      // state.is_userLoading = false;
     },
     editUser: (state, action) => {
       state.user = { ...state.user, ...action.payload };

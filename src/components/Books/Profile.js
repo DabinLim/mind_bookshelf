@@ -57,14 +57,42 @@ const Profile = (props) => {
             <ProfileDetail>
               <Head>
             <Nickname>{other_info.nickname}</Nickname>
+            {other_info.topic?.friendship === false && 
+            other_info.topic?.love === false && 
+            other_info.topic?.dream === false && 
+            other_info.topic?.relationship === false && 
+            other_info.topic?.myself === false && 
+            other_info.topic?.worth === false ?
+            <SubjectContainer>
+              <div style={{display:'flex',alignItems:'center'}}>
+              <span style={{fontSize:'14px',marginRight:'17px',fontWeight:'800'}}>선택하신 선호 태그가 없습니다. 😗</span>
+              </div>
+            </SubjectContainer>
+            :
             <SubjectContainer>
               <div style={{display:'flex',alignItems:'center'}}>
               <span style={{fontSize:'14px',marginRight:'17px',fontWeight:'800'}}>선호 태그</span>
               </div>
-              <Subject1><span>#가치</span></Subject1>
-              <Subject2><span>#꿈</span></Subject2>
-              <Subject3><span>#나</span></Subject3>
+              {other_info.topic.friendship? 
+              <Subject1 style={{background:"#B9FFC4"}} ><span>#우정</span></Subject1>
+              :null}
+              {other_info.topic.love? 
+              <Subject1 style={{background:"#FFAAAA"}} ><span>#사랑</span></Subject1>
+              :null}
+              {other_info.topic.dream? 
+              <Subject1 style={{background:"#B7E6FF"}} ><span>#꿈</span></Subject1>
+              :null}
+              {other_info.topic.worth? 
+              <Subject1 style={{background:"#B5BDFF"}} ><span>#가치</span></Subject1>
+              :null}
+              {other_info.topic.relationship? 
+              <Subject1 style={{background:"#FFF09D"}} ><span>#관계</span></Subject1>
+              :null}
+              {other_info.topic.myself? 
+              <Subject1 style={{background:"#F9D1FD"}} ><span>#나</span></Subject1>
+              :null}
             </SubjectContainer>
+            }
               </Head>
               <Body>
                 <Answers>
@@ -90,7 +118,7 @@ const Profile = (props) => {
             {UpdateModal? 
               <ProfileUpdateModal close={closeUpdateModal} />
             :null}
-            {userLoading? 
+            {!is_login? 
             <SpinnerContainer>
               <Loader type="Oval" color="#3d66ba" height={50} width={50} />
             </SpinnerContainer>
