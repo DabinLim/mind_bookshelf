@@ -52,7 +52,7 @@ const answerSlice = createSlice({
 
 const getQuestionAX = () => {
   return function (dispatch, getState) {
-    // dispatch(setLoading(true));
+    dispatch(setLoading(true));
     const options = {
       url: `/card/daily`,
       method: "GET",
@@ -60,10 +60,6 @@ const getQuestionAX = () => {
     axios(options)
       .then((response) => {
         dispatch(setQuestion(response.data.cards));
-        // if (getState().answer.is_changed) {
-        //   dispatch(detectChange(false));
-        // }
-        // dispatch(setQ(response.data.cards[1]));
       })
       .catch((err) => {
         console.log(err);
@@ -76,7 +72,7 @@ const getQuestionAX = () => {
 
 const getQuestionAX_NOTLOGIN = () => {
   return function (dispatch, getState) {
-    // dispatch(setLoading(true));
+    dispatch(setLoading(true));
     delete axios.defaults.headers.common["Authorization"];
     const options = {
       url: `/card/daily`,
@@ -85,10 +81,6 @@ const getQuestionAX_NOTLOGIN = () => {
     axios(options)
       .then((response) => {
         dispatch(setQuestion(response.data.cards));
-        // if (getState().answer.is_changed) {
-        //   dispatch(detectChange(false));
-        // }
-        // dispatch(setQ(response.data.cards[1]));
       })
       .catch((err) => {
         console.log(err);
@@ -121,7 +113,6 @@ const getRecentAnswerAX = (userId) => {
 
 const sendAnswerAX = (question_id, content, isChecked) => {
   return function (dispatch, getState) {
-    // dispatch(detectChange(true));
     let userInfo = getState().user.user;
     if (userInfo.nickname === "") {
       swal({
@@ -143,10 +134,6 @@ const sendAnswerAX = (question_id, content, isChecked) => {
     };
     axios(options)
       .then((response) => {
-        // 여기서 delete 를 써서 리덕스 정리 한 번 업데이트 해준다.
-        // dispatch(deleteQuestion(question_id));
-        // // 배열의 첫 번째 질문을 보여주는 것!
-
         dispatch(setQuestion(response.data.cards));
         swal({
           title: "답변 완료✌",
