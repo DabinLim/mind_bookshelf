@@ -151,8 +151,8 @@ function Main() {
             </DotQueue>
             <DateIndicator>{displayedDate}</DateIndicator>
             <QuestionIndicator>
-              <b>{user_info?.nickname ? user_info?.nickname : "고객"}님</b>의
-              머리속은?
+              <b>{user_info?.nickname ? user_info?.nickname + "님" : "당신"}</b>
+              의 머리속은?
             </QuestionIndicator>
             {user_info && (
               <ToMyBookShelf
