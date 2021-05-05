@@ -3,8 +3,6 @@ import styled from "styled-components";
 import { history } from "../../redux/configStore";
 import { CardModal } from "./communityindex";
 import { useSelector, useDispatch } from "react-redux";
-import FavoriteIcon from "@material-ui/icons/Favorite";
-
 import { api as commentActions } from "../../redux/modules/comment";
 import { setAnswerInfo } from "../../redux/modules/comment";
 
@@ -32,12 +30,10 @@ const CommunityQnA = (props) => {
         </QuestionBox>
         <Topic>#{props.topic}</Topic>
         <AnswerContainer>
-          {props.answers.map((a, idx) => {
+          {props.answers.map((a) => {
             return (
               <Answer key={a.id}>
-                {cardModal ? (
-                  <CardModal key={idx} close={closeCardModal} />
-                ) : null}
+                {cardModal ? <CardModal close={closeCardModal} /> : null}
                 <AnswerHeader
                   onClick={() => {
                     if (a.userId === user.id) {
@@ -66,10 +62,8 @@ const CommunityQnA = (props) => {
                   {a.contents}
                 </AnswerContents>
                 <AnswerLikes>
-                  <LikeBtn style={{ color: "#8B8B8B" }}>
-                    <FavoriteIcon />{" "}
-                    <span style={{ margin: "0 0 0 5px" }}>{a.likeCount}</span>
-                  </LikeBtn>
+                  <LikeIcon src="https://uxwing.com/wp-content/themes/uxwing/download/15-healthcare-and-medical/heart-black.png" />
+                  {a.likeCount}
                 </AnswerLikes>
               </Answer>
             );
@@ -81,25 +75,26 @@ const CommunityQnA = (props) => {
 };
 
 const QnAContainer = styled.div`
-  width: 650px;
+  width: 940px;
   display: flex;
   flex-direction: column;
   align-items: start;
-  @media (max-width: 1800px) {
-    margin-bottom: 60px;
-  }
+  margin-bottom: 60px;
+  margin-top: 40px;
+
 `;
 
 const QuestionBox = styled.div`
+  width: 100%;
   display: flex;
+  // align-items: center;
   justify-content: space-between;
-
 `
 
 const Question = styled.div`
   font-size: 30px;
   font-weight: 600;
-  width: 400px;
+  width: 500px;
   // height: 100px;
   // display: -webkit-box;
   // -webkit-line-clamp: 2;
@@ -110,8 +105,7 @@ const Question = styled.div`
 
 const DetailBtn = styled.div`
   cursor: pointer;
-
-
+  font-size: 16px;
 `
 
 const AnswerContainer = styled.div`
@@ -120,16 +114,15 @@ const AnswerContainer = styled.div`
 `;
 
 const Answer = styled.div`
-  width: 256px;
-  height: 160px;
+  width: 220px;
+  height: 140px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 13px;
-  background-color: #ffffff;
-  box-shadow: 0px 0px 15px #c1c7fc;
-  border-radius: 30px;
-  margin-right: 15px;
+  padding: 15px;
+  background-color: #FFFFFF;
+  border-radius: 20px;
+  margin-right: 20px;
 `;
 
 const AnswerHeader = styled.div`
@@ -139,19 +132,15 @@ const AnswerHeader = styled.div`
 `;
 
 const AnswerProfileImg = styled.img`
-  width: 35px;
-  height: 35px;
+  width: 30px;
+  height: 30px;
   border-radius: 40px;
   object-fit: cover;
-  margin-right: 8px;
 `;
 
 const AnswerNickname = styled.div`
   font-weight: 600;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+  margin-left: 10px;
 `;
 
 const AnswerContents = styled.div`
@@ -169,19 +158,18 @@ const AnswerContents = styled.div`
 `;
 
 const AnswerLikes = styled.div`
+  text-align: right;
   font-weight: 600;
-  display: flex;
-  justify-content: flex-end;
+  font-size: 16px;
 `;
 
-const LikeBtn = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 18px;
-  cursor: pointer;
+const LikeIcon = styled.img`
+  width: 15px;
+  height: 13px;
+  background-size: cover;
   margin-right: 5px;
-`;
+  vertical-align: middle;
+`
 
 const Topic = styled.div`
   margin-top: 30px;

@@ -73,23 +73,23 @@ const Profile = (props) => {
               <div style={{display:'flex',alignItems:'center'}}>
               <span style={{fontSize:'14px',marginRight:'17px',fontWeight:'800'}}>선호 태그</span>
               </div>
-              {other_info.topic.friendship? 
-              <Subject1 style={{background:"#B9FFC4"}} ><span>#우정</span></Subject1>
+              {user_info.topic.friendship? 
+              <Subject1 style={{background:"#B9FFC4", boxShadow: "0px 0px 15px #B9FFC4"}} ><span>#우정</span></Subject1>
               :null}
-              {other_info.topic.love? 
-              <Subject1 style={{background:"#FFAAAA"}} ><span>#사랑</span></Subject1>
+              {user_info.topic.love? 
+              <Subject1 style={{background:"#FFAAAA", boxShadow: "0px 0px 15px #FFAAAA"}} ><span>#사랑</span></Subject1>
               :null}
-              {other_info.topic.dream? 
-              <Subject1 style={{background:"#B7E6FF"}} ><span>#꿈</span></Subject1>
+              {user_info.topic.dream? 
+              <Subject1 style={{background:"#B7E6FF", boxShadow: "0px 0px 15px #B7E6FF"}} ><span>#꿈</span></Subject1>
               :null}
-              {other_info.topic.worth? 
-              <Subject1 style={{background:"#B5BDFF"}} ><span>#가치</span></Subject1>
+              {user_info.topic.worth? 
+              <Subject1 style={{background:"#B5BDFF", boxShadow: "0px 0px 15px #B5BDFF"}} ><span>#가치</span></Subject1>
               :null}
-              {other_info.topic.relationship? 
-              <Subject1 style={{background:"#FFF09D"}} ><span>#관계</span></Subject1>
+              {user_info.topic.relationship? 
+              <Subject1 style={{background:"#FFF09D" ,boxShadow: "0px 0px 15px #FFF09D"}} ><span>#관계</span></Subject1>
               :null}
-              {other_info.topic.myself? 
-              <Subject1 style={{background:"#F9D1FD"}} ><span>#나</span></Subject1>
+              {user_info.topic.myself? 
+              <Subject1 style={{background:"#F9D1FD", boxShadow: "0px 0px 15px #F9D1FD"}} ><span>#나</span></Subject1>
               :null}
             </SubjectContainer>
             }
@@ -130,7 +130,7 @@ const Profile = (props) => {
               <SettingIcon src="https://cdn4.iconfinder.com/data/icons/forgen-phone-settings/48/setting-512.png" />
             </ProfileImgContainer>
             <ProfileDetail>
-              <Head>
+            <Head>
             <Nickname>{user_info.nickname}</Nickname>
             {user_info.topic?.friendship === false && 
             user_info.topic?.love === false && 
@@ -149,37 +149,42 @@ const Profile = (props) => {
               <span style={{fontSize:'14px',marginRight:'17px',fontWeight:'800'}}>선호 태그</span>
               </div>
               {user_info.topic.friendship? 
-              <Subject1 style={{background:"#B9FFC4"}} ><span>#우정</span></Subject1>
+              <Subject1 style={{background:"#B9FFC4", boxShadow: "0px 0px 15px #B9FFC4"}} ><span>#우정</span></Subject1>
               :null}
               {user_info.topic.love? 
-              <Subject1 style={{background:"#FFAAAA"}} ><span>#사랑</span></Subject1>
+              <Subject1 style={{background:"#FFAAAA", boxShadow: "0px 0px 15px #FFAAAA"}} ><span>#사랑</span></Subject1>
               :null}
               {user_info.topic.dream? 
-              <Subject1 style={{background:"#B7E6FF"}} ><span>#꿈</span></Subject1>
+              <Subject1 style={{background:"#B7E6FF", boxShadow: "0px 0px 15px #B7E6FF"}} ><span>#꿈</span></Subject1>
               :null}
               {user_info.topic.worth? 
-              <Subject1 style={{background:"#B5BDFF"}} ><span>#가치</span></Subject1>
+              <Subject1 style={{background:"#B5BDFF", boxShadow: "0px 0px 15px #B5BDFF"}} ><span>#가치</span></Subject1>
               :null}
               {user_info.topic.relationship? 
-              <Subject1 style={{background:"#FFF09D"}} ><span>#관계</span></Subject1>
+              <Subject1 style={{background:"#FFF09D" ,boxShadow: "0px 0px 15px #FFF09D"}} ><span>#관계</span></Subject1>
               :null}
               {user_info.topic.myself? 
-              <Subject1 style={{background:"#F9D1FD"}} ><span>#나</span></Subject1>
+              <Subject1 style={{background:"#F9D1FD", boxShadow: "0px 0px 15px #F9D1FD"}} ><span>#나</span></Subject1>
               :null}
             </SubjectContainer>
             }
-              </Head>
-              <Body>
-                <Answers>
-                  낙서
-                  <span style={{fontSize:'16px', fontWeight:'600',marginLeft:'5px'}}>{user_info.myAnswerCount}</span>
-                </Answers>
-            <MyQuestionBtn onClick={()=>{dispatch(setComponent('myquestion'))}}>질문
-            <span style={{fontSize:'16px', fontWeight:'600',marginLeft:'5px'}}>{user_info.myCustomQuestionCount}</span>
-            </MyQuestionBtn>
-            <Myfollowers onClick={() => {setFollowModal(true)}} >구독중<span style={{fontSize:'16px', fontWeight:'600',marginLeft:'5px'}}>{myfriend_list.length}</span></Myfollowers>
-              </Body>
-            <Introduce>{user_info.introduce}</Introduce>
+            </Head>
+            <Body>
+              <Answers>
+                낙서
+                <span style={{fontSize:'16px', fontWeight:'600',marginLeft:'5px'}}>{user_info.myAnswerCount}</span>
+              </Answers>
+              <MyQuestionBtn onClick={()=>{dispatch(setComponent('myquestion'))}}>질문
+                <span style={{fontSize:'16px', fontWeight:'600',marginLeft:'5px'}}>{user_info.myCustomQuestionCount}</span>
+              </MyQuestionBtn>
+              <Myfollowers onClick={() => {setFollowModal(true)}} >구독중
+                <span style={{fontSize:'16px', fontWeight:'600',marginLeft:'5px'}}>{myfriend_list.length}</span>
+              </Myfollowers>
+            </Body>
+            <Bottom>
+              <Introduce>{user_info.introduce}</Introduce>
+              <QuestionBtn>나의 질문 카드 보러가기</QuestionBtn>
+            </Bottom>
             </ProfileDetail>
             </>
             }
@@ -250,11 +255,16 @@ const Body = styled.div`
   align-items:center;
 `;
 
+const Bottom = styled.div`
+  display: flex;
+  width:100%;
+  justify-content: space-between;
+  margin-top: 20px;
+`
+
 const Nickname = styled.div`
-  
   font-weight: 600;
   font-size: 22px;
-  
 `
 
 const Introduce = styled.div`
@@ -263,7 +273,7 @@ const Introduce = styled.div`
 `
 
 const Answers = styled.div`
-margin-top:11px;
+  margin-top:11px;
   margin-right:20px;
   font-weight: 400;
   font-size: 14px;
@@ -295,40 +305,7 @@ const Subject1 = styled.div`
   align-items:center;
   width:72px;
   height:31px;
-  box-shadow: 0px 0px 15px #B2B4FD;
   opacity:0.8;
-  margin-left: 10px;
-  border-radius: 45px;
-  font-size:14px;
-  font-weight: 600;
-  
-`
-
-const Subject2 = styled.div`
-  display: flex;
-  justify-content:center;
-  align-items:center;
-  width:72px;
-  height:31px;
-  background-color: #96DBFF;
-  box-shadow: 0px 0px 15px #A9DAFE;
-  opacity: 0.8;
-  margin-left: 10px;
-  border-radius: 45px;
-  font-size:14px;
-  font-weight: 600;
-  
-`
-
-const Subject3 = styled.div`
-  display: flex;
-  justify-content:center;
-  align-items:center;
-  width:72px;
-  height:31px;
-  background-color: #FFB5FC;
-  box-shadow: 0px 0px 15px #FDBBFA;
-  opacity: 0.8;
   margin-left: 10px;
   border-radius: 45px;
   font-size:14px;
@@ -352,5 +329,8 @@ const SpinnerContainer = styled.div`
   align-items:center;
 `
 
+const QuestionBtn = styled.div`
+
+`
 
 export default Profile
