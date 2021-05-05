@@ -49,6 +49,7 @@ const Container = styled.div`
     flex-direction:column;
     justify-content:space-between;
     align-items:center;
+    overflow:auto;
 `;
 
 const ProfileContainer = styled.section`
