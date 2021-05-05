@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { api as commentActions, setComment } from "../../redux/modules/comment";
 import { api as communityActions } from "../../redux/modules/community";
 import { useDispatch, useSelector } from "react-redux";
-import FavoriteIcon from "@material-ui/icons/Favorite";
+import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
 import CommentList from "./CommentList";
 import HideModal from "./HideModal";
@@ -198,11 +198,10 @@ const CardModal = (props) => {
                     );
                   }}
                 >
-                  <FavoriteIcon />
+                  <FavoriteBorderIcon />
                 </LikeBtn>
               ) : (
                 <LikeBtn
-                  style={{ color: "pink" }}
                   onClick={() => {
                     dispatch(
                       communityActions.addLikeAX(
@@ -212,7 +211,7 @@ const CardModal = (props) => {
                     );
                   }}
                 >
-                  <FavoriteIcon />
+                  <FavoriteBorderIcon />
                 </LikeBtn>
               )}
               <LikeCount>{answerInfo.likeCount}개</LikeCount>

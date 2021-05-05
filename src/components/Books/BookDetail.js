@@ -2,6 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import {useSelector, useDispatch} from 'react-redux';
 import CardDetail from './CardDetail';
+import {api as communityActions} from '../../redux/modules/community';
+import { api as commentActions } from "../../redux/modules/comment";
 import {setAnswerInfo} from '../../redux/modules/comment';
 
 
@@ -13,23 +15,19 @@ const BookDetail = (props) => {
 
     const openCard = (v) => {
         console.log(v)
-        dispatch(setAnswerInfo({
-            profileImg:v.questionCreatedUserProfileImg,
-            content:v.answerContents,
-            nickname:v.questionCreatedUserNickname,
-            likeCount:v.likeCount,
-        }))
+        dispatch(communityActions.getCardDetail(v.answerId))
+        dispatch(commentActions.getCommentAX(v.answerId))
         setCardDetailModal(true);
-    }
+    };
     const close = () => {
         setCardDetailModal(false);
-    }
+    };
     console.log(book_detail)
   return (
     <React.Fragment>
       <Background />
       <Container>
-          {cardDetailModal && <CardDetail close={close}/>}
+          {cardDetailModal && <CardDetail date={props.date} close={close}/>}
           {book_detail.length && book_detail.map((v,idx) => {
               if(idx < 3){
                   return(
