@@ -107,7 +107,7 @@ const getBooks = (towhen) => {
             method:'GET',
         };
         axios(options).then((response) => {
-            // console.log(response.data)
+            console.log(response.data)
             dispatch(setBooks(response.data.books))
         }).catch((err) => {
             console.log(err)
@@ -122,12 +122,14 @@ const getBooks = (towhen) => {
 
 const getBookDetail = (date) => {
     return function(dispatch) { 
+        console.log(date)
 
         const options = {
             url:`bookshelf/bookDetail/${date}`,
             method:'GET',
         };
         axios(options).then((response) => {
+            console.log(response.data)
             dispatch(setBookDetail(response.data.booksDiary))
             dispatch(setBookLoading(false))
         }).catch((err) => {
@@ -318,7 +320,7 @@ export const {
     setCustomQuestion,
     resetCustomQuestion,
     setPageOwner,
-    setBookLoading
+    setBookLoading,
     // setCardAnswers,
     // setOther
  } = booksSlice.actions;

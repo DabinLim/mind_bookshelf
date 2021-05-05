@@ -1,10 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 import { history } from "../../redux/configStore";
+import {CardDetail, BookDetail} from './booksindex';
 import { ArrowLeft, ArrowRight } from "@material-ui/icons";
 import { changeDate, setComponent } from "../../redux/modules/books";
 import { useSelector, useDispatch } from "react-redux";
-import { api as booksActions } from "../../redux/modules/books";
+import { api as booksActions} from "../../redux/modules/books";
 
 const BookShelf = (props) => {
 //   let num = 32;
@@ -22,13 +23,31 @@ const BookShelf = (props) => {
 //       return true;
 //     }
 //   });
-  
+const [bookDetailModal, setBookDetailModal] = React.useState(null);
+const [date_visible, setDateVisible ] = React.useState(true);
   const dispatch = useDispatch();
   const formated_date = useSelector((state) => state.books.formated_date);
   const book_list = useSelector((state) => state.books.books);
   const url = window.location.href.split("/");
   let id = url[url.length - 1];
   const date = useSelector((state) => state.books.date);
+
+  const openBook = (givendate) => {
+    dispatch(changeDate(`20${givendate}`));
+    // if (id === "mybook") {
+    //   history.push(`/mybook/${v._id}`);
+    // } else {
+    //   history.push(`/others/${id}/${v._id}`);
+    // }
+    if(bookDetailModal === givendate){
+      setBookDetailModal(null);
+      setDateVisible(true);
+      return
+    }
+    dispatch(booksActions.getBookDetail(givendate));
+    setBookDetailModal(givendate)
+    setDateVisible(false);
+  }
 
   const book_1 = book_list.filter((v, idx) => {
     if (idx < 15) {
@@ -40,9 +59,6 @@ const BookShelf = (props) => {
       return true;
     }
   });
-
-  console.log(book_1)
-  console.log(book_2)
 
   const previousMonth = () => {
     if (id === "mybook") {
@@ -73,9 +89,13 @@ const BookShelf = (props) => {
     <React.Fragment>
       <Container>
         <ForDate>
+          {date_visible ? 
+          <>
           <ArrowLeft onClick={previousMonth} />
-          <span>{formated_date}</span>
+          <span>{formated_date}</span> 
           <ArrowRight onClick={nextMonth} />
+          </>
+          : ''}
         </ForDate>
         <ShelfBox>
           {/* <ImgLeft/> */}
@@ -83,16 +103,11 @@ const BookShelf = (props) => {
           {book_1 &&
               book_1.map((v, idx) => {
                 return (
+                  <>
+                  {bookDetailModal === v._id && <BookDetail/>}
                   <Book
                     key={idx}
-                    onClick={() => {
-                      dispatch(changeDate(`20${v._id}`));
-                      if (id === "mybook") {
-                        history.push(`/mybook/${v._id}`);
-                      } else {
-                        history.push(`/others/${id}/${v._id}`);
-                      }
-                    }}
+                    onClick={() => {openBook(v._id)}}
                   >
                       <Date>
                       {v._id.charAt(v._id.length - 2)}
@@ -100,6 +115,7 @@ const BookShelf = (props) => {
                     </Date>
                     <BookImage src='https://user-images.githubusercontent.com/77574867/117013284-b0b7cf80-ad2a-11eb-910a-252130e01287.png'/>
                   </Book>
+                  </>
                 );
               })}
           </BookRow>
@@ -110,23 +126,19 @@ const BookShelf = (props) => {
           {book_2 &&
               book_2.map((v, idx) => {
                 return (
+                  <>
+                  {bookDetailModal === v.id && <BookDetail/>}
                   <Book
                     key={idx}
-                    onClick={() => {
-                      dispatch(changeDate(`20${v._id}`));
-                      if (id === "mybook") {
-                        history.push(`/mybook/${v._id}`);
-                      } else {
-                        history.push(`/others/${id}/${v._id}`);
-                      }
-                    }}
+                    onClick={() => {openBook(v._id)}}
                   >
-                    <Date>
+                      <Date>
                       {v._id.charAt(v._id.length - 2)}
                       {v._id.charAt(v._id.length - 1)}
                     </Date>
                     <BookImage src='https://user-images.githubusercontent.com/77574867/117013284-b0b7cf80-ad2a-11eb-910a-252130e01287.png'/>
                   </Book>
+                  </>
                 );
               })}
               
@@ -159,9 +171,13 @@ const ShelfBox = styled.div`
   position: relative;
   width: 100%;
   display: flex;
+  margin-left:-10px;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  @media (max-width:1040px){
+    margin-left:0px;
+}
 `;
 
 const Shelf = styled.div`
@@ -174,12 +190,13 @@ const Shelf = styled.div`
 `;
 
 const BookRow = styled.div`
+  position:relative;
   display: flex;
   flex-direction: row;
   width: 100%;
   height: 210px;
   max-width: 1055px;
-  overflow:hidden;
+  /* overflow:hidden; */
   margin: 10px 0px -5px 65px;
   @media (max-width:1000px){
         
