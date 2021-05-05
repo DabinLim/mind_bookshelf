@@ -1,97 +1,152 @@
 import React from "react";
 import styled from "styled-components";
-import { ArrowLeft, ArrowRight } from "@material-ui/icons";
-import { history } from "../../redux/configStore";
-import { useSelector, useDispatch } from "react-redux";
-import { api as booksActions, setBookLoading } from "../../redux/modules/books";
-import AnswerCard from "../../shared/AnswerCard";
-import Loader from "react-loader-spinner";
+import {useSelector, useDispatch} from 'react-redux';
+import CardDetail from './CardDetail';
+import {setAnswerInfo} from '../../redux/modules/comment';
+
 
 const BookDetail = (props) => {
-  const dispatch = useDispatch();
-  const url = window.location.href.split("/");
-  const current_date = url[url.length - 1];
-  const id = url[url.length - 2];
-  const date = useSelector((state) => state.books.date);
-  const book_detail = useSelector((state) => state.books.book_detail);
-  const is_loading = useSelector((state) => state.books.book_loading);
+    const dispatch = useDispatch()
+    const [cardDetailModal, setCardDetailModal] = React.useState(false);
+    const book_detail = useSelector(state => state.books.book_detail);
 
-  const previousDay = () => {
-    const previous_day = date.subtract(1, "d").format("YYMMDD");
-    if (id === "mybook") {
-      history.push(`/mybook/${previous_day}`);
-      return;
-    }
-    history.push(`/others/${id}/${previous_day}`);
-  };
 
-  const nextDay = () => {
-    const next_day = date.add(1, "d").format("YYMMDD");
-    if (id === "mybook") {
-      history.push(`/mybook/${next_day}`);
-      return;
+    const openCard = (v) => {
+        console.log(v)
+        dispatch(setAnswerInfo({
+            profileImg:v.questionCreatedUserProfileImg,
+            content:v.answerContents,
+            nickname:v.questionCreatedUserNickname,
+            likeCount:v.likeCount,
+        }))
+        setCardDetailModal(true);
     }
-    history.push(`/others/${id}/${next_day}`);
-  };
-
-  React.useEffect(() => {
-    if (id === "mybook") {
-      dispatch(booksActions.getBookDetail(current_date));
-    } else {
-      dispatch(booksActions.getOthersBookDetail(current_date, id));
+    const close = () => {
+        setCardDetailModal(false);
     }
-    return () => {
-      dispatch(setBookLoading(true))
-    }
-  }, url);
-
+    console.log(book_detail)
   return (
     <React.Fragment>
+      <Background />
       <Container>
-        <ArrowLeft onClick={previousDay} />
-        <CardContainer>
-          {is_loading ? (
-            <Loader type="Hearts" color="#00BFFF" height={80} width={80} />
-          ) : (
-            book_detail.map((v, idx) => {
-              if (idx < 3) {
-                return <AnswerCard key={idx} num={idx + 1} {...v} />;
+          {cardDetailModal && <CardDetail close={close}/>}
+          {book_detail.length && book_detail.map((v,idx) => {
+              if(idx < 3){
+                  return(
+                    <DetailContainer key={idx}>
+                    <Head>
+                  <Subject>#가치</Subject>
+                  <TitleBox>
+                  <Title onClick={() => {openCard(v)}}>{v.questionContents}</Title>
+                  </TitleBox>
+                    </Head>
+                    <Contents>
+                        {v.answerContents}
+                    </Contents>
+                </DetailContainer>
+                  )
               }
-            })
-          )}
-        </CardContainer>
-        <ArrowRight onClick={nextDay} />
+          })}
       </Container>
     </React.Fragment>
   );
 };
 
 const Container = styled.div`
-  position: relative;
-  box-sizing: border-box;
-  padding: 50px 30px;
-  margin: 20px;
-  width: 100%;
-  max-width: 1000px;
-  min-width: 800px;
-  height: 100%;
-  background-color: lightgray;
+    box-sizing:border-box;
+    padding-top:5px;
+  border-radius:20px;
+  position: absolute;
+  top: -106px;
+  left: 0;
+  width:1207px;
+  
+  height: 95px;
+  align-items: center;
+  /* transform: translate(-50%, -50%); */
+  z-index: 30;
   display: flex;
   flex-direction: row;
-  align-items: center;
+  justify-content:flex-start;
+  overflow-y:hidden;
+
 `;
 
-const CardContainer = styled.div`
-  box-sizing: border-box;
-  padding: 5%;
-  position: relative;
-  width: 100%;
-  height: 100%;
-  background: whitesmoke;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+const Background = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: #000000;
+  opacity:0.45;
+  z-index: 20;
+  pointer-events:none;
 `;
+
+const DetailContainer = styled.div`
+    width:100%;
+    height:100%;
+    margin:0px 45px 0px 10px;
+`;
+
+const Head = styled.div`
+    width:100%;
+    display:flex;
+    flex-direction:row;
+    margin-bottom:17px;
+`;
+
+const Subject = styled.div`
+  display: flex;
+  justify-content:center;
+  align-items:center;
+  min-width:72px;
+  height:31px;
+  background-color: #A2ACFF;
+  box-shadow: 0px 3px 15px #C3C9FE;
+  opacity:0.8;
+  border-radius: 45px;
+  font-size:14px;
+  font-weight: 600;
+  
+`;
+
+const TitleBox = styled.div`
+    display:flex;
+    justify-content:center;
+    align-items:center;
+`;
+
+const Title = styled.span`
+    font-size:17px;
+    margin-left:16px;
+    color:#ffffff;
+    font-weight:400;
+    display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor:pointer;
+  &:hover{
+      font-weight:800;
+  }
+`;
+
+const Contents = styled.span`
+
+    width:100%;
+    height:100%;
+    font-size:14px;
+    color:#ffffff;
+    
+    display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`;
+
 
 export default BookDetail;

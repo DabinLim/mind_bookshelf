@@ -34,8 +34,8 @@ const MyBook = (props) => {
                 <BookShelf date={date}/>
                 }
                 {component === 'myquestion' && <MyQuestion/>}
-                {id !=='mybook' && component === '' &&
-                <BookDetail date={date}/>}
+                {/* {id !=='mybook' && component === '' &&
+                <BookDetail date={date}/>} */}
                 {id === 'mybook' && component === '' && <ImgRight/>}
             </Container>
         </React.Fragment>
