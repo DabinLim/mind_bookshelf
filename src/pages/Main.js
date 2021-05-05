@@ -269,7 +269,7 @@ const MainLower = styled.section``;
 
 const SlideBox = styled.div`
   width: 100%;
-  margin-top: 300px;
+  margin-top: 330px;
   display: flex;
   position: relative;
   flex-direction: column;
