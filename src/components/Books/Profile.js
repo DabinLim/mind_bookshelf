@@ -22,8 +22,6 @@ const Profile = (props) => {
   const userLoading = useSelector((state)=> state.user.is_userLoading)
   const friendLoading = useSelector((state) => state.user.is_friendLoading)
 
-  console.log(user_info);
-  console.log(other_info);
 
   const closeUpdateModal = () => {
     setUpdateModal(false)
@@ -34,10 +32,6 @@ const Profile = (props) => {
   }
 
   React.useEffect(() => {
-    // if(is_other){
-    //   dispatch(booksActions.setOthersQuestCount())
-    //   dispatch(booksActions.setQuestCount(props.id))
-    // }
     dispatch(setPageOwner(props.id));
     return () => {
       dispatch(loading(true));
@@ -47,7 +41,6 @@ const Profile = (props) => {
   return(
     <>
       {is_other? 
-
           <React.Fragment>
             {userLoading? 
             <SpinnerContainer>
@@ -92,13 +85,12 @@ const Profile = (props) => {
           </React.Fragment>
         :
           <React.Fragment>
+            
             {followModal? <FollowModal friend_list={myfriend_list} close={closeFollowModal} /> : null}
             {UpdateModal? 
               <ProfileUpdateModal close={closeUpdateModal} />
             :null}
-
-          
-            {friendLoading? 
+            {userLoading? 
             <SpinnerContainer>
               <Loader type="Oval" color="#3d66ba" height={50} width={50} />
             </SpinnerContainer>
@@ -112,14 +104,42 @@ const Profile = (props) => {
             <ProfileDetail>
               <Head>
             <Nickname>{user_info.nickname}</Nickname>
+            {user_info.topic?.friendship === false && 
+            user_info.topic?.love === false && 
+            user_info.topic?.dream === false && 
+            user_info.topic?.relationship === false && 
+            user_info.topic?.myself === false && 
+            user_info.topic?.worth === false ?
+            <SubjectContainer>
+              <div style={{display:'flex',alignItems:'center'}}>
+              <span style={{fontSize:'14px',marginRight:'17px',fontWeight:'800'}}>선택하신 선호 태그가 없습니다. 😗</span>
+              </div>
+            </SubjectContainer>
+            :
             <SubjectContainer>
               <div style={{display:'flex',alignItems:'center'}}>
               <span style={{fontSize:'14px',marginRight:'17px',fontWeight:'800'}}>선호 태그</span>
               </div>
-              <Subject1><span>#가치</span></Subject1>
-              <Subject2><span>#꿈</span></Subject2>
-              <Subject3><span>#나</span></Subject3>
+              {user_info.topic.friendship? 
+              <Subject1 style={{background:"#B9FFC4"}} ><span>#우정</span></Subject1>
+              :null}
+              {user_info.topic.love? 
+              <Subject1 style={{background:"#FFAAAA"}} ><span>#사랑</span></Subject1>
+              :null}
+              {user_info.topic.dream? 
+              <Subject1 style={{background:"#B7E6FF"}} ><span>#꿈</span></Subject1>
+              :null}
+              {user_info.topic.worth? 
+              <Subject1 style={{background:"#B5BDFF"}} ><span>#가치</span></Subject1>
+              :null}
+              {user_info.topic.relationship? 
+              <Subject1 style={{background:"#FFF09D"}} ><span>#관계</span></Subject1>
+              :null}
+              {user_info.topic.myself? 
+              <Subject1 style={{background:"#F9D1FD"}} ><span>#나</span></Subject1>
+              :null}
             </SubjectContainer>
+            }
               </Head>
               <Body>
                 <Answers>
@@ -133,7 +153,6 @@ const Profile = (props) => {
               </Body>
             <Introduce>{user_info.introduce}</Introduce>
             </ProfileDetail>
-
             </>
             }
           </React.Fragment>
@@ -248,7 +267,6 @@ const Subject1 = styled.div`
   align-items:center;
   width:72px;
   height:31px;
-  background-color: #A2ACFF;
   box-shadow: 0px 0px 15px #B2B4FD;
   opacity:0.8;
   margin-left: 10px;

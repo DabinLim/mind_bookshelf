@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { api as userActions } from "../../redux/modules/user";
 import Loader from "react-loader-spinner";
 import axios from "axios";
-import { NavigateBeforeRounded } from "@material-ui/icons";
+import WithdrawalModal from "./WithdrawalModal"
 
 axios.defaults.baseURL = "http://lkj99.shop";
 
@@ -22,16 +22,10 @@ const ProfileUpdateModal = (props) => {
     user_info.introduce ? user_info.introduce : "자신에 대해서 적어주세요."
   );
   const [loading, setLoading] = useState(false);
-  const checkedType = {
-    love:false, 
-    relationship:false, 
-    friendship:false,
-    worth:false,
-    dream:false,
-    myself:false, 
-  };
+  const [withdrawal, setWidthdrawal] = useState(false);
+  const checkedType = {...user_info.topic}
+  
 
-  console.log(Object.values(checkedType))
 
   const getNicknameAX = async () => {
     const result = await axios.get(`/myPage/profile/random-nickname`);
@@ -61,98 +55,27 @@ const ProfileUpdateModal = (props) => {
     return true
   }
 
-  const checkedLove = (e) => {
+  const checkedTopic = (e) => {
     if(e.target.checked){
-      checkedType.love = true;
+      checkedType[e.target.id] = true;
       console.log(checkedType)
       if(!numberChecked()){
         window.alert('어허')
         e.target.checked = false;
-        checkedType.love = false;
+        checkedType[e.target.id] = false;
       }
     } else{
-      checkedType.love = false;
+      checkedType[e.target.id] = false;
       console.log(checkedType)
     }
   }
 
-  const checkedFriendShip = (e) => {
-    if(e.target.checked){
-      checkedType.friendship = true;
-      console.log(checkedType)
-      if(!numberChecked()){
-        window.alert('어허')
-        e.target.checked = false;
-        checkedType.friendship = false;
-      }
-    } else{
-      checkedType.friendship = false;
-      console.log(checkedType)
-    }
-  }
-
-  const checkedRelationship = (e) => {
-    if(e.target.checked){
-      checkedType.relationship = true;
-      console.log(checkedType)
-      if(!numberChecked()){
-        window.alert('어허')
-        e.target.checked = false;
-        checkedType.relationship = false;
-      }
-    } else{
-      checkedType.relationship = false;
-      console.log(checkedType)
-    }
-  }
-
-  const checkedWorth = (e) => {
-    if(e.target.checked){
-      checkedType.worth = true;
-      console.log(checkedType)
-      if(!numberChecked()){
-        window.alert('어허')
-        e.target.checked = false;
-        checkedType.worth = false;
-      }
-    } else{
-      checkedType.worth = false;
-      console.log(checkedType)
-    }
-  }
-
-  const checkedDream = (e) => {
-    if(e.target.checked){
-      checkedType.dream = true;
-      console.log(checkedType)
-      if(!numberChecked()){
-        window.alert('어허')
-        e.target.checked = false;
-        checkedType.dream = false;
-      }
-    } else{
-      checkedType.dream = false;
-      console.log(checkedType)
-    }
-  }
-
-  const checkedMyself = (e) => {
-    if(e.target.checked){
-      checkedType.myself = true;
-      console.log(checkedType)
-      if(!numberChecked()){
-        window.alert('어허')
-        e.target.checked = false;
-        checkedType.myself = false;
-      }
-    } else{
-      checkedType.myself = false;
-      console.log(checkedType)
-    }
-  }
 
   return (
     <React.Fragment>
+      {withdrawal? 
+      <WithdrawalModal setWidthdrawal={setWidthdrawal}/>
+      :null}
       <Background onClick={props.close} />
       <UpdateBox>
         <ImageUpdate>
@@ -167,22 +90,73 @@ const ProfileUpdateModal = (props) => {
           프로필이미지 삭제
         </RemoveProfileBtn>
         
-        <div>
-          {checkedType.relationship? 
+        <TypeContainer>
+          <div>
+          <div style={{marginBottom: "20px"}}>
+          {user_info.topic.friendship? 
             <>
-            <input type="checkbox" defaultChecked onChange={checkedRelationship} name="action" id="relationship" value="관계" /><label for="relationship">관계 </label>
+            <CheckedBox type="checkbox" defaultChecked onChange={checkedTopic} name="action" id="friendship" value="우정"  /><CheckedLabel for="friendship" style={{background:"#B9FFC4"}} >#우정</CheckedLabel>
             </>
             :
             <>
-            <input type="checkbox" onChange={checkedRelationship} name="action" id="relationship" value="관계" /><label for="relationship">관계 </label>
+            <CheckedBox type="checkbox" onChange={checkedTopic} name="action" id="friendship" value="우정"  /><CheckedLabel for="friendship" style={{background:"#B9FFC4"}} >#우정</CheckedLabel>
             </>
           }
-          <input type="checkbox" onChange={checkedFriendShip} name="action" id="friendship" value="우정"  /><label for="friendship">우정</label>
-          <input type="checkbox" onChange={checkedLove} name="action" id="love" value="사랑" /><label for="love">사랑 </label>
-          <input type="checkbox" onChange={checkedWorth} name="action" id="worth" value="가치" /><label for="worth">가치 </label>
-          <input type="checkbox" onChange={checkedDream} name="action" id="dream" value="꿈" /><label for="dream">꿈 </label>
-          <input type="checkbox" onChange={checkedMyself} name="action" id="myself" value="나" /><label for="myself">나 </label>
-        </div>
+          {user_info.topic.love? 
+            <>
+            <CheckedBox type="checkbox" defaultChecked onChange={checkedTopic} name="action" id="love" value="사랑" /><CheckedLabel for="love" style={{background:"#FFAAAA"}} >#사랑</CheckedLabel>
+            </>
+            :
+            <>
+            <CheckedBox type="checkbox" onChange={checkedTopic} name="action" id="love" value="사랑" /><CheckedLabel for="love" style={{background:"#FFAAAA"}} >#사랑</CheckedLabel>
+            </>
+          }
+          {user_info.topic.dream? 
+            <>
+            <CheckedBox type="checkbox" defaultChecked onChange={checkedTopic} name="action" id="dream" value="꿈" /><CheckedLabel for="dream" style={{background:"#B7E6FF"}} >#꿈</CheckedLabel>
+            </>
+            :
+            <>
+            <CheckedBox type="checkbox" onChange={checkedTopic} name="action" id="dream" value="꿈" /><CheckedLabel for="dream" style={{background:"#B7E6FF"}} >#꿈</CheckedLabel>
+            </>
+          }
+          </div>
+          <div>
+          {user_info.topic.worth? 
+            <>
+            <CheckedBox type="checkbox" defaultChecked onChange={checkedTopic} name="action" id="worth" value="가치" /><CheckedLabel for="worth" style={{background:"#B5BDFF"}} >#가치</CheckedLabel>
+            </>
+            :
+            <>
+            <CheckedBox type="checkbox" onChange={checkedTopic} name="action" id="worth" value="가치" /><CheckedLabel for="worth" style={{background:"#B5BDFF"}} >#가치</CheckedLabel>
+            </>
+          }
+          {user_info.topic.relationship? 
+            <>
+            <CheckedBox type="checkbox" defaultChecked onChange={checkedTopic} name="action" id="relationship" value="관계" /><CheckedLabel for="relationship" style={{background:"#FFF09D"}}>#관계</CheckedLabel>
+            </>
+            :
+            <>
+            <CheckedBox type="checkbox" onChange={checkedTopic} name="action" id="relationship" value="관계" /><CheckedLabel for="relationship" style={{background:"#FFF09D"}} >#관계</CheckedLabel>
+            </>
+          }
+          {user_info.topic.myself? 
+            <>
+            <CheckedBox type="checkbox" defaultChecked onChange={checkedTopic} name="action" id="myself" value="나" /><CheckedLabel for="myself" style={{background:"#F9D1FD"}} >#나</CheckedLabel>
+            </>
+            :
+            <>
+            <CheckedBox type="checkbox" onChange={checkedTopic} name="action" id="myself" value="나" /><CheckedLabel for="myself" style={{background:"#F9D1FD"}} >#나</CheckedLabel>
+            </>
+          }
+          </div>
+          </div>
+          {/* {JSON.stringify(user_info.topic) === JSON.stringify(checkedType)? 
+          <CheckedButton>확인</CheckedButton>
+          :  */}
+          <CheckedButton style={{fontWeight:"bold"}} onClick={()=> {dispatch(userActions.editTopicAX(checkedType))}} >확인</CheckedButton>
+          {/* } */}
+        </TypeContainer>
 
         {edit_nickname ? (
           <InputContainer>
@@ -266,7 +240,7 @@ const ProfileUpdateModal = (props) => {
             </StringButton>
           </InputContainer>
         )}
-        <Withdrawal onClick={() => {dispatch(userActions.withdrawalAX())}} >회원탈퇴</Withdrawal>
+        <Withdrawal onClick={() => {setWidthdrawal(true)}} >회원탈퇴</Withdrawal>
       </UpdateBox>
     </React.Fragment>
   );
@@ -375,4 +349,31 @@ const Withdrawal = styled.div`
   }
 `
 
+const TypeContainer = styled.div`
+  margin: auto;
+  margin-bottom: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 400px;
+`
+
+const CheckedBox = styled.input`
+  display: inline-block;
+  width: 17px;
+  height: 17px;
+  vertical-align: middle;
+`
+const CheckedLabel = styled.label`
+  margin-right: 20px;
+  margin-left: 8px;
+  cursor: pointer;
+  padding: 5px 15px;
+  border-radius: 20px;
+  box-shadow: 0px 0px 15px #00000029;
+`
+const CheckedButton = styled.div`
+  font-size: 18px;
+  cursor: pointer;
+`
 export default ProfileUpdateModal;
