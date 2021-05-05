@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { history } from "../../redux/configStore";
 import { CardModal } from "./communityindex";
 import { useSelector, useDispatch } from "react-redux";
+import FavoriteIcon from "@material-ui/icons/Favorite";
 
 import { api as commentActions } from "../../redux/modules/comment";
 import { setAnswerInfo } from "../../redux/modules/comment";
@@ -29,10 +30,12 @@ const CommunityQnA = (props) => {
         </button>
         <Topic>#{props.topic}</Topic>
         <AnswerContainer>
-          {props.answers.map((a) => {
+          {props.answers.map((a, idx) => {
             return (
               <Answer key={a.id}>
-                {cardModal ? <CardModal close={closeCardModal} /> : null}
+                {cardModal ? (
+                  <CardModal key={idx} close={closeCardModal} />
+                ) : null}
                 <AnswerHeader
                   onClick={() => {
                     if (a.userId === user.id) {
@@ -60,7 +63,12 @@ const CommunityQnA = (props) => {
                 >
                   {a.contents}
                 </AnswerContents>
-                <AnswerLikes>{a.likeCount} Likes</AnswerLikes>
+                <AnswerLikes>
+                  <LikeBtn style={{ color: "#8B8B8B" }}>
+                    <FavoriteIcon />{" "}
+                    <span style={{ margin: "0 0 0 5px" }}>{a.likeCount}</span>
+                  </LikeBtn>
+                </AnswerLikes>
               </Answer>
             );
           })}
@@ -97,20 +105,20 @@ const AnswerContainer = styled.div`
 `;
 
 const Answer = styled.div`
-  width: 150px;
-  height: 150px;
+  width: 256px;
+  height: 160px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   padding: 13px;
-  background-color: #c4c4c4;
+  background-color: #ffffff;
+  box-shadow: 0px 0px 15px #c1c7fc;
   border-radius: 30px;
   margin-right: 15px;
 `;
 
 const AnswerHeader = styled.div`
   display: flex;
-  justify-content: space-between;
   align-items: center;
   cursor: pointer;
 `;
@@ -120,6 +128,7 @@ const AnswerProfileImg = styled.img`
   height: 35px;
   border-radius: 40px;
   object-fit: cover;
+  margin-right: 8px;
 `;
 
 const AnswerNickname = styled.div`
@@ -145,8 +154,18 @@ const AnswerContents = styled.div`
 `;
 
 const AnswerLikes = styled.div`
-  text-align: right;
   font-weight: 600;
+  display: flex;
+  justify-content: flex-end;
+`;
+
+const LikeBtn = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  cursor: pointer;
+  margin-right: 5px;
 `;
 
 const Topic = styled.div`
