@@ -114,7 +114,7 @@ const getRecentAnswerAX = (userId) => {
 const sendAnswerAX = (question_id, content, isChecked) => {
   return function (dispatch, getState) {
     let userInfo = getState().user.user;
-    if (userInfo.nickname === "") {
+    if (userInfo?.nickname === "") {
       swal({
         title: "로그인 필수!",
         text: "로그인 후 이용가능해요😊",
@@ -134,6 +134,7 @@ const sendAnswerAX = (question_id, content, isChecked) => {
     };
     axios(options)
       .then((response) => {
+        console.log(response.data);
         dispatch(setQuestion(response.data.cards));
         swal({
           title: "답변 완료✌",
