@@ -2,6 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import moment from 'moment';
 import { getCookie } from '../../shared/Cookie';
+import {api as communityActions} from './community';
+import { api as commentActions } from "./comment";
 
 axios.defaults.baseURL = 'http://lkj99.shop';
 axios.defaults.headers.common["Authorization"]= `Bearer ${getCookie('is_login')}`;
@@ -140,8 +142,37 @@ const getBookDetail = (date) => {
             dispatch(setBookLoading(false))
         })
     }
-
 }
+
+const getNewDetail = (date) => {
+    return function(dispatch, getState) { 
+        console.log(date)
+
+        const options = {
+            url:`bookshelf/bookDetail/${date}`,
+            method:'GET',
+        };
+        axios(options).then((response) => {
+            console.log(response.data)
+            dispatch(setBookDetail(response.data.booksDiary))
+        }).then(()=> {
+            const book_detail = getState().book.book_detail
+            
+            dispatch(communityActions.getCardDetail(book_detail[0].answerId))
+            dispatch(commentActions.getCommentAX(book_detail[0].answerId))
+            dispatch(setBookLoading(false))
+        }).catch((err) => {
+            console.log(err);
+            if(err.response){
+                console.log(err.response.data)
+            }
+            dispatch(setBookLoading(false))
+        })
+    }
+}
+
+
+
 
 const getOthersBooks = (towhen, id) => {
     return function( dispatch, getState ) {
@@ -298,7 +329,7 @@ const getOthersQuest = (id) => {
 //         }
 //         axios(options).then((response) => {
 //             console.log(response.data)
-//             dispatch(setCardAnswers(response.data));
+//             dispatch(setCardDetails(response.data));
 //         }).catch(err => {
 //             console.log(err);
 //             if(err.response){
@@ -333,7 +364,7 @@ export const api = {
     getOthersBooks,
     getOthersBookDetail,
     getMyQuest,
-    getOthersQuest
+    getOthersQuest,
 };
 
 export default booksSlice.reducer;

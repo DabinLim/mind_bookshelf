@@ -104,7 +104,7 @@ const [date_visible, setDateVisible ] = React.useState(true);
               book_1.map((v, idx) => {
                 return (
                   <>
-                  {bookDetailModal === v._id && <BookDetail/>}
+                  {bookDetailModal === v._id && <BookDetail date={v._id}/>}
                   <Book
                     key={idx}
                     onClick={() => {openBook(v._id)}}
@@ -127,7 +127,7 @@ const [date_visible, setDateVisible ] = React.useState(true);
               book_2.map((v, idx) => {
                 return (
                   <>
-                  {bookDetailModal === v.id && <BookDetail/>}
+                  {bookDetailModal === v.id && <BookDetail date={v._id}/>}
                   <Book
                     key={idx}
                     onClick={() => {openBook(v._id)}}
