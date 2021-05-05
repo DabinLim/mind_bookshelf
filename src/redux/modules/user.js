@@ -33,7 +33,7 @@ const userSlice = createSlice({
     setUser: (state, action) => {
       state.user = action.payload;
       state.is_login = true;
-      state.is_userLoading = false;
+      // state.is_userLoading = false;
     },
     editUser: (state, action) => {
       state.user = { ...state.user, ...action.payload };
@@ -88,6 +88,7 @@ const LoginCheckAX = () => {
             profileImg: res.data.profileImg,
             nickname: res.data.nickname,
             id: res.data.userId,
+            topic: res.data.topic,
           })
         );
         dispatch(notiActions.joinAlarmIO());
@@ -112,6 +113,7 @@ const SocialLoginAX = () => {
             profileImg: res.data.profileImg,
             nickname: res.data.nickname,
             id: res.data.userId,
+            topic: res.data.topic,
           })
         );
         dispatch(notiActions.joinAlarmIO());
@@ -191,6 +193,25 @@ const DeleteProfileImgAX = () => {
   };
 };
 
+const editTopicAX = (topic) => {
+  return function (dispatch) {
+    console.log(topic)
+    axios
+      .patch(`myPage/profile/preferredTopic`, {topic: topic})
+      .then((res) => {
+        console.log(res)
+        dispatch(editUser({ topic: topic }));
+        swal({
+          title: "정상적으로 수정되었습니다. 😀",
+          text: `토픽이 수정되었습니다.`,
+          icon: "success",
+        });
+      }).catch((res)=> {
+        console.log(res)
+      })
+  }
+}
+
 const othersInfoAX = (id) => {
   return function (dispatch) {
     console.log(id);
@@ -203,6 +224,7 @@ const othersInfoAX = (id) => {
           introduce: res.data.introduce,
           profileImg: res.data.profileImg,
           nickname: res.data.nickname,
+          topic: res.data.topic,
         })
         );
       }).then(()=>{dispatch(userLoading(false))});
@@ -220,7 +242,6 @@ const followOtherAX = (id, nickname, profileImg) => {
           profileImg: profileImg,
         })
       );
-
       swal({
         title: "정상적으로 추가되었습니다. 😀",
         text: `${nickname}님과 친구가 되었습니다.`,
@@ -237,7 +258,6 @@ const unfollowOtherAX = (id, nickname) => {
       .then((res) => {
         console.log(res);
         dispatch(deleteFriend(id));
-
         swal({
           title: "정상적으로 취소되었습니다.",
           text: `${nickname}님이 친구삭제 되었습니다.`,
@@ -307,6 +327,21 @@ const withdrawalAX = () => {
   };
 };
 
+// 유저 검색 완료(검색 유저 클릭)
+const addRecentUserAX = (id) => {
+  return function (dispatch) {
+    axios
+      .post("/bookshelf/searchUserDetail", {id: id})
+        .then((res) => {
+          console.log(res)
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+  }
+}
+
+
 export const {
   setUser,
   logOut,
@@ -318,6 +353,8 @@ export const {
   setOtherFriend,
   userLoading,
   friendLoading,
+  getRecent,
+  addRecent,
 } = userSlice.actions;
 
 export const api = {
@@ -333,6 +370,8 @@ export const api = {
   otherFriendListAX,
   unfollowOtherAX,
   withdrawalAX,
+  addRecentUserAX,
+  editTopicAX,
 };
 
 export default userSlice.reducer;

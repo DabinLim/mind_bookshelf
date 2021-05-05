@@ -123,6 +123,8 @@ function Main() {
 
   return (
     <MainFrame>
+      <ImgLeft />
+      <ImgRight />
       {is_loading ? (
         <LoaderBox>
           <Loader type="Oval" color="#3d66ba" height={100} width={100} />
@@ -295,7 +297,7 @@ const LeftArrowBtn = styled.button`
   border: none;
   opacity: 1;
   position: absolute;
-  left: 140px;
+  left: 400px;
   top: -50px;
   color: #ffffff;
   cursor: pointer;
@@ -321,7 +323,7 @@ const RightArrowBtn = styled.button`
   border: none;
   opacity: 1;
   position: absolute;
-  right: 140px;
+  right: 400px;
   top: -50px;
   background: none;
   color: #ffffff;
@@ -344,6 +346,40 @@ const DotQueue = styled.div`
   position: absolute;
   top: 850px;
   left: 45%;
+`;
+
+const ImgRight = styled.div`
+  z-index: 2;
+  position: fixed;
+  background-image: url("https://user-images.githubusercontent.com/77574867/116996886-0c785d80-ad17-11eb-9afd-175a104b7f33.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  right: -70px;
+  bottom: -13px;
+  width: 593px;
+  height: 731px;
+  opacity: 0.8;
+  pointer-events: none;
+  @media (max-width: 1400px) {
+    display: none;
+  }
+`;
+
+const ImgLeft = styled.div`
+  z-index: 2;
+  position: fixed;
+  background-image: url("https://user-images.githubusercontent.com/77574867/116996878-0b473080-ad17-11eb-8910-108950e25cb8.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  left: -20px;
+  top: 249px;
+  width: 365px;
+  height: 341px;
+  opacity: 0.8;
+  pointer-events: none;
+  @media (max-width: 1400px) {
+    display: none;
+  }
 `;
 
 export default Main;
