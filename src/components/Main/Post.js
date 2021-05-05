@@ -86,8 +86,8 @@ const Post = (props) => {
             <AnswerInfo>
               {props.otherProfileImg?.length > 0 ? (
                 <ThreeProfileBox>
-                  {props.otherProfileImg.map((o) => {
-                    return <UserProfile src={o.otherProfileImg} />;
+                  {props.otherProfileImg?.map((o, idx) => {
+                    return <UserProfile key={idx} src={o.otherProfileImg} />;
                   })}
                 </ThreeProfileBox>
               ) : null}
@@ -105,7 +105,7 @@ const Post = (props) => {
         {/* 질문 보여주는 곳 */}
         <CardUpper>
           <CardLeft style={{ opacity: opacity }}>
-            {props.topic?.map((p) => {
+            {props.topic?.map((p, idx) => {
               let color = "";
               if (p === "나") {
                 color = "#F9D9FC";
@@ -120,7 +120,11 @@ const Post = (props) => {
               } else if (p === "꿈") {
                 color = "#C3E9FD";
               }
-              return <HashTag style={{ background: color }}>#{p}</HashTag>;
+              return (
+                <HashTag key={idx} style={{ background: color }}>
+                  #{p}
+                </HashTag>
+              );
             })}
           </CardLeft>
           <CardRight style={{ opacity: opacity }}>
