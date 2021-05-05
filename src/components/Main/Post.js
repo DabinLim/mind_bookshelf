@@ -8,6 +8,7 @@ import { history } from "../../redux/configStore";
 import { api as answerActions } from "../../redux/modules/answer";
 import RecentQuestion from "./RecentQuestion";
 import { CheckCircleOutlined } from "@ant-design/icons";
+import CustomSwitch from "../../shared/CustomSwitch";
 
 const Post = (props) => {
   const dispatch = useDispatch();
@@ -36,6 +37,16 @@ const Post = (props) => {
     console.log(isChecked);
   }
 
+  const [isOpen, setOpen] = useState(true);
+
+  function clickOpen() {
+    if (isOpen) {
+      setOpen(false);
+      return;
+    }
+    setOpen(true);
+  }
+
   // contents upload
   const [contents, setContents] = React.useState("");
   const ok_submit = contents ? true : false;
@@ -59,7 +70,7 @@ const Post = (props) => {
       });
       return;
     }
-    dispatch(answerActions.sendAnswerAX(props.cardId, contents, isChecked));
+    dispatch(answerActions.sendAnswerAX(props.cardId, contents, isOpen));
     setContents("");
     setCount(0);
   };
@@ -74,11 +85,11 @@ const Post = (props) => {
   return (
     <>
       <CardFrame>
-        {isRecentOpen ? (
+        {/* {isRecentOpen ? (
           <CommunitySeductor>
             <RecentQuestion close={closeRecent} />
           </CommunitySeductor>
-        ) : null}
+        ) : null} */}
         {/* <CommunitySeductor>
           {answer_list?.map((a, idx) => {
             return (
@@ -115,15 +126,6 @@ const Post = (props) => {
             >
               <b>{props.answerCount}명</b>이 답변
             </AnswerInfo>
-            {props.available ? (
-              <Switch
-                style={{ opacity: opacity }}
-                checkedChildren="공개"
-                unCheckedChildren="비공개"
-                defaultChecked
-                onChange={onChange}
-              />
-            ) : null}
           </ExtraGroup>
         </CardInfo>
         {/* 질문 보여주는 곳 */}
@@ -171,36 +173,45 @@ const Post = (props) => {
               ></ElTextarea>
               <BtnGroup>
                 {count}/200
-                {ok_submit ? (
-                  <SubmitBtn
-                    onClick={addAnswer}
-                    style={{
-                      background: "#1890FF",
-                      transition: "all 200ms ease-in-out",
-                    }}
-                  >
-                    답변하기
-                  </SubmitBtn>
-                ) : (
-                  <SubmitBtn onClick={addAnswer}>답변하기</SubmitBtn>
-                )}
+                <BtnBox>
+                  {props.available ? (
+                    <CustomSwitch isOpen={isOpen} onClick={clickOpen} />
+                  ) : null}
+
+                  {ok_submit ? (
+                    <SubmitBtn
+                      onClick={addAnswer}
+                      style={{
+                        background: "#8EA7FF",
+                        transition: "all 200ms ease-in-out",
+                      }}
+                    >
+                      답변하기
+                    </SubmitBtn>
+                  ) : (
+                    <SubmitBtn onClick={addAnswer}>답변하기</SubmitBtn>
+                  )}
+                </BtnBox>
               </BtnGroup>
             </>
           ) : (
             <CompletedBox>
               <CheckCircleOutlined
-                style={{ fontSize: "60px", marginBottom: "10px" }}
+                style={{
+                  fontSize: "60px",
+                  marginBottom: "10px",
+                  fontWeight: "lighter",
+                }}
               />
               <br />
               <p style={{ fontSize: "24px", margin: "0" }}>답변완료</p>
               {props.allChecked ? (
                 <>
-                  <p style={{ fontSize: "16px", margin: "0" }}>
+                  <div style={{ fontSize: "16px", margin: "0" }}>
                     오늘 질문은 모두 끝났습니다.
-                  </p>
-                  <p style={{ fontSize: "16px", margin: "0" }}>
+                    <br />
                     내일을 기대해주세요!
-                  </p>
+                  </div>
                 </>
               ) : null}
             </CompletedBox>
@@ -333,14 +344,24 @@ const BtnGroup = styled.div`
     cursor: pointer;
   }
 `;
+
+const BtnBox = styled.div`
+  display: flex;
+  align-items: center;
+  width: 50%;
+  justify-content: flex-end;
+`;
+
 const SubmitBtn = styled.button`
-  width: 30%;
+  width: 50%;
   padding: 8px 12px;
   border: none;
   outline: none;
   border-radius: 24px;
-  color: white;
-  background: gray;
+  color: #061366;
+  background: #e2eaff;
+  margin-left: 10px;
+  cursor: pointer;
 `;
 
 const CompletedBox = styled.div`
