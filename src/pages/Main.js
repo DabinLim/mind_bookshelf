@@ -205,6 +205,7 @@ function Main() {
 const MainFrame = styled.div`
   width: 100%;
   height: 100%;
+  overflow-y :auto;
 `;
 
 // 메인의 위쪽 부분

@@ -144,7 +144,7 @@ const Container = styled.section`
   display: flex;
   flex-direction: column;
   margin: 20px 0px;
-  padding-bottom:100px;
+  padding-bottom:40px;
 `;
 
 const ForDate = styled.div`
