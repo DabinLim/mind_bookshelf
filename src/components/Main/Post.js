@@ -118,13 +118,22 @@ const Post = (props) => {
             </CardWriter>
           </CardWriterInfo>
           <ExtraGroup>
-            <AnswerInfo
-              style={{ opacity: opacity }}
-              onClick={() => {
-                history.push(`/community/${props.cardId}`);
-              }}
-            >
-              <b>{props.answerCount}명</b>이 답변
+            <AnswerInfo>
+              {props.otherProfileImg?.length > 0 ? (
+                <ThreeProfileBox>
+                  {props.otherProfileImg.map((o) => {
+                    return <UserProfile src={o.otherProfileImg} />;
+                  })}
+                </ThreeProfileBox>
+              ) : null}
+              <span
+                style={{ opacity: opacity }}
+                onClick={() => {
+                  history.push(`/community/${props.cardId}`);
+                }}
+              >
+                <b>{props.answerCount}명</b>이 답변
+              </span>
             </AnswerInfo>
           </ExtraGroup>
         </CardInfo>
@@ -161,8 +170,8 @@ const Post = (props) => {
                 rows={6}
                 maxlength="200"
                 placeholder={`${
-                  user_info?.nickname ? user_info?.nickname : "고객"
-                }님이라면 어떻게 답변하시겠어요?`}
+                  user_info?.nickname ? user_info?.nickname + "님" : "당신"
+                }이라면 어떻게 답변하시겠어요?`}
                 onChange={changeContents}
                 value={contents}
                 onKeyPress={(e) => {
@@ -247,9 +256,25 @@ const ExtraGroup = styled.div`
 const AnswerInfo = styled.span`
   margin-right: 8px;
   cursor: pointer;
+  display: flex;
+  align-items: center;
   :hover {
     transform: scale(1.1);
     transition: all 200ms ease-in-out;
+  }
+`;
+
+const ThreeProfileBox = styled.div`
+  margin-right: 8px;
+`;
+
+const UserProfile = styled.img`
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: gray;
+  :hover {
+    cursor: pointer;
   }
 `;
 
