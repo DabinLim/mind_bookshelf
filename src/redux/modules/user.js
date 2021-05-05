@@ -192,7 +192,6 @@ const DeleteProfileImgAX = () => {
 };
 
 const othersInfoAX = (id) => {
-  userLoading();
   return function (dispatch) {
     console.log(id);
     axios.get(`/bookshelf/auth/user/${id}`).then((res) => {
@@ -205,8 +204,8 @@ const othersInfoAX = (id) => {
           profileImg: res.data.profileImg,
           nickname: res.data.nickname,
         })
-      );
-    });
+        );
+      }).then(()=>{dispatch(userLoading(false))});
   };
 };
 

@@ -52,12 +52,13 @@ const Container = styled.div`
 `;
 
 const ProfileContainer = styled.section`
-    margin-top:80px;
+    position:relative;
+    margin-top:60px;
     box-sizing:border-box;
-    padding:20px 0px;
+    padding:30px;
     width: 100%;
-    max-width:975px;
-    height:400px;
+    max-width:988px;
+    min-height:190px;
     display: flex;
     flex-direction: row;
 `;
