@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import {useSelector, useDispatch} from 'react-redux'
 import {FollowModal, ProfileUpdateModal} from './booksindex'
 import {setComponent,setPageOwner, api as booksActions} from '../../redux/modules/books'
-import {api as userActions} from '../../redux/modules/user'
+import {api as userActions, userLoading as loading} from '../../redux/modules/user'
 import Loader from "react-loader-spinner";
 import { Container } from '@material-ui/core'
 
@@ -39,14 +39,23 @@ const Profile = (props) => {
     //   dispatch(booksActions.setQuestCount(props.id))
     // }
     dispatch(setPageOwner(props.id));
+    return () => {
+      dispatch(loading(true));
+    }
   },[])
   
   return(
     <>
       {is_other? 
+
           <React.Fragment>
-            {followModal? <FollowModal friend_list={otherfriend_list} close={closeFollowModal} /> : null}
+            {userLoading? 
+            <SpinnerContainer>
+              <Loader type="Oval" color="#3d66ba" height={50} width={50} />
+            </SpinnerContainer>
+            :
             <>
+            {followModal? <FollowModal friend_list={otherfriend_list} close={closeFollowModal} /> : null}
             <Background/>
             <ProfileImgContainer onClick={() => {setUpdateModal(true)}} >
               <ProfileImg style={{cursor:"pointer"}} src={other_info.profileImg} />
@@ -79,7 +88,7 @@ const Profile = (props) => {
               </Body>
             <Introduce>{other_info.introduce}</Introduce>
             </ProfileDetail>
-            </>
+            </>}
           </React.Fragment>
         :
           <React.Fragment>
@@ -290,7 +299,11 @@ margin-right:20px;
 `
 
 const SpinnerContainer = styled.div`
-  text-align: center;
+  width:100%;
+  height:100%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
 `
 
 
