@@ -65,7 +65,6 @@ const Post = (props) => {
   return (
     <>
       <CardFrame>
-        {/* 질문 정보 (작성자 정보 포함) */}
         <CardInfo>
           <CardWriterInfo>
             <CardWriterProfile
@@ -92,14 +91,19 @@ const Post = (props) => {
                   })}
                 </ThreeProfileBox>
               ) : null}
-              <span
-                style={{ opacity: opacity, margin: "0 0 0 8px" }}
+              <div
+                style={{
+                  opacity: opacity,
+                  height: "100%",
+                  width: "100%",
+                  margin: "0",
+                }}
                 onClick={() => {
                   history.push(`/community/${props.cardId}`);
                 }}
               >
                 <b>{props.answerCount}명</b>이 답변
-              </span>
+              </div>
             </AnswerInfo>
           </ExtraGroup>
         </CardInfo>
@@ -123,7 +127,7 @@ const Post = (props) => {
               }
               return (
                 <HashTag key={idx} style={{ background: color }}>
-                  #{p}
+                  #{props.topic[0]}
                 </HashTag>
               );
             })}
@@ -137,7 +141,7 @@ const Post = (props) => {
           {props.available ? (
             <>
               <ElTextarea
-                rows={6}
+                rows={8}
                 maxlength="200"
                 placeholder={`${
                   user_info?.nickname ? user_info?.nickname + "님" : "당신"
@@ -150,6 +154,7 @@ const Post = (props) => {
                   }
                 }}
               ></ElTextarea>
+
               <BtnGroup>
                 {count}/200
                 <BtnBox>
@@ -208,11 +213,14 @@ const Post = (props) => {
   );
 };
 
+const CardUpperPart = styled.div``;
+const CardLowerPart = styled.div``;
+
 const CardFrame = styled.div`
   width: 100%;
   min-height: 462px;
   max-height: 462px;
-  padding: 16px 24px;
+  padding: 48px 50px 40px;
   background: white;
   text-align: center;
   border-top-left-radius: 20px;
@@ -274,7 +282,9 @@ const CardUpper = styled.div`
 `;
 
 const CardLeft = styled.div`
-  width: 20%;
+  min-width: 72px;
+  max-width: 72px;
+  margin-right: 8px;
   display: flex;
   align-items: center;
   &::first-child {
@@ -287,24 +297,25 @@ const CardRight = styled.div`
 `;
 
 const HashTag = styled.span`
-  min-width: 40px;
+  min-width: 72px;
+  max-width: 72px;
   background: #ededed;
   padding: 8px 12px;
   border-radius: 24px;
-  text-align: left;
+  text-align: center;
   font: normal normal bold 14px/19px Roboto;
   box-shadow: 0px 0px 15px #c1c7fc;
   letter-spacing: 0px;
   color: #363636;
-  font-size: 12px;
+  font-size: 14px;
   :hover {
     cursor: pointer;
   }
 `;
 
 const CardContent = styled.p`
-  margin-top: 20px;
-  font-size: 20px;
+  margin-top: 17px;
+  font-size: 17px;
   font-weight: bolder;
   text-align: left;
 `;
