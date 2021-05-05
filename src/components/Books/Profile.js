@@ -5,6 +5,7 @@ import {FollowModal, ProfileUpdateModal} from './booksindex'
 import {setComponent,setPageOwner, api as booksActions} from '../../redux/modules/books'
 import {api as userActions} from '../../redux/modules/user'
 import Loader from "react-loader-spinner";
+import { Container } from '@material-ui/core'
 
 const Profile = (props) => {
   const dispatch = useDispatch()
@@ -45,6 +46,8 @@ const Profile = (props) => {
       {is_other? 
           <React.Fragment>
             {followModal? <FollowModal friend_list={otherfriend_list} close={closeFollowModal} /> : null}
+            <>
+            <Background/>
             <ProfileImgContainer onClick={() => {setUpdateModal(true)}} >
               <ProfileImg style={{cursor:"pointer"}} src={other_info.profileImg} />
               <SettingIcon src="https://cdn4.iconfinder.com/data/icons/forgen-phone-settings/48/setting-512.png" />
@@ -53,8 +56,12 @@ const Profile = (props) => {
               <Head>
             <Nickname>{other_info.nickname}</Nickname>
             <SubjectContainer>
-              <Subject>#사랑</Subject>
-              <Subject>#추억</Subject>
+              <div style={{display:'flex',alignItems:'center'}}>
+              <span style={{fontSize:'14px',marginRight:'17px',fontWeight:'800'}}>선호 태그</span>
+              </div>
+              <Subject1><span>#가치</span></Subject1>
+              <Subject2><span>#꿈</span></Subject2>
+              <Subject3><span>#나</span></Subject3>
             </SubjectContainer>
               </Head>
               <Body>
@@ -72,6 +79,7 @@ const Profile = (props) => {
               </Body>
             <Introduce>{other_info.introduce}</Introduce>
             </ProfileDetail>
+            </>
           </React.Fragment>
         :
           <React.Fragment>
@@ -87,6 +95,7 @@ const Profile = (props) => {
             </SpinnerContainer>
             :
             <>
+            <Background/>
             <ProfileImgContainer onClick={() => {setUpdateModal(true)}} >
               <ProfileImg style={{cursor:"pointer"}} src={user_info.profileImg} />
               <SettingIcon src="https://cdn4.iconfinder.com/data/icons/forgen-phone-settings/48/setting-512.png" />
@@ -95,8 +104,12 @@ const Profile = (props) => {
               <Head>
             <Nickname>{user_info.nickname}</Nickname>
             <SubjectContainer>
-              <Subject>#사랑</Subject>
-              <Subject>#추억</Subject>
+              <div style={{display:'flex',alignItems:'center'}}>
+              <span style={{fontSize:'14px',marginRight:'17px',fontWeight:'800'}}>선호 태그</span>
+              </div>
+              <Subject1><span>#가치</span></Subject1>
+              <Subject2><span>#꿈</span></Subject2>
+              <Subject3><span>#나</span></Subject3>
             </SubjectContainer>
               </Head>
               <Body>
@@ -122,15 +135,29 @@ const Profile = (props) => {
   )
   }
 
+
+const Background = styled.div`
+  z-index:-1;
+  position:absolute;
+  width:100%;
+  height:100%;
+  background-color: #ffffff;
+  top:0;
+  left:0;
+  opacity:0.5;
+  box-shadow: 0px 0px 6px #FFFFFF;
+    border-radius: 20px;
+`;
+
 const ProfileImgContainer = styled.div`
   position: relative;
   width: 150px;
 `
 
 const ProfileImg = styled.img`
-  width: 150px;
-  height: 150px;
-  border-radius: 150px;
+  width: 126px;
+  height: 126px;
+  border-radius: 50%;
   object-fit: cover;
 `
 
@@ -147,7 +174,7 @@ const SettingIcon = styled.img`
 `
 
 const ProfileDetail = styled.div`
-  margin:0px 0px 0px 40px;
+  margin:0px 0px 0px 45px;
   width:100%;
   display:flex;
   flex-direction:column;
@@ -168,52 +195,96 @@ const Body = styled.div`
 `;
 
 const Nickname = styled.div`
-  margin-top: 20px;
+  
   font-weight: 600;
-  font-size: 30px;
+  font-size: 22px;
   
 `
 
 const Introduce = styled.div`
   margin-top: 20px;
-  font-size: 16px;
+  font-size: 14px;
 `
 
 const Answers = styled.div`
+margin-top:11px;
   margin-right:20px;
   font-weight: 400;
-  font-size: 16px;
+  font-size: 14px;
 `;
 
 const FollowerBtn = styled.div`
+  margin-top:11px;
   margin-right:20px;
   cursor: pointer;
   font-weight: 600;
   font-size: 18px;
 `
 const MyQuestionBtn = styled.div`
+margin-top:11px;
 margin-right:20px;
   cursor: pointer;
   font-weight: 400;
-  font-size: 16px;
+  font-size: 14px;
 `
 
 const SubjectContainer = styled.div`
-  margin-top: 20px;
+  display:flex;
+  flex-direction:row;
 `
 
-const Subject = styled.div`
-  display: inline-block;
-  background-color: #E5E5E5;
+const Subject1 = styled.div`
+  display: flex;
+  justify-content:center;
+  align-items:center;
+  width:72px;
+  height:31px;
+  background-color: #A2ACFF;
+  box-shadow: 0px 0px 15px #B2B4FD;
+  opacity:0.8;
   margin-left: 10px;
-  padding: 5px 14px;
-  border-radius: 18px;
+  border-radius: 45px;
+  font-size:14px;
   font-weight: 600;
+  
+`
+
+const Subject2 = styled.div`
+  display: flex;
+  justify-content:center;
+  align-items:center;
+  width:72px;
+  height:31px;
+  background-color: #96DBFF;
+  box-shadow: 0px 0px 15px #A9DAFE;
+  opacity: 0.8;
+  margin-left: 10px;
+  border-radius: 45px;
+  font-size:14px;
+  font-weight: 600;
+  
+`
+
+const Subject3 = styled.div`
+  display: flex;
+  justify-content:center;
+  align-items:center;
+  width:72px;
+  height:31px;
+  background-color: #FFB5FC;
+  box-shadow: 0px 0px 15px #FDBBFA;
+  opacity: 0.8;
+  margin-left: 10px;
+  border-radius: 45px;
+  font-size:14px;
+  font-weight: 600;
+  
 `
 
 const Myfollowers = styled.div`
+margin-top:11px;
 margin-right:20px;
-  font-size: 16px;
+  font-size: 14px;
   cursor: pointer;
   font-weight: 400;
 `
