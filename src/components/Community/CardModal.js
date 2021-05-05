@@ -64,6 +64,7 @@ const CardModal = (props) => {
   };
 
   const getUserTag = (nickname) => {
+    setTagModal(false);
     let start = cmtInput.current.selectionStart;
     let text = cmtInput.current.value;
     for (let i = start - 1; i >= 0; i--) {
@@ -144,6 +145,7 @@ const CardModal = (props) => {
 
   const addComment = async () => {
     let tagId = await CheckTag();
+    setTagModal(false);
     dispatch(
       commentActions.sendCommentAX(answerInfo?.answerId, comments, tagId)
     );

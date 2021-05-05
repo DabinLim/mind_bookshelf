@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { api as userActions } from "../../redux/modules/user";
 import Loader from "react-loader-spinner";
 import axios from "axios";
+import WithdrawalModal from "./WithdrawalModal"
 
 axios.defaults.baseURL = "http://lkj99.shop";
 
@@ -21,6 +22,10 @@ const ProfileUpdateModal = (props) => {
     user_info.introduce ? user_info.introduce : "자신에 대해서 적어주세요."
   );
   const [loading, setLoading] = useState(false);
+  const [withdrawal, setWidthdrawal] = useState(false);
+  const checkedType = {...user_info.topic}
+  
+
 
   const getNicknameAX = async () => {
     const result = await axios.get(`/myPage/profile/random-nickname`);
@@ -36,8 +41,41 @@ const ProfileUpdateModal = (props) => {
     setIntroduce(e.target.value);
   };
 
+  const numberChecked = () => {
+    let check = Object.values(checkedType)
+    let count = 0;
+    for(let i = 0; i < check.length; i++){
+      if(check[i] === true){
+        count ++
+        if(count == 4){
+          return
+        }
+      }
+    }
+    return true
+  }
+
+  const checkedTopic = (e) => {
+    if(e.target.checked){
+      checkedType[e.target.id] = true;
+      console.log(checkedType)
+      if(!numberChecked()){
+        window.alert('어허')
+        e.target.checked = false;
+        checkedType[e.target.id] = false;
+      }
+    } else{
+      checkedType[e.target.id] = false;
+      console.log(checkedType)
+    }
+  }
+
+
   return (
     <React.Fragment>
+      {withdrawal? 
+      <WithdrawalModal setWidthdrawal={setWidthdrawal}/>
+      :null}
       <Background onClick={props.close} />
       <UpdateBox>
         <ImageUpdate>
@@ -51,6 +89,74 @@ const ProfileUpdateModal = (props) => {
         >
           프로필이미지 삭제
         </RemoveProfileBtn>
+        
+        <TypeContainer>
+          <div>
+          <div style={{marginBottom: "20px"}}>
+          {user_info.topic.friendship? 
+            <>
+            <CheckedBox type="checkbox" defaultChecked onChange={checkedTopic} name="action" id="friendship" value="우정"  /><CheckedLabel for="friendship" style={{background:"#B9FFC4"}} >#우정</CheckedLabel>
+            </>
+            :
+            <>
+            <CheckedBox type="checkbox" onChange={checkedTopic} name="action" id="friendship" value="우정"  /><CheckedLabel for="friendship" style={{background:"#B9FFC4"}} >#우정</CheckedLabel>
+            </>
+          }
+          {user_info.topic.love? 
+            <>
+            <CheckedBox type="checkbox" defaultChecked onChange={checkedTopic} name="action" id="love" value="사랑" /><CheckedLabel for="love" style={{background:"#FFAAAA"}} >#사랑</CheckedLabel>
+            </>
+            :
+            <>
+            <CheckedBox type="checkbox" onChange={checkedTopic} name="action" id="love" value="사랑" /><CheckedLabel for="love" style={{background:"#FFAAAA"}} >#사랑</CheckedLabel>
+            </>
+          }
+          {user_info.topic.dream? 
+            <>
+            <CheckedBox type="checkbox" defaultChecked onChange={checkedTopic} name="action" id="dream" value="꿈" /><CheckedLabel for="dream" style={{background:"#B7E6FF"}} >#꿈</CheckedLabel>
+            </>
+            :
+            <>
+            <CheckedBox type="checkbox" onChange={checkedTopic} name="action" id="dream" value="꿈" /><CheckedLabel for="dream" style={{background:"#B7E6FF"}} >#꿈</CheckedLabel>
+            </>
+          }
+          </div>
+          <div>
+          {user_info.topic.worth? 
+            <>
+            <CheckedBox type="checkbox" defaultChecked onChange={checkedTopic} name="action" id="worth" value="가치" /><CheckedLabel for="worth" style={{background:"#B5BDFF"}} >#가치</CheckedLabel>
+            </>
+            :
+            <>
+            <CheckedBox type="checkbox" onChange={checkedTopic} name="action" id="worth" value="가치" /><CheckedLabel for="worth" style={{background:"#B5BDFF"}} >#가치</CheckedLabel>
+            </>
+          }
+          {user_info.topic.relationship? 
+            <>
+            <CheckedBox type="checkbox" defaultChecked onChange={checkedTopic} name="action" id="relationship" value="관계" /><CheckedLabel for="relationship" style={{background:"#FFF09D"}}>#관계</CheckedLabel>
+            </>
+            :
+            <>
+            <CheckedBox type="checkbox" onChange={checkedTopic} name="action" id="relationship" value="관계" /><CheckedLabel for="relationship" style={{background:"#FFF09D"}} >#관계</CheckedLabel>
+            </>
+          }
+          {user_info.topic.myself? 
+            <>
+            <CheckedBox type="checkbox" defaultChecked onChange={checkedTopic} name="action" id="myself" value="나" /><CheckedLabel for="myself" style={{background:"#F9D1FD"}} >#나</CheckedLabel>
+            </>
+            :
+            <>
+            <CheckedBox type="checkbox" onChange={checkedTopic} name="action" id="myself" value="나" /><CheckedLabel for="myself" style={{background:"#F9D1FD"}} >#나</CheckedLabel>
+            </>
+          }
+          </div>
+          </div>
+          {/* {JSON.stringify(user_info.topic) === JSON.stringify(checkedType)? 
+          <CheckedButton>확인</CheckedButton>
+          :  */}
+          <CheckedButton style={{fontWeight:"bold"}} onClick={()=> {dispatch(userActions.editTopicAX(checkedType))}} >확인</CheckedButton>
+          {/* } */}
+        </TypeContainer>
 
         {edit_nickname ? (
           <InputContainer>
@@ -134,7 +240,7 @@ const ProfileUpdateModal = (props) => {
             </StringButton>
           </InputContainer>
         )}
-        <Withdrawal onClick={() => {dispatch(userActions.withdrawalAX())}} >회원탈퇴</Withdrawal>
+        <Withdrawal onClick={() => {setWidthdrawal(true)}} >회원탈퇴</Withdrawal>
       </UpdateBox>
     </React.Fragment>
   );
@@ -185,13 +291,13 @@ const ImageIcon = styled.img`
 
 const RemoveProfileBtn = styled.button`
   margin-bottom: 30px;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 600;
   cursor: pointer;
 `;
 
 const InputContainer = styled.div`
-  margin-bottom: 60px;
+  margin-bottom: 30px;
   display: flex;
   position: relative;
 `;
@@ -243,4 +349,31 @@ const Withdrawal = styled.div`
   }
 `
 
+const TypeContainer = styled.div`
+  margin: auto;
+  margin-bottom: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 400px;
+`
+
+const CheckedBox = styled.input`
+  display: inline-block;
+  width: 17px;
+  height: 17px;
+  vertical-align: middle;
+`
+const CheckedLabel = styled.label`
+  margin-right: 20px;
+  margin-left: 8px;
+  cursor: pointer;
+  padding: 5px 15px;
+  border-radius: 20px;
+  box-shadow: 0px 0px 15px #00000029;
+`
+const CheckedButton = styled.div`
+  font-size: 18px;
+  cursor: pointer;
+`
 export default ProfileUpdateModal;
