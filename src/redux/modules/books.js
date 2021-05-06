@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import moment from 'moment';
 import { getCookie } from '../../shared/Cookie';
-import {api as communityActions, setCommunity} from './community';
+import {api as communityActions, setCardLoading} from './community';
 import { api as commentActions } from "./comment";
 
 axios.defaults.baseURL = 'http://lkj99.shop';
@@ -23,6 +23,8 @@ const booksSlice = createSlice({
     custom_question:[],
     page_owner:null,
     book_loading: true,
+    book_detail_modal: null,
+    date_visible:true,
     // card_answers:null,
   },
   reducers: {
@@ -32,6 +34,12 @@ const booksSlice = createSlice({
     // setCardAnswers:(state, action) => {
     //     state.card_answers = action.payload;
     // },
+    setDateVisible: (state, action) => {
+        state.date_visible = action.payload;
+    },
+    setBookDetailModal: (state, action) => {
+        state.book_detail_modal = action.payload;
+    },
     setPageOwner: (state, action) => {
         state.page_owner = action.payload;
     },
@@ -125,7 +133,6 @@ const getBooks = (towhen) => {
 const getBookDetail = (date) => {
     return function(dispatch) { 
         console.log(date)
-
         const options = {
             url:`bookshelf/bookDetail/${date}`,
             method:'GET',
@@ -133,6 +140,7 @@ const getBookDetail = (date) => {
         axios(options).then((response) => {
             console.log(response.data)
             dispatch(setBookDetail(response.data.booksDiary))
+            
             dispatch(setBookLoading(false))
         }).catch((err) => {
             console.log(err);
@@ -147,7 +155,7 @@ const getBookDetail = (date) => {
 const getNextDetail = (date) => {
     return function(dispatch, getState) { 
         console.log(date)
-
+        dispatch(setCardLoading(true))
         const options = {
             url:`bookshelf/bookDetail/${date}`,
             method:'GET',
@@ -158,7 +166,7 @@ const getNextDetail = (date) => {
         }).then(()=> {
             const book_detail = getState().books.book_detail
             
-            dispatch(communityActions.getCardDetail(book_detail[0].answerId))
+            dispatch(communityActions.getCardDetail(book_detail[0].answerId,'book'))
             dispatch(commentActions.getCommentAX(book_detail[0].answerId))
             dispatch(setBookLoading(false))
         }).catch((err) => {
@@ -173,6 +181,7 @@ const getNextDetail = (date) => {
 
 const getPreviousDetail = (date) => {
     return function(dispatch, getState) {
+        dispatch(setCardLoading(true))
         const options = {
             url:`bookshelf/bookDetail/${date}`,
             method:'GET',
@@ -183,7 +192,7 @@ const getPreviousDetail = (date) => {
         }).then(()=> {
             const book_detail = getState().books.book_detail
             
-            dispatch(communityActions.getCardDetail(book_detail[book_detail.length-1].answerId))
+            dispatch(communityActions.getCardDetail(book_detail[book_detail.length-1].answerId,'book'))
             dispatch(commentActions.getCommentAX(book_detail[book_detail.length-1].answerId))
             dispatch(setBookLoading(false))
         }).catch((err) => {
@@ -377,6 +386,8 @@ export const {
     resetCustomQuestion,
     setPageOwner,
     setBookLoading,
+    setDateVisible,
+    setBookDetailModal,
     // setCardAnswers,
     // setOther
  } = booksSlice.actions;
