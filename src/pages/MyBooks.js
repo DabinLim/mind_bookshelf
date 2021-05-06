@@ -54,7 +54,7 @@ const Container = styled.div`
 
 const ProfileContainer = styled.section`
     position:relative;
-    margin-top:60px;
+    margin-top:170px;
     box-sizing:border-box;
     padding:30px;
     width: 100%;

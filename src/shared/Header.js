@@ -269,10 +269,10 @@ const Header = () => {
 const HeaderContainer = styled.div`
   position: fixed;
   width: 100vw;
-  height: 55px;
+  height: 120px;
   border-bottom: 1px solid #e9ecef;
   left: 0;
-  top: 40px;
+  top: 0;
   z-index: 5;
   margin-bottom: 10px;
   overflow: visible;

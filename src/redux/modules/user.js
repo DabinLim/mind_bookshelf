@@ -4,6 +4,7 @@ import { history } from "../configStore";
 import { getCookie, deleteCookie } from "../../shared/Cookie";
 import { api as notiActions } from "./noti";
 import swal from "sweetalert";
+import { Drafts } from "@material-ui/icons";
 
 axios.defaults.baseURL = "http://lkj99.shop";
 axios.defaults.headers.common["Authorization"] = `Bearer ${getCookie(
@@ -28,6 +29,7 @@ const userSlice = createSlice({
     is_login: false,
     is_userLoading: true,
     is_friendLoading: true,
+    preview: null,
   },
   reducers: {
     setUser: (state, action) => {
@@ -71,6 +73,9 @@ const userSlice = createSlice({
     friendLoading: (state, action) => {
       state.is_friendLoading = action.payload;
     },
+    setPreview : (state, action) => {
+      state.preview = action.payload;
+    }
   },
 });
 
@@ -125,18 +130,71 @@ const SocialLoginAX = () => {
   };
 };
 
-const UpdateNicknameAX = (nickname) => {
-  return function (dispatch) {
-    axios
-      .patch(`/myPage/profile/nickname`, { nickname: nickname })
-      .then((res) => {
-        dispatch(editUser({ nickname: nickname }));
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-};
+const UpdateProfileAX = (profile) => {
+  return function(dispatch, getState) {
+    const _image = getState().user.preview;
+    const _profileImg = getState().user.user.profileImg;
+    if(_image !== _profileImg){
+      if(_image =="https://blog.kakaocdn.net/dn/cyOIpg/btqx7JTDRTq/1fs7MnKMK7nSbrM9QTIbE1/img.jpg"){
+        const formData = new FormData();
+        formData.append("nickname", profile.nickname);
+        formData.append("introduce", profile.introduce);
+        formData.append("defaultImg", "true");
+        formData.append("topic", profile.topic);
+        axios
+          .patch('/mypage/profile', formData)
+          .then((res)=> {
+            console.log(res)
+          })
+          .catch((err) => {
+            console.log(err)
+          })
+      } else {
+        const formData = new FormData();
+        formData.append("nickname", profile.nickname);
+        formData.append("introduce", profile.introduce);
+        formData.append("defaultImg", "false");
+        formData.append("topic", profile.topic);
+        formData.append("profileImg", profile.profileImg);
+        axios
+          .patch('/mypage/profile', formData)
+          .then((res)=> {
+            console.log(res)
+          })
+          .catch((err) => {
+            console.log(err)
+          })
+      }
+    } else{
+      const formData = new FormData();
+      formData.append("nickname", profile.nickname);
+      formData.append("introduce", profile.introduce);
+      formData.append("defaultImg", "false");
+      formData.append("topic", profile.topic);
+      axios
+        .patch('/mypage/profile', formData)
+        .then((res)=> {
+          console.log(res)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    }
+  }
+}
+
+// const UpdateNicknameAX = (nickname) => {
+//   return function (dispatch) {
+//     axios
+//       .patch(`/myPage/profile/nickname`, { nickname: nickname })
+//       .then((res) => {
+//         dispatch(editUser({ nickname: nickname }));
+//       })
+//       .catch((err) => {
+//         console.log(err);
+//       });
+//   };
+// };
 
 //랜덤 닉네임 가져오는 함수
 // const getNicknameAX = () => {
@@ -149,68 +207,68 @@ const UpdateNicknameAX = (nickname) => {
 //   }
 // }
 
-const UpdateIntroduceAX = (introduce) => {
-  return function (dispatch) {
-    axios
-      .patch(`/mypage/profile/introduce`, { introduce: introduce })
-      .then((res) => {
-        console.log(res);
-        dispatch(editUser({ introduce: introduce }));
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-};
+// const UpdateIntroduceAX = (introduce) => {
+//   return function (dispatch) {
+//     axios
+//       .patch(`/mypage/profile/introduce`, { introduce: introduce })
+//       .then((res) => {
+//         console.log(res);
+//         dispatch(editUser({ introduce: introduce }));
+//       })
+//       .catch((err) => {
+//         console.log(err);
+//       });
+//   };
+// };
 
-const UpdateProfileImgAX = (profileImg) => {
-  return function (dispatch) {
-    const formData = new FormData();
-    formData.append("profileImg", profileImg);
-    axios
-      .patch(`/mypage/profile/profileImg`, formData)
-      .then((res) => {
-        console.log(res);
-        dispatch(editUser({ profileImg: res.data.profileImg }));
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-};
+// const UpdateProfileImgAX = (profileImg) => {
+//   return function (dispatch) {
+//     const formData = new FormData();
+//     formData.append("profileImg", profileImg);
+//     axios
+//       .patch(`/mypage/profile/profileImg`, formData)
+//       .then((res) => {
+//         console.log(res);
+//         dispatch(editUser({ profileImg: res.data.profileImg }));
+//       })
+//       .catch((err) => {
+//         console.log(err);
+//       });
+//   };
+// };
 
-const DeleteProfileImgAX = () => {
-  return function (dispatch) {
-    axios
-      .patch(`/mypage/profile/defaultImg`)
-      .then((res) => {
-        console.log(res);
-        dispatch(editUser({ profileImg: res.data.profileImg }));
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-};
+// const DeleteProfileImgAX = () => {
+//   return function (dispatch) {
+//     axios
+//       .patch(`/mypage/profile/defaultImg`)
+//       .then((res) => {
+//         console.log(res);
+//         dispatch(editUser({ profileImg: res.data.profileImg }));
+//       })
+//       .catch((err) => {
+//         console.log(err);
+//       });
+//   };
+// };
 
-const editTopicAX = (topic) => {
-  return function (dispatch) {
-    console.log(topic)
-    axios
-      .patch(`myPage/profile/preferredTopic`, {topic: topic})
-      .then((res) => {
-        console.log(res)
-        dispatch(editUser({ topic: topic }));
-        swal({
-          title: "정상적으로 수정되었습니다. 😀",
-          text: `토픽이 수정되었습니다.`,
-          icon: "success",
-        });
-      }).catch((res)=> {
-        console.log(res)
-      })
-  }
-}
+// const editTopicAX = (topic) => {
+//   return function (dispatch) {
+//     console.log(topic)
+//     axios
+//       .patch(`myPage/profile/preferredTopic`, {topic: topic})
+//       .then((res) => {
+//         console.log(res)
+//         dispatch(editUser({ topic: topic }));
+//         swal({
+//           title: "정상적으로 수정되었습니다. 😀",
+//           text: `토픽이 수정되었습니다.`,
+//           icon: "success",
+//         });
+//       }).catch((res)=> {
+//         console.log(res)
+//       })
+//   }
+// }
 
 const othersInfoAX = (id) => {
   return function (dispatch) {
@@ -342,6 +400,7 @@ const addRecentUserAX = (id) => {
 }
 
 
+
 export const {
   setUser,
   logOut,
@@ -355,15 +414,12 @@ export const {
   friendLoading,
   getRecent,
   addRecent,
+  setPreview,
 } = userSlice.actions;
 
 export const api = {
   LoginCheckAX,
   SocialLoginAX,
-  UpdateNicknameAX,
-  UpdateIntroduceAX,
-  UpdateProfileImgAX,
-  DeleteProfileImgAX,
   othersInfoAX,
   followOtherAX,
   myFollowListAX,
@@ -371,7 +427,7 @@ export const api = {
   unfollowOtherAX,
   withdrawalAX,
   addRecentUserAX,
-  editTopicAX,
+  UpdateProfileAX,
 };
 
 export default userSlice.reducer;

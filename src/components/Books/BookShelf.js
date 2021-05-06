@@ -156,7 +156,7 @@ const Container = styled.section`
   display: flex;
   flex-direction: column;
   margin: 20px 0px;
-  padding-bottom:40px;
+  padding-bottom:110px;
 `;
 
 const ForDate = styled.div`
@@ -218,7 +218,7 @@ const Book = styled.div`
   width: 46px;
   height: 210px;
   margin: 0px 10px;
-  cursor: pointer;
+  
   /* background-image:url('');
   background-size:cover; */
   @media (max-width:1000px){
@@ -227,6 +227,7 @@ const Book = styled.div`
 `;
 
 const Date = styled.span`
+cursor: pointer;
   position:absolute;
   top:20px;
   left:14px;
@@ -239,6 +240,7 @@ const BookImage = styled.img`
   position:absolute;
   top:-10px;
   left:-23px;
+
 `;
 
 

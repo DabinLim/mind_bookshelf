@@ -1,13 +1,14 @@
 import React, { useState, useRef } from "react";
 import styled from "styled-components";
 import { api as commentActions, setComment } from "../../redux/modules/comment";
+import { api as booksActions, changeDate } from "../../redux/modules/books";
 import { api as communityActions } from "../../redux/modules/community";
 import { useDispatch, useSelector } from "react-redux";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
-import CommentList from "./CommentList";
-import HideModal from "./HideModal";
-import TagModal from "./TagModal";
+import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
+import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
+import { CommentList, HideModal, TagModal } from "./communityindex";
 import { MoreOutlined } from "@ant-design/icons";
 import { history } from "../../redux/configStore";
 import axios from "axios";
@@ -17,10 +18,12 @@ import swal from "sweetalert";
 import { getCookie } from "../../shared/Cookie";
 
 const CardModal = (props) => {
-  const answerInfo = useSelector((state) => state.comment.answer_info);
+  const answerInfo = useSelector((state) => state.community.card_detail);
   const comment_list = useSelector((state) => state.comment.list);
   const user_info = useSelector((state) => state.user.user);
-  console.log(user_info);
+  const answerQuantity = useSelector((state) => state.books.book_detail);
+  const thisMonthBooks = useSelector((state) => state.books.books);
+  const nowdate = useSelector((state) => state.books.date);
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const [user_list, setUser_list] = useState();
@@ -28,6 +31,65 @@ const CardModal = (props) => {
   const [tagModal, setTagModal] = useState(false);
   const cmtInput = useRef();
   const ok_submit = comments ? true : false;
+
+  const nextCard = () => {
+    const nowindex = answerQuantity.findIndex((v) => {
+      if (v.answerId === answerInfo.answerId) {
+        return v;
+      }
+    });
+    if (nowindex === answerQuantity.length - 1) {
+      const nowBook = thisMonthBooks.findIndex((v) => {
+        if (v._id === nowdate.format("YYMMDD")) {
+          return v;
+        }
+      });
+      if (nowBook === thisMonthBooks.length - 1) {
+        window.alert("이번달에는 작성하신 카드가 더 이상 없습니다.");
+        return;
+      }
+
+      dispatch(changeDate(`20${thisMonthBooks[nowBook + 1]._id}`));
+      dispatch(booksActions.getNextDetail(thisMonthBooks[nowBook + 1]._id));
+      return;
+    }
+    dispatch(
+      communityActions.getCardDetail(answerQuantity[nowindex + 1].answerId)
+    );
+    dispatch(
+      commentActions.getCommentAX(answerQuantity[nowindex + 1].answerId)
+    );
+  };
+
+  const previousCard = () => {
+    const nowindex = answerQuantity.findIndex((v) => {
+      if (v.answerId === answerInfo.answerId) {
+        return v;
+      }
+    });
+
+    if (nowindex === 0) {
+      const nowBook = thisMonthBooks.findIndex((v) => {
+        if (v._id === nowdate.format("YYMMDD")) {
+          return v;
+        }
+      });
+      if (nowBook === 0) {
+        window.alert("이번달에는 작성하신 카드가 더 이상 없습니다.");
+        return;
+      }
+
+      dispatch(changeDate(`20${thisMonthBooks[nowBook - 1]._id}`));
+      dispatch(booksActions.getPreviousDetail(thisMonthBooks[nowBook - 1]._id));
+      return;
+    }
+    dispatch(
+      communityActions.getCardDetail(answerQuantity[nowindex - 1].answerId)
+    );
+    dispatch(
+      commentActions.getCommentAX(answerQuantity[nowindex - 1].answerId)
+    );
+  };
 
   const debounce = _.debounce((words) => {
     setLoading(true);
@@ -171,11 +233,25 @@ const CardModal = (props) => {
     <React.Fragment>
       <Component onClick={props.close} />
       <ModalComponent>
+        <LeftArrowBtn onClick={previousCard}>
+          <ArrowBackIosIcon
+            style={{
+              fontSize: "60px",
+            }}
+          />
+        </LeftArrowBtn>
+        <RightArrowBtn onClick={nextCard}>
+          <ArrowForwardIosIcon
+            style={{
+              fontSize: "60px",
+            }}
+          />
+        </RightArrowBtn>
         <ModalContent>
           <CardWriterBox>
             <CardWriterInfoLeft>
               <CardWriterLeft>
-                <CardWriterProfileLeft src={answerInfo?.profileImg} />
+                <CardWriterProfileLeft src={answerInfo?.answerUserProfileImg} />
                 <CardWriterNickNameLeft>
                   생각낙서님의 질문
                 </CardWriterNickNameLeft>
@@ -183,10 +259,12 @@ const CardModal = (props) => {
             </CardWriterInfoLeft>
 
             {/* 카드 질문 내용 */}
-            <CardQuestionContent>{answerInfo?.content}</CardQuestionContent>
+            <CardQuestionContent>
+              {answerInfo?.questionContents}
+            </CardQuestionContent>
           </CardWriterBox>
           <CardWriteLeftBody>
-            <CardAnswerContent>{answerInfo?.contents}</CardAnswerContent>
+            <CardAnswerContent>{answerInfo?.answerContents}</CardAnswerContent>
           </CardWriteLeftBody>
           <IconContainer>
             <LikeContainer>
@@ -245,13 +323,40 @@ const CardModal = (props) => {
           </IconContainer>
         </ModalContent>
         <ModalRightContainer>
+          <ModalRightContainerInner>
+            <CardInfo>
+              <CardWriterInfo>
+                <CardWriterProfile
+                  src={
+                    answerInfo?.answerUserProfileImg
+                      ? answerInfo?.answerUserProfileImg
+                      : "https://user-images.githubusercontent.com/77574867/117267454-3d7c9d80-ae91-11eb-85c3-308544f2f9b0.png"
+                  }
+                  onClick={() => {
+                    if (user_info?.id === answerInfo?.userId) {
+                      history.push(`/mybook`);
+                      return;
+                    }
+                    history.push(`/others/${answerInfo?.userId}`);
+                  }}
+                ></CardWriterProfile>
+                <CardWriter>
+                  <b>{answerInfo?.nickname ? answerInfo?.nickname : "고객"}</b>
+                </CardWriter>
+                {/* 더보기 아이콘 */}
+              </CardWriterInfo>
+              <MoreBtn onClick={openHide}>
+                <MoreOutlined />
+              </MoreBtn>
+            </CardInfo>
+          </ModalRightContainerInner>
+          {isOpen && <HideModal close={closeHide} />}
           <CommentList />
           <ModalCmtInputBox>
             <ModalCmtInput
               type="text"
               placeholder="댓글달기..."
               onChange={selectComment}
-              value
               value={comments}
               ref={cmtInput}
               onKeyPress={(e) => {
@@ -313,7 +418,7 @@ const Component = styled.div`
 `;
 
 const ModalComponent = styled.div`
-  overflow: hidden;
+  /* overflow: hidden; */
   border-radius: 50px;
   position: fixed;
   width: 840px;
@@ -416,6 +521,7 @@ const ModalRightContainer = styled.div`
   flex-direction: column;
   justify-content: space-between;
   background-color: white;
+  border-radius: 0px 50px 50px 0px;
 `;
 
 const CardInfo = styled.div`
@@ -539,6 +645,58 @@ const MoreBtn = styled.button`
   :hover {
     background: #c4c4c4;
     border-radius: 50%;
+  }
+`;
+
+const LeftArrowBtn = styled.button`
+  z-index: 40;
+  width: 109px;
+  height: 109px;
+  border-radius: 50%;
+  outline: none;
+  border: none;
+  opacity: 1;
+  position: absolute;
+  left: -20%;
+  top: 40%;
+  color: #ffffff;
+  cursor: pointer;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 20px;
+  background: none;
+
+  :hover {
+    transform: scale(1.1);
+    box-shadow: 0px 0px 20px #ffffff;
+  }
+`;
+
+const RightArrowBtn = styled.button`
+  z-index: 40;
+  width: 109px;
+  height: 109px;
+  border-radius: 50%;
+  outline: none;
+  border: none;
+  opacity: 1;
+  position: absolute;
+  right: -20%;
+  top: 40%;
+  background: none;
+  color: #ffffff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 20px;
+  background: none;
+
+  :hover {
+    transform: scale(1.1);
+    box-shadow: 0px 0px 20px #ffffff;
   }
 `;
 export default CardModal;
