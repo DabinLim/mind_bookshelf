@@ -28,6 +28,7 @@ const communitySlice = createSlice({
       state.is_loading = false;
     },
     editLikeInfo: (state, action) => {
+      state.card_detail = {...state.card_detail, likeCount: action.payload.likeCount, like: action.payload.like }
       let idx = state.question.findIndex(
         (q) => q.id === action.payload.questionId
       );
@@ -76,12 +77,6 @@ const addLikeAX = (answerId, questionId) => {
       .then((res) => {
         console.log(res)
         dispatch(
-          editAnswerInfo({
-            likeCount: res.data.likeCountNum,
-            like: res.data.currentLike,
-          })
-        );
-        dispatch(
           editLikeInfo({
             likeCount: res.data.likeCountNum,
             like: res.data.currentLike,
@@ -104,10 +99,6 @@ const deleteLikeAX = (answerId, questionId) => {
       .then((res) => {
         console.log(res)
         console.log(answerId, questionId)
-        dispatch(editAnswerInfo({
-          likeCount: res.data.likeCountNum,
-          like: res.data.currentLike,
-        }));
         dispatch(editLikeInfo({
           likeCount: res.data.likeCountNum,
           like: res.data.currentLike,
