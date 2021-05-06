@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { LockFilled, UnlockFilled } from "@ant-design/icons";
+import { MinusCircleOutlined, LockFilled } from "@ant-design/icons";
 
 const CustomSwitch = (props) => {
   const onClick = props.onClick;
@@ -9,17 +9,17 @@ const CustomSwitch = (props) => {
       <SwitchFrame onClick={onClick}>
         {props.isOpen ? (
           <>
-            <OnMsg>공개</OnMsg>
-            <LockBox>
-              <UnlockFilled />
+            <LockBox style={{ color: "#ffffff" }}>
+              <MinusCircleOutlined />
             </LockBox>
+            <OnMsg style={{ color: "#7086BF" }}>공개</OnMsg>
           </>
         ) : (
           <>
+            <OffMsg style={{ color: "#7086BF" }}>비공개</OffMsg>
             <LockBox>
-              <LockFilled style={{ color: "#DBE5FF" }} />
+              <LockFilled style={{ color: "#7086BF" }} />
             </LockBox>
-            <OffMsg style={{ color: "#ffffff" }}>비공개</OffMsg>
           </>
         )}
       </SwitchFrame>
@@ -56,12 +56,12 @@ const LockBox = styled.span`
 `;
 
 const OnMsg = styled.span`
-  margin-left: 11px;
+  margin-right: 11px;
   font-size: 14px/19px;
 `;
 
 const OffMsg = styled.span`
-  margin-right: 11px;
+  margin-left: 11px;
   font-size: 14px/19px;
 `;
 

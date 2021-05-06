@@ -28,6 +28,14 @@ const CommunityQnA = (props) => {
     dispatch(commentActions.getCommentAX(a.answerId));
   };
 
+  const getDate = (date) => {
+    let year = "20" + date.substring(0, 2);
+    let month = date.substring(2, 4);
+    let day = date.substring(4, 6);
+    let full_date = year + "년 " + month + "월 " + day + "일";
+    return full_date;
+  };
+
   return (
     <React.Fragment>
       <QnAContainer>
@@ -92,10 +100,10 @@ const CommunityQnA = (props) => {
                     </LikeBox>
                     <CommentBox>
                       <ChatBubbleOutlineIcon />
-                      <CommentCount>0개</CommentCount>
+                      <CommentCount>{a.commentCount}개</CommentCount>
                     </CommentBox>
                   </IconBox>
-                  <DateYMD>2020년 03월 02일</DateYMD>
+                  <DateYMD>{getDate(a.answerCreated)}</DateYMD>
                 </AnswerLikes>
               </Answer>
             );

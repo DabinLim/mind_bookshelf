@@ -141,11 +141,17 @@ const Post = (props) => {
         <PostBox>
           {is_login === false ? (
             <>
-              <ElTextarea
-                rows={8}
-                disabled
-                placeholder={`오늘의 질문 예시입니다. 로그인 하시면 새로운 낙서가 가능해요!`}
-              ></ElTextarea>
+              <div style={{ margin: "90px 0 0 0 " }}>
+                <pre>
+                  <span style={{ fontSize: "14px" }}>
+                    당신이라면 어떻게 대답하시겠나요?
+                  </span>
+                  <br />
+                  <span style={{ fontSize: "14px" }}>
+                    로그인시 답변 가능합니다.
+                  </span>
+                </pre>
+              </div>
             </>
           ) : props.available ? (
             <>
@@ -170,6 +176,7 @@ const Post = (props) => {
                       onClick={addAnswer}
                       style={{
                         background: "#8EA7FF",
+                        color: "#ffffff",
                         transition: "all 200ms ease-in-out",
                       }}
                     >
