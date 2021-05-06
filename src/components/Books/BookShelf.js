@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import { history } from "../../redux/configStore";
-import {CardDetail, BookDetail} from './booksindex';
+import {CardDetail, BookDetailLow, BookDetail} from './booksindex';
 import { ArrowLeft, ArrowRight } from "@material-ui/icons";
-import { changeDate, setComponent } from "../../redux/modules/books";
+import { changeDate, setComponent, setDateVisible, setBookDetailModal } from "../../redux/modules/books";
 import { useSelector, useDispatch } from "react-redux";
 import { api as booksActions} from "../../redux/modules/books";
 
@@ -42,11 +42,13 @@ const [date_visible, setDateVisible ] = React.useState(true);
     if(bookDetailModal === givendate){
       setBookDetailModal(null);
       setDateVisible(true);
+      console.log(givendate, bookDetailModal)
       return
     }
     dispatch(booksActions.getBookDetail(givendate));
     setBookDetailModal(givendate)
     setDateVisible(false);
+    console.log(givendate, bookDetailModal)
   }
 
   const book_1 = book_list.filter((v, idx) => {
@@ -104,11 +106,12 @@ const [date_visible, setDateVisible ] = React.useState(true);
               book_1.map((v, idx) => {
                 return (
                   <>
-                  {bookDetailModal === v._id && <BookDetail date={v._id}/>}
+                  {bookDetailModal === v._id && <BookDetail openBook={openBook} date={v._id}/>}
                   <Book
                     key={idx}
-                    onClick={() => {openBook(v._id)}}
                   >
+                    <div style={{position:'relative', width:'100%', height:'100%', cursor:'pointer',zIndex:'3'}} onClick={() => {openBook(v._id)}}>
+                    </div>
                       <Date>
                       {v._id.charAt(v._id.length - 2)}
                       {v._id.charAt(v._id.length - 1)}
@@ -127,11 +130,12 @@ const [date_visible, setDateVisible ] = React.useState(true);
               book_2.map((v, idx) => {
                 return (
                   <>
-                  {bookDetailModal === v.id && <BookDetail date={v._id}/>}
+                  {bookDetailModal === v._id && <BookDetailLow openBook={openBook} date={v._id}/>}
                   <Book
                     key={idx}
-                    onClick={() => {openBook(v._id)}}
                   >
+                    <div style={{position:'relative', width:'100%', height:'100%', cursor:'pointer',zIndex:'3'}} onClick={() => {openBook(v._id)}}>
+                    </div>
                       <Date>
                       {v._id.charAt(v._id.length - 2)}
                       {v._id.charAt(v._id.length - 1)}
@@ -227,7 +231,6 @@ const Book = styled.div`
 `;
 
 const Date = styled.span`
-cursor: pointer;
   position:absolute;
   top:20px;
   left:14px;

@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { getCookie } from "../../shared/Cookie";
 import axios from "axios";
 import { editAnswerInfo } from "./comment";
+import { PagesRounded } from "@material-ui/icons";
 
 axios.defaults.baseURL = "http://lkj99.shop";
 axios.defaults.headers.common["Authorization"] = `Bearer ${getCookie(
@@ -14,12 +15,16 @@ const communitySlice = createSlice({
     question: [],
     question_info: null,
     is_loading: true,
+    card_loading: true,
     card_detail:{},
   },
   reducers: {
     setCardDetail: (state, action) => {
       state.card_detail = action.payload;
   },
+    setCardLoading: (state, action) => {
+      state.card_loading = action.payload;
+    },
     setLoading: (state, action) => {
       state.is_loading = action.payload
     },
@@ -141,20 +146,16 @@ const deleteLikeAX = (answerId, questionId) => {
 
 const getCardDetail = (a_id, type) => {
   return function(dispatch, getState){
-      
+      dispatch(setCardLoading(true));
       const options = {
           url:`/bookshelf/bookCardDetail/${a_id}`,
           method:"GET",
       };
       axios(options).then((response) => {
           console.log(response.data)
-          if(type === 'community'){
-            dispatch(setCardDetail({...response.data.bookCardDetail[0], type: type}))
-          } else if(type === 'book'){
-            dispatch(setCardDetail({...response.data.bookCardDetail[0], type: type}))
-          } else{
-            dispatch(setCardDetail({...response.data.bookCardDetail[0], type: type}))
-          }
+          dispatch(setCardDetail({...response.data.bookCardDetail[0], type: type}))
+
+          dispatch(setCardLoading(false))
       }).catch((err) => {
         console.log(err)
         if(err.response){
@@ -170,6 +171,7 @@ export const {
   setCommunity,
   editLikeInfo,
   setLoading,
+  setCardLoading,
   setCardDetail,
   editLikeCard
 } = communitySlice.actions;
