@@ -85,6 +85,7 @@ const CommentContainer = styled.div`
   flex-direction: column;
   height: 408px;
   overflow-y: scroll;
+  border-top-right-radius: 50px;
   ::-webkit-scrollbar {
     display: none;
   }

@@ -264,7 +264,9 @@ const CardModal = (props) => {
             </CardQuestionContent>
           </CardWriterBox>
           <CardWriteLeftBody>
-            <CardAnswerContent>{answerInfo?.answerContents}</CardAnswerContent>
+            <CardAnswerContent style={{ whiteSpace: "pre-wrap" }}>
+              {answerInfo?.answerContents}
+            </CardAnswerContent>
           </CardWriteLeftBody>
           <IconContainer>
             <LikeContainer>
@@ -323,34 +325,6 @@ const CardModal = (props) => {
           </IconContainer>
         </ModalContent>
         <ModalRightContainer>
-          <ModalRightContainerInner>
-            <CardInfo>
-              <CardWriterInfo>
-                <CardWriterProfile
-                  src={
-                    answerInfo?.answerUserProfileImg
-                      ? answerInfo?.answerUserProfileImg
-                      : "https://user-images.githubusercontent.com/77574867/117267454-3d7c9d80-ae91-11eb-85c3-308544f2f9b0.png"
-                  }
-                  onClick={() => {
-                    if (user_info?.id === answerInfo?.userId) {
-                      history.push(`/mybook`);
-                      return;
-                    }
-                    history.push(`/others/${answerInfo?.userId}`);
-                  }}
-                ></CardWriterProfile>
-                <CardWriter>
-                  <b>{answerInfo?.nickname ? answerInfo?.nickname : "고객"}</b>
-                </CardWriter>
-                {/* 더보기 아이콘 */}
-              </CardWriterInfo>
-              <MoreBtn onClick={openHide}>
-                <MoreOutlined />
-              </MoreBtn>
-            </CardInfo>
-          </ModalRightContainerInner>
-          {isOpen && <HideModal close={closeHide} />}
           <CommentList />
           <ModalCmtInputBox>
             <ModalCmtInput
