@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import {Card, NewQuestion} from './booksindex';
+import {NewQuestion} from './booksindex';
 import {useDispatch, useSelector} from 'react-redux';
 import {api as booksActions, setPage, setNext, resetCustomQuestion} from '../../redux/modules/books';
 const OthersQuestion = (props) => {
@@ -37,11 +37,11 @@ const OthersQuestion = (props) => {
                 <button onClick={() => {dispatch(booksActions.getOthersQuest())}}>더 보기</button>
                 </TitleContainer>
                 <CardContainer>
-                    {custom_question && custom_question.map((v,idx) => {
+                    {/* {custom_question && custom_question.map((v,idx) => {
                         return(
                             <Card key={idx} {...v} />
                         )
-                    })}
+                    })} */}
                 </CardContainer>
             </Container>
             <NewQuestion
