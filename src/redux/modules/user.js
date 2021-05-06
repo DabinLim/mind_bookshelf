@@ -4,7 +4,6 @@ import { history } from "../configStore";
 import { getCookie, deleteCookie } from "../../shared/Cookie";
 import { api as notiActions } from "./noti";
 import swal from "sweetalert";
-import { Drafts } from "@material-ui/icons";
 
 axios.defaults.baseURL = "http://lkj99.shop";
 axios.defaults.headers.common["Authorization"] = `Bearer ${getCookie(
@@ -132,6 +131,7 @@ const SocialLoginAX = () => {
 
 const UpdateProfileAX = (profile) => {
   return function(dispatch, getState) {
+    console.log(profile)
     const _image = getState().user.preview;
     const _profileImg = getState().user.user.profileImg;
     if(_image !== _profileImg){
@@ -140,11 +140,11 @@ const UpdateProfileAX = (profile) => {
         formData.append("nickname", profile.nickname);
         formData.append("introduce", profile.introduce);
         formData.append("defaultImg", "true");
-        formData.append("topic", profile.topic);
+        formData.append("topic", JSON.stringify(profile.topic));
         axios
           .patch('/mypage/profile', formData)
           .then((res)=> {
-            console.log(res)
+            dispatch(editUser(res.data))
           })
           .catch((err) => {
             console.log(err)
@@ -154,12 +154,12 @@ const UpdateProfileAX = (profile) => {
         formData.append("nickname", profile.nickname);
         formData.append("introduce", profile.introduce);
         formData.append("defaultImg", "false");
-        formData.append("topic", profile.topic);
+        formData.append("topic", JSON.stringify(profile.topic));
         formData.append("profileImg", profile.profileImg);
         axios
           .patch('/mypage/profile', formData)
           .then((res)=> {
-            console.log(res)
+            dispatch(editUser(res.data))
           })
           .catch((err) => {
             console.log(err)
@@ -170,11 +170,11 @@ const UpdateProfileAX = (profile) => {
       formData.append("nickname", profile.nickname);
       formData.append("introduce", profile.introduce);
       formData.append("defaultImg", "false");
-      formData.append("topic", profile.topic);
+      formData.append("topic", JSON.stringify(profile.topic));
       axios
         .patch('/mypage/profile', formData)
         .then((res)=> {
-          console.log(res)
+          dispatch(editUser(res.data))
         })
         .catch((err) => {
           console.log(err)

@@ -57,7 +57,8 @@ const CommunityQnA = (props) => {
                 <AnswerContents
                   onClick={() => {
                     setCardModal(true);
-                    dispatch(communityActions.getCardDetail(a.answerId))
+                    const type = 'community'
+                    dispatch(communityActions.getCardDetail(a.answerId, type))
                     dispatch(commentActions.getCommentAX(a.answerId));
                   }}
                 >

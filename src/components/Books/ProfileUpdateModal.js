@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Upload } from "../../shared/sharedindex";
 import { useSelector, useDispatch } from "react-redux";
@@ -24,7 +24,9 @@ const ProfileUpdateModal = (props) => {
   const [image, setImage] = useState(false);
   const checkedType = {...user_info.topic}
   
-
+  useEffect(()=> {
+    dispatch(setPreview(user_info.profileImg))
+  },[])
 
   const getNicknameAX = async () => {
     const result = await axios.get(`/myPage/profile/random-nickname`);
@@ -69,6 +71,16 @@ const ProfileUpdateModal = (props) => {
     }
   }
 
+  const editProfile = () => {
+    let profile = {
+      nickname: nickname,
+      introduce: introduce,
+      profileImg: image,
+      topic: checkedType,
+    }
+    dispatch(userActions.UpdateProfileAX(profile))
+    props.close()
+  }
 
   return (
     <React.Fragment>
@@ -81,15 +93,39 @@ const ProfileUpdateModal = (props) => {
           <Upload setImage={setImage} />
           <ImageIcon src="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-camera-512.png" />
         </ImageUpdate>
+        <Nickname>{user_info.nickname}<span style={{fontWeight:"400"}}>님</span></Nickname>
         <RemoveProfileBtn
           onClick={() => {
             dispatch(setPreview("https://blog.kakaocdn.net/dn/cyOIpg/btqx7JTDRTq/1fs7MnKMK7nSbrM9QTIbE1/img.jpg"))
             setImage("https://blog.kakaocdn.net/dn/cyOIpg/btqx7JTDRTq/1fs7MnKMK7nSbrM9QTIbE1/img.jpg")
           }}
         >
-          프로필이미지 삭제
+          프로필 이미지 삭제
         </RemoveProfileBtn>
-        
+
+        <InputBox>
+          <InputContainer style={{marginBottom: '20px'}} >
+            {loading ? (
+              <InputRandom>
+                <Loader type="Oval" color="#3d66ba" height={20} width={20} />
+              </InputRandom>
+            ) : (
+              <InputRandom
+                onClick={() => {
+                  setLoading(true);
+                  getNicknameAX();
+                }}
+              >
+                랜덤
+              </InputRandom>
+            )}
+            <Input  value={nickname} onChange={changeNickname} />
+          </InputContainer>
+          <InputContainer>
+            <Input placeholder={introduce} onChange={changeIntroduce} /> 
+          </InputContainer>
+        </InputBox>
+
         <TypeContainer>
           <div>
           <div style={{marginBottom: "20px"}}>
@@ -152,28 +188,8 @@ const ProfileUpdateModal = (props) => {
           </div>
           </div>
         </TypeContainer>
-          <InputContainer>
-            {loading ? (
-              <InputRandom>
-                <Loader type="Oval" color="#3d66ba" height={20} width={20} />
-              </InputRandom>
-            ) : (
-              <InputRandom
-                onClick={() => {
-                  setLoading(true);
-                  getNicknameAX();
-                }}
-              >
-                랜덤
-              </InputRandom>
-            )}
-            <Input value={nickname} onChange={changeNickname} />
-          </InputContainer>
-        
-          <InputContainer>
-            <Input placeholder={introduce} onChange={changeIntroduce} /> 
-          </InputContainer>
-        <UpdateButton>수정하기</UpdateButton>
+          
+        <UpdateButton onClick={editProfile} >수정하기</UpdateButton>
         <Withdrawal onClick={() => {setWidthdrawal(true)}} >회원탈퇴</Withdrawal>
       </UpdateBox>
     </React.Fragment>
@@ -195,10 +211,11 @@ const UpdateBox = styled.div`
   position: fixed;
   top: 50%;
   left: 50%;
-  width: 600px;
+  width: 400px;
   transform: translate(-50%, -50%);
   background-color: #fafafa;
   z-index: 30;
+  border-radius: 20px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -212,39 +229,62 @@ const ImageUpdate = styled.div`
 `;
 
 const ImageIcon = styled.img`
-  width: 25px;
-  height: 25px;
+  width: 35px;
+  height: 35px;
   position: absolute;
   top: 110px;
   right: 12px;
   border-radius: 30px;
-  background: silver;
+  background: white;
   padding: 5px;
   cursor: pointer;
+  box-shadow: 0px 0px 6px #00000029;
 `;
 
-const RemoveProfileBtn = styled.button`
-  margin-bottom: 30px;
-  font-size: 16px;
+const Nickname = styled.div`
+  font-size: 20px;
   font-weight: 600;
+`
+
+const RemoveProfileBtn = styled.div`
+  margin-top: 8px;
+  margin-bottom: 20px;
+  font-size: 14px;
   cursor: pointer;
+  opacity: 0.4;
+  &:hover {
+    opacity: 1;
+  };
 `;
+
+const InputBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-top: 0.5px solid #A8A8A8;
+  border-bottom: 0.5px solid #A8A8A8;
+  padding: 20px 0 ;
+  box-sizing: border-box;
+  width: 100%;
+`
 
 const InputContainer = styled.div`
-  margin-bottom: 30px;
   display: flex;
   position: relative;
+  border: none;
 `;
 
 const Input = styled.input`
   display: block;
   outline: none;
   border: none;
-  background-color: transparent;
-  border-bottom: 1px solid black;
+  background: #F2F2F2 0% 0% no-repeat padding-box;
+  border-radius: 10px;
+  opacity: 0.8;
   padding: 5px;
   font-size: 20px;
   width: 350px;
+  border: none;
   box-sizing: border-box;
 `;
 
@@ -268,6 +308,7 @@ const Withdrawal = styled.div`
 
 const TypeContainer = styled.div`
   margin: auto;
+  margin-top: 20px;
   margin-bottom: 30px;
   display: flex;
   align-items: center;
