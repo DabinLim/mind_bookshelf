@@ -129,6 +129,17 @@ const getCardDetail = (a_id) => {
       };
       axios(options).then((response) => {
           console.log(response.data)
+          let book_list = []
+          response.data.bookCardDetail.forEach((v) => {
+            book_list.push({
+                contents: v.questionContents,
+                nickname: v.nickname,
+                id:v.questionId,
+                topic: v.questionTopic,
+                answers: [v.answerContents]
+            });
+        });
+          dispatch(setCommunity(book_list))
           dispatch(setCardDetail(response.data.bookCardDetail[0]))
       }).catch((err) => {
         console.log(err)

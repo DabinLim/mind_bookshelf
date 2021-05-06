@@ -132,17 +132,6 @@ const getBookDetail = (date) => {
         };
         axios(options).then((response) => {
             console.log(response.data)
-            let book_list = [];
-            response.data.booksDiary.forEach((v) => {
-                book_list.push({
-                    contents: v.questionContents,
-                    nickname: v.answerUserNickname,
-                    id:v.questionId,
-                    topic: [],
-                    answers: [v.answerContents]
-                });
-            });
-            dispatch(setCommunity(book_list))
             dispatch(setBookDetail(response.data.booksDiary))
             dispatch(setBookLoading(false))
         }).catch((err) => {
@@ -165,17 +154,6 @@ const getNextDetail = (date) => {
         };
         axios(options).then((response) => {
             console.log(response.data)
-            let book_list = [];
-            response.data.booksDiary.forEach((v) => {
-                book_list.push({
-                    contents: v.questionContents,
-                    nickname: v.answerUserNickname,
-                    id:v.questionId,
-                    topic: [],
-                    answers: [v.answerContents]
-                });
-            });
-            dispatch(setCommunity(book_list))
             dispatch(setBookDetail(response.data.booksDiary))
         }).then(()=> {
             const book_detail = getState().books.book_detail
@@ -201,17 +179,6 @@ const getPreviousDetail = (date) => {
         };
         axios(options).then((response) => {
             console.log(response.data)
-            let book_list = [];
-            response.data.booksDiary.forEach((v) => {
-                book_list.push({
-                    contents: v.questionContents,
-                    nickname: v.answerUserNickname,
-                    id:v.questionId,
-                    topic: [],
-                    answers: [v.answerContents]
-                });
-            });
-            dispatch(setCommunity(book_list))
             dispatch(setBookDetail(response.data.booksDiary))
         }).then(()=> {
             const book_detail = getState().books.book_detail
