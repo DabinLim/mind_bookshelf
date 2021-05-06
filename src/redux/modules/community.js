@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { getCookie } from "../../shared/Cookie";
 import axios from "axios";
 import { editAnswerInfo } from "./comment";
+import { PagesRounded } from "@material-ui/icons";
 
 axios.defaults.baseURL = "http://lkj99.shop";
 axios.defaults.headers.common["Authorization"] = `Bearer ${getCookie(
@@ -14,12 +15,16 @@ const communitySlice = createSlice({
     question: [],
     question_info: null,
     is_loading: true,
+    card_loading: true,
     card_detail:{},
   },
   reducers: {
     setCardDetail: (state, action) => {
       state.card_detail = action.payload;
   },
+    setCardLoading: (state, action) => {
+      state.card_loading = action.payload;
+    },
     setLoading: (state, action) => {
       state.is_loading = action.payload
     },
@@ -27,8 +32,10 @@ const communitySlice = createSlice({
       state.question = action.payload;
       state.is_loading = false;
     },
-    editLikeInfo: (state, action) => {
+    editLikeCard: (state, action) => {
       state.card_detail = {...state.card_detail, likeCount: action.payload.likeCount, like: action.payload.like }
+    },
+    editLikeInfo: (state, action) => {
       let idx = state.question.findIndex(
         (q) => q.id === action.payload.questionId
       );
@@ -70,20 +77,32 @@ const communityQuestionAX = () => {
 };
 
 const addLikeAX = (answerId, questionId) => {
-  return function (dispatch) {
+  return function (dispatch, getState) {
+    const type = getState().community.card_detail.type
     console.log(answerId, questionId)
     axios
       .post("/bookshelf/like/answerCard", { answerCardId: answerId })
       .then((res) => {
         console.log(res)
-        dispatch(
-          editLikeInfo({
+        if(type==='community'){
+          dispatch(
+            editLikeInfo({
+              likeCount: res.data.likeCountNum,
+              like: res.data.currentLike,
+              answerId: answerId,
+              questionId: questionId,
+            })
+          );
+          dispatch(editLikeCard({
             likeCount: res.data.likeCountNum,
             like: res.data.currentLike,
-            answerId: answerId,
-            questionId: questionId,
-          })
-        );
+          }))
+        } else{
+          dispatch(editLikeCard({
+            likeCount: res.data.likeCountNum,
+            like: res.data.currentLike,
+          }))
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -92,35 +111,51 @@ const addLikeAX = (answerId, questionId) => {
 };
 
 const deleteLikeAX = (answerId, questionId) => {
-  return function (dispatch) {
+  return function (dispatch, getState) {
     console.log(answerId, questionId)
+    const type = getState().community.card_detail.type
     axios
       .patch("/bookshelf/like/answerCard", { answerCardId: answerId })
       .then((res) => {
         console.log(res)
         console.log(answerId, questionId)
-        dispatch(editLikeInfo({
-          likeCount: res.data.likeCountNum,
-          like: res.data.currentLike,
-          answerId: answerId,
-          questionId: questionId,
-        }));
+        if(type==='community'){
+          dispatch(
+            editLikeInfo({
+              likeCount: res.data.likeCountNum,
+              like: res.data.currentLike,
+              answerId: answerId,
+              questionId: questionId,
+            })
+          );
+          dispatch(editLikeCard({
+            likeCount: res.data.likeCountNum,
+            like: res.data.currentLike,
+          }))
+        } else{
+          dispatch(editLikeCard({
+            likeCount: res.data.likeCountNum,
+            like: res.data.currentLike,
+          }))
+        }
       }).catch((err)=> {
         console.log(err)
       })
   };
 };
 
-const getCardDetail = (a_id) => {
+const getCardDetail = (a_id, type) => {
   return function(dispatch, getState){
-      
+      dispatch(setCardLoading(true));
       const options = {
           url:`/bookshelf/bookCardDetail/${a_id}`,
           method:"GET",
       };
       axios(options).then((response) => {
           console.log(response.data)
-          dispatch(setCardDetail(response.data.bookCardDetail[0]))
+          dispatch(setCardDetail({...response.data.bookCardDetail[0], type: type}))
+
+          dispatch(setCardLoading(false))
       }).catch((err) => {
         console.log(err)
         if(err.response){
@@ -136,7 +171,9 @@ export const {
   setCommunity,
   editLikeInfo,
   setLoading,
-  setCardDetail
+  setCardLoading,
+  setCardDetail,
+  editLikeCard
 } = communitySlice.actions;
 
 export const api = {

@@ -11,11 +11,21 @@ import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 
 const CommunityQnA = (props) => {
   const dispatch = useDispatch();
-  const [cardModal, setCardModal] = useState();
+  const [cardModal, setCardModal] = useState(false);
   const user = useSelector((state) => state.user.user);
   console.log(props.topic);
+  console.log(cardModal);
   const closeCardModal = () => {
+    console.log("close");
     setCardModal(false);
+  };
+
+  const openCard = (a) => {
+    const type = "community";
+    setCardModal(true);
+    console.log("open");
+    dispatch(communityActions.getCardDetail(a.answerId, type));
+    dispatch(commentActions.getCommentAX(a.answerId));
   };
 
   return (
@@ -69,9 +79,7 @@ const CommunityQnA = (props) => {
                 </AnswerHeader>
                 <AnswerContents
                   onClick={() => {
-                    setCardModal(true);
-                    dispatch(communityActions.getCardDetail(a.answerId));
-                    dispatch(commentActions.getCommentAX(a.answerId));
+                    openCard(a);
                   }}
                 >
                   {a.contents}

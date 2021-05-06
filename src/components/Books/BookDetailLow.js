@@ -8,7 +8,7 @@ import { api as commentActions } from "../../redux/modules/comment";
 import {setAnswerInfo} from '../../redux/modules/comment';
 
 
-const BookDetail = (props) => {
+const BookDetailLow = (props) => {
     const dispatch = useDispatch()
     const [cardDetailModal, setCardDetailModal] = React.useState(false);
     const book_detail = useSelector(state => state.books.book_detail);
@@ -28,7 +28,7 @@ const BookDetail = (props) => {
     <React.Fragment>
       <Background />
       <Container>
-          {cardDetailModal && <CardModal openBook={props.openBook} date={props.date} close={close}/>}
+          {cardDetailModal && <CardModal date={props.date} close={close}/>}
           {book_detail.length && book_detail.map((v,idx) => {
               if(idx < 3){
                   return(
@@ -56,7 +56,7 @@ const Container = styled.div`
     padding-top:5px;
   border-radius:20px;
   position: absolute;
-  top: -106px;
+  top: 230px;
   left: 0;
   width:1207px;
   
@@ -148,4 +148,4 @@ const Contents = styled.span`
 `;
 
 
-export default BookDetail;
+export default BookDetailLow;

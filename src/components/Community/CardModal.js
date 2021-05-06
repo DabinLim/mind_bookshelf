@@ -21,6 +21,7 @@ const CardModal = (props) => {
   const answerInfo = useSelector((state) => state.community.card_detail);
   const comment_list = useSelector((state) => state.comment.list);
   const user_info = useSelector((state) => state.user.user);
+  const card_loading = useSelector(state => state.community.card_loading);
   const answerQuantity = useSelector((state) => state.books.book_detail);
   const thisMonthBooks = useSelector((state) => state.books.books);
   const nowdate = useSelector((state) => state.books.date);
@@ -54,7 +55,7 @@ const CardModal = (props) => {
       return;
     }
     dispatch(
-      communityActions.getCardDetail(answerQuantity[nowindex + 1].answerId)
+      communityActions.getCardDetail(answerQuantity[nowindex + 1].answerId,'book')
     );
     dispatch(
       commentActions.getCommentAX(answerQuantity[nowindex + 1].answerId)
@@ -80,11 +81,12 @@ const CardModal = (props) => {
       }
 
       dispatch(changeDate(`20${thisMonthBooks[nowBook - 1]._id}`));
+
       dispatch(booksActions.getPreviousDetail(thisMonthBooks[nowBook - 1]._id));
       return;
     }
     dispatch(
-      communityActions.getCardDetail(answerQuantity[nowindex - 1].answerId)
+      communityActions.getCardDetail(answerQuantity[nowindex - 1].answerId,'book')
     );
     dispatch(
       commentActions.getCommentAX(answerQuantity[nowindex - 1].answerId)
@@ -231,22 +233,24 @@ const CardModal = (props) => {
 
   return (
     <React.Fragment>
-      <Component onClick={props.close} />
+      <Component onClick={() => {
+        props.close()
+      }} />
       <ModalComponent>
-        <LeftArrowBtn onClick={previousCard}>
+        {answerInfo?.type === 'book' && <><LeftArrowBtn disabled={card_loading} onClick={previousCard}>
           <ArrowBackIosIcon
             style={{
               fontSize: "60px",
             }}
           />
         </LeftArrowBtn>
-        <RightArrowBtn onClick={nextCard}>
+        <RightArrowBtn disabled={card_loading} onClick={nextCard}>
           <ArrowForwardIosIcon
             style={{
               fontSize: "60px",
             }}
           />
-        </RightArrowBtn>
+        </RightArrowBtn></>}
         <ModalContent>
           <CardWriterBox>
             <CardWriterInfoLeft>
