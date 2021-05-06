@@ -31,7 +31,7 @@ const CardDetail = (props) => {
         console.log(nowindex)
         if(nowindex === answerQuantity.length -1){
             const nowBook = thisMonthBooks.findIndex((v) => {
-                if(v._id === props.date){
+                if(v._id === nowdate.format('YYMMDD')){
                     return v
                 }
             })
@@ -42,7 +42,7 @@ const CardDetail = (props) => {
             console.log(nowindex)
             console.log(answerQuantity)
             dispatch(changeDate(`20${thisMonthBooks[nowBook+1]._id}`));
-            dispatch(booksActions.getBookDetail(thisMonthBooks[nowBook+1]._id));
+            dispatch(booksActions.getNextDetail(thisMonthBooks[nowBook+1]._id));
             return
         };
         dispatch(communityActions.getCardDetail(answerQuantity[nowindex+1].answerId))
@@ -51,7 +51,32 @@ const CardDetail = (props) => {
     };
 
     const previousCard = () => {
-
+        const nowindex = answerQuantity.findIndex((v) => {
+            if(v.answerId === answerInfo.answerId){
+                return v
+            }
+        })
+        console.log(answerQuantity)
+        console.log(answerQuantity.length)
+        console.log(nowindex)
+        if(nowindex === 0){
+            const nowBook = thisMonthBooks.findIndex((v) => {
+                if(v._id === nowdate.format('YYMMDD')){
+                    return v
+                }
+            })
+            if(nowBook === 0){
+                window.alert('이번달에는 작성하신 카드가 더 이상 없습니다.');
+                return
+            };
+            console.log(nowindex)
+            console.log(answerQuantity)
+            dispatch(changeDate(`20${thisMonthBooks[nowBook-1]._id}`));
+            dispatch(booksActions.getPreviousDetail(thisMonthBooks[nowBook-1]._id));
+            return
+        };
+        dispatch(communityActions.getCardDetail(answerQuantity[nowindex-1].answerId))
+        dispatch(commentActions.getCommentAX(answerQuantity[nowindex-1].answerId))
     };
 
     return(
@@ -60,7 +85,7 @@ const CardDetail = (props) => {
       <SearchContainer>
           <Container>
               <ArrowLeftBox>
-            <ArrowLeft fontSize='large' cursor='pointer' onClick={previousCard}/>
+            <ArrowLeft disabled={true} fontSize='large' cursor='pointer' onClick={previousCard}/>
               </ArrowLeftBox>
             {answerInfo.answerContents}
             {answerInfo.answerId}

@@ -16,7 +16,7 @@ import "../static/Card.css";
 function Main() {
   const dispatch = useDispatch();
   // 유저 인포 확인하는 것 (아마 이 안에서 is_login 으로 확인해야할듯)
-  const user_info = useSelector((state) => state.user.user);
+  const user_info = useSelector((state) => state.user.is_login);
   // 스피너 먹이려고
   const is_loading = useSelector((state) => state.answer.is_loading);
 
@@ -161,7 +161,7 @@ function Main() {
               <b>{user_info?.nickname ? user_info?.nickname + "님" : "당신"}</b>
               의 머리속은?
             </QuestionIndicator>
-            {user_info?.is_login ? (
+            {user_info ? (
               <ToMyBookShelf
                 onClick={() => {
                   history.push("/mybook");
@@ -228,7 +228,7 @@ const LoaderBox = styled.div`
 // 메인의 위쪽 부분
 
 const MainUpper = styled.section`
-  margin-top: 100px;
+  margin-top: 80px;
   text-align: center;
 `;
 
@@ -269,7 +269,7 @@ const MainLower = styled.section``;
 
 const SlideBox = styled.div`
   width: 100%;
-  margin-top: 300px;
+  margin-top: 400px;
   display: flex;
   position: relative;
   flex-direction: column;

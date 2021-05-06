@@ -223,7 +223,7 @@ const CardFrame = styled.div`
   padding: 48px 50px 40px;
   background: white;
   text-align: center;
-  border-top-left-radius: 20px;
+  border-top-left-radius: 50px;
 `;
 
 const CardInfo = styled.div`
