@@ -1,38 +1,40 @@
 import React from 'react' 
 import styled from 'styled-components'
 import {useDispatch, useSelector} from "react-redux";
-import {api as userActions} from '../redux/modules/user'
+import {setPreview} from '../redux/modules/user'
 import swal from "sweetalert";
 
 const Upload = (props) => {
   const dispatch = useDispatch();
   const user_info = useSelector((state) => state.user.user)
+  const preview = useSelector((state) => state.user.preview)
+  const image = preview? preview : user_info.profileImg
   const fileInput = React.useRef();
 
   const selectFile = (e) => {
-    console.log(e.target.files)
-    console.log(fileInput.current.files[0])    
+    const reader = new FileReader();
     const file = fileInput.current.files[0]
     const type = file.type.split('/')
-    console.log(type)
     if (type[0] !=="image"){
       swal({
         title: "업로드에 실패하였습니다. 😅",
         text: "이미지만 업로드 할 수 있습니다.",
         icon: "error"
       })
-    }
-    if (file === undefined){
       return
     }
-    dispatch(userActions.UpdateProfileImgAX(file))
+    props.setImage(file)
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      dispatch(setPreview(reader.result))
+    }
 
 
   }
 
 
   return(
-    <ImageLabel style={{backgroundImage:`url(${user_info.profileImg})`}} >
+    <ImageLabel style={{backgroundImage:`url(${image})`}} >
 
         <input id={"file-input"} style={{ display: 'none' }} type="file" name="imageFile"
           onChange={selectFile} ref={fileInput}/>

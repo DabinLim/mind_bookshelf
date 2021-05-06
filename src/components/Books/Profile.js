@@ -99,15 +99,18 @@ const Profile = (props) => {
                   낙서
                 <span style={{fontSize:'16px', fontWeight:'600',marginLeft:'5px'}}>{other_info.otherAnswerCount}</span>
                 </Answers>
-            <MyQuestionBtn onClick={()=>{dispatch(setComponent('othersquestion'))}}>질문<span style={{fontSize:'16px', fontWeight:'600',marginLeft:'5px'}}>{other_info.otherCustomQuestionCount}</span></MyQuestionBtn>
+            <MyQuestionBtn>질문<span style={{fontSize:'16px', fontWeight:'600',marginLeft:'5px'}}>{other_info.otherCustomQuestionCount}</span></MyQuestionBtn>
             <Myfollowers onClick={() => {setFollowModal(true)}} >구독중<span style={{fontSize:'16px', fontWeight:'600',marginLeft:'5px'}}>{otherfriend_list.length}</span></Myfollowers>
             {is_login?
             followed? 
             <FollowerBtn onClick={() => {dispatch(userActions.unfollowOtherAX(props.id, other_info.nickname))}} >팔로우취소</FollowerBtn>
             : <FollowerBtn onClick={()=>{dispatch(userActions.followOtherAX(props.id, other_info.nickname, other_info.profileImg))}} >팔로우하기</FollowerBtn>
             :null}
-              </Body>
-            <Introduce>{other_info.introduce}</Introduce>
+            </Body>
+            <Bottom>
+              <Introduce>{other_info.introduce}</Introduce>
+              <QuestionBtn onClick={()=>{dispatch(setComponent('othersquestion'))}}>질문 카드 보러가기</QuestionBtn>
+            </Bottom>
             </ProfileDetail>
             </>}
           </React.Fragment>
@@ -174,7 +177,7 @@ const Profile = (props) => {
                 낙서
                 <span style={{fontSize:'16px', fontWeight:'600',marginLeft:'5px'}}>{user_info.myAnswerCount}</span>
               </Answers>
-              <MyQuestionBtn onClick={()=>{dispatch(setComponent('myquestion'))}}>질문
+              <MyQuestionBtn >질문
                 <span style={{fontSize:'16px', fontWeight:'600',marginLeft:'5px'}}>{user_info.myCustomQuestionCount}</span>
               </MyQuestionBtn>
               <Myfollowers onClick={() => {setFollowModal(true)}} >구독중
@@ -183,7 +186,7 @@ const Profile = (props) => {
             </Body>
             <Bottom>
               <Introduce>{user_info.introduce}</Introduce>
-              <QuestionBtn>나의 질문 카드 보러가기</QuestionBtn>
+              <QuestionBtn onClick={()=>{dispatch(setComponent('myquestion'))}}>나의 질문 카드 보러가기</QuestionBtn>
             </Bottom>
             </ProfileDetail>
             </>
@@ -330,7 +333,11 @@ const SpinnerContainer = styled.div`
 `
 
 const QuestionBtn = styled.div`
-
+  padding: 8px 18px;
+  background: #FFFFFF;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: 600;
 `
 
 export default Profile

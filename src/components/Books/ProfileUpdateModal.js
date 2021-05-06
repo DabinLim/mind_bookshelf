@@ -1,20 +1,18 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import CreateIcon from "@material-ui/icons/Create";
 import { Upload } from "../../shared/sharedindex";
 import { useSelector, useDispatch } from "react-redux";
 import { api as userActions } from "../../redux/modules/user";
 import Loader from "react-loader-spinner";
 import axios from "axios";
 import WithdrawalModal from "./WithdrawalModal"
+import {setPreview} from '../../redux/modules/user'
 
 axios.defaults.baseURL = "http://lkj99.shop";
 
 const ProfileUpdateModal = (props) => {
   const dispatch = useDispatch();
   const user_info = useSelector((state) => state.user.user);
-  const [edit_introduce, editIntroduce] = useState(false);
-  const [edit_nickname, editNickname] = useState(false);
   const [nickname, setNickname] = useState(
     user_info.nickname ? user_info.nickname : ""
   );
@@ -23,6 +21,7 @@ const ProfileUpdateModal = (props) => {
   );
   const [loading, setLoading] = useState(false);
   const [withdrawal, setWidthdrawal] = useState(false);
+  const [image, setImage] = useState(false);
   const checkedType = {...user_info.topic}
   
 
@@ -79,12 +78,13 @@ const ProfileUpdateModal = (props) => {
       <Background onClick={props.close} />
       <UpdateBox>
         <ImageUpdate>
-          <Upload />
+          <Upload setImage={setImage} />
           <ImageIcon src="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-camera-512.png" />
         </ImageUpdate>
         <RemoveProfileBtn
           onClick={() => {
-            dispatch(userActions.DeleteProfileImgAX());
+            dispatch(setPreview("https://blog.kakaocdn.net/dn/cyOIpg/btqx7JTDRTq/1fs7MnKMK7nSbrM9QTIbE1/img.jpg"))
+            setImage("https://blog.kakaocdn.net/dn/cyOIpg/btqx7JTDRTq/1fs7MnKMK7nSbrM9QTIbE1/img.jpg")
           }}
         >
           프로필이미지 삭제
@@ -151,14 +151,7 @@ const ProfileUpdateModal = (props) => {
           }
           </div>
           </div>
-          {/* {JSON.stringify(user_info.topic) === JSON.stringify(checkedType)? 
-          <CheckedButton>확인</CheckedButton>
-          :  */}
-          <CheckedButton style={{fontWeight:"bold"}} onClick={()=> {dispatch(userActions.editTopicAX(checkedType))}} >확인</CheckedButton>
-          {/* } */}
         </TypeContainer>
-
-        {edit_nickname ? (
           <InputContainer>
             {loading ? (
               <InputRandom>
@@ -175,71 +168,12 @@ const ProfileUpdateModal = (props) => {
               </InputRandom>
             )}
             <Input value={nickname} onChange={changeNickname} />
-            <InputButton
-              onClick={() => {
-                dispatch(userActions.UpdateNicknameAX(nickname));
-                editNickname(false);
-              }}
-            >
-              확인
-            </InputButton>
-            <InputButton
-              onClick={() => {
-                editNickname(false);
-                setNickname(user_info.nickname);
-              }}
-            >
-              취소
-            </InputButton>
           </InputContainer>
-        ) : (
+        
           <InputContainer>
-            <String>{user_info.nickname}</String>
-            <StringButton
-              onClick={() => {
-                editNickname(true);
-              }}
-            >
-              <CreateIcon />
-            </StringButton>
+            <Input placeholder={introduce} onChange={changeIntroduce} /> 
           </InputContainer>
-        )}
-        {edit_introduce ? (
-          <InputContainer>
-            <Input placeholder={introduce} onChange={changeIntroduce} />
-            <InputButton
-              onClick={() => {
-                dispatch(userActions.UpdateIntroduceAX(introduce));
-                editIntroduce(false);
-              }}
-            >
-              확인
-            </InputButton>
-            <InputButton
-              onClick={() => {
-                editIntroduce(false);
-                setIntroduce(user_info.introduce);
-              }}
-            >
-              취소
-            </InputButton>
-          </InputContainer>
-        ) : (
-          <InputContainer>
-            <String>
-              {user_info.introduce
-                ? user_info.introduce
-                : "자신에 대해서 적어주세요."}
-            </String>
-            <StringButton
-              onClick={() => {
-                editIntroduce(true);
-              }}
-            >
-              <CreateIcon />
-            </StringButton>
-          </InputContainer>
-        )}
+        <UpdateButton>수정하기</UpdateButton>
         <Withdrawal onClick={() => {setWidthdrawal(true)}} >회원탈퇴</Withdrawal>
       </UpdateBox>
     </React.Fragment>
@@ -322,23 +256,6 @@ const InputRandom = styled.div`
   z-index: 5;
 `;
 
-const InputButton = styled.div`
-  margin-left: 20px;
-  font-size: 20px;
-  font-weight: 600;
-  cursor: pointer;
-`;
-
-const String = styled.div`
-  font-size: 20px;
-  width: 350px;
-`;
-
-const StringButton = styled.div`
-  margin-left: 20px;
-  cursor: pointer;
-`;
-
 const Withdrawal = styled.div`
   margin-bottom: 30px;
   font-weight: 600;
@@ -354,8 +271,7 @@ const TypeContainer = styled.div`
   margin-bottom: 30px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  width: 400px;
+  width: 350px;
 `
 
 const CheckedBox = styled.input`
@@ -372,7 +288,7 @@ const CheckedLabel = styled.label`
   border-radius: 20px;
   box-shadow: 0px 0px 15px #00000029;
 `
-const CheckedButton = styled.div`
+const UpdateButton = styled.div`
   font-size: 18px;
   cursor: pointer;
 `

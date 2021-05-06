@@ -10,7 +10,7 @@ const CommunityQnA = (props) => {
   const dispatch = useDispatch();
   const [cardModal, setCardModal] = useState();
   const user = useSelector((state) => state.user.user);
-
+  console.log(props.topic)
   const closeCardModal = () => {
     setCardModal(false);
   };
@@ -28,7 +28,14 @@ const CommunityQnA = (props) => {
             더보기
           </DetailBtn>
         </QuestionBox>
-        <Topic>#{props.topic}</Topic>
+        <div>
+          {props.topic.map((t) => {
+            
+            return(
+              <Topic>#{t}</Topic>
+            )
+          })}
+        </div>
         <AnswerContainer>
           {props.answers.map((a) => {
             return (
@@ -95,12 +102,6 @@ const Question = styled.div`
   font-size: 30px;
   font-weight: 600;
   width: 500px;
-  // height: 100px;
-  // display: -webkit-box;
-  // -webkit-line-clamp: 2;
-  // -webkit-box-orient: vertical;
-  // overflow: hidden;
-  // text-overflow: ellipsis;
 `;
 
 const DetailBtn = styled.div`
@@ -173,6 +174,7 @@ const LikeIcon = styled.img`
 
 const Topic = styled.div`
   margin-top: 30px;
+  margin-right: 10px;
   display: inline-block;
   background-color: #e5e5e5;
   padding: 5px 14px;
