@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import styled from "styled-components";
 import { api as commentActions, setComment } from "../../redux/modules/comment";
-import { api as booksActions, changeDate } from "../../redux/modules/books";
+import { api as booksActions, changeDate, setBookDetailModal } from "../../redux/modules/books";
 import { api as communityActions } from "../../redux/modules/community";
 import { useDispatch, useSelector } from "react-redux";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
@@ -9,7 +9,7 @@ import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 import { CommentList, HideModal, TagModal } from "./communityindex";
-import { MoreOutlined } from "@ant-design/icons";
+import { MoreOutlined, MinusCircleOutlined } from "@ant-design/icons";
 import { history } from "../../redux/configStore";
 import axios from "axios";
 import { config } from "../../shared/config";
@@ -18,10 +18,11 @@ import swal from "sweetalert";
 import { getCookie } from "../../shared/Cookie";
 
 const CardModal = (props) => {
+  console.log(props);
   const answerInfo = useSelector((state) => state.community.card_detail);
   const comment_list = useSelector((state) => state.comment.list);
   const user_info = useSelector((state) => state.user.user);
-  const card_loading = useSelector(state => state.community.card_loading);
+  const card_loading = useSelector((state) => state.community.card_loading);
   const answerQuantity = useSelector((state) => state.books.book_detail);
   const thisMonthBooks = useSelector((state) => state.books.books);
   const nowdate = useSelector((state) => state.books.date);
@@ -55,7 +56,10 @@ const CardModal = (props) => {
       return;
     }
     dispatch(
-      communityActions.getCardDetail(answerQuantity[nowindex + 1].answerId,'book')
+      communityActions.getCardDetail(
+        answerQuantity[nowindex + 1].answerId,
+        "book"
+      )
     );
     dispatch(
       commentActions.getCommentAX(answerQuantity[nowindex + 1].answerId)
@@ -81,12 +85,14 @@ const CardModal = (props) => {
       }
 
       dispatch(changeDate(`20${thisMonthBooks[nowBook - 1]._id}`));
-
       dispatch(booksActions.getPreviousDetail(thisMonthBooks[nowBook - 1]._id));
       return;
     }
     dispatch(
-      communityActions.getCardDetail(answerQuantity[nowindex - 1].answerId,'book')
+      communityActions.getCardDetail(
+        answerQuantity[nowindex - 1].answerId,
+        "book"
+      )
     );
     dispatch(
       commentActions.getCommentAX(answerQuantity[nowindex - 1].answerId)
@@ -231,35 +237,90 @@ const CardModal = (props) => {
     setOpen(false);
   };
 
+  let color = "";
+  let topic = "";
+  if (answerInfo?.questionTopic?.length > 0) {
+    topic = answerInfo?.questionTopic[0];
+    if (answerInfo?.questionTopic[0] === "나") {
+      color = "#F9D9FC";
+    } else if (answerInfo?.questionTopic[0] === "사랑") {
+      color = "#FEBABA";
+    } else if (answerInfo?.questionTopic[0] === "관계") {
+      color = "#FDF1AE";
+    } else if (answerInfo?.questionTopic[0] === "가치") {
+      color = "#C2C8FD";
+    } else if (answerInfo?.questionTopic[0] === "우정") {
+      color = "#C4FCCD";
+    } else if (answerInfo?.questionTopic[0] === "꿈") {
+      color = "#C3E9FD";
+    }
+  }
+
   return (
     <React.Fragment>
       <Component onClick={() => {
         props.close()
+        dispatch(setBookDetailModal(nowdate.format('YYMMDD')))
       }} />
       <ModalComponent>
-        {answerInfo?.type === 'book' && <><LeftArrowBtn disabled={card_loading} onClick={previousCard}>
-          <ArrowBackIosIcon
-            style={{
-              fontSize: "60px",
-            }}
-          />
-        </LeftArrowBtn>
-        <RightArrowBtn disabled={card_loading} onClick={nextCard}>
-          <ArrowForwardIosIcon
-            style={{
-              fontSize: "60px",
-            }}
-          />
-        </RightArrowBtn></>}
+        {answerInfo?.type === "book" && (
+          <>
+            <LeftArrowBtn disabled={card_loading} onClick={previousCard}>
+              <ArrowBackIosIcon
+                style={{
+                  fontSize: "60px",
+                }}
+              />
+            </LeftArrowBtn>
+            <RightArrowBtn disabled={card_loading} onClick={nextCard}>
+              <ArrowForwardIosIcon
+                style={{
+                  fontSize: "60px",
+                }}
+              />
+            </RightArrowBtn>
+          </>
+        )}
         <ModalContent>
           <CardWriterBox>
             <CardWriterInfoLeft>
               <CardWriterLeft>
-                <CardWriterProfileLeft src={answerInfo?.answerUserProfileImg} />
+                <CardWriterProfileLeft
+                  src={answerInfo?.answerUserProfileImg}
+                  onClick={() => {
+                    if (
+                      user_info?.nickname !== "" &&
+                      user_info?.nickname === answerInfo?.nickname
+                    ) {
+                      history.push(`/mybook`);
+                      return;
+                    }
+                    history.push(`/others/${answerInfo?.answerUserId}`);
+                  }}
+                />
                 <CardWriterNickNameLeft>
-                  생각낙서님의 질문
+                  <span style={{ fontWeight: "bold", letterSpacing: "-1px" }}>
+                    {answerInfo?.nickname}님
+                  </span>
+                  <span
+                    style={{
+                      fontSize: "20px",
+                      margin: "0 5px",
+                      verticalAlign: "middle",
+                    }}
+                  >
+                    ˚
+                  </span>
+                  <span
+                    style={{
+                      letterSpacing: "-2.5px",
+                    }}
+                  >
+                    {answerInfo?.questionCreatedUserNickname}님의 질문
+                  </span>
                 </CardWriterNickNameLeft>
               </CardWriterLeft>
+              <HashTag style={{ background: color }}>{topic}</HashTag>
             </CardWriterInfoLeft>
 
             {/* 카드 질문 내용 */}
@@ -268,7 +329,9 @@ const CardModal = (props) => {
             </CardQuestionContent>
           </CardWriterBox>
           <CardWriteLeftBody>
-            <CardAnswerContent>{answerInfo?.answerContents}</CardAnswerContent>
+            <CardAnswerContent style={{ whiteSpace: "pre-wrap" }}>
+              {answerInfo?.answerContents}
+            </CardAnswerContent>
           </CardWriteLeftBody>
           <IconContainer>
             <LikeContainer>
@@ -316,7 +379,7 @@ const CardModal = (props) => {
                   <FavoriteBorderIcon />
                 </LikeBtn>
               )}
-              <LikeCount>{answerInfo.likeCount}개</LikeCount>
+              <LikeCount>{answerInfo?.likeCount}개</LikeCount>
             </LikeContainer>
             <CommentContainer>
               <CommentBtn>
@@ -327,34 +390,6 @@ const CardModal = (props) => {
           </IconContainer>
         </ModalContent>
         <ModalRightContainer>
-          <ModalRightContainerInner>
-            <CardInfo>
-              <CardWriterInfo>
-                <CardWriterProfile
-                  src={
-                    answerInfo?.answerUserProfileImg
-                      ? answerInfo?.answerUserProfileImg
-                      : "https://user-images.githubusercontent.com/77574867/117267454-3d7c9d80-ae91-11eb-85c3-308544f2f9b0.png"
-                  }
-                  onClick={() => {
-                    if (user_info?.id === answerInfo?.userId) {
-                      history.push(`/mybook`);
-                      return;
-                    }
-                    history.push(`/others/${answerInfo?.userId}`);
-                  }}
-                ></CardWriterProfile>
-                <CardWriter>
-                  <b>{answerInfo?.nickname ? answerInfo?.nickname : "고객"}</b>
-                </CardWriter>
-                {/* 더보기 아이콘 */}
-              </CardWriterInfo>
-              <MoreBtn onClick={openHide}>
-                <MoreOutlined />
-              </MoreBtn>
-            </CardInfo>
-          </ModalRightContainerInner>
-          {isOpen && <HideModal close={closeHide} />}
           <CommentList />
           <ModalCmtInputBox>
             <ModalCmtInput
@@ -453,6 +488,24 @@ const ModalContent = styled.div`
   }
 `;
 
+const HashTag = styled.span`
+  min-width: 72px;
+  max-width: 72px;
+  background: #ededed;
+  padding: 8px 12px;
+  border-radius: 24px;
+  text-align: center;
+  font: normal normal bold 14px/19px Roboto;
+  box-shadow: 0px 0px 15px #c1c7fc;
+  letter-spacing: 0px;
+  color: #363636;
+  font-size: 14px;
+  margin-right: 10px;
+  :hover {
+    cursor: pointer;
+  }
+`;
+
 const CardWriteLeftBody = styled.div`
   min-height: 50%;
   max-height: 50%;
@@ -475,7 +528,6 @@ const CardWriterInfoLeft = styled.div`
 
 const CardWriterLeft = styled.div`
   display: flex;
-  flex-direction: row;
   justify-content: flex-start;
   align-items: center;
   width: auto;
@@ -489,6 +541,7 @@ const CardWriterProfileLeft = styled.div`
   border-radius: 50%;
   background-image: url(${(props) => props.src});
   background-size: cover;
+  cursor: pointer;
 `;
 
 const CardWriterNickNameLeft = styled.span`
@@ -525,6 +578,7 @@ const ModalRightContainer = styled.div`
   flex-direction: column;
   justify-content: space-between;
   background-color: white;
+  padding: 25px 0 0 0;
   border-radius: 0px 50px 50px 0px;
 `;
 

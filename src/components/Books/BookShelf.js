@@ -23,8 +23,10 @@ const BookShelf = (props) => {
 //       return true;
 //     }
 //   });
-const [bookDetailModal, setBookDetailModal] = React.useState(null);
-const [date_visible, setDateVisible ] = React.useState(true);
+// const [bookDetailModal, setBookDetailModal] = React.useState(null);
+const bookDetailModal = useSelector(state=> state.books.book_detail_modal);
+// const [date_visible, setDateVisible ] = React.useState(true);
+const date_visible = useSelector(state => state.books.date_visible);
   const dispatch = useDispatch();
   const formated_date = useSelector((state) => state.books.formated_date);
   const book_list = useSelector((state) => state.books.books);
@@ -40,14 +42,14 @@ const [date_visible, setDateVisible ] = React.useState(true);
     //   history.push(`/others/${id}/${v._id}`);
     // }
     if(bookDetailModal === givendate){
-      setBookDetailModal(null);
-      setDateVisible(true);
+      dispatch(setBookDetailModal(null));
+      dispatch(setDateVisible(true));
       console.log(givendate, bookDetailModal)
       return
     }
     dispatch(booksActions.getBookDetail(givendate));
-    setBookDetailModal(givendate)
-    setDateVisible(false);
+    dispatch(setBookDetailModal(givendate));
+    dispatch(setDateVisible(false));
     console.log(givendate, bookDetailModal)
   }
 

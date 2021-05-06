@@ -72,9 +72,9 @@ const userSlice = createSlice({
     friendLoading: (state, action) => {
       state.is_friendLoading = action.payload;
     },
-    setPreview : (state, action) => {
+    setPreview: (state, action) => {
       state.preview = action.payload;
-    }
+    },
   },
 });
 
@@ -130,25 +130,28 @@ const SocialLoginAX = () => {
 };
 
 const UpdateProfileAX = (profile) => {
-  return function(dispatch, getState) {
-    console.log(profile)
+  return function (dispatch, getState) {
+    console.log(profile);
     const _image = getState().user.preview;
     const _profileImg = getState().user.user.profileImg;
-    if(_image !== _profileImg){
-      if(_image =="https://blog.kakaocdn.net/dn/cyOIpg/btqx7JTDRTq/1fs7MnKMK7nSbrM9QTIbE1/img.jpg"){
+    if (_image !== _profileImg) {
+      if (
+        _image ==
+        "https://blog.kakaocdn.net/dn/cyOIpg/btqx7JTDRTq/1fs7MnKMK7nSbrM9QTIbE1/img.jpg"
+      ) {
         const formData = new FormData();
         formData.append("nickname", profile.nickname);
         formData.append("introduce", profile.introduce);
         formData.append("defaultImg", "true");
         formData.append("topic", JSON.stringify(profile.topic));
         axios
-          .patch('/mypage/profile', formData)
-          .then((res)=> {
-            dispatch(editUser(res.data))
+          .patch("/mypage/profile", formData)
+          .then((res) => {
+            dispatch(editUser(res.data));
           })
           .catch((err) => {
-            console.log(err)
-          })
+            console.log(err);
+          });
       } else {
         const formData = new FormData();
         formData.append("nickname", profile.nickname);
@@ -157,31 +160,31 @@ const UpdateProfileAX = (profile) => {
         formData.append("topic", JSON.stringify(profile.topic));
         formData.append("profileImg", profile.profileImg);
         axios
-          .patch('/mypage/profile', formData)
-          .then((res)=> {
-            dispatch(editUser(res.data))
+          .patch("/mypage/profile", formData)
+          .then((res) => {
+            dispatch(editUser(res.data));
           })
           .catch((err) => {
-            console.log(err)
-          })
+            console.log(err);
+          });
       }
-    } else{
+    } else {
       const formData = new FormData();
       formData.append("nickname", profile.nickname);
       formData.append("introduce", profile.introduce);
       formData.append("defaultImg", "false");
       formData.append("topic", JSON.stringify(profile.topic));
       axios
-        .patch('/mypage/profile', formData)
-        .then((res)=> {
-          dispatch(editUser(res.data))
+        .patch("/mypage/profile", formData)
+        .then((res) => {
+          dispatch(editUser(res.data));
         })
         .catch((err) => {
-          console.log(err)
-        })
+          console.log(err);
+        });
     }
-  }
-}
+  };
+};
 
 // const UpdateNicknameAX = (nickname) => {
 //   return function (dispatch) {
@@ -273,19 +276,24 @@ const UpdateProfileAX = (profile) => {
 const othersInfoAX = (id) => {
   return function (dispatch) {
     console.log(id);
-    axios.get(`/bookshelf/auth/user/${id}`).then((res) => {
-      console.log(res.data);
-      dispatch(
-        setOther({
-          otherAnswerCount: res.data.otherAnswerCount,
-          otherCustomQuestionCount: res.data.otherCustomQuestionCount,
-          introduce: res.data.introduce,
-          profileImg: res.data.profileImg,
-          nickname: res.data.nickname,
-          topic: res.data.topic,
-        })
+    axios
+      .get(`/bookshelf/auth/user/${id}`)
+      .then((res) => {
+        console.log(res.data);
+        dispatch(
+          setOther({
+            otherAnswerCount: res.data.otherAnswerCount,
+            otherCustomQuestionCount: res.data.otherCustomQuestionCount,
+            introduce: res.data.introduce,
+            profileImg: res.data.profileImg,
+            nickname: res.data.nickname,
+            topic: res.data.topic,
+          })
         );
-      }).then(()=>{dispatch(userLoading(false))});
+      })
+      .then(() => {
+        dispatch(userLoading(false));
+      });
   };
 };
 
@@ -389,17 +397,15 @@ const withdrawalAX = () => {
 const addRecentUserAX = (id) => {
   return function (dispatch) {
     axios
-      .post("/bookshelf/searchUserDetail", {id: id})
-        .then((res) => {
-          console.log(res)
-        })
-        .catch((err) => {
-          console.log(err);
-        })
-  }
-}
-
-
+      .post("/bookshelf/searchUserDetail", { id: id })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+};
 
 export const {
   setUser,
