@@ -5,6 +5,7 @@ import { api as commentActions } from "../../redux/modules/comment";
 import { history } from "../../redux/configStore";
 import reactStringReplace from "react-string-replace";
 import { DeleteOutlined } from "@ant-design/icons";
+import { time } from "../../shared/Time";
 
 const Comment = (props) => {
   const dispatch = useDispatch();
@@ -84,7 +85,7 @@ const CommentFrame = styled.div`
   min-height: 81px;
   max-height: 81px;
   width: 100%;
-  padding: 10px 20px;
+  padding: 10px 29px 20px 20px;
   margin-bottom: 5px;
   :hover {
     background: #fef2f4;

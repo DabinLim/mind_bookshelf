@@ -4,27 +4,37 @@ import { history } from "../../redux/configStore";
 import { CardModal } from "./communityindex";
 import { useSelector, useDispatch } from "react-redux";
 import { api as commentActions } from "../../redux/modules/comment";
-import {api as communityActions} from '../../redux/modules/community';
+import { api as communityActions } from "../../redux/modules/community";
 import { setAnswerInfo } from "../../redux/modules/comment";
+import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
+import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 
 const CommunityQnA = (props) => {
   const dispatch = useDispatch();
   const [cardModal, setCardModal] = useState(false);
   const user = useSelector((state) => state.user.user);
-  console.log(props.topic)
+  console.log(props.topic);
   console.log(cardModal);
   const closeCardModal = () => {
-    console.log('close')
+    console.log("close");
     setCardModal(false);
   };
 
   const openCard = (a) => {
-    const type = 'community'
+    const type = "community";
     setCardModal(true);
-    console.log('open')
-    dispatch(communityActions.getCardDetail(a.answerId, type))
+    console.log("open");
+    dispatch(communityActions.getCardDetail(a.answerId, type));
     dispatch(commentActions.getCommentAX(a.answerId));
-  }
+  };
+
+  const getDate = (date) => {
+    let year = "20" + date.substring(0, 2);
+    let month = date.substring(2, 4);
+    let day = date.substring(4, 6);
+    let full_date = year + "년 " + month + "월 " + day + "일";
+    return full_date;
+  };
 
   return (
     <React.Fragment>
@@ -41,10 +51,21 @@ const CommunityQnA = (props) => {
         </QuestionBox>
         <div>
           {props.topic.map((t) => {
-            
-            return(
-              <Topic>#{t}</Topic>
-            )
+            let color = "";
+            if (t === "나") {
+              color = "#F9D9FC";
+            } else if (t === "사랑") {
+              color = "#FEBABA";
+            } else if (t === "관계") {
+              color = "#FDF1AE";
+            } else if (t === "가치") {
+              color = "#C2C8FD";
+            } else if (t === "우정") {
+              color = "#C4FCCD";
+            } else if (t === "꿈") {
+              color = "#C3E9FD";
+            }
+            return <Topic style={{ background: color }}>#{t}</Topic>;
           })}
         </div>
         <AnswerContainer>
@@ -65,13 +86,24 @@ const CommunityQnA = (props) => {
                   <AnswerNickname>{a.nickname}</AnswerNickname>
                 </AnswerHeader>
                 <AnswerContents
-                  onClick={() => {openCard(a)}}
+                  onClick={() => {
+                    openCard(a);
+                  }}
                 >
                   {a.contents}
                 </AnswerContents>
                 <AnswerLikes>
-                  <LikeIcon src="https://uxwing.com/wp-content/themes/uxwing/download/15-healthcare-and-medical/heart-black.png" />
-                  {a.likeCount}
+                  <IconBox>
+                    <LikeBox>
+                      <FavoriteBorderIcon />{" "}
+                      <LikeCount>{a.likeCount}개</LikeCount>
+                    </LikeBox>
+                    <CommentBox>
+                      <ChatBubbleOutlineIcon />
+                      <CommentCount>{a.commentCount}개</CommentCount>
+                    </CommentBox>
+                  </IconBox>
+                  <DateYMD>{getDate(a.answerCreated)}</DateYMD>
                 </AnswerLikes>
               </Answer>
             );
@@ -89,7 +121,6 @@ const QnAContainer = styled.div`
   align-items: start;
   margin-bottom: 60px;
   margin-top: 40px;
-
 `;
 
 const QuestionBox = styled.div`
@@ -97,7 +128,7 @@ const QuestionBox = styled.div`
   display: flex;
   // align-items: center;
   justify-content: space-between;
-`
+`;
 
 const Question = styled.div`
   font-size: 30px;
@@ -108,7 +139,7 @@ const Question = styled.div`
 const DetailBtn = styled.div`
   cursor: pointer;
   font-size: 16px;
-`
+`;
 
 const AnswerContainer = styled.div`
   display: flex;
@@ -116,13 +147,12 @@ const AnswerContainer = styled.div`
 `;
 
 const Answer = styled.div`
-  width: 220px;
-  height: 140px;
+  width: 272px;
+  height: 189px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 15px;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   border-radius: 20px;
   margin-right: 20px;
 `;
@@ -131,6 +161,7 @@ const AnswerHeader = styled.div`
   display: flex;
   align-items: center;
   cursor: pointer;
+  padding: 17px 18px 0;
 `;
 
 const AnswerProfileImg = styled.img`
@@ -146,10 +177,14 @@ const AnswerNickname = styled.div`
 `;
 
 const AnswerContents = styled.div`
-  margin-top: 10px;
-  font-size: 15px;
+  max-height: 63px;
+  min-height: 63px;
+  padding: 0px 18px;
+  font: normal normal medium 15px/20px Roboto;
+  letter-spacing: 0px;
+  color: #262626;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -160,18 +195,36 @@ const AnswerContents = styled.div`
 `;
 
 const AnswerLikes = styled.div`
-  text-align: right;
+  padding: 0px 18px;
+  border-top: 1px solid #efefef;
+  min-height: 50px;
   font-weight: 600;
   font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 `;
 
-const LikeIcon = styled.img`
-  width: 15px;
-  height: 13px;
-  background-size: cover;
-  margin-right: 5px;
-  vertical-align: middle;
-`
+const IconBox = styled.div`
+  display: flex;
+  & > div > svg {
+    margin-right: 5px;
+  }
+`;
+
+const LikeBox = styled.div`
+  display: flex;
+  align-items: center;
+  margin-right: 8px;
+`;
+const CommentBox = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const DateYMD = styled.div`
+  font-size: 11px;
+`;
 
 const Topic = styled.div`
   margin-top: 30px;
@@ -181,6 +234,15 @@ const Topic = styled.div`
   padding: 5px 14px;
   border-radius: 18px;
   font-weight: 600;
+  box-shadow: 0px 0px 5px #ffffff;
+`;
+
+const LikeCount = styled.span`
+  font-size: 12px;
+`;
+
+const CommentCount = styled.span`
+  font-size: 12px;
 `;
 
 export default CommunityQnA;

@@ -7,6 +7,7 @@ import Loader from "react-loader-spinner";
 import axios from "axios";
 import WithdrawalModal from "./WithdrawalModal"
 import {setPreview} from '../../redux/modules/user'
+import CasinoIcon from '@material-ui/icons/Casino';
 
 axios.defaults.baseURL = "http://lkj99.shop";
 
@@ -105,92 +106,73 @@ const ProfileUpdateModal = (props) => {
 
         <InputBox>
           <InputContainer style={{marginBottom: '20px'}} >
-            {loading ? (
-              <InputRandom>
-                <Loader type="Oval" color="#3d66ba" height={20} width={20} />
-              </InputRandom>
-            ) : (
-              <InputRandom
-                onClick={() => {
-                  setLoading(true);
-                  getNicknameAX();
-                }}
-              >
-                랜덤
-              </InputRandom>
-            )}
-            <Input  value={nickname} onChange={changeNickname} />
+              <InputUpper>
+                <InputLabel for="nickname" >닉네임</InputLabel>
+                <RandomBox onClick={() => {
+                    setLoading(true);
+                    getNicknameAX();
+                  }}>
+                  {loading ? (
+                    <InputRandom>
+                      <Loader type="Oval" color="#3d66ba" height={20} width={20} />
+                    </InputRandom>
+                  ) : (
+                    <InputRandom> 
+                    <CasinoIcon style={{margin:"0 5px 0 0", fontSize: "16px"}} /> 
+                    </InputRandom>
+                  )}
+                  <InputRandom>랜덤 돌리기</InputRandom> 
+                </RandomBox>
+              </InputUpper>
+              <Input id="nickname"  value={nickname} onChange={changeNickname} />
           </InputContainer>
           <InputContainer>
-            <Input placeholder={introduce} onChange={changeIntroduce} /> 
+            <InputLabel for="introduce" >소개</InputLabel>
+            <Input2 id="introduce" placeholder={introduce} onChange={changeIntroduce} /> 
           </InputContainer>
         </InputBox>
 
         <TypeContainer>
-          <div>
-          <div style={{marginBottom: "20px"}}>
-          {user_info.topic.friendship? 
-            <>
-            <CheckedBox type="checkbox" defaultChecked onChange={checkedTopic} name="action" id="friendship" value="우정"  /><CheckedLabel for="friendship" style={{background:"#B9FFC4"}} >#우정</CheckedLabel>
-            </>
+          <div style={{marginBottom: '13px'}}>
+          {user_info.topic.friendship?
+            <CheckedLabel style={{background:"#B9FFC4" , boxShadow: '0px 0px 15px #C5FDCE'}} >#우정</CheckedLabel>
             :
-            <>
-            <CheckedBox type="checkbox" onChange={checkedTopic} name="action" id="friendship" value="우정"  /><CheckedLabel for="friendship" style={{background:"#B9FFC4"}} >#우정</CheckedLabel>
-            </>
+            <CheckedLabel style={{background:"#F4F4F4"}} onClick={checkedTopic} >#우정</CheckedLabel>
           }
           {user_info.topic.love? 
-            <>
-            <CheckedBox type="checkbox" defaultChecked onChange={checkedTopic} name="action" id="love" value="사랑" /><CheckedLabel for="love" style={{background:"#FFAAAA"}} >#사랑</CheckedLabel>
-            </>
+            <CheckedLabel style={{background:"#FFAAAA" , boxShadow: '0px 0px 15px #FDB9B9'}} >#사랑</CheckedLabel>
             :
-            <>
-            <CheckedBox type="checkbox" onChange={checkedTopic} name="action" id="love" value="사랑" /><CheckedLabel for="love" style={{background:"#FFAAAA"}} >#사랑</CheckedLabel>
-            </>
+            <CheckedLabel style={{background:"#F4F4F4"}} >#사랑</CheckedLabel>
           }
           {user_info.topic.dream? 
-            <>
-            <CheckedBox type="checkbox" defaultChecked onChange={checkedTopic} name="action" id="dream" value="꿈" /><CheckedLabel for="dream" style={{background:"#B7E6FF"}} >#꿈</CheckedLabel>
-            </>
+            <CheckedLabel style={{background:"#B7E6FF" , boxShadow: '0px 0px 15px #C4EAFE'}} >#꿈</CheckedLabel>
             :
-            <>
-            <CheckedBox type="checkbox" onChange={checkedTopic} name="action" id="dream" value="꿈" /><CheckedLabel for="dream" style={{background:"#B7E6FF"}} >#꿈</CheckedLabel>
-            </>
+            <CheckedLabel style={{background:"#F4F4F4"}} >#꿈</CheckedLabel>
           }
           </div>
           <div>
           {user_info.topic.worth? 
-            <>
-            <CheckedBox type="checkbox" defaultChecked onChange={checkedTopic} name="action" id="worth" value="가치" /><CheckedLabel for="worth" style={{background:"#B5BDFF"}} >#가치</CheckedLabel>
-            </>
+            <CheckedLabel style={{background:"#B5BDFF" , boxShadow: '0px 0px 15px #C1C7FC'}} >#가치</CheckedLabel>
             :
-            <>
-            <CheckedBox type="checkbox" onChange={checkedTopic} name="action" id="worth" value="가치" /><CheckedLabel for="worth" style={{background:"#B5BDFF"}} >#가치</CheckedLabel>
-            </>
+            <CheckedLabel style={{background:"#F4F4F4"}} >#가치</CheckedLabel>
           }
           {user_info.topic.relationship? 
-            <>
-            <CheckedBox type="checkbox" defaultChecked onChange={checkedTopic} name="action" id="relationship" value="관계" /><CheckedLabel for="relationship" style={{background:"#FFF09D"}}>#관계</CheckedLabel>
-            </>
+            <CheckedLabel  style={{background:"#FFF09D", boxShadow: '0px 0px 15px #FEF2AF' }}>#관계</CheckedLabel>
             :
-            <>
-            <CheckedBox type="checkbox" onChange={checkedTopic} name="action" id="relationship" value="관계" /><CheckedLabel for="relationship" style={{background:"#FFF09D"}} >#관계</CheckedLabel>
-            </>
+            <CheckedLabel style={{background:"#F4F4F4"}} >#관계</CheckedLabel>
+            
           }
           {user_info.topic.myself? 
-            <>
-            <CheckedBox type="checkbox" defaultChecked onChange={checkedTopic} name="action" id="myself" value="나" /><CheckedLabel for="myself" style={{background:"#F9D1FD"}} >#나</CheckedLabel>
-            </>
+            <CheckedLabel style={{background:"#F9D1FD", boxShadow: '0px 0px 15px #F9D9FC' }} >#나</CheckedLabel>
             :
-            <>
-            <CheckedBox type="checkbox" onChange={checkedTopic} name="action" id="myself" value="나" /><CheckedLabel for="myself" style={{background:"#F9D1FD"}} >#나</CheckedLabel>
-            </>
+            <CheckedLabel style={{background:"#F4F4F4"}} >#나</CheckedLabel>
           }
           </div>
-          </div>
         </TypeContainer>
-          
-        <UpdateButton onClick={editProfile} >수정하기</UpdateButton>
-        <Withdrawal onClick={() => {setWidthdrawal(true)}} >회원탈퇴</Withdrawal>
+        <BottomContainer>
+          <Withdrawal onClick={() => {setWidthdrawal(true)}} >회원탈퇴</Withdrawal>
+          <UpdateButton onClick={editProfile} >저장</UpdateButton>
+        </BottomContainer>
       </UpdateBox>
     </React.Fragment>
   );
@@ -254,6 +236,7 @@ const RemoveProfileBtn = styled.div`
   opacity: 0.4;
   &:hover {
     opacity: 1;
+    font-weight: 600;
   };
 `;
 
@@ -261,8 +244,8 @@ const InputBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  border-top: 0.5px solid #A8A8A8;
-  border-bottom: 0.5px solid #A8A8A8;
+  border-top: 0.3px solid #E0E0E0;
+  border-bottom: 0.3px solid #E0E0E0;
   padding: 20px 0 ;
   box-sizing: border-box;
   width: 100%;
@@ -272,7 +255,14 @@ const InputContainer = styled.div`
   display: flex;
   position: relative;
   border: none;
+  flex-direction: column;
 `;
+
+const InputLabel = styled.label`
+  font-weight: 600;
+  font-size: 17px;
+  margin-bottom: 3px;
+`
 
 const Input = styled.input`
   display: block;
@@ -281,23 +271,53 @@ const Input = styled.input`
   background: #F2F2F2 0% 0% no-repeat padding-box;
   border-radius: 10px;
   opacity: 0.8;
-  padding: 5px;
-  font-size: 20px;
+  padding: 10px 22px;
+  font-size: 14px;
   width: 350px;
   border: none;
   box-sizing: border-box;
 `;
 
+const Input2 = styled.textarea`
+  display: block;
+  outline: none;
+  border: none;
+  background: #F2F2F2 0% 0% no-repeat padding-box;
+  border-radius: 10px;
+  opacity: 0.8;
+  padding: 10px 22px;
+  font-size: 14px;
+  width: 350px;
+  border: none;
+  box-sizing: border-box;
+`
+
+const InputUpper = styled.div`
+  display: flex;
+  justify-content: space-between;
+`
+
 const InputRandom = styled.div`
-  position: absolute;
   cursor: pointer;
-  right: 140px;
-  top: 10px;
-  z-index: 5;
+  display: inline-block;
 `;
 
+const RandomBox = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #A8A8A8;
+  &:hover{
+    color: black;
+    font-weight: 600;
+  }
+`
+
+
 const Withdrawal = styled.div`
-  margin-bottom: 30px;
+  position: absolute;
+  top: 5px;
+  left: 40px;
   font-weight: 600;
   cursor: pointer;
   opacity: 0.1;
@@ -307,30 +327,43 @@ const Withdrawal = styled.div`
 `
 
 const TypeContainer = styled.div`
+  width: 100%;
   margin: auto;
-  margin-top: 20px;
-  margin-bottom: 30px;
+  padding: 20px 0;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  width: 350px;
+  border-bottom: 0.3px solid #E0E0E0;
 `
-
-const CheckedBox = styled.input`
+const CheckedLabel = styled.div`
   display: inline-block;
-  width: 17px;
-  height: 17px;
-  vertical-align: middle;
-`
-const CheckedLabel = styled.label`
   margin-right: 20px;
   margin-left: 8px;
   cursor: pointer;
-  padding: 5px 15px;
+  width: 72px;
+  padding: 6px 0;
+  text-align: center;
   border-radius: 20px;
-  box-shadow: 0px 0px 15px #00000029;
 `
 const UpdateButton = styled.div`
-  font-size: 18px;
+  font-size: 15px;
   cursor: pointer;
+  text-align: center;
+  border: 1px solid #707070;
+  border-radius: 45px;
+  padding: 5px 0;
+  width: 73px;
+  margin: auto;
+  &:hover{
+    border:1px solid #303685;
+    background: #303685;
+    color: white;
+    font-weight: 600;
+  }
+`
+const BottomContainer = styled.div`
+  width: 100%;
+  position: relative;
+  margin: 20px 0;
 `
 export default ProfileUpdateModal;
