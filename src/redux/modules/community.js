@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { getCookie } from "../../shared/Cookie";
 import axios from "axios";
 import { editAnswerInfo } from "./comment";
+import { PagesRounded } from "@material-ui/icons";
 
 axios.defaults.baseURL = "http://lkj99.shop";
 axios.defaults.headers.common["Authorization"] = `Bearer ${getCookie(
@@ -111,26 +112,29 @@ const deleteLikeAX = (answerId, questionId) => {
   };
 };
 
-const getCardDetail = (a_id) => {
+const getCardDetail = (a_id, page=null) => {
   return function(dispatch, getState){
-      
+    console.log(page)
       const options = {
           url:`/bookshelf/bookCardDetail/${a_id}`,
           method:"GET",
       };
       axios(options).then((response) => {
           console.log(response.data)
-          let book_list = []
-          response.data.bookCardDetail.forEach((v) => {
-            book_list.push({
-                contents: v.questionContents,
-                nickname: v.nickname,
-                id:v.questionId,
-                topic: v.questionTopic,
-                answers: [v.answerContents]
-            });
-        });
-          dispatch(setCommunity(book_list))
+          if(!page){
+            let book_list = []
+            response.data.bookCardDetail.forEach((v) => {
+              book_list.push({
+                  contents: v.questionContents,
+                  nickname: v.nickname,
+                  id:v.questionId,
+                  topic: v.questionTopic,
+                  answers: [v.answerContents]
+              });
+          });
+            dispatch(setCommunity(book_list))
+          }
+
           dispatch(setCardDetail(response.data.bookCardDetail[0]))
       }).catch((err) => {
         console.log(err)
