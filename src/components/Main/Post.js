@@ -9,9 +9,11 @@ import { CheckCircleOutlined } from "@ant-design/icons";
 import CustomSwitch from "../../shared/CustomSwitch";
 
 const Post = (props) => {
-  console.log(props);
   const dispatch = useDispatch();
   const user_info = useSelector((state) => state.user.user);
+  console.log(user_info?.nickname);
+
+  const is_login = user_info?.nickname !== "" ? true : false;
 
   // comment counter
   const [count, setCount] = useState(0);
@@ -61,6 +63,22 @@ const Post = (props) => {
   }, []);
 
   let opacity = props.available ? 1 : 0.4;
+  let color = "";
+  if (props.topic?.length > 0) {
+    if (props.topic[0] === "나") {
+      color = "#F9D9FC";
+    } else if (props.topic[0] === "사랑") {
+      color = "#FEBABA";
+    } else if (props.topic[0] === "관계") {
+      color = "#FDF1AE";
+    } else if (props.topic[0] === "가치") {
+      color = "#C2C8FD";
+    } else if (props.topic[0] === "우정") {
+      color = "#C4FCCD";
+    } else if (props.topic[0] === "꿈") {
+      color = "#C3E9FD";
+    }
+  }
 
   return (
     <>
@@ -110,27 +128,9 @@ const Post = (props) => {
         {/* 질문 보여주는 곳 */}
         <CardUpper>
           <CardLeft style={{ opacity: opacity }}>
-            {props.topic?.map((p, idx) => {
-              let color = "";
-              if (p === "나") {
-                color = "#F9D9FC";
-              } else if (p === "사랑") {
-                color = "#FEBABA";
-              } else if (p === "관계") {
-                color = "#FDF1AE";
-              } else if (p === "가치") {
-                color = "#C2C8FD";
-              } else if (p === "우정") {
-                color = "#C4FCCD";
-              } else if (p === "꿈") {
-                color = "#C3E9FD";
-              }
-              return (
-                <HashTag key={idx} style={{ background: color }}>
-                  #{props.topic[0]}
-                </HashTag>
-              );
-            })}
+            {props.topic && (
+              <HashTag style={{ background: color }}>#{props.topic[0]}</HashTag>
+            )}
           </CardLeft>
           <CardRight style={{ opacity: opacity }}>
             <CardContent>{props.contents}</CardContent>
@@ -138,7 +138,15 @@ const Post = (props) => {
         </CardUpper>
         {/*  포스트 작성하는 곳 */}
         <PostBox>
-          {props.available ? (
+          {is_login === false ? (
+            <>
+              <ElTextarea
+                rows={8}
+                disabled
+                placeholder={`오늘의 질문 예시입니다. 로그인 하시면 새로운 낙서가 가능해요!`}
+              ></ElTextarea>
+            </>
+          ) : props.available ? (
             <>
               <ElTextarea
                 rows={8}
