@@ -1,9 +1,10 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { api as commentActions } from "../../redux/modules/comment";
 import { history } from "../../redux/configStore";
-import reactStringReplace from "react-string-replace"
+import reactStringReplace from "react-string-replace";
+import { DeleteOutlined } from "@ant-design/icons";
 
 const Comment = (props) => {
   const dispatch = useDispatch();
@@ -12,14 +13,13 @@ const Comment = (props) => {
   // const comment = props.commentContents.replace(``)
   // console.log(props.comment)
 
-
   const deleteComment = () => {
     dispatch(commentActions.deleteCommentAX(props.commentId));
   };
 
-//   let test = reactStringReplace('내 이름은 이대호', '이대호', (match, i)=> (
-//     <span key={i} style={{color: "blue", cursor: "pointer"}} onClick={() => {history.push('/')}}>{match}</span>
-// ));
+  //   let test = reactStringReplace('내 이름은 이대호', '이대호', (match, i)=> (
+  //     <span key={i} style={{color: "blue", cursor: "pointer"}} onClick={() => {history.push('/')}}>{match}</span>
+  // ));
 
   // {reactStringReplace(props.conmmentContents, /\@[a-zA-Zㄱ-ㅎㅏ-ㅣ가-힣0-9~!@#$%^&*()_]*/g, (match, i)=>(
   //   <span key={i} style={{color: "blue", cursor: "pointer"}} onClick={() => {history.push(`/others/${props.tag[i-1][1]}`)}}>{match}</span>
@@ -28,11 +28,18 @@ const Comment = (props) => {
   let contents = props.commentContents;
   props.tag.map((t) => {
     contents = reactStringReplace(contents, `@${t[0]}`, (match, i) => (
-      <span key={t[1]} style={{color: "#37628B", cursor: "pointer"}} onClick={() => {history.push(`/others/${t[1]}`)}}>{match}</span>
-    ))
+      <span
+        key={t[1]}
+        style={{ color: "#37628B", cursor: "pointer" }}
+        onClick={() => {
+          history.push(`/others/${t[1]}`);
+        }}
+      >
+        {match}
+      </span>
+    ));
   });
 
-  
   // let contents;
   //   props.tag.map((t, idx)=> {
   //     contents = props.commentContents.replace(`@${t[0]}`,<span style={{color:'blue'}} onClick={()=>{
@@ -41,11 +48,12 @@ const Comment = (props) => {
   // console.log(JSON.stringify(contents))
   // console.log(contents)
   // console.log(props.commentContents, contents)
-  console.log(props.commentContents)
+  console.log(props.commentContents);
 
   return (
-      <CommentFrame>
-        <CommentProfileInfo>
+    <CommentFrame>
+      <CommentProfileInfo>
+        <div>
           <CommentProfile
             src={props.profileImg}
             onClick={() => {
@@ -57,25 +65,35 @@ const Comment = (props) => {
             }}
           />
           <CommentProfileName>{props.nickname}</CommentProfileName>
-        </CommentProfileInfo>
-        <CommentContent>
-          {contents}
-        </CommentContent>
+        </div>
         {userInfo?.id === props.userId ? (
-          <DeleteBtn onClick={deleteComment}>삭제</DeleteBtn>
+          <DeleteBtn onClick={deleteComment}>
+            <DeleteOutlined />
+          </DeleteBtn>
         ) : null}
-      </CommentFrame>
+      </CommentProfileInfo>
+      <CommentContent>{contents}</CommentContent>
+      <CommentBottom>
+        <TimeIndicator>3분전</TimeIndicator>
+      </CommentBottom>
+    </CommentFrame>
   );
 };
 
 const CommentFrame = styled.div`
-  margin-bottom:15px;
-  display: flex;
-  align-items: center;
+  min-height: 81px;
+  max-height: 81px;
+  width: 100%;
+  padding: 10px 20px;
+  margin-bottom: 5px;
+  :hover {
+    background: #fef2f4;
+  }
 `;
 
 const CommentProfileInfo = styled.div`
   display: flex;
+  justify-content: space-between;
   align-items: center;
 `;
 
@@ -91,13 +109,38 @@ const CommentProfile = styled.img`
 
 const CommentProfileName = styled.span`
   margin-left: 8px;
-  font-weight: bold;
+  font: normal normal bold 13px/18px Roboto;
+  letter-spacing: 0px;
 `;
 
 const CommentContent = styled.p`
-  margin: 0 0 0 8px;
+  margin: 0 0 0 38px;
+  font: normal normal normal 13px/18px Roboto;
+  letter-spacing: 0px;
+  color: #939393;
 `;
 
-const DeleteBtn = styled.button``;
+const TimeIndicator = styled.span`
+  margin: 9px 0 0 38px;
+  font: normal normal normal 12px/16px Roboto;
+  letter-spacing: 0px;
+  color: #c4c4c4;
+`;
+
+const CommentBottom = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const DeleteBtn = styled.button`
+  outline: none;
+  border: none;
+  background: none;
+  cursor: pointer;
+  :hover {
+    transform: scale(1.2);
+    transition: 200ms ease-in-out;
+  }
+`;
 
 export default Comment;

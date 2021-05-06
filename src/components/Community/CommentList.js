@@ -1,15 +1,15 @@
 import React from "react";
 import styled from "styled-components";
-import axios from 'axios';
-import {config} from '../../shared/config'
-import {history} from '../../redux/configStore'
+import axios from "axios";
+import { config } from "../../shared/config";
+import { history } from "../../redux/configStore";
 import { useSelector } from "react-redux";
 import { Comment } from "./communityindex";
-import reactStringReplace from "react-string-replace"
+import reactStringReplace from "react-string-replace";
 
 const CommentList = (props) => {
   const comment_list = useSelector((state) => state.comment.list);
-  const contents = ""
+  const contents = "";
   // const CheckTagAX = async(words) => {
   //   const result = await axios.post(`${config.api}/bookshelf/searchUser`, {words: words})
   //     if(result.data.userInfo === "none" || result.data.userInfo.length === 0){
@@ -67,26 +67,23 @@ const CommentList = (props) => {
   //   return contents
   // }
 
-
-
   return (
     <CommentContainer>
-    {comment_list?.map((c, idx) => {
-      return (
-        <>
-          <Comment key={idx} {...c} />
-        </>
-      );
-    })}
-  </CommentContainer>
-   );
+      {comment_list?.map((c, idx) => {
+        return (
+          <>
+            <Comment key={idx} {...c} />
+          </>
+        );
+      })}
+    </CommentContainer>
+  );
 };
 
 const CommentContainer = styled.div`
-  margin-left:15px;
   display: flex;
   flex-direction: column;
-  height: 400px;
+  height: 408px;
   overflow-y: scroll;
   ::-webkit-scrollbar {
     display: none;

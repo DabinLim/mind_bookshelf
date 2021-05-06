@@ -1,26 +1,29 @@
 import React, { useState, useRef } from "react";
 import styled from "styled-components";
 import { api as commentActions, setComment } from "../../redux/modules/comment";
-import { api as booksActions, changeDate} from "../../redux/modules/books";
+import { api as booksActions, changeDate } from "../../redux/modules/books";
 import { api as communityActions } from "../../redux/modules/community";
 import { useDispatch, useSelector } from "react-redux";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
-import {CommentList, HideModal, TagModal} from "./communityindex";
+import { CommentList, HideModal, TagModal } from "./communityindex";
 import { MoreOutlined } from "@ant-design/icons";
 import { history } from "../../redux/configStore";
 import axios from "axios";
 import { config } from "../../shared/config";
 import _ from "lodash";
+import swal from "sweetalert";
+import { getCookie } from "../../shared/Cookie";
 
 const CardModal = (props) => {
-  const answerInfo = useSelector(state => state.community.card_detail);
+  const answerInfo = useSelector((state) => state.community.card_detail);
+  const comment_list = useSelector((state) => state.comment.list);
   const user_info = useSelector((state) => state.user.user);
-  const answerQuantity = useSelector(state => state.books.book_detail);
-  const thisMonthBooks = useSelector(state => state.books.books);
-  const nowdate = useSelector(state => state.books.date);
+  const answerQuantity = useSelector((state) => state.books.book_detail);
+  const thisMonthBooks = useSelector((state) => state.books.books);
+  const nowdate = useSelector((state) => state.books.date);
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const [user_list, setUser_list] = useState();
@@ -29,58 +32,64 @@ const CardModal = (props) => {
   const cmtInput = useRef();
   const ok_submit = comments ? true : false;
 
-
   const nextCard = () => {
-        const nowindex = answerQuantity.findIndex((v) => {
-            if(v.answerId === answerInfo.answerId){
-                return v
-            }
-        })
-        if(nowindex === answerQuantity.length -1){
-            const nowBook = thisMonthBooks.findIndex((v) => {
-                if(v._id === nowdate.format('YYMMDD')){
-                    return v
-                }
-            })
-            if(nowBook === thisMonthBooks.length -1){
-                window.alert('이번달에는 작성하신 카드가 더 이상 없습니다.');
-                return
-            };
+    const nowindex = answerQuantity.findIndex((v) => {
+      if (v.answerId === answerInfo.answerId) {
+        return v;
+      }
+    });
+    if (nowindex === answerQuantity.length - 1) {
+      const nowBook = thisMonthBooks.findIndex((v) => {
+        if (v._id === nowdate.format("YYMMDD")) {
+          return v;
+        }
+      });
+      if (nowBook === thisMonthBooks.length - 1) {
+        window.alert("이번달에는 작성하신 카드가 더 이상 없습니다.");
+        return;
+      }
 
-            dispatch(changeDate(`20${thisMonthBooks[nowBook+1]._id}`));
-            dispatch(booksActions.getNextDetail(thisMonthBooks[nowBook+1]._id));
-            return
-        };
-        dispatch(communityActions.getCardDetail(answerQuantity[nowindex+1].answerId))
-        dispatch(commentActions.getCommentAX(answerQuantity[nowindex+1].answerId))
+      dispatch(changeDate(`20${thisMonthBooks[nowBook + 1]._id}`));
+      dispatch(booksActions.getNextDetail(thisMonthBooks[nowBook + 1]._id));
+      return;
+    }
+    dispatch(
+      communityActions.getCardDetail(answerQuantity[nowindex + 1].answerId)
+    );
+    dispatch(
+      commentActions.getCommentAX(answerQuantity[nowindex + 1].answerId)
+    );
+  };
 
-    };
+  const previousCard = () => {
+    const nowindex = answerQuantity.findIndex((v) => {
+      if (v.answerId === answerInfo.answerId) {
+        return v;
+      }
+    });
 
-    const previousCard = () => {
-        const nowindex = answerQuantity.findIndex((v) => {
-            if(v.answerId === answerInfo.answerId){
-                return v
-            }
-        })
+    if (nowindex === 0) {
+      const nowBook = thisMonthBooks.findIndex((v) => {
+        if (v._id === nowdate.format("YYMMDD")) {
+          return v;
+        }
+      });
+      if (nowBook === 0) {
+        window.alert("이번달에는 작성하신 카드가 더 이상 없습니다.");
+        return;
+      }
 
-        if(nowindex === 0){
-            const nowBook = thisMonthBooks.findIndex((v) => {
-                if(v._id === nowdate.format('YYMMDD')){
-                    return v
-                }
-            })
-            if(nowBook === 0){
-                window.alert('이번달에는 작성하신 카드가 더 이상 없습니다.');
-                return
-            };
-    
-            dispatch(changeDate(`20${thisMonthBooks[nowBook-1]._id}`));
-            dispatch(booksActions.getPreviousDetail(thisMonthBooks[nowBook-1]._id));
-            return
-        };
-        dispatch(communityActions.getCardDetail(answerQuantity[nowindex-1].answerId))
-        dispatch(commentActions.getCommentAX(answerQuantity[nowindex-1].answerId))
-    };
+      dispatch(changeDate(`20${thisMonthBooks[nowBook - 1]._id}`));
+      dispatch(booksActions.getPreviousDetail(thisMonthBooks[nowBook - 1]._id));
+      return;
+    }
+    dispatch(
+      communityActions.getCardDetail(answerQuantity[nowindex - 1].answerId)
+    );
+    dispatch(
+      commentActions.getCommentAX(answerQuantity[nowindex - 1].answerId)
+    );
+  };
 
   const debounce = _.debounce((words) => {
     setLoading(true);
@@ -224,20 +233,20 @@ const CardModal = (props) => {
     <React.Fragment>
       <Component onClick={props.close} />
       <ModalComponent>
-      <LeftArrowBtn onClick={previousCard}>
-                  <ArrowBackIosIcon
-                    style={{
-                      fontSize: "60px",
-                    }}
-                  />
-                </LeftArrowBtn>
-                <RightArrowBtn onClick={nextCard}>
-                  <ArrowForwardIosIcon
-                    style={{
-                      fontSize: "60px",
-                    }}
-                  />
-                </RightArrowBtn>
+        <LeftArrowBtn onClick={previousCard}>
+          <ArrowBackIosIcon
+            style={{
+              fontSize: "60px",
+            }}
+          />
+        </LeftArrowBtn>
+        <RightArrowBtn onClick={nextCard}>
+          <ArrowForwardIosIcon
+            style={{
+              fontSize: "60px",
+            }}
+          />
+        </RightArrowBtn>
         <ModalContent>
           <CardWriterBox>
             <CardWriterInfoLeft>
@@ -250,7 +259,9 @@ const CardModal = (props) => {
             </CardWriterInfoLeft>
 
             {/* 카드 질문 내용 */}
-            <CardQuestionContent>{answerInfo?.questionContents}</CardQuestionContent>
+            <CardQuestionContent>
+              {answerInfo?.questionContents}
+            </CardQuestionContent>
           </CardWriterBox>
           <CardWriteLeftBody>
             <CardAnswerContent>{answerInfo?.answerContents}</CardAnswerContent>
@@ -261,6 +272,14 @@ const CardModal = (props) => {
                 <LikeBtn
                   style={{ color: "red" }}
                   onClick={() => {
+                    if (!getCookie("is_login")) {
+                      swal({
+                        title: "좋아요 누르기 실패 😥",
+                        text: "로그인 후 이용 가능한 서비스입니다.",
+                        icon: "error",
+                      });
+                      return;
+                    }
                     dispatch(
                       communityActions.deleteLikeAX(
                         answerInfo.answerId,
@@ -274,6 +293,14 @@ const CardModal = (props) => {
               ) : (
                 <LikeBtn
                   onClick={() => {
+                    if (!getCookie("is_login")) {
+                      swal({
+                        title: "좋아요 누르기 실패 😥",
+                        text: "로그인 후 이용 가능한 서비스입니다.",
+                        icon: "error",
+                      });
+                      return;
+                    }
                     dispatch(
                       communityActions.addLikeAX(
                         answerInfo.answerId,
@@ -290,7 +317,7 @@ const CardModal = (props) => {
             <CommentContainer>
               <CommentBtn>
                 <ChatBubbleOutlineIcon />
-                <CommentCount>{answerInfo.commentCount}개</CommentCount>
+                <CommentCount>{comment_list?.length}개</CommentCount>
               </CommentBtn>
             </CommentContainer>
           </IconContainer>
@@ -345,7 +372,21 @@ const CardModal = (props) => {
               onClick={selectComment}
             />
             {ok_submit ? (
-              <ModalUpload onClick={addComment} style={{ cursor: "pointer" }}>
+              <ModalUpload
+                onClick={() => {
+                  if (!getCookie("is_login")) {
+                    swal({
+                      title: "댓글 추가 실패 😥",
+                      text: "로그인 후 이용 가능한 서비스입니다.",
+                      icon: "error",
+                    });
+                    setComments("");
+                    return;
+                  }
+                  addComment();
+                }}
+                style={{ cursor: "pointer" }}
+              >
                 게시
               </ModalUpload>
             ) : (
@@ -376,8 +417,6 @@ const Component = styled.div`
   z-index: 10;
 `;
 
-
-
 const ModalComponent = styled.div`
   /* overflow: hidden; */
   border-radius: 50px;
@@ -390,7 +429,7 @@ const ModalComponent = styled.div`
   background-color: white;
   z-index: 20;
   display: flex;
-  box-shadow: 0px 0px 15px #c1c7fc;
+  /* box-shadow: 0px 0px 15px #c1c7fc; */
   @media (max-width: 950px) {
     width: 400px;
   }
@@ -608,7 +647,6 @@ const MoreBtn = styled.button`
     border-radius: 50%;
   }
 `;
-
 
 const LeftArrowBtn = styled.button`
   z-index: 40;
