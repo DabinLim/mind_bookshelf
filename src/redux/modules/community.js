@@ -98,6 +98,7 @@ const addLikeAX = (answerId, questionId) => {
 
 const deleteLikeAX = (answerId, questionId) => {
   return function (dispatch) {
+    console.log(answerId, questionId)
     axios
       .patch("/bookshelf/like/answerCard", { answerCardId: answerId })
       .then((res) => {

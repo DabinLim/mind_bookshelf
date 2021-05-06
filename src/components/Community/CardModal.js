@@ -1,13 +1,14 @@
 import React, { useState, useRef } from "react";
 import styled from "styled-components";
 import { api as commentActions, setComment } from "../../redux/modules/comment";
+import { api as booksActions, changeDate} from "../../redux/modules/books";
 import { api as communityActions } from "../../redux/modules/community";
 import { useDispatch, useSelector } from "react-redux";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
-import CommentList from "./CommentList";
-import HideModal from "./HideModal";
-import TagModal from "./TagModal";
+import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
+import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
+import {CommentList, HideModal, TagModal} from "./communityindex";
 import { MoreOutlined } from "@ant-design/icons";
 import { history } from "../../redux/configStore";
 import axios from "axios";
@@ -15,8 +16,11 @@ import { config } from "../../shared/config";
 import _ from "lodash";
 
 const CardModal = (props) => {
-  const answerInfo = useSelector((state) => state.comment.answer_info);
+  const answerInfo = useSelector(state => state.community.card_detail);
   const user_info = useSelector((state) => state.user.user);
+  const answerQuantity = useSelector(state => state.books.book_detail);
+  const thisMonthBooks = useSelector(state => state.books.books);
+  const nowdate = useSelector(state => state.books.date);
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const [user_list, setUser_list] = useState();
@@ -24,6 +28,59 @@ const CardModal = (props) => {
   const [tagModal, setTagModal] = useState(false);
   const cmtInput = useRef();
   const ok_submit = comments ? true : false;
+
+
+  const nextCard = () => {
+        const nowindex = answerQuantity.findIndex((v) => {
+            if(v.answerId === answerInfo.answerId){
+                return v
+            }
+        })
+        if(nowindex === answerQuantity.length -1){
+            const nowBook = thisMonthBooks.findIndex((v) => {
+                if(v._id === nowdate.format('YYMMDD')){
+                    return v
+                }
+            })
+            if(nowBook === thisMonthBooks.length -1){
+                window.alert('이번달에는 작성하신 카드가 더 이상 없습니다.');
+                return
+            };
+
+            dispatch(changeDate(`20${thisMonthBooks[nowBook+1]._id}`));
+            dispatch(booksActions.getNextDetail(thisMonthBooks[nowBook+1]._id));
+            return
+        };
+        dispatch(communityActions.getCardDetail(answerQuantity[nowindex+1].answerId))
+        dispatch(commentActions.getCommentAX(answerQuantity[nowindex+1].answerId))
+
+    };
+
+    const previousCard = () => {
+        const nowindex = answerQuantity.findIndex((v) => {
+            if(v.answerId === answerInfo.answerId){
+                return v
+            }
+        })
+
+        if(nowindex === 0){
+            const nowBook = thisMonthBooks.findIndex((v) => {
+                if(v._id === nowdate.format('YYMMDD')){
+                    return v
+                }
+            })
+            if(nowBook === 0){
+                window.alert('이번달에는 작성하신 카드가 더 이상 없습니다.');
+                return
+            };
+    
+            dispatch(changeDate(`20${thisMonthBooks[nowBook-1]._id}`));
+            dispatch(booksActions.getPreviousDetail(thisMonthBooks[nowBook-1]._id));
+            return
+        };
+        dispatch(communityActions.getCardDetail(answerQuantity[nowindex-1].answerId))
+        dispatch(commentActions.getCommentAX(answerQuantity[nowindex-1].answerId))
+    };
 
   const debounce = _.debounce((words) => {
     setLoading(true);
@@ -167,11 +224,25 @@ const CardModal = (props) => {
     <React.Fragment>
       <Component onClick={props.close} />
       <ModalComponent>
+      <LeftArrowBtn onClick={previousCard}>
+                  <ArrowBackIosIcon
+                    style={{
+                      fontSize: "60px",
+                    }}
+                  />
+                </LeftArrowBtn>
+                <RightArrowBtn onClick={nextCard}>
+                  <ArrowForwardIosIcon
+                    style={{
+                      fontSize: "60px",
+                    }}
+                  />
+                </RightArrowBtn>
         <ModalContent>
           <CardWriterBox>
             <CardWriterInfoLeft>
               <CardWriterLeft>
-                <CardWriterProfileLeft src={answerInfo?.profileImg} />
+                <CardWriterProfileLeft src={answerInfo?.answerUserProfileImg} />
                 <CardWriterNickNameLeft>
                   생각낙서님의 질문
                 </CardWriterNickNameLeft>
@@ -179,10 +250,10 @@ const CardModal = (props) => {
             </CardWriterInfoLeft>
 
             {/* 카드 질문 내용 */}
-            <CardQuestionContent>{answerInfo?.content}</CardQuestionContent>
+            <CardQuestionContent>{answerInfo?.questionContents}</CardQuestionContent>
           </CardWriterBox>
           <CardWriteLeftBody>
-            <CardAnswerContent>{answerInfo?.contents}</CardAnswerContent>
+            <CardAnswerContent>{answerInfo?.answerContents}</CardAnswerContent>
           </CardWriteLeftBody>
           <IconContainer>
             <LikeContainer>
@@ -230,9 +301,9 @@ const CardModal = (props) => {
               <CardWriterInfo>
                 <CardWriterProfile
                   src={
-                    answerInfo?.profileImg
-                      ? answerInfo?.profileImg
-                      : "data:image/png;base64,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"
+                    answerInfo?.answerUserProfileImg
+                      ? answerInfo?.answerUserProfileImg
+                      : "https://user-images.githubusercontent.com/77574867/117267454-3d7c9d80-ae91-11eb-85c3-308544f2f9b0.png"
                   }
                   onClick={() => {
                     if (user_info?.id === answerInfo?.userId) {
@@ -259,7 +330,6 @@ const CardModal = (props) => {
               type="text"
               placeholder="댓글달기..."
               onChange={selectComment}
-              value
               value={comments}
               ref={cmtInput}
               onKeyPress={(e) => {
@@ -306,8 +376,10 @@ const Component = styled.div`
   z-index: 10;
 `;
 
+
+
 const ModalComponent = styled.div`
-  overflow: hidden;
+  /* overflow: hidden; */
   border-radius: 50px;
   position: fixed;
   width: 840px;
@@ -410,6 +482,7 @@ const ModalRightContainer = styled.div`
   flex-direction: column;
   justify-content: space-between;
   background-color: white;
+  border-radius: 0px 50px 50px 0px;
 `;
 
 const CardInfo = styled.div`
@@ -533,6 +606,59 @@ const MoreBtn = styled.button`
   :hover {
     background: #c4c4c4;
     border-radius: 50%;
+  }
+`;
+
+
+const LeftArrowBtn = styled.button`
+  z-index: 40;
+  width: 109px;
+  height: 109px;
+  border-radius: 50%;
+  outline: none;
+  border: none;
+  opacity: 1;
+  position: absolute;
+  left: -20%;
+  top: 40%;
+  color: #ffffff;
+  cursor: pointer;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 20px;
+  background: none;
+
+  :hover {
+    transform: scale(1.1);
+    box-shadow: 0px 0px 20px #ffffff;
+  }
+`;
+
+const RightArrowBtn = styled.button`
+  z-index: 40;
+  width: 109px;
+  height: 109px;
+  border-radius: 50%;
+  outline: none;
+  border: none;
+  opacity: 1;
+  position: absolute;
+  right: -20%;
+  top: 40%;
+  background: none;
+  color: #ffffff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 20px;
+  background: none;
+
+  :hover {
+    transform: scale(1.1);
+    box-shadow: 0px 0px 20px #ffffff;
   }
 `;
 export default CardModal;

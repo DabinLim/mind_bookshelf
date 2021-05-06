@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import {useSelector, useDispatch} from 'react-redux';
 import CardDetail from './CardDetail';
+import CardModal from '../Community/CardModal';
 import {api as communityActions} from '../../redux/modules/community';
 import { api as commentActions } from "../../redux/modules/comment";
 import {setAnswerInfo} from '../../redux/modules/comment';
@@ -27,7 +28,7 @@ const BookDetail = (props) => {
     <React.Fragment>
       <Background />
       <Container>
-          {cardDetailModal && <CardDetail date={props.date} close={close}/>}
+          {cardDetailModal && <CardModal date={props.date} close={close}/>}
           {book_detail.length && book_detail.map((v,idx) => {
               if(idx < 3){
                   return(

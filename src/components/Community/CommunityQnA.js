@@ -4,6 +4,7 @@ import { history } from "../../redux/configStore";
 import { CardModal } from "./communityindex";
 import { useSelector, useDispatch } from "react-redux";
 import { api as commentActions } from "../../redux/modules/comment";
+import {api as communityActions} from '../../redux/modules/community';
 import { setAnswerInfo } from "../../redux/modules/comment";
 
 const CommunityQnA = (props) => {
@@ -49,13 +50,7 @@ const CommunityQnA = (props) => {
                 <AnswerContents
                   onClick={() => {
                     setCardModal(true);
-                    dispatch(
-                      setAnswerInfo({
-                        ...a,
-                        content: props.contents,
-                        questionId: props.id,
-                      })
-                    );
+                    dispatch(communityActions.getCardDetail(a.answerId))
                     dispatch(commentActions.getCommentAX(a.answerId));
                   }}
                 >
