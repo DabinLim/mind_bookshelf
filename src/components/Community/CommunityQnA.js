@@ -9,7 +9,7 @@ import { setAnswerInfo } from "../../redux/modules/comment";
 
 const CommunityQnA = (props) => {
   const dispatch = useDispatch();
-  const [cardModal, setCardModal] = useState();
+  const [cardModal, setCardModal] = useState(false);
   const user = useSelector((state) => state.user.user);
   console.log(props.topic)
   const closeCardModal = () => {
