@@ -16,7 +16,7 @@ const BookDetail = (props) => {
 
     const openCard = (v) => {
         console.log(v)
-        dispatch(communityActions.getCardDetail(v.answerId))
+        dispatch(communityActions.getCardDetail(v.answerId, 'book'))
         dispatch(commentActions.getCommentAX(v.answerId))
         setCardDetailModal(true);
     };
