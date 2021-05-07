@@ -38,7 +38,12 @@ const BookDetailLow = (props) => {
                   return(
                     <DetailContainer key={idx}>
                     <Head>
-                  <Subject>#가치</Subject>
+                    {v.questionTopic[0] === '사랑' && <Subject style={{background:"#FFAAAA", boxShadow: "0px 0px 15px #FFAAAA"}} ><span>#사랑</span></Subject>}
+                  {v.questionTopic[0] === '우정' && <Subject style={{background:"#B9FFC4", boxShadow: "0px 0px 15px #B9FFC4"}} ><span>#우정</span></Subject>}
+                  {v.questionTopic[0] === '꿈' && <Subject style={{background:"#B7E6FF", boxShadow: "0px 0px 15px #B7E6FF"}} ><span>#꿈</span></Subject>}
+                  {v.questionTopic[0] === '가치' && <Subject style={{background:"#B5BDFF", boxShadow: "0px 0px 15px #B5BDFF"}} ><span>#가치</span></Subject>}
+                  {v.questionTopic[0] === '관계' && <Subject style={{background:"#FFF09D" ,boxShadow: "0px 0px 15px #FFF09D"}} ><span>#관계</span></Subject>}
+                  {v.questionTopic[0] === '나' && <Subject style={{background:"#F9D1FD", boxShadow: "0px 0px 15px #F9D1FD"}} ><span>#나</span></Subject>}
                   <TitleBox>
                   <Title onClick={() => {openCard(v)}}>{v.questionContents}</Title>
                   </TitleBox>

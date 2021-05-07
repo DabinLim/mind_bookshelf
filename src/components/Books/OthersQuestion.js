@@ -7,6 +7,7 @@ const OthersQuestion = (props) => {
     const dispatch = useDispatch()
     const [modalVisible, setModalVisible] = React.useState(false);
     const custom_question = useSelector(state => state.books.custom_question);
+    console.log(custom_question);
     const page_owner_id = useSelector(state => state.books.page_owner);
     const openModal = () => {
         setModalVisible(true);
