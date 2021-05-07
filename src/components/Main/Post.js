@@ -225,9 +225,6 @@ const Post = (props) => {
   );
 };
 
-const CardUpperPart = styled.div``;
-const CardLowerPart = styled.div``;
-
 const CardFrame = styled.div`
   width: 100%;
   min-height: 462px;

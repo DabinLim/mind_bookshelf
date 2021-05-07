@@ -132,7 +132,6 @@ function Main() {
         <MainContainer>
           {/* 메인 위쪽 편 */}
           <MainUpper>
-            
             <DateIndicator>{displayedDate}</DateIndicator>
             <QuestionIndicator>
               <b>{user?.nickname ? user?.nickname + "님" : "당신"}</b>의
@@ -149,58 +148,64 @@ function Main() {
             ) : null}
           </MainUpper>
           {/* 메인 아래쪽 */}
-              <SlideBox>
-                <div style={{display:"flex", justifyContent: "center", alignItems:'center' }}>
-                  <LeftArrowBtn onClick={turnLeft}>
-                    <ArrowBackIosIcon
-                      style={{
-                        fontSize: "60px",
-                      }}
-                    />
-                  </LeftArrowBtn>
-                  <CardContainer>
-                    <EachCard className={card_1}>
-                      <Post {...question_list[0]} allChecked={allChecked} />
-                    </EachCard>
-                    <EachCard className={card_2}>
-                      <Post {...question_list[1]} allChecked={allChecked} />
-                    </EachCard>
-                    <EachCard className={card_3}>
-                      <Post {...question_list[2]} allChecked={allChecked} />
-                    </EachCard>
-                  </CardContainer>
-                  <RightArrowBtn onClick={turnRight}>
-                    <ArrowForwardIosIcon
-                      style={{
-                        fontSize: "60px",
-                      }}
-                    />
-                  </RightArrowBtn>
-                </div>
-                <DotQueue>
-                  <FiberManualRecordIcon
-                    style={{
-                      fontSize: "20px",
-                      margin: "0 5px",
-                    }}
-                    className={dot_1}
-                  />
-                  <FiberManualRecordIcon
-                    style={{
-                      fontSize: "20px",
-                      margin: "0 5px",
-                    }}
-                    className={dot_2}
-                  />
-                  <FiberManualRecordIcon
-                    style={{
-                      fontSize: "20px",
-                      margin: "0 5px",
-                    }}
-                    className={dot_3}
-                  />
-                </DotQueue>
-              </SlideBox>
+          <SlideBox>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <LeftArrowBtn onClick={turnLeft}>
+                <ArrowBackIosIcon
+                  style={{
+                    fontSize: "60px",
+                  }}
+                />
+              </LeftArrowBtn>
+              <CardContainer>
+                <EachCard className={card_1}>
+                  <Post {...question_list[0]} allChecked={allChecked} />
+                </EachCard>
+                <EachCard className={card_2}>
+                  <Post {...question_list[1]} allChecked={allChecked} />
+                </EachCard>
+                <EachCard className={card_3}>
+                  <Post {...question_list[2]} allChecked={allChecked} />
+                </EachCard>
+              </CardContainer>
+              <RightArrowBtn onClick={turnRight}>
+                <ArrowForwardIosIcon
+                  style={{
+                    fontSize: "60px",
+                  }}
+                />
+              </RightArrowBtn>
+            </div>
+            <DotQueue>
+              <FiberManualRecordIcon
+                style={{
+                  fontSize: "20px",
+                  margin: "0 5px",
+                }}
+                className={dot_1}
+              />
+              <FiberManualRecordIcon
+                style={{
+                  fontSize: "20px",
+                  margin: "0 5px",
+                }}
+                className={dot_2}
+              />
+              <FiberManualRecordIcon
+                style={{
+                  fontSize: "20px",
+                  margin: "0 5px",
+                }}
+                className={dot_3}
+              />
+            </DotQueue>
+          </SlideBox>
         </MainContainer>
       )}
     </MainFrame>
@@ -214,16 +219,28 @@ const MainFrame = styled.div`
   flex-direction: column;
   justify-content: space-between;
   overflow-y: auto;
-  `;
-
+`;
 
 const MainContainer = styled.div`
   height: 100vh;
   margin: 100px 0px 0px 0px;
   display: flex;
   flex-direction: column;
-  overflow-y:auto;
-`
+  overflow-y: auto;
+  overflow: auto;
+  ::-webkit-scrollbar {
+    width: 12px; /* width of the entire scrollbar */
+  }
+
+  ::-webkit-scrollbar-track {
+    background: white; /* color of the tracking area */
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: #d8d9dc; /* color of the scroll thumb */
+    border-radius: 20px; /* roundness of the scroll thumb */
+  }
+`;
 // LoaderBox
 
 const LoaderBox = styled.div`
@@ -276,7 +293,6 @@ const SlideBox = styled.div`
   position: relative;
   flex-direction: column;
   margin-top: 50px;
-  
 `;
 
 const EachCard = styled.div`
