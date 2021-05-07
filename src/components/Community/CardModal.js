@@ -501,7 +501,7 @@ const Component = styled.div`
   height: 100vh;
   width: 100vw;
   background: black;
-  z-index: 10;
+  z-index: 500;
 `;
 
 const ModalComponent = styled.div`
@@ -514,7 +514,7 @@ const ModalComponent = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: white;
-  z-index: 20;
+  z-index: 1000;
   display: flex;
   /* box-shadow: 0px 0px 15px #c1c7fc; */
   @media (max-width: 950px) {
