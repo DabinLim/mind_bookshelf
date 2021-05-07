@@ -22,6 +22,7 @@ import swal from "sweetalert";
 import { getCookie } from "../../shared/Cookie";
 
 const CardModal = (props) => {
+  console.log(props)
   const answerInfo = useSelector((state) => state.community.card_detail);
   const comment_list = useSelector((state) => state.comment.list);
   const user_info = useSelector((state) => state.user.user);
@@ -38,6 +39,66 @@ const CardModal = (props) => {
   const ok_submit = comments ? true : false;
   const url = window.location.href.split("/");
   const id = url[url.length - 1];
+
+  const selectedCard = (id) => {
+    dispatch(
+      communityActions.getCardDetail(id, 'book')
+    );
+    dispatch(commentActions.getCommentAX(id));
+  };
+
+  const nextDay = () => {
+      const nowBook = thisMonthBooks.findIndex((v) => {
+        if (v._id === nowdate.format("YYMMDD")) {
+          return v;
+        }
+      });
+      if (nowBook === thisMonthBooks.length - 1) {
+        window.alert("이번달에는 작성하신 카드가 더 이상 없습니다.");
+        return;
+      }
+
+      dispatch(changeDate(`20${thisMonthBooks[nowBook + 1]._id}`));
+      if (id === "mybook") {
+        dispatch(booksActions.getNextDetail(thisMonthBooks[nowBook + 1]._id));
+      } else {
+        console.log(thisMonthBooks[nowBook + 1]._id);
+        dispatch(
+          booksActions.getNextOthersBookDetail(
+            thisMonthBooks[nowBook + 1]._id,
+            id
+          )
+        );
+      }
+  }
+
+  const previousDay = () => {
+    const nowBook = thisMonthBooks.findIndex((v) => {
+      if (v._id === nowdate.format("YYMMDD")) {
+        return v;
+      }
+    });
+    if (nowBook === 0) {
+      window.alert("이번달에는 작성하신 카드가 더 이상 없습니다.");
+      return;
+    }
+
+    dispatch(changeDate(`20${thisMonthBooks[nowBook - 1]._id}`));
+    if (id === "mybook") {
+      // 이 부분 전날로 돌아가서 첫번째 답변 띄우려고 getNext 호출입니다.
+      // 혹시 수정 하실 일 있으시면 참고해 주세요.
+      dispatch(
+        booksActions.getNextDetail(thisMonthBooks[nowBook - 1]._id)
+      );
+    } else {
+      dispatch(
+        booksActions.getNextOthersBookDetail(
+          thisMonthBooks[nowBook - 1]._id,
+          id
+        )
+      );
+    }
+  }
 
   const nextCard = () => {
     const nowindex = answerQuantity.findIndex((v) => {
@@ -288,13 +349,55 @@ const CardModal = (props) => {
         }}
       />
       {card_loading ? (
-        <ModalComponent>
+        <ModalComponent book = {props.book}>
           {answerInfo?.type === "book" && (
             <>
+            {answerQuantity.length && answerQuantity.map((v, idx) => {
+                    if(v.answerId !== answerInfo.answerId && !card_loading){
+                      return(
+                        <DetailContainer key={idx}>
+                          <Head>
+                        <BooksSubject>#가치</BooksSubject>
+                        <TitleBox>
+                        <Title disabled={card_loading} onClick={() => {selectedCard(v.answerId)}}>{v.questionContents}</Title>
+                        </TitleBox>
+                          </Head>
+                          <Contents>
+                              {v.answerContents}
+                          </Contents>
+                      </DetailContainer>
+                      )
+                    }
+                  })}
+            <CardDate>
+            <ArrowForwardIosIcon
+                disabled={card_loading} onClick={previousDay}
+                  style={{
+                    cursor:'pointer',
+                    transform:'rotateY(180deg)',
+                    color:'white',
+                    fontSize: "25px"
+                  }}
+                />
+
+              <span style={{fontWeight:'600',fontSize:'22px',color:'#ffffff'}}>
+              {nowdate.format('M')}월{nowdate.format('D')}일
+              </span>
+   
+                <ArrowForwardIosIcon
+                disabled={card_loading} onClick={nextDay}
+                  style={{
+                    cursor:'pointer',
+                    color:'white',
+                    fontSize: "25px"
+                  }}
+                />
+            </CardDate>
               <LeftArrowBtn disabled={card_loading} onClick={previousCard}>
                 <ArrowBackIosIcon
                   style={{
                     fontSize: "60px",
+                    fontWeight:'400'
                   }}
                 />
               </LeftArrowBtn>
@@ -302,6 +405,7 @@ const CardModal = (props) => {
                 <ArrowForwardIosIcon
                   style={{
                     fontSize: "60px",
+                    fontWeight:'400'
                   }}
                 />
               </RightArrowBtn>
@@ -309,13 +413,59 @@ const CardModal = (props) => {
           )}
         </ModalComponent>
       ) : (
-        <ModalComponent>
+        <ModalComponent book = {props.book}>
           {answerInfo?.type === "book" && (
             <>
+              <BooksDetailBox>
+                  {answerQuantity.length && answerQuantity.map((v, idx) => {
+                    if(v.answerId !== answerInfo.answerId && !card_loading){
+                      return(
+                        <DetailContainer key={idx}>
+                          <Head>
+                        <BooksSubject>#가치</BooksSubject>
+                        <TitleBox>
+                        <Title disabled={card_loading} onClick={() => {selectedCard(v.answerId)}}>{v.questionContents}</Title>
+                        </TitleBox>
+                          </Head>
+                          <Contents>
+                              {v.answerContents}
+                          </Contents>
+                      </DetailContainer>
+                      )
+                    }
+                  })}
+            </BooksDetailBox>
+            <CardDate>
+
+                <ArrowForwardIosIcon
+                disabled={card_loading} onClick={previousDay}
+                  style={{
+                    cursor:'pointer',
+                    transform:'rotateY(180deg)',
+                    color:'white',
+                    fontSize: "25px"
+                  }}
+                />
+
+              <span style={{fontWeight:'600',fontSize:'22px',color:'#ffffff'}}>
+              {nowdate.format('M')}월{nowdate.format('D')}일
+              </span>
+   
+                <ArrowForwardIosIcon
+                disabled={card_loading} onClick={nextDay}
+                  style={{
+                    cursor:'pointer',
+                    color:'white',
+                    fontSize: "25px"
+                  }}
+                />
+
+            </CardDate>
               <LeftArrowBtn disabled={card_loading} onClick={previousCard}>
                 <ArrowBackIosIcon
                   style={{
                     fontSize: "60px",
+                    fontWeight:'400'
                   }}
                 />
               </LeftArrowBtn>
@@ -323,6 +473,7 @@ const CardModal = (props) => {
                 <ArrowForwardIosIcon
                   style={{
                     fontSize: "60px",
+                    fontWeight:'400'
                   }}
                 />
               </RightArrowBtn>
@@ -510,7 +661,7 @@ const ModalComponent = styled.div`
   position: fixed;
   width: 840px;
   height: 500px;
-  top: 50%;
+  ${props => props.book ? `top:47%`:`top:50%`};
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: white;
@@ -747,6 +898,18 @@ const LikeCount = styled.div`
 //   }
 // `;
 
+const CardDate = styled.div`
+  display:flex;
+  flex-direction:row;
+  justify-content:space-between;
+  align-items:center;
+  width:150px;
+  height:30px;
+  position:absolute;
+  top: -60px;
+  left:42%;
+`;
+
 const LeftArrowBtn = styled.button`
   z-index: 40;
   width: 109px;
@@ -798,4 +961,79 @@ const RightArrowBtn = styled.button`
     box-shadow: 0px 0px 20px #ffffff;
   }
 `;
+
+const BooksDetailBox = styled.div`
+    position:absolute;
+    width:100%;
+    top:550px;
+    left:0;
+    display:flex;
+    flex-direction:row;
+    justify-content:space-between;
+`;
+
+const DetailContainer = styled.div`
+    width:50%;
+    height:100%;
+    margin:0px 45px 0px 10px;
+`;
+
+const Head = styled.div`
+    width:100%;
+    display:flex;
+    flex-direction:row;
+    margin-bottom:17px;
+`;
+
+const BooksSubject = styled.div`
+  display: flex;
+  justify-content:center;
+  align-items:center;
+  min-width:72px;
+  height:31px;
+  background-color: #A2ACFF;
+  box-shadow: 0px 3px 15px #C3C9FE;
+  opacity:0.8;
+  border-radius: 45px;
+  font-size:14px;
+  font-weight: 600;
+  
+`;
+
+const TitleBox = styled.div`
+    display:flex;
+    justify-content:center;
+    align-items:center;
+`;
+
+const Title = styled.span`
+    font-size:17px;
+    margin-left:16px;
+    color:#ffffff;
+    font-weight:400;
+    display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor:pointer;
+  &:hover{
+      font-weight:800;
+  }
+`;
+
+const Contents = styled.span`
+
+    width:100%;
+    height:100%;
+    font-size:14px;
+    color:#ffffff;
+    
+    display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`;
+
 export default CardModal;

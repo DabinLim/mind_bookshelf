@@ -11,7 +11,7 @@ import {setBookDetailModal, setDateVisible} from '../../redux/modules/books';
 
 const BookDetailLow = (props) => {
     const dispatch = useDispatch()
-    const [cardDetailModal, setCardDetailModal] = React.useState(false);
+    // const [cardDetailModal, setCardDetailModal] = React.useState(false);
     const book_detail = useSelector(state => state.books.book_detail);
 
 
@@ -19,12 +19,13 @@ const BookDetailLow = (props) => {
         console.log(v)
         dispatch(communityActions.getCardDetail(v.answerId, 'book'))
         dispatch(commentActions.getCommentAX(v.answerId))
-        setCardDetailModal(true);
+        props.openCard(props.date)
+        dispatch(setBookDetailModal(null))
     };
-    const close = () => {
-        setCardDetailModal(false);
-    };
-    console.log(book_detail)
+    // const close = () => {
+    //     setCardDetailModal(false);
+    // };
+    // console.log(book_detail)
   return (
     <React.Fragment>
       <Background onClick={()=> {
@@ -32,7 +33,6 @@ const BookDetailLow = (props) => {
                 dispatch(setDateVisible(true))
                 }} />
       <Container>
-          {cardDetailModal && <CardModal date={props.date} close={close}/>}
           {book_detail.length && book_detail.map((v,idx) => {
               if(idx < 3){
                   return(

@@ -4,6 +4,7 @@ import { history } from "../../redux/configStore";
 import {CardDetail, BookDetailLow, BookDetail} from './booksindex';
 import { ArrowLeft, ArrowRight } from "@material-ui/icons";
 import { changeDate, setComponent, setDateVisible, setBookDetailModal } from "../../redux/modules/books";
+import CardModal from '../Community/CardModal';
 import { useSelector, useDispatch } from "react-redux";
 import { api as booksActions} from "../../redux/modules/books";
 
@@ -30,6 +31,7 @@ const date_visible = useSelector(state => state.books.date_visible);
   const dispatch = useDispatch();
   const formated_date = useSelector((state) => state.books.formated_date);
   const book_list = useSelector((state) => state.books.books);
+  const [cardDetailModal, setCardDetailModal] = React.useState(false);
   const url = window.location.href.split("/");
   let id = url[url.length - 1];
   const date = useSelector((state) => state.books.date);
@@ -67,6 +69,10 @@ const date_visible = useSelector(state => state.books.date_visible);
       return true;
     }
   });
+
+  const close = () => {
+    setCardDetailModal(false);
+};
 
   const previousMonth = () => {
     if (id === "mybook") {
@@ -112,7 +118,8 @@ const date_visible = useSelector(state => state.books.date_visible);
               book_1.map((v, idx) => {
                 return (
                   <>
-                  {bookDetailModal === v._id && <BookDetail openBook={openBook} date={v._id}/>}
+                  {bookDetailModal === v._id && <BookDetail openCard={setCardDetailModal} openBook={openBook} date={v._id}/>}
+                  {cardDetailModal === v._id && <CardModal book openBook={openBook} date={v._id} close={close}/>}
                   <Book
                     key={idx}
                   >
@@ -136,7 +143,8 @@ const date_visible = useSelector(state => state.books.date_visible);
               book_2.map((v, idx) => {
                 return (
                   <>
-                  {bookDetailModal === v._id && <BookDetailLow openBook={openBook} date={v._id}/>}
+                  {bookDetailModal === v._id && <BookDetailLow openCard={setCardDetailModal} openBook={openBook} date={v._id}/>}
+                  {cardDetailModal === v._id && <CardModal book openBook={openBook} date={v._id} close={close}/>}
                   <Book
                     key={idx}
                   >
