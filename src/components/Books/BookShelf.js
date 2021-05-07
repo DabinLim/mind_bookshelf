@@ -116,7 +116,7 @@ const date_visible = useSelector(state => state.books.date_visible);
                   <Book
                     key={idx}
                   >
-                    <div style={{position:'relative', width:'100%', height:'100%', cursor:'pointer',zIndex:'3'}} onClick={() => {openBook(v._id)}}>
+                    <div style={{position:'relative', width:'100%', height:'100%', cursor:'pointer',zIndex:'20'}} onClick={() => {openBook(v._id)}}>
                     </div>
                       <Date>
                       {v._id.charAt(v._id.length - 2)}
@@ -140,7 +140,7 @@ const date_visible = useSelector(state => state.books.date_visible);
                   <Book
                     key={idx}
                   >
-                    <div style={{position:'relative', width:'100%', height:'100%', cursor:'pointer',zIndex:'3'}} onClick={() => {openBook(v._id)}}>
+                    <div style={{position:'relative', width:'100%', height:'100%', cursor:'pointer',zIndex:'20'}} onClick={() => {openBook(v._id)}}>
                     </div>
                       <Date>
                       {v._id.charAt(v._id.length - 2)}
@@ -167,6 +167,9 @@ const Container = styled.section`
   flex-direction: column;
   margin: 20px 0px;
   padding-bottom:110px;
+  @media (min-height:1200px){
+    padding-bottom:300px;
+  }
 `;
 
 const ForDate = styled.div`
@@ -181,7 +184,7 @@ const ShelfBox = styled.div`
   position: relative;
   width: 100%;
   display: flex;
-  margin-left:-10px;
+  
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -207,13 +210,16 @@ const BookRow = styled.div`
   height: 210px;
   max-width: 1055px;
   /* overflow:hidden; */
-  margin: 10px 0px -5px 65px;
+  margin: 10px 0px -5px 55px;
   @media (max-width:1000px){
         
         width:900px;
     }
-@media (max-width:1040px){
-    margin:10px 0px -5px 0px;
+    @media (max-width:1040px){
+    margin:10px 0px -5px 20px;
+}
+@media (max-width:800px){
+    margin:10px 0px -5px 160px;
 }
 `;
 

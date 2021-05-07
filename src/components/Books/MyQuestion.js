@@ -2,11 +2,18 @@ import React from 'react';
 import styled from 'styled-components';
 import {NewQuestion} from './booksindex';
 import {useDispatch, useSelector} from 'react-redux';
-import {api as booksActions, setPage, setNext, resetCustomQuestion} from '../../redux/modules/books';
+import {api as booksActions, setPage, setNext, resetCustomQuestion, setBookLoading} from '../../redux/modules/books';
+import InfinityScroll from '../../shared/InfinityScroll';
 const MyQuestion = (props) => {
     const dispatch = useDispatch()
     const [modalVisible, setModalVisible] = React.useState(false);
     const custom_question = useSelector(state => state.books.custom_question);
+    const custom_count = useSelector(state => state.books.custom_count);
+    const user_info = useSelector(state => state.user.user);
+    const is_loading = useSelector(state => state.books.book_loading);
+    const is_next = useSelector(state => state.books.next);
+    const container = React.useRef();
+    console.log(custom_question);
     const openModal = () => {
         setModalVisible(true);
       };
@@ -14,7 +21,6 @@ const MyQuestion = (props) => {
       const closeModal = () => {
         setModalVisible(false);
       };
-
     React.useEffect(() => {
         
             dispatch(booksActions.getMyQuest());
@@ -23,6 +29,7 @@ const MyQuestion = (props) => {
             dispatch(resetCustomQuestion());
             dispatch(setPage(1));
             dispatch(setNext(true));
+            dispatch(setBookLoading(true))
         }
     },[])
 
@@ -32,35 +39,76 @@ const MyQuestion = (props) => {
             <Container>
                 <Background/>
                 <TitleContainer>
-                <Title><span style={{fontSize:'22px',fontWeight:'600'}}>생각낙서</span>님의 질문카드는 <span style={{fontSize:'22px',fontWeight:'600'}}>27개</span>입니다.</Title>
+                <Title><span style={{fontSize:'22px',fontWeight:'600'}}>{user_info?.nickname}</span>님의 질문카드는 <span style={{fontSize:'22px',fontWeight:'600'}}>{custom_count}개</span>입니다.</Title>
                 <AddQuestion onClick={openModal}> <span style={{fontSize:'24px'}}>+</span> 질문 등록하기 </AddQuestion>
                 </TitleContainer>
-                <CardContainer>
+                <CardContainer ref={container}>
+                    <InfinityScroll 
+                        callNext={() => {
+                            console.log(
+                                'scroooolled!'
+                            )
+                            dispatch(booksActions.getMyQuest());
+                        }}
+                        is_next={is_next? true: false}
+                        is_loading={is_loading}
+                        ref_value={container.current}
+                    >
                     {custom_question && custom_question.map((v,idx) => {
                         return(
                             <Card key={idx} {...v}>
                                 <Head>
                                     <SubjectBox>
-                                    <Subject>
-                                        <span>#사랑</span>
-                                    </Subject>
+                                        {v.questionTopic?.length && v.questionTopic.map((v) => {
+                                            console.log(v)
+                                            if(v === '사랑'){
+                                                return (
+                                                    <Subject style={{background:"#FFAAAA", boxShadow: "0px 0px 15px #FFAAAA"}} ><span>#사랑</span></Subject>
+                                                )
+                                            }
+                                            if(v === '우정'){
+                                                return (
+                                                    <Subject style={{background:"#B9FFC4", boxShadow: "0px 0px 15px #B9FFC4"}} ><span>#우정</span></Subject>
+                                                )
+                                            }
+                                            if(v === '꿈'){
+                                                return (
+                                                    <Subject style={{background:"#B7E6FF", boxShadow: "0px 0px 15px #B7E6FF"}} ><span>#우정</span></Subject>
+                                                )
+                                            }
+                                            if(v === '가치'){
+                                                return (
+                                                    <Subject style={{background:"#B5BDFF", boxShadow: "0px 0px 15px #B5BDFF"}} ><span>#가치</span></Subject>
+                                                )
+                                            }
+                                            if(v === '관계'){
+                                                return (
+                                                    <Subject style={{background:"#FFF09D" ,boxShadow: "0px 0px 15px #FFF09D"}} ><span>#관계</span></Subject>
+                                                )
+                                            }
+                                            if(v === '나'){
+                                                return (
+                                                    <Subject style={{background:"#F9D1FD", boxShadow: "0px 0px 15px #F9D1FD"}} ><span>#나</span></Subject>
+                                                )
+                                            }
+                                        })}
                                     </SubjectBox>
                                     <AnswerCount>
-                                        n명 낙서중
+                                        {v.answerCount}명 낙서중
                                     </AnswerCount>
                                 </Head>
                                 <QuestionContents>
-                                    답변이 표시됩니다답변이 표시됩니다답변이 표시됩니다답변이 표시됩니다답변이 표시됩니다답변이 표시됩니다답변이 표시됩니다답변이 표시됩니다
-                                    
+                                    {v.questionContents}
                                 </QuestionContents>
                                 <CreatedAtBox>
                                     <CreatedAt>
-                                        2020.20.20
+                                        {v.questionCreatedAt}
                                     </CreatedAt>
                                 </CreatedAtBox>
                             </Card>
                         )
                     })}
+                    </InfinityScroll>
                 </CardContainer>
             </Container>
             <NewQuestion
@@ -125,12 +173,12 @@ const AddQuestion = styled.span`
 
 const CardContainer = styled.section`
     box-sizing:border-box;
-    padding-right:70px;
+    padding-right:50px;
     width:100%;
     height: 100%;
     display:flex;
     flex-direction:row;
-    justify-content:space-between;
+    justify-content:flex-start;
     flex-wrap:wrap;
     overflow:auto;
     padding-bottom:60px;
@@ -143,7 +191,7 @@ const Card = styled.div`
     height:100%;
     max-width: 272px;
     max-height:189px;
-    margin:0px 0px 25px 0px;
+    margin:0px 20px 25px 0px;
     background: #ffffff;
     box-shadow: 0px 0px 20px #0000001A;
     border-radius: 20px;
@@ -177,8 +225,6 @@ const Subject = styled.div`
     border-radius: 45px;
     font-size:14px;
     font-weight: 600;
-    background-color:#F9D1FD;
-    box-shadow:0px 0px 15px #F9D9FC;
 `;
 
 const AnswerCount = styled.span`

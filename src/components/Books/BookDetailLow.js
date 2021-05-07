@@ -6,6 +6,7 @@ import CardModal from '../Community/CardModal';
 import {api as communityActions} from '../../redux/modules/community';
 import { api as commentActions } from "../../redux/modules/comment";
 import {setAnswerInfo} from '../../redux/modules/comment';
+import {setBookDetailModal, setDateVisible} from '../../redux/modules/books';
 
 
 const BookDetailLow = (props) => {
@@ -26,7 +27,10 @@ const BookDetailLow = (props) => {
     console.log(book_detail)
   return (
     <React.Fragment>
-      <Background />
+      <Background onClick={()=> {
+                dispatch(setBookDetailModal(null))
+                dispatch(setDateVisible(true))
+                }} />
       <Container>
           {cardDetailModal && <CardModal date={props.date} close={close}/>}
           {book_detail.length && book_detail.map((v,idx) => {
@@ -79,8 +83,7 @@ const Background = styled.div`
   width: 100vw;
   background-color: #000000;
   opacity:0.45;
-  z-index: 20;
-  pointer-events:none;
+  z-index: 15;
 `;
 
 const DetailContainer = styled.div`
