@@ -129,32 +129,10 @@ function Main() {
       {is_loading ? (
         <LoaderBox></LoaderBox>
       ) : (
-        <>
+        <MainContainer>
           {/* 메인 위쪽 편 */}
           <MainUpper>
-            <DotQueue>
-              <FiberManualRecordIcon
-                style={{
-                  fontSize: "20px",
-                  margin: "0 5px",
-                }}
-                className={dot_1}
-              />
-              <FiberManualRecordIcon
-                style={{
-                  fontSize: "20px",
-                  margin: "0 5px",
-                }}
-                className={dot_2}
-              />
-              <FiberManualRecordIcon
-                style={{
-                  fontSize: "20px",
-                  margin: "0 5px",
-                }}
-                className={dot_3}
-              />
-            </DotQueue>
+            
             <DateIndicator>{displayedDate}</DateIndicator>
             <QuestionIndicator>
               <b>{user?.nickname ? user?.nickname + "님" : "당신"}</b>의
@@ -171,38 +149,59 @@ function Main() {
             ) : null}
           </MainUpper>
           {/* 메인 아래쪽 */}
-          <MainLower>
-            <div>
               <SlideBox>
-                <LeftArrowBtn onClick={turnLeft}>
-                  <ArrowBackIosIcon
+                <div style={{display:"flex", justifyContent: "center", alignItems:'center' }}>
+                  <LeftArrowBtn onClick={turnLeft}>
+                    <ArrowBackIosIcon
+                      style={{
+                        fontSize: "60px",
+                      }}
+                    />
+                  </LeftArrowBtn>
+                  <CardContainer>
+                    <EachCard className={card_1}>
+                      <Post {...question_list[0]} allChecked={allChecked} />
+                    </EachCard>
+                    <EachCard className={card_2}>
+                      <Post {...question_list[1]} allChecked={allChecked} />
+                    </EachCard>
+                    <EachCard className={card_3}>
+                      <Post {...question_list[2]} allChecked={allChecked} />
+                    </EachCard>
+                  </CardContainer>
+                  <RightArrowBtn onClick={turnRight}>
+                    <ArrowForwardIosIcon
+                      style={{
+                        fontSize: "60px",
+                      }}
+                    />
+                  </RightArrowBtn>
+                </div>
+                <DotQueue>
+                  <FiberManualRecordIcon
                     style={{
-                      fontSize: "60px",
+                      fontSize: "20px",
+                      margin: "0 5px",
                     }}
+                    className={dot_1}
                   />
-                </LeftArrowBtn>
-                <RightArrowBtn onClick={turnRight}>
-                  <ArrowForwardIosIcon
+                  <FiberManualRecordIcon
                     style={{
-                      fontSize: "60px",
+                      fontSize: "20px",
+                      margin: "0 5px",
                     }}
+                    className={dot_2}
                   />
-                </RightArrowBtn>
-                <CardContainer>
-                  <EachCard className={card_1}>
-                    <Post {...question_list[0]} allChecked={allChecked} />
-                  </EachCard>
-                  <EachCard className={card_2}>
-                    <Post {...question_list[1]} allChecked={allChecked} />
-                  </EachCard>
-                  <EachCard className={card_3}>
-                    <Post {...question_list[2]} allChecked={allChecked} />
-                  </EachCard>
-                </CardContainer>
+                  <FiberManualRecordIcon
+                    style={{
+                      fontSize: "20px",
+                      margin: "0 5px",
+                    }}
+                    className={dot_3}
+                  />
+                </DotQueue>
               </SlideBox>
-            </div>
-          </MainLower>
-        </>
+        </MainContainer>
       )}
     </MainFrame>
   );
@@ -210,10 +209,21 @@ function Main() {
 
 const MainFrame = styled.div`
   width: 100%;
-  height: 100%;
+  // height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   overflow-y: auto;
-`;
+  `;
 
+
+const MainContainer = styled.div`
+  height: 100vh;
+  margin: 100px 0px 0px 0px;
+  display: flex;
+  flex-direction: column;
+  overflow-y:auto;
+`
 // LoaderBox
 
 const LoaderBox = styled.div`
@@ -224,7 +234,6 @@ const LoaderBox = styled.div`
 // 메인의 위쪽 부분
 
 const MainUpper = styled.section`
-  margin-top: 80px;
   text-align: center;
 `;
 
@@ -260,28 +269,28 @@ const ToMyBookShelf = styled.button`
 `;
 
 // 메인의 아래쪽
-
-const MainLower = styled.section``;
-
 const SlideBox = styled.div`
-  width: 100%;
-  margin-top: 400px;
+  width: auto;
+  // height: 100%;
   display: flex;
   position: relative;
   flex-direction: column;
+  margin-top: 50px;
+  
 `;
 
 const EachCard = styled.div`
-  width: 100%;
+  // width: 100%;
   border-top-left-radius: none;
 `;
 
 const CardContainer = styled.div`
-  width: 100%;
+  width: 900px;
+  height: 470px;
+  // margin-top: 200px
   display: flex;
   justify-content: center;
   align-items: center;
-  position: relative;
 `;
 
 const LeftArrowBtn = styled.button`
@@ -292,15 +301,15 @@ const LeftArrowBtn = styled.button`
   outline: none;
   border: none;
   opacity: 1;
-  position: absolute;
-  left: 400px;
-  top: -50px;
+  // position: absolute;
+  // left: 15%;
+  // top: 30%;
   color: #ffffff;
   cursor: pointer;
   text-align: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  // display: flex;
+  // align-items: center;
+  // justify-content: center;
   padding-left: 20px;
   background: none;
 
@@ -318,15 +327,15 @@ const RightArrowBtn = styled.button`
   outline: none;
   border: none;
   opacity: 1;
-  position: absolute;
-  right: 400px;
-  top: -50px;
+  // position: absolute;
+  // right: 15%;
+  // top: 30%;
   background: none;
   color: #ffffff;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  // display: flex;
+  // align-items: center;
+  // justify-content: center;
   padding-left: 20px;
   background: none;
 
@@ -339,9 +348,8 @@ const RightArrowBtn = styled.button`
 const DotQueue = styled.div`
   display: flex;
   justify-content: center;
-  position: absolute;
-  top: 850px;
-  left: 47%;
+  margin-top: 50px;
+  margin-bottom: 100px;
 `;
 
 const ImgRight = styled.div`

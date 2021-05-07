@@ -130,11 +130,12 @@ const Profile = (props) => {
             <Background/>
             <ProfileImgContainer onClick={() => {setUpdateModal(true)}} >
               <ProfileImg style={{cursor:"pointer"}} src={user_info.profileImg} />
-              <SettingIcon src="https://cdn4.iconfinder.com/data/icons/forgen-phone-settings/48/setting-512.png" />
+              <SettingIcon src="https://cdn3.iconfinder.com/data/icons/google-material-design-icons/48/ic_settings_48px-512.png" />
             </ProfileImgContainer>
             <ProfileDetail>
             <Head>
             <Nickname>{user_info.nickname}</Nickname>
+            {}
             {user_info.topic?.friendship === false && 
             user_info.topic?.love === false && 
             user_info.topic?.dream === false && 
@@ -230,11 +231,12 @@ const SettingIcon = styled.img`
   height: 30px;
   position: absolute;
   top: 7px;
-  right: 12px;
+  right: 10px;
   border-radius: 30px;
-  background: silver;
+  background: #CBCBCB;
   padding: 3px;
   cursor: pointer;
+  box-shadow: 0px 0px 6px #00000029;
 `
 
 const ProfileDetail = styled.div`
@@ -287,7 +289,7 @@ const FollowerBtn = styled.div`
   margin-right:20px;
   cursor: pointer;
   font-weight: 600;
-  font-size: 18px;
+  font-size: 14px;
 `
 const MyQuestionBtn = styled.div`
 margin-top:11px;

@@ -50,16 +50,6 @@ const Search = (props) => {
     dispatch(setSearch(false));
   }
 
-  // const closeModal = (event) => { 
-  //   if (event === undefined) { 
-  //     setUserModal(false); 
-  //     return; 
-  //   } 
-  //   // 현재 함수가 걸려있는 target 과 구분해주기 위함. 
-  //   if (event.target !== event.currentTarget) { 
-  //     return; 
-  //   } setUserModal(false); };
-
   return(
     <React.Fragment>
       <Background onClick={()=> {dispatch(setSearch(false))}}/>
@@ -85,7 +75,7 @@ const Search = (props) => {
               <RecentSearch>최신검색</RecentSearch>
               {props.recent_list ? 
               props.recent_list.map((r) => {
-                return  <UserInfoContainer style={{marginTop: "10px"}} key={r.id} onClick={() => clickOther(r.userId)} >
+                return  <UserInfoContainer style={{marginTop: "10px"}} key={r.id} onClick={() => clickOther(r.searchUserId)} >
                           <ProfileImage src={r.profileImg} />
                           <Username>{r.nickname}</Username>
                         </UserInfoContainer>

@@ -17,11 +17,13 @@ const userSlice = createSlice({
       introduce: "",
       profileImg: "",
       nickname: "",
+      topic: {},
     },
     other: {
       introduce: "",
       profileImg: "",
       nickname: "",
+      topic: {},
     },
     friends: [],
     otherFriends: [],
@@ -43,7 +45,7 @@ const userSlice = createSlice({
       deleteCookie("is_login");
       state.user = null;
       state.is_login = false;
-      window.location.reload();
+      // window.location.reload();
     },
     setOther: (state, action) => {
       state.other = action.payload;

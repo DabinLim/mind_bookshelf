@@ -6,11 +6,13 @@ import {useSelector, useDispatch} from 'react-redux';
 import {setComponent, setBookDetailModal, setDateVisible} from '../redux/modules/books';
 import { getCookie } from '../shared/Cookie';
 import {api as userActions} from '../redux/modules/user'
+import { changeType } from '../redux/modules/community'
 
 const MyBook = (props) => {
     const dispatch = useDispatch();
     const component = useSelector(state => state.books.component)
     const date = useSelector(state => state.books.date)
+    const answerInfo = useSelector((state) => state.community.card_detail);
     let url = window.location.href.split('/');
     let id = url[url.length -1];
     
@@ -22,6 +24,11 @@ const MyBook = (props) => {
         };
         dispatch(setComponent(''))
         dispatch(userActions.myFollowListAX())
+        return()=>{
+            if(answerInfo.length !== 0){
+                dispatch(changeType(null))
+            }
+        }
     },[])
     return(
         <React.Fragment>

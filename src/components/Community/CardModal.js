@@ -9,6 +9,7 @@ import {
 import { api as communityActions } from "../../redux/modules/community";
 import { useDispatch, useSelector } from "react-redux";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
+import FavoriteIcon from "@material-ui/icons/Favorite";
 import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
@@ -22,7 +23,6 @@ import swal from "sweetalert";
 import { getCookie } from "../../shared/Cookie";
 
 const CardModal = (props) => {
-  console.log(props);
   const answerInfo = useSelector((state) => state.community.card_detail);
   const comment_list = useSelector((state) => state.comment.list);
   const user_info = useSelector((state) => state.user.user);
@@ -39,6 +39,7 @@ const CardModal = (props) => {
   const ok_submit = comments ? true : false;
   const url = window.location.href.split('/');
   const id = url[url.length-1];
+
 
   const nextCard = () => {
     const nowindex = answerQuantity.findIndex((v) => {
@@ -249,14 +250,6 @@ const CardModal = (props) => {
   // HideModal function
   const [isOpen, setOpen] = useState(false);
 
-  const openHide = () => {
-    setOpen(true);
-  };
-
-  const closeHide = () => {
-    setOpen(false);
-  };
-
   let color = "";
   let topic = "";
   if (answerInfo?.questionTopic?.length > 0) {
@@ -284,6 +277,28 @@ const CardModal = (props) => {
           dispatch(setBookDetailModal(nowdate.format("YYMMDD")));
         }}
       />
+      {card_loading?
+      <ModalComponent>
+        {answerInfo?.type === "book" && (
+          <>
+            <LeftArrowBtn disabled={card_loading} onClick={previousCard}>
+              <ArrowBackIosIcon
+                style={{
+                  fontSize: "60px",
+                }}
+              />
+            </LeftArrowBtn>
+            <RightArrowBtn disabled={card_loading} onClick={nextCard}>
+              <ArrowForwardIosIcon
+                style={{
+                  fontSize: "60px",
+                }}
+              />
+            </RightArrowBtn>
+          </>
+        )}
+      </ModalComponent> 
+      : 
       <ModalComponent>
         {answerInfo?.type === "book" && (
           <>
@@ -377,7 +392,7 @@ const CardModal = (props) => {
                     );
                   }}
                 >
-                  <FavoriteBorderIcon />
+                  <FavoriteIcon/>
                 </LikeBtn>
               ) : (
                 <LikeBtn
@@ -463,6 +478,7 @@ const CardModal = (props) => {
           ) : null}
         </ModalRightContainer>
       </ModalComponent>
+      }
     </React.Fragment>
   );
 };
@@ -624,26 +640,26 @@ const CardWriterProfile = styled.img`
   }
 `;
 
-const CardWriter = styled.span`
-  margin-left: 8px;
-`;
+// const CardWriter = styled.span`
+//   margin-left: 8px;
+// `;
 
-const CommentListBox = styled.div`
-  max-height: 300px;
-  overflow: auto;
-  ::-webkit-scrollbar {
-    width: 12px; /* width of the entire scrollbar */
-  }
+// const CommentListBox = styled.div`
+//   max-height: 300px;
+//   overflow: auto;
+//   ::-webkit-scrollbar {
+//     width: 12px; /* width of the entire scrollbar */
+//   }
 
-  ::-webkit-scrollbar-track {
-    background: white; /* color of the tracking area */
-  }
+//   ::-webkit-scrollbar-track {
+//     background: white; /* color of the tracking area */
+//   }
 
-  ::-webkit-scrollbar-thumb {
-    background-color: #d8d9dc; /* color of the scroll thumb */
-    border-radius: 20px; /* roundness of the scroll thumb */
-  }
-`;
+//   ::-webkit-scrollbar-thumb {
+//     background-color: #d8d9dc; /* color of the scroll thumb */
+//     border-radius: 20px; /* roundness of the scroll thumb */
+//   }
+// `;
 
 const ModalCmtInputBox = styled.div`
   width: 100%;
@@ -715,18 +731,18 @@ const LikeCount = styled.div`
   font-size: 17px;
 `;
 
-const MoreBtn = styled.button`
-  font-size: 20px;
-  outline: none;
-  border: none;
-  background: none;
-  cursor: pointer;
+// const MoreBtn = styled.button`
+//   font-size: 20px;
+//   outline: none;
+//   border: none;
+//   background: none;
+//   cursor: pointer;
 
-  :hover {
-    background: #c4c4c4;
-    border-radius: 50%;
-  }
-`;
+//   :hover {
+//     background: #c4c4c4;
+//     border-radius: 50%;
+//   }
+// `;
 
 const LeftArrowBtn = styled.button`
   z-index: 40;

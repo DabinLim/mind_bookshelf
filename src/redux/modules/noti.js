@@ -75,11 +75,15 @@ const joinAlarmIO = () => {
 };
 
 const leaveAlarmIO = () => {
-  return function (dispatch) {
+  return function (dispatch, getState) {
     socket.emit("leave");
     dispatch(setLoading(true));
     dispatch(logOut());
-    history.replace("/");
+    if(getState().router.location.pathname === "/"){
+      window.location.reload()
+    } else{
+      history.replace("/");
+    }
   };
 };
 

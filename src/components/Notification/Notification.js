@@ -1,17 +1,18 @@
-import React from "react";
+import React, {useState} from "react";
 import styled from "styled-components";
-
+import { CardModal } from "../Community/communityindex"
 import { useSelector } from "react-redux";
 import NotiList from "./NotiList";
 import NewNotiList from "./NewNotiList";
 
 const Notification = (props) => {
+
   return (
     <React.Fragment>
       <Background onClick={props.close} />
       <SearchContainer>
-        <NewNotiList />
-        <NotiList />
+        <NewNotiList setCardModal={props.setCardModal} close={props.close} />
+        <NotiList setCardModal={props.setCardModal} close={props.close} />
       </SearchContainer>
     </React.Fragment>
   );

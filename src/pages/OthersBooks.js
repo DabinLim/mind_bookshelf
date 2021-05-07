@@ -5,6 +5,7 @@ import {api as userActions} from '../redux/modules/user';
 import {useSelector, useDispatch} from 'react-redux';
 import { getCookie } from "../shared/Cookie";
 import {changeDate, setComponent, setOther, setBookDetailModal, setDateVisible} from '../redux/modules/books';
+import { changeType } from '../redux/modules/community'
 
 const OthersBooks = (props) => {
     const dispatch = useDispatch();
@@ -12,6 +13,7 @@ const OthersBooks = (props) => {
     const component = useSelector(state => state.books.component);
     const date = useSelector(state => state.books.date);
     const formated_date = useSelector(state => state.books.formated_date);
+    const answerInfo = useSelector((state) => state.community.card_detail);
     const cookie = getCookie("is_login") ? true : false;
     let url = window.location.href.split('/');
     console.log(url)
@@ -24,6 +26,11 @@ const OthersBooks = (props) => {
         dispatch(setComponent(''))
         if(cookie){
             dispatch(userActions.myFollowListAX())
+        }
+        return()=>{
+            if(answerInfo.length !== 0){
+                dispatch(changeType(null))
+            }
         }
     },[])
 

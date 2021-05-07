@@ -14,6 +14,7 @@ import { setComponent } from "../redux/modules/books";
 import swal from "sweetalert";
 import { getCookie } from "./Cookie";
 import axios from 'axios'
+import { CardModal } from "../components/Community/communityindex"
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -21,19 +22,15 @@ const Header = () => {
   const [loginModal, setLogin] = useState(false);
   const searchModal = useSelector((state) => state.noti.searchModal);
   const [notiModal, setNoti] = useState(false);
-  const noti_list = useSelector((state) => state.noti.noti_list);
   const is_checked = useSelector((state) => state.noti.is_checked);
   const user = useSelector((state) => state.user.user);
   const [recent_list, setRecent] = useState();
   const [loading, setLoading] = useState(true)
+  const [cardModal, setCardModal] = useState(false)
 
   const closeNotiModal = () => {
     setNoti(false);
   };
-
-  // const closeSearchModal = () => {
-  //   setSearch(false);
-  // };
 
   const recentUser = async() => {
     const result = await axios.get("/bookshelf/searchUser")
@@ -47,6 +44,10 @@ const Header = () => {
     }
   }
 
+  const closeCardModal = () => {
+    setCardModal(false)
+  }
+
   const closeLoginModal = () => {
     setLogin(false);
   };
@@ -54,6 +55,9 @@ const Header = () => {
   if (is_login) {
     return (
       <React.Fragment>
+        {cardModal? 
+        <CardModal close={closeCardModal} />
+        :null}
         <HeaderContainer>
           <HeaderInnerContainer>
             <NaviContainer>
@@ -119,13 +123,9 @@ const Header = () => {
             </NaviContainer>
             <IconContainer>
               <Icon
-              // onClick={() => {
-              //   setNoti(true);
-              //   dispatch(notiActions.openAlarmIO());
-              // }}
               >
                 {is_checked ? <AlarmBadge /> : null}
-                {notiModal ? <Notification close={closeNotiModal} /> : null}
+                {notiModal ? <Notification close={closeNotiModal} setCardModal={setCardModal} /> : null}
                 <NotificationsIcon
                   style={{cursor: 'pointer'}}
                   onClick={() => {
@@ -135,10 +135,6 @@ const Header = () => {
                 />
               </Icon>
               <Icon
-              // onClick={() => {
-              //   console.log('왜 니가?')
-              //   dispatch(setSearch(true));
-              // }}
               >
                 {searchModal ? <Search recent_list={recent_list} setLoading={setLoading} loading={loading} /> : null}
                 <SearchIcon
@@ -231,27 +227,16 @@ const Header = () => {
               </span>
             </NaviContainer>
             <IconContainer>
-              <Icon>
-                {is_checked ? <AlarmBadge /> : null}
-                {notiModal ? <Notification close={closeNotiModal} /> : null}
-                <NotificationsIcon
-                  style={{cursor: 'pointer'}}
-                  onClick={() => {
-                    setNoti(true);
-                    dispatch(notiActions.openAlarmIO(user.id));
-                  }}
-                />
-              </Icon>
-          <Icon
-            onClick={() => {
-              recentUser()
-              // dispatch(userActions.getRecentUserAX())
-              setSearch(true);
-            }}
-          >
-            {searchModal ? <Search recent_list={recent_list} setLoading={setLoading} loading={loading} /> : null}
-            <SearchIcon style={{cursor: 'pointer'}} />
-          </Icon>
+            <Icon
+              onClick={() => {
+                recentUser()
+                // dispatch(userActions.getRecentUserAX())
+                setSearch(true);
+              }}
+            >
+              {searchModal ? <Search recent_list={recent_list} setLoading={setLoading} loading={loading} /> : null}
+              <SearchIcon style={{cursor: 'pointer'}} />
+            </Icon>
           <TextBtn
             onClick={() => {
               setLogin(true);
@@ -270,7 +255,7 @@ const HeaderContainer = styled.div`
   position: fixed;
   width: 100vw;
   height: 120px;
-  border-bottom: 1px solid #e9ecef;
+  // border-bottom: 1px solid #e9ecef;
   left: 0;
   top: 0;
   z-index: 5;
@@ -331,8 +316,8 @@ const AlarmBadge = styled.div`
   position: absolute;
   color: white;
   font-weight: 600;
-  right: 12px;
-  top: 5px;
+  right: 0px;
+  top: 2px;
 `;
 
 export default Header;
