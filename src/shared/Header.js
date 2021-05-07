@@ -22,7 +22,6 @@ const Header = () => {
   const [loginModal, setLogin] = useState(false);
   const searchModal = useSelector((state) => state.noti.searchModal);
   const [notiModal, setNoti] = useState(false);
-  const noti_list = useSelector((state) => state.noti.noti_list);
   const is_checked = useSelector((state) => state.noti.is_checked);
   const user = useSelector((state) => state.user.user);
   const [recent_list, setRecent] = useState();
@@ -32,10 +31,6 @@ const Header = () => {
   const closeNotiModal = () => {
     setNoti(false);
   };
-
-  // const closeSearchModal = () => {
-  //   setSearch(false);
-  // };
 
   const recentUser = async() => {
     const result = await axios.get("/bookshelf/searchUser")
@@ -128,10 +123,6 @@ const Header = () => {
             </NaviContainer>
             <IconContainer>
               <Icon
-              // onClick={() => {
-              //   setNoti(true);
-              //   dispatch(notiActions.openAlarmIO());
-              // }}
               >
                 {is_checked ? <AlarmBadge /> : null}
                 {notiModal ? <Notification close={closeNotiModal} setCardModal={setCardModal} /> : null}
@@ -144,10 +135,6 @@ const Header = () => {
                 />
               </Icon>
               <Icon
-              // onClick={() => {
-              //   console.log('왜 니가?')
-              //   dispatch(setSearch(true));
-              // }}
               >
                 {searchModal ? <Search recent_list={recent_list} setLoading={setLoading} loading={loading} /> : null}
                 <SearchIcon
@@ -240,27 +227,16 @@ const Header = () => {
               </span>
             </NaviContainer>
             <IconContainer>
-              <Icon>
-                {is_checked ? <AlarmBadge /> : null}
-                {notiModal ? <Notification close={closeNotiModal} /> : null}
-                <NotificationsIcon
-                  style={{cursor: 'pointer'}}
-                  onClick={() => {
-                    setNoti(true);
-                    dispatch(notiActions.openAlarmIO(user.id));
-                  }}
-                />
-              </Icon>
-          <Icon
-            onClick={() => {
-              recentUser()
-              // dispatch(userActions.getRecentUserAX())
-              setSearch(true);
-            }}
-          >
-            {searchModal ? <Search recent_list={recent_list} setLoading={setLoading} loading={loading} /> : null}
-            <SearchIcon style={{cursor: 'pointer'}} />
-          </Icon>
+            <Icon
+              onClick={() => {
+                recentUser()
+                // dispatch(userActions.getRecentUserAX())
+                setSearch(true);
+              }}
+            >
+              {searchModal ? <Search recent_list={recent_list} setLoading={setLoading} loading={loading} /> : null}
+              <SearchIcon style={{cursor: 'pointer'}} />
+            </Icon>
           <TextBtn
             onClick={() => {
               setLogin(true);
@@ -340,8 +316,8 @@ const AlarmBadge = styled.div`
   position: absolute;
   color: white;
   font-weight: 600;
-  right: 12px;
-  top: 5px;
+  right: 0px;
+  top: 2px;
 `;
 
 export default Header;

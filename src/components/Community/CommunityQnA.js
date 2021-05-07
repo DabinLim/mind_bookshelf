@@ -8,6 +8,7 @@ import { api as communityActions } from "../../redux/modules/community";
 import { setAnswerInfo } from "../../redux/modules/comment";
 import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
+import FavoriteIcon from "@material-ui/icons/Favorite";
 
 const CommunityQnA = (props) => {
   const dispatch = useDispatch();
@@ -104,7 +105,7 @@ const CommunityQnA = (props) => {
                     <LikeBox>
                       {a.like? 
                       <>
-                      <FavoriteBorderIcon style={{ color: "red" }} />{" "}
+                      <FavoriteIcon style={{ color: "red" }} />{" "}
                       </>
                       :
                       <>

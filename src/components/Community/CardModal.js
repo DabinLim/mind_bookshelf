@@ -9,6 +9,7 @@ import {
 import { api as communityActions } from "../../redux/modules/community";
 import { useDispatch, useSelector } from "react-redux";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
+import FavoriteIcon from "@material-ui/icons/Favorite";
 import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
@@ -21,7 +22,6 @@ import swal from "sweetalert";
 import { getCookie } from "../../shared/Cookie";
 
 const CardModal = (props) => {
-  console.log(props);
   const answerInfo = useSelector((state) => state.community.card_detail);
   const comment_list = useSelector((state) => state.comment.list);
   const user_info = useSelector((state) => state.user.user);
@@ -36,8 +36,8 @@ const CardModal = (props) => {
   const [tagModal, setTagModal] = useState(false);
   const cmtInput = useRef();
   const ok_submit = comments ? true : false;
-  const url = window.location.href.split('/');
-  const id = url[url.length-1];
+  const url = window.location.href.split("/");
+  const id = url[url.length - 1];
 
   const nextCard = () => {
     const nowindex = answerQuantity.findIndex((v) => {
@@ -57,11 +57,16 @@ const CardModal = (props) => {
       }
 
       dispatch(changeDate(`20${thisMonthBooks[nowBook + 1]._id}`));
-      if(id === 'mybook'){
+      if (id === "mybook") {
         dispatch(booksActions.getNextDetail(thisMonthBooks[nowBook + 1]._id));
-      }else{
-        console.log(thisMonthBooks[nowBook+1]._id)
-        dispatch(booksActions.getNextOthersBookDetail(thisMonthBooks[nowBook + 1]._id, id))
+      } else {
+        console.log(thisMonthBooks[nowBook + 1]._id);
+        dispatch(
+          booksActions.getNextOthersBookDetail(
+            thisMonthBooks[nowBook + 1]._id,
+            id
+          )
+        );
       }
       return;
     }
@@ -95,10 +100,17 @@ const CardModal = (props) => {
       }
 
       dispatch(changeDate(`20${thisMonthBooks[nowBook - 1]._id}`));
-      if(id === 'mybook'){
-        dispatch(booksActions.getPreviousDetail(thisMonthBooks[nowBook - 1]._id));
+      if (id === "mybook") {
+        dispatch(
+          booksActions.getPreviousDetail(thisMonthBooks[nowBook - 1]._id)
+        );
       } else {
-        dispatch(booksActions.getPreviousOthersBookDetail(thisMonthBooks[nowBook - 1]._id, id));
+        dispatch(
+          booksActions.getPreviousOthersBookDetail(
+            thisMonthBooks[nowBook - 1]._id,
+            id
+          )
+        );
       }
       return;
     }
@@ -275,185 +287,208 @@ const CardModal = (props) => {
           dispatch(setBookDetailModal(nowdate.format("YYMMDD")));
         }}
       />
-      <ModalComponent>
-        {answerInfo?.type === "book" && (
-          <>
-            <LeftArrowBtn disabled={card_loading} onClick={previousCard}>
-              <ArrowBackIosIcon
-                style={{
-                  fontSize: "60px",
-                }}
-              />
-            </LeftArrowBtn>
-            <RightArrowBtn disabled={card_loading} onClick={nextCard}>
-              <ArrowForwardIosIcon
-                style={{
-                  fontSize: "60px",
-                }}
-              />
-            </RightArrowBtn>
-          </>
-        )}
-        <ModalContent>
-          <CardWriterBox>
-            <CardWriterInfoLeft>
-              <CardWriterLeft>
-                <CardWriterProfileLeft
-                  src={answerInfo?.answerUserProfileImg}
-                  onClick={() => {
-                    if (
-                      user_info?.nickname !== "" &&
-                      user_info?.nickname === answerInfo?.nickname
-                    ) {
-                      history.push(`/mybook`);
-                      return;
-                    }
-                    history.push(`/others/${answerInfo?.answerUserId}`);
+      {card_loading ? (
+        <ModalComponent>
+          {answerInfo?.type === "book" && (
+            <>
+              <LeftArrowBtn disabled={card_loading} onClick={previousCard}>
+                <ArrowBackIosIcon
+                  style={{
+                    fontSize: "60px",
                   }}
                 />
-                <CardWriterNickNameLeft>
-                  <span style={{ fontWeight: "bold", letterSpacing: "-1px" }}>
-                    {answerInfo?.nickname}님
-                  </span>
-                  <span
-                    style={{
-                      fontSize: "20px",
-                      margin: "0 5px",
-                      verticalAlign: "middle",
+              </LeftArrowBtn>
+              <RightArrowBtn disabled={card_loading} onClick={nextCard}>
+                <ArrowForwardIosIcon
+                  style={{
+                    fontSize: "60px",
+                  }}
+                />
+              </RightArrowBtn>
+            </>
+          )}
+        </ModalComponent>
+      ) : (
+        <ModalComponent>
+          {answerInfo?.type === "book" && (
+            <>
+              <LeftArrowBtn disabled={card_loading} onClick={previousCard}>
+                <ArrowBackIosIcon
+                  style={{
+                    fontSize: "60px",
+                  }}
+                />
+              </LeftArrowBtn>
+              <RightArrowBtn disabled={card_loading} onClick={nextCard}>
+                <ArrowForwardIosIcon
+                  style={{
+                    fontSize: "60px",
+                  }}
+                />
+              </RightArrowBtn>
+            </>
+          )}
+          <ModalContent>
+            <CardWriterBox>
+              <CardWriterInfoLeft>
+                <CardWriterLeft>
+                  <CardWriterProfileLeft
+                    src={answerInfo?.answerUserProfileImg}
+                    onClick={() => {
+                      if (
+                        user_info?.nickname !== "" &&
+                        user_info?.nickname === answerInfo?.nickname
+                      ) {
+                        history.push(`/mybook`);
+                        return;
+                      }
+                      history.push(`/others/${answerInfo?.answerUserId}`);
                     }}
-                  >
-                    ˚
-                  </span>
-                  <span
-                    style={{
-                      letterSpacing: "-2.5px",
-                    }}
-                  >
-                    {answerInfo?.questionCreatedUserNickname}님의 질문
-                  </span>
-                </CardWriterNickNameLeft>
-              </CardWriterLeft>
-              <HashTag style={{ background: color }}>{topic}</HashTag>
-            </CardWriterInfoLeft>
+                  />
+                  <CardWriterNickNameLeft>
+                    <span style={{ fontWeight: "bold", letterSpacing: "-1px" }}>
+                      {answerInfo?.nickname}님
+                    </span>
+                    <span
+                      style={{
+                        fontSize: "20px",
+                        margin: "0 5px",
+                        verticalAlign: "middle",
+                      }}
+                    >
+                      ˚
+                    </span>
+                    <span
+                      style={{
+                        letterSpacing: "-2.5px",
+                      }}
+                    >
+                      {answerInfo?.questionCreatedUserNickname}님의 질문
+                    </span>
+                  </CardWriterNickNameLeft>
+                </CardWriterLeft>
+                <HashTag style={{ background: color }}>{topic}</HashTag>
+              </CardWriterInfoLeft>
 
-            {/* 카드 질문 내용 */}
-            <CardQuestionContent>
-              {answerInfo?.questionContents}
-            </CardQuestionContent>
-          </CardWriterBox>
-          <CardWriteLeftBody>
-            <CardAnswerContent style={{ whiteSpace: "pre-wrap" }}>
-              {answerInfo?.answerContents}
-            </CardAnswerContent>
-          </CardWriteLeftBody>
-          <IconContainer>
-            <LikeContainer>
-              {answerInfo.like ? (
-                <LikeBtn
-                  style={{ color: "red" }}
-                  onClick={() => {
-                    if (!getCookie("is_login")) {
-                      swal({
-                        title: "좋아요 누르기 실패 😥",
-                        text: "로그인 후 이용 가능한 서비스입니다.",
-                        icon: "error",
-                      });
-                      return;
-                    }
-                    dispatch(
-                      communityActions.deleteLikeAX(
-                        answerInfo.answerId,
-                        answerInfo.questionId
-                      )
-                    );
-                  }}
-                >
-                  <FavoriteBorderIcon />
-                </LikeBtn>
-              ) : (
-                <LikeBtn
-                  onClick={() => {
-                    if (!getCookie("is_login")) {
-                      swal({
-                        title: "좋아요 누르기 실패 😥",
-                        text: "로그인 후 이용 가능한 서비스입니다.",
-                        icon: "error",
-                      });
-                      return;
-                    }
-                    dispatch(
-                      communityActions.addLikeAX(
-                        answerInfo.answerId,
-                        answerInfo.questionId
-                      )
-                    );
-                  }}
-                >
-                  <FavoriteBorderIcon />
-                </LikeBtn>
-              )}
-              <LikeCount>{answerInfo?.likeCount}개</LikeCount>
-            </LikeContainer>
-            <CommentContainer>
-              <CommentBtn>
-                <ChatBubbleOutlineIcon />
-                <CommentCount>{comment_list?.length}개</CommentCount>
-              </CommentBtn>
-            </CommentContainer>
-          </IconContainer>
-        </ModalContent>
-        <ModalRightContainer>
-          <CommentList />
-          <ModalCmtInputBox>
-            <ModalCmtInput
-              type="text"
-              placeholder="댓글달기..."
-              onChange={selectComment}
-              value={comments}
-              ref={cmtInput}
-              onKeyPress={(e) => {
-                if (e.key === "Enter") {
-                  addComment();
-                }
-              }}
-              onKeyUp={(e) => {
-                if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
-                  selectComment(e);
-                }
-              }}
-              onClick={selectComment}
-            />
-            {ok_submit ? (
-              <ModalUpload
-                onClick={() => {
-                  if (!getCookie("is_login")) {
-                    swal({
-                      title: "댓글 추가 실패 😥",
-                      text: "로그인 후 이용 가능한 서비스입니다.",
-                      icon: "error",
-                    });
-                    setComments("");
-                    return;
+              {/* 카드 질문 내용 */}
+              <CardQuestionContent>
+                {answerInfo?.questionContents}
+              </CardQuestionContent>
+            </CardWriterBox>
+            <CardWriteLeftBody>
+              <CardAnswerContent style={{ whiteSpace: "pre-wrap" }}>
+                {answerInfo?.answerContents}
+              </CardAnswerContent>
+            </CardWriteLeftBody>
+            <IconContainer>
+              <LikeContainer>
+                {answerInfo.like ? (
+                  <LikeBtn
+                    style={{ color: "red" }}
+                    onClick={() => {
+                      if (!getCookie("is_login")) {
+                        swal({
+                          title: "좋아요 누르기 실패 😥",
+                          text: "로그인 후 이용 가능한 서비스입니다.",
+                          icon: "error",
+                        });
+                        return;
+                      }
+                      dispatch(
+                        communityActions.deleteLikeAX(
+                          answerInfo.answerId,
+                          answerInfo.questionId
+                        )
+                      );
+                    }}
+                  >
+                    <FavoriteIcon />
+                  </LikeBtn>
+                ) : (
+                  <LikeBtn
+                    onClick={() => {
+                      if (!getCookie("is_login")) {
+                        swal({
+                          title: "좋아요 누르기 실패 😥",
+                          text: "로그인 후 이용 가능한 서비스입니다.",
+                          icon: "error",
+                        });
+                        return;
+                      }
+                      dispatch(
+                        communityActions.addLikeAX(
+                          answerInfo.answerId,
+                          answerInfo.questionId
+                        )
+                      );
+                    }}
+                  >
+                    <FavoriteBorderIcon />
+                  </LikeBtn>
+                )}
+                <LikeCount>{answerInfo?.likeCount}개</LikeCount>
+              </LikeContainer>
+              <CommentContainer>
+                <CommentBtn>
+                  <ChatBubbleOutlineIcon />
+                  <CommentCount>{comment_list?.length}개</CommentCount>
+                </CommentBtn>
+              </CommentContainer>
+            </IconContainer>
+          </ModalContent>
+          <ModalRightContainer>
+            <CommentList />
+            <ModalCmtInputBox>
+              <ModalCmtInput
+                type="text"
+                placeholder="댓글달기..."
+                onChange={selectComment}
+                value={comments}
+                ref={cmtInput}
+                onKeyPress={(e) => {
+                  if (e.key === "Enter") {
+                    addComment();
                   }
-                  addComment();
                 }}
-                style={{ cursor: "pointer" }}
-              >
-                게시
-              </ModalUpload>
-            ) : (
-              <ModalUpload style={{ opacity: "0.3" }}>게시</ModalUpload>
-            )}
-          </ModalCmtInputBox>
-          {tagModal ? (
-            <TagModal
-              loading={loading}
-              user_list={user_list}
-              getUserTag={getUserTag}
-            />
-          ) : null}
-        </ModalRightContainer>
-      </ModalComponent>
+                onKeyUp={(e) => {
+                  if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
+                    selectComment(e);
+                  }
+                }}
+                onClick={selectComment}
+              />
+              {ok_submit ? (
+                <ModalUpload
+                  onClick={() => {
+                    if (!getCookie("is_login")) {
+                      swal({
+                        title: "댓글 추가 실패 😥",
+                        text: "로그인 후 이용 가능한 서비스입니다.",
+                        icon: "error",
+                      });
+                      setComments("");
+                      return;
+                    }
+                    addComment();
+                  }}
+                  style={{ cursor: "pointer" }}
+                >
+                  게시
+                </ModalUpload>
+              ) : (
+                <ModalUpload style={{ opacity: "0.3" }}>게시</ModalUpload>
+              )}
+            </ModalCmtInputBox>
+            {tagModal ? (
+              <TagModal
+                loading={loading}
+                user_list={user_list}
+                getUserTag={getUserTag}
+              />
+            ) : null}
+          </ModalRightContainer>
+        </ModalComponent>
+      )}
     </React.Fragment>
   );
 };
@@ -588,22 +623,46 @@ const ModalRightContainer = styled.div`
   border-radius: 0px 50px 50px 0px;
 `;
 
-const CommentListBox = styled.div`
-  max-height: 300px;
-  overflow: auto;
-  ::-webkit-scrollbar {
-    width: 12px; /* width of the entire scrollbar */
-  }
+const CardInfo = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
 
-  ::-webkit-scrollbar-track {
-    background: white; /* color of the tracking area */
-  }
+const CardWriterInfo = styled.div`
+  display: flex;
+  align-items: center;
+`;
 
-  ::-webkit-scrollbar-thumb {
-    background-color: #d8d9dc; /* color of the scroll thumb */
-    border-radius: 20px; /* roundness of the scroll thumb */
+const CardWriterProfile = styled.img`
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: gray;
+  :hover {
+    cursor: pointer;
   }
 `;
+
+// const CardWriter = styled.span`
+//   margin-left: 8px;
+// `;
+
+// const CommentListBox = styled.div`
+//   max-height: 300px;
+//   overflow: auto;
+//   ::-webkit-scrollbar {
+//     width: 12px; /* width of the entire scrollbar */
+//   }
+
+//   ::-webkit-scrollbar-track {
+//     background: white; /* color of the tracking area */
+//   }
+
+//   ::-webkit-scrollbar-thumb {
+//     background-color: #d8d9dc; /* color of the scroll thumb */
+//     border-radius: 20px; /* roundness of the scroll thumb */
+//   }
+// `;
 
 const ModalCmtInputBox = styled.div`
   width: 100%;
@@ -675,18 +734,18 @@ const LikeCount = styled.div`
   font-size: 17px;
 `;
 
-const MoreBtn = styled.button`
-  font-size: 20px;
-  outline: none;
-  border: none;
-  background: none;
-  cursor: pointer;
+// const MoreBtn = styled.button`
+//   font-size: 20px;
+//   outline: none;
+//   border: none;
+//   background: none;
+//   cursor: pointer;
 
-  :hover {
-    background: #c4c4c4;
-    border-radius: 50%;
-  }
-`;
+//   :hover {
+//     background: #c4c4c4;
+//     border-radius: 50%;
+//   }
+// `;
 
 const LeftArrowBtn = styled.button`
   z-index: 40;

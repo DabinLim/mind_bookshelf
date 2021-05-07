@@ -270,17 +270,18 @@ const Background = styled.div`
   height: 100vh;
   width: 100vw;
   background-color: black;
-  z-index: 20;
+  z-index: 80;
 `;
 
 const UpdateBox = styled.div`
-  position: fixed;
-  top: 50%;
+  position: absolute;
+  top: 250px;
   left: 50%;
   width: 400px;
+  hight: auto;
   transform: translate(-50%, -50%);
   background-color: #fafafa;
-  z-index: 30;
+  z-index: 100;
   border-radius: 20px;
   display: flex;
   flex-direction: column;
