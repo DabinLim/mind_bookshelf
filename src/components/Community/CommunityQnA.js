@@ -52,20 +52,27 @@ const CommunityQnA = (props) => {
         <div>
           {props.topic.map((t) => {
             let color = "";
+            let background = "";
             if (t === "나") {
               color = "#F9D9FC";
+              background = "#F9D1FD";
             } else if (t === "사랑") {
               color = "#FEBABA";
+              background = "#FFAAAA";
             } else if (t === "관계") {
               color = "#FDF1AE";
+              background = "#FFF09D";
             } else if (t === "가치") {
               color = "#C2C8FD";
+              background = "#B5BDFF";
             } else if (t === "우정") {
               color = "#C4FCCD";
+              background = "#B9FFC4";
             } else if (t === "꿈") {
               color = "#C3E9FD";
+              background = "#B7E6FF";
             }
-            return <Topic style={{ background: color }}>#{t}</Topic>;
+            return <Topic style={{ background: color, boxShadow: `0px 0px 5px ${background}` }}>#{t}</Topic>;
           })}
         </div>
         <AnswerContainer>
@@ -95,7 +102,15 @@ const CommunityQnA = (props) => {
                 <AnswerLikes>
                   <IconBox>
                     <LikeBox>
+                      {a.like? 
+                      <>
+                      <FavoriteBorderIcon style={{ color: "red" }} />{" "}
+                      </>
+                      :
+                      <>
                       <FavoriteBorderIcon />{" "}
+                      </>
+                      }
                       <LikeCount>{a.likeCount}개</LikeCount>
                     </LikeBox>
                     <CommentBox>
@@ -115,7 +130,7 @@ const CommunityQnA = (props) => {
 };
 
 const QnAContainer = styled.div`
-  width: 940px;
+  width: 1140px;
   display: flex;
   flex-direction: column;
   align-items: start;
@@ -230,11 +245,9 @@ const Topic = styled.div`
   margin-top: 30px;
   margin-right: 10px;
   display: inline-block;
-  background-color: #e5e5e5;
   padding: 5px 14px;
   border-radius: 18px;
   font-weight: 600;
-  box-shadow: 0px 0px 5px #ffffff;
 `;
 
 const LikeCount = styled.span`

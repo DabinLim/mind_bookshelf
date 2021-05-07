@@ -14,6 +14,7 @@ import { setComponent } from "../redux/modules/books";
 import swal from "sweetalert";
 import { getCookie } from "./Cookie";
 import axios from 'axios'
+import { CardModal } from "../components/Community/communityindex"
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -26,6 +27,7 @@ const Header = () => {
   const user = useSelector((state) => state.user.user);
   const [recent_list, setRecent] = useState();
   const [loading, setLoading] = useState(true)
+  const [cardModal, setCardModal] = useState(false)
 
   const closeNotiModal = () => {
     setNoti(false);
@@ -47,6 +49,10 @@ const Header = () => {
     }
   }
 
+  const closeCardModal = () => {
+    setCardModal(false)
+  }
+
   const closeLoginModal = () => {
     setLogin(false);
   };
@@ -54,6 +60,9 @@ const Header = () => {
   if (is_login) {
     return (
       <React.Fragment>
+        {cardModal? 
+        <CardModal close={closeCardModal} />
+        :null}
         <HeaderContainer>
           <HeaderInnerContainer>
             <NaviContainer>
@@ -125,7 +134,7 @@ const Header = () => {
               // }}
               >
                 {is_checked ? <AlarmBadge /> : null}
-                {notiModal ? <Notification close={closeNotiModal} /> : null}
+                {notiModal ? <Notification close={closeNotiModal} setCardModal={setCardModal} /> : null}
                 <NotificationsIcon
                   style={{cursor: 'pointer'}}
                   onClick={() => {
@@ -270,7 +279,7 @@ const HeaderContainer = styled.div`
   position: fixed;
   width: 100vw;
   height: 120px;
-  border-bottom: 1px solid #e9ecef;
+  // border-bottom: 1px solid #e9ecef;
   left: 0;
   top: 0;
   z-index: 5;

@@ -56,7 +56,6 @@ const ProfileUpdateModal = (props) => {
 
   const numberChecked = () => {
     const checkedType = [_friendship, _relationship, _love, _worth, _myself, _dream]
-    console.log(1, Object.values(checkedType).filter(x => x==true).length, checkedType)
     if(Object.values(checkedType).filter(x => x==true).length == 3){
       console.log(2)
       return
@@ -242,7 +241,7 @@ const ProfileUpdateModal = (props) => {
             <CheckedLabel onClick={checkedWorth} style={{background:"#F4F4F4"}} >#가치</CheckedLabel>
           }
           {_relationship? 
-            <CheckedLabel onClick={checkedRelationship} style={{background:"#FFF09D", boxShadow: '0px 0px 15px #FEF2AF' }}>#관계</CheckedLabel>
+            <CheckedLabel onClick={checkedRelationship} style={{background:"#FFF09D", boxShadow: '0px 0px 15px #FEF2AF'}}>#관계</CheckedLabel>
             :
             <CheckedLabel onClick={checkedRelationship} style={{background:"#F4F4F4"}} >#관계</CheckedLabel>
             
@@ -436,8 +435,8 @@ const TypeContainer = styled.div`
 `
 const CheckedLabel = styled.div`
   display: inline-block;
-  margin-right: 20px;
-  margin-left: 8px;
+  margin-right: 14px;
+  margin-left: 14px;
   cursor: pointer;
   width: 72px;
   padding: 6px 0;

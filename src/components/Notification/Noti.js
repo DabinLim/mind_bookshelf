@@ -1,8 +1,15 @@
 import React from "react";
 import styled from "styled-components";
 import { time } from "../../shared/Time";
+import {useDispatch} from "react-redux";
+import { api as commentActions } from "../../redux/modules/comment";
+import { api as communityActions } from "../../redux/modules/community";
+
+
 
 const Noti = (props) => {
+  const dispatch = useDispatch()
+
   let eventType = "";
   let time_data = time(`20${props.time}`);
   if (props.eventType === "like") {
@@ -15,8 +22,16 @@ const Noti = (props) => {
     eventType = "커스텀";
   }
 
+  const openCard = () => {
+    const type = "noti";
+    props.close()
+    dispatch(communityActions.getCardDetail(props.cardId, type));
+    dispatch(commentActions.getCommentAX(props.cardId));
+    props.setCardModal(true)
+  }
+
   return (
-    <NotiFrame>
+    <NotiFrame onClick={openCard} >
       <NotiProfileInfo>
         <NotiProfile src={props.recentProfileImg}></NotiProfile>
         <NotiProfileName>{props.recentNickname}님</NotiProfileName>
@@ -33,6 +48,7 @@ const NotiFrame = styled.div`
   width: 100%;
   border: 1px solid #ececec;
   padding: 12px 16px;
+  cursor: pointer;
 `;
 
 const NotiProfileInfo = styled.div`
