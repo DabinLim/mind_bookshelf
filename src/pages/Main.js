@@ -127,9 +127,7 @@ function Main() {
       <ImgLeft />
       <ImgRight />
       {is_loading ? (
-        <LoaderBox>
-          <Loader type="Oval" color="#3d66ba" height={100} width={100} />
-        </LoaderBox>
+        <LoaderBox></LoaderBox>
       ) : (
         <>
           {/* 메인 위쪽 편 */}
@@ -219,11 +217,8 @@ const MainFrame = styled.div`
 // LoaderBox
 
 const LoaderBox = styled.div`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  width: 100vh;
+  height: 100vh;
 `;
 
 // 메인의 위쪽 부분

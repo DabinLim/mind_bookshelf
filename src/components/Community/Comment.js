@@ -26,6 +26,11 @@ const Comment = (props) => {
   //   <span key={i} style={{color: "blue", cursor: "pointer"}} onClick={() => {history.push(`/others/${props.tag[i-1][1]}`)}}>{match}</span>
   // ))}
 
+  let timeFormat =
+    props.commentCreatedAt !== "방금 전"
+      ? time(props.commentCreatedAt)
+      : "방금 전";
+
   let contents = props.commentContents;
   props.tag.map((t) => {
     contents = reactStringReplace(contents, `@${t[0]}`, (match, i) => (
@@ -75,7 +80,7 @@ const Comment = (props) => {
       </CommentProfileInfo>
       <CommentContent>{contents}</CommentContent>
       <CommentBottom>
-        <TimeIndicator>3분전</TimeIndicator>
+        <TimeIndicator>{timeFormat}</TimeIndicator>
       </CommentBottom>
     </CommentFrame>
   );

@@ -263,27 +263,13 @@ const UserProfile = styled.img`
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  &:nth-child(1) {
-    :hover {
-      transform: translate(0, -100%) scale(1.5);
-      transition: all 200ms ease-in-out;
-    }
-  }
 
   &:nth-child(2) {
     transform: translateX(-40%);
-    :hover {
-      transform: translate(-40%, -100%) scale(1.5);
-      transition: all 200ms ease-in-out;
-    }
   }
 
   &:nth-child(3) {
     transform: translateX(-80%);
-    :hover {
-      transform: translate(-80%, -100%) scale(1.5);
-      transition: all 200ms ease-in-out;
-    }
   }
   :hover {
     cursor: pointer;
