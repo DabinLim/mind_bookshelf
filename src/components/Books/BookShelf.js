@@ -4,6 +4,7 @@ import { history } from "../../redux/configStore";
 import {CardDetail, BookDetailLow, BookDetail} from './booksindex';
 import { ArrowLeft, ArrowRight } from "@material-ui/icons";
 import { changeDate, setComponent, setDateVisible, setBookDetailModal } from "../../redux/modules/books";
+import CardModal from '../Community/CardModal';
 import { useSelector, useDispatch } from "react-redux";
 import { api as booksActions} from "../../redux/modules/books";
 
@@ -30,6 +31,7 @@ const date_visible = useSelector(state => state.books.date_visible);
   const dispatch = useDispatch();
   const formated_date = useSelector((state) => state.books.formated_date);
   const book_list = useSelector((state) => state.books.books);
+  const [cardDetailModal, setCardDetailModal] = React.useState(false);
   const url = window.location.href.split("/");
   let id = url[url.length - 1];
   const date = useSelector((state) => state.books.date);
@@ -67,6 +69,10 @@ const date_visible = useSelector(state => state.books.date_visible);
       return true;
     }
   });
+
+  const close = () => {
+    setCardDetailModal(false);
+};
 
   const previousMonth = () => {
     if (id === "mybook") {
@@ -112,11 +118,12 @@ const date_visible = useSelector(state => state.books.date_visible);
               book_1.map((v, idx) => {
                 return (
                   <>
-                  {bookDetailModal === v._id && <BookDetail openBook={openBook} date={v._id}/>}
+                  {bookDetailModal === v._id && <BookDetail openCard={setCardDetailModal} openBook={openBook} date={v._id}/>}
+                  {cardDetailModal === v._id && <CardModal book openBook={openBook} date={v._id} close={close}/>}
                   <Book
                     key={idx}
                   >
-                    <div style={{position:'relative', width:'100%', height:'100%', cursor:'pointer',zIndex:'3'}} onClick={() => {openBook(v._id)}}>
+                    <div style={{position:'relative', width:'100%', height:'100%', cursor:'pointer',zIndex:'20'}} onClick={() => {openBook(v._id)}}>
                     </div>
                       <Date>
                       {v._id.charAt(v._id.length - 2)}
@@ -136,11 +143,12 @@ const date_visible = useSelector(state => state.books.date_visible);
               book_2.map((v, idx) => {
                 return (
                   <>
-                  {bookDetailModal === v._id && <BookDetailLow openBook={openBook} date={v._id}/>}
+                  {bookDetailModal === v._id && <BookDetailLow openCard={setCardDetailModal} openBook={openBook} date={v._id}/>}
+                  {cardDetailModal === v._id && <CardModal book openBook={openBook} date={v._id} close={close}/>}
                   <Book
                     key={idx}
                   >
-                    <div style={{position:'relative', width:'100%', height:'100%', cursor:'pointer',zIndex:'3'}} onClick={() => {openBook(v._id)}}>
+                    <div style={{position:'relative', width:'100%', height:'100%', cursor:'pointer',zIndex:'20'}} onClick={() => {openBook(v._id)}}>
                     </div>
                       <Date>
                       {v._id.charAt(v._id.length - 2)}
@@ -167,6 +175,9 @@ const Container = styled.section`
   flex-direction: column;
   margin: 20px 0px;
   padding-bottom:110px;
+  @media (min-height:1200px){
+    padding-bottom:300px;
+  }
 `;
 
 const ForDate = styled.div`
@@ -181,7 +192,7 @@ const ShelfBox = styled.div`
   position: relative;
   width: 100%;
   display: flex;
-  margin-left:-10px;
+  
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -207,13 +218,16 @@ const BookRow = styled.div`
   height: 210px;
   max-width: 1055px;
   /* overflow:hidden; */
-  margin: 10px 0px -5px 65px;
+  margin: 10px 0px -5px 55px;
   @media (max-width:1000px){
         
         width:900px;
     }
-@media (max-width:1040px){
-    margin:10px 0px -5px 0px;
+    @media (max-width:1040px){
+    margin:10px 0px -5px 20px;
+}
+@media (max-width:800px){
+    margin:10px 0px -5px 160px;
 }
 `;
 

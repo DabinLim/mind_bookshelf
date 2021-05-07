@@ -11,7 +11,6 @@ import {setBookDetailModal, setDateVisible} from '../../redux/modules/books';
 
 const BookDetail = (props) => {
     const dispatch = useDispatch()
-    const [cardDetailModal, setCardDetailModal] = React.useState(false);
     const book_detail = useSelector(state => state.books.book_detail);
 
 
@@ -19,10 +18,8 @@ const BookDetail = (props) => {
         console.log(v)
         dispatch(communityActions.getCardDetail(v.answerId, 'book'))
         dispatch(commentActions.getCommentAX(v.answerId))
-        setCardDetailModal(true);
-    };
-    const close = () => {
-        setCardDetailModal(false);
+        props.openCard(props.date)
+        dispatch(setBookDetailModal(null))
     };
     console.log(book_detail)
   return (
@@ -32,7 +29,6 @@ const BookDetail = (props) => {
                 dispatch(setDateVisible(true))
                 }} />
       <Container>
-          {cardDetailModal && <CardModal openBook={props.openBook} date={props.date} close={close}/>}
           {book_detail.length && book_detail.map((v,idx) => {
               if(idx < 3){
                   return(

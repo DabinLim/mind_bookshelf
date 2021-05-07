@@ -1,10 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 // import moment from "moment";
-import { getCookie, deleteCookie } from "../../shared/Cookie";
+import { getCookie } from "../../shared/Cookie";
 import swal from "sweetalert";
 import { editCommentInfo } from "./community";
-import reactStringReplace from "react-string-replace";
 
 axios.defaults.baseURL = "http://lkj99.shop";
 if (getCookie("is_login")) {

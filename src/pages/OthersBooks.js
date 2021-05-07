@@ -82,7 +82,7 @@ const ProfileContainer = styled.section`
 `;
 
 const ImgRight = styled.div`
-    z-index:2;
+    z-index:25;
     position:fixed;
     background-image:url('https://user-images.githubusercontent.com/77574867/116996886-0c785d80-ad17-11eb-9afd-175a104b7f33.png');
     background-size:contain;
@@ -101,7 +101,7 @@ const ImgRight = styled.div`
 
 
 const ImgLeft = styled.div`
-    z-index:2;
+    z-index:25;
     position:fixed;
     background-image:url('https://user-images.githubusercontent.com/77574867/116996878-0b473080-ad17-11eb-8910-108950e25cb8.png');
     background-size:contain;
