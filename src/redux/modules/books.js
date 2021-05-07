@@ -260,6 +260,63 @@ const getOthersBookDetail = (date,id) => {
 
 }
 
+const getNextOthersBookDetail = (date,id) => {
+    return function(dispatch, getState) { 
+        dispatch(setCardLoading(true))
+        dispatch(setBookLoading(true));
+
+        const options = {
+            url:`bookshelf/other/bookDetail/${date}/${id}`,
+            method:'GET',
+        };
+        axios(options).then((response) => {
+            dispatch(setBookDetail(response.data.booksDiary));
+        }).then(()=>{
+            const book_detail = getState().books.book_detail
+            
+            dispatch(communityActions.getCardDetail(book_detail[0].answerId,'book'))
+            dispatch(commentActions.getCommentAX(book_detail[0].answerId))
+            dispatch(setBookLoading(false));
+        }).catch((err) => {
+            console.log(err);
+            if(err.response){
+                console.log(err.response.data);
+            };
+            dispatch(setBookLoading(false));
+        })
+    }
+
+}
+
+const getPreviousOthersBookDetail = (date,id) => {
+    return function(dispatch, getState) { 
+        dispatch(setCardLoading(true))
+        dispatch(setBookLoading(true));
+
+        const options = {
+            url:`bookshelf/other/bookDetail/${date}/${id}`,
+            method:'GET',
+        };
+        axios(options).then((response) => {
+            dispatch(setBookDetail(response.data.booksDiary));
+            
+        }).then(()=>{
+            const book_detail = getState().books.book_detail
+            
+            dispatch(communityActions.getCardDetail(book_detail[book_detail.length-1].answerId,'book'))
+            dispatch(commentActions.getCommentAX(book_detail[book_detail.length-1].answerId))
+            dispatch(setBookLoading(false));
+        }).catch((err) => {
+            console.log(err);
+            if(err.response){
+                console.log(err.response.data);
+            };
+            dispatch(setBookLoading(false));
+        })
+    }
+
+}
+
 const addQuest = (topic, contents) => {
     return function(){
         console.log(topic, contents)
@@ -399,6 +456,8 @@ export const api = {
     // getCardAnswers,
     getOthersBooks,
     getOthersBookDetail,
+    getNextOthersBookDetail,
+    getPreviousOthersBookDetail,
     getMyQuest,
     getOthersQuest,
     getNextDetail,

@@ -3,9 +3,8 @@ import axios from "axios";
 // import moment from "moment";
 import { getCookie, deleteCookie } from "../../shared/Cookie";
 import swal from "sweetalert";
-import reactStringReplace from "react-string-replace"
-
-
+import { editCommentInfo } from "./community";
+import reactStringReplace from "react-string-replace";
 
 axios.defaults.baseURL = "http://lkj99.shop";
 if (getCookie("is_login")) {
@@ -50,11 +49,11 @@ const getCommentAX = (cardId) => {
     };
     axios(options)
       .then((response) => {
-        console.log(response.data.comments)
-      //   let test = reactStringReplace('내 이름은 이대호', '이대호', (match, i)=> (
-      //     <span>{match}</span>
-      // ));
-      //   console.log(test)
+        console.log(response.data.comments);
+        //   let test = reactStringReplace('내 이름은 이대호', '이대호', (match, i)=> (
+        //     <span>{match}</span>
+        // ));
+        //   console.log(test)
         dispatch(setComment(response.data.comments));
         // let comment = response.data.comments
         // comment.commentTag.map((t)=>{
@@ -72,37 +71,43 @@ const getCommentAX = (cardId) => {
   };
 };
 
-
-
-const sendCommentAX = (cardId, content, tagId = []) => {
+const sendCommentAX = (cardId, content, tagId = [], questionId) => {
   return function (dispatch) {
     // console.log(cardId, content);
     // return;
-      console.log(tagId)
-      let comment_data = {
-        commentContents: content,
-        tag : tagId,
-      };
-      const options = {
-        url: `/comment/${cardId}`,
-        method: "POST",
-        data: comment_data,
-      };
-      axios(options)
-        .then((response) => {
-
-          dispatch(addComment(response.data.result));
-        })
-        .catch((err) => {
-          console.log(err);
-          if (err.response) {
-            console.log(err.response.data);
-          }
-        });
+    console.log(tagId);
+    let comment_data = {
+      commentContents: content,
+      tag: tagId,
+    };
+    const options = {
+      url: `/comment/${cardId}`,
+      method: "POST",
+      data: comment_data,
+    };
+    axios(options)
+      .then((response) => {
+        dispatch(
+          addComment({ ...response.data.result, commentCreatedAt: "방금전" })
+        );
+        dispatch(
+          editCommentInfo({
+            questionId: questionId,
+            answerId: cardId,
+            decision: 1,
+          })
+        );
+      })
+      .catch((err) => {
+        console.log(err);
+        if (err.response) {
+          console.log(err.response.data);
+        }
+      });
   };
 };
 
-const deleteCommentAX = (commentId) => {
+const deleteCommentAX = (commentId, questionId, cardId) => {
   console.log(commentId);
   return function (dispatch, getState) {
     axios({
@@ -111,6 +116,13 @@ const deleteCommentAX = (commentId) => {
     })
       .then((res) => {
         dispatch(deleteComment(commentId));
+        dispatch(
+          editCommentInfo({
+            questionId: questionId,
+            answerId: cardId,
+            decision: -1,
+          })
+        );
       })
       .catch((err) => {
         swal({

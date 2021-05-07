@@ -16,24 +16,28 @@ const communitySlice = createSlice({
     question_info: null,
     is_loading: true,
     card_loading: true,
-    card_detail:{},
+    card_detail: {},
   },
   reducers: {
     setCardDetail: (state, action) => {
       state.card_detail = action.payload;
-  },
+    },
     setCardLoading: (state, action) => {
       state.card_loading = action.payload;
     },
     setLoading: (state, action) => {
-      state.is_loading = action.payload
+      state.is_loading = action.payload;
     },
     setCommunity: (state, action) => {
       state.question = action.payload;
       state.is_loading = false;
     },
     editLikeCard: (state, action) => {
-      state.card_detail = {...state.card_detail, likeCount: action.payload.likeCount, like: action.payload.like }
+      state.card_detail = {
+        ...state.card_detail,
+        likeCount: action.payload.likeCount,
+        like: action.payload.like,
+      };
     },
     editLikeInfo: (state, action) => {
       let idx = state.question.findIndex(
@@ -46,6 +50,20 @@ const communitySlice = createSlice({
         ...state.question[idx].answers[answerIdx],
         like: action.payload.like,
         likeCount: action.payload.likeCount,
+      };
+    },
+    editCommentInfo: (state, action) => {
+      let idx = state.question.findIndex(
+        (q) => q.id === action.payload.questionId
+      );
+      let answerIdx = state.question[idx].answers.findIndex(
+        (a) => a.answerId === action.payload.answerId
+      );
+      state.question[idx].answers[answerIdx] = {
+        ...state.question[idx].answers[answerIdx],
+        commentCount:
+          state.question[idx].answers[answerIdx].commentCount +
+          action.payload.decision,
       };
     },
   },
@@ -78,13 +96,13 @@ const communityQuestionAX = () => {
 
 const addLikeAX = (answerId, questionId) => {
   return function (dispatch, getState) {
-    const type = getState().community.card_detail.type
-    console.log(answerId, questionId)
+    const type = getState().community.card_detail.type;
+    console.log(answerId, questionId);
     axios
       .post("/bookshelf/like/answerCard", { answerCardId: answerId })
       .then((res) => {
-        console.log(res)
-        if(type==='community'){
+        console.log(res);
+        if (type === "community") {
           dispatch(
             editLikeInfo({
               likeCount: res.data.likeCountNum,
@@ -93,15 +111,19 @@ const addLikeAX = (answerId, questionId) => {
               questionId: questionId,
             })
           );
-          dispatch(editLikeCard({
-            likeCount: res.data.likeCountNum,
-            like: res.data.currentLike,
-          }))
-        } else{
-          dispatch(editLikeCard({
-            likeCount: res.data.likeCountNum,
-            like: res.data.currentLike,
-          }))
+          dispatch(
+            editLikeCard({
+              likeCount: res.data.likeCountNum,
+              like: res.data.currentLike,
+            })
+          );
+        } else {
+          dispatch(
+            editLikeCard({
+              likeCount: res.data.likeCountNum,
+              like: res.data.currentLike,
+            })
+          );
         }
       })
       .catch((err) => {
@@ -112,14 +134,14 @@ const addLikeAX = (answerId, questionId) => {
 
 const deleteLikeAX = (answerId, questionId) => {
   return function (dispatch, getState) {
-    console.log(answerId, questionId)
-    const type = getState().community.card_detail.type
+    console.log(answerId, questionId);
+    const type = getState().community.card_detail.type;
     axios
       .patch("/bookshelf/like/answerCard", { answerCardId: answerId })
       .then((res) => {
-        console.log(res)
-        console.log(answerId, questionId)
-        if(type==='community'){
+        console.log(res);
+        console.log(answerId, questionId);
+        if (type === "community") {
           dispatch(
             editLikeInfo({
               likeCount: res.data.likeCountNum,
@@ -128,44 +150,51 @@ const deleteLikeAX = (answerId, questionId) => {
               questionId: questionId,
             })
           );
-          dispatch(editLikeCard({
-            likeCount: res.data.likeCountNum,
-            like: res.data.currentLike,
-          }))
-        } else{
-          dispatch(editLikeCard({
-            likeCount: res.data.likeCountNum,
-            like: res.data.currentLike,
-          }))
+          dispatch(
+            editLikeCard({
+              likeCount: res.data.likeCountNum,
+              like: res.data.currentLike,
+            })
+          );
+        } else {
+          dispatch(
+            editLikeCard({
+              likeCount: res.data.likeCountNum,
+              like: res.data.currentLike,
+            })
+          );
         }
-      }).catch((err)=> {
-        console.log(err)
       })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 };
 
 const getCardDetail = (a_id, type) => {
-  return function(dispatch, getState){
-      dispatch(setCardLoading(true));
-      const options = {
-          url:`/bookshelf/bookCardDetail/${a_id}`,
-          method:"GET",
-      };
-      axios(options).then((response) => {
-          console.log(response.data)
-          dispatch(setCardDetail({...response.data.bookCardDetail[0], type: type}))
+  return function (dispatch, getState) {
+    dispatch(setCardLoading(true));
+    const options = {
+      url: `/bookshelf/bookCardDetail/${a_id}`,
+      method: "GET",
+    };
+    axios(options)
+      .then((response) => {
+        console.log(response.data);
+        dispatch(
+          setCardDetail({ ...response.data.bookCardDetail[0], type: type })
+        );
 
-          dispatch(setCardLoading(false))
-      }).catch((err) => {
-        console.log(err)
-        if(err.response){
-          console.log(err.response)
-        }
+        dispatch(setCardLoading(false));
       })
-  }
-}
-
-
+      .catch((err) => {
+        console.log(err);
+        if (err.response) {
+          console.log(err.response);
+        }
+      });
+  };
+};
 
 export const {
   setCommunity,
@@ -173,14 +202,15 @@ export const {
   setLoading,
   setCardLoading,
   setCardDetail,
-  editLikeCard
+  editLikeCard,
+  editCommentInfo,
 } = communitySlice.actions;
 
 export const api = {
   communityQuestionAX,
   addLikeAX,
   deleteLikeAX,
-  getCardDetail
+  getCardDetail,
 };
 
 export default communitySlice.reducer;

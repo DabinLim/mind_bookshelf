@@ -1,7 +1,11 @@
 import React, { useState, useRef } from "react";
 import styled from "styled-components";
 import { api as commentActions, setComment } from "../../redux/modules/comment";
-import { api as booksActions, changeDate, setBookDetailModal } from "../../redux/modules/books";
+import {
+  api as booksActions,
+  changeDate,
+  setBookDetailModal,
+} from "../../redux/modules/books";
 import { api as communityActions } from "../../redux/modules/community";
 import { useDispatch, useSelector } from "react-redux";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
@@ -33,6 +37,8 @@ const CardModal = (props) => {
   const [tagModal, setTagModal] = useState(false);
   const cmtInput = useRef();
   const ok_submit = comments ? true : false;
+  const url = window.location.href.split('/');
+  const id = url[url.length-1];
 
   const nextCard = () => {
     const nowindex = answerQuantity.findIndex((v) => {
@@ -52,7 +58,12 @@ const CardModal = (props) => {
       }
 
       dispatch(changeDate(`20${thisMonthBooks[nowBook + 1]._id}`));
-      dispatch(booksActions.getNextDetail(thisMonthBooks[nowBook + 1]._id));
+      if(id === 'mybook'){
+        dispatch(booksActions.getNextDetail(thisMonthBooks[nowBook + 1]._id));
+      }else{
+        console.log(thisMonthBooks[nowBook+1]._id)
+        dispatch(booksActions.getNextOthersBookDetail(thisMonthBooks[nowBook + 1]._id, id))
+      }
       return;
     }
     dispatch(
@@ -85,7 +96,11 @@ const CardModal = (props) => {
       }
 
       dispatch(changeDate(`20${thisMonthBooks[nowBook - 1]._id}`));
-      dispatch(booksActions.getPreviousDetail(thisMonthBooks[nowBook - 1]._id));
+      if(id === 'mybook'){
+        dispatch(booksActions.getPreviousDetail(thisMonthBooks[nowBook - 1]._id));
+      } else {
+        dispatch(booksActions.getPreviousOthersBookDetail(thisMonthBooks[nowBook - 1]._id, id));
+      }
       return;
     }
     dispatch(
@@ -221,7 +236,12 @@ const CardModal = (props) => {
     let tagId = await CheckTag();
     setTagModal(false);
     dispatch(
-      commentActions.sendCommentAX(answerInfo?.answerId, comments, tagId)
+      commentActions.sendCommentAX(
+        answerInfo?.answerId,
+        comments,
+        tagId,
+        answerInfo?.questionId
+      )
     );
     setComments("");
   };
@@ -258,10 +278,12 @@ const CardModal = (props) => {
 
   return (
     <React.Fragment>
-      <Component onClick={() => {
-        props.close()
-        dispatch(setBookDetailModal(nowdate.format('YYMMDD')))
-      }} />
+      <Component
+        onClick={() => {
+          props.close();
+          dispatch(setBookDetailModal(nowdate.format("YYMMDD")));
+        }}
+      />
       <ModalComponent>
         {answerInfo?.type === "book" && (
           <>
