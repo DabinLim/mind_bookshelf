@@ -357,7 +357,12 @@ const CardModal = (props) => {
                       return(
                         <DetailContainer key={idx}>
                           <Head>
-                        <BooksSubject>#가치</BooksSubject>
+                          {v.questionTopic[0] === '사랑' && <BooksSubject style={{background:"#FFAAAA", boxShadow: "0px 0px 15px #FFAAAA"}} ><span>#사랑</span></BooksSubject>}
+                          {v.questionTopic[0] === '우정' && <BooksSubject style={{background:"#B9FFC4", boxShadow: "0px 0px 15px #B9FFC4"}} ><span>#우정</span></BooksSubject>}
+                          {v.questionTopic[0] === '꿈' && <BooksSubject style={{background:"#B7E6FF", boxShadow: "0px 0px 15px #B7E6FF"}} ><span>#꿈</span></BooksSubject>}
+                          {v.questionTopic[0] === '가치' && <BooksSubject style={{background:"#B5BDFF", boxShadow: "0px 0px 15px #B5BDFF"}} ><span>#가치</span></BooksSubject>}
+                          {v.questionTopic[0] === '관계' && <BooksSubject style={{background:"#FFF09D" ,boxShadow: "0px 0px 15px #FFF09D"}} ><span>#관계</span></BooksSubject>}
+                          {v.questionTopic[0] === '나' && <BooksSubject style={{background:"#F9D1FD", boxShadow: "0px 0px 15px #F9D1FD"}} ><span>#나</span></BooksSubject>}
                         <TitleBox>
                         <Title disabled={card_loading} onClick={() => {selectedCard(v.answerId)}}>{v.questionContents}</Title>
                         </TitleBox>
@@ -422,7 +427,12 @@ const CardModal = (props) => {
                       return(
                         <DetailContainer key={idx}>
                           <Head>
-                        <BooksSubject>#가치</BooksSubject>
+                        {v.questionTopic[0] === '사랑' && <BooksSubject style={{background:"#FFAAAA", boxShadow: "0px 0px 15px #FFAAAA"}} ><span>#사랑</span></BooksSubject>}
+                        {v.questionTopic[0] === '우정' && <BooksSubject style={{background:"#B9FFC4", boxShadow: "0px 0px 15px #B9FFC4"}} ><span>#우정</span></BooksSubject>}
+                        {v.questionTopic[0] === '꿈' && <BooksSubject style={{background:"#B7E6FF", boxShadow: "0px 0px 15px #B7E6FF"}} ><span>#꿈</span></BooksSubject>}
+                        {v.questionTopic[0] === '가치' && <BooksSubject style={{background:"#B5BDFF", boxShadow: "0px 0px 15px #B5BDFF"}} ><span>#가치</span></BooksSubject>}
+                        {v.questionTopic[0] === '관계' && <BooksSubject style={{background:"#FFF09D" ,boxShadow: "0px 0px 15px #FFF09D"}} ><span>#관계</span></BooksSubject>}
+                        {v.questionTopic[0] === '나' && <BooksSubject style={{background:"#F9D1FD", boxShadow: "0px 0px 15px #F9D1FD"}} ><span>#나</span></BooksSubject>}
                         <TitleBox>
                         <Title disabled={card_loading} onClick={() => {selectedCard(v.answerId)}}>{v.questionContents}</Title>
                         </TitleBox>
