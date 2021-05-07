@@ -3,6 +3,7 @@ import axios from "axios";
 // import moment from "moment";
 import { getCookie, deleteCookie } from "../../shared/Cookie";
 import swal from "sweetalert";
+import { editCommentInfo } from "./community";
 import reactStringReplace from "react-string-replace";
 
 axios.defaults.baseURL = "http://lkj99.shop";
@@ -70,7 +71,7 @@ const getCommentAX = (cardId) => {
   };
 };
 
-const sendCommentAX = (cardId, content, tagId = []) => {
+const sendCommentAX = (cardId, content, tagId = [], questionId) => {
   return function (dispatch) {
     // console.log(cardId, content);
     // return;
@@ -87,7 +88,14 @@ const sendCommentAX = (cardId, content, tagId = []) => {
     axios(options)
       .then((response) => {
         dispatch(
-          addComment({ ...response.data.result, commentCreatedAt: "방금 전" })
+          addComment({ ...response.data.result, commentCreatedAt: "방금전" })
+        );
+        dispatch(
+          editCommentInfo({
+            questionId: questionId,
+            answerId: cardId,
+            decision: 1,
+          })
         );
       })
       .catch((err) => {
@@ -99,7 +107,7 @@ const sendCommentAX = (cardId, content, tagId = []) => {
   };
 };
 
-const deleteCommentAX = (commentId) => {
+const deleteCommentAX = (commentId, questionId, cardId) => {
   console.log(commentId);
   return function (dispatch, getState) {
     axios({
@@ -108,6 +116,13 @@ const deleteCommentAX = (commentId) => {
     })
       .then((res) => {
         dispatch(deleteComment(commentId));
+        dispatch(
+          editCommentInfo({
+            questionId: questionId,
+            answerId: cardId,
+            decision: -1,
+          })
+        );
       })
       .catch((err) => {
         swal({

@@ -10,12 +10,19 @@ import { time } from "../../shared/Time";
 const Comment = (props) => {
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.user.user);
+  const answerInfo = useSelector((state) => state.community.card_detail);
   // let contents = props.CommentContent
   // const comment = props.commentContents.replace(``)
   // console.log(props.comment)
 
   const deleteComment = () => {
-    dispatch(commentActions.deleteCommentAX(props.commentId));
+    dispatch(
+      commentActions.deleteCommentAX(
+        props.commentId,
+        answerInfo?.questionId,
+        answerInfo?.answerId
+      )
+    );
   };
 
   //   let test = reactStringReplace('내 이름은 이대호', '이대호', (match, i)=> (
@@ -27,7 +34,7 @@ const Comment = (props) => {
   // ))}
 
   let timeFormat =
-    props.commentCreatedAt !== "방금 전"
+    props.commentCreatedAt !== "방금전"
       ? time(props.commentCreatedAt)
       : "방금 전";
 
