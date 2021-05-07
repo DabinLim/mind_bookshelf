@@ -114,7 +114,7 @@ const CommunityContainer = styled.div`
   z-index: 2;
   width: 100%;
   box-sizing: border-box;
-  margin: 230px 407px 0px 272px;
+  margin: 200px 407px 0px 272px;
   // height:100vh;
   display: flex;
   flex-direction: column;
