@@ -1,19 +1,53 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import FavoriteIcon from "@material-ui/icons/Favorite";
+import CardModal from "../components/Community/CardModal";
+import { api as commentActions } from "../redux/modules/comment";
+import { api as communityActions } from "../redux/modules/community";
 
 const AnswerCard2 = (props) => {
+  console.log(props.answerId);
+  const dispatch = useDispatch();
+  const [cardModal, setCardModal] = useState(false);
+  const closeCardModal = () => {
+    console.log("close");
+    setCardModal(false);
+  };
+
+  const openCard = (a) => {
+    console.log(a);
+    const type = "community";
+    setCardModal(true);
+    console.log("open");
+    dispatch(communityActions.getCardDetail(a, type));
+    dispatch(commentActions.getCommentAX(a));
+  };
+
+  const getDate = (date) => {
+    let year = "20" + date.substring(0, 2);
+    let month = date.substring(2, 4);
+    let day = date.substring(4, 6);
+    let full_date = year + "년 " + month + "월 " + day + "일";
+    return full_date;
+  };
   return (
     <>
       <CardFrame>
+        {cardModal ? <CardModal close={closeCardModal} /> : null}
         <AnswerHeader>
           <CardWriterProfile src={props.userProfileImg} />
           <CardWriter>{props.userNickname}</CardWriter>
         </AnswerHeader>
-        <AnswerContents>{props.answerContents}</AnswerContents>
+        <AnswerContents
+          onClick={() => {
+            openCard(props.answerId);
+          }}
+        >
+          {props.answerContents}
+        </AnswerContents>
         <AnswerLikes>
           <IconBox>
             <LikeBox>
