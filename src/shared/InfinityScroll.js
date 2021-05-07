@@ -36,7 +36,6 @@ const InfinityScroll = (props) => {
             console.log('아직은 안돼')
             return
         }
-
         if(is_next){
             console.log('event on')
             props.ref_value.addEventListener('scroll', handleScroll);

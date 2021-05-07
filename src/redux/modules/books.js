@@ -388,14 +388,17 @@ const getMyQuest = () => {
 
 const getOthersQuest = (id) => {
     return function(dispatch, getState){
-        console.log(id)
 
-
+        const loading = getState().books.book_loading;
         const page = getState().books.page;
         const next = getState().books.next;
 
         if(!next){
             console.log('next is none');
+            return
+        }
+        if(loading && page > 1){
+            console.log('잡았다 요놈');
             return
         }
 
@@ -405,12 +408,14 @@ const getOthersQuest = (id) => {
         };
         axios(options).then(response => {
             console.log(response.data);
-            // if(!response.data.myQuestion.length){
-            //     dispatch(setNext(false));
-            //     window.alert('다음 질문이 없습니다.');
-            // }
-            // dispatch(setCustomQuestion(response.data.myQuestion))
-            // dispatch(setPage(page+1))
+            if(!response.data.otherQuestion.length){
+                dispatch(setNext(false));
+                window.alert('다음 질문이 없습니다.');
+            }
+            dispatch(setCustomQuestion(response.data.otherQuestion))
+            dispatch(setCustomCount(response.data.otherQuestionCount));
+            dispatch(setPage(page+1))
+            dispatch(setBookLoading(false));
 
         }).catch(err => {
             console.log(err);
