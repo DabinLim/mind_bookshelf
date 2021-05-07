@@ -33,6 +33,8 @@ const CardModal = (props) => {
   const [tagModal, setTagModal] = useState(false);
   const cmtInput = useRef();
   const ok_submit = comments ? true : false;
+  const url = window.location.href.split('/');
+  const id = url[url.length-1];
 
   const nextCard = () => {
     const nowindex = answerQuantity.findIndex((v) => {
@@ -52,7 +54,12 @@ const CardModal = (props) => {
       }
 
       dispatch(changeDate(`20${thisMonthBooks[nowBook + 1]._id}`));
-      dispatch(booksActions.getNextDetail(thisMonthBooks[nowBook + 1]._id));
+      if(id === 'mybook'){
+        dispatch(booksActions.getNextDetail(thisMonthBooks[nowBook + 1]._id));
+      }else{
+        console.log(thisMonthBooks[nowBook+1]._id)
+        dispatch(booksActions.getNextOthersBookDetail(thisMonthBooks[nowBook + 1]._id, id))
+      }
       return;
     }
     dispatch(
@@ -85,7 +92,11 @@ const CardModal = (props) => {
       }
 
       dispatch(changeDate(`20${thisMonthBooks[nowBook - 1]._id}`));
-      dispatch(booksActions.getPreviousDetail(thisMonthBooks[nowBook - 1]._id));
+      if(id === 'mybook'){
+        dispatch(booksActions.getPreviousDetail(thisMonthBooks[nowBook - 1]._id));
+      } else {
+        dispatch(booksActions.getPreviousOthersBookDetail(thisMonthBooks[nowBook - 1]._id, id));
+      }
       return;
     }
     dispatch(

@@ -3,7 +3,7 @@ import {history} from '../redux/configStore';
 import styled from 'styled-components';
 import {BookShelf, BookDetail, Profile, MyQuestion} from '../components/Books/booksindex';
 import {useSelector, useDispatch} from 'react-redux';
-import {setComponent} from '../redux/modules/books';
+import {setComponent, setBookDetailModal, setDateVisible} from '../redux/modules/books';
 import { getCookie } from '../shared/Cookie';
 import {api as userActions} from '../redux/modules/user'
 

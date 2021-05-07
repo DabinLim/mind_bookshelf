@@ -47,7 +47,11 @@ const date_visible = useSelector(state => state.books.date_visible);
       console.log(givendate, bookDetailModal)
       return
     }
-    dispatch(booksActions.getBookDetail(givendate));
+    if(id === 'mybook'){
+      dispatch(booksActions.getBookDetail(givendate));
+    }else{
+      dispatch(booksActions.getOthersBookDetail(givendate,id))
+    }
     dispatch(setBookDetailModal(givendate));
     dispatch(setDateVisible(false));
     console.log(givendate, bookDetailModal)
@@ -220,7 +224,7 @@ const Book = styled.div`
     display:flex;
     align-items:center;
     justify-content:center;
-  z-index: 1;
+  z-index: 20;
   width: 46px;
   height: 210px;
   margin: 0px 10px;

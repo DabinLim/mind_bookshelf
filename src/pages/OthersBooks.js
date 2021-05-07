@@ -4,7 +4,7 @@ import {BookShelf, BookDetail, Profile, OthersQuestion} from '../components/Book
 import {api as userActions} from '../redux/modules/user';
 import {useSelector, useDispatch} from 'react-redux';
 import { getCookie } from "../shared/Cookie";
-import {changeDate, setComponent, setOther} from '../redux/modules/books';
+import {changeDate, setComponent, setOther, setBookDetailModal, setDateVisible} from '../redux/modules/books';
 
 const OthersBooks = (props) => {
     const dispatch = useDispatch();
