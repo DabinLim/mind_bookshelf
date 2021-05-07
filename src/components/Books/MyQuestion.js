@@ -7,16 +7,9 @@ const MyQuestion = (props) => {
     const dispatch = useDispatch()
     const [modalVisible, setModalVisible] = React.useState(false);
     const custom_question = useSelector(state => state.books.custom_question);
-    const openModal = () => {
-        setModalVisible(true);
-      };
-    
-      const closeModal = () => {
-        setModalVisible(false);
-      };
+
 
     React.useEffect(() => {
-        
             dispatch(booksActions.getMyQuest());
         
         return () => {
@@ -33,7 +26,7 @@ const MyQuestion = (props) => {
                 <Background/>
                 <TitleContainer>
                 <Title><span style={{fontSize:'22px',fontWeight:'600'}}>생각낙서</span>님의 질문카드는 <span style={{fontSize:'22px',fontWeight:'600'}}>27개</span>입니다.</Title>
-                <AddQuestion onClick={openModal}> <span style={{fontSize:'24px'}}>+</span> 질문 등록하기 </AddQuestion>
+                <AddQuestion onClick={()=>{setModalVisible(true)}}> <span style={{fontSize:'24px'}}>+</span> 질문 등록하기 </AddQuestion>
                 </TitleContainer>
                 <CardContainer>
                     {custom_question && custom_question.map((v,idx) => {
@@ -63,11 +56,9 @@ const MyQuestion = (props) => {
                     })}
                 </CardContainer>
             </Container>
-            <NewQuestion
-            visible={modalVisible}
-            onClose={closeModal}
-            maskClosable={true}
-            closable={true}/>
+            {modalVisible? 
+                <NewQuestion setModalVisible={setModalVisible} />
+            :null}
         </React.Fragment>
     )
 }
