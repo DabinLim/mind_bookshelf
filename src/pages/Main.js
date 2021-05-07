@@ -17,6 +17,7 @@ function Main() {
   const dispatch = useDispatch();
   // 유저 인포 확인하는 것 (아마 이 안에서 is_login 으로 확인해야할듯)
   const user_info = useSelector((state) => state.user.is_login);
+  const user = useSelector((state) => state.user.user);
   // 스피너 먹이려고
   const is_loading = useSelector((state) => state.answer.is_loading);
 
@@ -158,8 +159,8 @@ function Main() {
             </DotQueue>
             <DateIndicator>{displayedDate}</DateIndicator>
             <QuestionIndicator>
-              <b>{user_info?.nickname ? user_info?.nickname + "님" : "당신"}</b>
-              의 머리속은?
+              <b>{user?.nickname ? user?.nickname + "님" : "당신"}</b>의
+              머리속은?
             </QuestionIndicator>
             {user_info ? (
               <ToMyBookShelf
@@ -345,7 +346,7 @@ const DotQueue = styled.div`
   justify-content: center;
   position: absolute;
   top: 850px;
-  left: 45%;
+  left: 47%;
 `;
 
 const ImgRight = styled.div`
