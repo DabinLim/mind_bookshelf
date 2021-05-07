@@ -130,7 +130,7 @@ const CommunityQnA = (props) => {
 };
 
 const QnAContainer = styled.div`
-  width: 940px;
+  width: 1140px;
   display: flex;
   flex-direction: column;
   align-items: start;
