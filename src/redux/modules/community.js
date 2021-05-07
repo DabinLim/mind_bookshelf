@@ -1,8 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { getCookie } from "../../shared/Cookie";
 import axios from "axios";
-import { editAnswerInfo } from "./comment";
-import { PagesRounded } from "@material-ui/icons";
 
 axios.defaults.baseURL = "http://lkj99.shop";
 axios.defaults.headers.common["Authorization"] = `Bearer ${getCookie(
@@ -31,6 +29,9 @@ const communitySlice = createSlice({
     setCommunity: (state, action) => {
       state.question = action.payload;
       state.is_loading = false;
+    },
+    changeType: (state, action) => {
+      state.card_detail.type = action.payload;
     },
     editLikeCard: (state, action) => {
       state.card_detail = {
@@ -204,6 +205,7 @@ export const {
   setCardDetail,
   editLikeCard,
   editCommentInfo,
+  changeType,
 } = communitySlice.actions;
 
 export const api = {
