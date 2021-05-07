@@ -1,7 +1,11 @@
 import React, { useState, useRef } from "react";
 import styled from "styled-components";
 import { api as commentActions, setComment } from "../../redux/modules/comment";
-import { api as booksActions, changeDate, setBookDetailModal } from "../../redux/modules/books";
+import {
+  api as booksActions,
+  changeDate,
+  setBookDetailModal,
+} from "../../redux/modules/books";
 import { api as communityActions } from "../../redux/modules/community";
 import { useDispatch, useSelector } from "react-redux";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
@@ -232,7 +236,12 @@ const CardModal = (props) => {
     let tagId = await CheckTag();
     setTagModal(false);
     dispatch(
-      commentActions.sendCommentAX(answerInfo?.answerId, comments, tagId)
+      commentActions.sendCommentAX(
+        answerInfo?.answerId,
+        comments,
+        tagId,
+        answerInfo?.questionId
+      )
     );
     setComments("");
   };
@@ -269,10 +278,12 @@ const CardModal = (props) => {
 
   return (
     <React.Fragment>
-      <Component onClick={() => {
-        props.close()
-        dispatch(setBookDetailModal(nowdate.format('YYMMDD')))
-      }} />
+      <Component
+        onClick={() => {
+          props.close();
+          dispatch(setBookDetailModal(nowdate.format("YYMMDD")));
+        }}
+      />
       <ModalComponent>
         {answerInfo?.type === "book" && (
           <>

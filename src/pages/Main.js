@@ -17,6 +17,7 @@ function Main() {
   const dispatch = useDispatch();
   // 유저 인포 확인하는 것 (아마 이 안에서 is_login 으로 확인해야할듯)
   const user_info = useSelector((state) => state.user.is_login);
+  const user = useSelector((state) => state.user.user);
   // 스피너 먹이려고
   const is_loading = useSelector((state) => state.answer.is_loading);
 
@@ -126,9 +127,7 @@ function Main() {
       <ImgLeft />
       <ImgRight />
       {is_loading ? (
-        <LoaderBox>
-          <Loader type="Oval" color="#3d66ba" height={100} width={100} />
-        </LoaderBox>
+        <LoaderBox></LoaderBox>
       ) : (
         <>
           {/* 메인 위쪽 편 */}
@@ -158,8 +157,8 @@ function Main() {
             </DotQueue>
             <DateIndicator>{displayedDate}</DateIndicator>
             <QuestionIndicator>
-              <b>{user_info?.nickname ? user_info?.nickname + "님" : "당신"}</b>
-              의 머리속은?
+              <b>{user?.nickname ? user?.nickname + "님" : "당신"}</b>의
+              머리속은?
             </QuestionIndicator>
             {user_info ? (
               <ToMyBookShelf
@@ -218,11 +217,8 @@ const MainFrame = styled.div`
 // LoaderBox
 
 const LoaderBox = styled.div`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  width: 100vh;
+  height: 100vh;
 `;
 
 // 메인의 위쪽 부분
@@ -345,7 +341,7 @@ const DotQueue = styled.div`
   justify-content: center;
   position: absolute;
   top: 850px;
-  left: 45%;
+  left: 47%;
 `;
 
 const ImgRight = styled.div`

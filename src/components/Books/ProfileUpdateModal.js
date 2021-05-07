@@ -23,7 +23,12 @@ const ProfileUpdateModal = (props) => {
   const [loading, setLoading] = useState(false);
   const [withdrawal, setWidthdrawal] = useState(false);
   const [image, setImage] = useState(false);
-  const checkedType = {...user_info.topic}
+  const [_friendship, setFriendship]  = useState(user_info.topic.friendship);
+  const [_relationship, setRelationship] = useState(user_info.topic.relationship);
+  const [_love, setLove] = useState(user_info.topic.love);
+  const [_worth, setWorth] = useState(user_info.topic.worth);
+  const [_myself, setMyself] = useState(user_info.topic.myself);
+  const [_dream, setDream] = useState(user_info.topic.dream);
   
   useEffect(()=> {
     dispatch(setPreview(user_info.profileImg))
@@ -36,48 +41,122 @@ const ProfileUpdateModal = (props) => {
   };
 
   const changeNickname = (e) => {
+    if(e.target.value.length > 10){
+      return
+    }
     setNickname(e.target.value);
   };
 
   const changeIntroduce = (e) => {
+    if(e.target.value.length > 50){
+      return
+    }
     setIntroduce(e.target.value);
   };
 
   const numberChecked = () => {
-    let check = Object.values(checkedType)
-    let count = 0;
-    for(let i = 0; i < check.length; i++){
-      if(check[i] === true){
-        count ++
-        if(count == 4){
-          return
-        }
-      }
-    }
+    const checkedType = [_friendship, _relationship, _love, _worth, _myself, _dream]
+    console.log(1, Object.values(checkedType).filter(x => x==true).length, checkedType)
+    if(Object.values(checkedType).filter(x => x==true).length == 3){
+      console.log(2)
+      return
+    } 
     return true
   }
 
-  const checkedTopic = (e) => {
-    if(e.target.checked){
-      checkedType[e.target.id] = true;
-      console.log(checkedType)
+  const checkedRelationship = () => {
+    if(!_relationship){
+      setRelationship(true)
       if(!numberChecked()){
+        console.log(3)
         window.alert('어허')
-        e.target.checked = false;
-        checkedType[e.target.id] = false;
+        setRelationship(false)
       }
     } else{
-      checkedType[e.target.id] = false;
-      console.log(checkedType)
+      setRelationship(false)
+    }
+  }
+
+  const checkedFriendship = () => {
+    if(!_friendship){
+      setFriendship(true)
+      if(!numberChecked()){
+        window.alert('어허')
+        setFriendship(false)
+      }
+    } else{
+      setFriendship(false)
+    }
+  }
+
+  const checkedLove = () => {
+    if(!_love){
+      setLove(true)
+      if(!numberChecked()){
+        window.alert('어허')
+        setLove(false)
+      }
+    } else{
+      setLove(false)
+    }
+  }
+
+  const checkedDream = () => {
+    if(!_dream){
+      setDream(true)
+      if(!numberChecked()){
+        window.alert('어허')
+        setDream(false)
+      }
+    } else{
+      setDream(false)
+    }
+  }
+
+  const checkedWorth = () => {
+    if(!_worth){
+      setWorth(true)
+      if(!numberChecked()){
+        window.alert('어허')
+        setWorth(false)
+      }
+    } else{
+      setWorth(false)
+    }
+  }
+
+  const checkedMyself = () => {
+    if(!_myself){
+      setMyself(true)
+      if(!numberChecked()){
+        window.alert('어허')
+        setMyself(false)
+      }
+    } else{
+      setMyself(false)
     }
   }
 
   const editProfile = () => {
+    if(!/^[a-zA-Z0-9ㄱ-ㅎ가-힣\_]{2,10}$/g.test(nickname)){
+      window.alert('닉네임이 적절하지 않습니다.')
+      return
+    }
+
+    let topic = {
+      relationship: _relationship,
+      love: _love,
+      dream : _dream,
+      friendship: _friendship,
+      worth: _worth,
+      myself: _myself,
+    }
+
     let profile = {
       nickname: nickname,
       introduce: introduce,
       profileImg: image,
-      topic: checkedType,
+      topic: topic,
     }
     dispatch(userActions.UpdateProfileAX(profile))
     props.close()
@@ -113,8 +192,8 @@ const ProfileUpdateModal = (props) => {
                     getNicknameAX();
                   }}>
                   {loading ? (
-                    <InputRandom>
-                      <Loader type="Oval" color="#3d66ba" height={20} width={20} />
+                    <InputRandom style={{marginBottom: '13px'}}>
+                      <Loader  type="Oval" color="#3d66ba" height={20} width={20} />
                     </InputRandom>
                   ) : (
                     <InputRandom> 
@@ -124,48 +203,54 @@ const ProfileUpdateModal = (props) => {
                   <InputRandom>랜덤 돌리기</InputRandom> 
                 </RandomBox>
               </InputUpper>
-              <Input id="nickname"  value={nickname} onChange={changeNickname} />
+              <div style={{position: "relative"}} >
+                <Input id="nickname"  value={nickname} onChange={changeNickname}/>
+                <CountNickname>{nickname.length}/10</CountNickname>
+              </div>
           </InputContainer>
           <InputContainer>
             <InputLabel for="introduce" >소개</InputLabel>
-            <Input2 id="introduce" placeholder={introduce} onChange={changeIntroduce} /> 
+            <div style={{position: "relative"}}>
+              <Input2 id="introduce" placeholder={introduce} onChange={changeIntroduce} /> 
+              <CountIntroduce>{introduce.length}/50</CountIntroduce>
+            </div>
           </InputContainer>
         </InputBox>
 
         <TypeContainer>
           <div style={{marginBottom: '13px'}}>
-          {user_info.topic.friendship?
-            <CheckedLabel style={{background:"#B9FFC4" , boxShadow: '0px 0px 15px #C5FDCE'}} >#우정</CheckedLabel>
+          {_friendship?
+            <CheckedLabel onClick={checkedFriendship} style={{background:"#B9FFC4" , boxShadow: '0px 0px 15px #C5FDCE'}} >#우정</CheckedLabel>
             :
-            <CheckedLabel style={{background:"#F4F4F4"}} onClick={checkedTopic} >#우정</CheckedLabel>
+            <CheckedLabel style={{background:"#F4F4F4"}} onClick={checkedFriendship} >#우정</CheckedLabel>
           }
-          {user_info.topic.love? 
-            <CheckedLabel style={{background:"#FFAAAA" , boxShadow: '0px 0px 15px #FDB9B9'}} >#사랑</CheckedLabel>
+          {_love? 
+            <CheckedLabel onClick={checkedLove} style={{background:"#FFAAAA" , boxShadow: '0px 0px 15px #FDB9B9'}} >#사랑</CheckedLabel>
             :
-            <CheckedLabel style={{background:"#F4F4F4"}} >#사랑</CheckedLabel>
+            <CheckedLabel onClick={checkedLove} style={{background:"#F4F4F4"}} >#사랑</CheckedLabel>
           }
-          {user_info.topic.dream? 
-            <CheckedLabel style={{background:"#B7E6FF" , boxShadow: '0px 0px 15px #C4EAFE'}} >#꿈</CheckedLabel>
+          {_dream? 
+            <CheckedLabel onClick={checkedDream} style={{background:"#B7E6FF" , boxShadow: '0px 0px 15px #C4EAFE'}} >#꿈</CheckedLabel>
             :
-            <CheckedLabel style={{background:"#F4F4F4"}} >#꿈</CheckedLabel>
+            <CheckedLabel onClick={checkedDream} style={{background:"#F4F4F4"}} >#꿈</CheckedLabel>
           }
           </div>
           <div>
-          {user_info.topic.worth? 
-            <CheckedLabel style={{background:"#B5BDFF" , boxShadow: '0px 0px 15px #C1C7FC'}} >#가치</CheckedLabel>
+          {_worth? 
+            <CheckedLabel onClick={checkedWorth} style={{background:"#B5BDFF" , boxShadow: '0px 0px 15px #C1C7FC'}} >#가치</CheckedLabel>
             :
-            <CheckedLabel style={{background:"#F4F4F4"}} >#가치</CheckedLabel>
+            <CheckedLabel onClick={checkedWorth} style={{background:"#F4F4F4"}} >#가치</CheckedLabel>
           }
-          {user_info.topic.relationship? 
-            <CheckedLabel  style={{background:"#FFF09D", boxShadow: '0px 0px 15px #FEF2AF' }}>#관계</CheckedLabel>
+          {_relationship? 
+            <CheckedLabel onClick={checkedRelationship} style={{background:"#FFF09D", boxShadow: '0px 0px 15px #FEF2AF' }}>#관계</CheckedLabel>
             :
-            <CheckedLabel style={{background:"#F4F4F4"}} >#관계</CheckedLabel>
+            <CheckedLabel onClick={checkedRelationship} style={{background:"#F4F4F4"}} >#관계</CheckedLabel>
             
           }
-          {user_info.topic.myself? 
-            <CheckedLabel style={{background:"#F9D1FD", boxShadow: '0px 0px 15px #F9D9FC' }} >#나</CheckedLabel>
+          {_myself? 
+            <CheckedLabel onClick={checkedMyself} style={{background:"#F9D1FD", boxShadow: '0px 0px 15px #F9D9FC' }} >#나</CheckedLabel>
             :
-            <CheckedLabel style={{background:"#F4F4F4"}} >#나</CheckedLabel>
+            <CheckedLabel onClick={checkedMyself} style={{background:"#F4F4F4"}} >#나</CheckedLabel>
           }
           </div>
         </TypeContainer>
@@ -263,8 +348,22 @@ const InputLabel = styled.label`
   font-size: 17px;
   margin-bottom: 3px;
 `
+const CountNickname = styled.div`
+  position: absolute;
+  top:8px;
+  right:12px;
+  opacity: 0.6;
+`
+
+const CountIntroduce = styled.div`
+  position: absolute;
+  top: 35px;
+  right:12px;
+  opacity: 0.6;
+`
 
 const Input = styled.input`
+  position: relative;
   display: block;
   outline: none;
   border: none;
