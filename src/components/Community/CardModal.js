@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import styled from "styled-components";
-import { api as commentActions, setComment } from "../../redux/modules/comment";
+import { api as commentActions } from "../../redux/modules/comment";
 import {
   api as booksActions,
   changeDate,
@@ -12,8 +12,7 @@ import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
-import { CommentList, HideModal, TagModal } from "./communityindex";
-import { MoreOutlined, MinusCircleOutlined } from "@ant-design/icons";
+import { CommentList, TagModal } from "./communityindex";
 import { history } from "../../redux/configStore";
 import axios from "axios";
 import { config } from "../../shared/config";
@@ -237,14 +236,6 @@ const CardModal = (props) => {
 
   // HideModal function
   const [isOpen, setOpen] = useState(false);
-
-  const openHide = () => {
-    setOpen(true);
-  };
-
-  const closeHide = () => {
-    setOpen(false);
-  };
 
   let color = "";
   let topic = "";
@@ -573,13 +564,6 @@ const CardAnswerContent = styled.div`
   padding: 30px 0 0 0;
 `;
 
-const ModalRightContainerInner = styled.div`
-  width: 100%;
-  min-height: 15%;
-  max-height: 15%;
-  padding: 20px 20px;
-  border-bottom: 1px solid #efefef;
-`;
 const ModalRightContainer = styled.div`
   box-sizing: border-box;
   position: relative;
@@ -591,30 +575,6 @@ const ModalRightContainer = styled.div`
   background-color: white;
   padding: 25px 0 0 0;
   border-radius: 0px 50px 50px 0px;
-`;
-
-const CardInfo = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
-
-const CardWriterInfo = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
-const CardWriterProfile = styled.img`
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  background: gray;
-  :hover {
-    cursor: pointer;
-  }
-`;
-
-const CardWriter = styled.span`
-  margin-left: 8px;
 `;
 
 const CommentListBox = styled.div`
