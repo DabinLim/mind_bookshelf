@@ -30,13 +30,32 @@ const QuestionDetail = (props) => {
     };
   }, []);
 
+  let color = "";
+  let topic = "";
+  if (question_info?.questionTopic?.length > 0) {
+    topic = question_info?.questionTopic[0];
+    if (question_info?.questionTopic[0] === "나") {
+      color = "#F9D9FC";
+    } else if (question_info?.questionTopic[0] === "사랑") {
+      color = "#FEBABA";
+    } else if (question_info?.questionTopic[0] === "관계") {
+      color = "#FDF1AE";
+    } else if (question_info?.questionTopic[0] === "가치") {
+      color = "#C2C8FD";
+    } else if (question_info?.questionTopic[0] === "우정") {
+      color = "#C4FCCD";
+    } else if (question_info?.questionTopic[0] === "꿈") {
+      color = "#C3E9FD";
+    }
+  }
+
   return (
     <React.Fragment>
       <CommunityContainer>
         <Container>
           <ContainerUpper>
             <ContainerUpperLeft>
-              <HashTag>#사랑</HashTag>
+              <HashTag style={{ background: color }}>#{topic}</HashTag>
               <QuestionTitle>
                 {question_info ? question_info.questionContents : "질문 내용"}
               </QuestionTitle>
@@ -94,6 +113,8 @@ const QuestionDetail = (props) => {
 const CommunityContainer = styled.div`
   z-index: 2;
   width: 100%;
+  box-sizing: border-box;
+  margin: 230px 407px 0px 272px;
   // height:100vh;
   display: flex;
   flex-direction: column;
@@ -102,10 +123,8 @@ const CommunityContainer = styled.div`
 `;
 
 const Container = styled.section`
-  // width: 100%;
+  width: 100%;
   height: 100vh;
-  margin: 200px 100px 0px 100px;
-  padding: 0 100px;
   display: flex;
   flex-direction: column;
   overflow-y: auto;
@@ -182,8 +201,7 @@ const FilterBtn = styled.button`
 const AnswersBox = styled.div`
   margin: 40px 0px;
   width: 100%;
-  min-width: 280px;
-  min-height: 407px;
+  max-height: 649px;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
