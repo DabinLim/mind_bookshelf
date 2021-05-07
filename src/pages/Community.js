@@ -43,7 +43,8 @@ const Community = () => {
 const CommunityBox = styled.div`
   // width: 100%;
   height:100vh;
-  margin: 0px 0px 0px 291px;
+  margin: 100px 0px 0px 271px;
+  padding-left: 20px;
   display: flex;
   flex-direction: column;
   overflow-y:auto;

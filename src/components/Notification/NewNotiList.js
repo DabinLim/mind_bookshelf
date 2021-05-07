@@ -9,7 +9,7 @@ const NewNotiList = (props) => {
     <>
       <NotiListFrame>
         {new_list?.map((n, idx) => {
-          return <Noti key={idx} {...n} />;
+          return <Noti key={idx} {...n} setCardModal={props.setCardModal} close={props.close} />;
         })}
       </NotiListFrame>
     </>

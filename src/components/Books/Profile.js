@@ -135,6 +135,7 @@ const Profile = (props) => {
             <ProfileDetail>
             <Head>
             <Nickname>{user_info.nickname}</Nickname>
+            {}
             {user_info.topic?.friendship === false && 
             user_info.topic?.love === false && 
             user_info.topic?.dream === false && 

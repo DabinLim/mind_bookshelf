@@ -74,7 +74,7 @@ const Search = (props) => {
             {user_list ? 
             <UserContainer>
               {user_list.map((u) => {
-                return  <UserInfoContainer key={u.id} onClick={() => clickOther(u.userId)} >
+                return  <UserInfoContainer key={u.id} onClick={() => clickOther(u.searchUserId)} >
                           <ProfileImage src={u.profileImg} />
                           <Username>{u.nickname}</Username>
                         </UserInfoContainer>
