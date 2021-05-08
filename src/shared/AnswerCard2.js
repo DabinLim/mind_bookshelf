@@ -79,6 +79,7 @@ const CardFrame = styled.div`
   width: 272px;
   height: 189px;
   display: flex;
+  margin-bottom: 40px;
   flex-direction: column;
   justify-content: space-between;
   background-color: #ffffff;

@@ -114,7 +114,7 @@ const CommunityContainer = styled.div`
   z-index: 2;
   width: 100%;
   box-sizing: border-box;
-  margin: 200px 407px 0px 272px;
+  margin: 150px 407px 0px 272px;
   // height:100vh;
   display: flex;
   flex-direction: column;
@@ -167,7 +167,7 @@ const HashTag = styled.span`
   border-radius: 24px;
   text-align: center;
   font: normal normal bold 14px/19px Roboto;
-  box-shadow: 0px 0px 15px #c1c7fc;
+  box-shadow: 0px 0px 5px #ffffff;
   letter-spacing: 0px;
   color: #363636;
   font-size: 14px;

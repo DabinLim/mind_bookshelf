@@ -114,9 +114,9 @@ const Post = (props) => {
           </CardWriterInfo>
           <ExtraGroup>
             <AnswerInfo>
-              {props.otherProfileImg?.length > 0 ? (
+              {props?.otherProfileImg?.length > 0 ? (
                 <ThreeProfileBox>
-                  {props.otherProfileImg?.map((o, idx) => {
+                  {props?.otherProfileImg?.map((o, idx) => {
                     return <UserProfile key={idx} src={o.otherProfileImg} />;
                   })}
                 </ThreeProfileBox>
@@ -170,7 +170,7 @@ const Post = (props) => {
                 rows={8}
                 placeholder={`${
                   user_info?.nickname ? user_info?.nickname + "님" : "당신"
-                }이라면 어떻게 답변하시겠어요?`}
+                }이라면 어떻게 답변하시겠어요? 답변과 그 이유, 느낌 등을 같이 적어주세요.`}
                 onChange={changeContents}
                 value={contents}
               ></ElTextarea>
