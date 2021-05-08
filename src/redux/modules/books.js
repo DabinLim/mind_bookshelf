@@ -367,9 +367,11 @@ const getMyQuest = () => {
         };
         axios(options).then(response => {
             console.log(response.data);
-            if(!response.data.myQuestion.length){
+            if(response.data.myQuestion.length < 15){
+                dispatch(setCustomQuestion(response.data.myQuestion));
+                dispatch(setCustomCount(response.data.myQuestionCount));
                 dispatch(setNext(false));
-                window.alert('다음 질문이 없습니다.');
+                dispatch(setBookLoading(false));
             }
 
             dispatch(setCustomQuestion(response.data.myQuestion));
@@ -401,6 +403,7 @@ const getOthersQuest = (id) => {
             console.log('잡았다 요놈');
             return
         }
+        dispatch(setBookLoading(true))
 
         const options = {
             url:`/bookshelf/other/${id}/question?page=${page}`,
@@ -408,9 +411,11 @@ const getOthersQuest = (id) => {
         };
         axios(options).then(response => {
             console.log(response.data);
-            if(!response.data.otherQuestion.length){
+            if(response.data.otherQuestion.length < 15){
+                dispatch(setCustomQuestion(response.data.otherQuestion))
+                dispatch(setCustomCount(response.data.otherQuestionCount));
                 dispatch(setNext(false));
-                window.alert('다음 질문이 없습니다.');
+                dispatch(setBookLoading(false));
             }
             dispatch(setCustomQuestion(response.data.otherQuestion))
             dispatch(setCustomCount(response.data.otherQuestionCount));

@@ -33,6 +33,7 @@ const AnswerCard2 = (props) => {
     let full_date = year + "년 " + month + "월 " + day + "일";
     return full_date;
   };
+
   return (
     <>
       <CardFrame>
@@ -83,7 +84,7 @@ const CardFrame = styled.div`
   justify-content: space-between;
   background-color: #ffffff;
   border-radius: 20px;
-  margin-right: 20px;
+  margin: 0px 20px 20px 0px;
 `;
 
 const AnswerHeader = styled.div`
