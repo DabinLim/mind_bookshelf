@@ -23,10 +23,18 @@ const moreviewSlice = createSlice({
     like_next: true,
     friends_next: true,
     is_loading: true,
+    like_loading: true,
+    friends_loading: true,
   },
   reducers: {
     setLoading: (state, action) => {
       state.is_loading = action.payload;
+    },
+    setLikeLoading: (state, action) => {
+      state.like_loading = action.payload;
+    },
+    setFriendsLoading: (state, action) => {
+      state.friends_loading = action.payload;
     },
     setView: (state, action) => {
       state.now_view = action.payload;
@@ -84,75 +92,102 @@ const moreviewSlice = createSlice({
 
 const getAnswers = (id) => {
   return function (dispatch, getState) {
+    const loading = getState().moreview.is_loading;
+    const page = getState().moreview.page;
     const next = getState().moreview.next;
     if (!next) {
       console.log("next is none");
       return;
     }
-    const page = getState().moreview.page;
+    if(loading && page > 1){
+      console.log('잡았다 요놈');
+      return;
+    }
+    dispatch(setLoading(true));
     const options = {
       url: `/bookshelf/moreInfoCard/${id}?page=${page}`,
       method: "GET",
     };
     axios(options).then((response) => {
-      //   console.log(response.data);
-      if (!response.data.answer.length) {
-        window.alert("질문에 대한 답변이 더 이상 없습니다.");
+        console.log(response.data);
+      if (response.data.answer.length < 20) {
+        dispatch(setAnswers(response.data.answer));
         dispatch(setNext(false));
+        dispatch(setLoading(false));
         return;
       }
       dispatch(setAnswers(response.data.answer));
       dispatch(setPage(page + 1));
-    });
+      dispatch(setLoading(false));
+    }); 
   };
 };
 
 const getLikeAnswer = (id) => {
   return function (dispatch, getState) {
+    const loading = getState().moreview.like_loading;
+    const page = getState().moreview.page;
     const next = getState().moreview.like_next;
     if (!next) {
       console.log("next is none");
       return;
     }
-    const page = getState().moreview.like_page;
+    if(loading && page > 1){
+      console.log('잡았다 요놈');
+      return;
+    }
+    dispatch(setLikeLoading(true));
+
     const options = {
       url: `/bookshelf/moreInfoCard/like/${id}?page=${page}`,
       method: "GET",
     };
     axios(options).then((response) => {
-      // console.log(response.data);
-      if (!response.data.length) {
-        window.alert("질문에 대한 답변이 더 이상 없습니다.");
+      console.log(response.data);
+      if (response.data.length < 20) {
+        dispatch(setLikeAnswers(response.data));
         dispatch(setLikeNext(false));
+        dispatch(setLikeLoading(false));
         return;
       }
       dispatch(setLikeAnswers(response.data));
       dispatch(setLikePage(page + 1));
+      dispatch(setLikeLoading(false));
     });
   };
 };
 
 const getFriendsAnswer = (id) => {
   return function (dispatch, getState) {
+    console.log('wtf');
+    const loading = getState().moreview.friends_loading;
     const next = getState().moreview.friends_next;
+    const page = getState().moreview.friends_page;
     if (!next) {
       console.log("next is none");
       return;
     }
-    const page = getState().moreview.friends_page;
+    if(loading && page >1) {
+      console.log('잡았다 요놈');
+      return;
+    };
+    dispatch(setFriendsLoading(true));
     const options = {
       url: `/bookshelf/moreInfoCard/friend/${id}?page=${page}`,
       method: "GET",
     };
     axios(options).then((response) => {
-      // console.log(response.data);
-      if (!response.data.length) {
-        window.alert("질문에 대한 답변이 더 이상 없습니다.");
+      console.log(response.data);
+      console.log('wtf')
+      if (response.data.length < 20) {
+        dispatch(setFriendsAnswers(response.data));
         dispatch(setFriendsNext(false));
+        dispatch(setFriendsLoading(false));
         return;
       }
       dispatch(setFriendsAnswers(response.data));
       dispatch(setFriendsPage(page + 1));
+      dispatch(setFriendsLoading(false));
     });
   };
 };
@@ -183,6 +218,8 @@ export const {
   setFriendsNext,
   setQuestionInfo,
   setLoading,
+  setLikeLoading,
+  setFriendsLoading,
   setView,
 } = moreviewSlice.actions;
 
