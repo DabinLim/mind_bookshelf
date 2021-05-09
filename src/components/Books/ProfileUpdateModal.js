@@ -8,6 +8,7 @@ import axios from "axios";
 import WithdrawalModal from "./WithdrawalModal"
 import {setPreview} from '../../redux/modules/user'
 import CasinoIcon from '@material-ui/icons/Casino';
+import swal from "sweetalert";
 
 axios.defaults.baseURL = "http://lkj99.shop";
 
@@ -63,12 +64,20 @@ const ProfileUpdateModal = (props) => {
     return true
   }
 
+  const checkedSwal = () => {
+    swal({
+      title: "더이상 주제를 추가할 수 없습니다.😅",
+      text: `주제는 3개까지 선택 가능합니다.`,
+      icon: "error",
+  });
+  }
+
   const checkedRelationship = () => {
     if(!_relationship){
       setRelationship(true)
       if(!numberChecked()){
         console.log(3)
-        window.alert('어허')
+        checkedSwal()
         setRelationship(false)
       }
     } else{
@@ -80,7 +89,7 @@ const ProfileUpdateModal = (props) => {
     if(!_friendship){
       setFriendship(true)
       if(!numberChecked()){
-        window.alert('어허')
+        checkedSwal()
         setFriendship(false)
       }
     } else{
@@ -92,7 +101,7 @@ const ProfileUpdateModal = (props) => {
     if(!_love){
       setLove(true)
       if(!numberChecked()){
-        window.alert('어허')
+        checkedSwal()
         setLove(false)
       }
     } else{
@@ -104,7 +113,7 @@ const ProfileUpdateModal = (props) => {
     if(!_dream){
       setDream(true)
       if(!numberChecked()){
-        window.alert('어허')
+        checkedSwal()
         setDream(false)
       }
     } else{
@@ -116,7 +125,7 @@ const ProfileUpdateModal = (props) => {
     if(!_worth){
       setWorth(true)
       if(!numberChecked()){
-        window.alert('어허')
+        checkedSwal()
         setWorth(false)
       }
     } else{
@@ -128,7 +137,7 @@ const ProfileUpdateModal = (props) => {
     if(!_myself){
       setMyself(true)
       if(!numberChecked()){
-        window.alert('어허')
+        checkedSwal()
         setMyself(false)
       }
     } else{
@@ -138,7 +147,11 @@ const ProfileUpdateModal = (props) => {
 
   const editProfile = () => {
     if(!/^[a-zA-Z0-9ㄱ-ㅎ가-힣\_]{2,10}$/g.test(nickname)){
-      window.alert('닉네임이 적절하지 않습니다.')
+      swal({
+        title: "닉네임이 적절하지 않습니다.😅",
+        text: `2~10글자, 특수문자는 '_'만 사용가능합니다.`,
+        icon: "error",
+    });
       return
     }
 
@@ -215,7 +228,7 @@ const ProfileUpdateModal = (props) => {
             </div>
           </InputContainer>
         </InputBox>
-
+        
         <TypeContainer>
           <div style={{marginBottom: '13px'}}>
           {_friendship?

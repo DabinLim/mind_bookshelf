@@ -6,7 +6,7 @@ import {api as communityActions, setCardLoading} from './community';
 import { api as commentActions } from "./comment";
 import swal from "sweetalert";
 
-axios.defaults.baseURL = 'http://lkj99.shop';
+axios.defaults.baseURL = 'https://lkj99.shop';
 axios.defaults.headers.common["Authorization"]= `Bearer ${getCookie('is_login')}`;
 
 

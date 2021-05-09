@@ -4,5 +4,6 @@ import LoginModal from './LoginModal';
 import Search from './Search';
 import Sidebar from './Sidebar';
 import Upload from './Upload';
+import About from './About'
 
-export {Header, LoginModal, Search, Sidebar, Upload};
+export {Header, LoginModal, Search, Sidebar, Upload, About};

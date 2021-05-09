@@ -5,7 +5,7 @@ import { getCookie } from "../../shared/Cookie";
 import swal from "sweetalert";
 import { editCommentInfo } from "./community";
 
-axios.defaults.baseURL = "http://lkj99.shop";
+axios.defaults.baseURL = "https://lkj99.shop";
 if (getCookie("is_login")) {
   axios.defaults.headers.common["Authorization"] = `Bearer ${getCookie(
     "is_login"
