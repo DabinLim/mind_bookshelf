@@ -35,21 +35,21 @@ const Header = () => {
     setNoti(false);
   };
 
-  const recentUser = async() => {
-    const result = await axios.get("/bookshelf/searchUser")
-    console.log(result)
-    if(result.data.result.searchUser.length === 0){
+  const recentUser = async () => {
+    const result = await axios.get("/bookshelf/searchUser");
+    console.log(result);
+    if (result.data.result.searchUser.length === 0) {
       setRecent();
       setLoading(false);
-    }else{
+    } else {
       setRecent(result.data.result.searchUser);
       setLoading(false);
     }
-  }
+  };
 
   const closeCardModal = () => {
-    setCardModal(false)
-  }
+    setCardModal(false);
+  };
 
   const closeLoginModal = () => {
     setLogin(false);
@@ -58,9 +58,7 @@ const Header = () => {
   if (is_login) {
     return (
       <React.Fragment>
-        {cardModal? 
-        <CardModal close={closeCardModal} />
-        :null}
+        {cardModal ? <CardModal close={closeCardModal} /> : null}
         <HeaderContainer>
           <HeaderInnerContainer>
             <NaviContainer>
@@ -134,22 +132,32 @@ const Header = () => {
               <Icon
               >
                 {is_checked ? <AlarmBadge /> : null}
-                {notiModal ? <Notification close={closeNotiModal} setCardModal={setCardModal} /> : null}
+                {notiModal ? (
+                  <Notification
+                    close={closeNotiModal}
+                    setCardModal={setCardModal}
+                  />
+                ) : null}
                 <NotificationsIcon
-                  style={{cursor: 'pointer'}}
+                  style={{ cursor: "pointer" }}
                   onClick={() => {
                     setNoti(true);
                     dispatch(notiActions.openAlarmIO(user.id));
                   }}
                 />
               </Icon>
-              <Icon
-              >
-                {searchModal ? <Search recent_list={recent_list} setLoading={setLoading} loading={loading} /> : null}
+              <Icon>
+                {searchModal ? (
+                  <Search
+                    recent_list={recent_list}
+                    setLoading={setLoading}
+                    loading={loading}
+                  />
+                ) : null}
                 <SearchIcon
-                  style={{cursor: 'pointer'}}
+                  style={{ cursor: "pointer" }}
                   onClick={() => {
-                    recentUser()
+                    recentUser();
                     // dispatch(userActions.getRecentUserAX())
                     dispatch(setSearch(true));
                   }}
@@ -174,85 +182,91 @@ const Header = () => {
       {loginModal ? <LoginModal close={closeLoginModal} /> : null}
       <HeaderContainer>
         <HeaderInnerContainer>
-        <NaviContainer>
-              <span
-                style={{
-                  marginRight: "140px",
-                  fontSize: "18px",
-                  fontWeight: "800",
-                }}
-              >
-                Logo
-              </span>
-              <span
-                onClick={() => {
-                  history.push("/");
-                  dispatch(setComponent(""));
-                }}
-                style={{
-                  margin: "10px",
-                  fontSize: "14px",
-                  fontWeight: "600",
-                  cursor: "pointer",
-                }}
-              >
-                오늘의 낙서
-              </span>
-              <span
-                onClick={() => {
-                  if (!getCookie("is_login")) {
-                    swal({
-                      title: "로그인 필수!",
-                      text: "로그인 후 이용가능해요😊",
-                      icon: "info",
-                    });
-                    return;
-                  }
-                  dispatch(setComponent(""));
-                  history.push("/mybook");
-                }}
-                style={{
-                  margin: "10px",
-                  fontSize: "14px",
-                  fontWeight: "600",
-                  cursor: "pointer",
-                }}
-              >
-                나의 책장
-              </span>
-              <span
-                onClick={() => {
-                  history.push("/community");
-                  dispatch(setComponent(""));
-                }}
-                style={{
-                  margin: "10px",
-                  fontSize: "14px",
-                  fontWeight: "600",
-                  cursor: "pointer",
-                }}
-              >
-                커뮤니티
-              </span>
-            </NaviContainer>
-            <IconContainer>
+          <NaviContainer>
+            <span
+              style={{
+                marginRight: "140px",
+                fontSize: "18px",
+                fontWeight: "800",
+              }}
+            >
+              Logo
+            </span>
+            <span
+              onClick={() => {
+                history.push("/");
+                dispatch(setComponent(""));
+              }}
+              style={{
+                margin: "10px",
+                fontSize: "14px",
+                fontWeight: "600",
+                cursor: "pointer",
+              }}
+            >
+              오늘의 낙서
+            </span>
+            <span
+              onClick={() => {
+                if (!getCookie("is_login")) {
+                  swal({
+                    title: "로그인 필수!",
+                    text: "로그인 후 이용가능해요😊",
+                    icon: "info",
+                  });
+                  return;
+                }
+                dispatch(setComponent(""));
+                history.push("/mybook");
+              }}
+              style={{
+                margin: "10px",
+                fontSize: "14px",
+                fontWeight: "600",
+                cursor: "pointer",
+              }}
+            >
+              나의 책장
+            </span>
+            <span
+              onClick={() => {
+                history.push("/community");
+                dispatch(setComponent(""));
+              }}
+              style={{
+                margin: "10px",
+                fontSize: "14px",
+                fontWeight: "600",
+                cursor: "pointer",
+              }}
+            >
+              커뮤니티
+            </span>
+          </NaviContainer>
+          <IconContainer>
             <Icon
               onClick={() => {
-                recentUser()
+                recentUser();
                 // dispatch(userActions.getRecentUserAX())
                 setSearch(true);
               }}
             >
-              {searchModal ? <Search recent_list={recent_list} setLoading={setLoading} loading={loading} /> : null}
-              <SearchIcon style={{cursor: 'pointer'}} />
+              {searchModal ? (
+                <Search
+                  recent_list={recent_list}
+                  setLoading={setLoading}
+                  loading={loading}
+                />
+              ) : null}
+              <SearchIcon style={{ cursor: "pointer" }} />
             </Icon>
-          <TextBtn
-            onClick={() => {
-              setLogin(true);
-            }}
-          >
-            Login
-          </TextBtn>
+            <TextBtn
+              onClick={() => {
+                setLogin(true);
+              }}
+            >
+              Login
+            </TextBtn>
           </IconContainer>
         </HeaderInnerContainer>
       </HeaderContainer>

@@ -345,7 +345,9 @@ const CardModal = (props) => {
       <Component
         onClick={() => {
           props.close();
-          dispatch(setBookDetailModal(nowdate.format("YYMMDD")));
+          if(answerInfo.type === 'book'){
+            dispatch(setBookDetailModal(nowdate.format("YYMMDD")));
+          }
         }}
       />
       {card_loading ? (

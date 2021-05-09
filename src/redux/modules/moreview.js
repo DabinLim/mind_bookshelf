@@ -11,25 +11,33 @@ axios.defaults.headers.common["Authorization"] = `Bearer ${getCookie(
 const moreviewSlice = createSlice({
   name: "moreview",
   initialState: {
-    now_view:'new',
+    now_view: "new",
     question_info: null,
     answers: [],
     like_answers: [],
     friends_answers: [],
     page: 1,
-    like_page:1,
-    friends_page:1,
+    like_page: 1,
+    friends_page: 1,
     next: true,
     like_next: true,
     friends_next: true,
     is_loading: true,
+    like_loading: true,
+    friends_loading: true,
   },
   reducers: {
     setLoading: (state, action) => {
-      state.is_loading = action.payload
+      state.is_loading = action.payload;
+    },
+    setLikeLoading: (state, action) => {
+      state.like_loading = action.payload;
+    },
+    setFriendsLoading: (state, action) => {
+      state.friends_loading = action.payload;
     },
     setView: (state, action) => {
-        state.now_view = action.payload;
+      state.now_view = action.payload;
     },
     setQuestionInfo: (state, action) => {
       state.question_info = action.payload;
@@ -46,27 +54,27 @@ const moreviewSlice = createSlice({
       state.page = action.payload;
     },
     setLikeNext: (state, action) => {
-        state.like_next = action.payload;
-      },
-      setLikeAnswers: (state, action) => {
-        action.payload.forEach((v) => {
-          state.like_answers.push(v);
-        });
-      },
-      setLikePage: (state, action) => {
-        state.new_page = action.payload;
-      },
-      setFriendsNext: (state, action) => {
-        state.friends_next = action.payload;
-      },
-      setFriendsAnswers: (state, action) => {
-        action.payload.forEach((v) => {
-          state.friends_answers.push(v);
-        });
-      },
-      setFriendsPage: (state, action) => {
-        state.friends_page = action.payload;
-      },
+      state.like_next = action.payload;
+    },
+    setLikeAnswers: (state, action) => {
+      action.payload.forEach((v) => {
+        state.like_answers.push(v);
+      });
+    },
+    setLikePage: (state, action) => {
+      state.new_page = action.payload;
+    },
+    setFriendsNext: (state, action) => {
+      state.friends_next = action.payload;
+    },
+    setFriendsAnswers: (state, action) => {
+      action.payload.forEach((v) => {
+        state.friends_answers.push(v);
+      });
+    },
+    setFriendsPage: (state, action) => {
+      state.friends_page = action.payload;
+    },
     resetAll: (state) => {
       state.answers = [];
       state.page = 1;
@@ -77,87 +85,112 @@ const moreviewSlice = createSlice({
       state.friends_answers = [];
       state.friends_page = 1;
       state.friends_next = true;
-      state.now_view = 'new';
+      state.now_view = "new";
     },
   },
 });
 
-
 const getAnswers = (id) => {
   return function (dispatch, getState) {
+    const loading = getState().moreview.is_loading;
+    const page = getState().moreview.page;
     const next = getState().moreview.next;
     if (!next) {
       console.log("next is none");
       return;
     }
-    const page = getState().moreview.page;
+    if(loading && page > 1){
+      console.log('잡았다 요놈');
+      return;
+    }
+    dispatch(setLoading(true));
     const options = {
       url: `/bookshelf/moreInfoCard/${id}?page=${page}`,
       method: "GET",
     };
     axios(options).then((response) => {
-    //   console.log(response.data);
-      if(!response.data.answer.length){
-        window.alert('질문에 대한 답변이 더 이상 없습니다.');
+        console.log(response.data);
+      if (response.data.answer.length < 20) {
+        dispatch(setAnswers(response.data.answer));
         dispatch(setNext(false));
+        dispatch(setLoading(false));
         return;
       }
       dispatch(setAnswers(response.data.answer));
       dispatch(setPage(page + 1));
-    });
+      dispatch(setLoading(false));
+    }); 
   };
 };
 
 const getLikeAnswer = (id) => {
-    return function(dispatch, getState){
-      const next = getState().moreview.like_next;
-      if (!next) {
-        console.log("next is none");
-        return;
-      }
-      const page = getState().moreview.like_page;
-      const options = {
-        url: `/bookshelf/moreInfoCard/like/${id}?page=${page}`,
-        method: "GET",
-      };
-      axios(options).then((response) => {
-        // console.log(response.data);
-        if(!response.data.length){
-          window.alert('질문에 대한 답변이 더 이상 없습니다.');
-          dispatch(setLikeNext(false));
-          return;
-        }
+  return function (dispatch, getState) {
+    const loading = getState().moreview.like_loading;
+    const page = getState().moreview.page;
+    const next = getState().moreview.like_next;
+    if (!next) {
+      console.log("next is none");
+      return;
+    }
+    if(loading && page > 1){
+      console.log('잡았다 요놈');
+      return;
+    }
+    dispatch(setLikeLoading(true));
+
+    const options = {
+      url: `/bookshelf/moreInfoCard/like/${id}?page=${page}`,
+      method: "GET",
+    };
+    axios(options).then((response) => {
+      console.log(response.data);
+      if (response.data.length < 20) {
         dispatch(setLikeAnswers(response.data));
-        dispatch(setLikePage(page + 1));
-      });
-    } 
-  }
-
-  const getFriendsAnswer = (id) => {
-    return function(dispatch, getState){
-      const next = getState().moreview.friends_next;
-      if (!next) {
-        console.log("next is none");
+        dispatch(setLikeNext(false));
+        dispatch(setLikeLoading(false));
         return;
       }
-      const page = getState().moreview.friends_page;
-      const options = {
-        url: `/bookshelf/moreInfoCard/friend/${id}?page=${page}`,
-        method: "GET",
-      };
-      axios(options).then((response) => {
-        // console.log(response.data);
-        if(!response.data.length){
-          window.alert('질문에 대한 답변이 더 이상 없습니다.');
-          dispatch(setFriendsNext(false));
-          return;
-        }
-        dispatch(setFriendsAnswers(response.data));
-        dispatch(setFriendsPage(page + 1));
-      });
-    } 
-  }
+      dispatch(setLikeAnswers(response.data));
+      dispatch(setLikePage(page + 1));
+      dispatch(setLikeLoading(false));
+    });
+  };
+};
 
+const getFriendsAnswer = (id) => {
+  return function (dispatch, getState) {
+    console.log('wtf');
+    const loading = getState().moreview.friends_loading;
+    const next = getState().moreview.friends_next;
+    const page = getState().moreview.friends_page;
+    if (!next) {
+      console.log("next is none");
+      return;
+    }
+    if(loading && page >1) {
+      console.log('잡았다 요놈');
+      return;
+    };
+    dispatch(setFriendsLoading(true));
+    const options = {
+      url: `/bookshelf/moreInfoCard/friend/${id}?page=${page}`,
+      method: "GET",
+    };
+    axios(options).then((response) => {
+      console.log(response.data);
+      console.log('wtf')
+      if (response.data.length < 20) {
+        dispatch(setFriendsAnswers(response.data));
+        dispatch(setFriendsNext(false));
+        dispatch(setFriendsLoading(false));
+        return;
+      }
+      dispatch(setFriendsAnswers(response.data));
+      dispatch(setFriendsPage(page + 1));
+      dispatch(setFriendsLoading(false));
+    });
+  };
+};
 
 const getQuestionInfo = (id) => {
   return function (dispatch) {
@@ -166,15 +199,14 @@ const getQuestionInfo = (id) => {
       method: "GET",
     };
     axios(options).then((response) => {
-      // console.log(response.data)
-      dispatch(setQuestionInfo(response.data))
-    })
-  }
-}
-
+      console.log(response.data);
+      dispatch(setQuestionInfo(response.data));
+    });
+  };
+};
 
 export const {
-    resetAll,
+  resetAll,
   setAnswers,
   setPage,
   setNext,
@@ -186,14 +218,16 @@ export const {
   setFriendsNext,
   setQuestionInfo,
   setLoading,
-  setView
+  setLikeLoading,
+  setFriendsLoading,
+  setView,
 } = moreviewSlice.actions;
 
 export const api = {
   getAnswers,
   getQuestionInfo,
   getLikeAnswer,
-  getFriendsAnswer
+  getFriendsAnswer,
 };
 
 export default moreviewSlice.reducer;
