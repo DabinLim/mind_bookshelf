@@ -18,10 +18,6 @@ const OthersQuestion = (props) => {
     const openModal = () => {
         setModalVisible(true);
       };
-    
-      const closeModal = () => {
-        setModalVisible(false);
-      };
 
     React.useEffect(() => {
 

@@ -106,6 +106,10 @@ const SearchContainer = styled.div`
   z-index: 30;
   display: flex;
   flex-direction: column;
+  @media (max-width: 900px){
+    top: 160px;
+    right: -90px;
+  };
 `
 
 const SearchInput = styled.input`

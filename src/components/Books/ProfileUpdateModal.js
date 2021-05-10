@@ -66,7 +66,7 @@ const ProfileUpdateModal = (props) => {
 
   const checkedSwal = () => {
     swal({
-      title: "더이상 주제를 추가할 수 없습니다.😅",
+      title: "더이상 주제를 추가할 수 없습니다.",
       text: `주제는 3개까지 선택 가능합니다.`,
       icon: "error",
   });
@@ -148,7 +148,7 @@ const ProfileUpdateModal = (props) => {
   const editProfile = () => {
     if(!/^[a-zA-Z0-9ㄱ-ㅎ가-힣\_]{2,10}$/g.test(nickname)){
       swal({
-        title: "닉네임이 적절하지 않습니다.😅",
+        title: "닉네임이 적절하지 않습니다.",
         text: `2~10글자, 특수문자는 '_'만 사용가능합니다.`,
         icon: "error",
     });

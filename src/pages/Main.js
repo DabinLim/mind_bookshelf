@@ -226,8 +226,8 @@ const MainContainer = styled.div`
   margin: 120px 0px 0px 0px;
   display: flex;
   flex-direction: column;
-  overflow-y: auto;
   overflow: auto;
+  overflow-y: scroll;
   ::-webkit-scrollbar {
     display:none;
     width: 10px; /* width of the entire scrollbar */
@@ -267,6 +267,7 @@ const DateIndicator = styled.h2`
   letter-spacing: 0px;
   color: #262626;
   opacity: 1;
+  margin-top: 50px;
 `;
 
 const QuestionIndicator = styled.h3`

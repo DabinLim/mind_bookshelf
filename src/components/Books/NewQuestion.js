@@ -32,7 +32,7 @@ const NewQuestion = (props) => {
 
   const checkedSwal = () => {
     swal({
-      title: "더이상 주제를 추가할 수 없습니다.😅",
+      title: "더이상 주제를 추가할 수 없습니다.",
       text: `주제는 2개까지 선택 가능합니다.`,
       icon: "error",
   });
@@ -138,7 +138,7 @@ const NewQuestion = (props) => {
     console.log(topic)
     if(!topic){
       swal({
-        title: "주제를 골라주세요.😅",
+        title: "주제를 골라주세요.",
         text: `주제를 1개이상 선택해주세요!`,
         icon: "error",
       });
@@ -146,7 +146,7 @@ const NewQuestion = (props) => {
     }
     if(!question){
       swal({
-        title: "질문을 작성해주세요.😅",
+        title: "질문을 작성해주세요.",
         text: `성의껏 작성해주시면 감사하겠습니다`,
         icon: "error",
       });
