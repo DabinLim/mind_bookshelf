@@ -51,36 +51,36 @@ const MyQuestion = (props) => {
                             <Card key={idx} {...v}>
                                 <Head>
                                     <SubjectBox>
-                                        {v.questionTopic?.length && v.questionTopic.map((v) => {
+                                        {v.questionTopic?.length && v.questionTopic.map((v,idx) => {
                                             console.log(v)
                                             if(v === '사랑'){
                                                 return (
-                                                    <Subject style={{background:"#FFAAAA", boxShadow: "0px 0px 15px #FFAAAA"}} ><span>#사랑</span></Subject>
+                                                    <Subject key={idx} style={{background:"#FFAAAA", boxShadow: "0px 0px 15px #FFAAAA"}} ><span>#사랑</span></Subject>
                                                 )
                                             }
                                             if(v === '우정'){
                                                 return (
-                                                    <Subject style={{background:"#B9FFC4", boxShadow: "0px 0px 15px #B9FFC4"}} ><span>#우정</span></Subject>
+                                                    <Subject key={idx} style={{background:"#B9FFC4", boxShadow: "0px 0px 15px #B9FFC4"}} ><span>#우정</span></Subject>
                                                 )
                                             }
                                             if(v === '꿈'){
                                                 return (
-                                                    <Subject style={{background:"#B7E6FF", boxShadow: "0px 0px 15px #B7E6FF"}} ><span>#꿈</span></Subject>
+                                                    <Subject key={idx} style={{background:"#B7E6FF", boxShadow: "0px 0px 15px #B7E6FF"}} ><span>#꿈</span></Subject>
                                                 )
                                             }
                                             if(v === '가치'){
                                                 return (
-                                                    <Subject style={{background:"#B5BDFF", boxShadow: "0px 0px 15px #B5BDFF"}} ><span>#가치</span></Subject>
+                                                    <Subject key={idx} style={{background:"#B5BDFF", boxShadow: "0px 0px 15px #B5BDFF"}} ><span>#가치</span></Subject>
                                                 )
                                             }
                                             if(v === '관계'){
                                                 return (
-                                                    <Subject style={{background:"#FFF09D" ,boxShadow: "0px 0px 15px #FFF09D"}} ><span>#관계</span></Subject>
+                                                    <Subject key={idx} style={{background:"#FFF09D" ,boxShadow: "0px 0px 15px #FFF09D"}} ><span>#관계</span></Subject>
                                                 )
                                             }
                                             if(v === '나'){
                                                 return (
-                                                    <Subject style={{background:"#F9D1FD", boxShadow: "0px 0px 15px #F9D1FD"}} ><span>#나</span></Subject>
+                                                    <Subject key={idx} style={{background:"#F9D1FD", boxShadow: "0px 0px 15px #F9D1FD"}} ><span>#나</span></Subject>
                                                 )
                                             }
                                         })}
@@ -110,7 +110,7 @@ const MyQuestion = (props) => {
     )
 }
 
-const Container = styled.div`
+const Container = styled.section`
     position:relative;
     box-sizing: border-box;
     padding: 45px 10px 45px 45px;
@@ -122,8 +122,9 @@ const Container = styled.div`
     margin-bottom:50px;
     border-radius:20px;
     overflow:hidden;
-    @media(max-width:715px){
+    @media(max-width:500px){
         padding: 20px;
+        min-height:300px;
     }
 `;
 const Background = styled.div`
@@ -148,8 +149,9 @@ const TitleContainer = styled.div`
     flex-direction: row;
     justify-content: space-between;
     margin-bottom:38px;
-    @media(max-width:715px){
+    @media(max-width:500px){
         padding-right:10px;
+        height:30px;
     }
 `;
 
@@ -159,8 +161,9 @@ const Title = styled.span`
     height:60px;
     font-size: 22px;
     font-weight:400;
-    @media(max-width:715px){
-        width:120px;
+    @media(max-width:500px){
+        width:200px;
+        min-width:200px;
         font-size:18px;
     }
 `;
@@ -169,13 +172,17 @@ const AddQuestion = styled.span`
     font-size:16px;
     color: #061366;
     cursor:pointer;
-    @media(max-width:715px){
+    @media(max-width:500px){
+        min-width:40px;
+        min-height:40px;
+        border-radius:50%;
         background-color:lavender;
+        text-align:center;
     }
 `;
 
 const AddText = styled.span`
-    @media(max-width:715px){
+    @media(max-width:500px){
         display:none;
     }
 `;
@@ -191,6 +198,7 @@ const CardContainer = styled.section`
     flex-wrap:wrap;
     overflow:auto;
     padding-bottom:60px;
+    
 `;
 
 const Card = styled.div`
