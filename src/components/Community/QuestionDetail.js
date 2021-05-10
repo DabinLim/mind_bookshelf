@@ -180,7 +180,7 @@ const QuestionDetail = (props) => {
                       return <AnswerCard key={idx} {...v} />;
                     })
                   ) : (
-                    <span>답변이 없네요</span>
+                    <h2>답변이 없습니다. 아시겠어요?</h2>
                   )}
                 </InfinityScroll>
               )}
@@ -201,7 +201,7 @@ const QuestionDetail = (props) => {
                       return <AnswerCard key={idx} {...v} />;
                     })
                   ) : (
-                    <span>답변이 없네요</span>
+                    <h2>답변이 없습니다. 아시겠어요?</h2>
                   )}
                 </InfinityScroll>
               )}
@@ -372,7 +372,7 @@ const FilterBtn = styled.button`
 const AnswersBox = styled.div`
   padding:0px 20px;
   box-sizing: border-box;
-  ${(props) => (props.view === "new" ? `margin: 120px 0px` : ` margin: 0px`)};
+  ${(props) => (props.view === "new" ? `margin: 140px 0px` : ` margin: 0px`)};
   width: 100%;
   max-height: 649px;
   display: flex;
@@ -397,7 +397,7 @@ const AnswersBox = styled.div`
 const AnswersBoxLike = styled.div`
   padding:0px 20px;
   box-sizing: border-box;
-  ${(props) => (props.view === "like" ? `margin: 120px 0px` : ` margin: 0px`)};
+  ${(props) => (props.view === "like" ? `margin: 140px 0px` : ` margin: 0px`)};
   width: 100%;
   max-height: 649px;
   display: flex;
@@ -423,7 +423,7 @@ const AnswersBoxFriends = styled.div`
   padding:0px 20px;
   box-sizing: border-box;
   ${(props) =>
-    props.view === "friends" ? `margin: 120px 0px` : ` margin: 0px`};
+    props.view === "friends" ? `margin: 140px 0px` : ` margin: 0px`};
   width: 100%;
   max-height: 649px;
   display: flex;

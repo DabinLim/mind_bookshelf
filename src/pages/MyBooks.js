@@ -1,7 +1,7 @@
 import React from 'react';
 import {history} from '../redux/configStore';
 import styled from 'styled-components';
-import {BookShelf, Profile, MyQuestion} from '../components/Books/booksindex';
+import {BookShelf, Profile, MyQuestion, MyAnswers} from '../components/Books/booksindex';
 import {useSelector, useDispatch} from 'react-redux';
 import {setComponent, setBookDetailModal, setDateVisible} from '../redux/modules/books';
 import { getCookie } from '../shared/Cookie';
@@ -33,30 +33,57 @@ const MyBook = (props) => {
     return(
         <React.Fragment>
             <Container>
-            {id === 'mybook' && component === '' && <ImgLeft/>}
-            <ProfileContainer>
-                <Profile/>
-            </ProfileContainer>
-                {id === 'mybook' && component === '' &&
-                <BookShelf date={date}/>
-                }
-                {component === 'myquestion' && <MyQuestion/>}
-                {/* {id !=='mybook' && component === '' &&
-                <BookDetail date={date}/>} */}
-                {id === 'mybook' && component === '' && <ImgRight/>}
+                <ContainerBox>
+                    {id === 'mybook' && component === '' && <ImgLeft/>}
+                    <ProfileContainer>
+                        <Profile/>
+                    </ProfileContainer>
+                        {id === 'mybook' && component === '' &&
+                        <BookShelf date={date}/>
+                        }
+                        {component === 'myquestion' && <MyQuestion/>}
+                        {/* {id !=='mybook' && component === '' &&
+                        <BookDetail date={date}/>} */}
+                        {id === 'mybook' && component === '' && <ImgRight/>}
+                </ContainerBox>
             </Container>
         </React.Fragment>
     )
 }
 
+const ContainerBox = styled.div`
+    height: 100vh;
+    margin: 100px 0px 0px 0px;
+    padding-left: 20px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+    ::-webkit-scrollbar {
+    display: none;
+    };
+`
+
 const Container = styled.div`
     width: 100%;
-    height: 100%;
     display:flex;
     flex-direction:column;
     justify-content:space-between;
-    align-items:center;
     overflow:auto;
+    ::-webkit-scrollbar {
+    display:none;
+    width: 10px; /* width of the entire scrollbar */
+  }
+
+  ::-webkit-scrollbar-track {
+    display:none;
+    background: none; /* color of the tracking area */
+  }
+
+  ::-webkit-scrollbar-thumb {
+    display:none;
+    background-color: #ffffff; /* color of the scroll thumb */
+    border-radius: 20px; /* roundness of the scroll thumb */
+  }
     @media (max-width:1040px){
     margin:0px 10px;
 }
@@ -64,10 +91,11 @@ const Container = styled.div`
 
 const ProfileContainer = styled.section`
     position:relative;
-    margin-top:170px;
     box-sizing:border-box;
     padding:30px;
     width: 100%;
+    margin: auto;
+    margin-top: 70px;
     max-width:988px;
     min-height:190px;
     display: flex;

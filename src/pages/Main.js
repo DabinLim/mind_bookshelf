@@ -226,17 +226,20 @@ const MainContainer = styled.div`
   margin: 120px 0px 0px 0px;
   display: flex;
   flex-direction: column;
-  overflow-y: auto;
   overflow: auto;
+  overflow-y: scroll;
   ::-webkit-scrollbar {
+    display:none;
     width: 10px; /* width of the entire scrollbar */
   }
 
   ::-webkit-scrollbar-track {
+    display:none;
     background: none; /* color of the tracking area */
   }
 
   ::-webkit-scrollbar-thumb {
+    display:none;
     background-color: #ffffff; /* color of the scroll thumb */
     border-radius: 20px; /* roundness of the scroll thumb */
   }
@@ -264,6 +267,7 @@ const DateIndicator = styled.h2`
   letter-spacing: 0px;
   color: #262626;
   opacity: 1;
+  margin-top: 50px;
 `;
 
 const QuestionIndicator = styled.h3`
