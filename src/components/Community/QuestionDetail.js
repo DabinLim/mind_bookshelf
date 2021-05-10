@@ -8,7 +8,9 @@ import {
   resetAll,
   setView,
 } from "../../redux/modules/moreview";
-import InfinityScroll from '../../shared/InfinityScroll';
+import InfinityScroll from "../../shared/InfinityScroll";
+import { getCookie } from "../../shared/Cookie";
+import swal from "sweetalert";
 
 const QuestionDetail = (props) => {
   const dispatch = useDispatch();
@@ -16,31 +18,33 @@ const QuestionDetail = (props) => {
   const id = url[url.length - 1];
   const now_view = useSelector((state) => state.moreview.now_view);
   const question_info = useSelector((state) => state.moreview.question_info);
-  console.log(question_info);
   const answers = useSelector((state) => state.moreview.answers);
   const like_answers = useSelector((state) => state.moreview.like_answers);
   const friends_answers = useSelector(
     (state) => state.moreview.friends_answers
   );
-  const user_info = useSelector(state => state.user.user);
-  const next = useSelector(state => state.moreview.next);
-  const like_next = useSelector(state => state.moreview.like_next);
-  const friends_next = useSelector(state => state.moreview.friends_next);
-  const is_loading = useSelector(state => state.moreview.is_loading);
-  const like_loading = useSelector(state => state.moreview.like_loading);
-  const friends_loading = useSelector(state => state.moreview.firends_loading);
+  console.log(friends_answers);
+  const user_info = useSelector((state) => state.user.user);
+  const next = useSelector((state) => state.moreview.next);
+  const like_next = useSelector((state) => state.moreview.like_next);
+  const friends_next = useSelector((state) => state.moreview.friends_next);
+  const is_loading = useSelector((state) => state.moreview.is_loading);
+  const like_loading = useSelector((state) => state.moreview.like_loading);
+  const friends_loading = useSelector(
+    (state) => state.moreview.firends_loading
+  );
   const container = React.useRef();
   const like_container = React.useRef();
   const friends_container = React.useRef();
-  console.log(container)
-  console.log(like_container)
-  console.log(friends_container)
+  // console.log(container);
+  // console.log(like_container);
+  // console.log(friends_container);
 
   React.useEffect(() => {
     dispatch(moreviewActions.getQuestionInfo(id));
     dispatch(moreviewActions.getAnswers(id));
     dispatch(moreviewActions.getLikeAnswer(id));
-    dispatch(moreviewActions.getFriendsAnswer(user_info.id));
+    dispatch(moreviewActions.getFriendsAnswer(id));
     return () => {
       dispatch(resetAll());
     };
@@ -48,116 +52,182 @@ const QuestionDetail = (props) => {
 
   let color = "";
   let topic = "";
+  let boxShadow = "";
   if (question_info?.questionTopic?.length > 0) {
     topic = question_info?.questionTopic[0];
     if (question_info?.questionTopic[0] === "나") {
       color = "#F9D9FC";
+      boxShadow = "0px 0px 15px #F9D1FD";
     } else if (question_info?.questionTopic[0] === "사랑") {
       color = "#FEBABA";
+      boxShadow = "0px 0px 15px #FFAAAA";
     } else if (question_info?.questionTopic[0] === "관계") {
       color = "#FDF1AE";
+      boxShadow = "0px 0px 15px #FFF09D";
     } else if (question_info?.questionTopic[0] === "가치") {
       color = "#C2C8FD";
+      boxShadow = "0px 0px 15px #B5BDFF";
     } else if (question_info?.questionTopic[0] === "우정") {
       color = "#C4FCCD";
+      boxShadow = "0px 0px 15px #B9FFC4";
     } else if (question_info?.questionTopic[0] === "꿈") {
       color = "#C3E9FD";
+      boxShadow = "0px 0px 15px #B7E6FF";
     }
   }
 
   return (
     <React.Fragment>
       <Outer>
-      <CommunityContainer>
-        <Container>
-          <ContainerUpper>
-            <ContainerUpperLeft>
-              <HashTag style={{ background: color }}>#{topic}</HashTag>
-              <QuestionTitle>
-                {question_info ? question_info.questionContents : "질문 내용"}
-              </QuestionTitle>
-            </ContainerUpperLeft>
-            <FilterBtnBox>
-              <FilterBtn
-                onClick={() => {
-                  dispatch(setView("new"));
-                }}
-              >
-                최신순
-              </FilterBtn>
-              <FilterBtn
-                onClick={() => {
-                  dispatch(setView("like"));
-                }}
-              >
-                인기순
-              </FilterBtn>
-              <FilterBtn
-                onClick={() => {
-                  dispatch(setView("friends"));
-                }}
-              >
-                팔로우
-              </FilterBtn>
-            </FilterBtnBox>
-          </ContainerUpper>
-          <AnswersBox view={now_view} ref={container}>
-          {now_view === 'new' &&
-            <InfinityScroll
-              callNext={() => {
-                console.log('new scroooolled');
-                dispatch(moreviewActions.getAnswers(id));
-      
-              }}
-              is_next={next? true: false}
-              is_loading={is_loading}
-              ref_value={container.current}
-            >
-            {now_view === "new" ?
-              answers.length &&
-              answers.map((v, idx) => {
-                return <AnswerCard key={idx} {...v} />;
-              }) : <span>답변이 없네요</span>}
-              </InfinityScroll>}
-          </AnswersBox>
-          <AnswersBoxLike view={now_view} ref={like_container}>
-          {now_view === 'like' && 
-            <InfinityScroll
-              callNext={() => {
-                console.log('like scroooolled');
-                dispatch(moreviewActions.getLikeAnswer(id));
-      
-              }}
-              is_next={like_next? true: false}
-              is_loading={like_loading}
-              ref_value={like_container.current}
-            >
-              {like_answers.length ?
-              like_answers.map((v, idx) => {
-                return <AnswerCard key={idx} {...v} />;
-              }) : <span>답변이 없네요</span>}
-              </InfinityScroll>}
-          </AnswersBoxLike>
-          <AnswersBoxFriends view={now_view} ref={friends_container}>
-          {now_view === 'friends' && 
-            <InfinityScroll
-              callNext={() => {
-                console.log('friends scroooolled');
-                dispatch(moreviewActions.getFriendsAnswer(user_info.id));
-      
-              }}
-              is_next={friends_next? true: false}
-              is_loading={friends_loading}
-              ref_value={friends_container.current}
-            >
-              {friends_answers.length ?
-              friends_answers.map((v, idx) => {
-                return <AnswerCard key={idx} {...v} />;
-              }) : <span>답변이 없네요</span>}
-              </InfinityScroll>
-          }
-          </AnswersBoxFriends>
-          {/* {now_view === 'friends' && 
+        <CommunityContainer>
+          <Container>
+            <ContainerUpper>
+              <ContainerUpperLeft>
+                <HashTag style={{ background: color, boxShadow: boxShadow }}>
+                  #{topic}
+                </HashTag>
+                <QuestionTitle>
+                  {question_info ? question_info.questionContents : "질문 내용"}
+                </QuestionTitle>
+              </ContainerUpperLeft>
+              <FilterBtnBox>
+                {now_view === "new" ? (
+                  <FilterBtn
+                    style={{ fontWeight: "bold" }}
+                    onClick={() => {
+                      dispatch(setView("new"));
+                    }}
+                  >
+                    •<span style={{ marginLeft: "5px" }}>최신순</span>
+                  </FilterBtn>
+                ) : (
+                  <FilterBtn
+                    onClick={() => {
+                      dispatch(setView("new"));
+                    }}
+                  >
+                    최신순
+                  </FilterBtn>
+                )}
+                {now_view === "like" ? (
+                  <FilterBtn
+                    style={{ fontWeight: "bold" }}
+                    onClick={() => {
+                      dispatch(setView("like"));
+                    }}
+                  >
+                    •<span style={{ marginLeft: "5px" }}>인기순</span>
+                  </FilterBtn>
+                ) : (
+                  <FilterBtn
+                    onClick={() => {
+                      dispatch(setView("like"));
+                    }}
+                  >
+                    인기순
+                  </FilterBtn>
+                )}
+                {now_view === "friends" ? (
+                  <FilterBtn
+                    style={{ fontWeight: "bold" }}
+                    onClick={() => {
+                      if (!getCookie("is_login")) {
+                        swal({
+                          title: "접근 실패 😥",
+                          text: "로그인 후 이용 가능합니다❕",
+                          icon: "info",
+                        });
+                        return;
+                      }
+                      dispatch(setView("friends"));
+                    }}
+                  >
+                    •<span style={{ marginLeft: "5px" }}>팔로우</span>
+                  </FilterBtn>
+                ) : (
+                  <FilterBtn
+                    onClick={() => {
+                      if (!getCookie("is_login")) {
+                        swal({
+                          title: "접근 실패 😥",
+                          text: "로그인 후 이용 가능합니다❕",
+                          icon: "info",
+                        });
+                        return;
+                      }
+                      dispatch(setView("friends"));
+                    }}
+                  >
+                    팔로우
+                  </FilterBtn>
+                )}
+              </FilterBtnBox>
+            </ContainerUpper>
+            <AnswersBox view={now_view} ref={container}>
+              {now_view === "new" && (
+                <InfinityScroll
+                  callNext={() => {
+                    console.log("new scroooolled");
+                    dispatch(moreviewActions.getAnswers(id));
+                  }}
+                  is_next={next ? true : false}
+                  is_loading={is_loading}
+                  ref_value={container.current}
+                >
+                  {now_view === "new" ? (
+                    answers.length &&
+                    answers.map((v, idx) => {
+                      return <AnswerCard key={idx} {...v} />;
+                    })
+                  ) : (
+                    <span>답변이 없네요</span>
+                  )}
+                </InfinityScroll>
+              )}
+            </AnswersBox>
+            <AnswersBoxLike view={now_view} ref={like_container}>
+              {now_view === "like" && (
+                <InfinityScroll
+                  callNext={() => {
+                    console.log("like scroooolled");
+                    dispatch(moreviewActions.getLikeAnswer(id));
+                  }}
+                  is_next={like_next ? true : false}
+                  is_loading={like_loading}
+                  ref_value={like_container.current}
+                >
+                  {like_answers.length ? (
+                    like_answers.map((v, idx) => {
+                      return <AnswerCard key={idx} {...v} />;
+                    })
+                  ) : (
+                    <span>답변이 없네요</span>
+                  )}
+                </InfinityScroll>
+              )}
+            </AnswersBoxLike>
+            <AnswersBoxFriends view={now_view} ref={friends_container}>
+              {now_view === "friends" && (
+                <InfinityScroll
+                  callNext={() => {
+                    console.log("friends scroooolled");
+                    dispatch(moreviewActions.getFriendsAnswer(user_info.id));
+                  }}
+                  is_next={friends_next ? true : false}
+                  is_loading={friends_loading}
+                  ref_value={friends_container.current}
+                >
+                  {friends_answers.length ? (
+                    friends_answers.map((v, idx) => {
+                      return <AnswerCard key={idx} {...v} />;
+                    })
+                  ) : (
+                    <h2>답변이 없습니다. 아시겠어요?</h2>
+                  )}
+                </InfinityScroll>
+              )}
+            </AnswersBoxFriends>
+            {/* {now_view === 'friends' && 
             <InfinityScroll
               callNext={() => {
                 console.log('friends scroooolled');
@@ -174,38 +244,37 @@ const QuestionDetail = (props) => {
               }) : <span>답변이 없네요</span>}
               </InfinityScroll>
           } */}
-          
-        </Container>
-      </CommunityContainer>
+          </Container>
+        </CommunityContainer>
       </Outer>
     </React.Fragment>
   );
 };
 
 const Outer = styled.section`
-  width:100%;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  margin-top:200px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 200px;
 `;
 
 const CommunityContainer = styled.div`
   z-index: 2;
   width: 60%;
-  height:100%;
+  height: 100%;
   box-sizing: border-box;
   // height:100vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  align-items:center;
+  align-items: center;
   overflow-y: auto;
 `;
 
 const Container = styled.section`
   width: 100%;
-  height:100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   overflow-y: auto;
@@ -225,9 +294,9 @@ const Container = styled.section`
 
 const ContainerUpper = styled.div`
   display: flex;
-  flex-direction:row;
-  justify-content:space-between;
-  height:80px;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 80px;
 `;
 
 const ContainerUpperLeft = styled.div`
@@ -251,7 +320,7 @@ const HashTag = styled.span`
   border-radius: 24px;
   text-align: center;
   font: normal normal bold 14px/19px Roboto;
-  box-shadow: 0px 0px 15px #c1c7fc;
+  box-shadow: 0px 0px 5px #ffffff;
   letter-spacing: 0px;
   color: #363636;
   font-size: 14px;
@@ -280,15 +349,18 @@ const FilterBtn = styled.button`
   letter-spacing: -1px;
   margin-right: 5px;
   color: #333333;
+  :hover {
+    font-weight: bold;
+  }
 `;
 
 const AnswersBox = styled.div`
-  box-sizing:border-box;
-  padding:0px 40px;
-  ${props => props.view === 'new' ? `margin: 40px 0px` : ` margin: 0px`};
+  box-sizing: border-box;
+  padding: 0px 40px;
+  ${(props) => (props.view === "new" ? `margin: 120px 0px` : ` margin: 0px`)};
   width: 100%;
   max-height: 649px;
-  display:flex;
+  display: flex;
   flex-direction: row;
   justify-content: flex-start;
   flex-wrap: wrap;
@@ -308,12 +380,12 @@ const AnswersBox = styled.div`
 `;
 
 const AnswersBoxLike = styled.div`
-  box-sizing:border-box;
-  padding:0px 40px;
-  ${props => props.view === 'like' ? `margin: 40px 0px` : ` margin: 0px`};
+  box-sizing: border-box;
+  padding: 0px 40px;
+  ${(props) => (props.view === "like" ? `margin: 120px 0px` : ` margin: 0px`)};
   width: 100%;
   max-height: 649px;
-  display:flex;
+  display: flex;
   flex-direction: row;
   justify-content: flex-start;
   flex-wrap: wrap;
@@ -333,12 +405,13 @@ const AnswersBoxLike = styled.div`
 `;
 
 const AnswersBoxFriends = styled.div`
-  box-sizing:border-box;
-  padding:0px 40px;
-  ${props => props.view === 'friends' ? `margin: 40px 0px` : ` margin: 0px`};
+  box-sizing: border-box;
+  padding: 0px 40px;
+  ${(props) =>
+    props.view === "friends" ? `margin: 120px 0px` : ` margin: 0px`};
   width: 100%;
   max-height: 649px;
-  display:flex;
+  display: flex;
   flex-direction: row;
   justify-content: flex-start;
   flex-wrap: wrap;

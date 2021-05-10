@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { getCookie } from "../../shared/Cookie";
 import axios from "axios";
+import { editDetailLikeInfo } from "./moreview";
 
 axios.defaults.baseURL = "https://lkj99.shop";
 axios.defaults.headers.common["Authorization"] = `Bearer ${getCookie(
@@ -118,6 +119,19 @@ const addLikeAX = (answerId, questionId) => {
               like: res.data.currentLike,
             })
           );
+        } else if (type === "detail") {
+          dispatch(
+            editDetailLikeInfo({
+              answerId: answerId,
+              decision: "like",
+            })
+          );
+          dispatch(
+            editLikeCard({
+              likeCount: res.data.likeCountNum,
+              like: res.data.currentLike,
+            })
+          );
         } else {
           dispatch(
             editLikeCard({
@@ -149,6 +163,19 @@ const deleteLikeAX = (answerId, questionId) => {
               like: res.data.currentLike,
               answerId: answerId,
               questionId: questionId,
+            })
+          );
+          dispatch(
+            editLikeCard({
+              likeCount: res.data.likeCountNum,
+              like: res.data.currentLike,
+            })
+          );
+        } else if (type === "detail") {
+          dispatch(
+            editDetailLikeInfo({
+              answerId: answerId,
+              decision: "dislike",
             })
           );
           dispatch(

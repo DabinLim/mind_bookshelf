@@ -7,29 +7,30 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import CardModal from "../components/Community/CardModal";
 import { api as commentActions } from "../redux/modules/comment";
 import { api as communityActions } from "../redux/modules/community";
+import { history } from "../redux/configStore";
 
 const AnswerCard2 = (props) => {
-  console.log(props.answerId);
+  // console.log(props);
   const dispatch = useDispatch();
+  const user_info = useSelector((state) => state.user.user);
   const [cardModal, setCardModal] = useState(false);
   const closeCardModal = () => {
-    console.log("close");
     setCardModal(false);
   };
 
   const openCard = (a) => {
-    console.log(a);
-    const type = "community";
+    const type = "detail";
     setCardModal(true);
-    console.log("open");
     dispatch(communityActions.getCardDetail(a, type));
+    console.log("걸렸다");
     dispatch(commentActions.getCommentAX(a));
   };
 
   const getDate = (date) => {
-    let year = "20" + date.substring(0, 2);
-    let month = date.substring(2, 4);
-    let day = date.substring(4, 6);
+    let unformatted = date.split("-");
+    let year = unformatted[0];
+    let month = unformatted[1];
+    let day = unformatted[2];
     let full_date = year + "년 " + month + "월 " + day + "일";
     return full_date;
   };
@@ -39,7 +40,15 @@ const AnswerCard2 = (props) => {
       <CardFrame>
         {cardModal ? <CardModal close={closeCardModal} /> : null}
         <AnswerHeader>
-          <CardWriterProfile src={props.userProfileImg} />
+          <CardWriterProfile
+            src={props.userProfileImg}
+            onClick={() => {
+              if (props.userId === user_info?.id) {
+                history.push("/mybook");
+              }
+              history.push(`/others/${props.userId}`);
+            }}
+          />
           <CardWriter>{props.userNickname}</CardWriter>
         </AnswerHeader>
         <AnswerContents
@@ -52,24 +61,24 @@ const AnswerCard2 = (props) => {
         <AnswerLikes>
           <IconBox>
             <LikeBox>
-              {/* {a.like ? (
+              {props.like ? (
                 <>
-                  <FavoriteIcon style={{ color: "red" }} />{" "}
+                  <FavoriteIcon style={{ color: "red" }} />
+                  <LikeCount>{props.answerLikes}개</LikeCount>
                 </>
               ) : (
                 <>
                   <FavoriteBorderIcon />
+                  <LikeCount>{props.answerLikes}개</LikeCount>
                 </>
-              )} */}
-              <FavoriteBorderIcon />
-              <LikeCount>0개</LikeCount>
+              )}
             </LikeBox>
             <CommentBox>
               <ChatBubbleOutlineIcon />
-              <CommentCount>0개</CommentCount>
+              <CommentCount>{props.commentCount}개</CommentCount>
             </CommentBox>
           </IconBox>
-          <DateYMD>2020년 3월 25일</DateYMD>
+          <DateYMD>{getDate(props.createdAt?.split("T")[0])}</DateYMD>
         </AnswerLikes>
       </CardFrame>
     </>
@@ -78,8 +87,10 @@ const AnswerCard2 = (props) => {
 
 const CardFrame = styled.div`
   min-width: 272px;
+  max-width: 272px;
   height: 189px;
   display: flex;
+  margin-bottom: 40px;
   flex-direction: column;
   justify-content: space-between;
   background-color: #ffffff;

@@ -51,6 +51,19 @@ const CommunityBox = styled.div`
   flex-direction: column;
   align-items:center;
   overflow-y: auto;
+  overflow-y: auto;
+  ::-webkit-scrollbar {
+    width: 12px; /* width of the entire scrollbar */
+  }
+
+  ::-webkit-scrollbar-track {
+    background: white; /* color of the tracking area */
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: #d8d9dc; /* color of the scroll thumb */
+    border-radius: 20px; /* roundness of the scroll thumb */
+  }
 `;
 
 const CommunityContainer = styled.div`

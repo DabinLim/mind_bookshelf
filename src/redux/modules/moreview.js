@@ -68,6 +68,9 @@ const moreviewSlice = createSlice({
       state.friends_next = action.payload;
     },
     setFriendsAnswers: (state, action) => {
+      if (!getCookie("is_login")) {
+        return;
+      }
       action.payload.forEach((v) => {
         state.friends_answers.push(v);
       });
@@ -87,6 +90,115 @@ const moreviewSlice = createSlice({
       state.friends_next = true;
       state.now_view = "new";
     },
+    editDetailLikeInfo: (state, action) => {
+      let decision = action.payload.decision;
+      let index = state.answers.findIndex(
+        (a) => a.answerId === action.payload.answerId
+      );
+
+      let like_index = state.like_answers.findIndex(
+        (a) => a.answerId === action.payload.answerId
+      );
+
+      let friends_index = state.friends_answers.findIndex(
+        (a) => a.answerId === action.payload.answerId
+      );
+
+      if (decision === "like") {
+        state.answers[index] = {
+          ...state.answers[index],
+          like: action.payload,
+          answerLikes: state.answers[index].answerLikes + 1,
+        };
+
+        state.like_answers[like_index] = {
+          ...state.like_answers[like_index],
+          like: action.payload,
+          answerLikes: state.like_answers[like_index].answerLikes + 1,
+        };
+
+        state.like_answers.sort((a, b) =>
+          a.answerLikes > b.answerLikes ? -1 : 1
+        );
+
+        if (friends_index !== -1) {
+          state.friends_answers[friends_index] = {
+            ...state.friends_answers[friends_index],
+            like: action.payload,
+            answerLikes: state.friends_answers[friends_index].answerLikes + 1,
+          };
+        }
+      } else {
+        state.answers[index] = {
+          ...state.answers[index],
+          like: action.payload,
+          answerLikes: state.answers[index].answerLikes - 1,
+        };
+
+        state.like_answers[like_index] = {
+          ...state.like_answers[like_index],
+          like: action.payload,
+          answerLikes: state.like_answers[like_index].answerLikes - 1,
+        };
+
+        if (friends_index !== -1) {
+          state.friends_answers[friends_index] = {
+            ...state.friends_answers[friends_index],
+            like: action.payload,
+            answerLikes: state.friends_answers[friends_index].answerLikes - 1,
+          };
+        }
+      }
+    },
+    editDetailCommentInfo: (state, action) => {
+      let decision = action.payload.decision;
+      let index = state.answers.findIndex(
+        (a) => a.answerId === action.payload.answerId
+      );
+      let like_index = state.like_answers.findIndex(
+        (a) => a.answerId === action.payload.answerId
+      );
+
+      let friends_index = state.friends_answers.findIndex(
+        (a) => a.answerId === action.payload.answerId
+      );
+
+      if (decision === "add") {
+        state.answers[index] = {
+          ...state.answers[index],
+          commentCount: state.answers[index].commentCount + 1,
+        };
+
+        state.like_answers[like_index] = {
+          ...state.like_answers[like_index],
+          commentCount: state.like_answers[like_index].commentCount + 1,
+        };
+
+        if (friends_index !== -1) {
+          state.friends_answers[friends_index] = {
+            ...state.friends_answers[friends_index],
+            commentCount: state.friends_answers[friends_index].commentCount + 1,
+          };
+        }
+      } else {
+        state.answers[index] = {
+          ...state.answers[index],
+          commentCount: state.answers[index].commentCount - 1,
+        };
+
+        state.like_answers[like_index] = {
+          ...state.like_answers[like_index],
+          commentCount: state.like_answers[like_index].commentCount - 1,
+        };
+
+        if (friends_index !== -1) {
+          state.friends_answers[friends_index] = {
+            ...state.friends_answers[friends_index],
+            commentCount: state.friends_answers[friends_index].commentCount - 1,
+          };
+        }
+      }
+    },
   },
 });
 
@@ -99,8 +211,8 @@ const getAnswers = (id) => {
       console.log("next is none");
       return;
     }
-    if(loading && page > 1){
-      console.log('잡았다 요놈');
+    if (loading && page > 1) {
+      console.log("잡았다 요놈");
       return;
     }
     dispatch(setLoading(true));
@@ -109,7 +221,7 @@ const getAnswers = (id) => {
       method: "GET",
     };
     axios(options).then((response) => {
-        console.log(response.data);
+      console.log(response.data);
       if (response.data.answer.length < 20) {
         dispatch(setAnswers(response.data.answer));
         dispatch(setNext(false));
@@ -119,7 +231,7 @@ const getAnswers = (id) => {
       dispatch(setAnswers(response.data.answer));
       dispatch(setPage(page + 1));
       dispatch(setLoading(false));
-    }); 
+    });
   };
 };
 
@@ -132,8 +244,8 @@ const getLikeAnswer = (id) => {
       console.log("next is none");
       return;
     }
-    if(loading && page > 1){
-      console.log('잡았다 요놈');
+    if (loading && page > 1) {
+      console.log("잡았다 요놈");
       return;
     }
     dispatch(setLikeLoading(true));
@@ -159,7 +271,6 @@ const getLikeAnswer = (id) => {
 
 const getFriendsAnswer = (id) => {
   return function (dispatch, getState) {
-    console.log('wtf');
     const loading = getState().moreview.friends_loading;
     const next = getState().moreview.friends_next;
     const page = getState().moreview.friends_page;
@@ -167,10 +278,10 @@ const getFriendsAnswer = (id) => {
       console.log("next is none");
       return;
     }
-    if(loading && page >1) {
-      console.log('잡았다 요놈');
+    if (loading && page > 1) {
+      console.log("잡았다 요놈");
       return;
-    };
+    }
     dispatch(setFriendsLoading(true));
     const options = {
       url: `/bookshelf/moreInfoCard/friend/${id}?page=${page}`,
@@ -178,7 +289,7 @@ const getFriendsAnswer = (id) => {
     };
     axios(options).then((response) => {
       console.log(response.data);
-      console.log('wtf')
+      console.log("wtf");
       if (response.data.length < 20) {
         dispatch(setFriendsAnswers(response.data));
         dispatch(setFriendsNext(false));
@@ -221,6 +332,8 @@ export const {
   setLikeLoading,
   setFriendsLoading,
   setView,
+  editDetailLikeInfo,
+  editDetailCommentInfo,
 } = moreviewSlice.actions;
 
 export const api = {
