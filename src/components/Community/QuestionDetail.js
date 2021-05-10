@@ -16,7 +16,6 @@ const QuestionDetail = (props) => {
   const id = url[url.length - 1];
   const now_view = useSelector((state) => state.moreview.now_view);
   const question_info = useSelector((state) => state.moreview.question_info);
-  console.log(question_info);
   const answers = useSelector((state) => state.moreview.answers);
   const like_answers = useSelector((state) => state.moreview.like_answers);
   const friends_answers = useSelector(

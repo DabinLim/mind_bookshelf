@@ -92,21 +92,106 @@ const moreviewSlice = createSlice({
       let index = state.answers.findIndex(
         (a) => a.answerId === action.payload.answerId
       );
+
+      let like_index = state.like_answers.findIndex(
+        (a) => a.answerId === action.payload.answerId
+      );
+
+      let friends_index = state.friends_answers.findIndex(
+        (a) => a.answerId === action.payload.answerId
+      );
+
       if (decision === "like") {
         state.answers[index] = {
           ...state.answers[index],
           like: action.payload,
           answerLikes: state.answers[index].answerLikes + 1,
         };
+
+        state.like_answers[like_index] = {
+          ...state.like_answers[like_index],
+          like: action.payload,
+          answerLikes: state.like_answers[like_index].answerLikes + 1,
+        };
+
+        if (friends_index !== -1) {
+          state.friends_answers[friends_index] = {
+            ...state.friends_answers[friends_index],
+            like: action.payload,
+            answerLikes: state.friends_answers[friends_index].answerLikes + 1,
+          };
+        }
       } else {
         state.answers[index] = {
           ...state.answers[index],
           like: action.payload,
           answerLikes: state.answers[index].answerLikes - 1,
         };
+
+        state.like_answers[like_index] = {
+          ...state.like_answers[like_index],
+          like: action.payload,
+          answerLikes: state.like_answers[like_index].answerLikes - 1,
+        };
+
+        if (friends_index !== -1) {
+          state.friends_answers[friends_index] = {
+            ...state.friends_answers[friends_index],
+            like: action.payload,
+            answerLikes: state.friends_answers[friends_index].answerLikes - 1,
+          };
+        }
       }
     },
-    editCommentInfo: (state, action) => {},
+    editDetailCommentInfo: (state, action) => {
+      let decision = action.payload.decision;
+      let index = state.answers.findIndex(
+        (a) => a.answerId === action.payload.answerId
+      );
+      let like_index = state.like_answers.findIndex(
+        (a) => a.answerId === action.payload.answerId
+      );
+
+      let friends_index = state.friends_answers.findIndex(
+        (a) => a.answerId === action.payload.answerId
+      );
+
+      if (decision === "add") {
+        state.answers[index] = {
+          ...state.answers[index],
+          commentCount: state.answers[index].commentCount + 1,
+        };
+
+        state.like_answers[like_index] = {
+          ...state.like_answers[like_index],
+          commentCount: state.like_answers[like_index].commentCount + 1,
+        };
+
+        if (friends_index !== -1) {
+          state.friends_answers[friends_index] = {
+            ...state.friends_answers[friends_index],
+            commentCount: state.friends_answers[friends_index].commentCount + 1,
+          };
+        }
+      } else {
+        state.answers[index] = {
+          ...state.answers[index],
+          commentCount: state.answers[index].commentCount - 1,
+        };
+
+        state.like_answers[like_index] = {
+          ...state.like_answers[like_index],
+          commentCount: state.like_answers[like_index].commentCount - 1,
+        };
+
+        if (friends_index !== -1) {
+          state.friends_answers[friends_index] = {
+            ...state.friends_answers[friends_index],
+            commentCount: state.friends_answers[friends_index].commentCount - 1,
+          };
+        }
+      }
+    },
   },
 });
 
@@ -242,6 +327,7 @@ export const {
   setFriendsLoading,
   setView,
   editDetailLikeInfo,
+  editDetailCommentInfo,
 } = moreviewSlice.actions;
 
 export const api = {
