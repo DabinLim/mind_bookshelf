@@ -68,7 +68,7 @@ const Container = styled.div`
   height: 95px;
   align-items: center;
   /* transform: translate(-50%, -50%); */
-  z-index: 30;
+  z-index: 2;
   display: flex;
   flex-direction: row;
   justify-content:flex-start;
@@ -84,7 +84,7 @@ const Background = styled.div`
   width: 100vw;
   background-color: #000000;
   opacity:0.45;
-  z-index: 15;
+  z-index: 1;
   /* pointer-events:none; */
 `;
 

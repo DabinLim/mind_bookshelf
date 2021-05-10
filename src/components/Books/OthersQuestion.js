@@ -42,7 +42,7 @@ const OthersQuestion = (props) => {
                 <Background/>
                 <TitleContainer>
                 <Title><span style={{fontSize:'22px',fontWeight:'600'}}>{user_info?.nickname}</span>님의 질문카드는 <span style={{fontSize:'22px',fontWeight:'600'}}>{custom_count}개</span>입니다.</Title>
-                <AddQuestion onClick={openModal}> <span style={{fontSize:'24px'}}>+</span> 질문 등록하기 </AddQuestion>
+                
                 </TitleContainer>
                 <CardContainer ref={container}>
                     <InfinityScroll 
@@ -75,7 +75,7 @@ const OthersQuestion = (props) => {
                                             }
                                             if(v === '꿈'){
                                                 return (
-                                                    <Subject style={{background:"#B7E6FF", boxShadow: "0px 0px 15px #B7E6FF"}} ><span>#우정</span></Subject>
+                                                    <Subject style={{background:"#B7E6FF", boxShadow: "0px 0px 15px #B7E6FF"}} ><span>#꿈</span></Subject>
                                                 )
                                             }
                                             if(v === '가치'){
@@ -113,11 +113,7 @@ const OthersQuestion = (props) => {
                     </InfinityScroll>
                 </CardContainer>
             </Container>
-            <NewQuestion
-            visible={modalVisible}
-            onClose={closeModal}
-            maskClosable={true}
-            closable={true}/>
+            
         </React.Fragment>
     )
 }

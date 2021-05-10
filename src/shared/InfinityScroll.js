@@ -30,8 +30,10 @@ const InfinityScroll = (props) => {
     React.useEffect(() => {
         // 다음 데이터가 없으면 이벤트 구독해제
         if(is_loading){
+            console.log('wtf')
             return;
         };
+        console.log(props.ref_value)
         if(!props.ref_value){
             console.log('아직은 안돼')
             return

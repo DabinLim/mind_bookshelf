@@ -11,6 +11,7 @@ import {
 } from "../../redux/modules/books";
 import InfinityScroll from "../../shared/InfinityScroll";
 const MyQuestion = (props) => {
+<<<<<<< HEAD
   const dispatch = useDispatch();
   const [modalVisible, setModalVisible] = React.useState(false);
   const custom_question = useSelector((state) => state.books.custom_question);
@@ -162,6 +163,112 @@ const MyQuestion = (props) => {
     </React.Fragment>
   );
 };
+=======
+    const dispatch = useDispatch()
+    const [modalVisible, setModalVisible] = React.useState(false);
+    const custom_question = useSelector(state => state.books.custom_question);
+    const custom_count = useSelector(state => state.books.custom_count);
+    const user_info = useSelector(state => state.user.user);
+    const is_loading = useSelector(state => state.books.book_loading);
+    const is_next = useSelector(state => state.books.next);
+    const container = React.useRef();
+    console.log(custom_question);
+    React.useEffect(() => {
+            dispatch(booksActions.getMyQuest());
+        
+        return () => {
+            dispatch(resetCustomQuestion());
+            dispatch(setPage(1));
+            dispatch(setNext(true));
+            dispatch(setBookLoading(true))
+        }
+    },[])
+
+
+    return(
+        <React.Fragment>
+            <Container>
+                <Background/>
+                <TitleContainer>
+                <Title><span style={{fontSize:'22px',fontWeight:'600'}}>{user_info?.nickname}</span>님의 질문카드는 <span style={{fontSize:'22px',fontWeight:'600'}}>{custom_count}개</span>입니다.</Title>
+                <AddQuestion onClick={()=>{setModalVisible(true)}}> <span style={{fontSize:'24px'}}>+</span> 질문 등록하기 </AddQuestion>
+                </TitleContainer>
+                <CardContainer ref={container}>
+                    <InfinityScroll 
+                        callNext={() => {
+                            console.log(
+                                'scroooolled!'
+                            )
+                            dispatch(booksActions.getMyQuest());
+                        }}
+                        is_next={is_next? true: false}
+                        is_loading={is_loading}
+                        ref_value={container.current}
+                    >
+                    {custom_question && custom_question.map((v,idx) => {
+                        return(
+                            <Card key={idx} {...v}>
+                                <Head>
+                                    <SubjectBox>
+                                        {v.questionTopic?.length && v.questionTopic.map((v) => {
+                                            console.log(v)
+                                            if(v === '사랑'){
+                                                return (
+                                                    <Subject style={{background:"#FFAAAA", boxShadow: "0px 0px 15px #FFAAAA"}} ><span>#사랑</span></Subject>
+                                                )
+                                            }
+                                            if(v === '우정'){
+                                                return (
+                                                    <Subject style={{background:"#B9FFC4", boxShadow: "0px 0px 15px #B9FFC4"}} ><span>#우정</span></Subject>
+                                                )
+                                            }
+                                            if(v === '꿈'){
+                                                return (
+                                                    <Subject style={{background:"#B7E6FF", boxShadow: "0px 0px 15px #B7E6FF"}} ><span>#꿈</span></Subject>
+                                                )
+                                            }
+                                            if(v === '가치'){
+                                                return (
+                                                    <Subject style={{background:"#B5BDFF", boxShadow: "0px 0px 15px #B5BDFF"}} ><span>#가치</span></Subject>
+                                                )
+                                            }
+                                            if(v === '관계'){
+                                                return (
+                                                    <Subject style={{background:"#FFF09D" ,boxShadow: "0px 0px 15px #FFF09D"}} ><span>#관계</span></Subject>
+                                                )
+                                            }
+                                            if(v === '나'){
+                                                return (
+                                                    <Subject style={{background:"#F9D1FD", boxShadow: "0px 0px 15px #F9D1FD"}} ><span>#나</span></Subject>
+                                                )
+                                            }
+                                        })}
+                                    </SubjectBox>
+                                    <AnswerCount>
+                                        {v.answerCount}명 낙서중
+                                    </AnswerCount>
+                                </Head>
+                                <QuestionContents>
+                                    {v.questionContents}
+                                </QuestionContents>
+                                <CreatedAtBox>
+                                    <CreatedAt>
+                                        {v.questionCreatedAt}
+                                    </CreatedAt>
+                                </CreatedAtBox>
+                            </Card>
+                        )
+                    })}
+                    </InfinityScroll>
+                </CardContainer>
+            </Container>
+            {modalVisible? 
+                <NewQuestion setModalVisible={setModalVisible} />
+            :null}
+        </React.Fragment>
+    )
+}
+>>>>>>> 8b6b835bbe36cc83e1ed298c8fb4fe56f0059fef
 
 const Container = styled.div`
   position: relative;
