@@ -325,7 +325,9 @@ const getPreviousOthersBookDetail = (date,id) => {
 
 const addQuest = (topic, contents) => {
     return function(getState){
-        const nickname = getState().user.user.nickname
+        console.log(topic, contents)
+        // const nickname = getState().user.user.nickname;
+        console.log(topic, contents)
         const options = {
             url:'bookshelf/question',
             method:'POST',
@@ -334,11 +336,12 @@ const addQuest = (topic, contents) => {
                 contents:contents
             }
         };
+        console.log(topic, contents)
         axios(options).then((response)=> {
             console.log(response.data)
             swal({
                 title: "정상적으로 등록되었습니다.😀",
-                text: `${nickname}님의 질문이 등록되었습니다.`,
+                text: `질문이 등록되었습니다.`,
                 icon: "success",
             });
 

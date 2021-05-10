@@ -113,11 +113,9 @@ const OthersQuestion = (props) => {
                     </InfinityScroll>
                 </CardContainer>
             </Container>
-            <NewQuestion
-            visible={modalVisible}
-            onClose={closeModal}
-            maskClosable={true}
-            closable={true}/>
+            {modalVisible? 
+                <NewQuestion setModalVisible={setModalVisible} />
+            :null}
         </React.Fragment>
     )
 }

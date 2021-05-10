@@ -42,7 +42,6 @@ const NewQuestion = (props) => {
     if(!_relationship){
       setRelationship(true)
       if(!numberChecked()){
-        console.log(3)
         checkedSwal()
         setRelationship(false)
       }
@@ -153,6 +152,7 @@ const NewQuestion = (props) => {
       });
       return
     }
+    console.log(topic, question)
     dispatch(booksActions.addQuest(topic, question))
     props.setModalVisible(false)
   }
