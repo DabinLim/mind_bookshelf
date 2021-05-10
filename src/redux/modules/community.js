@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { getCookie } from "../../shared/Cookie";
 import axios from "axios";
+import swal from "sweetalert";
 import { editDetailLikeInfo } from "./moreview";
 
 axios.defaults.baseURL = "https://lkj99.shop";
@@ -97,6 +98,14 @@ const communityQuestionAX = () => {
 };
 
 const addLikeAX = (answerId, questionId) => {
+  if (!getCookie("is_login")) {
+    swal({
+      title: "좋아요 실패 😥",
+      text: "로그인이 필요한 기능이에요❕",
+      icon: "info",
+    });
+    return;
+  }
   return function (dispatch, getState) {
     const type = getState().community.card_detail.type;
     console.log(answerId, questionId);
@@ -148,6 +157,14 @@ const addLikeAX = (answerId, questionId) => {
 };
 
 const deleteLikeAX = (answerId, questionId) => {
+  if (!getCookie("is_login")) {
+    swal({
+      title: "좋아요 취소 실패 😥",
+      text: "로그인이 필요한 기능이에요❕",
+      icon: "info",
+    });
+    return;
+  }
   return function (dispatch, getState) {
     console.log(answerId, questionId);
     const type = getState().community.card_detail.type;
