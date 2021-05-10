@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { getCookie } from "../../shared/Cookie";
 import axios from "axios";
 
-axios.defaults.baseURL = "http://lkj99.shop";
+axios.defaults.baseURL = "https://lkj99.shop";
 axios.defaults.headers.common["Authorization"] = `Bearer ${getCookie(
   "is_login"
 )}`;

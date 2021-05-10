@@ -18,8 +18,10 @@ import { getCookie } from "./shared/Cookie";
 import QuestionDetail from "./components/Community/QuestionDetail";
 import { socket, addNoti } from "./redux/modules/noti";
 import ComponentSlider from "./components/Main/ComponentSlider";
+import axios from 'axios'
 
 function App() {
+  axios.defaults.baseURL = "https://lkj99.shop";
   const dispatch = useDispatch();
   const cookie = getCookie("is_login") ? true : false;
 

@@ -61,7 +61,7 @@ const notiSlice = createSlice({
   },
 });
 
-export const socket = socketIOClient(`${config.api}/alarm`);
+export const socket = socketIOClient(`https://lkj99.shop/alarm`);
 
 const joinAlarmIO = () => {
   return function (dispatch) {

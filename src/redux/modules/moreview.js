@@ -3,7 +3,7 @@ import { getCookie } from "../../shared/Cookie";
 import axios from "axios";
 import { editAnswerInfo } from "./comment";
 
-axios.defaults.baseURL = "http://lkj99.shop";
+axios.defaults.baseURL = "https://lkj99.shop";
 axios.defaults.headers.common["Authorization"] = `Bearer ${getCookie(
   "is_login"
 )}`;

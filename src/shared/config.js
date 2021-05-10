@@ -1,5 +1,5 @@
 const config = {
-  api : 'http://lkj99.shop',
+  api : 'https://lkj99.shop',
 }
 
 export { config }

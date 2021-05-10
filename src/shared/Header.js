@@ -13,8 +13,10 @@ import { api as userActions } from "../redux/modules/user";
 import { setComponent } from "../redux/modules/books";
 import swal from "sweetalert";
 import { getCookie } from "./Cookie";
-import axios from "axios";
-import { CardModal } from "../components/Community/communityindex";
+import axios from 'axios'
+import { CardModal } from "../components/Community/communityindex"
+import InfoIcon from '@material-ui/icons/Info';
+import {About} from './sharedindex'
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -25,8 +27,9 @@ const Header = () => {
   const is_checked = useSelector((state) => state.noti.is_checked);
   const user = useSelector((state) => state.user.user);
   const [recent_list, setRecent] = useState();
-  const [loading, setLoading] = useState(true);
-  const [cardModal, setCardModal] = useState(false);
+  const [loading, setLoading] = useState(true)
+  const [cardModal, setCardModal] = useState(false)
+  const [aboutModal, setAboutModal] = useState(false)
 
   const closeNotiModal = () => {
     setNoti(false);
@@ -121,6 +124,13 @@ const Header = () => {
             </NaviContainer>
             <IconContainer>
               <Icon>
+                {aboutModal? <About setAboutModal={setAboutModal} /> : null}
+                <InfoIcon onClick={() => {
+                  setAboutModal(true);
+                }} />
+              </Icon>
+              <Icon
+              >
                 {is_checked ? <AlarmBadge /> : null}
                 {notiModal ? (
                   <Notification

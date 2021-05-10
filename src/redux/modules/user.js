@@ -5,7 +5,7 @@ import { getCookie, deleteCookie } from "../../shared/Cookie";
 import { api as notiActions } from "./noti";
 import swal from "sweetalert";
 
-axios.defaults.baseURL = "http://lkj99.shop";
+axios.defaults.baseURL = "https://lkj99.shop";
 axios.defaults.headers.common["Authorization"] = `Bearer ${getCookie(
   "is_login"
 )}`;
