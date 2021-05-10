@@ -31,8 +31,8 @@ const MyQuestion = (props) => {
             <Container>
                 <Background/>
                 <TitleContainer>
-                <Title><span style={{fontSize:'22px',fontWeight:'600'}}>{user_info?.nickname}</span>님의 질문카드는 <span style={{fontSize:'22px',fontWeight:'600'}}>{custom_count}개</span>입니다.</Title>
-                <AddQuestion onClick={()=>{setModalVisible(true)}}> <span style={{fontSize:'24px'}}>+</span> 질문 등록하기 </AddQuestion>
+                <Title><span style={{fontWeight:'600'}}>{user_info?.nickname}</span>님의 질문카드는 <span style={{fontWeight:'600'}}>{custom_count}개</span>입니다.</Title>
+                <AddQuestion onClick={()=>{setModalVisible(true)}}> <span style={{fontSize:'24px'}}> + </span><AddText> 질문 등록하기</AddText></AddQuestion>
                 </TitleContainer>
                 <CardContainer ref={container}>
                     <InfinityScroll 
@@ -122,6 +122,9 @@ const Container = styled.div`
     margin-bottom:50px;
     border-radius:20px;
     overflow:hidden;
+    @media(max-width:715px){
+        padding: 20px;
+    }
 `;
 const Background = styled.div`
     z-index:-1;
@@ -145,6 +148,9 @@ const TitleContainer = styled.div`
     flex-direction: row;
     justify-content: space-between;
     margin-bottom:38px;
+    @media(max-width:715px){
+        padding-right:10px;
+    }
 `;
 
 const Title = styled.span`
@@ -153,12 +159,25 @@ const Title = styled.span`
     height:60px;
     font-size: 22px;
     font-weight:400;
+    @media(max-width:715px){
+        width:120px;
+        font-size:18px;
+    }
 `;
 
 const AddQuestion = styled.span`
     font-size:16px;
     color: #061366;
     cursor:pointer;
+    @media(max-width:715px){
+        background-color:lavender;
+    }
+`;
+
+const AddText = styled.span`
+    @media(max-width:715px){
+        display:none;
+    }
 `;
 
 const CardContainer = styled.section`

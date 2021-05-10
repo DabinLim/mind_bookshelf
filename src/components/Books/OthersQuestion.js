@@ -41,7 +41,7 @@ const OthersQuestion = (props) => {
             <Container>
                 <Background/>
                 <TitleContainer>
-                <Title><span style={{fontSize:'22px',fontWeight:'600'}}>{user_info?.nickname}</span>님의 질문카드는 <span style={{fontSize:'22px',fontWeight:'600'}}>{custom_count}개</span>입니다.</Title>
+                <Title><span style={{fontWeight:'600'}}>{user_info?.nickname}</span>님의 질문카드는 <span style={{fontWeight:'600'}}>{custom_count}개</span>입니다.</Title>
                 
                 </TitleContainer>
                 <CardContainer ref={container}>
@@ -161,6 +161,9 @@ const Title = styled.span`
     height:60px;
     font-size: 22px;
     font-weight:400;
+    @media(max-width:650px){
+        font-size:16px;
+    }
 `;
 
 const AddQuestion = styled.span`
