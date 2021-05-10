@@ -56,7 +56,14 @@ const Profile = (props) => {
             </ProfileImgContainer>
             <ProfileDetail>
               <Head>
+                <div style={{display:'flex', flexDirection:'row',alignItems:'flex-end'}}>
             <Nickname>{other_info.nickname}</Nickname>
+            {is_login?
+            followed? 
+            <FollowerBtn onClick={() => {dispatch(userActions.unfollowOtherAX(props.id, other_info.nickname))}} >팔로우취소</FollowerBtn>
+            : <FollowerBtn onClick={()=>{dispatch(userActions.followOtherAX(props.id, other_info.nickname, other_info.profileImg))}} >팔로우하기</FollowerBtn>
+            :null}
+                </div>
             {other_info.topic?.friendship === false && 
             other_info.topic?.love === false && 
             other_info.topic?.dream === false && 
@@ -101,11 +108,6 @@ const Profile = (props) => {
                 </Answers>
             <MyQuestionBtn onClick={()=>{dispatch(setComponent('othersquestion'))}}>질문<CountText>{other_info.otherCustomQuestionCount}</CountText></MyQuestionBtn>
             <Myfollowers onClick={() => {setFollowModal(true)}} >구독<CountText>{otherfriend_list.length}</CountText></Myfollowers>
-            {is_login?
-            followed? 
-            <FollowerBtn onClick={() => {dispatch(userActions.unfollowOtherAX(props.id, other_info.nickname))}} >팔로우취소</FollowerBtn>
-            : <FollowerBtn onClick={()=>{dispatch(userActions.followOtherAX(props.id, other_info.nickname, other_info.profileImg))}} >팔로우하기</FollowerBtn>
-            :null}
             </Body>
             <Bottom>
               <Introduce>{other_info.introduce}</Introduce>
@@ -320,6 +322,9 @@ const Head = styled.div`
   width:100%;
   flex-direction:row;
   justify-content:space-between;
+  @media(max-width:500px){
+        margin-bottom:10px;
+    }
 
 `;
 
@@ -346,7 +351,6 @@ const Nickname = styled.div`
   font-size: 22px;
   @media(max-width:500px){
         font-size:16px;
-        margin-bottom:10px;
     }
 `
 
@@ -379,14 +383,12 @@ const Answers = styled.div`
 `;
 
 const FollowerBtn = styled.div`
-  margin-top:11px;
-  margin-right:20px;
+  margin-left:20px;
   cursor: pointer;
   font-weight: 600;
-  font-size: 12px;
+  font-size: 14px;
   @media(max-width:500px){
     font-size: 12px;
-    margin-top:0px;
     }
 `
 const MyQuestionBtn = styled.div`

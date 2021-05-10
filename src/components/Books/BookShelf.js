@@ -207,6 +207,7 @@ const Shelf = styled.div`
   position: relative;
   margin: -20px 0px 20px 0px;
   width: 100%;
+  max-width:1040px;
   height: 34px;
   background-color: #ffffff;
 `;
