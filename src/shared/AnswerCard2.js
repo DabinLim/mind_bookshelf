@@ -16,7 +16,7 @@ const AnswerCard2 = (props) => {
   };
 
   const openCard = (a) => {
-    const type = "community";
+    const type = "detail";
     setCardModal(true);
     dispatch(communityActions.getCardDetail(a, type));
     console.log("걸렸다");

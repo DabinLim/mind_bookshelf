@@ -87,6 +87,26 @@ const moreviewSlice = createSlice({
       state.friends_next = true;
       state.now_view = "new";
     },
+    editDetailLikeInfo: (state, action) => {
+      let decision = action.payload.decision;
+      let index = state.answers.findIndex(
+        (a) => a.answerId === action.payload.answerId
+      );
+      if (decision === "like") {
+        state.answers[index] = {
+          ...state.answers[index],
+          like: action.payload,
+          answerLikes: state.answers[index].answerLikes + 1,
+        };
+      } else {
+        state.answers[index] = {
+          ...state.answers[index],
+          like: action.payload,
+          answerLikes: state.answers[index].answerLikes - 1,
+        };
+      }
+    },
+    editCommentInfo: (state, action) => {},
   },
 });
 
@@ -99,8 +119,8 @@ const getAnswers = (id) => {
       console.log("next is none");
       return;
     }
-    if(loading && page > 1){
-      console.log('잡았다 요놈');
+    if (loading && page > 1) {
+      console.log("잡았다 요놈");
       return;
     }
     dispatch(setLoading(true));
@@ -109,7 +129,7 @@ const getAnswers = (id) => {
       method: "GET",
     };
     axios(options).then((response) => {
-        console.log(response.data);
+      console.log(response.data);
       if (response.data.answer.length < 20) {
         dispatch(setAnswers(response.data.answer));
         dispatch(setNext(false));
@@ -119,7 +139,7 @@ const getAnswers = (id) => {
       dispatch(setAnswers(response.data.answer));
       dispatch(setPage(page + 1));
       dispatch(setLoading(false));
-    }); 
+    });
   };
 };
 
@@ -132,8 +152,8 @@ const getLikeAnswer = (id) => {
       console.log("next is none");
       return;
     }
-    if(loading && page > 1){
-      console.log('잡았다 요놈');
+    if (loading && page > 1) {
+      console.log("잡았다 요놈");
       return;
     }
     dispatch(setLikeLoading(true));
@@ -159,7 +179,7 @@ const getLikeAnswer = (id) => {
 
 const getFriendsAnswer = (id) => {
   return function (dispatch, getState) {
-    console.log('wtf');
+    console.log("wtf");
     const loading = getState().moreview.friends_loading;
     const next = getState().moreview.friends_next;
     const page = getState().moreview.friends_page;
@@ -167,10 +187,10 @@ const getFriendsAnswer = (id) => {
       console.log("next is none");
       return;
     }
-    if(loading && page >1) {
-      console.log('잡았다 요놈');
+    if (loading && page > 1) {
+      console.log("잡았다 요놈");
       return;
-    };
+    }
     dispatch(setFriendsLoading(true));
     const options = {
       url: `/bookshelf/moreInfoCard/friend/${id}?page=${page}`,
@@ -178,7 +198,7 @@ const getFriendsAnswer = (id) => {
     };
     axios(options).then((response) => {
       console.log(response.data);
-      console.log('wtf')
+      console.log("wtf");
       if (response.data.length < 20) {
         dispatch(setFriendsAnswers(response.data));
         dispatch(setFriendsNext(false));
@@ -221,6 +241,7 @@ export const {
   setLikeLoading,
   setFriendsLoading,
   setView,
+  editDetailLikeInfo,
 } = moreviewSlice.actions;
 
 export const api = {
