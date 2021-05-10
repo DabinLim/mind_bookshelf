@@ -43,10 +43,13 @@ const Community = () => {
 const CommunityBox = styled.div`
   // width: 100%;
   height: 100vh;
-  margin: 100px 0px 0px 271px;
-  padding-left: 20px;
+  margin: 100px 0px 0px 0px;
+  width:100%;
+  max-width: 1200px;
+  padding: 0px 20px;
   display: flex;
   flex-direction: column;
+  align-items:center;
   overflow-y: auto;
   overflow-y: auto;
   ::-webkit-scrollbar {
@@ -69,6 +72,7 @@ const CommunityContainer = styled.div`
   // height:100vh;
   display: flex;
   flex-direction: column;
+  align-items:center;
   justify-content: space-between;
   overflow-y: auto;
 `;
