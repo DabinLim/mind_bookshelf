@@ -1,7 +1,7 @@
 .selected {
   z-index: 1;
   position: absolute;
-  min-width: 782px;
+  width: 782px;
   max-width: 782px;
   min-height: 462px;
   max-height: 462px;
@@ -14,7 +14,7 @@
 .preselected {
   opacity: 0.8;
   position: absolute;
-  min-width: 782px;
+  width: 782px;
   max-width: 782px;
   min-height: 462px;
   max-height: 462px;
@@ -27,7 +27,7 @@
 .proselected {
   opacity: 0.8;
   position: absolute;
-  min-width: 782px;
+  width: 782px;
   max-width: 782px;
   min-height: 462px;
   max-height: 462px;

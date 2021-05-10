@@ -249,6 +249,7 @@ const Book = styled.div`
   background-size:cover; */
   &:hover{
     transform:scale(1.2);
+    z-index:40;
   }
   @media (max-width:1000px){
     margin: 0px 5px;

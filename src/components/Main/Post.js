@@ -244,6 +244,9 @@ const CardFrame = styled.div`
   background: white;
   text-align: center;
   border-top-left-radius: 50px;
+  @media(max-width:600px){
+    padding:20px;
+  }
 `;
 
 const CardInfo = styled.div`
@@ -352,7 +355,7 @@ const ElTextarea = styled.textarea`
   padding: 0 16px;
   box-sizing: border-box;
   width: 100%;
-  font-size: 20px;
+  font-size: 16px;
   border: none;
   overflow: auto;
   outline: none;
@@ -370,9 +373,10 @@ const ElTextarea = styled.textarea`
 
 const BtnGroup = styled.div`
   width: 100%;
+  height:100%;
   display: flex;
   justify-content: space-between;
-  margin: auto;
+  margin-top:40px;
   & > button {
     cursor: pointer;
   }
@@ -381,6 +385,7 @@ const BtnGroup = styled.div`
 const BtnBox = styled.div`
   display: flex;
   align-items: center;
+  min-width:200px;
   width: 50%;
   justify-content: flex-end;
 `;
