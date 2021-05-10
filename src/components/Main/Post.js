@@ -136,6 +136,7 @@ const Post = (props) => {
                   height: "100%",
                   width: "100%",
                   margin: "0 0 0 8px",
+                  cursor: "pointer",
                 }}
                 onClick={() => {
                   history.push(`/community/${props.cardId}`);
@@ -267,7 +268,6 @@ const ExtraGroup = styled.div`
 
 const AnswerInfo = styled.span`
   margin-right: 8px;
-  cursor: pointer;
   display: flex;
   align-items: center;
 `;
@@ -287,9 +287,6 @@ const UserProfile = styled.img`
 
   &:nth-child(3) {
     transform: translateX(-80%);
-  }
-  :hover {
-    cursor: pointer;
   }
 `;
 

@@ -98,7 +98,7 @@ const QuestionDetail = (props) => {
                       dispatch(setView("new"));
                     }}
                   >
-                    최신순
+                    •<span style={{ marginLeft: "5px" }}>최신순</span>
                   </FilterBtn>
                 ) : (
                   <FilterBtn
@@ -116,7 +116,7 @@ const QuestionDetail = (props) => {
                       dispatch(setView("like"));
                     }}
                   >
-                    인기순
+                    •<span style={{ marginLeft: "5px" }}>인기순</span>
                   </FilterBtn>
                 ) : (
                   <FilterBtn
@@ -142,7 +142,7 @@ const QuestionDetail = (props) => {
                       dispatch(setView("friends"));
                     }}
                   >
-                    팔로우
+                    •<span style={{ marginLeft: "5px" }}>팔로우</span>
                   </FilterBtn>
                 ) : (
                   <FilterBtn
@@ -222,7 +222,7 @@ const QuestionDetail = (props) => {
                       return <AnswerCard key={idx} {...v} />;
                     })
                   ) : (
-                    <span>답변이 없네요</span>
+                    <h2>답변이 없습니다. 아시겠어요?</h2>
                   )}
                 </InfinityScroll>
               )}
@@ -349,12 +349,15 @@ const FilterBtn = styled.button`
   letter-spacing: -1px;
   margin-right: 5px;
   color: #333333;
+  :hover {
+    font-weight: bold;
+  }
 `;
 
 const AnswersBox = styled.div`
   box-sizing: border-box;
   padding: 0px 40px;
-  ${(props) => (props.view === "new" ? `margin: 40px 0px` : ` margin: 0px`)};
+  ${(props) => (props.view === "new" ? `margin: 120px 0px` : ` margin: 0px`)};
   width: 100%;
   max-height: 649px;
   display: flex;
@@ -379,7 +382,7 @@ const AnswersBox = styled.div`
 const AnswersBoxLike = styled.div`
   box-sizing: border-box;
   padding: 0px 40px;
-  ${(props) => (props.view === "like" ? `margin: 40px 0px` : ` margin: 0px`)};
+  ${(props) => (props.view === "like" ? `margin: 120px 0px` : ` margin: 0px`)};
   width: 100%;
   max-height: 649px;
   display: flex;
@@ -405,7 +408,7 @@ const AnswersBoxFriends = styled.div`
   box-sizing: border-box;
   padding: 0px 40px;
   ${(props) =>
-    props.view === "friends" ? `margin: 40px 0px` : ` margin: 0px`};
+    props.view === "friends" ? `margin: 120px 0px` : ` margin: 0px`};
   width: 100%;
   max-height: 649px;
   display: flex;

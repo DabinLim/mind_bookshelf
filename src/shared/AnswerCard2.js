@@ -7,10 +7,12 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import CardModal from "../components/Community/CardModal";
 import { api as commentActions } from "../redux/modules/comment";
 import { api as communityActions } from "../redux/modules/community";
+import { history } from "../redux/configStore";
 
 const AnswerCard2 = (props) => {
   // console.log(props);
   const dispatch = useDispatch();
+  const user_info = useSelector((state) => state.user.user);
   const [cardModal, setCardModal] = useState(false);
   const closeCardModal = () => {
     setCardModal(false);
@@ -38,7 +40,15 @@ const AnswerCard2 = (props) => {
       <CardFrame>
         {cardModal ? <CardModal close={closeCardModal} /> : null}
         <AnswerHeader>
-          <CardWriterProfile src={props.userProfileImg} />
+          <CardWriterProfile
+            src={props.userProfileImg}
+            onClick={() => {
+              if (props.userId === user_info?.id) {
+                history.push("/mybook");
+              }
+              history.push(`/others/${props.userId}`);
+            }}
+          />
           <CardWriter>{props.userNickname}</CardWriter>
         </AnswerHeader>
         <AnswerContents
@@ -77,6 +87,7 @@ const AnswerCard2 = (props) => {
 
 const CardFrame = styled.div`
   min-width: 272px;
+  max-width: 272px;
   height: 189px;
   display: flex;
   margin-bottom: 40px;
