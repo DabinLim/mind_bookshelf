@@ -42,12 +42,11 @@ const Post = (props) => {
     setContents(e.target.value);
     setCount(e.target.value.length);
     contents = contents.replace(/(\n|\r\n)/g, "<br>");
-    console.log(contents);
   };
 
   const addAnswer = () => {
     let str_space = /\s/; // 공백체크
-    if (str_space.exec(contents)) {
+    if (str_space.exec(contents).input.replaceAll(" ", "") === "") {
       swal({
         title: "업로드에 실패하였습니다 😥",
         text: "빈칸만 넣으면 모를 줄 알았죠?!!",
@@ -55,14 +54,6 @@ const Post = (props) => {
       });
       setContents("");
       setCount(0);
-      return;
-    }
-    if (contents === "") {
-      swal({
-        title: "업로드에 실패하였습니다 😥",
-        text: "답변이 공란입니다.",
-        icon: "error",
-      });
       return;
     }
     dispatch(answerActions.sendAnswerAX(props.cardId, contents, isOpen));
@@ -254,8 +245,8 @@ const CardFrame = styled.div`
   background: white;
   text-align: center;
   border-top-left-radius: 50px;
-  @media(max-width:600px){
-    padding:20px;
+  @media (max-width: 600px) {
+    padding: 20px;
   }
 `;
 
@@ -379,10 +370,10 @@ const ElTextarea = styled.textarea`
 
 const BtnGroup = styled.div`
   width: 100%;
-  height:100%;
+  height: 100%;
   display: flex;
   justify-content: space-between;
-  margin-top:40px;
+  margin-top: 40px;
   & > button {
     cursor: pointer;
   }
@@ -391,7 +382,7 @@ const BtnGroup = styled.div`
 const BtnBox = styled.div`
   display: flex;
   align-items: center;
-  min-width:200px;
+  min-width: 200px;
   width: 50%;
   justify-content: flex-end;
 `;

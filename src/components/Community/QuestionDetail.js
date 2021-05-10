@@ -339,7 +339,7 @@ const FilterBtnBox = styled.div`
 
 const FilterBtn = styled.button`
   cursor: pointer;
-  max-width: 60px;
+  max-width: 80px;
   max-height: 17px;
   text-align: left;
   font: normal normal normal 14px/19px Roboto;
