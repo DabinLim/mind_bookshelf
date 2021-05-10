@@ -131,7 +131,8 @@ const CommunityQnA = (props) => {
 };
 
 const QnAContainer = styled.div`
-  width: 1140px;
+  width:100%;
+  max-width: 1200px;
   display: flex;
   flex-direction: column;
   align-items: start;
@@ -150,20 +151,27 @@ const Question = styled.div`
   font-size: 30px;
   font-weight: 600;
   width: 500px;
+  @media(max-width:600px){
+    font-size:22px;
+    width:220px;
+  }
 `;
 
 const DetailBtn = styled.div`
+  padding-top:5px;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 14px;
 `;
 
 const AnswerContainer = styled.div`
   display: flex;
   margin-top: 50px;
+  width:100%;
+  overflow-x:auto;
 `;
 
 const Answer = styled.div`
-  width: 272px;
+  min-width: 272px;
   height: 189px;
   display: flex;
   flex-direction: column;
