@@ -160,6 +160,7 @@ const getBookDetail = (date) => {
 
 const getNextDetail = (date) => {
     return function(dispatch, getState) { 
+
         console.log(date)
         dispatch(setCardLoading(true))
         const options = {

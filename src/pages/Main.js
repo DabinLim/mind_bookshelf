@@ -223,7 +223,7 @@ const MainFrame = styled.div`
 
 const MainContainer = styled.div`
   height: 100vh;
-  margin: 200px 0px 0px 0px;
+  margin: 120px 0px 0px 0px;
   display: flex;
   flex-direction: column;
   overflow-y: auto;
@@ -251,6 +251,7 @@ const LoaderBox = styled.div`
 // 메인의 위쪽 부분
 
 const MainUpper = styled.section`
+  margin-top:80px;
   text-align: center;
 `;
 
@@ -367,7 +368,7 @@ const DotQueue = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 50px;
-  margin-bottom: 100px;
+  margin-bottom: 80px;
 `;
 
 const ImgRight = styled.div`
