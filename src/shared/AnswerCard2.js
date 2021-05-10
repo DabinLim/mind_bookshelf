@@ -77,7 +77,7 @@ const AnswerCard2 = (props) => {
 };
 
 const CardFrame = styled.div`
-  width: 272px;
+  min-width: 272px;
   height: 189px;
   display: flex;
   flex-direction: column;

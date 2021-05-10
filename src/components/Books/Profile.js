@@ -294,7 +294,6 @@ const FollowerBtn = styled.div`
 const MyQuestionBtn = styled.div`
 margin-top:11px;
 margin-right:20px;
-  cursor: pointer;
   font-weight: 400;
   font-size: 14px;
 `

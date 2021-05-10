@@ -30,6 +30,11 @@ const QuestionDetail = (props) => {
   const like_loading = useSelector(state => state.moreview.like_loading);
   const friends_loading = useSelector(state => state.moreview.firends_loading);
   const container = React.useRef();
+  const like_container = React.useRef();
+  const friends_container = React.useRef();
+  console.log(container)
+  console.log(like_container)
+  console.log(friends_container)
 
   React.useEffect(() => {
     dispatch(moreviewActions.getQuestionInfo(id));
@@ -62,6 +67,7 @@ const QuestionDetail = (props) => {
 
   return (
     <React.Fragment>
+      <Outer>
       <CommunityContainer>
         <Container>
           <ContainerUpper>
@@ -95,7 +101,8 @@ const QuestionDetail = (props) => {
               </FilterBtn>
             </FilterBtnBox>
           </ContainerUpper>
-          {now_view === 'new' && <AnswersBox ref={container}>
+          <AnswersBox view={now_view} ref={container}>
+          {now_view === 'new' &&
             <InfinityScroll
               callNext={() => {
                 console.log('new scroooolled');
@@ -111,26 +118,46 @@ const QuestionDetail = (props) => {
               answers.map((v, idx) => {
                 return <AnswerCard key={idx} {...v} />;
               }) : <span>답변이 없네요</span>}
-              </InfinityScroll>
-          </AnswersBox>}
-          {now_view === 'like' && <AnswersBox ref={container}>
+              </InfinityScroll>}
+          </AnswersBox>
+          <AnswersBoxLike view={now_view} ref={like_container}>
+          {now_view === 'like' && 
             <InfinityScroll
               callNext={() => {
                 console.log('like scroooolled');
-                dispatch(moreviewActions.getLikeAnswers(id));
+                dispatch(moreviewActions.getLikeAnswer(id));
       
               }}
               is_next={like_next? true: false}
               is_loading={like_loading}
-              ref_value={container.current}
+              ref_value={like_container.current}
             >
               {like_answers.length ?
               like_answers.map((v, idx) => {
                 return <AnswerCard key={idx} {...v} />;
               }) : <span>답변이 없네요</span>}
+              </InfinityScroll>}
+          </AnswersBoxLike>
+          <AnswersBoxFriends view={now_view} ref={friends_container}>
+          {now_view === 'friends' && 
+            <InfinityScroll
+              callNext={() => {
+                console.log('friends scroooolled');
+                dispatch(moreviewActions.getFriendsAnswer(user_info.id));
+      
+              }}
+              is_next={friends_next? true: false}
+              is_loading={friends_loading}
+              ref_value={friends_container.current}
+            >
+              {friends_answers.length ?
+              friends_answers.map((v, idx) => {
+                return <AnswerCard key={idx} {...v} />;
+              }) : <span>답변이 없네요</span>}
               </InfinityScroll>
-          </AnswersBox>}
-          {now_view === 'friends' && <AnswersBox ref={container}>
+          }
+          </AnswersBoxFriends>
+          {/* {now_view === 'friends' && 
             <InfinityScroll
               callNext={() => {
                 console.log('friends scroooolled');
@@ -139,36 +166,46 @@ const QuestionDetail = (props) => {
               }}
               is_next={friends_next? true: false}
               is_loading={friends_loading}
-              ref_value={container.current}
+              ref_value={friends_container.current}
             >
               {friends_answers.length ?
               friends_answers.map((v, idx) => {
                 return <AnswerCard key={idx} {...v} />;
               }) : <span>답변이 없네요</span>}
               </InfinityScroll>
-          </AnswersBox>}
+          } */}
           
         </Container>
       </CommunityContainer>
+      </Outer>
     </React.Fragment>
   );
 };
 
+const Outer = styled.section`
+  width:100%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  margin-top:200px;
+`;
+
 const CommunityContainer = styled.div`
   z-index: 2;
-  width: 100%;
+  width: 60%;
+  height:100%;
   box-sizing: border-box;
-  margin: 200px 407px 0px 272px;
   // height:100vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  align-items:center;
   overflow-y: auto;
 `;
 
 const Container = styled.section`
   width: 100%;
-  height: 100vh;
+  height:100%;
   display: flex;
   flex-direction: column;
   overflow-y: auto;
@@ -188,6 +225,9 @@ const Container = styled.section`
 
 const ContainerUpper = styled.div`
   display: flex;
+  flex-direction:row;
+  justify-content:space-between;
+  height:80px;
 `;
 
 const ContainerUpperLeft = styled.div`
@@ -243,10 +283,62 @@ const FilterBtn = styled.button`
 `;
 
 const AnswersBox = styled.div`
-  margin: 40px 0px;
+  box-sizing:border-box;
+  padding:0px 40px;
+  ${props => props.view === 'new' ? `margin: 40px 0px` : ` margin: 0px`};
   width: 100%;
   max-height: 649px;
-  display: flex;
+  display:flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  overflow-y: auto;
+  ::-webkit-scrollbar {
+    width: 12px; /* width of the entire scrollbar */
+  }
+
+  ::-webkit-scrollbar-track {
+    background: white; /* color of the tracking area */
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: #d8d9dc; /* color of the scroll thumb */
+    border-radius: 20px; /* roundness of the scroll thumb */
+  }
+`;
+
+const AnswersBoxLike = styled.div`
+  box-sizing:border-box;
+  padding:0px 40px;
+  ${props => props.view === 'like' ? `margin: 40px 0px` : ` margin: 0px`};
+  width: 100%;
+  max-height: 649px;
+  display:flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  overflow-y: auto;
+  ::-webkit-scrollbar {
+    width: 12px; /* width of the entire scrollbar */
+  }
+
+  ::-webkit-scrollbar-track {
+    background: white; /* color of the tracking area */
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: #d8d9dc; /* color of the scroll thumb */
+    border-radius: 20px; /* roundness of the scroll thumb */
+  }
+`;
+
+const AnswersBoxFriends = styled.div`
+  box-sizing:border-box;
+  padding:0px 40px;
+  ${props => props.view === 'friends' ? `margin: 40px 0px` : ` margin: 0px`};
+  width: 100%;
+  max-height: 649px;
+  display:flex;
   flex-direction: row;
   justify-content: flex-start;
   flex-wrap: wrap;
