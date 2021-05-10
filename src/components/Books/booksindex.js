@@ -1,7 +1,8 @@
-import BookDetail from './BookDetail';
-import BookDetailLow from './BookDetailLow';
+// import BookDetail from './BookDetail';
+// import BookDetailLow from './BookDetailLow';
 import BookShelf from './BookShelf';
 import FollowModal from './FollowModal';
+import MyAnswers from './MyAnswers';
 import MyQuestion from './MyQuestion';
 import NewQuestion from './NewQuestion';
 import Profile from './Profile';
@@ -9,4 +10,4 @@ import ProfileUpdateModal from './ProfileUpdateModal';
 import OthersQuestion from './OthersQuestion'
 import CardDetail from './CardDetail';
 
-export {CardDetail, BookDetail, BookDetailLow, BookShelf, FollowModal, MyQuestion, OthersQuestion, NewQuestion, Profile, ProfileUpdateModal};
+export {CardDetail, BookShelf, FollowModal, MyAnswers, MyQuestion, OthersQuestion, NewQuestion, Profile, ProfileUpdateModal};

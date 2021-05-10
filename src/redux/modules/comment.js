@@ -4,6 +4,7 @@ import axios from "axios";
 import { getCookie } from "../../shared/Cookie";
 import swal from "sweetalert";
 import { editCommentInfo } from "./community";
+import { editDetailCommentInfo, editDetailLikeInfo } from "./moreview";
 
 axios.defaults.baseURL = "https://lkj99.shop";
 if (getCookie("is_login")) {
@@ -71,7 +72,7 @@ const getCommentAX = (cardId) => {
 };
 
 const sendCommentAX = (cardId, content, tagId = [], questionId) => {
-  return function (dispatch) {
+  return function (dispatch, getState) {
     // console.log(cardId, content);
     // return;
     console.log('하이')
@@ -90,6 +91,12 @@ const sendCommentAX = (cardId, content, tagId = [], questionId) => {
         dispatch(
           addComment({ ...response.data.result, commentCreatedAt: "방금전" })
         );
+        if (getState().community.card_detail.type === "detail") {
+          dispatch(
+            editDetailCommentInfo({ answerId: cardId, decision: "add" })
+          );
+          return;
+        }
         dispatch(
           editCommentInfo({
             questionId: questionId,
@@ -116,6 +123,12 @@ const deleteCommentAX = (commentId, questionId, cardId) => {
     })
       .then((res) => {
         dispatch(deleteComment(commentId));
+        if (getState().community.card_detail.type === "detail") {
+          dispatch(
+            editDetailCommentInfo({ answerId: cardId, decision: "substract" })
+          );
+          return;
+        }
         dispatch(
           editCommentInfo({
             questionId: questionId,

@@ -42,12 +42,11 @@ const Post = (props) => {
     setContents(e.target.value);
     setCount(e.target.value.length);
     contents = contents.replace(/(\n|\r\n)/g, "<br>");
-    console.log(contents);
   };
 
   const addAnswer = () => {
     let str_space = /\s/; // 공백체크
-    if (str_space.exec(contents)) {
+    if (str_space.exec(contents).input.replaceAll(" ", "") === "") {
       swal({
         title: "업로드에 실패하였습니다 😥",
         text: "빈칸만 넣으면 모를 줄 알았죠?!!",
@@ -55,14 +54,6 @@ const Post = (props) => {
       });
       setContents("");
       setCount(0);
-      return;
-    }
-    if (contents === "") {
-      swal({
-        title: "업로드에 실패하였습니다 😥",
-        text: "답변이 공란입니다.",
-        icon: "error",
-      });
       return;
     }
     dispatch(answerActions.sendAnswerAX(props.cardId, contents, isOpen));
@@ -76,20 +67,29 @@ const Post = (props) => {
 
   let opacity = props.available ? 1 : 0.4;
   let color = "";
+  let boxShadow = "";
+  let topic = "";
   if (props.topic?.length > 0) {
     if (props.topic[0] === "나") {
       color = "#F9D9FC";
+      boxShadow = "0px 0px 15px #F9D1FD";
     } else if (props.topic[0] === "사랑") {
       color = "#FEBABA";
+      boxShadow = "0px 0px 15px #FFAAAA";
     } else if (props.topic[0] === "관계") {
       color = "#FDF1AE";
+      boxShadow = "0px 0px 15px #FFF09D";
     } else if (props.topic[0] === "가치") {
       color = "#C2C8FD";
+      boxShadow = "0px 0px 15px #B5BDFF";
     } else if (props.topic[0] === "우정") {
       color = "#C4FCCD";
+      boxShadow = "0px 0px 15px #B9FFC4";
     } else if (props.topic[0] === "꿈") {
       color = "#C3E9FD";
+      boxShadow = "0px 0px 15px #B7E6FF";
     }
+    topic = props.topic[0];
   }
 
   return (
@@ -114,9 +114,9 @@ const Post = (props) => {
           </CardWriterInfo>
           <ExtraGroup>
             <AnswerInfo>
-              {props.otherProfileImg?.length > 0 ? (
+              {props?.otherProfileImg?.length > 0 ? (
                 <ThreeProfileBox>
-                  {props.otherProfileImg?.map((o, idx) => {
+                  {props?.otherProfileImg?.map((o, idx) => {
                     return <UserProfile key={idx} src={o.otherProfileImg} />;
                   })}
                 </ThreeProfileBox>
@@ -127,6 +127,7 @@ const Post = (props) => {
                   height: "100%",
                   width: "100%",
                   margin: "0 0 0 8px",
+                  cursor: "pointer",
                 }}
                 onClick={() => {
                   history.push(`/community/${props.cardId}`);
@@ -140,9 +141,9 @@ const Post = (props) => {
         {/* 질문 보여주는 곳 */}
         <CardUpper>
           <CardLeft style={{ opacity: opacity }}>
-            {props.topic && (
-              <HashTag style={{ background: color }}>#{props.topic[0]}</HashTag>
-            )}
+            <HashTag style={{ background: color, boxShadow: boxShadow }}>
+              #{topic}
+            </HashTag>
           </CardLeft>
           <CardRight style={{ opacity: opacity }}>
             <CardContent>{props.contents}</CardContent>
@@ -170,7 +171,7 @@ const Post = (props) => {
                 rows={8}
                 placeholder={`${
                   user_info?.nickname ? user_info?.nickname + "님" : "당신"
-                }이라면 어떻게 답변하시겠어요?`}
+                }이라면 어떻게 답변하시겠어요? 답변과 그 이유, 느낌 등을 같이 적어주세요.`}
                 onChange={changeContents}
                 value={contents}
               ></ElTextarea>
@@ -244,6 +245,9 @@ const CardFrame = styled.div`
   background: white;
   text-align: center;
   border-top-left-radius: 50px;
+  @media (max-width: 600px) {
+    padding: 20px;
+  }
 `;
 
 const CardInfo = styled.div`
@@ -258,7 +262,6 @@ const ExtraGroup = styled.div`
 
 const AnswerInfo = styled.span`
   margin-right: 8px;
-  cursor: pointer;
   display: flex;
   align-items: center;
 `;
@@ -278,9 +281,6 @@ const UserProfile = styled.img`
 
   &:nth-child(3) {
     transform: translateX(-80%);
-  }
-  :hover {
-    cursor: pointer;
   }
 `;
 
@@ -352,7 +352,7 @@ const ElTextarea = styled.textarea`
   padding: 0 16px;
   box-sizing: border-box;
   width: 100%;
-  font-size: 20px;
+  font-size: 16px;
   border: none;
   overflow: auto;
   outline: none;
@@ -370,9 +370,10 @@ const ElTextarea = styled.textarea`
 
 const BtnGroup = styled.div`
   width: 100%;
+  height: 100%;
   display: flex;
   justify-content: space-between;
-  margin: auto;
+  margin-top: 40px;
   & > button {
     cursor: pointer;
   }
@@ -381,6 +382,7 @@ const BtnGroup = styled.div`
 const BtnBox = styled.div`
   display: flex;
   align-items: center;
+  min-width: 200px;
   width: 50%;
   justify-content: flex-end;
 `;

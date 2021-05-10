@@ -1,7 +1,7 @@
 import React from 'react';
 import {history} from '../redux/configStore';
 import styled from 'styled-components';
-import {BookShelf, BookDetail, Profile, MyQuestion} from '../components/Books/booksindex';
+import {BookShelf, Profile, MyQuestion, MyAnswers} from '../components/Books/booksindex';
 import {useSelector, useDispatch} from 'react-redux';
 import {setComponent, setBookDetailModal, setDateVisible} from '../redux/modules/books';
 import { getCookie } from '../shared/Cookie';
@@ -85,6 +85,10 @@ const ProfileContainer = styled.section`
     min-height:190px;
     display: flex;
     flex-direction: row;
+    @media(max-width:500px){
+        padding:10px;
+        min-height:150px;
+    }
 `;
 
 const ImgRight = styled.div`

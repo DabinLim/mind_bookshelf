@@ -9,9 +9,8 @@ import {setAnswerInfo} from '../../redux/modules/comment';
 import {setBookDetailModal, setDateVisible} from '../../redux/modules/books';
 
 
-const BookDetailLow = (props) => {
+const BookDetail = (props) => {
     const dispatch = useDispatch()
-    // const [cardDetailModal, setCardDetailModal] = React.useState(false);
     const book_detail = useSelector(state => state.books.book_detail);
 
 
@@ -22,10 +21,7 @@ const BookDetailLow = (props) => {
         props.openCard(props.date)
         dispatch(setBookDetailModal(null))
     };
-    // const close = () => {
-    //     setCardDetailModal(false);
-    // };
-    // console.log(book_detail)
+    console.log(book_detail)
   return (
     <React.Fragment>
       <Background onClick={()=> {
@@ -38,7 +34,7 @@ const BookDetailLow = (props) => {
                   return(
                     <DetailContainer key={idx}>
                     <Head>
-                    {v.questionTopic[0] === '사랑' && <Subject style={{background:"#FFAAAA", boxShadow: "0px 0px 15px #FFAAAA"}} ><span>#사랑</span></Subject>}
+                  {v.questionTopic[0] === '사랑' && <Subject style={{background:"#FFAAAA", boxShadow: "0px 0px 15px #FFAAAA"}} ><span>#사랑</span></Subject>}
                   {v.questionTopic[0] === '우정' && <Subject style={{background:"#B9FFC4", boxShadow: "0px 0px 15px #B9FFC4"}} ><span>#우정</span></Subject>}
                   {v.questionTopic[0] === '꿈' && <Subject style={{background:"#B7E6FF", boxShadow: "0px 0px 15px #B7E6FF"}} ><span>#꿈</span></Subject>}
                   {v.questionTopic[0] === '가치' && <Subject style={{background:"#B5BDFF", boxShadow: "0px 0px 15px #B5BDFF"}} ><span>#가치</span></Subject>}
@@ -65,14 +61,14 @@ const Container = styled.div`
     padding-top:5px;
   border-radius:20px;
   position: absolute;
-  top: 230px;
+  top: -106px;
   left: 0;
   width:1207px;
   
   height: 95px;
   align-items: center;
   /* transform: translate(-50%, -50%); */
-  z-index: 30;
+  z-index: 2;
   display: flex;
   flex-direction: row;
   justify-content:flex-start;
@@ -88,7 +84,8 @@ const Background = styled.div`
   width: 100vw;
   background-color: #000000;
   opacity:0.45;
-  z-index: 15;
+  z-index: 1;
+  /* pointer-events:none; */
 `;
 
 const DetailContainer = styled.div`
@@ -110,8 +107,6 @@ const Subject = styled.div`
   align-items:center;
   min-width:72px;
   height:31px;
-  background-color: #A2ACFF;
-  box-shadow: 0px 3px 15px #C3C9FE;
   opacity:0.8;
   border-radius: 45px;
   font-size:14px;
@@ -156,4 +151,4 @@ const Contents = styled.span`
 `;
 
 
-export default BookDetailLow;
+export default BookDetail;

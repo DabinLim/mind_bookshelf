@@ -10,7 +10,7 @@ import {
   setBookLoading,
 } from "../../redux/modules/books";
 import InfinityScroll from "../../shared/InfinityScroll";
-const MyQuestion = (props) => {
+const MyAnswers = (props) => {
   const dispatch = useDispatch();
   const [modalVisible, setModalVisible] = React.useState(false);
   const custom_question = useSelector((state) => state.books.custom_question);
@@ -327,4 +327,4 @@ const CreatedAt = styled.span`
   font-size: 11px;
 `;
 
-export default MyQuestion;
+export default MyAnswers;

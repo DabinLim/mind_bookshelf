@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { history } from "../../redux/configStore";
-import {CardDetail, BookDetailLow, BookDetail} from './booksindex';
+import {CardDetail} from './booksindex';
 import { ArrowLeft, ArrowRight } from "@material-ui/icons";
 import { changeDate, setComponent, setDateVisible, setBookDetailModal } from "../../redux/modules/books";
 import CardModal from '../Community/CardModal';
@@ -43,19 +43,20 @@ const date_visible = useSelector(state => state.books.date_visible);
     // } else {
     //   history.push(`/others/${id}/${v._id}`);
     // }
-    if(bookDetailModal === givendate){
-      dispatch(setBookDetailModal(null));
-      dispatch(setDateVisible(true));
-      console.log(givendate, bookDetailModal)
-      return
-    }
+    // if(bookDetailModal === givendate){
+    //   dispatch(setBookDetailModal(null));
+    //   dispatch(setDateVisible(true));
+    //   console.log(givendate, bookDetailModal)
+    //   return
+    // }
     if(id === 'mybook'){
-      dispatch(booksActions.getBookDetail(givendate));
+      dispatch(booksActions.getNextDetail(givendate));
     }else{
-      dispatch(booksActions.getOthersBookDetail(givendate,id))
+      dispatch(booksActions.getNextOthersBookDetail(givendate,id))
     }
+    setCardDetailModal(givendate);
     dispatch(setBookDetailModal(givendate));
-    dispatch(setDateVisible(false));
+    // dispatch(setDateVisible(false));
     console.log(givendate, bookDetailModal)
   }
 
@@ -118,12 +119,12 @@ const date_visible = useSelector(state => state.books.date_visible);
               book_1.map((v, idx) => {
                 return (
                   <>
-                  {bookDetailModal === v._id && <BookDetail openCard={setCardDetailModal} openBook={openBook} date={v._id}/>}
-                  {cardDetailModal === v._id && <CardModal book openBook={openBook} date={v._id} close={close}/>}
+                  {/* {bookDetailModal === v._id && <BookDetail openCard={setCardDetailModal} openBook={openBook} date={v._id}/>} */}
+                  {cardDetailModal === v._id && <CardModal book date={v._id} close={close}/>}
                   <Book
                     key={idx}
                   >
-                    <div style={{position:'relative', width:'100%', height:'100%', cursor:'pointer',zIndex:'20'}} onClick={() => {openBook(v._id)}}>
+                    <div style={{position:'relative', width:'100%', height:'100%', cursor:'pointer',zIndex:'3'}} onClick={() => {openBook(v._id)}}>
                     </div>
                       <Date>
                       {v._id.charAt(v._id.length - 2)}
@@ -143,12 +144,12 @@ const date_visible = useSelector(state => state.books.date_visible);
               book_2.map((v, idx) => {
                 return (
                   <>
-                  {bookDetailModal === v._id && <BookDetailLow openCard={setCardDetailModal} openBook={openBook} date={v._id}/>}
-                  {cardDetailModal === v._id && <CardModal book openBook={openBook} date={v._id} close={close}/>}
+                  {/* {bookDetailModal === v._id && <BookDetailLow openCard={setCardDetailModal} openBook={openBook} date={v._id}/>} */}
+                  {cardDetailModal === v._id && <CardModal book date={v._id} close={close}/>}
                   <Book
                     key={idx}
                   >
-                    <div style={{position:'relative', width:'100%', height:'100%', cursor:'pointer',zIndex:'20'}} onClick={() => {openBook(v._id)}}>
+                    <div style={{position:'relative', width:'100%', height:'100%', cursor:'pointer',zIndex:'3'}} onClick={() => {openBook(v._id)}}>
                     </div>
                       <Date>
                       {v._id.charAt(v._id.length - 2)}
@@ -205,6 +206,7 @@ const Shelf = styled.div`
   position: relative;
   margin: -20px 0px 20px 0px;
   width: 100%;
+  max-width:1040px;
   height: 34px;
   background-color: #ffffff;
 `;
@@ -237,13 +239,18 @@ const Book = styled.div`
     display:flex;
     align-items:center;
     justify-content:center;
-  z-index: 20;
+  z-index: 2;
   width: 46px;
   height: 210px;
   margin: 0px 10px;
+  /* transition: linear .1s; */
   
   /* background-image:url('');
   background-size:cover; */
+  &:hover{
+    transform:scale(1.2);
+    z-index:40;
+  }
   @media (max-width:1000px){
     margin: 0px 5px;
     }
@@ -262,6 +269,7 @@ const BookImage = styled.img`
   position:absolute;
   top:-10px;
   left:-23px;
+  z-index:1;
 
 `;
 
