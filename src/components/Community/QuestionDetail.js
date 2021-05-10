@@ -9,6 +9,8 @@ import {
   setView,
 } from "../../redux/modules/moreview";
 import InfinityScroll from "../../shared/InfinityScroll";
+import { getCookie } from "../../shared/Cookie";
+import swal from "sweetalert";
 
 const QuestionDetail = (props) => {
   const dispatch = useDispatch();
@@ -21,6 +23,7 @@ const QuestionDetail = (props) => {
   const friends_answers = useSelector(
     (state) => state.moreview.friends_answers
   );
+  console.log(friends_answers);
   const user_info = useSelector((state) => state.user.user);
   const next = useSelector((state) => state.moreview.next);
   const like_next = useSelector((state) => state.moreview.like_next);
@@ -33,15 +36,15 @@ const QuestionDetail = (props) => {
   const container = React.useRef();
   const like_container = React.useRef();
   const friends_container = React.useRef();
-  console.log(container);
-  console.log(like_container);
-  console.log(friends_container);
+  // console.log(container);
+  // console.log(like_container);
+  // console.log(friends_container);
 
   React.useEffect(() => {
     dispatch(moreviewActions.getQuestionInfo(id));
     dispatch(moreviewActions.getAnswers(id));
     dispatch(moreviewActions.getLikeAnswer(id));
-    dispatch(moreviewActions.getFriendsAnswer(user_info?.id));
+    dispatch(moreviewActions.getFriendsAnswer(id));
     return () => {
       dispatch(resetAll());
     };
@@ -49,20 +52,27 @@ const QuestionDetail = (props) => {
 
   let color = "";
   let topic = "";
+  let boxShadow = "";
   if (question_info?.questionTopic?.length > 0) {
     topic = question_info?.questionTopic[0];
     if (question_info?.questionTopic[0] === "나") {
       color = "#F9D9FC";
+      boxShadow = "0px 0px 15px #F9D1FD";
     } else if (question_info?.questionTopic[0] === "사랑") {
       color = "#FEBABA";
+      boxShadow = "0px 0px 15px #FFAAAA";
     } else if (question_info?.questionTopic[0] === "관계") {
       color = "#FDF1AE";
+      boxShadow = "0px 0px 15px #FFF09D";
     } else if (question_info?.questionTopic[0] === "가치") {
       color = "#C2C8FD";
+      boxShadow = "0px 0px 15px #B5BDFF";
     } else if (question_info?.questionTopic[0] === "우정") {
       color = "#C4FCCD";
+      boxShadow = "0px 0px 15px #B9FFC4";
     } else if (question_info?.questionTopic[0] === "꿈") {
       color = "#C3E9FD";
+      boxShadow = "0px 0px 15px #B7E6FF";
     }
   }
 
@@ -73,33 +83,84 @@ const QuestionDetail = (props) => {
           <Container>
             <ContainerUpper>
               <ContainerUpperLeft>
-                <HashTag style={{ background: color }}>#{topic}</HashTag>
+                <HashTag style={{ background: color, boxShadow: boxShadow }}>
+                  #{topic}
+                </HashTag>
                 <QuestionTitle>
                   {question_info ? question_info.questionContents : "질문 내용"}
                 </QuestionTitle>
               </ContainerUpperLeft>
               <FilterBtnBox>
-                <FilterBtn
-                  onClick={() => {
-                    dispatch(setView("new"));
-                  }}
-                >
-                  최신순
-                </FilterBtn>
-                <FilterBtn
-                  onClick={() => {
-                    dispatch(setView("like"));
-                  }}
-                >
-                  인기순
-                </FilterBtn>
-                <FilterBtn
-                  onClick={() => {
-                    dispatch(setView("friends"));
-                  }}
-                >
-                  팔로우
-                </FilterBtn>
+                {now_view === "new" ? (
+                  <FilterBtn
+                    style={{ fontWeight: "bold" }}
+                    onClick={() => {
+                      dispatch(setView("new"));
+                    }}
+                  >
+                    최신순
+                  </FilterBtn>
+                ) : (
+                  <FilterBtn
+                    onClick={() => {
+                      dispatch(setView("new"));
+                    }}
+                  >
+                    최신순
+                  </FilterBtn>
+                )}
+                {now_view === "like" ? (
+                  <FilterBtn
+                    style={{ fontWeight: "bold" }}
+                    onClick={() => {
+                      dispatch(setView("like"));
+                    }}
+                  >
+                    인기순
+                  </FilterBtn>
+                ) : (
+                  <FilterBtn
+                    onClick={() => {
+                      dispatch(setView("like"));
+                    }}
+                  >
+                    인기순
+                  </FilterBtn>
+                )}
+                {now_view === "friends" ? (
+                  <FilterBtn
+                    style={{ fontWeight: "bold" }}
+                    onClick={() => {
+                      if (!getCookie("is_login")) {
+                        swal({
+                          title: "접근 실패 😥",
+                          text: "로그인 후 이용 가능합니다❕",
+                          icon: "info",
+                        });
+                        return;
+                      }
+                      dispatch(setView("friends"));
+                    }}
+                  >
+                    팔로우
+                  </FilterBtn>
+                ) : (
+                  <FilterBtn
+                    onClick={() => {
+                      if (!getCookie("is_login")) {
+                        swal({
+                          title: "접근 실패 😥",
+                          text: "로그인 후 이용 가능합니다❕",
+                          icon: "info",
+                        });
+                        return;
+                      }
+                      dispatch(setView("friends"));
+                    }}
+                  >
+                    팔로우
+                  </FilterBtn>
+                )}
               </FilterBtnBox>
             </ContainerUpper>
             <AnswersBox view={now_view} ref={container}>

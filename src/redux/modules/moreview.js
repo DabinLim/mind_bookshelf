@@ -68,6 +68,9 @@ const moreviewSlice = createSlice({
       state.friends_next = action.payload;
     },
     setFriendsAnswers: (state, action) => {
+      if (!getCookie("is_login")) {
+        return;
+      }
       action.payload.forEach((v) => {
         state.friends_answers.push(v);
       });
@@ -113,6 +116,10 @@ const moreviewSlice = createSlice({
           like: action.payload,
           answerLikes: state.like_answers[like_index].answerLikes + 1,
         };
+
+        state.like_answers.sort((a, b) =>
+          a.answerLikes > b.answerLikes ? -1 : 1
+        );
 
         if (friends_index !== -1) {
           state.friends_answers[friends_index] = {
@@ -264,7 +271,6 @@ const getLikeAnswer = (id) => {
 
 const getFriendsAnswer = (id) => {
   return function (dispatch, getState) {
-    console.log("wtf");
     const loading = getState().moreview.friends_loading;
     const next = getState().moreview.friends_next;
     const page = getState().moreview.friends_page;

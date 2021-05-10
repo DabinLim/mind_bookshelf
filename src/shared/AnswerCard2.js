@@ -9,6 +9,7 @@ import { api as commentActions } from "../redux/modules/comment";
 import { api as communityActions } from "../redux/modules/community";
 
 const AnswerCard2 = (props) => {
+  // console.log(props);
   const dispatch = useDispatch();
   const [cardModal, setCardModal] = useState(false);
   const closeCardModal = () => {
@@ -50,17 +51,17 @@ const AnswerCard2 = (props) => {
         <AnswerLikes>
           <IconBox>
             <LikeBox>
-              {/* {a.like ? (
+              {props.like ? (
                 <>
-                  <FavoriteIcon style={{ color: "red" }} />{" "}
+                  <FavoriteIcon style={{ color: "red" }} />
+                  <LikeCount>{props.answerLikes}개</LikeCount>
                 </>
               ) : (
                 <>
                   <FavoriteBorderIcon />
+                  <LikeCount>{props.answerLikes}개</LikeCount>
                 </>
-              )} */}
-              <FavoriteBorderIcon />
-              <LikeCount>{props.answerLikes}개</LikeCount>
+              )}
             </LikeBox>
             <CommentBox>
               <ChatBubbleOutlineIcon />

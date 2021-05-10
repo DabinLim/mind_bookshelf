@@ -152,7 +152,6 @@ const Post = (props) => {
             <HashTag style={{ background: color, boxShadow: boxShadow }}>
               #{topic}
             </HashTag>
-            ;
           </CardLeft>
           <CardRight style={{ opacity: opacity }}>
             <CardContent>{props.contents}</CardContent>
