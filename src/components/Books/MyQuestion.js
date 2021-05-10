@@ -37,14 +37,9 @@ const MyQuestion = (props) => {
         <Background />
         <TitleContainer>
           <Title>
-            <span style={{ fontSize: "22px", fontWeight: "600" }}>
-              {user_info?.nickname}
-            </span>
-            님의 질문카드는{" "}
-            <span style={{ fontSize: "22px", fontWeight: "600" }}>
-              {custom_count}개
-            </span>
-            입니다.
+            <span style={{ fontWeight: "600" }}>{user_info?.nickname}</span>님의
+            질문카드는{" "}
+            <span style={{ fontWeight: "600" }}>{custom_count}개</span>입니다.
           </Title>
           <AddQuestion
             onClick={() => {
@@ -52,7 +47,8 @@ const MyQuestion = (props) => {
             }}
           >
             {" "}
-            <span style={{ fontSize: "24px" }}>+</span> 질문 등록하기{" "}
+            <span style={{ fontSize: "24px" }}> + </span>
+            <AddText> 질문 등록하기</AddText>
           </AddQuestion>
         </TitleContainer>
         <CardContainer ref={container}>
@@ -72,11 +68,12 @@ const MyQuestion = (props) => {
                     <Head>
                       <SubjectBox>
                         {v.questionTopic?.length &&
-                          v.questionTopic.map((v) => {
+                          v.questionTopic.map((v, idx) => {
                             console.log(v);
                             if (v === "사랑") {
                               return (
                                 <Subject
+                                  key={idx}
                                   style={{
                                     background: "#FFAAAA",
                                     boxShadow: "0px 0px 15px #FFAAAA",
@@ -89,6 +86,7 @@ const MyQuestion = (props) => {
                             if (v === "우정") {
                               return (
                                 <Subject
+                                  key={idx}
                                   style={{
                                     background: "#B9FFC4",
                                     boxShadow: "0px 0px 15px #B9FFC4",
@@ -101,6 +99,7 @@ const MyQuestion = (props) => {
                             if (v === "꿈") {
                               return (
                                 <Subject
+                                  key={idx}
                                   style={{
                                     background: "#B7E6FF",
                                     boxShadow: "0px 0px 15px #B7E6FF",
@@ -113,6 +112,7 @@ const MyQuestion = (props) => {
                             if (v === "가치") {
                               return (
                                 <Subject
+                                  key={idx}
                                   style={{
                                     background: "#B5BDFF",
                                     boxShadow: "0px 0px 15px #B5BDFF",
@@ -125,6 +125,7 @@ const MyQuestion = (props) => {
                             if (v === "관계") {
                               return (
                                 <Subject
+                                  key={idx}
                                   style={{
                                     background: "#FFF09D",
                                     boxShadow: "0px 0px 15px #FFF09D",
@@ -137,6 +138,7 @@ const MyQuestion = (props) => {
                             if (v === "나") {
                               return (
                                 <Subject
+                                  key={idx}
                                   style={{
                                     background: "#F9D1FD",
                                     boxShadow: "0px 0px 15px #F9D1FD",
@@ -165,7 +167,7 @@ const MyQuestion = (props) => {
   );
 };
 
-const Container = styled.div`
+const Container = styled.section`
   position: relative;
   box-sizing: border-box;
   padding: 45px 10px 45px 45px;
@@ -177,6 +179,10 @@ const Container = styled.div`
   margin-bottom: 50px;
   border-radius: 20px;
   overflow: hidden;
+  @media (max-width: 500px) {
+    padding: 20px;
+    min-height: 300px;
+  }
 `;
 const Background = styled.div`
   z-index: -1;
@@ -200,6 +206,10 @@ const TitleContainer = styled.div`
   flex-direction: row;
   justify-content: space-between;
   margin-bottom: 38px;
+  @media (max-width: 500px) {
+    padding-right: 10px;
+    height: 30px;
+  }
 `;
 
 const Title = styled.span`
@@ -208,12 +218,30 @@ const Title = styled.span`
   height: 60px;
   font-size: 22px;
   font-weight: 400;
+  @media (max-width: 500px) {
+    width: 200px;
+    min-width: 200px;
+    font-size: 18px;
+  }
 `;
 
 const AddQuestion = styled.span`
   font-size: 16px;
   color: #061366;
   cursor: pointer;
+  @media (max-width: 500px) {
+    min-width: 40px;
+    min-height: 40px;
+    border-radius: 50%;
+    background-color: lavender;
+    text-align: center;
+  }
+`;
+
+const AddText = styled.span`
+  @media (max-width: 500px) {
+    display: none;
+  }
 `;
 
 const CardContainer = styled.section`

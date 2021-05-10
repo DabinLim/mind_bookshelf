@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import {BookShelf, BookDetail, Profile, OthersQuestion} from '../components/Books/booksindex';
+import {BookShelf, Profile, OthersQuestion} from '../components/Books/booksindex';
 import {api as userActions} from '../redux/modules/user';
 import {useSelector, useDispatch} from 'react-redux';
 import { getCookie } from "../shared/Cookie";
-import {changeDate, setComponent, setOther, setBookDetailModal, setDateVisible} from '../redux/modules/books';
+import {changeDate, setComponent} from '../redux/modules/books';
 import { changeType } from '../redux/modules/community'
 
 const OthersBooks = (props) => {
@@ -50,8 +50,7 @@ const OthersBooks = (props) => {
                 <BookShelf date={date}/>
                 }
                 {component === 'othersquestion' && <OthersQuestion/>}
-                {id !=='others' && component === '' &&
-                <BookDetail date={date}/>}
+   
             <ImgRight/>
             </Container>
         </React.Fragment>
@@ -79,6 +78,10 @@ const ProfileContainer = styled.section`
     min-height:190px;
     display: flex;
     flex-direction: row;
+    @media(max-width:500px){
+        padding:10px;
+        min-height:150px;
+    }
 `;
 
 const ImgRight = styled.div`
