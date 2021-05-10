@@ -9,27 +9,25 @@ import { api as commentActions } from "../redux/modules/comment";
 import { api as communityActions } from "../redux/modules/community";
 
 const AnswerCard2 = (props) => {
-  console.log(props.answerId);
   const dispatch = useDispatch();
   const [cardModal, setCardModal] = useState(false);
   const closeCardModal = () => {
-    console.log("close");
     setCardModal(false);
   };
 
   const openCard = (a) => {
-    console.log(a);
     const type = "community";
     setCardModal(true);
-    console.log("open");
     dispatch(communityActions.getCardDetail(a, type));
+    console.log("걸렸다");
     dispatch(commentActions.getCommentAX(a));
   };
 
   const getDate = (date) => {
-    let year = "20" + date.substring(0, 2);
-    let month = date.substring(2, 4);
-    let day = date.substring(4, 6);
+    let unformatted = date.split("-");
+    let year = unformatted[0];
+    let month = unformatted[1];
+    let day = unformatted[2];
     let full_date = year + "년 " + month + "월 " + day + "일";
     return full_date;
   };
@@ -62,14 +60,14 @@ const AnswerCard2 = (props) => {
                 </>
               )} */}
               <FavoriteBorderIcon />
-              <LikeCount>0개</LikeCount>
+              <LikeCount>{props.answerLikes}개</LikeCount>
             </LikeBox>
             <CommentBox>
               <ChatBubbleOutlineIcon />
-              <CommentCount>0개</CommentCount>
+              <CommentCount>{props.commentCount}개</CommentCount>
             </CommentBox>
           </IconBox>
-          <DateYMD>2020년 3월 25일</DateYMD>
+          <DateYMD>{getDate(props.createdAt?.split("T")[0])}</DateYMD>
         </AnswerLikes>
       </CardFrame>
     </>

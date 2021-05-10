@@ -8,7 +8,7 @@ import {
   resetAll,
   setView,
 } from "../../redux/modules/moreview";
-import InfinityScroll from '../../shared/InfinityScroll';
+import InfinityScroll from "../../shared/InfinityScroll";
 
 const QuestionDetail = (props) => {
   const dispatch = useDispatch();
@@ -22,20 +22,22 @@ const QuestionDetail = (props) => {
   const friends_answers = useSelector(
     (state) => state.moreview.friends_answers
   );
-  const user_info = useSelector(state => state.user.user);
-  const next = useSelector(state => state.moreview.next);
-  const like_next = useSelector(state => state.moreview.like_next);
-  const friends_next = useSelector(state => state.moreview.friends_next);
-  const is_loading = useSelector(state => state.moreview.is_loading);
-  const like_loading = useSelector(state => state.moreview.like_loading);
-  const friends_loading = useSelector(state => state.moreview.firends_loading);
+  const user_info = useSelector((state) => state.user.user);
+  const next = useSelector((state) => state.moreview.next);
+  const like_next = useSelector((state) => state.moreview.like_next);
+  const friends_next = useSelector((state) => state.moreview.friends_next);
+  const is_loading = useSelector((state) => state.moreview.is_loading);
+  const like_loading = useSelector((state) => state.moreview.like_loading);
+  const friends_loading = useSelector(
+    (state) => state.moreview.firends_loading
+  );
   const container = React.useRef();
 
   React.useEffect(() => {
     dispatch(moreviewActions.getQuestionInfo(id));
     dispatch(moreviewActions.getAnswers(id));
     dispatch(moreviewActions.getLikeAnswer(id));
-    dispatch(moreviewActions.getFriendsAnswer(user_info.id));
+    dispatch(moreviewActions.getFriendsAnswer(user_info?.id));
     return () => {
       dispatch(resetAll());
     };
@@ -95,59 +97,70 @@ const QuestionDetail = (props) => {
               </FilterBtn>
             </FilterBtnBox>
           </ContainerUpper>
-          {now_view === 'new' && <AnswersBox ref={container}>
-            <InfinityScroll
-              callNext={() => {
-                console.log('new scroooolled');
-                dispatch(moreviewActions.getAnswers(id));
-      
-              }}
-              is_next={next? true: false}
-              is_loading={is_loading}
-              ref_value={container.current}
-            >
-            {now_view === "new" ?
-              answers.length &&
-              answers.map((v, idx) => {
-                return <AnswerCard key={idx} {...v} />;
-              }) : <span>답변이 없네요</span>}
+          {now_view === "new" && (
+            <AnswersBox ref={container}>
+              <InfinityScroll
+                callNext={() => {
+                  console.log("new scroooolled");
+                  dispatch(moreviewActions.getAnswers(id));
+                }}
+                is_next={next ? true : false}
+                is_loading={is_loading}
+                ref_value={container.current}
+              >
+                {now_view === "new" ? (
+                  answers.length &&
+                  answers.map((v, idx) => {
+                    return <AnswerCard key={idx} {...v} />;
+                  })
+                ) : (
+                  <span>답변이 없네요</span>
+                )}
               </InfinityScroll>
-          </AnswersBox>}
-          {now_view === 'like' && <AnswersBox ref={container}>
-            <InfinityScroll
-              callNext={() => {
-                console.log('like scroooolled');
-                dispatch(moreviewActions.getLikeAnswers(id));
-      
-              }}
-              is_next={like_next? true: false}
-              is_loading={like_loading}
-              ref_value={container.current}
-            >
-              {like_answers.length ?
-              like_answers.map((v, idx) => {
-                return <AnswerCard key={idx} {...v} />;
-              }) : <span>답변이 없네요</span>}
+            </AnswersBox>
+          )}
+          {now_view === "like" && (
+            <AnswersBox ref={container}>
+              <InfinityScroll
+                callNext={() => {
+                  console.log("like scroooolled");
+                  dispatch(moreviewActions.getLikeAnswers(id));
+                }}
+                is_next={like_next ? true : false}
+                is_loading={like_loading}
+                ref_value={container.current}
+              >
+                {like_answers.length ? (
+                  like_answers.map((v, idx) => {
+                    return <AnswerCard key={idx} {...v} />;
+                  })
+                ) : (
+                  <span>답변이 없네요</span>
+                )}
               </InfinityScroll>
-          </AnswersBox>}
-          {now_view === 'friends' && <AnswersBox ref={container}>
-            <InfinityScroll
-              callNext={() => {
-                console.log('friends scroooolled');
-                dispatch(moreviewActions.getFriendsAnswers(user_info.id));
-      
-              }}
-              is_next={friends_next? true: false}
-              is_loading={friends_loading}
-              ref_value={container.current}
-            >
-              {friends_answers.length ?
-              friends_answers.map((v, idx) => {
-                return <AnswerCard key={idx} {...v} />;
-              }) : <span>답변이 없네요</span>}
+            </AnswersBox>
+          )}
+          {now_view === "friends" && (
+            <AnswersBox ref={container}>
+              <InfinityScroll
+                callNext={() => {
+                  console.log("friends scroooolled");
+                  dispatch(moreviewActions.getFriendsAnswers(user_info.id));
+                }}
+                is_next={friends_next ? true : false}
+                is_loading={friends_loading}
+                ref_value={container.current}
+              >
+                {friends_answers.length ? (
+                  friends_answers.map((v, idx) => {
+                    return <AnswerCard key={idx} {...v} />;
+                  })
+                ) : (
+                  <span>답변이 없네요</span>
+                )}
               </InfinityScroll>
-          </AnswersBox>}
-          
+            </AnswersBox>
+          )}
         </Container>
       </CommunityContainer>
     </React.Fragment>
