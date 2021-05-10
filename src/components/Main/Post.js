@@ -12,7 +12,7 @@ const Post = (props) => {
   const dispatch = useDispatch();
   const user_info = useSelector((state) => state.user.user);
 
-  const is_login = user_info?.nickname !== "" ? true : false;
+  const is_login = useSelector((state) => state.user.is_login);
 
   // comment counter
   const [count, setCount] = useState(0);

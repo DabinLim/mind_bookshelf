@@ -254,7 +254,7 @@ const LoaderBox = styled.div`
 // 메인의 위쪽 부분
 
 const MainUpper = styled.section`
-  margin-top:80px;
+  margin-top: 80px;
   text-align: center;
 `;
 
@@ -288,6 +288,9 @@ const ToMyBookShelf = styled.button`
   letter-spacing: 0px;
   color: #333333;
   opacity: 1;
+  :hover {
+    font-weight: bold;
+  }
 `;
 
 // 메인의 아래쪽
@@ -297,8 +300,7 @@ const SlideBox = styled.div`
   display: flex;
   position: relative;
   flex-direction: column;
-  margin:120px 100px 0px 100px;
-  
+  margin: 120px 100px 0px 100px;
 `;
 
 const EachCard = styled.div`
@@ -307,7 +309,7 @@ const EachCard = styled.div`
 `;
 
 const CardContainer = styled.div`
-  width:100%;
+  width: 100%;
   max-width: 900px;
   height: 470px;
   // margin-top: 200px
