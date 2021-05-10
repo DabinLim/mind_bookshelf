@@ -14,15 +14,7 @@ const MyQuestion = (props) => {
     const is_next = useSelector(state => state.books.next);
     const container = React.useRef();
     console.log(custom_question);
-    const openModal = () => {
-        setModalVisible(true);
-      };
-    
-      const closeModal = () => {
-        setModalVisible(false);
-      };
     React.useEffect(() => {
-        
             dispatch(booksActions.getMyQuest());
         
         return () => {
@@ -39,8 +31,8 @@ const MyQuestion = (props) => {
             <Container>
                 <Background/>
                 <TitleContainer>
-                <Title><span style={{fontSize:'22px',fontWeight:'600'}}>{user_info?.nickname}</span>님의 질문카드는 <span style={{fontSize:'22px',fontWeight:'600'}}>{custom_count}개</span>입니다.</Title>
-                <AddQuestion onClick={openModal}> <span style={{fontSize:'24px'}}>+</span> 질문 등록하기 </AddQuestion>
+                <Title><span style={{fontSize:'22px',fontWeight:'600'}}>생각낙서</span>님의 질문카드는 <span style={{fontSize:'22px',fontWeight:'600'}}>27개</span>입니다.</Title>
+                <AddQuestion onClick={()=>{setModalVisible(true)}}> <span style={{fontSize:'24px'}}>+</span> 질문 등록하기 </AddQuestion>
                 </TitleContainer>
                 <CardContainer ref={container}>
                     <InfinityScroll 
@@ -111,11 +103,9 @@ const MyQuestion = (props) => {
                     </InfinityScroll>
                 </CardContainer>
             </Container>
-            <NewQuestion
-            visible={modalVisible}
-            onClose={closeModal}
-            maskClosable={true}
-            closable={true}/>
+            {modalVisible? 
+                <NewQuestion setModalVisible={setModalVisible} />
+            :null}
         </React.Fragment>
     )
 }

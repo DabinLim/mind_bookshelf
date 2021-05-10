@@ -4,8 +4,9 @@ import moment from 'moment';
 import { getCookie } from '../../shared/Cookie';
 import {api as communityActions, setCardLoading} from './community';
 import { api as commentActions } from "./comment";
+import swal from "sweetalert";
 
-axios.defaults.baseURL = 'http://lkj99.shop';
+axios.defaults.baseURL = 'https://lkj99.shop';
 axios.defaults.headers.common["Authorization"]= `Bearer ${getCookie('is_login')}`;
 
 
@@ -323,8 +324,8 @@ const getPreviousOthersBookDetail = (date,id) => {
 }
 
 const addQuest = (topic, contents) => {
-    return function(){
-        console.log(topic, contents)
+    return function(getState){
+        const nickname = getState().user.user.nickname
         const options = {
             url:'bookshelf/question',
             method:'POST',
@@ -335,6 +336,11 @@ const addQuest = (topic, contents) => {
         };
         axios(options).then((response)=> {
             console.log(response.data)
+            swal({
+                title: "정상적으로 등록되었습니다.😀",
+                text: `${nickname}님의 질문이 등록되었습니다.`,
+                icon: "success",
+            });
 
         }).catch((err) => {
             console.log(err)
