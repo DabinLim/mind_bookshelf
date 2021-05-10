@@ -223,7 +223,7 @@ const MainFrame = styled.div`
 
 const MainContainer = styled.div`
   height: 100vh;
-  margin: 100px 0px 0px 0px;
+  margin: 200px 0px 0px 0px;
   display: flex;
   flex-direction: column;
   overflow-y: auto;
@@ -292,16 +292,18 @@ const SlideBox = styled.div`
   display: flex;
   position: relative;
   flex-direction: column;
-  margin-top: 50px;
+  margin:120px 100px 0px 100px;
+  
 `;
 
 const EachCard = styled.div`
-  // width: 100%;
+  width: 100%;
   border-top-left-radius: none;
 `;
 
 const CardContainer = styled.div`
-  width: 900px;
+  width:100%;
+  max-width: 900px;
   height: 470px;
   // margin-top: 200px
   display: flex;

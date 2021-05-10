@@ -383,7 +383,7 @@ const FollowerBtn = styled.div`
   margin-right:20px;
   cursor: pointer;
   font-weight: 600;
-  font-size: 14px;
+  font-size: 12px;
   @media(max-width:500px){
     font-size: 12px;
     margin-top:0px;
