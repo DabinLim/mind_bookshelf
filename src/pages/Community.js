@@ -47,7 +47,10 @@ const CommunityBox = styled.div`
   padding-left: 20px;
   display: flex;
   flex-direction: column;
-  overflow-y: auto;
+  overflow-y: scroll;
+  ::-webkit-scrollbar {
+    display: none;
+    };
 `;
 
 const CommunityContainer = styled.div`

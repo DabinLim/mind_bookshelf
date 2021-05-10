@@ -226,20 +226,23 @@ const MainContainer = styled.div`
   margin: 100px 0px 0px 0px;
   display: flex;
   flex-direction: column;
-  overflow-y: auto;
   overflow: auto;
+  overflow-y: scroll;
   ::-webkit-scrollbar {
-    width: 12px; /* width of the entire scrollbar */
-  }
+    display: none;
+    };
+  // ::-webkit-scrollbar {
+  //   width: 12px; /* width of the entire scrollbar */
+  // }
 
-  ::-webkit-scrollbar-track {
-    background: white; /* color of the tracking area */
-  }
+  // ::-webkit-scrollbar-track {
+  //   background: white; /* color of the tracking area */
+  // }
 
-  ::-webkit-scrollbar-thumb {
-    background-color: #d8d9dc; /* color of the scroll thumb */
-    border-radius: 20px; /* roundness of the scroll thumb */
-  }
+  // ::-webkit-scrollbar-thumb {
+  //   background-color: #d8d9dc; /* color of the scroll thumb */
+  //   border-radius: 20px; /* roundness of the scroll thumb */
+  // }
 `;
 // LoaderBox
 
@@ -263,6 +266,7 @@ const DateIndicator = styled.h2`
   letter-spacing: 0px;
   color: #262626;
   opacity: 1;
+  margin-top: 50px;
 `;
 
 const QuestionIndicator = styled.h3`
