@@ -44,24 +44,23 @@ const CommunityBox = styled.div`
   // width: 100%;
   height: 100vh;
   margin: 100px 0px 0px 0px;
-  width:100%;
+  width: 100%;
   max-width: 1200px;
   padding: 0px 20px;
   display: flex;
   flex-direction: column;
-  align-items:center;
-  overflow-y: auto;
+  align-items: center;
   overflow-y: auto;
   ::-webkit-scrollbar {
-    width: 12px; /* width of the entire scrollbar */
+    width: 10px; /* width of the entire scrollbar */
   }
 
   ::-webkit-scrollbar-track {
-    background: white; /* color of the tracking area */
+    background: none; /* color of the tracking area */
   }
 
   ::-webkit-scrollbar-thumb {
-    background-color: #d8d9dc; /* color of the scroll thumb */
+    background-color: #ffffff; /* color of the scroll thumb */
     border-radius: 20px; /* roundness of the scroll thumb */
   }
 `;
@@ -72,7 +71,7 @@ const CommunityContainer = styled.div`
   // height:100vh;
   display: flex;
   flex-direction: column;
-  align-items:center;
+  align-items: center;
   justify-content: space-between;
   overflow-y: auto;
 `;

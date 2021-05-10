@@ -170,6 +170,9 @@ const DetailBtn = styled.div`
   padding-top: 5px;
   cursor: pointer;
   font-size: 14px;
+  :hover {
+    font-weight: bold;
+  }
 `;
 
 const AnswerContainer = styled.div`

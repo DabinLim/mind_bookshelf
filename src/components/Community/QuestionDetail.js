@@ -279,15 +279,15 @@ const Container = styled.section`
   flex-direction: column;
   overflow-y: auto;
   ::-webkit-scrollbar {
-    width: 12px; /* width of the entire scrollbar */
+    width: 10px; /* width of the entire scrollbar */
   }
 
   ::-webkit-scrollbar-track {
-    background: white; /* color of the tracking area */
+    background: none; /* color of the tracking area */
   }
 
   ::-webkit-scrollbar-thumb {
-    background-color: #d8d9dc; /* color of the scroll thumb */
+    background-color: #ffffff; /* color of the scroll thumb */
     border-radius: 20px; /* roundness of the scroll thumb */
   }
 `;
@@ -366,15 +366,15 @@ const AnswersBox = styled.div`
   flex-wrap: wrap;
   overflow-y: auto;
   ::-webkit-scrollbar {
-    width: 12px; /* width of the entire scrollbar */
+    width: 10px; /* width of the entire scrollbar */
   }
 
   ::-webkit-scrollbar-track {
-    background: white; /* color of the tracking area */
+    background: none; /* color of the tracking area */
   }
 
   ::-webkit-scrollbar-thumb {
-    background-color: #d8d9dc; /* color of the scroll thumb */
+    background-color: #ffffff; /* color of the scroll thumb */
     border-radius: 20px; /* roundness of the scroll thumb */
   }
 `;
@@ -391,15 +391,15 @@ const AnswersBoxLike = styled.div`
   flex-wrap: wrap;
   overflow-y: auto;
   ::-webkit-scrollbar {
-    width: 12px; /* width of the entire scrollbar */
+    width: 10px; /* width of the entire scrollbar */
   }
 
   ::-webkit-scrollbar-track {
-    background: white; /* color of the tracking area */
+    background: none; /* color of the tracking area */
   }
 
   ::-webkit-scrollbar-thumb {
-    background-color: #d8d9dc; /* color of the scroll thumb */
+    background-color: #ffffff; /* color of the scroll thumb */
     border-radius: 20px; /* roundness of the scroll thumb */
   }
 `;
@@ -417,15 +417,15 @@ const AnswersBoxFriends = styled.div`
   flex-wrap: wrap;
   overflow-y: auto;
   ::-webkit-scrollbar {
-    width: 12px; /* width of the entire scrollbar */
+    width: 10px; /* width of the entire scrollbar */
   }
 
   ::-webkit-scrollbar-track {
-    background: white; /* color of the tracking area */
+    background: none; /* color of the tracking area */
   }
 
   ::-webkit-scrollbar-thumb {
-    background-color: #d8d9dc; /* color of the scroll thumb */
+    background-color: #ffffff; /* color of the scroll thumb */
     border-radius: 20px; /* roundness of the scroll thumb */
   }
 `;
