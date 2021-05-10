@@ -278,7 +278,6 @@ const HeaderContainer = styled.div`
   position: fixed;
   width: 100vw;
   height: 120px;
-  // border-bottom: 1px solid #e9ecef;
   left: 0;
   top: 0;
   z-index: 5;
@@ -305,6 +304,9 @@ const NaviContainer = styled.div`
   align-items: center;
   height: 100%;
   justify-content: flex-start;
+  @media (max-width: 900px){
+    display: none;
+  };
 `;
 
 const IconContainer = styled.div`
