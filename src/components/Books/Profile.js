@@ -199,7 +199,7 @@ const Profile = (props) => {
             }
             </Head>
             <Body>
-              <Answers>
+              <Answers onClick={() => {dispatch(setComponent('myanswers'))}}>
                 낙서
                 <CountText>{user_info.myAnswerCount}</CountText>
               </Answers>
@@ -372,6 +372,7 @@ const Introduce = styled.div`
 `
 
 const Answers = styled.div`
+  cursor:pointer;
   margin-top:11px;
   margin-right:20px;
   font-weight: 400;

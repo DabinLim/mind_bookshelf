@@ -1,7 +1,7 @@
 import React from 'react';
 import {history} from '../redux/configStore';
 import styled from 'styled-components';
-import {BookShelf, Profile, MyQuestion} from '../components/Books/booksindex';
+import {BookShelf, Profile, MyQuestion, MyAnswers} from '../components/Books/booksindex';
 import {useSelector, useDispatch} from 'react-redux';
 import {setComponent, setBookDetailModal, setDateVisible} from '../redux/modules/books';
 import { getCookie } from '../shared/Cookie';
@@ -33,7 +33,7 @@ const MyBook = (props) => {
     return(
         <React.Fragment>
             <Container>
-            {id === 'mybook' && component === '' && <ImgLeft/>}
+            {id === 'mybook' && <ImgLeft/>}
             <ProfileContainer>
                 <Profile/>
             </ProfileContainer>
@@ -41,9 +41,10 @@ const MyBook = (props) => {
                 <BookShelf date={date}/>
                 }
                 {component === 'myquestion' && <MyQuestion/>}
+                {component === 'myanswers' && <MyAnswers/>}
                 {/* {id !=='mybook' && component === '' &&
                 <BookDetail date={date}/>} */}
-                {id === 'mybook' && component === '' && <ImgRight/>}
+                {id === 'mybook' && <ImgRight/>}
             </Container>
         </React.Fragment>
     )
