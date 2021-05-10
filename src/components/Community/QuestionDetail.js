@@ -174,8 +174,7 @@ const QuestionDetail = (props) => {
                   is_loading={is_loading}
                   ref_value={container.current}
                 >
-                  {now_view === "new" ? (
-                    answers.length &&
+                  {answers.length ? (
                     answers.map((v, idx) => {
                       return <AnswerCard key={idx} {...v} />;
                     })

@@ -66,6 +66,10 @@ const Container = styled.div`
     justify-content:space-between;
     align-items:center;
     overflow:auto;
+    @media(max-width:750px){
+        padding-left:0px;
+        overflow-x:hidden;
+    }
     ::-webkit-scrollbar {
     display:none;
     width: 10px; /* width of the entire scrollbar */

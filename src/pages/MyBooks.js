@@ -42,6 +42,7 @@ const MyBook = (props) => {
                         <BookShelf date={date}/>
                         }
                         {component === 'myquestion' && <MyQuestion/>}
+                        {component === 'myanswers' && <MyAnswers/>}
                         {/* {id !=='mybook' && component === '' &&
                         <BookDetail date={date}/>} */}
                         {id === 'mybook' && component === '' && <ImgRight/>}

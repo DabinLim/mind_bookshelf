@@ -3,31 +3,31 @@ import styled from "styled-components";
 import { NewQuestion } from "./booksindex";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  api as booksActions,
+  api as customActions,
   setPage,
   setNext,
   resetCustomQuestion,
-  setBookLoading,
-} from "../../redux/modules/books";
+  setLoading,
+} from "../../redux/modules/custom";
 import InfinityScroll from "../../shared/InfinityScroll";
 const MyAnswers = (props) => {
   const dispatch = useDispatch();
   const [modalVisible, setModalVisible] = React.useState(false);
-  const custom_question = useSelector((state) => state.books.custom_question);
-  const custom_count = useSelector((state) => state.books.custom_count);
+  const answer_list = useSelector((state) => state.custom.custom_question);
+  const answer_count = useSelector((state) => state.custom.custom_count);
   const user_info = useSelector((state) => state.user.user);
-  const is_loading = useSelector((state) => state.books.book_loading);
-  const is_next = useSelector((state) => state.books.next);
+  const is_loading = useSelector((state) => state.custom.loading);
+  const is_next = useSelector((state) => state.custom.next);
   const container = React.useRef();
-  console.log(custom_question);
+  console.log(answer_list);
   React.useEffect(() => {
-    dispatch(booksActions.getMyQuest());
+    dispatch(customActions.getMyAnswers());
 
     return () => {
       dispatch(resetCustomQuestion());
       dispatch(setPage(1));
       dispatch(setNext(true));
-      dispatch(setBookLoading(true));
+      dispatch(setLoading(true));
     };
   }, []);
 
@@ -37,124 +37,29 @@ const MyAnswers = (props) => {
         <Background />
         <TitleContainer>
           <Title>
-            <span style={{ fontWeight: "600" }}>{user_info?.nickname}</span>님의
-            질문카드는{" "}
-            <span style={{ fontWeight: "600" }}>{custom_count}개</span>입니다.
+            <span style={{ fontWeight: "600" }}>{user_info?.nickname}</span>님이 남긴 낙서는{" "}
+            <span style={{ fontWeight: "600" }}>{user_info?.myAnswerCount}개</span>입니다.
           </Title>
-          <AddQuestion
-            onClick={() => {
-              setModalVisible(true);
-            }}
-          >
-            {" "}
-            <span style={{ fontSize: "24px" }}> + </span>
-            <AddText> 질문 등록하기</AddText>
-          </AddQuestion>
         </TitleContainer>
         <CardContainer ref={container}>
           <InfinityScroll
             callNext={() => {
               console.log("scroooolled!");
-              dispatch(booksActions.getMyQuest());
+              dispatch(customActions.getMyAnswers());
             }}
             is_next={is_next ? true : false}
             is_loading={is_loading}
             ref_value={container.current}
           >
-            {custom_question &&
-              custom_question.map((v, idx) => {
+            {answer_list &&
+              answer_list.map((v, idx) => {
                 return (
                   <Card key={idx} {...v}>
                     <Head>
-                      <SubjectBox>
-                        {v.questionTopic?.length &&
-                          v.questionTopic.map((v, idx) => {
-                            console.log(v);
-                            if (v === "사랑") {
-                              return (
-                                <Subject
-                                  key={idx}
-                                  style={{
-                                    background: "#FFAAAA",
-                                    boxShadow: "0px 0px 15px #FFAAAA",
-                                  }}
-                                >
-                                  <span>#사랑</span>
-                                </Subject>
-                              );
-                            }
-                            if (v === "우정") {
-                              return (
-                                <Subject
-                                  key={idx}
-                                  style={{
-                                    background: "#B9FFC4",
-                                    boxShadow: "0px 0px 15px #B9FFC4",
-                                  }}
-                                >
-                                  <span>#우정</span>
-                                </Subject>
-                              );
-                            }
-                            if (v === "꿈") {
-                              return (
-                                <Subject
-                                  key={idx}
-                                  style={{
-                                    background: "#B7E6FF",
-                                    boxShadow: "0px 0px 15px #B7E6FF",
-                                  }}
-                                >
-                                  <span>#꿈</span>
-                                </Subject>
-                              );
-                            }
-                            if (v === "가치") {
-                              return (
-                                <Subject
-                                  key={idx}
-                                  style={{
-                                    background: "#B5BDFF",
-                                    boxShadow: "0px 0px 15px #B5BDFF",
-                                  }}
-                                >
-                                  <span>#가치</span>
-                                </Subject>
-                              );
-                            }
-                            if (v === "관계") {
-                              return (
-                                <Subject
-                                  key={idx}
-                                  style={{
-                                    background: "#FFF09D",
-                                    boxShadow: "0px 0px 15px #FFF09D",
-                                  }}
-                                >
-                                  <span>#관계</span>
-                                </Subject>
-                              );
-                            }
-                            if (v === "나") {
-                              return (
-                                <Subject
-                                  key={idx}
-                                  style={{
-                                    background: "#F9D1FD",
-                                    boxShadow: "0px 0px 15px #F9D1FD",
-                                  }}
-                                >
-                                  <span>#나</span>
-                                </Subject>
-                              );
-                            }
-                          })}
-                      </SubjectBox>
-                      <AnswerCount>{v.answerCount}명 낙서중</AnswerCount>
                     </Head>
-                    <QuestionContents>{v.questionContents}</QuestionContents>
+                    <QuestionContents>{v.contents}</QuestionContents>
                     <CreatedAtBox>
-                      <CreatedAt>{v.questionCreatedAt}</CreatedAt>
+                      <CreatedAt>20{v.YYMMDD}</CreatedAt>
                     </CreatedAtBox>
                   </Card>
                 );
@@ -175,8 +80,7 @@ const Container = styled.section`
   height: 100%;
   max-width: 988px;
   max-height: 632px;
-  margin-top: 37px;
-  margin-bottom: 50px;
+  margin:50px auto;
   border-radius: 20px;
   overflow: hidden;
   @media (max-width: 500px) {

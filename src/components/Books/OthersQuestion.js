@@ -2,15 +2,16 @@ import React from 'react';
 import styled from 'styled-components';
 import {NewQuestion} from './booksindex';
 import {useDispatch, useSelector} from 'react-redux';
-import {api as booksActions, setPage, setNext, resetCustomQuestion, setBookLoading} from '../../redux/modules/books';
+import {api as customActions, setPage, setNext, resetCustomQuestion, setLoading} from '../../redux/modules/custom';
 import InfinityScroll from '../../shared/InfinityScroll';
+import {history} from '../../redux/configStore';
 const OthersQuestion = (props) => {
     const dispatch = useDispatch()
     const [modalVisible, setModalVisible] = React.useState(false);
-    const custom_question = useSelector(state => state.books.custom_question);
-    const custom_count = useSelector(state => state.books.custom_count);
-    const is_loading = useSelector(state => state.books.book_loading);
-    const is_next = useSelector(state => state.books.next);
+    const custom_question = useSelector(state => state.custom.custom_question);
+    const custom_count = useSelector(state => state.custom.custom_count);
+    const is_loading = useSelector(state => state.custom.loading);
+    const is_next = useSelector(state => state.custom.next);
     const user_info = useSelector(state => state.user.other);
     const container = React.useRef();
     const url = window.location.href.split('/');
@@ -21,13 +22,13 @@ const OthersQuestion = (props) => {
 
     React.useEffect(() => {
 
-            dispatch(booksActions.getOthersQuest(id));
+            dispatch(customActions.getOthersQuest(id));
         
         return () => {
             dispatch(resetCustomQuestion());
             dispatch(setPage(1));
             dispatch(setNext(true));
-            dispatch(setBookLoading(true))
+            dispatch(setLoading(true))
         }
     },[id])
 
@@ -46,7 +47,7 @@ const OthersQuestion = (props) => {
                             console.log(
                                 'scroooolled!'
                             )
-                            dispatch(booksActions.getOthersQuest(id));
+                            dispatch(customActions.getOthersQuest(id));
                         }}
                         is_next={is_next? true: false}
                         is_loading={is_loading}
@@ -95,7 +96,7 @@ const OthersQuestion = (props) => {
                                         {v.answerCount}명 낙서중
                                     </AnswerCount>
                                 </Head>
-                                <QuestionContents>
+                                <QuestionContents onClick={() => {history.push(`/community/${v.questionId}`)}}>
                                     {v.questionContents}
                                 </QuestionContents>
                                 <CreatedAtBox>
@@ -122,8 +123,7 @@ const Container = styled.div`
     height:100%;
     max-width:988px;
     max-height:632px;
-    margin-top:37px;
-    margin-bottom:50px;
+    margin:50px auto;
     border-radius:20px;
     overflow:hidden;
     @media(max-width:500px){
@@ -245,6 +245,10 @@ const QuestionContents = styled.span`
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+  &:hover {
+    font-weight:800;
+    font-size:16px;
+  }
 `;
 
 const CreatedAtBox = styled.div`

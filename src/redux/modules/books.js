@@ -19,10 +19,6 @@ const booksSlice = createSlice({
     component:'',
     // selected_card:0,
     book_detail:[],
-    page: 1,
-    next:true,
-    custom_question:[],
-    custom_count:0,
     page_owner:null,
     book_loading: true,
     book_detail_modal: null,
@@ -76,24 +72,6 @@ const booksSlice = createSlice({
     },
     setComponent: (state, action) => {
         state.component = action.payload;
-    },
-    setPage: (state, action) => {
-        state.page = action.payload;
-        // state.book_loading = false;
-    },
-    setNext: (state, action) => {
-        state.next = action.payload;
-    },
-    setCustomQuestion: (state, action) => {
-        action.payload.forEach(v => {
-            state.custom_question.push(v);
-        })
-    },
-    setCustomCount: (state, action) => {
-        state.custom_count = action.payload;
-    },
-    resetCustomQuestion: (state) => {
-        state.custom_question = [];
     },
     setBookLoading: (state, action) => {
         state.book_loading = action.payload;
@@ -355,94 +333,6 @@ const addQuest = (topic, contents) => {
     }
 }
 
-const getMyQuest = () => {
-    return function(dispatch, getState){
-        const loading = getState().books.book_loading;
-        const page = getState().books.page;
-        const next = getState().books.next;
-
-        if(!next){
-            console.log('next is none');
-            return
-        }
-        if(loading && page > 1){
-            console.log('잡았다 요놈');
-            return
-        }
-        dispatch(setBookLoading(true))
-
-        const options = {
-            url:`/bookshelf/question?page=${page}`,
-            method:"GET"
-        };
-        axios(options).then(response => {
-            console.log(response.data);
-            if(response.data.myQuestion.length < 15){
-                dispatch(setCustomQuestion(response.data.myQuestion));
-                dispatch(setCustomCount(response.data.myQuestionCount));
-                dispatch(setNext(false));
-                dispatch(setBookLoading(false));
-            }
-
-            dispatch(setCustomQuestion(response.data.myQuestion));
-            dispatch(setCustomCount(response.data.myQuestionCount));
-            dispatch(setPage(page+1));
-            dispatch(setBookLoading(false));
-        }).catch(err => {
-            console.log(err);
-            if(err.response){
-                console.log(err.response.data);
-            };
-
-        })
-    }
-}
-
-const getOthersQuest = (id) => {
-    return function(dispatch, getState){
-
-        const loading = getState().books.book_loading;
-        const page = getState().books.page;
-        const next = getState().books.next;
-
-        if(!next){
-            console.log('next is none');
-            return
-        }
-        if(loading && page > 1){
-            console.log('잡았다 요놈');
-            return
-        }
-        dispatch(setBookLoading(true))
-
-        const options = {
-            url:`/bookshelf/other/${id}/question?page=${page}`,
-            method:"GET"
-        };
-        axios(options).then(response => {
-            console.log(response.data);
-            if(response.data.otherQuestion.length < 15){
-                dispatch(setCustomQuestion(response.data.otherQuestion))
-                dispatch(setCustomCount(response.data.otherQuestionCount));
-                dispatch(setNext(false));
-                dispatch(setBookLoading(false));
-            }
-            dispatch(setCustomQuestion(response.data.otherQuestion))
-            dispatch(setCustomCount(response.data.otherQuestionCount));
-            dispatch(setPage(page+1))
-            dispatch(setBookLoading(false));
-
-        }).catch(err => {
-            console.log(err);
-            if(err.response){
-                console.log(err.response.data);
-            };
-
-        })
-    }
-}
-
-
 
 // const getCardAnswers = (date,question_id) => {
 //     return function(dispatch){
@@ -469,11 +359,6 @@ export const {
     setComponent,
     // setSelect,
     setBookDetail,
-    setPage,
-    setNext,
-    setCustomQuestion,
-    setCustomCount,
-    resetCustomQuestion,
     setPageOwner,
     setBookLoading,
     setDateVisible,
@@ -491,8 +376,6 @@ export const api = {
     getOthersBookDetail,
     getNextOthersBookDetail,
     getPreviousOthersBookDetail,
-    getMyQuest,
-    getOthersQuest,
     getNextDetail,
     getPreviousDetail,
 };

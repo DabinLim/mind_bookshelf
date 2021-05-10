@@ -3,31 +3,33 @@ import styled from "styled-components";
 import { NewQuestion } from "./booksindex";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  api as booksActions,
+  api as customActions,
   setPage,
   setNext,
   resetCustomQuestion,
-  setBookLoading,
-} from "../../redux/modules/books";
+  setLoading,
+} from "../../redux/modules/custom";
 import InfinityScroll from "../../shared/InfinityScroll";
+import {history} from '../../redux/configStore';
+
 const MyQuestion = (props) => {
   const dispatch = useDispatch();
   const [modalVisible, setModalVisible] = React.useState(false);
-  const custom_question = useSelector((state) => state.books.custom_question);
-  const custom_count = useSelector((state) => state.books.custom_count);
+  const custom_question = useSelector((state) => state.custom.custom_question);
+  const custom_count = useSelector((state) => state.custom.custom_count);
   const user_info = useSelector((state) => state.user.user);
-  const is_loading = useSelector((state) => state.books.book_loading);
-  const is_next = useSelector((state) => state.books.next);
+  const is_loading = useSelector((state) => state.custom.loading);
+  const is_next = useSelector((state) => state.custom.next);
   const container = React.useRef();
   console.log(custom_question);
   React.useEffect(() => {
-    dispatch(booksActions.getMyQuest());
+    dispatch(customActions.getMyQuest());
 
     return () => {
       dispatch(resetCustomQuestion());
       dispatch(setPage(1));
       dispatch(setNext(true));
-      dispatch(setBookLoading(true));
+      dispatch(setLoading(true));
     };
   }, []);
 
@@ -55,7 +57,7 @@ const MyQuestion = (props) => {
           <InfinityScroll
             callNext={() => {
               console.log("scroooolled!");
-              dispatch(booksActions.getMyQuest());
+              dispatch(customActions.getMyQuest());
             }}
             is_next={is_next ? true : false}
             is_loading={is_loading}
@@ -152,9 +154,9 @@ const MyQuestion = (props) => {
                       </SubjectBox>
                       <AnswerCount>{v.answerCount}명 낙서중</AnswerCount>
                     </Head>
-                    <QuestionContents>{v.questionContents}</QuestionContents>
+                    <QuestionContents onClick={() => {history.push(`/community/${v.questionId}`)}}>{v.questionContents}</QuestionContents>
                     <CreatedAtBox>
-                      <CreatedAt>{v.questionCreatedAt}</CreatedAt>
+                      <CreatedAt >{v.questionCreatedAt}</CreatedAt>
                     </CreatedAtBox>
                   </Card>
                 );
@@ -175,8 +177,7 @@ const Container = styled.section`
   height: 100%;
   max-width: 988px;
   max-height: 632px;
-  margin-top: 37px;
-  margin-bottom: 50px;
+  margin:50px auto;
   border-radius: 20px;
   overflow: hidden;
   @media (max-width: 500px) {
@@ -305,6 +306,7 @@ const AnswerCount = styled.span`
 `;
 
 const QuestionContents = styled.span`
+  cursor:pointer;
   font-size: 15px;
   font-weight: 600;
   width: 100%;
@@ -315,6 +317,10 @@ const QuestionContents = styled.span`
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+  &:hover {
+    font-weight:800;
+    font-size:16px;
+  }
 `;
 
 const CreatedAtBox = styled.div`
