@@ -1,12 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 import {useSelector, useDispatch} from 'react-redux';
-import CardDetail from './CardDetail';
-import CardModal from '../Community/CardModal';
-import {api as communityActions} from '../../redux/modules/community';
-import { api as commentActions } from "../../redux/modules/comment";
-import {setAnswerInfo} from '../../redux/modules/comment';
-import {setBookDetailModal, setDateVisible} from '../../redux/modules/books';
+import CardDetail from '../components/Books/CardDetail';
+import CardModal from '../components/Community/CardModal';
+import {api as communityActions} from '../redux/modules/community';
+import { api as commentActions } from "../redux/modules/comment";
+import {setAnswerInfo} from '../redux/modules/comment';
+import {setBookDetailModal, setDateVisible} from '../redux/modules/books';
 
 
 const BookDetailLow = (props) => {

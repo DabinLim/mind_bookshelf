@@ -78,6 +78,10 @@ const ProfileContainer = styled.section`
     min-height:190px;
     display: flex;
     flex-direction: row;
+    @media(max-width:500px){
+        padding:10px;
+        min-height:150px;
+    }
 `;
 
 const ImgRight = styled.div`
