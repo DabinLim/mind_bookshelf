@@ -123,7 +123,7 @@ const date_visible = useSelector(state => state.books.date_visible);
                   <Book
                     key={idx}
                   >
-                    <div style={{position:'relative', width:'100%', height:'100%', cursor:'pointer',zIndex:'20'}} onClick={() => {openBook(v._id)}}>
+                    <div style={{position:'relative', width:'100%', height:'100%', cursor:'pointer',zIndex:'3'}} onClick={() => {openBook(v._id)}}>
                     </div>
                       <Date>
                       {v._id.charAt(v._id.length - 2)}
@@ -148,7 +148,7 @@ const date_visible = useSelector(state => state.books.date_visible);
                   <Book
                     key={idx}
                   >
-                    <div style={{position:'relative', width:'100%', height:'100%', cursor:'pointer',zIndex:'20'}} onClick={() => {openBook(v._id)}}>
+                    <div style={{position:'relative', width:'100%', height:'100%', cursor:'pointer',zIndex:'3'}} onClick={() => {openBook(v._id)}}>
                     </div>
                       <Date>
                       {v._id.charAt(v._id.length - 2)}
@@ -238,7 +238,7 @@ const Book = styled.div`
     display:flex;
     align-items:center;
     justify-content:center;
-  z-index: 20;
+  z-index: 2;
   width: 46px;
   height: 210px;
   margin: 0px 10px;
@@ -263,6 +263,7 @@ const BookImage = styled.img`
   position:absolute;
   top:-10px;
   left:-23px;
+  z-index:1;
 
 `;
 

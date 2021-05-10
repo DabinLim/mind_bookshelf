@@ -54,7 +54,7 @@ const CardModal = (props) => {
         }
       });
       if (nowBook === thisMonthBooks.length - 1) {
-        window.alert("이번달에는 작성하신 카드가 더 이상 없습니다.");
+        window.alert("작성하신 카드가 더 이상 없습니다.");
         return;
       }
 
@@ -79,7 +79,7 @@ const CardModal = (props) => {
       }
     });
     if (nowBook === 0) {
-      window.alert("이번달에는 작성하신 카드가 더 이상 없습니다.");
+      window.alert("작성하신 카드가 더 이상 없습니다.");
       return;
     }
 
@@ -113,7 +113,7 @@ const CardModal = (props) => {
         }
       });
       if (nowBook === thisMonthBooks.length - 1) {
-        window.alert("이번달에는 작성하신 카드가 더 이상 없습니다.");
+        window.alert("작성하신 카드가 더 이상 없습니다.");
         return;
       }
 
@@ -156,7 +156,7 @@ const CardModal = (props) => {
         }
       });
       if (nowBook === 0) {
-        window.alert("이번달에는 작성하신 카드가 더 이상 없습니다.");
+        window.alert("작성하신 카드가 더 이상 없습니다.");
         return;
       }
 

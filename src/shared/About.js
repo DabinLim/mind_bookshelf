@@ -48,7 +48,7 @@ const ModalComponent = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: white;
-  z-index:50;
+  z-index:40;
   width: 550px;
   border-radius: 15px;
   opacity: 0.9;
