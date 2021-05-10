@@ -71,6 +71,49 @@ const date_visible = useSelector(state => state.books.date_visible);
     }
   });
 
+  const book_mobile_1 = book_list.filter((v, idx) => {
+    if(idx < 5) {
+      return true
+    }
+  })
+
+  const book_mobile_2 = book_list.filter((v, idx) => {
+    if(5 <= idx && idx < 10) {
+      return true
+    }
+  })
+
+  const book_mobile_3 = book_list.filter((v, idx) => {
+    if(10 <= idx  && idx < 15) {
+      return true
+    }
+  })
+
+  const book_mobile_4 = book_list.filter((v, idx) => {
+    if(15 <= idx  && idx < 20) {
+      return true
+    }
+  })
+
+  const book_mobile_5 = book_list.filter((v, idx) => {
+    if(20 <= idx && idx < 25) {
+      return true
+    }
+  })
+
+  const book_mobile_6 = book_list.filter((v, idx) => {
+    if(25 <= idx) {
+      return true
+    }
+  })
+
+  console.log(book_mobile_1)
+  console.log(book_mobile_2)
+  console.log(book_mobile_3)
+  console.log(book_mobile_4)
+  console.log(book_mobile_5)
+  console.log(book_mobile_6)
+
   const close = () => {
     setCardDetailModal(false);
 };
@@ -164,6 +207,162 @@ const date_visible = useSelector(state => state.books.date_visible);
           </BookRow>
           <Shelf></Shelf>
         </ShelfBox>
+        <ShelfBoxMobile>
+          <BookRow>
+          {book_mobile_1 &&
+              book_mobile_1.map((v, idx) => {
+                return (
+                  <>
+                  {/* {bookDetailModal === v._id && <BookDetailLow openCard={setCardDetailModal} openBook={openBook} date={v._id}/>} */}
+                  {cardDetailModal === v._id && <CardModal book date={v._id} close={close}/>}
+                  <Book
+                    key={idx}
+                  >
+                    <div style={{position:'relative', width:'100%', height:'100%', cursor:'pointer',zIndex:'3'}} onClick={() => {openBook(v._id)}}>
+                    </div>
+                      <Date>
+                      {v._id.charAt(v._id.length - 2)}
+                      {v._id.charAt(v._id.length - 1)}
+                    </Date>
+                    <BookImage src='https://user-images.githubusercontent.com/77574867/117013284-b0b7cf80-ad2a-11eb-910a-252130e01287.png'/>
+                  </Book>
+                  </>
+                );
+              })}
+              
+          </BookRow>
+          <Shelf></Shelf>
+        </ShelfBoxMobile>
+        <ShelfBoxMobile>
+          <BookRow>
+          {book_mobile_2 &&
+              book_mobile_2.map((v, idx) => {
+                return (
+                  <>
+                  {/* {bookDetailModal === v._id && <BookDetailLow openCard={setCardDetailModal} openBook={openBook} date={v._id}/>} */}
+                  {cardDetailModal === v._id && <CardModal book date={v._id} close={close}/>}
+                  <Book
+                    key={idx}
+                  >
+                    <div style={{position:'relative', width:'100%', height:'100%', cursor:'pointer',zIndex:'3'}} onClick={() => {openBook(v._id)}}>
+                    </div>
+                      <Date>
+                      {v._id.charAt(v._id.length - 2)}
+                      {v._id.charAt(v._id.length - 1)}
+                    </Date>
+                    <BookImage src='https://user-images.githubusercontent.com/77574867/117013284-b0b7cf80-ad2a-11eb-910a-252130e01287.png'/>
+                  </Book>
+                  </>
+                );
+              })}
+              
+          </BookRow>
+          <Shelf></Shelf>
+        </ShelfBoxMobile>
+        <ShelfBoxMobile>
+          <BookRow>
+          {book_mobile_3 &&
+              book_mobile_3.map((v, idx) => {
+                return (
+                  <>
+                  {/* {bookDetailModal === v._id && <BookDetailLow openCard={setCardDetailModal} openBook={openBook} date={v._id}/>} */}
+                  {cardDetailModal === v._id && <CardModal book date={v._id} close={close}/>}
+                  <Book
+                    key={idx}
+                  >
+                    <div style={{position:'relative', width:'100%', height:'100%', cursor:'pointer',zIndex:'3'}} onClick={() => {openBook(v._id)}}>
+                    </div>
+                      <Date>
+                      {v._id.charAt(v._id.length - 2)}
+                      {v._id.charAt(v._id.length - 1)}
+                    </Date>
+                    <BookImage src='https://user-images.githubusercontent.com/77574867/117013284-b0b7cf80-ad2a-11eb-910a-252130e01287.png'/>
+                  </Book>
+                  </>
+                );
+              })}
+              
+          </BookRow>
+          <Shelf></Shelf>
+        </ShelfBoxMobile>
+        <ShelfBoxMobile>
+          <BookRow>
+          {book_mobile_4 &&
+              book_mobile_4.map((v, idx) => {
+                return (
+                  <>
+                  {/* {bookDetailModal === v._id && <BookDetailLow openCard={setCardDetailModal} openBook={openBook} date={v._id}/>} */}
+                  {cardDetailModal === v._id && <CardModal book date={v._id} close={close}/>}
+                  <Book
+                    key={idx}
+                  >
+                    <div style={{position:'relative', width:'100%', height:'100%', cursor:'pointer',zIndex:'3'}} onClick={() => {openBook(v._id)}}>
+                    </div>
+                      <Date>
+                      {v._id.charAt(v._id.length - 2)}
+                      {v._id.charAt(v._id.length - 1)}
+                    </Date>
+                    <BookImage src='https://user-images.githubusercontent.com/77574867/117013284-b0b7cf80-ad2a-11eb-910a-252130e01287.png'/>
+                  </Book>
+                  </>
+                );
+              })}
+              
+          </BookRow>
+          <Shelf></Shelf>
+        </ShelfBoxMobile>
+        <ShelfBoxMobile>
+          <BookRow>
+          {book_mobile_5 &&
+              book_mobile_5.map((v, idx) => {
+                return (
+                  <>
+                  {/* {bookDetailModal === v._id && <BookDetailLow openCard={setCardDetailModal} openBook={openBook} date={v._id}/>} */}
+                  {cardDetailModal === v._id && <CardModal book date={v._id} close={close}/>}
+                  <Book
+                    key={idx}
+                  >
+                    <div style={{position:'relative', width:'100%', height:'100%', cursor:'pointer',zIndex:'3'}} onClick={() => {openBook(v._id)}}>
+                    </div>
+                      <Date>
+                      {v._id.charAt(v._id.length - 2)}
+                      {v._id.charAt(v._id.length - 1)}
+                    </Date>
+                    <BookImage src='https://user-images.githubusercontent.com/77574867/117013284-b0b7cf80-ad2a-11eb-910a-252130e01287.png'/>
+                  </Book>
+                  </>
+                );
+              })}
+              
+          </BookRow>
+          <Shelf></Shelf>
+        </ShelfBoxMobile>
+        <ShelfBoxMobile>
+          <BookRow>
+          {book_mobile_6 &&
+              book_mobile_6.map((v, idx) => {
+                return (
+                  <>
+                  {/* {bookDetailModal === v._id && <BookDetailLow openCard={setCardDetailModal} openBook={openBook} date={v._id}/>} */}
+                  {cardDetailModal === v._id && <CardModal book date={v._id} close={close}/>}
+                  <Book
+                    key={idx}
+                  >
+                    <div style={{position:'relative', width:'100%', height:'100%', cursor:'pointer',zIndex:'3'}} onClick={() => {openBook(v._id)}}>
+                    </div>
+                      <Date>
+                      {v._id.charAt(v._id.length - 2)}
+                      {v._id.charAt(v._id.length - 1)}
+                    </Date>
+                    <BookImage src='https://user-images.githubusercontent.com/77574867/117013284-b0b7cf80-ad2a-11eb-910a-252130e01287.png'/>
+                  </Book>
+                  </>
+                );
+              })}
+              
+          </BookRow>
+          <Shelf></Shelf>
+        </ShelfBoxMobile>
       </Container>
       {/* <ImgRight/> */}
     </React.Fragment>
@@ -178,6 +377,10 @@ const Container = styled.section`
   padding-bottom:110px;
   @media (min-height:1200px){
     padding-bottom:300px;
+  }
+
+  @media (max-width:750px){
+    margin:5px 0px;
   }
 `;
 
@@ -199,6 +402,23 @@ const ShelfBox = styled.div`
   @media (max-width:1040px){
     margin-left:0px;
 }
+@media (max-width:750px){
+    display:none;
+}
+`;
+
+const ShelfBoxMobile = styled.div`
+  position:relative;
+  width:100%;
+  max-width:360px;
+  margin:0px auto;
+  display:flex;
+  flex-direction:column;
+  justify-content: center;
+  align-items: center;
+  @media(min-width:750px){
+    display:none;
+  }
 `;
 
 const Shelf = styled.div`
@@ -230,6 +450,13 @@ const BookRow = styled.div`
 @media (max-width:800px){
     margin:10px 0px -5px 160px;
 }
+
+@media(max-width:750px){
+    margin:10px 0px -5px 0px;
+    max-width:360px;
+    /* overflow:hidden; */
+    justify-content:flex-start;
+  }
 `;
 
  
@@ -253,6 +480,9 @@ const Book = styled.div`
   }
   @media (max-width:1000px){
     margin: 0px 5px;
+    }
+    @media (max-width:750px){
+    margin: 0px 13px;
     }
 `;
 

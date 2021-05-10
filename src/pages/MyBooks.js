@@ -58,6 +58,10 @@ const ContainerBox = styled.div`
     display: flex;
     flex-direction: column;
     overflow-y: scroll;
+    @media(max-width:750px){
+        padding-left:0px;
+        overflow-x:hidden;
+    }
     ::-webkit-scrollbar {
     display: none;
     };
