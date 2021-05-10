@@ -83,7 +83,7 @@ const QuestionDetail = (props) => {
           <Container>
             <ContainerUpper>
               <ContainerUpperLeft>
-                <HashTag style={{ background: color, boxShadow: boxShadow }}>
+                <HashTag style={{ background: color, boxShadow: boxShadow, overflow:'visible' }}>
                   #{topic}
                 </HashTag>
                 <QuestionTitle>
@@ -256,12 +256,13 @@ const Outer = styled.section`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 200px;
+  margin-top: 150px;
 `;
 
 const CommunityContainer = styled.div`
   z-index: 2;
-  width: 60%;
+  width: 100%;
+  max-width: 1200px;
   height: 100%;
   box-sizing: border-box;
   // height:100vh;
@@ -269,7 +270,7 @@ const CommunityContainer = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  overflow-y: auto;
+  overflow-y:auto;
 `;
 
 const Container = styled.section`
@@ -297,6 +298,7 @@ const ContainerUpper = styled.div`
   flex-direction: row;
   justify-content: space-between;
   height: 80px;
+  padding:15px 20px;
 `;
 
 const ContainerUpperLeft = styled.div`
@@ -309,6 +311,10 @@ const QuestionTitle = styled.h2`
   letter-spacing: 0px;
   width: 60%;
   margin: 29px 0 0 0;
+  @media(max-width:750px){
+    font: normal normal bold 22px/24px Roboto;
+    width:80%;
+  }
 `;
 
 const HashTag = styled.span`
@@ -335,11 +341,17 @@ const FilterBtnBox = styled.div`
   justify-content: flex-end;
   align-items: flex-end;
   width: 40%;
+  @media(max-width:650px){
+    flex-direction:column;
+    min-width:80px;
+    justify-content:center;
+    margin-top:100px;
+  }
 `;
 
 const FilterBtn = styled.button`
   cursor: pointer;
-  max-width: 80px;
+  max-width:80px;
   max-height: 17px;
   text-align: left;
   font: normal normal normal 14px/19px Roboto;
@@ -352,11 +364,14 @@ const FilterBtn = styled.button`
   :hover {
     font-weight: bold;
   }
+  @media(max-width:650px){
+    margin-bottom:10px;
+  }
 `;
 
 const AnswersBox = styled.div`
+  padding:0px 20px;
   box-sizing: border-box;
-  padding: 0px 40px;
   ${(props) => (props.view === "new" ? `margin: 120px 0px` : ` margin: 0px`)};
   width: 100%;
   max-height: 649px;
@@ -380,8 +395,8 @@ const AnswersBox = styled.div`
 `;
 
 const AnswersBoxLike = styled.div`
+  padding:0px 20px;
   box-sizing: border-box;
-  padding: 0px 40px;
   ${(props) => (props.view === "like" ? `margin: 120px 0px` : ` margin: 0px`)};
   width: 100%;
   max-height: 649px;
@@ -405,8 +420,8 @@ const AnswersBoxLike = styled.div`
 `;
 
 const AnswersBoxFriends = styled.div`
+  padding:0px 20px;
   box-sizing: border-box;
-  padding: 0px 40px;
   ${(props) =>
     props.view === "friends" ? `margin: 120px 0px` : ` margin: 0px`};
   width: 100%;
