@@ -30,6 +30,13 @@ const answerSlice = createSlice({
     },
     setQuestion: (state, action) => {
       state.question_list = action.payload;
+      let index = state.question_list.findIndex((q) => q.available === true);
+
+      if (index !== -1) {
+        let temp = state.question_list[0];
+        state.question_list[0] = state.question_list[index];
+        state.question_list[index] = temp;
+      }
       state.is_loading = false;
     },
     setAnwerId: (state, action) => {

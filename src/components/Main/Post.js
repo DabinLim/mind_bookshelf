@@ -7,6 +7,7 @@ import { history } from "../../redux/configStore";
 import { api as answerActions } from "../../redux/modules/answer";
 import { CheckCircleOutlined } from "@ant-design/icons";
 import CustomSwitch from "../../shared/CustomSwitch";
+import { Radio } from "antd";
 
 const Post = (props) => {
   const dispatch = useDispatch();
@@ -112,7 +113,11 @@ const Post = (props) => {
             <CardWriter style={{ opacity: opacity }}>
               <b>{props.createdUser}님</b>의 질문
             </CardWriter>
+            {/* 500px 아래로 내려갈 때!!!! */}
           </CardWriterInfo>
+          <SmallCardLeft style={{ background: color, boxShadow: boxShadow }}>
+            #{topic}
+          </SmallCardLeft>
           <ExtraGroup>
             <AnswerInfo>
               {props?.otherProfileImg?.length > 0 ? (
@@ -140,6 +145,9 @@ const Post = (props) => {
           </ExtraGroup>
         </CardInfo>
         {/* 질문 보여주는 곳 */}
+        <SmallCardContent style={{ opacity: opacity }}>
+          {props.contents}
+        </SmallCardContent>
         <CardUpper>
           <CardLeft style={{ opacity: opacity }}>
             <HashTag style={{ background: color, boxShadow: boxShadow }}>
@@ -176,9 +184,27 @@ const Post = (props) => {
                 onChange={changeContents}
                 value={contents}
               ></ElTextarea>
-
+              <SmallBtnGroup>
+                {props.available ? (
+                  <CustomSwitch isOpen={isOpen} onClick={clickOpen} />
+                ) : null}
+                {ok_submit ? (
+                  <SubmitBtn
+                    onClick={addAnswer}
+                    style={{
+                      background: "#061366",
+                      color: "#ffffff",
+                      transition: "all 200ms ease-in-out",
+                    }}
+                  >
+                    답변하기
+                  </SubmitBtn>
+                ) : (
+                  <SubmitBtn onClick={addAnswer}>답변하기</SubmitBtn>
+                )}
+              </SmallBtnGroup>
               <BtnGroup>
-                {count}/1000
+                <CountLetter>{count}/1000</CountLetter>
                 <BtnBox>
                   {props.available ? (
                     <CustomSwitch isOpen={isOpen} onClick={clickOpen} />
@@ -247,18 +273,28 @@ const CardFrame = styled.div`
   text-align: center;
   border-top-left-radius: 50px;
   @media (max-width: 600px) {
-    padding: 20px;
+    padding: 17px 18px;
+    border-radius: 20px;
+    min-height: 462px;
+    max-height: 462px;
   }
 `;
 
 const CardInfo = styled.div`
   display: flex;
   justify-content: space-between;
+  @media (max-width: 500px) {
+    max-height: 31px;
+  }
 `;
 
 const ExtraGroup = styled.div`
   display: flex;
   align-items: center;
+
+  @media (max-width: 500px) {
+    display: none;
+  }
 `;
 
 const AnswerInfo = styled.span`
@@ -288,6 +324,9 @@ const UserProfile = styled.img`
 const CardUpper = styled.div`
   width: 100%;
   display: flex;
+  @media (max-width: 500px) {
+    display: none;
+  }
 `;
 
 const CardLeft = styled.div`
@@ -298,6 +337,29 @@ const CardLeft = styled.div`
   align-items: center;
   &::first-child {
     margin-right: 5px;
+  }
+
+  @media (max-width: 500px) {
+    display: none;
+  }
+`;
+
+const SmallCardLeft = styled.span`
+  min-width: 58px;
+  max-width: 58px;
+  background: #ededed;
+  padding: 8px 12px;
+  border-radius: 24px;
+  text-align: center;
+  font: normal normal bold 11px/15px Roboto;
+  box-shadow: 0px 0px 15px #c1c7fc;
+  letter-spacing: 0px;
+  color: #363636;
+  :hover {
+    cursor: pointer;
+  }
+  @media (min-width: 500px) {
+    display: none;
   }
 `;
 
@@ -329,9 +391,25 @@ const CardContent = styled.p`
   text-align: left;
 `;
 
+const SmallCardContent = styled.p`
+  margin-top: 17px;
+  font-size: 17px;
+  font-weight: bolder;
+  text-align: left;
+  min-height: 80px;
+  max-height: 80px;
+  @media (min-width: 500px) {
+    display: none;
+  }
+`;
+
 const CardWriterInfo = styled.div`
   display: flex;
   align-items: center;
+
+  @media (max-width: 500px) {
+    justify-content: space-between;
+  }
 `;
 
 const CardWriterProfile = styled.img`
@@ -347,7 +425,12 @@ const CardWriterProfile = styled.img`
 
 const CardWriter = styled.span``;
 
-const PostBox = styled.div``;
+const PostBox = styled.div`
+  @media (max-width: 500px) {
+    min-height: 220px;
+    max-height: 220px;
+  }
+`;
 
 const ElTextarea = styled.textarea`
   padding: 0 16px;
@@ -367,6 +450,22 @@ const ElTextarea = styled.textarea`
   & :focus {
     border: none;
   }
+
+  @media (max-width: 500px) {
+    padding: 0;
+  }
+`;
+
+const SmallBtnGroup = styled.div`
+  width: 100%;
+  min-height: 70px;
+  max-height: 75px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  @media (min-width: 500px) {
+    display: none;
+  }
 `;
 
 const BtnGroup = styled.div`
@@ -377,6 +476,16 @@ const BtnGroup = styled.div`
   margin-top: 40px;
   & > button {
     cursor: pointer;
+  }
+  @media (max-width: 500px) {
+    margin: 0;
+    display: none;
+  }
+`;
+
+const CountLetter = styled.span`
+  @media (max-width: 500px) {
+    display: none;
   }
 `;
 
@@ -398,6 +507,10 @@ const SubmitBtn = styled.button`
   background: #e2eaff;
   margin-left: 10px;
   cursor: pointer;
+  @media (max-width: 500px) {
+    width: 112px;
+    height: 40px;
+  }
 `;
 
 const CompletedBox = styled.div`

@@ -13,6 +13,16 @@ import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord";
 import "../static/Card.css";
 
+import SwiperCore, { Navigation, Pagination } from "swiper";
+
+import { Swiper, SwiperSlide } from "swiper/react";
+
+// Import Swiper styles
+import "swiper/swiper.scss";
+import "swiper/components/navigation/navigation.scss";
+import "swiper/components/pagination/pagination.scss";
+import "swiper/components/scrollbar/scrollbar.scss";
+
 function Main() {
   const dispatch = useDispatch();
   // 유저 인포 확인하는 것 (아마 이 안에서 is_login 으로 확인해야할듯)
@@ -45,13 +55,13 @@ function Main() {
   }
 
   // 슬라이드 & 점점점 만들기 (클래스 이름을 state 변경때마다 바꿔주면서 애니메이션 준다)
-  const [card_1, setCard1] = React.useState("preselected");
-  const [card_2, setCard2] = React.useState("selected");
-  const [card_3, setCard3] = React.useState("proselected");
+  const [card_1, setCard1] = React.useState("selected");
+  const [card_2, setCard2] = React.useState("proselected");
+  const [card_3, setCard3] = React.useState("preselected");
 
-  const [dot_1, setDot1] = React.useState("preselectedDot");
-  const [dot_2, setDot2] = React.useState("selectedDot");
-  const [dot_3, setDot3] = React.useState("proselectedDot");
+  const [dot_1, setDot1] = React.useState("selectedDot");
+  const [dot_2, setDot2] = React.useState("proselectedDot");
+  const [dot_3, setDot3] = React.useState("preselectedDot");
 
   const turnLeft = () => {
     if (card_1 === "selected") {
@@ -113,6 +123,37 @@ function Main() {
     }
   };
 
+  // 작은 화면일 때 pagination
+
+  const [dot_1S, setDot1S] = React.useState("true");
+  const [dot_2S, setDot2S] = React.useState("false");
+  const [dot_3S, setDot3S] = React.useState("false");
+
+  const doSwipe = (e) => {
+    if (e.swipeDirection === "prev" && e.activeIndex === 0) {
+      setDot1S("true");
+      setDot2S("false");
+      setDot3S("false");
+    }
+    if (e.swipeDirection === "prev" && e.activeIndex === 1) {
+      setDot2S("true");
+      setDot1S("false");
+      setDot3S("false");
+    }
+    if (e.swipeDirection === "next" && e.activeIndex === 1) {
+      setDot2S("true");
+      setDot1S("false");
+      setDot3S("false");
+    }
+    if (e.swipeDirection === "next" && e.activeIndex === 2) {
+      setDot3S("true");
+      setDot1S("false");
+      setDot2S("false");
+    }
+  };
+
+  SwiperCore.use([Navigation, Pagination]);
+
   // 렌더링시 로그인 상태 확인하고 질문카드 뿌려주는 것
   React.useEffect(() => {
     if (getCookie("is_login")) {
@@ -149,7 +190,33 @@ function Main() {
           </MainUpper>
           {/* 메인 아래쪽 */}
           <SlideBox>
-            <div
+            <SmallCardContainer>
+              <Swiper
+                spaceBetween={50}
+                slidesPerView={1}
+                onSlideChange={(e) => {
+                  doSwipe(e);
+                }}
+                onSwiper={(swiper) => console.log(swiper)}
+              >
+                <SwiperSlide>
+                  <EachCard>
+                    <Post {...question_list[0]} allChecked={allChecked} />
+                  </EachCard>
+                </SwiperSlide>
+                <SwiperSlide>
+                  <EachCard>
+                    <Post {...question_list[1]} allChecked={allChecked} />
+                  </EachCard>
+                </SwiperSlide>
+                <SwiperSlide>
+                  <EachCard>
+                    <Post {...question_list[2]} allChecked={allChecked} />
+                  </EachCard>
+                </SwiperSlide>
+              </Swiper>
+            </SmallCardContainer>
+            <LargeCardContainer
               style={{
                 display: "flex",
                 justifyContent: "center",
@@ -181,7 +248,7 @@ function Main() {
                   }}
                 />
               </RightArrowBtn>
-            </div>
+            </LargeCardContainer>
             <DotQueue>
               <FiberManualRecordIcon
                 style={{
@@ -205,6 +272,30 @@ function Main() {
                 className={dot_3}
               />
             </DotQueue>
+            {/* 모바일 화면일 때~ */}
+            <SmallDotQueue>
+              <FiberManualRecordIcon
+                style={{
+                  fontSize: "20px",
+                  margin: "0 5px",
+                }}
+                className={dot_1S}
+              />
+              <FiberManualRecordIcon
+                style={{
+                  fontSize: "20px",
+                  margin: "0 5px",
+                }}
+                className={dot_2S}
+              />
+              <FiberManualRecordIcon
+                style={{
+                  fontSize: "20px",
+                  margin: "0 5px",
+                }}
+                className={dot_3S}
+              />
+            </SmallDotQueue>
           </SlideBox>
         </MainContainer>
       )}
@@ -219,6 +310,9 @@ const MainFrame = styled.div`
   flex-direction: column;
   justify-content: space-between;
   overflow-y: auto;
+  @media (max-width: 500px) {
+    padding-bottom: 80px;
+  }
 `;
 
 const MainContainer = styled.div`
@@ -243,7 +337,24 @@ const MainContainer = styled.div`
     background-color: #ffffff; /* color of the scroll thumb */
     border-radius: 20px; /* roundness of the scroll thumb */
   }
+
+  @media (max-width: 500px) {
+    margin: 83px 0px 0px 0px;
+  }
 `;
+
+const LargeCardContainer = styled.div`
+  @media (max-width: 500px) {
+    display: none;
+  }
+`;
+
+const SmallCardContainer = styled.div`
+  @media (min-width: 500px) {
+    display: none;
+  }
+`;
+
 // LoaderBox
 
 const LoaderBox = styled.div`
@@ -321,6 +432,13 @@ const SlideBox = styled.div`
   position: relative;
   flex-direction: column;
   margin: 120px 100px 0px 100px;
+
+  @media (max-width: 500px) {
+    margin: 0;
+    padding: 27px 28px;
+    width: 380px;
+    box-sizing: border-box;
+  }
 `;
 
 const EachCard = styled.div`
@@ -336,6 +454,9 @@ const CardContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  @media (max-width: 500px) {
+    display: none;
+  }
 `;
 
 const LeftArrowBtn = styled.button`
@@ -361,6 +482,9 @@ const LeftArrowBtn = styled.button`
   :hover {
     transform: scale(1.1);
     box-shadow: 0px 0px 20px #0000001f;
+  }
+  @media (max-width: 500px) {
+    display: none;
   }
 `;
 
@@ -388,6 +512,10 @@ const RightArrowBtn = styled.button`
     transform: scale(1.1);
     box-shadow: 0px 0px 20px #0000001f;
   }
+
+  @media (max-width: 500px) {
+    display: none;
+  }
 `;
 
 const DotQueue = styled.div`
@@ -395,6 +523,23 @@ const DotQueue = styled.div`
   justify-content: center;
   margin-top: 50px;
   margin-bottom: 80px;
+
+  @media (max-width: 500px) {
+    /* margin: 60px 0px 5px 0px; */
+    display: none;
+  }
+`;
+
+const SmallDotQueue = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+  margin-bottom: 80px;
+
+  @media (min-width: 500px) {
+    /* margin: 60px 0px 5px 0px; */
+    display: none;
+  }
 `;
 
 const ImgRight = styled.div`

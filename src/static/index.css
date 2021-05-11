@@ -4,12 +4,13 @@ html {
   overflow-x: hidden;
 }
 
-@import url(//fonts.googleapis.com/earlyaccess/jejumyeongjo.css);
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&family=Noto+Serif+KR:wght@300&display=swap");
 
 body {
   margin: 0;
   height: 100%;
-  font-family: "Jeju Myeongjo", serif;
+  font-family: "Noto Sans KR", sans-serif;
+  font-family: "Noto Serif KR", serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -19,5 +20,6 @@ body {
 }
 
 code {
-  font-family: "Jeju Myeongjo", serif;
+  font-family: "Noto Sans KR", sans-serif;
+  font-family: "Noto Serif KR", serif;
 }
