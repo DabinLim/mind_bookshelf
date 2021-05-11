@@ -133,7 +133,7 @@ function Main() {
           {/* 메인 위쪽 편 */}
           <MainUpper>
             <DateIndicator>{displayedDate}</DateIndicator>
-            <QuestionIndicator>
+            <QuestionIndicator className="main">
               <b>{user?.nickname ? user?.nickname + "님" : "당신"}</b>의
               머리속은?
             </QuestionIndicator>
@@ -229,17 +229,17 @@ const MainContainer = styled.div`
   overflow: auto;
   overflow-y: scroll;
   ::-webkit-scrollbar {
-    display:none;
+    display: none;
     width: 10px; /* width of the entire scrollbar */
   }
 
   ::-webkit-scrollbar-track {
-    display:none;
+    display: none;
     background: none; /* color of the tracking area */
   }
 
   ::-webkit-scrollbar-thumb {
-    display:none;
+    display: none;
     background-color: #ffffff; /* color of the scroll thumb */
     border-radius: 20px; /* roundness of the scroll thumb */
   }
