@@ -351,8 +351,7 @@ const AddQuestion = styled.span`
   @media (max-width: 500px) {
     min-width: 40px;
     min-height: 40px;
-    border-radius: 50%;
-    background-color: lavender;
+    
     text-align: center;
   }
 `;

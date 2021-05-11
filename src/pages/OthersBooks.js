@@ -42,7 +42,7 @@ const OthersBooks = (props) => {
     return(
         <React.Fragment>
             <Container>
-                <ImgLeft/>
+                <ContainerBox>
             <ProfileContainer>
                 <Profile id={userId} />
             </ProfileContainer>
@@ -51,7 +51,8 @@ const OthersBooks = (props) => {
                 }
                 {component === 'othersquestion' && <OthersQuestion/>}
                 {component === 'othersanswers' && <OthersAnswers/>}
-   
+                </ContainerBox>
+                <ImgLeft/>
             <ImgRight/>
             </Container>
         </React.Fragment>
@@ -59,18 +60,29 @@ const OthersBooks = (props) => {
 }
 
 
-const Container = styled.div`
-    width: 100%;
-    height: 100%;
-    display:flex;
-    flex-direction:column;
-    justify-content:space-between;
-    align-items:center;
-    overflow:auto;
+
+const ContainerBox = styled.div`
+    height: 100vh;
+    margin: 100px 0px 0px 0px;
+    padding-left: 20px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
     @media(max-width:750px){
         padding-left:0px;
         overflow-x:hidden;
     }
+    ::-webkit-scrollbar {
+    display: none;
+    };
+`
+
+const Container = styled.div`
+    width: 100%;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    overflow:auto;
     ::-webkit-scrollbar {
     display:none;
     width: 10px; /* width of the entire scrollbar */
@@ -86,14 +98,21 @@ const Container = styled.div`
     background-color: #ffffff; /* color of the scroll thumb */
     border-radius: 20px; /* roundness of the scroll thumb */
   }
+    @media (max-width:1040px){
+    margin:0px 10px;
+}
+@media(max-width:900px){
+        padding-bottom:80px;
+    }
 `;
 
 const ProfileContainer = styled.section`
     position:relative;
-    margin-top:170px;
     box-sizing:border-box;
     padding:30px;
     width: 100%;
+    margin: auto;
+    margin-top: 70px;
     max-width:988px;
     min-height:190px;
     display: flex;

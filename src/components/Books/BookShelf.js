@@ -612,7 +612,6 @@ const Shelf = styled.div`
 `;
 
 const BookRow = styled.div`
-  perspective:1500px;
   position:relative;
   display: flex;
   flex-direction: row;
