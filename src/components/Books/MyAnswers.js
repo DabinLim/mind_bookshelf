@@ -51,7 +51,7 @@ const MyAnswers = (props) => {
                   <Card key={idx} {...v}>
                     <Head>
                     </Head>
-                    <QuestionContents>{v.contents}</QuestionContents>
+                    <QuestionContents>{v.answerContents}</QuestionContents>
                     <CreatedAtBox>
                       <CreatedAt>20{v.YYMMDD}</CreatedAt>
                     </CreatedAtBox>

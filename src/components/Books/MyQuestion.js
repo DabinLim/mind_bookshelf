@@ -24,7 +24,6 @@ const MyQuestion = (props) => {
   const now_view = useSelector(state => state.custom.now_view);
   const container = React.useRef();
   const pop_container = React.useRef();
-  console.log(custom_question);
   React.useEffect(() => {
     dispatch(customActions.getMyQuest());
     dispatch(customActions.getMyPopQuest());
@@ -79,7 +78,7 @@ const MyQuestion = (props) => {
                       <SubjectBox>
                         {v.questionTopic?.length &&
                           v.questionTopic.map((v, idx) => {
-                            console.log(v);
+                            
                             if (v === "사랑") {
                               return (
                                 <Subject

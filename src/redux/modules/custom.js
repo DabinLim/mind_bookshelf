@@ -207,6 +207,51 @@ const getOthersQuest = (id) => {
     }
 }
 
+const getOthersPopQuest = (id) => {
+    return function(dispatch, getState){
+
+        const loading = getState().custom.loading;
+        const page = getState().custom.page;
+        const next = getState().custom.next;
+
+        if(!next){
+            console.log('next is none');
+            return
+        }
+        if(loading && page > 1){
+            console.log('잡았다 요놈');
+            return
+        }
+        dispatch(setPopLoading(true))
+
+        const options = {
+            url:`/bookshelf/other/like/${id}/question?page=${page}`,
+            method:"GET"
+        };
+        axios(options).then(response => {
+            console.log(response.data);
+            if(response.data.result.length < 15){
+                dispatch(setPopList(response.data.result))
+                // dispatch(setCustomCount(response.data.otherQuestionCount));
+                dispatch(setPopNext(false));
+                dispatch(setPopLoading(false));
+                return
+            }
+            dispatch(setPopList(response.data.result))
+            // dispatch(setCustomCount(response.data.otherQuestionCount));
+            dispatch(setPopPage(page+1))
+            dispatch(setPopLoading(false));
+
+        }).catch(err => {
+            console.log(err);
+            if(err.response){
+                console.log(err.response.data);
+            };
+
+        })
+    }
+}
+
 const getMyAnswers = () => {
     return function(dispatch, getState){
         const loading = getState().custom.loading;
@@ -316,6 +361,7 @@ export const api = {
     getMyQuest,
     getMyPopQuest,
     getOthersQuest,
+    getOthersPopQuest,
     getMyAnswers,
     getOthersAnswers
 };
