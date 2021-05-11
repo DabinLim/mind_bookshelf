@@ -45,8 +45,9 @@ const Post = (props) => {
   };
 
   const addAnswer = () => {
-    let str_space = /\s/; // 공백체크
-    if (str_space.exec(contents).input.replaceAll(" ", "") === "") {
+    // let str_space = /\s/; // 공백체크
+    let check = contents.replaceAll(" ", "");
+    if (check === "") {
       swal({
         title: "업로드에 실패하였습니다 😥",
         text: "빈칸만 넣으면 모를 줄 알았죠?!!",
