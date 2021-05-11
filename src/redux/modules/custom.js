@@ -54,6 +54,34 @@ const customSlice = createSlice({
         setPopLoading: (state, action) => {
             state.pop_loading = action.payload;
         },
+        // setAnswerPage: (state, action) => {
+        //     state.answer_page = action.payload;
+        // },
+        // setAnswerNext: (state, action) => {
+        //     state.answer_next = action.payload;
+        // },
+        // setAnswerList: (state,action) => {
+        //     action.payload.forEach(v => {
+        //         state.answer_list.push(v);
+        //     });
+        // },
+        // setAnswerLoading: (state, action) => {
+        //     state.answer_loading = action.payload;
+        // },
+        // setAnswerPopPage: (state, action) => {
+        //     state.answer_pop_page = action.payload;
+        // },
+        // setAnswerPopNext: (state, action) => {
+        //     state.answer_pop_next = action.payload;
+        // },
+        // setAnswerPopList: (state,action) => {
+        //     action.payload.forEach(v => {
+        //         state.answer_pop_list.push(v);
+        //     });
+        // },
+        // setAnswerPopLoading: (state, action) => {
+        //     state.answer_pop_loading = action.payload;
+        // },
         setCustomCount: (state, action) => {
             state.custom_count = action.payload;
         },
@@ -66,6 +94,7 @@ const customSlice = createSlice({
             state.pop_next = true;
             state.loading = true;
             state.pop_loading = true;
+            state.now_view = 'new';
         },
         setLoading: (state, action) => {
             state.loading = action.payload;
@@ -276,16 +305,61 @@ const getMyAnswers = () => {
             console.log(response.data);
             if(response.data.allMyAnswer.length < 15){
                 dispatch(setCustomQuestion(response.data.allMyAnswer))
-                dispatch(setCustomCount(response.data.allMyAnswerCount));
+                dispatch(setCustomCount(response.data.answerCount));
                 dispatch(setNext(false));
                 dispatch(setLoading(false));
                 return
             }
             dispatch(setCustomQuestion(response.data.allMyAnswer))
-            // dispatch(setCustomCount(response.data.allMyAnswerCount));
+            dispatch(setCustomCount(response.data.answerCount));
             dispatch(setPage(page+1))
             dispatch(setLoading(false));
 
+        }).catch(err => {
+            console.log(err);
+            if(err.response){
+                console.log(err.response.data);
+            };
+
+        })
+    }
+}
+
+const getMyPopAnswers = () => {
+    return function(dispatch, getState){
+
+        const loading = getState().custom.pop_loading;
+        const page = getState().custom.pop_page;
+        const next = getState().custom.pop_next;
+
+        if(!next){
+            console.log('next is none');
+            return
+        }
+        if(loading && page > 1){
+            console.log('잡았다 요놈');
+            return
+        }
+        dispatch(setPopLoading(true))
+
+        const options = {
+            url:`/bookshelf/answers/like?page=${page}`,
+            method:"GET"
+        };
+        axios(options).then(response => {
+            console.log(response.data);
+            if(response.data.allMyAnswer.length < 15){
+                dispatch(setPopList(response.data.allMyAnswer));
+                // dispatch(setCustomCount(response.data.myQuestionCount));
+                dispatch(setPopNext(false));
+                dispatch(setPopLoading(false));
+                return
+            }
+
+            dispatch(setPopList(response.data.allMyAnswer));
+            // dispatch(setCustomCount(response.data.myQuestionCount));
+            dispatch(setPopPage(page+1));
+            dispatch(setPopLoading(false));
         }).catch(err => {
             console.log(err);
             if(err.response){
@@ -354,7 +428,9 @@ export const {
     setPopPage,
     setPopNext,
     setPopList,
-    setPopLoading
+    setPopLoading,
+    setAnswerList,
+    setAnswerPopList
 } = customSlice.actions;
 
 export const api = {
@@ -363,6 +439,7 @@ export const api = {
     getOthersQuest,
     getOthersPopQuest,
     getMyAnswers,
+    getMyPopAnswers,
     getOthersAnswers
 };
 
