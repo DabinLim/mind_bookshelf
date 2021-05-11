@@ -22,7 +22,6 @@ import swal from "sweetalert";
 import { getCookie } from "../../shared/Cookie";
 
 const CardModal = (props) => {
-  console.log(props);
   const answerInfo = useSelector((state) => state.community.card_detail);
   const comment_list = useSelector((state) => state.comment.list);
   const user_info = useSelector((state) => state.user.user);
@@ -60,7 +59,6 @@ const CardModal = (props) => {
     if (id === "mybook") {
       dispatch(booksActions.getNextDetail(thisMonthBooks[nowBook + 1]._id));
     } else {
-      console.log(thisMonthBooks[nowBook + 1]._id);
       dispatch(
         booksActions.getNextOthersBookDetail(
           thisMonthBooks[nowBook + 1]._id,
@@ -116,8 +114,6 @@ const CardModal = (props) => {
       dispatch(changeDate(`20${thisMonthBooks[nowBook + 1]._id}`));
       if (id === "mybook") {
         dispatch(booksActions.getNextDetail(thisMonthBooks[nowBook + 1]._id));
-      } else {
-        console.log(thisMonthBooks[nowBook + 1]._id);
         dispatch(
           booksActions.getNextOthersBookDetail(
             thisMonthBooks[nowBook + 1]._id,
@@ -205,12 +201,10 @@ const CardModal = (props) => {
   const keyPress = React.useCallback(debounce, []);
 
   const tagSetting = (start, text) => {
-    console.log(start, text);
     if (text[start - 1] === "@") {
       return true;
     }
     for (let i = start - 1; i >= 0; i--) {
-      console.log(i, text[i]);
       if (text[i] === " ") {
         return false;
       } else if (text[i] === "@") {
@@ -259,7 +253,6 @@ const CardModal = (props) => {
       return;
     } else {
       let userInfo = result.data.userInfo;
-      console.log(userInfo);
       for (let user of userInfo) {
         if (words === user.nickname) {
           return [user.nickname, user.userId];
@@ -281,7 +274,6 @@ const CardModal = (props) => {
       } else if (comments[i] === " ") {
         status = 0;
         if (temp) {
-          console.log(temp);
           let tag = await CheckTagAX(temp);
           if (tag) {
             list.push(tag);
@@ -291,7 +283,6 @@ const CardModal = (props) => {
       }
     }
     if (temp) {
-      console.log(temp);
       let tag = await CheckTagAX(temp);
       if (tag) {
         list.push(tag);
@@ -313,9 +304,6 @@ const CardModal = (props) => {
     );
     setComments("");
   };
-
-  // HideModal function
-  const [isOpen, setOpen] = useState(false);
 
   let color = "";
   let topic = "";
