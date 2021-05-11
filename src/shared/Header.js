@@ -20,12 +20,16 @@ import axios from 'axios'
 import { CardModal } from "../components/Community/communityindex"
 import InfoIcon from '@material-ui/icons/Info';
 import {About} from './sharedindex'
+import HomeIcon from '@material-ui/icons/Home';
+import PermIdentityIcon from '@material-ui/icons/PermIdentity';
+import ImportContactsIcon from '@material-ui/icons/ImportContacts';
+import ForumOutlinedIcon from '@material-ui/icons/ForumOutlined';
+import ChatOutlinedIcon from '@material-ui/icons/ChatOutlined';
 
 const Header = () => {
   const dispatch = useDispatch();
   const is_login = useSelector((state) => state.user.is_login);
   const [loginModal, setLogin] = useState(false);
-  const [menu, setMenu] = useState(false);
   const searchModal = useSelector((state) => state.noti.searchModal);
   const [notiModal, setNoti] = useState(false);
   const is_checked = useSelector((state) => state.noti.is_checked);
@@ -34,7 +38,6 @@ const Header = () => {
   const [loading, setLoading] = useState(true)
   const [cardModal, setCardModal] = useState(false)
   const [aboutModal, setAboutModal] = useState(false)
-  const [navigation, setNavigation] = useState(false)
 
   const closeNotiModal = () => {
     setNoti(false);
@@ -67,12 +70,72 @@ const Header = () => {
   if (is_login) {
     return (
       <React.Fragment>
-        {navigation?
         <NaviModal>
-          <ExitBtn onClick={() => {setNavigation(false)}} >x</ExitBtn>
-          <MenuContainer>
-            <Menu>
-            {is_checked ? <AlarmBadge /> : null}
+          <Menu>
+            <MenuIcon fontSize="large" />
+            <MenuText>메뉴</MenuText>
+          </Menu>
+          <Menu
+            onClick={() => {
+                history.push("/");
+                dispatch(setComponent(""));
+              }}
+            >
+            <HomeIcon fontSize="large" />
+            <MenuText>오늘의 낙서</MenuText>
+          </Menu>
+          <Menu
+            onClick={() => {
+              if (!getCookie("is_login")) {
+                swal({
+                  title: "로그인 필수!",
+                  text: "로그인 후 이용가능해요",
+                  icon: "info",
+                });
+                return;
+              }
+              dispatch(setComponent(""));
+              history.push("/mybook");
+            }}
+          >
+            <ImportContactsIcon fontSize="large" />
+            <MenuText>나의 책장</MenuText>
+          </Menu>
+          <Menu
+            onClick={() => {
+              history.push("/community");
+              dispatch(setComponent(""));
+            }}
+          >
+            <ChatOutlinedIcon fontSize="large" />
+            <MenuText>커뮤니티</MenuText>
+          </Menu>
+        </NaviModal>
+        {cardModal ? <CardModal close={closeCardModal} /> : null}
+        <HeaderContainer>
+          <HeaderInnerContainer>
+            <NaviContainer>
+              <MobileIcon>
+              {searchModal ? (
+                  <Search
+                    recent_list={recent_list}
+                    setLoading={setLoading}
+                    loading={loading}
+                  />
+                ) : null}
+                <SearchIcon
+                  style={{ cursor: "pointer" }}
+                  onClick={() => {
+                    recentUser();
+                    // dispatch(userActions.getRecentUserAX())
+                    dispatch(setSearch(true));
+                  }}/>
+              </MobileIcon>
+              <Logo>
+                Logo
+              </Logo>
+              <MobileIcon>
+              {is_checked ? <AlarmBadge /> : null}
                 {notiModal ? (
                   <Notification
                     close={closeNotiModal}
@@ -84,49 +147,9 @@ const Header = () => {
                   onClick={() => {
                     setNoti(true);
                     dispatch(notiActions.openAlarmIO(user.id));
-                  }} />
-            </Menu>
-            <Menu>
-              {searchModal ? (
-                    <Search
-                      recent_list={recent_list}
-                      setLoading={setLoading}
-                      loading={loading}
-                    />
-                  ) : null}
-                  <SearchIcon
-                    style={{ cursor: "pointer" }}
-                    onClick={() => {
-                      recentUser();
-                      // dispatch(userActions.getRecentUserAX())
-                      dispatch(setSearch(true));
-                    }}
-                  />
-            </Menu>
-            <Menu>
-              {aboutModal? <About setAboutModal={setAboutModal} /> : null}
-              <InfoOutlinedIcon 
-              style={{ cursor: "pointer" }}
-              onClick={() => {
-                  setAboutModal(true);
-                }} /></Menu>
-            <Menu>
-              <HighlightOffIcon
-              style={{ cursor: "pointer" }}
-              onClick={() => {
-                dispatch(notiActions.leaveAlarmIO(user.id));
-              }}
-            /></Menu>
-          </MenuContainer>
-        </NaviModal>
-        :null}
-        {cardModal ? <CardModal close={closeCardModal} /> : null}
-        <HeaderContainer>
-          <HeaderInnerContainer>
-            <NaviContainer>
-              <Logo>
-                Logo
-              </Logo>
+                  }}
+                />
+              </MobileIcon>
               <PageButton
                 onClick={() => {
                   history.push("/");
@@ -210,65 +233,8 @@ const Header = () => {
               >
                 Logout
               </TextBtn>
-              <Menuicon>
-                <MenuIcon 
-                style={{ cursor: "pointer" }}
-                onClick={() => {
-                  setNavigation(true)
-                  }} />
-              </Menuicon>
             </IconContainer>
           </HeaderInnerContainer>
-          {/* {menu? 
-          <MenuContainer>
-            <Menu>
-            {is_checked ? <AlarmBadge /> : null}
-                {notiModal ? (
-                  <Notification
-                    close={closeNotiModal}
-                    setCardModal={setCardModal}
-                  />
-                ) : null}
-                <NotificationsIcon
-                  style={{ cursor: "pointer" }}
-                  onClick={() => {
-                    setNoti(true);
-                    dispatch(notiActions.openAlarmIO(user.id));
-                  }} />
-            </Menu>
-            <Menu>
-            {searchModal ? (
-                  <Search
-                    recent_list={recent_list}
-                    setLoading={setLoading}
-                    loading={loading}
-                  />
-                ) : null}
-                <SearchIcon
-                  style={{ cursor: "pointer" }}
-                  onClick={() => {
-                    recentUser();
-                    // dispatch(userActions.getRecentUserAX())
-                    dispatch(setSearch(true));
-                  }}
-                />
-            </Menu>
-            <Menu>
-              {aboutModal? <About setAboutModal={setAboutModal} /> : null}
-              <InfoOutlinedIcon 
-              style={{ cursor: "pointer" }}
-              onClick={() => {
-                  setAboutModal(true);
-                }} /></Menu>
-            <Menu>
-              <HighlightOffIcon
-              style={{ cursor: "pointer" }}
-              onClick={() => {
-                dispatch(notiActions.leaveAlarmIO(user.id));
-              }}
-            /></Menu>
-          </MenuContainer>
-          : null} */}
         </HeaderContainer>
       </React.Fragment>
     );
@@ -354,53 +320,8 @@ const Header = () => {
             >
               Login
             </TextBtn>
-            <Menuicon>
-              <MenuIcon
-              onClick={() => {
-                if(menu){
-                setMenu(false)}else{
-                  setMenu(true)
-                }
-                }}
-              />
-            </Menuicon>
           </IconContainer>
         </HeaderInnerContainer>
-        {menu? 
-          <MenuContainer>
-            <Menu>
-            {searchModal ? (
-                  <Search
-                    recent_list={recent_list}
-                    setLoading={setLoading}
-                    loading={loading}
-                  />
-                ) : null}
-                <SearchIcon
-                  style={{ cursor: "pointer" }}
-                  onClick={() => {
-                    recentUser();
-                    // dispatch(userActions.getRecentUserAX())
-                    dispatch(setSearch(true));
-                  }}
-                />
-            </Menu>
-            <Menu>
-              {aboutModal? <About setAboutModal={setAboutModal} /> : null}
-              <InfoOutlinedIcon 
-              style={{ cursor: "pointer"}}
-              onClick={() => {
-                  setAboutModal(true);
-                }} /></Menu>
-            <Menu>
-              <ExitToAppIcon
-              style={{ cursor: "pointer" }}
-              onClick={() => {
-                setLogin(true);
-              }}
-            /></Menu>
-          </MenuContainer>
-          : null}
       </HeaderContainer>
     </React.Fragment>
   );
@@ -436,23 +357,40 @@ const HeaderInnerContainer = styled.div`
   };
 `;
 
-const MenuContainer = styled.div`
-  display: flex;
-  margin-top: 50px;
-  padding: 0px 20px;
-  
-
+const NaviModal = styled.div`
+  display: none;
+  height: 80px;
+  width: 100vw;
+  position: fixed;
+  z-index: 100;
+  bottom: 0;
+  right: 0;
+  background-color: #EBEFF2;
+  @media (max-width: 900px){
+    display: flex;
+    padding: 0px 80px;
+    align-items: center;
+    justify-content: space-between;
+  };
+  @media (max-width: 500px){
+    display: flex;
+    padding: 0px 20px;
+    align-items: center;
+    justify-content: space-between;
+  };
 `
 
 const Menu = styled.div`
-  position: relative;
-  display: none;
-  margin: 7px 0;
-  font-size: 15px;
-  @media (max-width: 900px){
-    display: block;
-  };
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 14px;
+  cursor: pointer;
 `
+const MenuText = styled.div`
+`
+
+
 
 const NaviContainer = styled.div`
   display: flex;
@@ -461,15 +399,19 @@ const NaviContainer = styled.div`
   align-items: center;
   height: 100%;
   justify-content: flex-start;
-  
+  @media (max-width: 900px){
+    justify-content: space-between;
+    width: 100%;
+  };
 `;
 
 const Logo = styled.span`
   margin-right: 140px;
   font-size: 18px;
   font-weight: 800;
+  transition: 0.5s;
   @media (max-width: 900px){
-    margin-right: 50px;
+    margin-right: 0px;
   };
 `
 
@@ -478,7 +420,9 @@ margin: 10px;
 font-size: 14px;
 font-weight: 600;
 cursor: pointer;
-
+@media (max-width: 900px){
+  display: none;
+};
 `
 
 const IconContainer = styled.div`
@@ -507,11 +451,11 @@ const Icon = styled.div`
   };
 `;
 
-const Menuicon = styled.div`
+const MobileIcon = styled.div`
+  position: relative;
   display: none;
-  margin-top: 9px;
   margin-left: 25px;
-  cursor: pointer;
+  margin-top: 9px;
   @media (max-width: 900px){
     display: block;
   };
@@ -532,24 +476,5 @@ const AlarmBadge = styled.div`
   top: 2px;
 `;
 
-const NaviModal = styled.div`
-  position: relative;
-  height: 100vh;
-  width: 300px;
-  position: fixed;
-  z-index: 100;
-  top: 0;
-  right: 0;
-  background-color: white;
-  transition: 1s;
-`
-
-const ExitBtn = styled.div`
-  position: fixed;
-  top: 3px;
-  right: 20px;
-  font-size: 20px;
-  cursor: pointer;
-`
 
 export default Header;

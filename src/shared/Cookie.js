@@ -14,9 +14,10 @@ const deleteCookie = (name) => {
 
   console.log(date);
 
-  document.cookie = name+"=; expires="+date;
+  document.cookie = name+"=; expires="+date+";path=/";
 
 };
+// document.cookie = name + '=; expires=Thu, 01 Jan 1999 00:00:10 GMT;path=/;
 // 쿠키 조회
 const getCookie = (name) => {
   let value = "; "+document.cookie;

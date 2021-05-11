@@ -72,7 +72,7 @@ const Profile = (props) => {
             other_info.topic?.worth === false ?
             <SubjectContainer>
               <div style={{display:'flex',alignItems:'center'}}>
-              <span style={{fontSize:'14px',marginRight:'17px',fontWeight:'800'}}>선택하신 선호 태그가 없습니다. 😗</span>
+              <span style={{fontSize:'14px',marginRight:'17px',fontWeight:'800'}}>선택하신 선호 태그가 없습니다.</span>
               </div>
             </SubjectContainer>
             :
