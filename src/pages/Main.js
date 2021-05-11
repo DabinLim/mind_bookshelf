@@ -254,7 +254,7 @@ const LoaderBox = styled.div`
 // 메인의 위쪽 부분
 
 const MainUpper = styled.section`
-  margin-top: 80px;
+  margin-top: 30px;
   text-align: center;
 `;
 
