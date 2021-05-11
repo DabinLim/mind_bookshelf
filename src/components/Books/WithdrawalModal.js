@@ -31,7 +31,7 @@ const Background = styled.div`
   height: 100vh;
   width: 100vw;
   background-color: black;
-  z-index: 40;
+  z-index: 110;
 `;
 
 const WithdrawalContainer = styled.div`
@@ -42,7 +42,7 @@ const WithdrawalContainer = styled.div`
   height: 400px;
   transform: translate(-50%, -50%);
   background-color: #FAFAFA;
-  z-index: 50;
+  z-index: 120;
   display: flex;
   flex-direction: column;
   justify-content: center;

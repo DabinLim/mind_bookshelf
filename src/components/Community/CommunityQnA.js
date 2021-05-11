@@ -110,7 +110,9 @@ const CommunityQnA = (props) => {
                     <LikeBox>
                       {a.like ? (
                         <>
-                          <FavoriteIcon style={{ color: "red" }} />{" "}
+                          <FavoriteIcon style={{ color: "red" }}
+                            
+                          />{" "}
                         </>
                       ) : (
                         <>

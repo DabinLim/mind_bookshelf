@@ -20,6 +20,7 @@ import { config } from "../../shared/config";
 import _ from "lodash";
 import swal from "sweetalert";
 import { getCookie } from "../../shared/Cookie";
+import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 
 const CardModal = (props) => {
   const answerInfo = useSelector((state) => state.community.card_detail);
@@ -431,7 +432,6 @@ const CardModal = (props) => {
                     fontSize: "25px",
                   }}
                 />
-
                 <span
                   style={{
                     fontWeight: "600",
@@ -441,7 +441,6 @@ const CardModal = (props) => {
                 >
                   {nowdate.format("M")}월{nowdate.format("D")}일
                 </span>
-
                 <ArrowForwardIosIcon
                   disabled={card_loading}
                   onClick={nextDay}
@@ -650,7 +649,6 @@ const CardModal = (props) => {
                 </CardWriterLeft>
                 <HashTag style={{ background: color }}>{topic}</HashTag>
               </CardWriterInfoLeft>
-
               {/* 카드 질문 내용 */}
               <CardQuestionContent>
                 {answerInfo?.questionContents}
@@ -662,6 +660,7 @@ const CardModal = (props) => {
               </CardAnswerContent>
             </CardWriteLeftBody>
             <IconContainer>
+              <IconBox>
               <LikeContainer>
                 {answerInfo.like ? (
                   <LikeBtn
@@ -715,6 +714,10 @@ const CardModal = (props) => {
                   <CommentCount>{comment_list?.length}개</CommentCount>
                 </CommentBtn>
               </CommentContainer>
+              </IconBox>
+              <div style={{marginRight:"10px", cursor: "pointer"}} >
+                <MoreHorizIcon/>
+              </div>
             </IconContainer>
           </ModalContent>
           <ModalRightContainer>
@@ -974,11 +977,16 @@ const IconContainer = styled.div`
   display: flex;
   min-height: 20%;
   max-height: 20%;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
   box-sizing: border-box;
   margin: 0 0 0 40px;
 `;
+
+const IconBox = styled.div`
+  display: flex;
+  align-items: center;
+`
 
 const LikeContainer = styled.div`
   display: flex;
