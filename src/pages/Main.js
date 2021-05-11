@@ -256,18 +256,28 @@ const LoaderBox = styled.div`
 const MainUpper = styled.section`
   margin-top: 30px;
   text-align: center;
+
+  @media (max-width: 500px) {
+    text-align: left;
+    padding: 0 0 0 25px;
+  }
 `;
 
 // 토글버튼 있어야한다..
 
 const DateIndicator = styled.h2`
   text-align: center;
-  text-align: center;
   font: normal normal bold 20px/26px Roboto;
   letter-spacing: 0px;
   color: #262626;
   opacity: 1;
   margin-top: 50px;
+
+  @media (max-width: 500px) {
+    text-align: left;
+    font-size: 12px;
+    margin-top: 0;
+  }
 `;
 
 const QuestionIndicator = styled.h3`
@@ -275,6 +285,11 @@ const QuestionIndicator = styled.h3`
   font: normal normal normal 46px/60px Roboto;
   letter-spacing: 0px;
   color: #262626;
+
+  @media (max-width: 500px) {
+    text-align: left;
+    font-size: 25px;
+  }
 `;
 
 const ToMyBookShelf = styled.button`
@@ -290,6 +305,11 @@ const ToMyBookShelf = styled.button`
   opacity: 1;
   :hover {
     font-weight: bold;
+  }
+
+  @media (max-width: 500px) {
+    text-align: left;
+    font-size: 11px;
   }
 `;
 

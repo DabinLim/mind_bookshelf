@@ -95,7 +95,7 @@ const Post = (props) => {
 
   return (
     <>
-      <CardFrame>
+      <CardFrame className="post-card">
         <CardInfo>
           <CardWriterInfo>
             <CardWriterProfile

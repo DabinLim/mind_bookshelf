@@ -50,3 +50,35 @@
 .proselectedDot {
   color: #797676 !important;
 }
+
+@media screen and (max-width: 500px) {
+  .post-card {
+    border-radius: 50px !important;
+  }
+
+  .selected {
+    min-width: 305px;
+    max-width: 305px;
+    min-height: 361px;
+    max-height: 361px;
+    border-radius: 50px !important;
+  }
+
+  .preselected {
+    min-width: 305px;
+    max-width: 305px;
+    min-height: 361px;
+    max-height: 361px;
+    border-radius: 50px !important;
+    transform: translateX(-105%) scale(1);
+  }
+
+  .proselected {
+    min-width: 305px;
+    max-width: 305px;
+    min-height: 361px;
+    max-height: 361px;
+    border-radius: 50px !important;
+    transform: translateX(105%) scale(1);
+  }
+}
