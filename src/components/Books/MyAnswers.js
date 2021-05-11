@@ -4,10 +4,7 @@ import { NewQuestion } from "./booksindex";
 import { useDispatch, useSelector } from "react-redux";
 import {
   api as customActions,
-  setPage,
-  setNext,
-  resetCustomQuestion,
-  setLoading,
+  resetAll
 } from "../../redux/modules/custom";
 import InfinityScroll from "../../shared/InfinityScroll";
 const MyAnswers = (props) => {
@@ -24,10 +21,7 @@ const MyAnswers = (props) => {
     dispatch(customActions.getMyAnswers());
 
     return () => {
-      dispatch(resetCustomQuestion());
-      dispatch(setPage(1));
-      dispatch(setNext(true));
-      dispatch(setLoading(true));
+      dispatch(resetAll());
     };
   }, []);
 
@@ -57,7 +51,7 @@ const MyAnswers = (props) => {
                   <Card key={idx} {...v}>
                     <Head>
                     </Head>
-                    <QuestionContents>{v.contents}</QuestionContents>
+                    <QuestionContents>{v.answerContents}</QuestionContents>
                     <CreatedAtBox>
                       <CreatedAt>20{v.YYMMDD}</CreatedAt>
                     </CreatedAtBox>

@@ -243,6 +243,47 @@ const Header = () => {
   return (
     <React.Fragment>
       {loginModal ? <LoginModal close={closeLoginModal} /> : null}
+      <NaviModal>
+        <Menu>
+          <MenuIcon fontSize="large" />
+          <MenuText>메뉴</MenuText>
+        </Menu>
+        <Menu
+          onClick={() => {
+              history.push("/");
+              dispatch(setComponent(""));
+            }}
+          >
+          <HomeIcon fontSize="large" />
+          <MenuText>오늘의 낙서</MenuText>
+        </Menu>
+        <Menu
+          onClick={() => {
+            if (!getCookie("is_login")) {
+              swal({
+                title: "로그인 필수!",
+                text: "로그인 후 이용가능해요",
+                icon: "info",
+              });
+              return;
+            }
+            dispatch(setComponent(""));
+            history.push("/mybook");
+          }}
+        >
+          <ImportContactsIcon fontSize="large" />
+          <MenuText>나의 책장</MenuText>
+        </Menu>
+        <Menu
+          onClick={() => {
+            history.push("/community");
+            dispatch(setComponent(""));
+          }}
+        >
+          <ChatOutlinedIcon fontSize="large" />
+          <MenuText>커뮤니티</MenuText>
+        </Menu>
+      </NaviModal>
       <HeaderContainer>
         <HeaderInnerContainer>
           <NaviContainer>
@@ -335,7 +376,7 @@ const HeaderContainer = styled.div`
   left: 0;
   top: 0;
   z-index: 50;
-  margin-bottom: 10px;
+  // margin-bottom: 10px;
   overflow: visible;
 `;
 

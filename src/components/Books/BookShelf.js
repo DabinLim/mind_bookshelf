@@ -612,6 +612,7 @@ const Shelf = styled.div`
 `;
 
 const BookRow = styled.div`
+  perspective:1500px;
   position:relative;
   display: flex;
   flex-direction: row;
@@ -650,6 +651,7 @@ const Book = styled.div`
   width: 46px;
   height: 210px;
   margin: 0px 10px;
+  transform: rotateZ(0deg);
   /* transition: linear .1s; */
   
   /* background-image:url('');
@@ -658,7 +660,8 @@ const Book = styled.div`
     z-index:40;
     /* transform: translateY(20%) */
     /* transform: translateX(100%) */
-    transform: scale(0.5)
+    transform: rotateZ(9000deg) scale(0.2);
+    transition:ease-in-out 4s;
   }
   @media (max-width:1000px){
     margin: 0px 5px;
