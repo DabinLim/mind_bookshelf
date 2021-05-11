@@ -68,4 +68,9 @@ body {
   background-image: url("https://user-images.githubusercontent.com/77574867/116995144-a7236d00-ad14-11eb-9021-940b83e5089e.png");
   background-size: cover;
   background-repeat: no-repeat;
+  font-family: "Jeju Myeongjo", serif;
+}
+
+h3 {
+  font-family: "Jeju Myeongjo", serif;
 }

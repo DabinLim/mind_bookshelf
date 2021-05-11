@@ -14,17 +14,13 @@ const CommunityQnA = (props) => {
   const dispatch = useDispatch();
   const [cardModal, setCardModal] = useState(false);
   const user = useSelector((state) => state.user.user);
-  console.log(props.topic);
-  console.log(cardModal);
   const closeCardModal = () => {
-    console.log("close");
     setCardModal(false);
   };
 
   const openCard = (a) => {
     const type = "community";
     setCardModal(true);
-    console.log("open");
     dispatch(communityActions.getCardDetail(a.answerId, type));
     dispatch(commentActions.getCommentAX(a.answerId));
   };
