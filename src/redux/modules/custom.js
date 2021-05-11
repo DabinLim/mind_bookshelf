@@ -71,6 +71,7 @@ const getMyQuest = () => {
                 dispatch(setCustomCount(response.data.myQuestionCount));
                 dispatch(setNext(false));
                 dispatch(setLoading(false));
+                return
             }
 
             dispatch(setCustomQuestion(response.data.myQuestion));
@@ -115,6 +116,7 @@ const getOthersQuest = (id) => {
                 dispatch(setCustomCount(response.data.otherQuestionCount));
                 dispatch(setNext(false));
                 dispatch(setLoading(false));
+                return
             }
             dispatch(setCustomQuestion(response.data.otherQuestion))
             dispatch(setCustomCount(response.data.otherQuestionCount));
@@ -158,6 +160,7 @@ const getMyAnswers = () => {
                 dispatch(setCustomCount(response.data.allMyAnswerCount));
                 dispatch(setNext(false));
                 dispatch(setLoading(false));
+                return
             }
             dispatch(setCustomQuestion(response.data.allMyAnswer))
             // dispatch(setCustomCount(response.data.allMyAnswerCount));
@@ -174,6 +177,53 @@ const getMyAnswers = () => {
     }
 }
 
+const getOthersAnswers = (id) => {
+    return function(dispatch, getState){
+
+        const loading = getState().custom.book_loading;
+        const page = getState().custom.page;
+        const next = getState().custom.next;
+
+        if(!next){
+            console.log('next is none');
+            return
+        }
+        if(loading && page > 1){
+            console.log('잡았다 요놈');
+            return
+        }
+        dispatch(setLoading(true))
+
+        const options = {
+            url:`/bookshelf/other/answers/${id}?page=${page}`,
+            method:"GET"
+        };
+        axios(options).then(response => {
+            console.log(response.data);
+            if(response.data.allMyAnswer.length < 15){
+                dispatch(setCustomQuestion(response.data.allMyAnswer))
+                // dispatch(setCustomCount(response.data.otherQuestionCount));
+                dispatch(setNext(false));
+                dispatch(setLoading(false));
+                return
+            }
+            dispatch(setCustomQuestion(response.data.allMyAnswer))
+            // dispatch(setCustomCount(response.data.otherQuestionCount));
+            dispatch(setPage(page+1))
+            dispatch(setLoading(false));
+
+        }).catch(err => {
+            console.log(err);
+            if(err.response){
+                console.log(err.response.data);
+            };
+
+        })
+    }
+}
+
+
+
 export const {
     setPage,
     setNext,
@@ -187,6 +237,7 @@ export const api = {
     getMyQuest,
     getOthersQuest,
     getMyAnswers,
+    getOthersAnswers
 };
 
 export default customSlice.reducer;

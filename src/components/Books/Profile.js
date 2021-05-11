@@ -102,7 +102,7 @@ const Profile = (props) => {
             }
               </Head>
               <Body>
-                <Answers onClick={() => {dispatch(setComponent('myanswers'))}}>
+                <Answers onClick={() => {dispatch(setComponent('othersanswers'))}}>
                   낙서
                 <CountText>{other_info.otherAnswerCount}</CountText>
                 </Answers>
