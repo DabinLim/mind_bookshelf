@@ -149,9 +149,9 @@ const date_visible = useSelector(state => state.books.date_visible);
         <ForDate>
           {date_visible ? 
           <>
-          <ArrowLeft onClick={previousMonth} />
+          <ArrowLeft onClick={previousMonth} cursor='pointer'/>
           <span>{formated_date}</span> 
-          <ArrowRight onClick={nextMonth} />
+          <ArrowRight onClick={nextMonth} cursor='pointer'/>
           </>
           : ''}
         </ForDate>
@@ -567,6 +567,9 @@ const ForDate = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
+  @media(min-width:750px){
+    transform:scale(1.2)
+  }
 `;
 
 const ShelfBox = styled.div`
@@ -652,8 +655,10 @@ const Book = styled.div`
   /* background-image:url('');
   background-size:cover; */
   &:hover{
-    transform:scale(1.2);
     z-index:40;
+    /* transform: translateY(20%) */
+    /* transform: translateX(100%) */
+    transform: scale(0.5)
   }
   @media (max-width:1000px){
     margin: 0px 5px;
