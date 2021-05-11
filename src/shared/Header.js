@@ -219,7 +219,7 @@ const Header = () => {
               </Menuicon>
             </IconContainer>
           </HeaderInnerContainer>
-          {menu? 
+          {/* {menu? 
           <MenuContainer>
             <Menu>
             {is_checked ? <AlarmBadge /> : null}
@@ -268,7 +268,7 @@ const Header = () => {
               }}
             /></Menu>
           </MenuContainer>
-          : null}
+          : null} */}
         </HeaderContainer>
       </React.Fragment>
     );

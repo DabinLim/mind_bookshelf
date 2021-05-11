@@ -75,7 +75,7 @@ const sendCommentAX = (cardId, content, tagId = [], questionId) => {
   return function (dispatch, getState) {
     // console.log(cardId, content);
     // return;
-    console.log("하이");
+    console.log('하이')
     let comment_data = {
       commentContents: content,
       tag: tagId,
@@ -87,7 +87,7 @@ const sendCommentAX = (cardId, content, tagId = [], questionId) => {
     };
     axios(options)
       .then((response) => {
-        console.log(response);
+        console.log(response)
         dispatch(
           addComment({ ...response.data.result, commentCreatedAt: "방금전" })
         );

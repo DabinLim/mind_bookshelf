@@ -341,12 +341,17 @@ const addQuest = (topic, contents) => {
         axios(options).then((response)=> {
             console.log(response.data)
             swal({
-                title: "정상적으로 등록되었습니다.😀",
+                title: "정상적으로 등록되었습니다.",
                 text: `질문이 등록되었습니다.`,
                 icon: "success",
             });
 
         }).catch((err) => {
+            swal({
+                title: "더이상 질문을 등록할 수 없습니다.",
+                text: `하루에 질문은 한개 만 만들 수 있어요.`,
+                icon: "error",
+            });
             console.log(err)
             if(err.response){
                 console.log(err.response.data)

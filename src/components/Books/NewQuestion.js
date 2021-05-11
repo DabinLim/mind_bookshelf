@@ -144,10 +144,10 @@ const NewQuestion = (props) => {
       });
       return
     }
-    if(!question){
+    if(!/.{5,}$/g.test(question)){
       swal({
-        title: "질문을 작성해주세요.",
-        text: `성의껏 작성해주시면 감사하겠습니다`,
+        title: "질문이 정상적으로 작성되지 않았습니다.",
+        text: `최소 5글자 이상 작성해주셔야 합니다.`,
         icon: "error",
       });
       return
@@ -241,6 +241,9 @@ const ModalInner = styled.div`
   top: 50%;
   transform: translate(-50%, -50%);
   z-index: 100;
+  @media (max-width: 420px){
+    width: 95%
+  };
 `;
 
 const Container = styled.div`

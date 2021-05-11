@@ -19,6 +19,7 @@ import QuestionDetail from "./components/Community/QuestionDetail";
 import { socket, addNoti } from "./redux/modules/noti";
 import ComponentSlider from "./components/Main/ComponentSlider";
 import axios from 'axios'
+import ChannelService from './shared/ChannelService'
 
 function App() {
   axios.defaults.baseURL = "https://lkj99.shop";
@@ -36,6 +37,9 @@ function App() {
     if (cookie) {
       dispatch(userActions.LoginCheckAX());
     }
+    ChannelService.boot({
+      "pluginKey": "1e06f0ed-5da8-42f4-bb69-7e215b14ec18" //please fill with your plugin key
+    });
   }, []);
   return (
     <React.Fragment>

@@ -288,7 +288,7 @@ const Background = styled.div`
 
 const UpdateBox = styled.div`
   position: absolute;
-  top: 250px;
+  top: 350px;
   left: 50%;
   width: 400px;
   hight: auto;
@@ -301,6 +301,9 @@ const UpdateBox = styled.div`
   justify-content: space-between;
   align-items: center;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.12), 0 2px 5px rgba(0, 0, 0, 0.24);
+  @media (max-width: 420px){
+    width: 95%
+  };
 `;
 
 const ImageUpdate = styled.div`
@@ -388,6 +391,9 @@ const Input = styled.input`
   width: 350px;
   border: none;
   box-sizing: border-box;
+  @media (max-width: 420px){
+    width: 280px;
+  };
 `;
 
 const Input2 = styled.textarea`
@@ -402,6 +408,9 @@ const Input2 = styled.textarea`
   width: 350px;
   border: none;
   box-sizing: border-box;
+  @media (max-width: 420px){
+    width: 280px;
+  };
 `
 
 const InputUpper = styled.div`

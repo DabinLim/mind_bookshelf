@@ -10,20 +10,22 @@ const setCookie = (name, value) => {
 
 // 쿠키 삭제
 const deleteCookie = (name) => {
-  document.cookie = name + '=; expires=Thu, 01 Jan 1999 00:00:10 GMT;path=/;';
-};
+  let date = new Date("2020-01-01").toUTCString();
 
+  console.log(date);
+
+  document.cookie = name+"=; expires="+date;
+
+};
 // 쿠키 조회
 const getCookie = (name) => {
-  let value = '; ' + document.cookie;
-  let parts = value.split(';  ' + name + '=');
+  let value = "; "+document.cookie;
+
+  let parts = value.split(`; ${name}=`);
+
   if (parts.length === 2) {
-    return parts.pop().split(';').shift();
-  } else if (parts === '; ') {
-    return undefined;
-  } else {
-    return parts.pop().split('=')[1];
+    return parts.pop().split(";").shift();
   }
-};
+}
 
 export { setCookie, deleteCookie, getCookie };
