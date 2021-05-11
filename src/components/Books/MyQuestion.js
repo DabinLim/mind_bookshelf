@@ -25,6 +25,7 @@ const MyQuestion = (props) => {
   const container = React.useRef();
   const pop_container = React.useRef();
   React.useEffect(() => {
+
     dispatch(customActions.getMyQuest());
     dispatch(customActions.getMyPopQuest());
 
@@ -50,13 +51,50 @@ const MyQuestion = (props) => {
             }}
           >
             {" "}
+            <AddBtn>
             <span style={{ fontSize: "24px" }}> + </span>
             <AddText> 질문 등록하기</AddText>
+            <AddTextMobile>질문등록</AddTextMobile>
+            </AddBtn>
           </AddQuestion>
-          <div style={{display:'flex', flexDirection:'row',justifyContent:'flex-end'}}>
-          <span onClick={()=>{dispatch(setView('new'))}} style={{marginRight:'5px',cursor:'pointer'}}>최신순</span>
-          <span onClick={()=>{dispatch(setView('pop'))}} style={{cursor:'pointer'}}>답변순</span>
-          </div>
+          <FilterBtnBox>
+          {now_view === "new" ? (
+                  <FilterBtn
+                    style={{ fontWeight: "bold" }}
+                    onClick={() => {
+                      dispatch(setView("new"));
+                    }}
+                  >
+                    •<span style={{ marginLeft: "5px" }}>최신순</span>
+                  </FilterBtn>
+                ) : (
+                  <FilterBtn
+                    onClick={() => {
+                      dispatch(setView("new"));
+                    }}
+                  >
+                    최신순
+                  </FilterBtn>
+                )}
+                {now_view === "pop" ? (
+                  <FilterBtn
+                    style={{ fontWeight: "bold" }}
+                    onClick={() => {
+                      dispatch(setView("pop"));
+                    }}
+                  >
+                    •<span style={{ marginLeft: "5px" }}>답변순</span>
+                  </FilterBtn>
+                ) : (
+                  <FilterBtn
+                    onClick={() => {
+                      dispatch(setView("pop"));
+                    }}
+                  >
+                    답변순
+                  </FilterBtn>
+                )}
+                </FilterBtnBox>
           </div>
         </TitleContainer>
         <CardContainer view={now_view} ref={container}>
@@ -338,27 +376,38 @@ const Title = styled.span`
   font-size: 22px;
   font-weight: 400;
   @media (max-width: 500px) {
-    width: 200px;
-    min-width: 200px;
+    width: 180px;
+    min-width: 180px;
     font-size: 18px;
   }
 `;
 
-const AddQuestion = styled.span`
+const AddBtn = styled.div`
+  display:flex;
+  flex-direction:row;
+  align-items:center;
+`;
+
+const AddQuestion = styled.div`
+  display:flex;
+  flex-direction:column;
   font-size: 16px;
   color: #061366;
   cursor: pointer;
+  min-width:100px;
   @media (max-width: 500px) {
-    min-width: 40px;
-    min-height: 40px;
-    border-radius: 50%;
-    background-color: lavender;
-    text-align: center;
+    font-size:14px;
+    align-items:flex-end;
   }
 `;
 
 const AddText = styled.span`
   @media (max-width: 500px) {
+    display: none;
+  }
+`;
+const AddTextMobile = styled.span`
+  @media (min-width: 500px) {
     display: none;
   }
 `;
@@ -462,6 +511,32 @@ const CreatedAtBox = styled.div`
 
 const CreatedAt = styled.span`
   font-size: 11px;
+`;
+
+const FilterBtnBox = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  width: 100%;
+  
+`;
+
+const FilterBtn = styled.button`
+  cursor: pointer;
+  max-width:80px;
+  max-height: 17px;
+  text-align: left;
+  font: normal normal normal 14px/19px Roboto;
+  border: none;
+  outline: none;
+  background: none;
+  letter-spacing: -1px;
+  margin-left: 5px;
+  color: #333333;
+  :hover {
+    font-weight: bold;
+  }
+  
 `;
 
 export default MyQuestion;

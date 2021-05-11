@@ -40,10 +40,44 @@ const OthersQuestion = (props) => {
                 <Background/>
                 <TitleContainer>
                 <Title><span style={{fontWeight:'600'}}>{user_info?.nickname}</span>님의 질문카드는 <span style={{fontWeight:'600'}}>{custom_count}개</span>입니다.</Title>
-                <div style={{display:'flex', flexDirection:'row',justifyContent:'flex-end'}}>
-                <span onClick={()=>{dispatch(setView('new'))}} style={{marginRight:'5px',cursor:'pointer'}}>최신순</span>
-                <span onClick={()=>{dispatch(setView('pop'))}} style={{cursor:'pointer'}}>답변순</span>
-                </div>
+                <FilterBtnBox>
+          {now_view === "new" ? (
+                  <FilterBtn
+                    style={{ fontWeight: "bold" }}
+                    onClick={() => {
+                      dispatch(setView("new"));
+                    }}
+                  >
+                    •<span style={{ marginLeft: "5px" }}>최신순</span>
+                  </FilterBtn>
+                ) : (
+                  <FilterBtn
+                    onClick={() => {
+                      dispatch(setView("new"));
+                    }}
+                  >
+                    최신순
+                  </FilterBtn>
+                )}
+                {now_view === "pop" ? (
+                  <FilterBtn
+                    style={{ fontWeight: "bold" }}
+                    onClick={() => {
+                      dispatch(setView("pop"));
+                    }}
+                  >
+                    •<span style={{ marginLeft: "5px" }}>답변순</span>
+                  </FilterBtn>
+                ) : (
+                  <FilterBtn
+                    onClick={() => {
+                      dispatch(setView("pop"));
+                    }}
+                  >
+                    답변순
+                  </FilterBtn>
+                )}
+                </FilterBtnBox>
                 </TitleContainer>
                 <CardContainer view={now_view} ref={container}>
                 {now_view ==='new' && <InfinityScroll
@@ -324,8 +358,8 @@ const Title = styled.span`
     font-size: 22px;
     font-weight:400;
     @media(max-width:500px){
-        width:200px;
-        min-width:200px;
+        width:180px;
+        min-width:180px;
         font-size:18px;
     }
 `;
@@ -430,6 +464,32 @@ const CreatedAtBox = styled.div`
 
 const CreatedAt = styled.span`
     font-size:11px;
+`;
+
+const FilterBtnBox = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  width: 50%;
+  
+`;
+
+const FilterBtn = styled.button`
+  cursor: pointer;
+  max-width:80px;
+  max-height: 17px;
+  text-align: left;
+  font: normal normal normal 14px/19px Roboto;
+  border: none;
+  outline: none;
+  background: none;
+  letter-spacing: -1px;
+  margin-left: 5px;
+  color: #333333;
+  :hover {
+    font-weight: bold;
+  }
+  
 `;
 
 export default OthersQuestion;

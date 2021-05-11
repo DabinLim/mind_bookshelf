@@ -92,6 +92,9 @@ const Container = styled.div`
     @media (max-width:1040px){
     margin:0px 10px;
 }
+@media(max-width:900px){
+        padding-bottom:80px;
+    }
 `;
 
 const ProfileContainer = styled.section`

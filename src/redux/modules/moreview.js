@@ -217,7 +217,7 @@ const getAnswers = (id) => {
     }
     dispatch(setLoading(true));
     const options = {
-      url: `/bookshelf/moreInfoCard/${id}?page=${page}`,
+      url: `/bookshelf/moreInfoCard/${id}?page=${page}&sort=new`,
       method: "GET",
     };
     axios(options).then((response) => {
@@ -251,18 +251,18 @@ const getLikeAnswer = (id) => {
     dispatch(setLikeLoading(true));
 
     const options = {
-      url: `/bookshelf/moreInfoCard/like/${id}?page=${page}`,
+      url: `/bookshelf/moreInfoCard/${id}?page=${page}&sort=favor`,
       method: "GET",
     };
     axios(options).then((response) => {
       console.log(response.data);
-      if (response.data.length < 20) {
-        dispatch(setLikeAnswers(response.data));
+      if (response.data.answer.length < 20) {
+        dispatch(setLikeAnswers(response.data.answer));
         dispatch(setLikeNext(false));
         dispatch(setLikeLoading(false));
         return;
       }
-      dispatch(setLikeAnswers(response.data));
+      dispatch(setLikeAnswers(response.data.answer));
       dispatch(setLikePage(page + 1));
       dispatch(setLikeLoading(false));
     });
@@ -284,19 +284,19 @@ const getFriendsAnswer = (id) => {
     }
     dispatch(setFriendsLoading(true));
     const options = {
-      url: `/bookshelf/moreInfoCard/friend/${id}?page=${page}`,
+      url: `/bookshelf/moreInfoCard/${id}?page=${page}&sort=follower`,
       method: "GET",
     };
     axios(options).then((response) => {
       console.log(response.data);
       console.log("wtf");
-      if (response.data.length < 20) {
-        dispatch(setFriendsAnswers(response.data));
+      if (response.data.answer.length < 20) {
+        dispatch(setFriendsAnswers(response.data.answer));
         dispatch(setFriendsNext(false));
         dispatch(setFriendsLoading(false));
         return;
       }
-      dispatch(setFriendsAnswers(response.data));
+      dispatch(setFriendsAnswers(response.data.answer));
       dispatch(setFriendsPage(page + 1));
       dispatch(setFriendsLoading(false));
     });
