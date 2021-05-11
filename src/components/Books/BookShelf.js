@@ -660,7 +660,7 @@ const Book = styled.div`
     z-index:40;
     /* transform: translateY(20%) */
     /* transform: translateX(100%) */
-    transform: rotateZ(7200deg);
+    transform: rotateZ(9000deg) scale(0.2);
     transition:ease-in-out 4s;
   }
   @media (max-width:1000px){
