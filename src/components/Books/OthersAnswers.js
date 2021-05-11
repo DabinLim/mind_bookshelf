@@ -4,10 +4,7 @@ import { NewQuestion } from "./booksindex";
 import { useDispatch, useSelector } from "react-redux";
 import {
   api as customActions,
-  setPage,
-  setNext,
-  resetCustomQuestion,
-  setLoading,
+  resetAll
 } from "../../redux/modules/custom";
 import InfinityScroll from "../../shared/InfinityScroll";
 const OthersAnswers = (props) => {
@@ -26,10 +23,7 @@ const OthersAnswers = (props) => {
     dispatch(customActions.getOthersAnswers(id));
 
     return () => {
-      dispatch(resetCustomQuestion());
-      dispatch(setPage(1));
-      dispatch(setNext(true));
-      dispatch(setLoading(true));
+      dispatch(resetAll());
     };
   }, []);
 

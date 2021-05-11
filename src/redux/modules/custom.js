@@ -9,10 +9,15 @@ axios.defaults.headers.common["Authorization"]= `Bearer ${getCookie('is_login')}
 const customSlice = createSlice({
     name:"custom",
     initialState: {
+        now_view:'new',
         custom_question:[],
         page: 1,
         next:true,
         loading: true,
+        pop_list: [],
+        pop_page: 1,
+        pop_next: true,
+        pop_loading: true,
         custom_count:0,
         // my_answers:[],
         // answer_page: 1,
@@ -20,6 +25,9 @@ const customSlice = createSlice({
         // answer_count:0,
     },
     reducers: {
+        setView: (state, action) => {
+            state.now_view = action.payload;
+        },
         setPage: (state, action) => {
             state.page = action.payload;
             // state.book_loading = false;
@@ -32,11 +40,32 @@ const customSlice = createSlice({
                 state.custom_question.push(v);
             })
         },
+        setPopPage: (state, action) => {
+            state.pop_page = action.payload;
+        },
+        setPopNext: (state, action) => {
+            state.pop_next = action.payload;
+        },
+        setPopList: (state,action) => {
+            action.payload.forEach(v => {
+                state.pop_list.push(v);
+            });
+        },
+        setPopLoading: (state, action) => {
+            state.pop_loading = action.payload;
+        },
         setCustomCount: (state, action) => {
             state.custom_count = action.payload;
         },
-        resetCustomQuestion: (state) => {
+        resetAll: (state) => {
             state.custom_question = [];
+            state.pop_list = [];
+            state.page = 1;
+            state.pop_page = 1;
+            state.next = true;
+            state.pop_next = true;
+            state.loading = true;
+            state.pop_loading = true;
         },
         setLoading: (state, action) => {
             state.loading = action.payload;
@@ -46,7 +75,7 @@ const customSlice = createSlice({
 
 const getMyQuest = () => {
     return function(dispatch, getState){
-        const loading = getState().custom.book_loading;
+        const loading = getState().custom.loading;
         const page = getState().custom.page;
         const next = getState().custom.next;
 
@@ -88,10 +117,55 @@ const getMyQuest = () => {
     }
 }
 
+const getMyPopQuest = () => {
+    return function(dispatch, getState){
+
+        const loading = getState().custom.pop_loading;
+        const page = getState().custom.pop_page;
+        const next = getState().custom.pop_next;
+
+        if(!next){
+            console.log('next is none');
+            return
+        }
+        if(loading && page > 1){
+            console.log('잡았다 요놈');
+            return
+        }
+        dispatch(setPopLoading(true))
+
+        const options = {
+            url:`/bookshelf/like/question?page=${page}`,
+            method:"GET"
+        };
+        axios(options).then(response => {
+            console.log(response.data);
+            if(response.data.result.length < 15){
+                dispatch(setPopList(response.data.result));
+                // dispatch(setCustomCount(response.data.myQuestionCount));
+                dispatch(setPopNext(false));
+                dispatch(setPopLoading(false));
+                return
+            }
+
+            dispatch(setPopList(response.data.result));
+            // dispatch(setCustomCount(response.data.myQuestionCount));
+            dispatch(setPopPage(page+1));
+            dispatch(setPopLoading(false));
+        }).catch(err => {
+            console.log(err);
+            if(err.response){
+                console.log(err.response.data);
+            };
+
+        })
+    }
+}
+
 const getOthersQuest = (id) => {
     return function(dispatch, getState){
 
-        const loading = getState().custom.book_loading;
+        const loading = getState().custom.loading;
         const page = getState().custom.page;
         const next = getState().custom.next;
 
@@ -135,7 +209,7 @@ const getOthersQuest = (id) => {
 
 const getMyAnswers = () => {
     return function(dispatch, getState){
-        const loading = getState().custom.book_loading;
+        const loading = getState().custom.loading;
         const page = getState().custom.page;
         const next = getState().custom.next;
 
@@ -180,7 +254,7 @@ const getMyAnswers = () => {
 const getOthersAnswers = (id) => {
     return function(dispatch, getState){
 
-        const loading = getState().custom.book_loading;
+        const loading = getState().custom.loading;
         const page = getState().custom.page;
         const next = getState().custom.next;
 
@@ -229,12 +303,18 @@ export const {
     setNext,
     setCustomQuestion,
     setCustomCount,
-    resetCustomQuestion,
-    setLoading
+    resetAll,
+    setLoading,
+    setView,
+    setPopPage,
+    setPopNext,
+    setPopList,
+    setPopLoading
 } = customSlice.actions;
 
 export const api = {
     getMyQuest,
+    getMyPopQuest,
     getOthersQuest,
     getMyAnswers,
     getOthersAnswers

@@ -1,8 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import {NewQuestion} from './booksindex';
 import {useDispatch, useSelector} from 'react-redux';
-import {api as customActions, setPage, setNext, resetCustomQuestion, setLoading} from '../../redux/modules/custom';
+import {api as customActions, resetAll} from '../../redux/modules/custom';
 import InfinityScroll from '../../shared/InfinityScroll';
 import {history} from '../../redux/configStore';
 const OthersQuestion = (props) => {
@@ -25,10 +24,7 @@ const OthersQuestion = (props) => {
             dispatch(customActions.getOthersQuest(id));
         
         return () => {
-            dispatch(resetCustomQuestion());
-            dispatch(setPage(1));
-            dispatch(setNext(true));
-            dispatch(setLoading(true))
+            dispatch(resetAll());
         }
     },[id])
 
