@@ -7,10 +7,12 @@ import {
   resetAll,
   setView
 } from "../../redux/modules/custom";
+import {setComponent} from '../../redux/modules/books';
 import InfinityScroll from "../../shared/InfinityScroll";
 import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import FavoriteIcon from "@material-ui/icons/Favorite";
+import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 
 const MyAnswers = (props) => {
   const dispatch = useDispatch();
@@ -26,6 +28,8 @@ const MyAnswers = (props) => {
   const now_view = useSelector(state => state.custom.now_view);
   const container = React.useRef();
   const pop_container = React.useRef();
+  const [openFilter, setOpenFilter] = React.useState(false);
+
   console.log(answer_list);
   React.useEffect(() => {
     dispatch(customActions.getMyAnswers());
@@ -40,6 +44,38 @@ const MyAnswers = (props) => {
     <React.Fragment>
       <Container>
         <Background />
+        <TitleContainerMobile>
+          <ArrowForwardIosIcon onClick={() => {dispatch(setComponent(''))}}style={{transform:'rotateZ(180deg)'}}/>
+          <TitleMobile>{user_info?.nickname}님의 낙서</TitleMobile>
+          <EmptyDiv/>
+        </TitleContainerMobile>
+        <FilterBtnBoxMobile>
+                <FilterToggle>
+              {now_view === 'new' && <span>최신순</span>}
+              {now_view === 'pop' && <span>인기순</span>}
+              {openFilter ? <ArrowForwardIosIcon
+                  onClick={()=>{setOpenFilter(false)}}
+                  style={{
+                    cursor: "pointer",
+                    color: "black",
+                    fontSize: "12px",
+                    transform:'rotateZ(270deg)',
+                    marginLeft:'5px'
+                  }}
+                /> : <ArrowForwardIosIcon
+                onClick={()=>{setOpenFilter(true)}}
+                style={{
+                  cursor: "pointer",
+                  color: "black",
+                  fontSize: "12px",
+                  transform:'rotateZ(90deg)',
+                  marginLeft:'5px'
+                }}
+              />}
+                </FilterToggle>
+                {openFilter && now_view === 'new' && <span onClick={()=>{dispatch(setView('pop'))}}>인기순</span>}
+                {openFilter && now_view === 'pop' && <span onClick={()=>{dispatch(setView('new'))}}>최신순</span>}
+                </FilterBtnBoxMobile>
         <TitleContainer>
           <Title>
             <span style={{ fontWeight: "600" }}>{user_info?.nickname}</span>님이 남긴 낙서는{" "}
@@ -173,19 +209,19 @@ const MyAnswers = (props) => {
                     <LikeBox>
                       {v.currentLike ? (
                         <>
-                          <FavoriteIcon style={{ color: "red" }}
+                          <FavoriteIcon fontSize='small' style={{ color: "red" }}
                             
                           />{" "}
                         </>
                       ) : (
                         <>
-                          <FavoriteBorderIcon />{" "}
+                          <FavoriteBorderIcon fontSize='small'/>{" "}
                         </>
                       )}
                       <LikeCount>{v.likeCount}개</LikeCount>
                     </LikeBox>
                     <CommentBox>
-                      <ChatBubbleOutlineIcon />
+                      <ChatBubbleOutlineIcon fontSize='small'/>
                       <CommentCount>{v.commentCount}개</CommentCount>
                     </CommentBox>
                   </IconBox>
@@ -285,19 +321,19 @@ const MyAnswers = (props) => {
                     <LikeBox>
                       {v.currentLike ? (
                         <>
-                          <FavoriteIcon style={{ color: "red" }}
+                          <FavoriteIcon style={{ color: "red", }}
                             
                           />{" "}
                         </>
                       ) : (
                         <>
-                          <FavoriteBorderIcon />{" "}
+                          <FavoriteBorderIcon fontSize='small' />{" "}
                         </>
                       )}
                       <LikeCount>{v.likeCount}개</LikeCount>
                     </LikeBox>
                     <CommentBox>
-                      <ChatBubbleOutlineIcon />
+                      <ChatBubbleOutlineIcon fontSize='small' />
                       <CommentCount>{v.commentCount}개</CommentCount>
                     </CommentBox>
                   </IconBox>
@@ -325,9 +361,11 @@ const Container = styled.section`
   margin:50px auto;
   border-radius: 20px;
   overflow: hidden;
-  @media (max-width: 500px) {
-    padding: 20px;
-    min-height: 300px;
+  @media (max-width: 750px) {
+    margin-top:30px;
+    margin-bottom:0px;
+    padding: 20px 25px 20px 25px;
+    max-height:100%;
   }
 `;
 const Background = styled.div`
@@ -341,6 +379,9 @@ const Background = styled.div`
   background-color: #ffffff;
   box-shadow: 0px 0px 20px;
   opacity: 0.3;
+  @media(max-width:750px){
+    display:none;
+  }
 `;
 
 const TitleContainer = styled.div`
@@ -352,9 +393,8 @@ const TitleContainer = styled.div`
   flex-direction: row;
   justify-content: space-between;
   margin-bottom: 38px;
-  @media (max-width: 500px) {
-    padding-right: 0px;
-    height: 30px;
+  @media (max-width: 750px) {
+    display:none;
   }
 `;
 
@@ -364,12 +404,36 @@ const Title = styled.span`
   height: 60px;
   font-size: 22px;
   font-weight: 400;
-  @media (max-width: 500px) {
+  @media (max-width: 750px) {
     font-size:18px;
     width: 200px;
     min-width: 200px;
     font-size: 18px;
   }
+`;
+
+const TitleContainerMobile = styled.div`
+  width:100%;
+  height:25px;
+  display:flex;
+  flex-direction:row;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:25px;
+  @media(min-width:750px){
+    display:none;
+  }
+`;
+
+const TitleMobile = styled.span`
+  width:auto;
+  text-align:center;
+  font: normal normal bold 15px/22px Noto Sans KR;
+`;
+
+const EmptyDiv = styled.div`
+  width:24px;
+  height:100%;
 `;
 
 const CardContainer = styled.section`
@@ -383,8 +447,10 @@ const CardContainer = styled.section`
   flex-wrap: wrap;
   overflow: auto;
   ${props => props.view === 'new' ? `padding-bottom:60px`: `padding-bottom:0px`};
-  @media (max-width: 500px) {
+  @media (max-width: 750px) {
     padding-right:0px;
+    flex-direction:column;
+    flex-wrap:nowrap;
   }
 `;
 
@@ -399,8 +465,10 @@ const CardContainerPop = styled.section`
   flex-wrap: wrap;
   overflow: auto;
   ${props => props.view === 'pop' ? `padding-bottom:60px`: `padding-bottom:0px`};
-  @media (max-width: 500px) {
+  @media (max-width: 750px) {
     padding-right:0px;
+    flex-direction:column;
+    flex-wrap:nowrap;
   }
 `;
 
@@ -418,6 +486,14 @@ const Card = styled.div`
   border-radius: 20px;
   box-sizing: border-box;
   padding: 18px;
+  @media (max-width: 750px) {
+    padding: 14px 14px 10px 14px;
+    margin:0px 0px 15px 0px;
+    min-height:150px;
+    max-height:150px;
+    border-radius:16px;
+  }
+
 `;
 
 const Head = styled.div`
@@ -427,6 +503,9 @@ const Head = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
+  @media (max-width: 750px) {
+    display:none;
+  }
 `;
 
 const SubjectBox = styled.div`
@@ -434,6 +513,9 @@ const SubjectBox = styled.div`
   flex-direction: row;
   width: auto;
   height: 100%;
+  @media(max-width:750px){
+    display:none;
+  }
 `;
 
 const Subject = styled.div`
@@ -463,9 +545,10 @@ const QuestionContents = styled.span`
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
-  @media (max-width: 500px) {
-    height:60px;
-    margin-top:12px;
+  @media (max-width: 750px) {
+    height:25px;
+    margin-top:0px;
+    font-size:13px;
   }
 `;
 
@@ -479,8 +562,11 @@ const AnswerContents = styled.span`
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
-  @media (max-width: 500px) {
+  @media (max-width: 750px) {
+    height:60px;
     margin-top:6px;
+    margin-bottom: 20px;
+    font-size:13px;
   }
 `;
 
@@ -493,6 +579,10 @@ const Footer = styled.div`
   border-top: 1px solid #bbbbbb;
   padding-top: 13px;
   margin-top:10px;
+  @media (max-width: 750px) {
+    margin-top:0px;
+    padding-top:10px;
+  }
 `;
 
 const IconBox = styled.div`
@@ -522,6 +612,31 @@ const CommentCount = styled.span`
 
 const CreatedAt = styled.span`
   font-size: 11px;
+`;
+
+const FilterBtnBoxMobile = styled.div`
+  width:100%;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-end;
+  align-items:flex-end;
+  font-size:12px;
+  margin-right:20px;
+  padding-right:20px;
+  padding-bottom: 20px;
+  box-sizing:border-box;
+  @media(min-width:750px){
+    display:none;
+  }
+`;
+
+const FilterToggle = styled.div`
+ display:flex;
+ flex-direction:row;
+ align-items:center;
+ font-weight:600;
+ justify-content:flex-end;
+ margin-right:-17px;
 `;
 
 const FilterBtnBox = styled.div`

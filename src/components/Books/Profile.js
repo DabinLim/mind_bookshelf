@@ -214,6 +214,7 @@ const Profile = (props) => {
                     낙서
                     <CountText>{other_info.otherAnswerCount}</CountText>
                   </Answers>
+                  <Line/>
                   <MyQuestionBtn
                     onClick={() => {
                       dispatch(setComponent("othersquestion"));
@@ -222,6 +223,7 @@ const Profile = (props) => {
                     질문
                     <CountText>{other_info.otherCustomQuestionCount}</CountText>
                   </MyQuestionBtn>
+                  <Line/>
                   <Myfollowers
                     onClick={() => {
                       setFollowModal(true);
@@ -403,7 +405,6 @@ const Profile = (props) => {
 };
 
 const Background = styled.div`
-  z-index: -1;
   position: absolute;
   width: 100%;
   height: 100%;
@@ -413,6 +414,10 @@ const Background = styled.div`
   opacity: 0.5;
   box-shadow: 0px 0px 6px #ffffff;
   border-radius: 20px;
+  @media(max-width:750px){
+    opacity:0.9;
+    box-shadow: 0px 0px 20px #AEA1E590;
+  }
   
 `;
 
@@ -458,6 +463,7 @@ const SettingIcon = styled.img`
 `;
 
 const ProfileDetail = styled.div`
+  z-index:1;
   margin: 0px 0px 0px 45px;
   width: 100%;
   display: flex;

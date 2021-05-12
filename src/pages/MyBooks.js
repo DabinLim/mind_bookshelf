@@ -35,7 +35,7 @@ const MyBook = (props) => {
             <Container>
                 <ContainerBox>
                     {id === 'mybook' && component === '' && <ImgLeft/>}
-                    <ProfileContainer>
+                    <ProfileContainer component={component}>
                         <Profile/>
                     </ProfileContainer>
                         {id === 'mybook' && component === '' &&
@@ -100,7 +100,7 @@ const Container = styled.div`
     margin:0px;
 }
 @media(max-width:900px){
-        padding-bottom:80px;
+        padding-bottom:60px;
     }
 @media (max-width: 500px) {
     margin: 0;
@@ -110,6 +110,7 @@ const Container = styled.div`
 `;
 
 const ProfileContainer = styled.section`
+
     position:relative;
     box-sizing:border-box;
     padding:30px;
@@ -121,6 +122,7 @@ const ProfileContainer = styled.section`
     display: flex;
     flex-direction: row;
     @media(max-width:750px){
+        ${props => props.component === 'myanswers' || props.component === 'myquestion' ? `display:none`: `display:flex`};
         padding:56px 50px 30px 50px;
         margin-top:0px;
         margin-bottom:30px;
