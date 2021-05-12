@@ -928,7 +928,7 @@ const ModalComponent = styled.div`
     align-items: center;
     background: none;
     transform: translate(0%, 0%);
-    margin: 58.33px 0 0 0;
+    margin: 50px 0 0 0;
     z-index: 350;
   }
 `;
@@ -939,7 +939,11 @@ const ModalContent = styled.div`
   width: 500px;
   height: 500px;
   border-right: 1px solid #efefef;
+
   @media (max-width: 950px) {
+    display: none;
+  }
+  @media (max-width: 500px) {
     width: 100%;
     height: 50%;
     border: none;
@@ -1009,8 +1013,8 @@ const CardWriteLeftBody = styled.div`
   box-sizing: border-box;
 
   @media (max-width: 500px) {
-    min-height: 150px;
-    max-height: 150px;
+    min-height: 100px;
+    max-height: 100px;
     padding: 0 29px 0 20px;
     margin-top: 30px;
     border-bottom: none;
@@ -1177,8 +1181,7 @@ const ModalCmtInputBox = styled.div`
   @media (max-width: 500px) {
     min-height: 60px;
     max-height: 60px;
-    border-top: 1px solid #d3d3d3;
-    border-bottom: 1px solid #d3d3d3;
+    border-top: none;
   }
 `;
 const ModalCmtInput = styled.input`
@@ -1212,6 +1215,7 @@ const IconContainer = styled.div`
     padding: 0 0 0 20px;
     margin: 0;
     border-top: 1px solid #d3d3d3;
+    border-bottom: 1px solid #d3d3d3;
   }
 `;
 
