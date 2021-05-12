@@ -25,6 +25,7 @@ import PermIdentityIcon from "@material-ui/icons/PermIdentity";
 import ImportContactsIcon from "@material-ui/icons/ImportContacts";
 import ForumOutlinedIcon from "@material-ui/icons/ForumOutlined";
 import ChatOutlinedIcon from "@material-ui/icons/ChatOutlined";
+import { LogoutOutlined, LoginOutlined } from "@ant-design/icons";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -67,11 +68,36 @@ const Header = () => {
     setLogin(false);
   };
 
+  // 모바일 화면에서 메뉴 활성화
+  const [isMenuOpen, setMenuOpen] = useState(false);
+
+  const SetMenuModal = () => {
+    if (isMenuOpen) {
+      setMenuOpen(false);
+      return;
+    }
+    setMenuOpen(true);
+  };
+
   if (is_login) {
     return (
       <React.Fragment>
+        {/* 모바일 로그인 했을 때 */}
+        {isMenuOpen ? (
+          <MobileLoginModal>
+            <h3
+              onClick={() => {
+                dispatch(notiActions.leaveAlarmIO(user.id));
+                setMenuOpen(false);
+              }}
+            >
+              로그아웃 <LogoutOutlined />
+            </h3>
+          </MobileLoginModal>
+        ) : null}
+
         <NaviModal>
-          <Menu>
+          <Menu onClick={SetMenuModal}>
             <MenuIcon fontSize="large" />
             <MenuText>메뉴</MenuText>
           </Menu>
@@ -242,8 +268,21 @@ const Header = () => {
   return (
     <React.Fragment>
       {loginModal ? <LoginModal close={closeLoginModal} /> : null}
+      {/* 모바일 로그인 안 했을 때 */}
+      {isMenuOpen ? (
+        <MobileLoginModal>
+          <h3
+            onClick={() => {
+              setLogin(true);
+              setMenuOpen(false);
+            }}
+          >
+            로그인 <LoginOutlined />
+          </h3>
+        </MobileLoginModal>
+      ) : null}
       <NaviModal>
-        <Menu>
+        <Menu onClick={SetMenuModal}>
           <MenuIcon fontSize="large" />
           <MenuText>메뉴</MenuText>
         </Menu>
@@ -514,6 +553,25 @@ const AlarmBadge = styled.div`
   font-weight: 600;
   right: 0px;
   top: 2px;
+`;
+
+const MobileLoginModal = styled.div`
+  position: absolute;
+  width: 100px;
+  height: 50px;
+  top: 606px;
+  z-index: 400;
+  font-size: 14px;
+  background: #ebeff2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-top-right-radius: 20px;
+
+  & > h3 {
+    margin: 0;
+    cursor: pointer;
+  }
 `;
 
 export default Header;
