@@ -79,7 +79,7 @@ const Profile = (props) => {
                     }}
                   >
                     <Nickname>{other_info.nickname}</Nickname>
-                    {is_login ? (
+                    {is_login && other_info.nickname !== "알 수 없는 유저" ? (
                       followed ? (
                         <FollowerBtn
                           onClick={() => {

@@ -38,13 +38,15 @@ const CommunityQnA = (props) => {
       <QnAContainer>
         <QuestionBox>
           <Question>{props.contents}</Question>
-          <DetailBtn
-            onClick={() => {
-              history.push(`/community/${props.id}`);
-            }}
-          >
-            더보기
-          </DetailBtn>
+          {props.answers?.length >= 4 ? (
+            <DetailBtn
+              onClick={() => {
+                history.push(`/community/${props.id}`);
+              }}
+            >
+              더보기
+            </DetailBtn>
+          ) : null}
         </QuestionBox>
         <div>
           {props.topic.map((t) => {
@@ -110,9 +112,7 @@ const CommunityQnA = (props) => {
                     <LikeBox>
                       {a.like ? (
                         <>
-                          <FavoriteIcon style={{ color: "red" }}
-                            
-                          />{" "}
+                          <FavoriteIcon style={{ color: "red" }} />{" "}
                         </>
                       ) : (
                         <>
