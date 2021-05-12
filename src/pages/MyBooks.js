@@ -66,6 +66,9 @@ const ContainerBox = styled.div`
     ::-webkit-scrollbar {
     display: none;
     };
+    @media (max-width: 500px) {
+        margin: 60px 0px 0px 0px;
+      }
 `
 
 const Container = styled.div`

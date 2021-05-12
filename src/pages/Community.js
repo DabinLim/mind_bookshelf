@@ -51,6 +51,12 @@ const CommunityBox = styled.div`
   flex-direction: column;
   align-items: center;
   overflow-y: auto;
+  @media (max-width: 900px) {
+    margin: 100px 0px 50px 0px;
+  }
+  @media (max-width: 500px) {
+    margin: 60px 0px 50px 0px;
+  }
   ::-webkit-scrollbar {
     display:none;
     width: 10px; /* width of the entire scrollbar */
