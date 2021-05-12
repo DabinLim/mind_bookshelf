@@ -312,7 +312,7 @@ const followOtherAX = (id, nickname, profileImg) => {
       );
       swal({
         title: "정상적으로 추가되었습니다. 😀",
-        text: `${nickname}님과 친구가 되었습니다.`,
+        text: `${nickname}님을 구독하였습니다.`,
         icon: "success",
       });
     });
@@ -328,7 +328,7 @@ const unfollowOtherAX = (id, nickname) => {
         dispatch(deleteFriend(id));
         swal({
           title: "정상적으로 취소되었습니다.",
-          text: `${nickname}님이 친구삭제 되었습니다.`,
+          text: `${nickname}님을 구독취소 하였습니다.`,
           icon: "success",
         });
       })

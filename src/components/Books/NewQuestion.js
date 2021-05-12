@@ -3,17 +3,19 @@ import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import {api as booksActions} from '../../redux/modules/books';
 import swal from "sweetalert";
+import QuestionConfirm from './QuestionConfirm';
 
 const NewQuestion = (props) => {
   const dispatch = useDispatch();
   const [question, setQuestion] = useState("");
+  const [confirmModal, setConfirmModal] = useState(false)
   const [_friendship, setFriendship]  = useState(false);
   const [_relationship, setRelationship] = useState(false);
   const [_love, setLove] = useState(false);
   const [_worth, setWorth] = useState(false);
   const [_myself, setMyself] = useState(false);
   const [_dream, setDream] = useState(false);
-
+  const [_topic, setTopic] = useState();
   const numberChecked = () => {
     const checkedType = [_friendship, _relationship, _love, _worth, _myself, _dream]
     if(Object.values(checkedType).filter(x => x==true).length == 2){
@@ -24,7 +26,7 @@ const NewQuestion = (props) => {
   }
 
   const changeQuestion = (e) => {
-    if(e.target.value.length === 50){
+    if(e.target.value.length >= 50){
       return
     }
     setQuestion(e.target.value)
@@ -144,6 +146,7 @@ const NewQuestion = (props) => {
       });
       return
     }
+    setTopic(topic)
     if(!/.{5,}$/g.test(question)){
       swal({
         title: "질문이 정상적으로 작성되지 않았습니다.",
@@ -153,12 +156,15 @@ const NewQuestion = (props) => {
       return
     }
     console.log(topic, question)
-    dispatch(booksActions.addQuest(topic, question))
-    props.setModalVisible(false)
+    setConfirmModal(true)
+    
   }
 
   return (
     <React.Fragment>
+      {confirmModal? 
+      <QuestionConfirm setModalVisible={props.setModalVisible} setConfirmModal={setConfirmModal} topic={_topic} question={question} />
+      :null}
       <ModalOverlay onClick={()=>{props.setModalVisible(false)}} />
           <ModalInner>
             <Container>
@@ -206,7 +212,7 @@ const NewQuestion = (props) => {
             <InputContainer>
               <InputLabel>질문</InputLabel>
               <div style={{position:"relative"}} >
-                <Textarea rows="4" type='text' placeholder='질문을 입력해주세요.' onChange={changeQuestion} />
+                <Textarea rows="4" value={question} type='text' placeholder='질문을 입력해주세요.' onChange={changeQuestion} />
                 <CountQuestion>{question.length}/50</CountQuestion>
               </div>
             </InputContainer>

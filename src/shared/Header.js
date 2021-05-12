@@ -25,6 +25,7 @@ import PermIdentityIcon from "@material-ui/icons/PermIdentity";
 import ImportContactsIcon from "@material-ui/icons/ImportContacts";
 import ForumOutlinedIcon from "@material-ui/icons/ForumOutlined";
 import ChatOutlinedIcon from "@material-ui/icons/ChatOutlined";
+import { LogoutOutlined, LoginOutlined } from "@ant-design/icons";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -67,13 +68,38 @@ const Header = () => {
     setLogin(false);
   };
 
+  // 모바일 화면에서 메뉴 활성화
+  const [isMenuOpen, setMenuOpen] = useState(false);
+
+  const SetMenuModal = () => {
+    if (isMenuOpen) {
+      setMenuOpen(false);
+      return;
+    }
+    setMenuOpen(true);
+  };
+
   if (is_login) {
     return (
       <React.Fragment>
+        {/* 모바일 로그인 했을 때 */}
+        {isMenuOpen ? (
+          <MobileLoginModal>
+            <h3
+              onClick={() => {
+                dispatch(notiActions.leaveAlarmIO(user.id));
+                setMenuOpen(false);
+              }}
+            >
+              로그아웃 <LogoutOutlined />
+            </h3>
+          </MobileLoginModal>
+        ) : null}
+
         <NaviModal>
-          <Menu>
+          <Menu onClick={SetMenuModal}>
             <MenuIcon fontSize="large" />
-            {/* <MenuText>메뉴</MenuText> */}
+            <MenuText>메뉴</MenuText>
           </Menu>
           <Menu
             onClick={() => {
@@ -82,7 +108,7 @@ const Header = () => {
             }}
           >
             <HomeIcon fontSize="large" />
-            {/* <MenuText>오늘의 낙서</MenuText> */}
+            <MenuText>오늘의 낙서</MenuText>
           </Menu>
           <Menu
             onClick={() => {
@@ -99,7 +125,7 @@ const Header = () => {
             }}
           >
             <ImportContactsIcon fontSize="large" />
-            {/* <MenuText>나의 책장</MenuText> */}
+            <MenuText>나의 책장</MenuText>
           </Menu>
           <Menu
             onClick={() => {
@@ -108,7 +134,7 @@ const Header = () => {
             }}
           >
             <ChatOutlinedIcon fontSize="large" />
-            {/* <MenuText>커뮤니티</MenuText> */}
+            <MenuText>커뮤니티</MenuText>
           </Menu>
         </NaviModal>
         {cardModal ? <CardModal close={closeCardModal} /> : null}
@@ -124,7 +150,7 @@ const Header = () => {
                   />
                 ) : null}
                 <SearchIcon
-                  style={{ cursor: "pointer" }}
+                  style={{ cursor: "pointer"}}
                   onClick={() => {
                     recentUser();
                     // dispatch(userActions.getRecentUserAX())
@@ -242,10 +268,23 @@ const Header = () => {
   return (
     <React.Fragment>
       {loginModal ? <LoginModal close={closeLoginModal} /> : null}
+      {/* 모바일 로그인 안 했을 때 */}
+      {isMenuOpen ? (
+        <MobileLoginModal>
+          <h3
+            onClick={() => {
+              setLogin(true);
+              setMenuOpen(false);
+            }}
+          >
+            로그인 <LoginOutlined />
+          </h3>
+        </MobileLoginModal>
+      ) : null}
       <NaviModal>
-        <Menu>
+        <Menu onClick={SetMenuModal}>
           <MenuIcon fontSize="large" />
-          {/* <MenuText>메뉴</MenuText> */}
+          <MenuText>메뉴</MenuText>
         </Menu>
         <Menu
           onClick={() => {
@@ -254,7 +293,7 @@ const Header = () => {
           }}
         >
           <HomeIcon fontSize="large" />
-          {/* <MenuText>오늘의 낙서</MenuText> */}
+          <MenuText>오늘의 낙서</MenuText>
         </Menu>
         <Menu
           onClick={() => {
@@ -271,7 +310,7 @@ const Header = () => {
           }}
         >
           <ImportContactsIcon fontSize="large" />
-          {/* <MenuText>나의 책장</MenuText> */}
+          <MenuText>나의 책장</MenuText>
         </Menu>
         <Menu
           onClick={() => {
@@ -280,7 +319,7 @@ const Header = () => {
           }}
         >
           <ChatOutlinedIcon fontSize="large" />
-          {/* <MenuText>커뮤니티</MenuText> */}
+          <MenuText>커뮤니티</MenuText>
         </Menu>
       </NaviModal>
       <HeaderContainer>
@@ -293,7 +332,7 @@ const Header = () => {
                 dispatch(setComponent(""));
               }}
             >
-              {/* 오늘의 낙서 */}
+              오늘의 낙서
             </PageButton>
             <PageButton
               onClick={() => {
@@ -309,7 +348,7 @@ const Header = () => {
                 history.push("/mybook");
               }}
             >
-              {/* 나의 책장 */}
+              나의 책장
             </PageButton>
             <PageButton
               onClick={() => {
@@ -317,7 +356,7 @@ const Header = () => {
                 dispatch(setComponent(""));
               }}
             >
-              {/* 커뮤니티 */}
+              커뮤니티
             </PageButton>
           </NaviContainer>
           <IconContainer>
@@ -370,7 +409,7 @@ const HeaderContainer = styled.div`
   position: fixed;
   // width: 100vw;
   // height: 120px;
-  padding-top: 40px;
+  padding-top: 30px;
   left: 0;
   top: 0;
   z-index: 50;
@@ -378,6 +417,7 @@ const HeaderContainer = styled.div`
   overflow: visible;
   @media (max-width: 500px) {
     padding-top: 10px;
+    padding-bottom: 10px;
     background: black;
     color: white;
   } ;
@@ -403,7 +443,7 @@ const HeaderInnerContainer = styled.div`
 
 const NaviModal = styled.div`
   display: none;
-  height: 80px;
+  height: 60px;
   width: 100vw;
   position: fixed;
   z-index: 100;
@@ -430,8 +470,12 @@ const Menu = styled.div`
   align-items: center;
   font-size: 14px;
   cursor: pointer;
-`;
-const MenuText = styled.div``;
+`
+const MenuText = styled.div`
+  display:none;
+`
+
+
 
 const NaviContainer = styled.div`
   display: flex;
@@ -495,7 +539,6 @@ const Icon = styled.div`
 const MobileIcon = styled.div`
   position: relative;
   display: none;
-  margin-left: 25px;
   margin-top: 9px;
   @media (max-width: 900px) {
     display: block;
@@ -514,6 +557,25 @@ const AlarmBadge = styled.div`
   font-weight: 600;
   right: 0px;
   top: 2px;
+`;
+
+const MobileLoginModal = styled.div`
+  position: absolute;
+  width: 100px;
+  height: 50px;
+  top: 606px;
+  z-index: 400;
+  font-size: 14px;
+  background: #ebeff2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-top-right-radius: 20px;
+
+  & > h3 {
+    margin: 0;
+    cursor: pointer;
+  }
 `;
 
 export default Header;

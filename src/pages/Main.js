@@ -310,9 +310,6 @@ const MainFrame = styled.div`
   flex-direction: column;
   justify-content: space-between;
   overflow-y: auto;
-  @media (max-width: 500px) {
-    padding-bottom: 80px;
-  }
 `;
 
 const MainContainer = styled.div`
@@ -339,7 +336,7 @@ const MainContainer = styled.div`
   }
 
   @media (max-width: 500px) {
-    margin: 53px 0px 0px 0px;
+    margin: 60px 0px 50px 0px;
     align-items: center;
   }
 `;

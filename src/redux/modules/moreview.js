@@ -199,6 +199,36 @@ const moreviewSlice = createSlice({
         }
       }
     },
+    deleteMoreview : (state, action) => {
+      let index = state.answers.findIndex(
+        (a) => a.answerId === action.payload.answerId
+      );
+      if(index !== -1){
+        state.answers.splice(index, 1)
+      }
+      let like_index = state.like_answers.findIndex(
+        (a) => a.answerId === action.payload.answerId
+      );
+      if(like_index !== -1){
+        state.like_answers.splice(like_index,1)
+      }
+    },
+    editMoreviewAnswer : (state, action) => {
+      let index = state.answers.findIndex(
+        (a) => a.answerId === action.payload.answerId
+      );
+      if(index !== -1){
+        console.log(1, index)
+        state.answers[index].answerContents = action.payload.contents;
+      }
+      let like_index = state.like_answers.findIndex(
+        (a) => a.answerId === action.payload.answerId
+      );
+      if(like_index !== -1){
+        console.log(2, like_index)
+        state.like_answers[like_index].answerContents = action.payload.contents
+      }
+    }
   },
 });
 
@@ -334,6 +364,8 @@ export const {
   setView,
   editDetailLikeInfo,
   editDetailCommentInfo,
+  deleteMoreview,
+  editMoreviewAnswer,
 } = moreviewSlice.actions;
 
 export const api = {

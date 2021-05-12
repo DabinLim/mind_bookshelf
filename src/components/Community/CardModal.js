@@ -39,7 +39,7 @@ const CardModal = (props) => {
   const [updateModal, setUpdateModal] = useState(false)
   const [updateAnswer, setUpdateAnswer] = useState(false)
   const [answer, setAnswer] = useState()
-  const [isOpen, setOpen] = useState(answerInfo.isOpen);
+  const [isOpen, setOpen] = useState(true);
   const cmtInput = useRef();
   const ok_submit = comments ? true : false;
   const url = window.location.href.split("/");
@@ -712,6 +712,7 @@ const CardModal = (props) => {
                       isOpen: isOpen,
                     }
                     dispatch(communityActions.editAnswerAX(_answer))
+                    setUpdateAnswer(false)
                   }} >수정</CardAnswerBtn>
                   <CustomSwitch isOpen={isOpen} onClick={clickOpen}/>
               </AnswerUpdateBox>

@@ -2,8 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 import { getCookie } from "../../shared/Cookie";
 import axios from "axios";
 import swal from "sweetalert";
-import { editDetailLikeInfo } from "./moreview";
-import { Drafts } from "@material-ui/icons";
+import { editDetailLikeInfo, deleteMoreview, editMoreviewAnswer } from "./moreview";
+import { deleteNoti } from "./noti"
 
 axios.defaults.baseURL = "https://lkj99.shop";
 axios.defaults.headers.common["Authorization"] = `Bearer ${getCookie(
@@ -79,6 +79,19 @@ const communitySlice = createSlice({
       );
       state.question[idx].answers.splice(answerIdx,1)
     },
+    editAnswerCard : (state, action) => {
+      state.card_detail.answerContents = action.payload.contents;
+      state.card_detail.isOpen = action.payload.isOpen;
+    },
+    editAnswer : (state, action) => {
+      let idx = state.question.findIndex(
+        (q) => q.id === action.payload.questionId
+      );
+      let answerIdx = state.question[idx].answers.findIndex(
+        (a) => a.answerId === action.payload.answerId
+      );
+      state.question[idx].answers[answerIdx].contents = action.payload.contents
+    },
   },
 });
 
@@ -110,7 +123,7 @@ const communityQuestionAX = () => {
 const addLikeAX = (answerId, questionId) => {
   if (!getCookie("is_login")) {
     swal({
-      title: "좋아요 실패 😥",
+      title: "좋아요 실패",
       text: "로그인이 필요한 기능이에요❕",
       icon: "info",
     });
@@ -169,7 +182,7 @@ const addLikeAX = (answerId, questionId) => {
 const deleteLikeAX = (answerId, questionId) => {
   if (!getCookie("is_login")) {
     swal({
-      title: "좋아요 취소 실패 😥",
+      title: "좋아요 취소 실패",
       text: "로그인이 필요한 기능이에요❕",
       icon: "info",
     });
@@ -252,14 +265,27 @@ const getCardDetail = (a_id, type) => {
 };
 
 const deleteAnswerAX = (answerId, questionId) => {
-  return function (dispatch) {
+  return function (dispatch, getState) {
+    const type = getState().community.card_detail.type;
     axios
       .delete(`/card/myAnswer/${answerId}`)
       .then((res)=>{
-        dispatch(deleteAnswer({
-          answerId: answerId, 
-          questionId: questionId,
-        }))
+        if(type === "community"){
+          dispatch(deleteAnswer({
+            answerId: answerId, 
+            questionId: questionId,
+          }))
+        }
+        else if(type === "detail"){
+          dispatch(deleteMoreview({
+            answerId: answerId,
+          }))
+        }
+        else if(type === "noti"){
+          dispatch(deleteNoti({
+            answerId: answerId,
+          }))
+        }
       })
       .catch((err) => {
         console.log(err)
@@ -268,12 +294,29 @@ const deleteAnswerAX = (answerId, questionId) => {
 }
 
 const editAnswerAX = (answer) => {
-  return function (dispatch) {
+  return function (dispatch, getState) {
+    const type = getState().community.card_detail.type;
     console.log(answer)
     axios
       .patch(`/card/myAnswer`, {answerId: answer.answerId, contents: answer.contents, isOpen: answer.isOpen})
       .then((res) => {
-        console.log(res)
+        dispatch(editAnswerCard({
+          contents: answer.contents,
+          isOpen : answer.isOpen
+        }))
+        if(type === "community"){
+          dispatch(editAnswer({
+            answerId : answer.answerId,
+            questionId : answer.questionId,
+            contents: answer.contents,
+          }))
+        }
+        if(type === "detail"){
+          dispatch(editMoreviewAnswer({
+            contents: answer.contents,
+            answerId: answer.answerId,
+          }))
+        }
       })
   }
 }
@@ -288,6 +331,8 @@ export const {
   editCommentInfo,
   changeType,
   deleteAnswer,
+  editAnswerCard,
+  editAnswer,
 } = communitySlice.actions;
 
 export const api = {
