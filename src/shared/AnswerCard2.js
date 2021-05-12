@@ -96,6 +96,11 @@ const CardFrame = styled.div`
   background-color: #ffffff;
   border-radius: 20px;
   margin: 0px 20px 20px 0px;
+  @media(max-width:650px){
+    width:100%;
+    min-width:100%;
+    max-width:100%;
+  }
 `;
 
 const AnswerHeader = styled.div`

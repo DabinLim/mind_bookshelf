@@ -5,6 +5,7 @@ import { config } from "../../shared/config";
 import { logOut } from "./user";
 import { setLoading } from "./answer";
 import { history } from "../configStore";
+import { Drafts } from "@material-ui/icons";
 
 const notiSlice = createSlice({
   name: "noti",
@@ -37,27 +38,22 @@ const notiSlice = createSlice({
       }
       state.new_list.unshift(action.payload);
       state.is_checked = true;
-      
-      // if (idx !== -1) {
-      //   console.log(1);
-      //   if (
-      //     state.new_list.findIndex(
-      //       (n) =>
-      //         n.recentNickname === action.payload.recentNickname &&
-      //         n.eventType === action.payload.eventType
-      //     ) === -1
-      //   ) {
-      //     console.log(1);
-      //     state.new_list.unshift(action.payload);
-      //     state.is_checked = true;
-      //     return;
-      //   }
-      //   return;
-      // }
     },
     alarmChecked: (state) => {
       state.is_checked = false;
     },
+    deleteNoti: (state, action) => {
+      state.noti_list = state.noti_list.filter((n)=>{
+        if(n.cardId !== action.payload.answerId){
+          return [...state.noti_list, n]
+        }
+      });
+      state.new_list = state.new_list.filter((n) => {
+        if(n.cardId !== action.payload.answerId){
+          return [...state.new_list, n]
+        }
+      });
+    }
   },
 });
 
@@ -94,7 +90,13 @@ const openAlarmIO = (user_id) => {
   };
 };
 
-export const { setNoti, addNoti, alarmChecked, setSearch } = notiSlice.actions;
+export const { 
+  setNoti, 
+  addNoti, 
+  alarmChecked, 
+  setSearch, 
+  deleteNoti, 
+} = notiSlice.actions;
 
 export const api = {
   joinAlarmIO,
