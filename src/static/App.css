@@ -69,7 +69,6 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
   font-family: "Noto Sans KR", sans-serif;
-  font-family: "Noto Serif KR", serif;
 }
 
 @media screen and (max-width: 500px) {
@@ -81,5 +80,4 @@ body {
 
 h3 {
   font-family: "Noto Sans KR", sans-serif;
-  font-family: "Noto Serif KR", serif;
 }
