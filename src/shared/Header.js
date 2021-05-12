@@ -6,25 +6,25 @@ import { useSelector, useDispatch } from "react-redux";
 import { logOut } from "../redux/modules/user";
 import SearchIcon from "@material-ui/icons/Search";
 import { history } from "../redux/configStore";
-import MenuIcon from '@material-ui/icons/Menu';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import MenuIcon from "@material-ui/icons/Menu";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import NotificationsIcon from "@material-ui/icons/Notifications";
-import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
+import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
 import Notification from "../components/Notification/Notification";
-import HighlightOffIcon from '@material-ui/icons/HighlightOff';
+import HighlightOffIcon from "@material-ui/icons/HighlightOff";
 import { api as notiActions, setSearch } from "../redux/modules/noti";
 import { setComponent } from "../redux/modules/books";
 import swal from "sweetalert";
 import { getCookie } from "./Cookie";
-import axios from 'axios'
-import { CardModal } from "../components/Community/communityindex"
-import InfoIcon from '@material-ui/icons/Info';
-import {About} from './sharedindex'
-import HomeIcon from '@material-ui/icons/Home';
-import PermIdentityIcon from '@material-ui/icons/PermIdentity';
-import ImportContactsIcon from '@material-ui/icons/ImportContacts';
-import ForumOutlinedIcon from '@material-ui/icons/ForumOutlined';
-import ChatOutlinedIcon from '@material-ui/icons/ChatOutlined';
+import axios from "axios";
+import { CardModal } from "../components/Community/communityindex";
+import InfoIcon from "@material-ui/icons/Info";
+import { About } from "./sharedindex";
+import HomeIcon from "@material-ui/icons/Home";
+import PermIdentityIcon from "@material-ui/icons/PermIdentity";
+import ImportContactsIcon from "@material-ui/icons/ImportContacts";
+import ForumOutlinedIcon from "@material-ui/icons/ForumOutlined";
+import ChatOutlinedIcon from "@material-ui/icons/ChatOutlined";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -35,18 +35,18 @@ const Header = () => {
   const is_checked = useSelector((state) => state.noti.is_checked);
   const user = useSelector((state) => state.user.user);
   const [recent_list, setRecent] = useState();
-  const [loading, setLoading] = useState(true)
-  const [cardModal, setCardModal] = useState(false)
-  const [aboutModal, setAboutModal] = useState(false)
+  const [loading, setLoading] = useState(true);
+  const [cardModal, setCardModal] = useState(false);
+  const [aboutModal, setAboutModal] = useState(false);
 
   const closeNotiModal = () => {
     setNoti(false);
   };
 
   const recentUser = async () => {
-    if(!getCookie("is_login")){
-      setLoading(false)
-      return
+    if (!getCookie("is_login")) {
+      setLoading(false);
+      return;
     }
     const result = await axios.get("/bookshelf/searchUser");
     console.log(result);
@@ -73,16 +73,16 @@ const Header = () => {
         <NaviModal>
           <Menu>
             <MenuIcon fontSize="large" />
-            <MenuText>메뉴</MenuText>
+            {/* <MenuText>메뉴</MenuText> */}
           </Menu>
           <Menu
             onClick={() => {
-                history.push("/");
-                dispatch(setComponent(""));
-              }}
-            >
+              history.push("/");
+              dispatch(setComponent(""));
+            }}
+          >
             <HomeIcon fontSize="large" />
-            <MenuText>오늘의 낙서</MenuText>
+            {/* <MenuText>오늘의 낙서</MenuText> */}
           </Menu>
           <Menu
             onClick={() => {
@@ -99,7 +99,7 @@ const Header = () => {
             }}
           >
             <ImportContactsIcon fontSize="large" />
-            <MenuText>나의 책장</MenuText>
+            {/* <MenuText>나의 책장</MenuText> */}
           </Menu>
           <Menu
             onClick={() => {
@@ -108,7 +108,7 @@ const Header = () => {
             }}
           >
             <ChatOutlinedIcon fontSize="large" />
-            <MenuText>커뮤니티</MenuText>
+            {/* <MenuText>커뮤니티</MenuText> */}
           </Menu>
         </NaviModal>
         {cardModal ? <CardModal close={closeCardModal} /> : null}
@@ -116,7 +116,7 @@ const Header = () => {
           <HeaderInnerContainer>
             <NaviContainer>
               <MobileIcon>
-              {searchModal ? (
+                {searchModal ? (
                   <Search
                     recent_list={recent_list}
                     setLoading={setLoading}
@@ -129,13 +129,12 @@ const Header = () => {
                     recentUser();
                     // dispatch(userActions.getRecentUserAX())
                     dispatch(setSearch(true));
-                  }}/>
+                  }}
+                />
               </MobileIcon>
-              <Logo>
-                Logo
-              </Logo>
+              <Logo>Logo</Logo>
               <MobileIcon>
-              {is_checked ? <AlarmBadge /> : null}
+                {is_checked ? <AlarmBadge /> : null}
                 {notiModal ? (
                   <Notification
                     close={closeNotiModal}
@@ -184,8 +183,7 @@ const Header = () => {
               </PageButton>
             </NaviContainer>
             <IconContainer>
-              <Icon
-              >
+              <Icon>
                 {is_checked ? <AlarmBadge /> : null}
                 {notiModal ? (
                   <Notification
@@ -219,12 +217,13 @@ const Header = () => {
                 />
               </Icon>
               <Icon>
-                {aboutModal? <About setAboutModal={setAboutModal} /> : null}
-                <InfoOutlinedIcon 
+                {aboutModal ? <About setAboutModal={setAboutModal} /> : null}
+                <InfoOutlinedIcon
                   style={{ cursor: "pointer" }}
                   onClick={() => {
-                  setAboutModal(true);
-                }} />
+                    setAboutModal(true);
+                  }}
+                />
               </Icon>
               <TextBtn
                 onClick={() => {
@@ -246,16 +245,16 @@ const Header = () => {
       <NaviModal>
         <Menu>
           <MenuIcon fontSize="large" />
-          <MenuText>메뉴</MenuText>
+          {/* <MenuText>메뉴</MenuText> */}
         </Menu>
         <Menu
           onClick={() => {
-              history.push("/");
-              dispatch(setComponent(""));
-            }}
-          >
+            history.push("/");
+            dispatch(setComponent(""));
+          }}
+        >
           <HomeIcon fontSize="large" />
-          <MenuText>오늘의 낙서</MenuText>
+          {/* <MenuText>오늘의 낙서</MenuText> */}
         </Menu>
         <Menu
           onClick={() => {
@@ -272,7 +271,7 @@ const Header = () => {
           }}
         >
           <ImportContactsIcon fontSize="large" />
-          <MenuText>나의 책장</MenuText>
+          {/* <MenuText>나의 책장</MenuText> */}
         </Menu>
         <Menu
           onClick={() => {
@@ -281,23 +280,20 @@ const Header = () => {
           }}
         >
           <ChatOutlinedIcon fontSize="large" />
-          <MenuText>커뮤니티</MenuText>
+          {/* <MenuText>커뮤니티</MenuText> */}
         </Menu>
       </NaviModal>
       <HeaderContainer>
         <HeaderInnerContainer>
           <NaviContainer>
-            <Logo
-            >
-              Logo
-            </Logo>
+            <Logo>Logo</Logo>
             <PageButton
               onClick={() => {
                 history.push("/");
                 dispatch(setComponent(""));
               }}
             >
-              오늘의 낙서
+              {/* 오늘의 낙서 */}
             </PageButton>
             <PageButton
               onClick={() => {
@@ -313,7 +309,7 @@ const Header = () => {
                 history.push("/mybook");
               }}
             >
-              나의 책장
+              {/* 나의 책장 */}
             </PageButton>
             <PageButton
               onClick={() => {
@@ -321,7 +317,7 @@ const Header = () => {
                 dispatch(setComponent(""));
               }}
             >
-              커뮤니티
+              {/* 커뮤니티 */}
             </PageButton>
           </NaviContainer>
           <IconContainer>
@@ -339,21 +335,23 @@ const Header = () => {
                   loading={loading}
                 />
               ) : null}
-              <SearchIcon style={{ cursor: "pointer" }}
-              onClick={() => {
-                recentUser();
-                dispatch(setSearch(true));
-              }}
+              <SearchIcon
+                style={{ cursor: "pointer" }}
+                onClick={() => {
+                  recentUser();
+                  dispatch(setSearch(true));
+                }}
               />
             </Icon>
             <Icon>
-                {aboutModal? <About setAboutModal={setAboutModal} /> : null}
-                <InfoOutlinedIcon 
-                  style={{ cursor: "pointer" }}
-                  onClick={() => {
+              {aboutModal ? <About setAboutModal={setAboutModal} /> : null}
+              <InfoOutlinedIcon
+                style={{ cursor: "pointer" }}
+                onClick={() => {
                   setAboutModal(true);
-                }} />
-              </Icon>
+                }}
+              />
+            </Icon>
             <TextBtn
               onClick={() => {
                 setLogin(true);
@@ -378,9 +376,11 @@ const HeaderContainer = styled.div`
   z-index: 50;
   // margin-bottom: 10px;
   overflow: visible;
-  @media (max-width: 500px){
+  @media (max-width: 500px) {
     padding-top: 10px;
-  };
+    background: black;
+    color: white;
+  } ;
 `;
 
 const HeaderInnerContainer = styled.div`
@@ -393,12 +393,12 @@ const HeaderInnerContainer = styled.div`
   padding: 0 100px 0 100px;
   box-sizing: border-box;
   overflow: visible;
-  @media (max-width: 900px){
+  @media (max-width: 900px) {
     padding: 0 60px 0 60px;
-  };
-  @media (max-width: 500px){
+  }
+  @media (max-width: 500px) {
     padding: 0 20px 0 20px;
-  };
+  } ;
 `;
 
 const NaviModal = styled.div`
@@ -409,20 +409,20 @@ const NaviModal = styled.div`
   z-index: 100;
   bottom: 0;
   right: 0;
-  background-color: #EBEFF2;
-  @media (max-width: 900px){
+  background-color: #ebeff2;
+  @media (max-width: 900px) {
     display: flex;
     padding: 0px 80px;
     align-items: center;
     justify-content: space-between;
-  };
-  @media (max-width: 500px){
+  }
+  @media (max-width: 500px) {
     display: flex;
     padding: 0px 20px;
     align-items: center;
     justify-content: space-between;
-  };
-`
+  } ;
+`;
 
 const Menu = styled.div`
   display: flex;
@@ -430,11 +430,8 @@ const Menu = styled.div`
   align-items: center;
   font-size: 14px;
   cursor: pointer;
-`
-const MenuText = styled.div`
-`
-
-
+`;
+const MenuText = styled.div``;
 
 const NaviContainer = styled.div`
   display: flex;
@@ -443,10 +440,10 @@ const NaviContainer = styled.div`
   align-items: center;
   height: 100%;
   justify-content: flex-start;
-  @media (max-width: 900px){
+  @media (max-width: 900px) {
     justify-content: space-between;
     width: 100%;
-  };
+  } ;
 `;
 
 const Logo = styled.span`
@@ -454,20 +451,20 @@ const Logo = styled.span`
   font-size: 18px;
   font-weight: 800;
   transition: 0.5s;
-  @media (max-width: 900px){
+  @media (max-width: 900px) {
     margin-right: 0px;
-  };
-`
+  } ;
+`;
 
 const PageButton = styled.span`
-margin: 10px;
-font-size: 14px;
-font-weight: 600;
-cursor: pointer;
-@media (max-width: 900px){
-  display: none;
-};
-`
+  margin: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  @media (max-width: 900px) {
+    display: none;
+  } ;
+`;
 
 const IconContainer = styled.div`
   display: flex;
@@ -481,18 +478,18 @@ const TextBtn = styled.div`
   font-size: 18px;
   cursor: pointer;
   margin-left: 25px;
-  @media (max-width: 900px){
+  @media (max-width: 900px) {
     display: none;
-  };
+  } ;
 `;
 
 const Icon = styled.div`
   position: relative;
   margin-left: 25px;
   margin-top: 9px;
-  @media (max-width: 900px){
+  @media (max-width: 900px) {
     display: none;
-  };
+  } ;
 `;
 
 const MobileIcon = styled.div`
@@ -500,11 +497,10 @@ const MobileIcon = styled.div`
   display: none;
   margin-left: 25px;
   margin-top: 9px;
-  @media (max-width: 900px){
+  @media (max-width: 900px) {
     display: block;
-  };
-
-`
+  } ;
+`;
 
 const AlarmBadge = styled.div`
   background-color: red;
@@ -519,6 +515,5 @@ const AlarmBadge = styled.div`
   right: 0px;
   top: 2px;
 `;
-
 
 export default Header;
