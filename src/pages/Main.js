@@ -339,7 +339,7 @@ const MainContainer = styled.div`
   }
 
   @media (max-width: 500px) {
-    margin: 83px 0px 0px 0px;
+    margin: 53px 0px 0px 0px;
     align-items: center;
   }
 `;
