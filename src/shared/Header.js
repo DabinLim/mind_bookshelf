@@ -378,6 +378,9 @@ const HeaderContainer = styled.div`
   z-index: 50;
   // margin-bottom: 10px;
   overflow: visible;
+  @media (max-width: 500px){
+    padding-top: 10px;
+  };
 `;
 
 const HeaderInnerContainer = styled.div`
