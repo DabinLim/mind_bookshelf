@@ -62,6 +62,7 @@ const ContainerBox = styled.div`
     @media(max-width:750px){
         padding-left:0px;
         overflow-x:hidden;
+        margin:50px 0px 0px 0px;
     }
     ::-webkit-scrollbar {
     display: none;

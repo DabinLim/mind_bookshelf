@@ -456,7 +456,7 @@ const QuestionContents = styled.span`
   font-size: 15px;
   font-weight: 600;
   width: 100%;
-  height: 48px;
+  height: 55px;
   margin-top: 17px;
   display: -webkit-box;
   -webkit-line-clamp: 1;

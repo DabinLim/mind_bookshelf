@@ -66,6 +66,9 @@ const CommunityBox = styled.div`
     background-color: #ffffff; /* color of the scroll thumb */
     border-radius: 20px; /* roundness of the scroll thumb */
   }
+  @media(max-width:750px){
+    margin:50px 0px 0px 0px;
+  }
 `;
 
 const CommunityContainer = styled.div`
