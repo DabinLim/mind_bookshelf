@@ -63,18 +63,18 @@ const AnswerCard2 = (props) => {
             <LikeBox>
               {props.like ? (
                 <>
-                  <FavoriteIcon style={{ color: "red" }} />
+                  <FavoriteIcon style={{ color: "red" }} fontSize='small'/>
                   <LikeCount>{props.answerLikes}개</LikeCount>
                 </>
               ) : (
                 <>
-                  <FavoriteBorderIcon />
+                  <FavoriteBorderIcon fontSize='small'/>
                   <LikeCount>{props.answerLikes}개</LikeCount>
                 </>
               )}
             </LikeBox>
             <CommentBox>
-              <ChatBubbleOutlineIcon />
+              <ChatBubbleOutlineIcon fontSize='small'/>
               <CommentCount>{props.commentCount}개</CommentCount>
             </CommentBox>
           </IconBox>
@@ -116,6 +116,10 @@ const CardWriterProfile = styled.img`
   border-radius: 40px;
   object-fit: cover;
   cursor: pointer;
+  @media(max-width:650px){
+    width:22px;
+    height:22px;
+  }
 `;
 
 const AnswerNickname = styled.div`
@@ -125,6 +129,10 @@ const AnswerNickname = styled.div`
 const CardWriter = styled.span`
   margin-left: 10px;
   font-weight: 600;
+  @media(max-width:650px){
+    font-size:12px;
+    margin-left:6px;
+  }
 `;
 
 const AnswerContents = styled.div`
@@ -143,6 +151,9 @@ const AnswerContents = styled.div`
     font-weight: 600;
   }
   cursor: pointer;
+  @media(max-width:650px){
+    font-size:12px;
+  }
 `;
 
 const AnswerLikes = styled.div`
@@ -178,11 +189,11 @@ const DateYMD = styled.div`
 `;
 
 const LikeCount = styled.span`
-  font-size: 12px;
+  font-size: 11px;
 `;
 
 const CommentCount = styled.span`
-  font-size: 12px;
+  font-size: 11px;
 `;
 
 export default AnswerCard2;
