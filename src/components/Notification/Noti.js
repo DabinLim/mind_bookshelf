@@ -65,6 +65,9 @@ const NotiFrame = styled.div`
   border: 1px solid #ececec;
   padding: 12px 16px;
   cursor: pointer;
+  @media (max-width: 500px){
+    padding: 10px 12px;
+  }
 `;
 
 const NotiProfileInfo = styled.div`
@@ -86,11 +89,17 @@ const NotiProfileName = styled.span`
   margin-left: 8px;
   font-weight: bold;
   font-size: 14px;
+  @media (max-width: 500px){
+    font-size: 13px;
+  }
 `;
 
 const NotiContent = styled.p`
   margin: 0 0 0 0px;
   font-size: 14px;
+  @media (max-width: 500px){
+    font-size: 13px;
+  }
 `;
 const NotiTime = styled.span`
   margin-left: 4px;

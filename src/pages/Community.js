@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { api as communityActions } from "../redux/modules/community";
 import Loader from "react-loader-spinner";
 import { setLoading } from "../redux/modules/community";
+import ReplayIcon from '@material-ui/icons/Replay';
 
 const Community = () => {
   const dispatch = useDispatch();
@@ -20,12 +21,23 @@ const Community = () => {
 
   return (
     <React.Fragment>
-      <ImgRight />
-      <ImgLeft />
+      {is_loading ? 
+      <CommunityBtn style={{paddingTop:"5px"}} ><Loader type="TailSpin" color="Black" height={30} width={30} /></CommunityBtn>
+      :
+      <CommunityBtn
+        onClick={()=>{
+          dispatch(communityActions.communityQuestionAX());
+          dispatch(setLoading(true));
+        }}
+      ><ReplayIcon fontSize="large" /></CommunityBtn>
+      }
+      <ImgRight/>
+      <ImgLeft/>
       <CommunityContainer>
-        <div></div>
         {is_loading ? (
-          <Loader type="Oval" color="#3d66ba" height={50} width={50} />
+          <div style={{marginTop: "250px"}} >
+            <Loader type="Oval" color="#3d66ba" height={50} width={50} />
+          </div>
         ) : (
           <CommunityBox>
             {question_list !== 0
@@ -40,8 +52,28 @@ const Community = () => {
   );
 };
 
+const CommunityBtn = styled.div`
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  right: 24px;
+  bottom: 180px;
+  width: 63px;
+  height: 63px;
+  border-radius: 50px;
+  background: white;
+  z-index: 10;
+  cursor: pointer;
+  @media (max-width: 900px) {
+    right: 10px;
+    bottom: 190px;
+    width: 55px;
+    height: 55px;
+  }
+`
+
 const CommunityBox = styled.div`
-  // width: 100%;
   height: 100vh;
   margin: 100px 0px 0px 0px;
   width: 100%;
@@ -56,6 +88,7 @@ const CommunityBox = styled.div`
   }
   @media (max-width: 500px) {
     margin: 60px 0px 50px 0px;
+    background-image: url("https://user-images.githubusercontent.com/67696504/117994109-4088f980-b37b-11eb-8f2c-9d42c93fd0a3.png")
   }
   ::-webkit-scrollbar {
     display:none;
