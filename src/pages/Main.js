@@ -389,7 +389,7 @@ const DateIndicator = styled.h2`
   @media (max-width: 500px) {
     text-align: left;
     font-size: 12px;
-    margin-top: 0;
+    margin: 0;
   }
 `;
 
@@ -401,7 +401,8 @@ const QuestionIndicator = styled.h3`
 
   @media (max-width: 500px) {
     text-align: left;
-    font-size: 25px;
+    font-size: 26px;
+    margin-bottom: 0px;
   }
 `;
 
@@ -536,8 +537,8 @@ const DotQueue = styled.div`
 const SmallDotQueue = styled.div`
   display: flex;
   justify-content: center;
-  margin-top: 40px;
-  margin-bottom: 30px;
+  margin-top: 28px;
+  margin-bottom: 14px;
 
   @media (min-width: 500px) {
     /* margin: 60px 0px 5px 0px; */

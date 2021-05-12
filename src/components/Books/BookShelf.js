@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { history } from "../../redux/configStore";
 import {CardDetail} from './booksindex';
 import { ArrowLeft, ArrowRight } from "@material-ui/icons";
+import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 import { changeDate, setComponent, setDateVisible, setBookDetailModal } from "../../redux/modules/books";
 import CardModal from '../Community/CardModal';
 import { useSelector, useDispatch } from "react-redux";
@@ -149,9 +150,9 @@ const date_visible = useSelector(state => state.books.date_visible);
         <ForDate>
           {date_visible ? 
           <>
-          <ArrowLeft onClick={previousMonth} cursor='pointer'/>
-          <span>{formated_date}</span> 
-          <ArrowRight onClick={nextMonth} cursor='pointer'/>
+          <ArrowForwardIosIcon style={{fontSize:'16px',transform:'rotateZ(180deg)'}} onClick={previousMonth} cursor='pointer'/>
+          <span style={{margin:'0px 10px'}}>{formated_date}</span> 
+          <ArrowForwardIosIcon style={{fontSize:'16px'}} onClick={nextMonth} cursor='pointer'/>
           </>
           : ''}
         </ForDate>
@@ -269,7 +270,7 @@ const date_visible = useSelector(state => state.books.date_visible);
                       {v._id.charAt(v._id.length - 2)}
                       {v._id.charAt(v._id.length - 1)}
                     </Date>
-                    <BookImage src='https://user-images.githubusercontent.com/77574867/117760850-53a7a680-b261-11eb-8a8e-2727d0edbc91.png'/>
+                    <BookImage src='https://user-images.githubusercontent.com/77574867/117977886-3ca1ab00-b36c-11eb-8b1f-3f14de5a096d.png'/>
                   </Book>}
                   {v.count === 2 && <Book
                     key={idx}
@@ -280,7 +281,7 @@ const date_visible = useSelector(state => state.books.date_visible);
                       {v._id.charAt(v._id.length - 2)}
                       {v._id.charAt(v._id.length - 1)}
                     </Date>
-                    <BookImage src='https://user-images.githubusercontent.com/77574867/117760848-530f1000-b261-11eb-8593-6e8d9699c0b4.png'/>
+                    <BookImage src='https://user-images.githubusercontent.com/77574867/117977881-3c091480-b36c-11eb-8fef-0f43a351bedc.png'/>
                   </Book>}
                   {v.count >= 3  && <Book
                     key={idx}
@@ -291,7 +292,7 @@ const date_visible = useSelector(state => state.books.date_visible);
                       {v._id.charAt(v._id.length - 2)}
                       {v._id.charAt(v._id.length - 1)}
                     </Date>
-                    <BookImage src='https://user-images.githubusercontent.com/77574867/117760845-51dde300-b261-11eb-8d57-7bdd1870d003.png'/>
+                    <BookImage src='https://user-images.githubusercontent.com/77574867/117977875-3ad7e780-b36c-11eb-884a-bb3b4d9618cc.png'/>
                   </Book>}
                   </>
                 );
@@ -317,7 +318,7 @@ const date_visible = useSelector(state => state.books.date_visible);
                       {v._id.charAt(v._id.length - 2)}
                       {v._id.charAt(v._id.length - 1)}
                     </Date>
-                    <BookImage src='https://user-images.githubusercontent.com/77574867/117760850-53a7a680-b261-11eb-8a8e-2727d0edbc91.png'/>
+                    <BookImage src='https://user-images.githubusercontent.com/77574867/117977886-3ca1ab00-b36c-11eb-8b1f-3f14de5a096d.png'/>
                   </Book>}
                   {v.count === 2 && <Book
                     key={idx}
@@ -328,7 +329,7 @@ const date_visible = useSelector(state => state.books.date_visible);
                       {v._id.charAt(v._id.length - 2)}
                       {v._id.charAt(v._id.length - 1)}
                     </Date>
-                    <BookImage src='https://user-images.githubusercontent.com/77574867/117760848-530f1000-b261-11eb-8593-6e8d9699c0b4.png'/>
+                    <BookImage src='https://user-images.githubusercontent.com/77574867/117977881-3c091480-b36c-11eb-8fef-0f43a351bedc.png'/>
                   </Book>}
                   {v.count >= 3  && <Book
                     key={idx}
@@ -339,7 +340,7 @@ const date_visible = useSelector(state => state.books.date_visible);
                       {v._id.charAt(v._id.length - 2)}
                       {v._id.charAt(v._id.length - 1)}
                     </Date>
-                    <BookImage src='https://user-images.githubusercontent.com/77574867/117760845-51dde300-b261-11eb-8d57-7bdd1870d003.png'/>
+                    <BookImage src='https://user-images.githubusercontent.com/77574867/117977875-3ad7e780-b36c-11eb-884a-bb3b4d9618cc.png'/>
                   </Book>}
                   </>
                 );
@@ -365,7 +366,7 @@ const date_visible = useSelector(state => state.books.date_visible);
                       {v._id.charAt(v._id.length - 2)}
                       {v._id.charAt(v._id.length - 1)}
                     </Date>
-                    <BookImage src='https://user-images.githubusercontent.com/77574867/117760850-53a7a680-b261-11eb-8a8e-2727d0edbc91.png'/>
+                    <BookImage src='https://user-images.githubusercontent.com/77574867/117977886-3ca1ab00-b36c-11eb-8b1f-3f14de5a096d.png'/>
                   </Book>}
                   {v.count === 2 && <Book
                     key={idx}
@@ -376,7 +377,7 @@ const date_visible = useSelector(state => state.books.date_visible);
                       {v._id.charAt(v._id.length - 2)}
                       {v._id.charAt(v._id.length - 1)}
                     </Date>
-                    <BookImage src='https://user-images.githubusercontent.com/77574867/117760848-530f1000-b261-11eb-8593-6e8d9699c0b4.png'/>
+                    <BookImage src='https://user-images.githubusercontent.com/77574867/117977881-3c091480-b36c-11eb-8fef-0f43a351bedc.png'/>
                   </Book>}
                   {v.count >= 3  && <Book
                     key={idx}
@@ -387,7 +388,7 @@ const date_visible = useSelector(state => state.books.date_visible);
                       {v._id.charAt(v._id.length - 2)}
                       {v._id.charAt(v._id.length - 1)}
                     </Date>
-                    <BookImage src='https://user-images.githubusercontent.com/77574867/117760845-51dde300-b261-11eb-8d57-7bdd1870d003.png'/>
+                    <BookImage src='https://user-images.githubusercontent.com/77574867/117977875-3ad7e780-b36c-11eb-884a-bb3b4d9618cc.png'/>
                   </Book>}
                   </>
                 );
@@ -413,7 +414,7 @@ const date_visible = useSelector(state => state.books.date_visible);
                       {v._id.charAt(v._id.length - 2)}
                       {v._id.charAt(v._id.length - 1)}
                     </Date>
-                    <BookImage src='https://user-images.githubusercontent.com/77574867/117760850-53a7a680-b261-11eb-8a8e-2727d0edbc91.png'/>
+                    <BookImage src='https://user-images.githubusercontent.com/77574867/117977886-3ca1ab00-b36c-11eb-8b1f-3f14de5a096d.png'/>
                   </Book>}
                   {v.count === 2 && <Book
                     key={idx}
@@ -424,7 +425,7 @@ const date_visible = useSelector(state => state.books.date_visible);
                       {v._id.charAt(v._id.length - 2)}
                       {v._id.charAt(v._id.length - 1)}
                     </Date>
-                    <BookImage src='https://user-images.githubusercontent.com/77574867/117760848-530f1000-b261-11eb-8593-6e8d9699c0b4.png'/>
+                    <BookImage src='https://user-images.githubusercontent.com/77574867/117977881-3c091480-b36c-11eb-8fef-0f43a351bedc.png'/>
                   </Book>}
                   {v.count >= 3  && <Book
                     key={idx}
@@ -435,7 +436,7 @@ const date_visible = useSelector(state => state.books.date_visible);
                       {v._id.charAt(v._id.length - 2)}
                       {v._id.charAt(v._id.length - 1)}
                     </Date>
-                    <BookImage src='https://user-images.githubusercontent.com/77574867/117760845-51dde300-b261-11eb-8d57-7bdd1870d003.png'/>
+                    <BookImage src='https://user-images.githubusercontent.com/77574867/117977875-3ad7e780-b36c-11eb-884a-bb3b4d9618cc.png'/>
                   </Book>}
                   </>
                 );
@@ -461,7 +462,7 @@ const date_visible = useSelector(state => state.books.date_visible);
                       {v._id.charAt(v._id.length - 2)}
                       {v._id.charAt(v._id.length - 1)}
                     </Date>
-                    <BookImage src='https://user-images.githubusercontent.com/77574867/117760850-53a7a680-b261-11eb-8a8e-2727d0edbc91.png'/>
+                    <BookImage src='https://user-images.githubusercontent.com/77574867/117977886-3ca1ab00-b36c-11eb-8b1f-3f14de5a096d.png'/>
                   </Book>}
                   {v.count === 2 && <Book
                     key={idx}
@@ -472,7 +473,7 @@ const date_visible = useSelector(state => state.books.date_visible);
                       {v._id.charAt(v._id.length - 2)}
                       {v._id.charAt(v._id.length - 1)}
                     </Date>
-                    <BookImage src='https://user-images.githubusercontent.com/77574867/117760848-530f1000-b261-11eb-8593-6e8d9699c0b4.png'/>
+                    <BookImage src='https://user-images.githubusercontent.com/77574867/117977881-3c091480-b36c-11eb-8fef-0f43a351bedc.png'/>
                   </Book>}
                   {v.count >= 3  && <Book
                     key={idx}
@@ -483,7 +484,7 @@ const date_visible = useSelector(state => state.books.date_visible);
                       {v._id.charAt(v._id.length - 2)}
                       {v._id.charAt(v._id.length - 1)}
                     </Date>
-                    <BookImage src='https://user-images.githubusercontent.com/77574867/117760845-51dde300-b261-11eb-8d57-7bdd1870d003.png'/>
+                    <BookImage src='https://user-images.githubusercontent.com/77574867/117977875-3ad7e780-b36c-11eb-884a-bb3b4d9618cc.png'/>
                   </Book>}
                   </>
                 );
@@ -509,7 +510,7 @@ const date_visible = useSelector(state => state.books.date_visible);
                       {v._id.charAt(v._id.length - 2)}
                       {v._id.charAt(v._id.length - 1)}
                     </Date>
-                    <BookImage src='https://user-images.githubusercontent.com/77574867/117760850-53a7a680-b261-11eb-8a8e-2727d0edbc91.png'/>
+                    <BookImage src='https://user-images.githubusercontent.com/77574867/117977886-3ca1ab00-b36c-11eb-8b1f-3f14de5a096d.png'/>
                   </Book>}
                   {v.count === 2 && <Book
                     key={idx}
@@ -520,7 +521,7 @@ const date_visible = useSelector(state => state.books.date_visible);
                       {v._id.charAt(v._id.length - 2)}
                       {v._id.charAt(v._id.length - 1)}
                     </Date>
-                    <BookImage src='https://user-images.githubusercontent.com/77574867/117760848-530f1000-b261-11eb-8593-6e8d9699c0b4.png'/>
+                    <BookImage src='https://user-images.githubusercontent.com/77574867/117977881-3c091480-b36c-11eb-8fef-0f43a351bedc.png'/>
                   </Book>}
                   {v.count >= 3  && <Book
                     key={idx}
@@ -531,7 +532,7 @@ const date_visible = useSelector(state => state.books.date_visible);
                       {v._id.charAt(v._id.length - 2)}
                       {v._id.charAt(v._id.length - 1)}
                     </Date>
-                    <BookImage src='https://user-images.githubusercontent.com/77574867/117760845-51dde300-b261-11eb-8d57-7bdd1870d003.png'/>
+                    <BookImage src='https://user-images.githubusercontent.com/77574867/117977875-3ad7e780-b36c-11eb-884a-bb3b4d9618cc.png'/>
                   </Book>}
                   </>
                 );
@@ -563,10 +564,12 @@ const Container = styled.section`
 
 const ForDate = styled.div`
   width: 100%;
-  height: 50px;
+  height: 30px;
   display: flex;
   flex-direction: row;
   justify-content: center;
+  align-items:center;
+  margin-bottom:30px;
   @media(min-width:750px){
     transform:scale(1.2)
   }
@@ -590,7 +593,7 @@ const ShelfBox = styled.div`
 const ShelfBoxMobile = styled.div`
   position:relative;
   width:100%;
-  max-width:360px;
+  max-width:335px;
   margin:0px auto;
   display:flex;
   flex-direction:column;
@@ -632,8 +635,9 @@ const BookRow = styled.div`
 }
 
 @media(max-width:750px){
-    margin:10px 0px -5px 0px;
-    max-width:360px;
+    margin:10px 0px -15px 0px;
+    max-width:300px;
+    height:150px;
     /* overflow:hidden; */
     justify-content:flex-start;
   }
@@ -696,6 +700,8 @@ const Book = styled.div`
     }
     @media (max-width:750px){
     margin: 0px 13px;
+    width:40px;
+    height:140px;
     }
 `;
 
@@ -706,6 +712,10 @@ const Date = styled.span`
   z-index:2;
   color:#ffffff;
   font-weight:600;
+  @media(max-width:750px){
+    top:10px;
+    left:15px;
+  }
 `;
 
 const BookImage = styled.img`
@@ -713,7 +723,10 @@ const BookImage = styled.img`
   top:-10px;
   left:-23px;
   z-index:1;
-
+  @media(max-width:750px){
+    top:-10px;
+    left:-13px;
+  }
 `;
 
 
