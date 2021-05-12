@@ -11,6 +11,7 @@ import {
 import InfinityScroll from "../../shared/InfinityScroll";
 import { getCookie } from "../../shared/Cookie";
 import swal from "sweetalert";
+import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 
 const QuestionDetail = (props) => {
   const dispatch = useDispatch();
@@ -33,6 +34,7 @@ const QuestionDetail = (props) => {
   const friends_loading = useSelector(
     (state) => state.moreview.firends_loading
   );
+  const [openFilter, setOpenFilter] = React.useState(false);
   const container = React.useRef();
   const like_container = React.useRef();
   const friends_container = React.useRef();
@@ -90,6 +92,35 @@ const QuestionDetail = (props) => {
                   {question_info ? question_info.questionContents : "질문 내용"}
                 </QuestionTitle>
               </ContainerUpperLeft>
+              <FilterBtnBoxMobile>
+                <FilterToggle>
+              {now_view === 'new' && <span>최신순</span>}
+              {now_view === 'like' && <span>인기순</span>}
+              {now_view === 'friends' && <span>팔로우</span>}
+              {openFilter ? <ArrowForwardIosIcon
+                  onClick={()=>{setOpenFilter(false)}}
+                  style={{
+                    cursor: "pointer",
+                    color: "black",
+                    fontSize: "12px",
+                    transform:'rotateZ(270deg)',
+                    marginLeft:'5px'
+                  }}
+                /> : <ArrowForwardIosIcon
+                onClick={()=>{setOpenFilter(true)}}
+                style={{
+                  cursor: "pointer",
+                  color: "black",
+                  fontSize: "12px",
+                  transform:'rotateZ(90deg)',
+                  marginLeft:'5px'
+                }}
+              />}
+                </FilterToggle>
+                {openFilter && now_view === 'new' && <><span onClick={()=>{dispatch(setView('like'))}}>인기순</span><span onClick={()=>{dispatch(setView('friends'))}}>팔로우</span></>}
+                {openFilter && now_view === 'like' && <><span onClick={()=>{dispatch(setView('new'))}}>최신순</span><span onClick={()=>{dispatch(setView('friends'))}}>팔로우</span></>}
+                {openFilter && now_view === 'friends' && <><span onClick={()=>{dispatch(setView('new'))}}>최신순</span><span onClick={()=>{dispatch(setView('like'))}}>인기순</span></>}
+                </FilterBtnBoxMobile>
               <FilterBtnBox>
                 {now_view === "new" ? (
                   <FilterBtn
@@ -256,6 +287,9 @@ const Outer = styled.section`
   justify-content: center;
   align-items: center;
   margin-top: 150px;
+  @media(max-width:650px){
+    margin-top:100px;
+  }
 `;
 
 const CommunityContainer = styled.div`
@@ -335,8 +369,33 @@ const HashTag = styled.span`
   }
 `;
 
+const FilterBtnBoxMobile = styled.div`
+  width:40%;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-start;
+  align-items:flex-end;
+  font-size:12px;
+  margin-right:20px;
+  padding-top:60px;
+  box-sizing:border-box;
+  @media(min-width:650px){
+    display:none;
+  }
+`;
+
+const FilterToggle = styled.div`
+ display:flex;
+ flex-direction:row;
+ align-items:center;
+ font-weight:600;
+ justify-content:flex-end;
+ margin-right:-18px;
+`;
+
 const FilterBtnBox = styled.div`
   display: flex;
+  height:100%;
   justify-content: flex-end;
   align-items: flex-end;
   width: 40%;
@@ -345,6 +404,7 @@ const FilterBtnBox = styled.div`
     min-width:80px;
     justify-content:center;
     margin-top:100px;
+    display:none;
   }
 `;
 
@@ -391,6 +451,20 @@ const AnswersBox = styled.div`
     background-color: #ffffff; /* color of the scroll thumb */
     border-radius: 20px; /* roundness of the scroll thumb */
   }
+  @media(max-width:650px){
+    ::-webkit-scrollbar {
+    display:none;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: none; /* color of the tracking area */
+  }
+
+  ::-webkit-scrollbar-thumb {
+    display:none; 
+  }
+  ${(props) => (props.view === "new" ? `margin: 80px 0px` : ` margin: 0px`)};
+  }
 `;
 
 const AnswersBoxLike = styled.div`
@@ -415,6 +489,20 @@ const AnswersBoxLike = styled.div`
   ::-webkit-scrollbar-thumb {
     background-color: #ffffff; /* color of the scroll thumb */
     border-radius: 20px; /* roundness of the scroll thumb */
+  }
+  @media(max-width:650px){
+    ::-webkit-scrollbar {
+    display:none;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: none; /* color of the tracking area */
+  }
+
+  ::-webkit-scrollbar-thumb {
+    display:none; 
+  }
+  ${(props) => (props.view === "like" ? `margin: 80px 0px` : ` margin: 0px`)};
   }
 `;
 
@@ -441,6 +529,21 @@ const AnswersBoxFriends = styled.div`
   ::-webkit-scrollbar-thumb {
     background-color: #ffffff; /* color of the scroll thumb */
     border-radius: 20px; /* roundness of the scroll thumb */
+  }
+  @media(max-width:650px){
+    ::-webkit-scrollbar {
+    display:none;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: none; /* color of the tracking area */
+  }
+
+  ::-webkit-scrollbar-thumb {
+    display:none; 
+  }
+
+  ${(props) => (props.view === "friends" ? `margin: 80px 0px` : ` margin: 0px`)};
   }
 `;
 
