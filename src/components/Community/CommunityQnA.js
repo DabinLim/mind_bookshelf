@@ -207,6 +207,7 @@ const Answer = styled.div`
     max-width: 181px;
     height: 144px;
   }
+  box-shadow: 0px 0px 20px #0000001A;
 `;
 
 const AnswerHeader = styled.div`
@@ -290,12 +291,15 @@ const DateYMD = styled.div`
 `;
 
 const Topic = styled.div`
-  // margin-top: 30px;
+  margin-top: 30px;
   margin-right: 10px;
   display: inline-block;
   padding: 5px 14px;
   border-radius: 18px;
   font-weight: 600;
+  @media (max-width: 500px) {
+    margin-top: 0px;
+  }
 `;
 
 const LikeCount = styled.span`

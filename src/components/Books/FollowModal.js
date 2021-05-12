@@ -66,7 +66,7 @@ const FollowContainer = styled.div`
 
 const SearchInput = styled.input`
   width: 250px;
-  font-size: 20px;
+  font-size: 15px;
   padding: 5px 20px;
   background: #F2F2F2;
   margin-top: 30px;
@@ -104,7 +104,7 @@ const ProfileImage = styled.img`
 `
 
 const Username = styled.div`
-  font-size: 18px;
+  font-size: 15px;
   font-weight: 600;
 `
 
@@ -121,7 +121,7 @@ const Background = styled.div`
 const UserText = styled.div`
   margin: auto;
   font-weight: 600;
-  font-size: 18px;
+  font-size: 15px;
 `
 
 export default FollowModal

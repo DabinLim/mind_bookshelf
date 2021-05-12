@@ -69,11 +69,8 @@ const CommunityBtn = styled.div`
   background: white;
   z-index: 10;
   cursor: pointer;
-  @media (max-width: 900px) {
-    right: 10px;
-    bottom: 190px;
-    width: 55px;
-    height: 55px;
+  @media (max-width: 500px) {
+    display: none;
   }
 `;
 
@@ -88,10 +85,12 @@ const CommunityBox = styled.div`
   align-items: center;
   overflow-y: auto;
   @media (max-width: 900px) {
-    margin: 100px 0px 50px 0px;
+    margin: 100px 0px 60px 0px;
   }
   @media (max-width: 500px) {
-    margin: 60px 0px 50px 0px;
+    margin: 60px 0px 60px 0px;
+    background-size: cover;
+    background-repeat: no-repeat;
     background-image: url("https://user-images.githubusercontent.com/67696504/117994109-4088f980-b37b-11eb-8f2c-9d42c93fd0a3.png");
   }
   ::-webkit-scrollbar {
@@ -109,8 +108,8 @@ const CommunityBox = styled.div`
     background-color: #ffffff; /* color of the scroll thumb */
     border-radius: 20px; /* roundness of the scroll thumb */
   }
-  @media(max-width:750px){
-    margin:50px 0px 0px 0px;
+  @media (max-width: 750px) {
+    margin: 50px 0px 0px 0px;
   }
 `;
 

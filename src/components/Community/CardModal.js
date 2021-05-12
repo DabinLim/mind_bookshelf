@@ -22,7 +22,9 @@ import swal from "sweetalert";
 import { getCookie } from "../../shared/Cookie";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import CustomSwitch from "../../shared/CustomSwitch";
+import CancelConfirm from "./CancelConfirm";
 import { LeftOutlined } from "@ant-design/icons";
+import ChannelService from "../../shared/ChannelService";
 
 const CardModal = (props) => {
   const answerInfo = useSelector((state) => state.community.card_detail);
@@ -41,10 +43,20 @@ const CardModal = (props) => {
   const [updateAnswer, setUpdateAnswer] = useState(false);
   const [answer, setAnswer] = useState();
   const [isOpen, setOpen] = useState(true);
+  const [cancelModal, setCancelModal] = useState(false);
   const cmtInput = useRef();
   const ok_submit = comments ? true : false;
   const url = window.location.href.split("/");
   const id = url[url.length - 1];
+
+  React.useEffect(() => {
+    ChannelService.shutdown();
+    return () => {
+      ChannelService.boot({
+        pluginKey: "1e06f0ed-5da8-42f4-bb69-7e215b14ec18",
+      });
+    };
+  }, []);
 
   function clickOpen() {
     if (isOpen) {
@@ -55,6 +67,9 @@ const CardModal = (props) => {
   }
 
   const changeAnswer = (e) => {
+    if (answer.length > 1000) {
+      return;
+    }
     setAnswer(e.target.value);
   };
 
@@ -353,13 +368,11 @@ const CardModal = (props) => {
 
   return (
     <React.Fragment>
-      {updateModal ? (
-        <CardUpdateModal
-          setAnswer={setAnswer}
-          setUpdateAnswer={setUpdateAnswer}
-          close={props.close}
-          setUpdateModal={setUpdateModal}
+      {cancelModal ? (
+        <CancelConfirm
           {...answerInfo}
+          setCancelModal={setCancelModal}
+          close={props.close}
         />
       ) : null}
       <Component
@@ -723,7 +736,36 @@ const CardModal = (props) => {
                     </span>
                   </CardWriterNickNameLeft>
                 </CardWriterLeft>
-                <HashTag style={{ background: color }}>#{topic}</HashTag>
+                <HashTag style={{ background: color }}>{topic}</HashTag>
+                {answerInfo.answerUserId === user_info.id ? (
+                  <div
+                    style={{
+                      marginRight: "10px",
+                      cursor: "pointer",
+                      position: "relative",
+                    }}
+                  >
+                    {updateModal ? (
+                      <CardUpdateModal
+                        setCancelModal={setCancelModal}
+                        setAnswer={setAnswer}
+                        setUpdateAnswer={setUpdateAnswer}
+                        close={props.close}
+                        setUpdateModal={setUpdateModal}
+                        {...answerInfo}
+                      />
+                    ) : null}
+                    <MoreVertIcon
+                      onClick={() => {
+                        if (updateModal) {
+                          setUpdateModal(false);
+                        } else {
+                          setUpdateModal(true);
+                        }
+                      }}
+                    />
+                  </div>
+                ) : null}
               </CardWriterInfoLeft>
               <SmallHashTag style={{ background: color }}>
                 #{topic}
@@ -734,6 +776,45 @@ const CardModal = (props) => {
               </CardQuestionContent>
             </CardWriterBox>
             <CardWriteLeftBody>
+              {updateAnswer ? (
+                <AnswerUpdateBox>
+                  <CardAnswerInput value={answer} onChange={changeAnswer} />
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "flex-end",
+                      marginTop: "20px",
+                    }}
+                  >
+                    <CustomSwitch isOpen={isOpen} onClick={clickOpen} />
+                    <CardAnswerBtn
+                      onClick={() => {
+                        let _answer = {
+                          answerId: answerInfo.answerId,
+                          questionId: answerInfo.questionId,
+                          contents: answer,
+                          isOpen: isOpen,
+                        };
+                        dispatch(communityActions.editAnswerAX(_answer));
+                        setUpdateAnswer(false);
+                      }}
+                    >
+                      수정
+                    </CardAnswerBtn>
+                  </div>
+                </AnswerUpdateBox>
+              ) : (
+                <CardAnswerContent style={{ whiteSpace: "pre-wrap" }}>
+                  {answerInfo?.answerContents}
+                </CardAnswerContent>
+              )}
+            </CardWriteLeftBody>
+            {/* <IconContainer>
+              <IconBox>
+              <LikeContainer>
+                {answerInfo.like ? (
+                  <LikeBtn
+                    style={{ color: "red" }}
               {updateAnswer ? (
                 <AnswerUpdateBox>
                   <CardAnswerInput value={answer} onChange={changeAnswer} />
@@ -758,7 +839,7 @@ const CardModal = (props) => {
                   {answerInfo?.answerContents}
                 </CardAnswerContent>
               )}
-            </CardWriteLeftBody>
+            </CardWriteLeftBody> */}
             <IconContainer>
               <IconBox>
                 <LikeContainer>
@@ -818,15 +899,6 @@ const CardModal = (props) => {
               <span style={{ marginRight: "20px" }}>
                 {getDate(answerInfo.answerCreatedAt)}
               </span>
-              {answerInfo.answerUserId === user_info.id ? (
-                <div style={{ marginRight: "10px", cursor: "pointer" }}>
-                  <MoreVertIcon
-                    onClick={() => {
-                      setUpdateModal(true);
-                    }}
-                  />
-                </div>
-              ) : null}
             </IconContainer>
           </ModalContent>
           <ModalRightContainer>
@@ -1106,15 +1178,15 @@ const CardAnswerInput = styled.textarea`
   padding: 30px 0 0 0;
   border: none;
   width: 85%;
-  height: 140px;
+  height: 155px;
   box-sizing: border-box;
   outline: none;
   line-height: 1.5;
   resize: none;
 `;
 const CardAnswerBtn = styled.div`
-  margin-right: 30px;
-  align-self: flex-end;
+  margin-right: 20px;
+  margin-left: 20px;
   font-size: 16px;
   cursor: pointer;
   color: white;
