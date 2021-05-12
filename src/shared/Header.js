@@ -73,7 +73,7 @@ const Header = () => {
         <NaviModal>
           <Menu>
             <MenuIcon fontSize="large" />
-            {/* <MenuText>메뉴</MenuText> */}
+            <MenuText>메뉴</MenuText>
           </Menu>
           <Menu
             onClick={() => {
@@ -82,7 +82,7 @@ const Header = () => {
             }}
           >
             <HomeIcon fontSize="large" />
-            {/* <MenuText>오늘의 낙서</MenuText> */}
+            <MenuText>오늘의 낙서</MenuText>
           </Menu>
           <Menu
             onClick={() => {
@@ -99,7 +99,7 @@ const Header = () => {
             }}
           >
             <ImportContactsIcon fontSize="large" />
-            {/* <MenuText>나의 책장</MenuText> */}
+            <MenuText>나의 책장</MenuText>
           </Menu>
           <Menu
             onClick={() => {
@@ -108,7 +108,7 @@ const Header = () => {
             }}
           >
             <ChatOutlinedIcon fontSize="large" />
-            {/* <MenuText>커뮤니티</MenuText> */}
+            <MenuText>커뮤니티</MenuText>
           </Menu>
         </NaviModal>
         {cardModal ? <CardModal close={closeCardModal} /> : null}
