@@ -29,7 +29,7 @@ const FollowModal = (props) => {
     <React.Fragment>
       <Background onClick={props.close}/>
       <FollowContainer>
-        <SearchInput onChange={onChange} />
+        <SearchInput onChange={onChange} placeholder="유저를 검색해보세요." />
         <UserContainer>
           {userInput.length !== 0 ?
           userInput.map((f, idx) => {
@@ -52,8 +52,9 @@ const FollowContainer = styled.div`
   position: fixed;
   top: 50%;
   left: 50%;
-  width: 500px;
-  height: 600px;
+  width: 300px;
+  height: 400px;
+  border-radius: 20px;
   background: #FFFFFF;
   align-items: center;
   transform: translate(-50%, -50%);
@@ -64,13 +65,14 @@ const FollowContainer = styled.div`
 `
 
 const SearchInput = styled.input`
-  width: 300px;
+  width: 250px;
   font-size: 20px;
-  padding: 5px 15px;
-  background: #FFFFFF;
+  padding: 5px 20px;
+  background: #F2F2F2;
   margin-top: 30px;
   border-radius: 30px;
   outline: none;
+  border: none;
 `
 
 const UserContainer = styled.div`

@@ -32,14 +32,21 @@ const SearchContainer = styled.div`
   z-index: 30;
   display: flex;
   flex-direction: column;
+  color: black;
   overflow-y: scroll;
   ::-webkit-scrollbar {
     display: none;
     };
   @media (max-width: 900px){
-    top: 160px;
-    right: -150px;
+    top: 175px;
+    right: -170px;
   };
+  @media (max-width: 500px){
+    top: 175px;
+    right: -150px;
+    width: 330px;
+    height: 300px;
+  }
 `;
 
 const Background = styled.div`

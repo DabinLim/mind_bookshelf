@@ -36,18 +36,6 @@ const CommunityQnA = (props) => {
   return (
     <React.Fragment>
       <QnAContainer>
-        <QuestionBox>
-          <Question>{props.contents}</Question>
-          {props.answers?.length >= 4 ? (
-            <DetailBtn
-              onClick={() => {
-                history.push(`/community/${props.id}`);
-              }}
-            >
-              더보기
-            </DetailBtn>
-          ) : null}
-        </QuestionBox>
         <div>
           {props.topic.map((t) => {
             let color = "";
@@ -76,6 +64,7 @@ const CommunityQnA = (props) => {
                 style={{
                   background: color,
                   boxShadow: `0px 0px 5px ${background}`,
+                  marginBottom: "5px",
                 }}
               >
                 #{t}
@@ -83,6 +72,18 @@ const CommunityQnA = (props) => {
             );
           })}
         </div>
+        <QuestionBox>
+          <Question>{props.contents}</Question>
+          {props.answers?.length >= 4 ? (
+            <DetailBtn
+              onClick={() => {
+                history.push(`/community/${props.id}`);
+              }}
+            >
+              더보기
+            </DetailBtn>
+          ) : null}
+        </QuestionBox>
         <AnswerContainer>
           {props.answers.map((a) => {
             return (
@@ -116,12 +117,16 @@ const CommunityQnA = (props) => {
                         </>
                       ) : (
                         <>
-                          <FavoriteBorderIcon />{" "}
+                          <FavoriteBorderIcon onClick={()=>{
+
+                          }} />{" "}
                         </>
                       )}
                       <LikeCount>{a.likeCount}개</LikeCount>
                     </LikeBox>
-                    <CommentBox>
+                    <CommentBox onClick={()=>{
+                      openCard(a);
+                    }}>
                       <ChatBubbleOutlineIcon />
                       <CommentCount>{a.commentCount}개</CommentCount>
                     </CommentBox>
@@ -144,7 +149,10 @@ const QnAContainer = styled.div`
   flex-direction: column;
   align-items: start;
   margin-bottom: 60px;
-  margin-top: 40px;
+  @media (max-width: 500px) {
+    margin-top: 20px;
+    margin-bottom: 30px;
+  }
 `;
 
 const QuestionBox = styled.div`
@@ -158,7 +166,7 @@ const Question = styled.div`
   font-size: 30px;
   font-weight: 600;
   width: 500px;
-  @media (max-width: 600px) {
+  @media (max-width: 500px) {
     font-size: 22px;
     width: 220px;
   }
@@ -175,9 +183,13 @@ const DetailBtn = styled.div`
 
 const AnswerContainer = styled.div`
   display: flex;
-  margin-top: 50px;
+  margin-top: 20px;
   width: 100%;
   overflow-x: auto;
+  overflow-y: hidden;
+  @media (max-width: 500px) {
+    margin-top: 20px;
+  }
 `;
 
 const Answer = styled.div`
@@ -190,6 +202,11 @@ const Answer = styled.div`
   background-color: #ffffff;
   border-radius: 20px;
   margin-right: 20px;
+  @media (max-width: 500px) {
+    min-width: 181px;
+    max-width: 181px;
+    height: 144px;
+  }
 `;
 
 const AnswerHeader = styled.div`
@@ -227,6 +244,10 @@ const AnswerContents = styled.div`
     font-weight: 600;
   }
   cursor: pointer;
+  @media (max-width: 500px) {
+    max-height: 40px;
+    min-height: 40px;
+  }
 `;
 
 const AnswerLikes = styled.div`
@@ -238,10 +259,14 @@ const AnswerLikes = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  @media (max-width: 500px) {
+    min-height: 40px;
+  }
 `;
 
 const IconBox = styled.div`
   display: flex;
+  align-items: center;
   & > div > svg {
     margin-right: 5px;
   }
@@ -259,10 +284,13 @@ const CommentBox = styled.div`
 
 const DateYMD = styled.div`
   font-size: 11px;
+  @media (max-width: 500px) {
+    display: none;
+  }
 `;
 
 const Topic = styled.div`
-  margin-top: 30px;
+  // margin-top: 30px;
   margin-right: 10px;
   display: inline-block;
   padding: 5px 14px;

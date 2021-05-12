@@ -102,6 +102,11 @@ const Container = styled.div`
 @media(max-width:900px){
         padding-bottom:80px;
     }
+@media (max-width: 500px) {
+    margin: 0;
+    background-image: url("https://user-images.githubusercontent.com/67696504/117994109-4088f980-b37b-11eb-8f2c-9d42c93fd0a3.png")
+    }
+    
 `;
 
 const ProfileContainer = styled.section`

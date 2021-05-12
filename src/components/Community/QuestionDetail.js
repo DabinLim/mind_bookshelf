@@ -357,7 +357,7 @@ const QuestionTitle = styled.h2`
   }
 `;
 
-const HashTag = styled.span`
+const HashTag = styled.div`
   min-width: 72px;
   max-width: 72px;
   max-height: 31px;
@@ -375,9 +375,9 @@ const HashTag = styled.span`
   margin-right: 10px;
   cursor: pointer;
   @media(max-width:650px){
-    min-width:58px;
-    max-width:58px;
-    max-height:25px;
+    min-width:63px;
+    max-width:63px;
+    max-height:30px;
     }
 `;
 
