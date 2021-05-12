@@ -235,71 +235,6 @@ const Profile = (props) => {
                   {/* <QuestionBtn onClick={()=>{dispatch(setComponent('othersquestion'))}}>질문 카드 보러가기</QuestionBtn> */}
                 </Bottom>
               </ProfileDetail>
-              <SubjectContainerMobile>
-                <div style={{ display: "flex", alignItems: "center" }}>
-                  {/* <span style={{fontSize:'14px',marginRight:'17px',fontWeight:'800'}}>선호 태그</span> */}
-                </div>
-                {user_info.topic.friendship ? (
-                  <Subject1
-                    style={{
-                      background: "#B9FFC4",
-                      boxShadow: "0px 0px 15px #B9FFC4",
-                    }}
-                  >
-                    <span>#우정</span>
-                  </Subject1>
-                ) : null}
-                {user_info.topic.love ? (
-                  <Subject1
-                    style={{
-                      background: "#FFAAAA",
-                      boxShadow: "0px 0px 15px #FFAAAA",
-                    }}
-                  >
-                    <span>#사랑</span>
-                  </Subject1>
-                ) : null}
-                {user_info.topic.dream ? (
-                  <Subject1
-                    style={{
-                      background: "#B7E6FF",
-                      boxShadow: "0px 0px 15px #B7E6FF",
-                    }}
-                  >
-                    <span>#꿈</span>
-                  </Subject1>
-                ) : null}
-                {user_info.topic.worth ? (
-                  <Subject1
-                    style={{
-                      background: "#B5BDFF",
-                      boxShadow: "0px 0px 15px #B5BDFF",
-                    }}
-                  >
-                    <span>#가치</span>
-                  </Subject1>
-                ) : null}
-                {user_info.topic.relationship ? (
-                  <Subject1
-                    style={{
-                      background: "#FFF09D",
-                      boxShadow: "0px 0px 15px #FFF09D",
-                    }}
-                  >
-                    <span>#관계</span>
-                  </Subject1>
-                ) : null}
-                {user_info.topic.myself ? (
-                  <Subject1
-                    style={{
-                      background: "#F9D1FD",
-                      boxShadow: "0px 0px 15px #F9D1FD",
-                    }}
-                  >
-                    <span>#나</span>
-                  </Subject1>
-                ) : null}
-              </SubjectContainerMobile>
             </>
           )}
         </React.Fragment>
@@ -435,6 +370,7 @@ const Profile = (props) => {
                     낙서
                     <CountText>{user_info.myAnswerCount}</CountText>
                   </Answers>
+                  <Line/>
                   <MyQuestionBtn
                     onClick={() => {
                       dispatch(setComponent("myquestion"));
@@ -443,6 +379,7 @@ const Profile = (props) => {
                     질문
                     <CountText>{user_info.myCustomQuestionCount}</CountText>
                   </MyQuestionBtn>
+                  <Line/>
                   <Myfollowers
                     onClick={() => {
                       setFollowModal(true);
@@ -457,71 +394,6 @@ const Profile = (props) => {
                   {/* <QuestionBtn onClick={()=>{dispatch(setComponent('myquestion'))}}>나의 질문 카드 보러가기</QuestionBtn> */}
                 </Bottom>
               </ProfileDetail>
-              <SubjectContainerMobile>
-                <div style={{ display: "flex", alignItems: "center" }}>
-                  {/* <span style={{fontSize:'14px',marginRight:'17px',fontWeight:'800'}}>선호 태그</span> */}
-                </div>
-                {user_info.topic.friendship ? (
-                  <Subject1
-                    style={{
-                      background: "#B9FFC4",
-                      boxShadow: "0px 0px 15px #B9FFC4",
-                    }}
-                  >
-                    <span>#우정</span>
-                  </Subject1>
-                ) : null}
-                {user_info.topic.love ? (
-                  <Subject1
-                    style={{
-                      background: "#FFAAAA",
-                      boxShadow: "0px 0px 15px #FFAAAA",
-                    }}
-                  >
-                    <span>#사랑</span>
-                  </Subject1>
-                ) : null}
-                {user_info.topic.dream ? (
-                  <Subject1
-                    style={{
-                      background: "#B7E6FF",
-                      boxShadow: "0px 0px 15px #B7E6FF",
-                    }}
-                  >
-                    <span>#꿈</span>
-                  </Subject1>
-                ) : null}
-                {user_info.topic.worth ? (
-                  <Subject1
-                    style={{
-                      background: "#B5BDFF",
-                      boxShadow: "0px 0px 15px #B5BDFF",
-                    }}
-                  >
-                    <span>#가치</span>
-                  </Subject1>
-                ) : null}
-                {user_info.topic.relationship ? (
-                  <Subject1
-                    style={{
-                      background: "#FFF09D",
-                      boxShadow: "0px 0px 15px #FFF09D",
-                    }}
-                  >
-                    <span>#관계</span>
-                  </Subject1>
-                ) : null}
-                {user_info.topic.myself ? (
-                  <Subject1
-                    style={{
-                      background: "#F9D1FD",
-                      boxShadow: "0px 0px 15px #F9D1FD",
-                    }}
-                  >
-                    <span>#나</span>
-                  </Subject1>
-                ) : null}
-              </SubjectContainerMobile>
             </>
           )}
         </React.Fragment>
@@ -541,18 +413,16 @@ const Background = styled.div`
   opacity: 0.5;
   box-shadow: 0px 0px 6px #ffffff;
   border-radius: 20px;
+  
 `;
 
 const ProfileImgContainer = styled.div`
   position: relative;
   width: 126px;
   height: 100%;
-  @media (max-width: 500px) {
-    width: 75px;
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    margin-top: 20px;
+  @media(max-width:750px){
+    width:68px;
+    height:68px;
   }
 `;
 
@@ -561,10 +431,11 @@ const ProfileImg = styled.img`
   height: 126px;
   border-radius: 50%;
   object-fit: cover;
-  @media (max-width: 500px) {
-    width: 75px;
-    height: 75px;
+  @media(max-width:750px){
+    width:68px;
+    height:68px;
   }
+  
 `;
 
 const SettingIcon = styled.img`
@@ -578,11 +449,11 @@ const SettingIcon = styled.img`
   padding: 3px;
   cursor: pointer;
   box-shadow: 0px 0px 6px #00000029;
-  @media (max-width: 500px) {
-    top: 0px;
-    right: 0px;
-    width: 20px;
-    height: 20px;
+  @media(max-width:750px){
+    top:0px;
+    right:0px;
+    width:20px;
+    height:20px;
   }
 `;
 
@@ -592,10 +463,10 @@ const ProfileDetail = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  @media (max-width: 500px) {
-    margin: 0px 0px 0px 20px;
-    justify-content: center;
+  @media(max-width:750px){
+    margin:0px;
   }
+  
 `;
 
 const Head = styled.div`
@@ -603,8 +474,10 @@ const Head = styled.div`
   width: 100%;
   flex-direction: row;
   justify-content: space-between;
-  @media (max-width: 500px) {
-    margin-bottom: 10px;
+  @media(max-width:750px){
+    justify-content:center;
+    margin-top:10px;
+    margin-bottom:10px;
   }
 `;
 
@@ -613,6 +486,23 @@ const Body = styled.div`
   width: 100%;
   flex-direction: row;
   align-items: center;
+  @media(max-width:750px){
+    justify-content:center;
+    width:178px;
+    height:20px;
+    box-sizing:border-box;
+
+  }
+`;
+
+const Line = styled.div`
+  width:1px;
+  margin:1px 10px 0px 10px;
+  height:8px;
+  border-right:1px solid #212121;
+  @media(min-width:750px){
+    display:none;
+  }
 `;
 
 const Bottom = styled.div`
@@ -620,33 +510,37 @@ const Bottom = styled.div`
   width: 100%;
   justify-content: space-between;
   margin-top: 20px;
-  @media (max-width: 500px) {
-    margin-top: 5px;
+  @media(max-width:750px){
+    margin-top:0px;
+    justify-content:center;
+    font: normal normal normal 12px/18px Noto Sans KR;
   }
 `;
 
 const Nickname = styled.div`
   font-weight: 600;
   font-size: 22px;
-  @media (max-width: 500px) {
-    font-size: 16px;
+  @media(max-width:750px){
+    text-align:center;
+    font: normal normal bold 18px/27px Noto Sans KR;
   }
+  
 `;
 
 const CountText = styled.span`
   font-weight: 600;
   margin-left: 5px;
-  @media (max-width: 500px) {
-    margin: 0px;
+  @media(max-width:750px){
+    font: normal normal bold 14px/20px Noto Sans KR;
   }
+  
 `;
 
 const Introduce = styled.div`
   margin-top: 20px;
   font-size: 14px;
-  @media (max-width: 500px) {
-    font-size: 12px;
-    margin-top: 5px;
+  @media(max-width:750px){
+    font: normal normal normal 12px/18px Noto Sans KR;
   }
 `;
 
@@ -656,10 +550,14 @@ const Answers = styled.div`
   margin-right: 20px;
   font-weight: 400;
   font-size: 14px;
-  @media (max-width: 500px) {
-    font-size: 12px;
-    margin-top: 0px;
+  @media(max-width:750px){
+    display:flex;
+    align-items:center;
+    margin-top:0px;
+    margin-right:0px;
+    font-size:11px;
   }
+  
 `;
 
 const FollowerBtn = styled.div`
@@ -667,9 +565,8 @@ const FollowerBtn = styled.div`
   cursor: pointer;
   font-weight: 600;
   font-size: 14px;
-  @media (max-width: 500px) {
-    font-size: 12px;
-  }
+  
+  
 `;
 const MyQuestionBtn = styled.div`
   margin-top: 11px;
@@ -677,30 +574,25 @@ const MyQuestionBtn = styled.div`
   cursor: pointer;
   font-weight: 400;
   font-size: 14px;
-  @media (max-width: 500px) {
-    font-size: 12px;
-    margin-top: 0px;
+  @media(max-width:750px){
+    display:flex;
+    align-items:center;
+    margin-top:0px;
+    margin-right:0px;
+    font-size:11px;
   }
+  
 `;
 
 const SubjectContainer = styled.div`
   display: flex;
   flex-direction: row;
-  @media (max-width: 700px) {
-    display: none;
+  @media(max-width:750px){
+    display:none;
   }
+  
 `;
 
-const SubjectContainerMobile = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  justify-content: center;
-  align-items: center;
-  @media (min-width: 700px) {
-    display: none;
-  }
-`;
 
 const Subject1 = styled.div`
   display: flex;
@@ -713,15 +605,7 @@ const Subject1 = styled.div`
   border-radius: 45px;
   font-size: 14px;
   font-weight: 600;
-  @media (max-width: 700px) {
-    margin-bottom: 10px;
-  }
-  @media (max-width: 500px) {
-    width: 52px;
-    height: 22px;
-    font-size: 12px;
-    margin-bottom: 10px;
-  }
+  
 `;
 
 const Myfollowers = styled.div`
@@ -730,10 +614,14 @@ const Myfollowers = styled.div`
   font-size: 14px;
   cursor: pointer;
   font-weight: 400;
-  @media (max-width: 500px) {
-    font-size: 12px;
-    margin-top: 0px;
+  @media(max-width:750px){
+    display:flex;
+    align-items:center;
+    margin-top:0px;
+    margin-right:0px;
+    font-size:11px;
   }
+  
 `;
 
 const SpinnerContainer = styled.div`

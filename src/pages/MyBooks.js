@@ -67,8 +67,8 @@ const ContainerBox = styled.div`
     ::-webkit-scrollbar {
     display: none;
     };
-    @media (max-width: 500px) {
-        margin: 60px 0px 0px 0px;
+    @media (max-width: 750px) {
+        margin: 30px 0px 0px 0px;
       }
 `
 
@@ -96,6 +96,9 @@ const Container = styled.div`
     @media (max-width:1040px){
     margin:0px 10px;
 }
+@media (max-width:750px){
+    margin:0px;
+}
 @media(max-width:900px){
         padding-bottom:80px;
     }
@@ -112,9 +115,14 @@ const ProfileContainer = styled.section`
     min-height:190px;
     display: flex;
     flex-direction: row;
-    @media(max-width:500px){
-        padding:10px;
-        min-height:150px;
+    @media(max-width:750px){
+        padding:56px 50px 30px 50px;
+        margin-top:0px;
+        margin-bottom:30px;
+        height:100%;
+        min-height:270px;
+        flex-direction:column;
+        align-items:center;
     }
 `;
 
