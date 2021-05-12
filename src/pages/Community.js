@@ -91,17 +91,17 @@ const CommunityBox = styled.div`
     background-image: url("https://user-images.githubusercontent.com/67696504/117994109-4088f980-b37b-11eb-8f2c-9d42c93fd0a3.png")
   }
   ::-webkit-scrollbar {
-    display:none;
+    display: none;
     width: 10px; /* width of the entire scrollbar */
   }
 
   ::-webkit-scrollbar-track {
-    display:none;
+    display: none;
     background: none; /* color of the tracking area */
   }
 
   ::-webkit-scrollbar-thumb {
-    display:none;
+    display: none;
     background-color: #ffffff; /* color of the scroll thumb */
     border-radius: 20px; /* roundness of the scroll thumb */
   }
@@ -119,6 +119,9 @@ const CommunityContainer = styled.div`
   align-items: center;
   justify-content: space-between;
   overflow-y: auto;
+  @media (max-width: 500px) {
+    z-index: 50;
+  }
 `;
 
 const ImgRight = styled.div`

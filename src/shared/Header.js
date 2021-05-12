@@ -153,7 +153,7 @@ const Header = () => {
                   />
                 ) : null}
                 <SearchIcon
-                  style={{ cursor: "pointer"}}
+                  style={{ cursor: "pointer" }}
                   onClick={() => {
                     recentUser();
                     // dispatch(userActions.getRecentUserAX())
@@ -423,7 +423,7 @@ const HeaderContainer = styled.div`
     padding-bottom: 10px;
     background: black;
     color: white;
-  } ;
+  }
 `;
 
 const HeaderInnerContainer = styled.div`
@@ -473,12 +473,10 @@ const Menu = styled.div`
   align-items: center;
   font-size: 14px;
   cursor: pointer;
-`
+`;
 const MenuText = styled.div`
-  display:none;
-`
-
-
+  display: none;
+`;
 
 const NaviContainer = styled.div`
   display: flex;

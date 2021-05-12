@@ -20,8 +20,9 @@ import { config } from "../../shared/config";
 import _ from "lodash";
 import swal from "sweetalert";
 import { getCookie } from "../../shared/Cookie";
-import MoreVertIcon from '@material-ui/icons/MoreVert';
-import CustomSwitch from '../../shared/CustomSwitch'
+import MoreVertIcon from "@material-ui/icons/MoreVert";
+import CustomSwitch from "../../shared/CustomSwitch";
+import { LeftOutlined } from "@ant-design/icons";
 
 const CardModal = (props) => {
   const answerInfo = useSelector((state) => state.community.card_detail);
@@ -36,9 +37,9 @@ const CardModal = (props) => {
   const [user_list, setUser_list] = useState();
   const [comments, setComments] = useState();
   const [tagModal, setTagModal] = useState(false);
-  const [updateModal, setUpdateModal] = useState(false)
-  const [updateAnswer, setUpdateAnswer] = useState(false)
-  const [answer, setAnswer] = useState()
+  const [updateModal, setUpdateModal] = useState(false);
+  const [updateAnswer, setUpdateAnswer] = useState(false);
+  const [answer, setAnswer] = useState();
   const [isOpen, setOpen] = useState(true);
   const cmtInput = useRef();
   const ok_submit = comments ? true : false;
@@ -52,10 +53,10 @@ const CardModal = (props) => {
     }
     setOpen(true);
   }
-  
+
   const changeAnswer = (e) => {
-    setAnswer(e.target.value)
-  }
+    setAnswer(e.target.value);
+  };
 
   const selectedCard = (id) => {
     dispatch(communityActions.getCardDetail(id, "book"));
@@ -344,9 +345,15 @@ const CardModal = (props) => {
 
   return (
     <React.Fragment>
-      {updateModal? 
-      <CardUpdateModal setAnswer={setAnswer} setUpdateAnswer={setUpdateAnswer}  close={props.close} setUpdateModal={setUpdateModal} {...answerInfo} />
-      :null}
+      {updateModal ? (
+        <CardUpdateModal
+          setAnswer={setAnswer}
+          setUpdateAnswer={setUpdateAnswer}
+          close={props.close}
+          setUpdateModal={setUpdateModal}
+          {...answerInfo}
+        />
+      ) : null}
       <Component
         onClick={() => {
           props.close();
@@ -445,9 +452,9 @@ const CardModal = (props) => {
               <CardDate>
                 <ArrowForwardIosIcon
                   disabled={card_loading}
-                  onClick={()=>{
+                  onClick={() => {
                     setUpdateAnswer(false);
-                    previousDay()
+                    previousDay();
                   }}
                   style={{
                     cursor: "pointer",
@@ -467,7 +474,7 @@ const CardModal = (props) => {
                 </span>
                 <ArrowForwardIosIcon
                   disabled={card_loading}
-                  onClick={()=>{
+                  onClick={() => {
                     setUpdateAnswer(false);
                     nextDay();
                   }}
@@ -478,10 +485,13 @@ const CardModal = (props) => {
                   }}
                 />
               </CardDate>
-              <LeftArrowBtn disabled={card_loading} onClick={()=> {
-                setUpdateAnswer(false);
-                previousCard();
-                } }>
+              <LeftArrowBtn
+                disabled={card_loading}
+                onClick={() => {
+                  setUpdateAnswer(false);
+                  previousCard();
+                }}
+              >
                 <ArrowBackIosIcon
                   style={{
                     fontSize: "60px",
@@ -489,10 +499,13 @@ const CardModal = (props) => {
                   }}
                 />
               </LeftArrowBtn>
-              <RightArrowBtn disabled={card_loading} onClick={()=>{
-                setUpdateAnswer(false);
-                nextCard();
-              }}>
+              <RightArrowBtn
+                disabled={card_loading}
+                onClick={() => {
+                  setUpdateAnswer(false);
+                  nextCard();
+                }}
+              >
                 <ArrowForwardIosIcon
                   style={{
                     fontSize: "60px",
@@ -595,7 +608,7 @@ const CardModal = (props) => {
               <CardDate>
                 <ArrowForwardIosIcon
                   disabled={card_loading}
-                  onClick={()=>{
+                  onClick={() => {
                     setUpdateAnswer(false);
                     previousDay();
                   }}
@@ -619,7 +632,7 @@ const CardModal = (props) => {
 
                 <ArrowForwardIosIcon
                   disabled={card_loading}
-                  onClick={()=>{
+                  onClick={() => {
                     setUpdateAnswer(false);
                     nextDay();
                   }}
@@ -630,10 +643,13 @@ const CardModal = (props) => {
                   }}
                 />
               </CardDate>
-              <LeftArrowBtn disabled={card_loading} onClick={() => {
-                setUpdateAnswer(false);
-                previousCard();
-              }}>
+              <LeftArrowBtn
+                disabled={card_loading}
+                onClick={() => {
+                  setUpdateAnswer(false);
+                  previousCard();
+                }}
+              >
                 <ArrowBackIosIcon
                   style={{
                     fontSize: "60px",
@@ -641,10 +657,13 @@ const CardModal = (props) => {
                   }}
                 />
               </LeftArrowBtn>
-              <RightArrowBtn disabled={card_loading} onClick={() => {
-                setUpdateAnswer(false);
-                nextCard();
-              }}>
+              <RightArrowBtn
+                disabled={card_loading}
+                onClick={() => {
+                  setUpdateAnswer(false);
+                  nextCard();
+                }}
+              >
                 <ArrowForwardIosIcon
                   style={{
                     fontSize: "60px",
@@ -658,6 +677,9 @@ const CardModal = (props) => {
             <CardWriterBox>
               <CardWriterInfoLeft>
                 <CardWriterLeft>
+                  <GoBackBtn onClick={props.close}>
+                    <LeftOutlined />
+                  </GoBackBtn>
                   <CardWriterProfileLeft
                     src={answerInfo?.answerUserProfileImg}
                     onClick={() => {
@@ -695,94 +717,103 @@ const CardModal = (props) => {
                 </CardWriterLeft>
                 <HashTag style={{ background: color }}>{topic}</HashTag>
               </CardWriterInfoLeft>
+              <SmallHashTag style={{ background: color }}>{topic}</SmallHashTag>
               {/* 카드 질문 내용 */}
               <CardQuestionContent>
                 {answerInfo?.questionContents}
               </CardQuestionContent>
             </CardWriterBox>
             <CardWriteLeftBody>
-              {updateAnswer?
-              <AnswerUpdateBox>
-                <CardAnswerInput value={answer} onChange={changeAnswer} />
-                  <CardAnswerBtn onClick={()=>{
-                    let _answer = {
-                      answerId: answerInfo.answerId,
-                      questionId: answerInfo.questionId,
-                      contents: answer,
-                      isOpen: isOpen,
-                    }
-                    dispatch(communityActions.editAnswerAX(_answer))
-                    setUpdateAnswer(false)
-                  }} >수정</CardAnswerBtn>
-                  <CustomSwitch isOpen={isOpen} onClick={clickOpen}/>
-              </AnswerUpdateBox>
-              :
-              <CardAnswerContent style={{ whiteSpace: "pre-wrap" }}>
-                {answerInfo?.answerContents}
-              </CardAnswerContent>
-              }
+              {updateAnswer ? (
+                <AnswerUpdateBox>
+                  <CardAnswerInput value={answer} onChange={changeAnswer} />
+                  <CardAnswerBtn
+                    onClick={() => {
+                      let _answer = {
+                        answerId: answerInfo.answerId,
+                        questionId: answerInfo.questionId,
+                        contents: answer,
+                        isOpen: isOpen,
+                      };
+                      dispatch(communityActions.editAnswerAX(_answer));
+                      setUpdateAnswer(false);
+                    }}
+                  >
+                    수정
+                  </CardAnswerBtn>
+                  <CustomSwitch isOpen={isOpen} onClick={clickOpen} />
+                </AnswerUpdateBox>
+              ) : (
+                <CardAnswerContent style={{ whiteSpace: "pre-wrap" }}>
+                  {answerInfo?.answerContents}
+                </CardAnswerContent>
+              )}
             </CardWriteLeftBody>
             <IconContainer>
               <IconBox>
-              <LikeContainer>
-                {answerInfo.like ? (
-                  <LikeBtn
-                    style={{ color: "red" }}
-                    onClick={() => {
-                      if (!getCookie("is_login")) {
-                        swal({
-                          title: "좋아요 누르기 실패 😥",
-                          text: "로그인 후 이용 가능한 서비스입니다.",
-                          icon: "error",
-                        });
-                        return;
-                      }
-                      dispatch(
-                        communityActions.deleteLikeAX(
-                          answerInfo.answerId,
-                          answerInfo.questionId
-                        )
-                      );
-                    }}
-                  >
-                    <FavoriteIcon />
-                  </LikeBtn>
-                ) : (
-                  <LikeBtn
-                    onClick={() => {
-                      if (!getCookie("is_login")) {
-                        swal({
-                          title: "좋아요 누르기 실패 😥",
-                          text: "로그인 후 이용 가능한 서비스입니다.",
-                          icon: "error",
-                        });
-                        return;
-                      }
-                      dispatch(
-                        communityActions.addLikeAX(
-                          answerInfo.answerId,
-                          answerInfo.questionId
-                        )
-                      );
-                    }}
-                  >
-                    <FavoriteBorderIcon />
-                  </LikeBtn>
-                )}
-                <LikeCount>{answerInfo?.likeCount}개</LikeCount>
-              </LikeContainer>
-              <CommentContainer>
-                <CommentBtn>
-                  <ChatBubbleOutlineIcon />
-                  <CommentCount>{comment_list?.length}개</CommentCount>
-                </CommentBtn>
-              </CommentContainer>
+                <LikeContainer>
+                  {answerInfo.like ? (
+                    <LikeBtn
+                      style={{ color: "red" }}
+                      onClick={() => {
+                        if (!getCookie("is_login")) {
+                          swal({
+                            title: "좋아요 누르기 실패 😥",
+                            text: "로그인 후 이용 가능한 서비스입니다.",
+                            icon: "error",
+                          });
+                          return;
+                        }
+                        dispatch(
+                          communityActions.deleteLikeAX(
+                            answerInfo.answerId,
+                            answerInfo.questionId
+                          )
+                        );
+                      }}
+                    >
+                      <FavoriteIcon />
+                    </LikeBtn>
+                  ) : (
+                    <LikeBtn
+                      onClick={() => {
+                        if (!getCookie("is_login")) {
+                          swal({
+                            title: "좋아요 누르기 실패 😥",
+                            text: "로그인 후 이용 가능한 서비스입니다.",
+                            icon: "error",
+                          });
+                          return;
+                        }
+                        dispatch(
+                          communityActions.addLikeAX(
+                            answerInfo.answerId,
+                            answerInfo.questionId
+                          )
+                        );
+                      }}
+                    >
+                      <FavoriteBorderIcon />
+                    </LikeBtn>
+                  )}
+                  <LikeCount>{answerInfo?.likeCount}개</LikeCount>
+                </LikeContainer>
+                <CommentContainer>
+                  <CommentBtn>
+                    <ChatBubbleOutlineIcon />
+                    <CommentCount>{comment_list?.length}개</CommentCount>
+                  </CommentBtn>
+                </CommentContainer>
               </IconBox>
-              {answerInfo.answerUserId === user_info.id ? 
-                <div style={{marginRight:"10px", cursor: "pointer"}} >
-                  <MoreVertIcon onClick={()=>{setUpdateModal(true)}} />
+              {answerInfo.answerUserId === user_info.id ? (
+                <div style={{ marginRight: "10px", cursor: "pointer" }}>
+                  <MoreVertIcon
+                    onClick={() => {
+                      setUpdateModal(true);
+                    }}
+                  />
                 </div>
-              :null}
+              ) : null}
             </IconContainer>
           </ModalContent>
           <ModalRightContainer>
@@ -869,8 +900,18 @@ const ModalComponent = styled.div`
   @media (max-width: 950px) {
     width: 400px;
   }
-  @media (max-width: 400px) {
-    width: 95%;
+
+  @media (max-width: 500px) {
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    align-items: center;
+    background: none;
+    transform: translate(0%, 0%);
+    margin: 58.33px 0 0 0;
+    z-index: 120;
   }
 `;
 
@@ -881,7 +922,16 @@ const ModalContent = styled.div`
   height: 500px;
   border-right: 1px solid #efefef;
   @media (max-width: 950px) {
-    display: none;
+    width: 375px;
+    height: 412px;
+    border: none;
+    margin-bottom: 10px;
+    border-radius: 20px;
+    background: white;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
 `;
 
@@ -901,6 +951,38 @@ const HashTag = styled.span`
   :hover {
     cursor: pointer;
   }
+
+  @media (max-width: 500px) {
+    display: none;
+  }
+`;
+
+const GoBackBtn = styled.span`
+  @media (min-width: 500px) {
+    display: none;
+  }
+`;
+
+const SmallHashTag = styled.div`
+  min-width: 58px;
+  max-width: 58px;
+  background: #ededed;
+  padding: 8px 12px;
+  border-radius: 24px;
+  text-align: center;
+  font: normal normal bold 14px/19px Roboto;
+  box-shadow: 0px 0px 15px #c1c7fc;
+  letter-spacing: 0px;
+  color: #363636;
+  font-size: 11px;
+  margin: 0px 20px 10px 20px;
+  :hover {
+    cursor: pointer;
+  }
+
+  @media (min-width: 500px) {
+    display: none;
+  }
 `;
 
 const CardWriteLeftBody = styled.div`
@@ -908,6 +990,13 @@ const CardWriteLeftBody = styled.div`
   max-height: 50%;
   border-bottom: 1px solid #efefef;
   box-sizing: border-box;
+
+  @media (max-width: 500px) {
+    min-height: 150px;
+    max-height: 150px;
+    padding: 0 29px 0 20px;
+    margin-top: 30px;
+  }
 `;
 
 const CardWriterBox = styled.div`
@@ -922,6 +1011,9 @@ const CardWriterInfoLeft = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  @media (max-width: 500px) {
+    padding: 20px 29px 20px 20px;
+  }
 `;
 
 const CardWriterLeft = styled.div`
@@ -931,6 +1023,11 @@ const CardWriterLeft = styled.div`
   width: auto;
   height: 100%;
   margin: 0 40px;
+
+  @media (max-width: 500px) {
+    margin: 0;
+    border-bottom: 1px solid #efefef;
+  }
 `;
 
 const CardWriterProfileLeft = styled.div`
@@ -940,6 +1037,10 @@ const CardWriterProfileLeft = styled.div`
   background-image: url(${(props) => props.src});
   background-size: cover;
   cursor: pointer;
+
+  @media (max-width: 500px) {
+    display: none;
+  }
 `;
 
 const CardWriterNickNameLeft = styled.span`
@@ -953,31 +1054,38 @@ const CardQuestionContent = styled.p`
   letter-spacing: 0px;
   color: #363636;
   opacity: 1;
+  @media (max-width: 500px) {
+    margin: 0;
+    font-size: 21px;
+    padding: 0 29px 0 20px;
+  }
 `;
 
 const CardAnswerContent = styled.div`
   margin: 0 40px 0;
   padding: 30px 0 0 0;
+  @media (max-width: 500px) {
+    margin: 0;
+  }
 `;
 
 const AnswerUpdateBox = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-
-`
+`;
 
 const CardAnswerInput = styled.textarea`
   margin: 0 40px 0;
   padding: 30px 0 0 0;
-  border: none; 
+  border: none;
   width: 85%;
   height: 140px;
   box-sizing: border-box;
   outline: none;
   line-height: 1.5;
   resize: none;
-`
+`;
 const CardAnswerBtn = styled.div`
   margin-right: 30px;
   align-self: flex-end;
@@ -985,12 +1093,12 @@ const CardAnswerBtn = styled.div`
   cursor: pointer;
   color: white;
   padding: 6px 20px;
-  background:#303685;
-  border-radius: 20px; 
-  &:hover{
+  background: #303685;
+  border-radius: 20px;
+  &:hover {
     font-weight: 600;
-  };
-`
+  }
+`;
 
 const ModalRightContainer = styled.div`
   box-sizing: border-box;
@@ -1003,6 +1111,13 @@ const ModalRightContainer = styled.div`
   background-color: white;
   padding: 25px 0 0 0;
   border-radius: 0px 50px 50px 0px;
+  @media (max-width: 500px) {
+    width: 375px;
+    height: 412px;
+    padding: 0;
+    border-radius: 20px;
+    justify-content: flex-start;
+  }
 `;
 
 const CardInfo = styled.div`
@@ -1056,6 +1171,11 @@ const ModalCmtInputBox = styled.div`
   align-items: center;
   box-sizing: border-box;
   border-top: 1px solid #efefef;
+
+  @media (max-width: 500px) {
+    min-height: 80px;
+    max-height: 80px;
+  }
 `;
 const ModalCmtInput = styled.input`
   background: transparent;
@@ -1079,12 +1199,16 @@ const IconContainer = styled.div`
   align-items: center;
   box-sizing: border-box;
   margin: 0 0 0 40px;
+
+  @media (max-width: 500px) {
+    margin: 0 0 0 20px;
+  }
 `;
 
 const IconBox = styled.div`
   display: flex;
   align-items: center;
-`
+`;
 
 const LikeContainer = styled.div`
   display: flex;
