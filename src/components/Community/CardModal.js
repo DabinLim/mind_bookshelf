@@ -13,14 +13,15 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
-import { CommentList, TagModal } from "./communityindex";
+import { CommentList, TagModal, CardUpdateModal } from "./communityindex";
 import { history } from "../../redux/configStore";
 import axios from "axios";
 import { config } from "../../shared/config";
 import _ from "lodash";
 import swal from "sweetalert";
 import { getCookie } from "../../shared/Cookie";
-import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
+import CustomSwitch from '../../shared/CustomSwitch'
 
 const CardModal = (props) => {
   const answerInfo = useSelector((state) => state.community.card_detail);
@@ -35,10 +36,26 @@ const CardModal = (props) => {
   const [user_list, setUser_list] = useState();
   const [comments, setComments] = useState();
   const [tagModal, setTagModal] = useState(false);
+  const [updateModal, setUpdateModal] = useState(false)
+  const [updateAnswer, setUpdateAnswer] = useState(false)
+  const [answer, setAnswer] = useState()
+  const [isOpen, setOpen] = useState(answerInfo.isOpen);
   const cmtInput = useRef();
   const ok_submit = comments ? true : false;
   const url = window.location.href.split("/");
   const id = url[url.length - 1];
+
+  function clickOpen() {
+    if (isOpen) {
+      setOpen(false);
+      return;
+    }
+    setOpen(true);
+  }
+  
+  const changeAnswer = (e) => {
+    setAnswer(e.target.value)
+  }
 
   const selectedCard = (id) => {
     dispatch(communityActions.getCardDetail(id, "book"));
@@ -327,6 +344,9 @@ const CardModal = (props) => {
 
   return (
     <React.Fragment>
+      {updateModal? 
+      <CardUpdateModal setAnswer={setAnswer} setUpdateAnswer={setUpdateAnswer}  close={props.close} setUpdateModal={setUpdateModal} {...answerInfo} />
+      :null}
       <Component
         onClick={() => {
           props.close();
@@ -409,6 +429,7 @@ const CardModal = (props) => {
                             <Title
                               disabled={card_loading}
                               onClick={() => {
+                                setUpdateAnswer(false);
                                 selectedCard(v.answerId);
                               }}
                             >
@@ -424,7 +445,10 @@ const CardModal = (props) => {
               <CardDate>
                 <ArrowForwardIosIcon
                   disabled={card_loading}
-                  onClick={previousDay}
+                  onClick={()=>{
+                    setUpdateAnswer(false);
+                    previousDay()
+                  }}
                   style={{
                     cursor: "pointer",
                     transform: "rotateY(180deg)",
@@ -443,7 +467,10 @@ const CardModal = (props) => {
                 </span>
                 <ArrowForwardIosIcon
                   disabled={card_loading}
-                  onClick={nextDay}
+                  onClick={()=>{
+                    setUpdateAnswer(false);
+                    nextDay();
+                  }}
                   style={{
                     cursor: "pointer",
                     color: "white",
@@ -451,7 +478,10 @@ const CardModal = (props) => {
                   }}
                 />
               </CardDate>
-              <LeftArrowBtn disabled={card_loading} onClick={previousCard}>
+              <LeftArrowBtn disabled={card_loading} onClick={()=> {
+                setUpdateAnswer(false);
+                previousCard();
+                } }>
                 <ArrowBackIosIcon
                   style={{
                     fontSize: "60px",
@@ -459,7 +489,10 @@ const CardModal = (props) => {
                   }}
                 />
               </LeftArrowBtn>
-              <RightArrowBtn disabled={card_loading} onClick={nextCard}>
+              <RightArrowBtn disabled={card_loading} onClick={()=>{
+                setUpdateAnswer(false);
+                nextCard();
+              }}>
                 <ArrowForwardIosIcon
                   style={{
                     fontSize: "60px",
@@ -545,6 +578,7 @@ const CardModal = (props) => {
                               <Title
                                 disabled={card_loading}
                                 onClick={() => {
+                                  setUpdateAnswer(false);
                                   selectedCard(v.answerId);
                                 }}
                               >
@@ -561,7 +595,10 @@ const CardModal = (props) => {
               <CardDate>
                 <ArrowForwardIosIcon
                   disabled={card_loading}
-                  onClick={previousDay}
+                  onClick={()=>{
+                    setUpdateAnswer(false);
+                    previousDay();
+                  }}
                   style={{
                     cursor: "pointer",
                     transform: "rotateY(180deg)",
@@ -582,7 +619,10 @@ const CardModal = (props) => {
 
                 <ArrowForwardIosIcon
                   disabled={card_loading}
-                  onClick={nextDay}
+                  onClick={()=>{
+                    setUpdateAnswer(false);
+                    nextDay();
+                  }}
                   style={{
                     cursor: "pointer",
                     color: "white",
@@ -590,7 +630,10 @@ const CardModal = (props) => {
                   }}
                 />
               </CardDate>
-              <LeftArrowBtn disabled={card_loading} onClick={previousCard}>
+              <LeftArrowBtn disabled={card_loading} onClick={() => {
+                setUpdateAnswer(false);
+                previousCard();
+              }}>
                 <ArrowBackIosIcon
                   style={{
                     fontSize: "60px",
@@ -598,7 +641,10 @@ const CardModal = (props) => {
                   }}
                 />
               </LeftArrowBtn>
-              <RightArrowBtn disabled={card_loading} onClick={nextCard}>
+              <RightArrowBtn disabled={card_loading} onClick={() => {
+                setUpdateAnswer(false);
+                nextCard();
+              }}>
                 <ArrowForwardIosIcon
                   style={{
                     fontSize: "60px",
@@ -655,9 +701,25 @@ const CardModal = (props) => {
               </CardQuestionContent>
             </CardWriterBox>
             <CardWriteLeftBody>
+              {updateAnswer?
+              <AnswerUpdateBox>
+                <CardAnswerInput value={answer} onChange={changeAnswer} />
+                  <CardAnswerBtn onClick={()=>{
+                    let _answer = {
+                      answerId: answerInfo.answerId,
+                      questionId: answerInfo.questionId,
+                      contents: answer,
+                      isOpen: isOpen,
+                    }
+                    dispatch(communityActions.editAnswerAX(_answer))
+                  }} >수정</CardAnswerBtn>
+                  <CustomSwitch isOpen={isOpen} onClick={clickOpen}/>
+              </AnswerUpdateBox>
+              :
               <CardAnswerContent style={{ whiteSpace: "pre-wrap" }}>
                 {answerInfo?.answerContents}
               </CardAnswerContent>
+              }
             </CardWriteLeftBody>
             <IconContainer>
               <IconBox>
@@ -715,9 +777,11 @@ const CardModal = (props) => {
                 </CommentBtn>
               </CommentContainer>
               </IconBox>
-              <div style={{marginRight:"10px", cursor: "pointer"}} >
-                <MoreHorizIcon/>
-              </div>
+              {answerInfo.answerUserId === user_info.id ? 
+                <div style={{marginRight:"10px", cursor: "pointer"}} >
+                  <MoreVertIcon onClick={()=>{setUpdateModal(true)}} />
+                </div>
+              :null}
             </IconContainer>
           </ModalContent>
           <ModalRightContainer>
@@ -785,7 +849,7 @@ const Component = styled.div`
   height: 100vh;
   width: 100vw;
   background: black;
-  z-index: 500;
+  z-index: 120;
 `;
 
 const ModalComponent = styled.div`
@@ -798,7 +862,7 @@ const ModalComponent = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: white;
-  z-index: 1000;
+  z-index: 130;
   display: flex;
   /* box-shadow: 0px 0px 15px #c1c7fc; */
   @media (max-width: 950px) {
@@ -842,6 +906,7 @@ const CardWriteLeftBody = styled.div`
   min-height: 50%;
   max-height: 50%;
   border-bottom: 1px solid #efefef;
+  box-sizing: border-box;
 `;
 
 const CardWriterBox = styled.div`
@@ -893,6 +958,38 @@ const CardAnswerContent = styled.div`
   margin: 0 40px 0;
   padding: 30px 0 0 0;
 `;
+
+const AnswerUpdateBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+`
+
+const CardAnswerInput = styled.textarea`
+  margin: 0 40px 0;
+  padding: 30px 0 0 0;
+  border: none; 
+  width: 85%;
+  height: 140px;
+  box-sizing: border-box;
+  outline: none;
+  line-height: 1.5;
+  resize: none;
+`
+const CardAnswerBtn = styled.div`
+  margin-right: 30px;
+  align-self: flex-end;
+  font-size: 16px;
+  cursor: pointer;
+  color: white;
+  padding: 6px 20px;
+  background:#303685;
+  border-radius: 20px; 
+  &:hover{
+    font-weight: 600;
+  };
+`
 
 const ModalRightContainer = styled.div`
   box-sizing: border-box;
