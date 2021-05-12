@@ -310,6 +310,7 @@ const MainFrame = styled.div`
   flex-direction: column;
   justify-content: space-between;
   overflow-y: auto;
+  background-image: url("https://user-images.githubusercontent.com/77369674/117848527-5be1ff00-b2be-11eb-8453-fab2f5db554c.png");
 `;
 
 const MainContainer = styled.div`

@@ -120,6 +120,26 @@ const communityQuestionAX = () => {
   };
 };
 
+// const addLikeQnA = (answerId, questionId) => {
+//   if (!getCookie("is_login")) {
+//     swal({
+//       title: "좋아요 실패",
+//       text: "로그인이 필요한 기능이에요❕",
+//       icon: "info",
+//     });
+//     return;
+//   }
+//   return function (dispatch, getState) {
+//     const type = getState().community.card_detail.type;
+//     console.log(answerId, questionId);
+//     axios
+//       .post("/bookshelf/like/answerCard", { answerCardId: answerId })
+//       .then((res) => {
+
+//       })
+//   }
+// }
+
 const addLikeAX = (answerId, questionId) => {
   if (!getCookie("is_login")) {
     swal({

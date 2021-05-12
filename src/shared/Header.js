@@ -93,6 +93,9 @@ const Header = () => {
             >
               로그아웃 <LogoutOutlined />
             </h3>
+            <h3>
+              
+            </h3>
           </MobileLoginModal>
         ) : null}
 
@@ -561,7 +564,7 @@ const MobileLoginModal = styled.div`
   position: absolute;
   width: 100px;
   height: 50px;
-  top: 606px;
+  bottom: 60px;
   z-index: 400;
   font-size: 14px;
   background: #ebeff2;

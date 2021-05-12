@@ -101,14 +101,15 @@ const SearchContainer = styled.div`
   height: 300px;
   background: #FFFFFF;
   align-items: center;
+  color: black;
   transform: translate(-50%, -50%);
   box-shadow: 0px 0px 15px #0000001A;
   z-index: 30;
   display: flex;
   flex-direction: column;
   @media (max-width: 900px){
-    top: 160px;
-    right: -90px;
+    top: 170px;
+    left: 150px;
   };
 `
 
