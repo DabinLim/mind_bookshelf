@@ -180,7 +180,7 @@ const Post = (props) => {
                 rows={8}
                 placeholder={`${
                   user_info?.nickname ? user_info?.nickname + "님" : "당신"
-                }이라면 어떻게 답변하시겠어요? 답변과 그 이유, 느낌 등을 같이 적어주세요.`}
+                }이라면 어떻게 답변하시겠어요? \n답변과 그 이유, 느낌 등을 같이 적어주세요.`}
                 onChange={changeContents}
                 value={contents}
               ></ElTextarea>

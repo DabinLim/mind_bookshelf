@@ -343,6 +343,14 @@ const CardModal = (props) => {
     }
   }
 
+  const getDate = (date) => {
+    let year = "20" + date.substring(0, 2);
+    let month = date.substring(2, 4);
+    let day = date.substring(4, 6);
+    let full_date = year + "년 " + month + "월 " + day + "일";
+    return full_date;
+  };
+
   return (
     <React.Fragment>
       {updateModal ? (
@@ -715,9 +723,11 @@ const CardModal = (props) => {
                     </span>
                   </CardWriterNickNameLeft>
                 </CardWriterLeft>
-                <HashTag style={{ background: color }}>{topic}</HashTag>
+                <HashTag style={{ background: color }}>#{topic}</HashTag>
               </CardWriterInfoLeft>
-              <SmallHashTag style={{ background: color }}>{topic}</SmallHashTag>
+              <SmallHashTag style={{ background: color }}>
+                #{topic}
+              </SmallHashTag>
               {/* 카드 질문 내용 */}
               <CardQuestionContent>
                 {answerInfo?.questionContents}
@@ -805,6 +815,9 @@ const CardModal = (props) => {
                   </CommentBtn>
                 </CommentContainer>
               </IconBox>
+              <span style={{ marginRight: "20px" }}>
+                {getDate(answerInfo.answerCreatedAt)}
+              </span>
               {answerInfo.answerUserId === user_info.id ? (
                 <div style={{ marginRight: "10px", cursor: "pointer" }}>
                   <MoreVertIcon
@@ -819,45 +832,47 @@ const CardModal = (props) => {
           <ModalRightContainer>
             <CommentList />
             <ModalCmtInputBox>
-              <ModalCmtInput
-                type="text"
-                placeholder="댓글달기..."
-                onChange={selectComment}
-                value={comments}
-                ref={cmtInput}
-                onKeyPress={(e) => {
-                  if (e.key === "Enter") {
-                    addComment();
-                  }
-                }}
-                onKeyUp={(e) => {
-                  if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
-                    selectComment(e);
-                  }
-                }}
-                onClick={selectComment}
-              />
-              {ok_submit ? (
-                <ModalUpload
-                  onClick={() => {
-                    if (!getCookie("is_login")) {
-                      swal({
-                        title: "댓글 추가 실패 😥",
-                        text: "로그인 후 이용 가능한 서비스입니다.",
-                        icon: "error",
-                      });
-                      setComments("");
-                      return;
+              <SmallInputBox>
+                <ModalCmtInput
+                  type="text"
+                  placeholder="게시물에 대해 이야기를 나눠보세요."
+                  onChange={selectComment}
+                  value={comments}
+                  ref={cmtInput}
+                  onKeyPress={(e) => {
+                    if (e.key === "Enter") {
+                      addComment();
                     }
-                    addComment();
                   }}
-                  style={{ cursor: "pointer" }}
-                >
-                  게시
-                </ModalUpload>
-              ) : (
-                <ModalUpload style={{ opacity: "0.3" }}>게시</ModalUpload>
-              )}
+                  onKeyUp={(e) => {
+                    if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
+                      selectComment(e);
+                    }
+                  }}
+                  onClick={selectComment}
+                />
+                {ok_submit ? (
+                  <ModalUpload
+                    onClick={() => {
+                      if (!getCookie("is_login")) {
+                        swal({
+                          title: "댓글 추가 실패 😥",
+                          text: "로그인 후 이용 가능한 서비스입니다.",
+                          icon: "error",
+                        });
+                        setComments("");
+                        return;
+                      }
+                      addComment();
+                    }}
+                    style={{ cursor: "pointer" }}
+                  >
+                    게시
+                  </ModalUpload>
+                ) : (
+                  <ModalUpload style={{ opacity: "0.3" }}>게시</ModalUpload>
+                )}
+              </SmallInputBox>
             </ModalCmtInputBox>
             {tagModal ? (
               <TagModal
@@ -882,6 +897,9 @@ const Component = styled.div`
   width: 100vw;
   background: black;
   z-index: 120;
+  @media (max-width: 500px) {
+    z-index: 300;
+  }
 `;
 
 const ModalComponent = styled.div`
@@ -911,7 +929,7 @@ const ModalComponent = styled.div`
     background: none;
     transform: translate(0%, 0%);
     margin: 58.33px 0 0 0;
-    z-index: 120;
+    z-index: 350;
   }
 `;
 
@@ -922,11 +940,10 @@ const ModalContent = styled.div`
   height: 500px;
   border-right: 1px solid #efefef;
   @media (max-width: 950px) {
-    width: 375px;
-    height: 412px;
+    width: 100%;
+    height: 50%;
     border: none;
-    margin-bottom: 10px;
-    border-radius: 20px;
+    border-radius: 20px 20px 0 0;
     background: white;
     padding: 0;
     display: flex;
@@ -996,6 +1013,7 @@ const CardWriteLeftBody = styled.div`
     max-height: 150px;
     padding: 0 29px 0 20px;
     margin-top: 30px;
+    border-bottom: none;
   }
 `;
 
@@ -1003,6 +1021,10 @@ const CardWriterBox = styled.div`
   border-bottom: 1px solid #efefef;
   min-height: 30%;
   max-height: 30%;
+
+  @media (max-width: 500px) {
+    border: none;
+  }
 `;
 
 const CardWriterInfoLeft = styled.div`
@@ -1112,31 +1134,11 @@ const ModalRightContainer = styled.div`
   padding: 25px 0 0 0;
   border-radius: 0px 50px 50px 0px;
   @media (max-width: 500px) {
-    width: 375px;
-    height: 412px;
+    width: 100%;
+    height: 50%;
     padding: 0;
-    border-radius: 20px;
+    border-radius: 0 0 20px 20px;
     justify-content: flex-start;
-  }
-`;
-
-const CardInfo = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
-
-const CardWriterInfo = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
-const CardWriterProfile = styled.img`
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  background: gray;
-  :hover {
-    cursor: pointer;
   }
 `;
 
@@ -1173,8 +1175,10 @@ const ModalCmtInputBox = styled.div`
   border-top: 1px solid #efefef;
 
   @media (max-width: 500px) {
-    min-height: 80px;
-    max-height: 80px;
+    min-height: 60px;
+    max-height: 60px;
+    border-top: 1px solid #d3d3d3;
+    border-bottom: 1px solid #d3d3d3;
   }
 `;
 const ModalCmtInput = styled.input`
@@ -1189,6 +1193,10 @@ const ModalUpload = styled.div`
   font-size: 14px;
   color: #3897f0;
   font-weight: 600;
+
+  @media (max-width: 500px) {
+    margin: 0;
+  }
 `;
 
 const IconContainer = styled.div`
@@ -1201,7 +1209,9 @@ const IconContainer = styled.div`
   margin: 0 0 0 40px;
 
   @media (max-width: 500px) {
-    margin: 0 0 0 20px;
+    padding: 0 0 0 20px;
+    margin: 0;
+    border-top: 1px solid #d3d3d3;
   }
 `;
 
@@ -1392,6 +1402,18 @@ const Contents = styled.span`
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+`;
+
+const SmallInputBox = styled.div`
+  border-radius: 45px;
+  background: #f5f5f5;
+  display: flex;
+  width: 100%;
+  padding: 8px 12px;
+  justify-content: space-between;
+  @media (min-width: 500px) {
+    display: none;
+  }
 `;
 
 export default CardModal;
