@@ -167,6 +167,7 @@ const date_visible = useSelector(state => state.books.date_visible);
                   {v.count === 1 && <Book
                     key={idx}
                   >
+                    <Trash/>
                     <div style={{position:'relative', width:'100%', height:'100%', cursor:'pointer',zIndex:'3'}} onClick={() => {openBook(v._id)}}>
                     </div>
                       <Date>
@@ -639,9 +640,50 @@ const BookRow = styled.div`
   }
 `;
 
- 
+const Trash = styled.div`
+/* @keyframes trash {
+  0%{
+  }
+  
+  100%{
+    top:0;
+    left:50px;
+    background-image:url('https://user-images.githubusercontent.com/77574867/117919697-6b962d80-b328-11eb-9847-1b3ba6562ec2.png');
+    background-size:contain;
+    background-repeat:no-repeat;
+  }
+} */
+  position:absolute;
+  width:200px;
+  height:200px;
+  z-index:50;
+  top:0;
+  left:0;
+  /* transform: scale(1); */
+  transition: cubic-bezier(1,-0.39, 1, 1.43) 2s;
+
+  &:hover{
+    animation:trash 2s forwards;
+     background-image:url('https://user-images.githubusercontent.com/77574867/117919697-6b962d80-b328-11eb-9847-1b3ba6562ec2.png');
+    background-size:contain;
+    background-repeat:no-repeat;
+    transition: cubic-bezier(0, 1.07, 1, 0.99) 2s;
+    transform:scale(3); 
+  }
+`; 
 
 const Book = styled.div`
+@keyframes book {
+  0%{
+    transform: translate(0,0) rotateZ(0deg);
+  }
+  50%{
+    transform: translate(0,-300px) rotateZ(3600deg) scale(0.8);
+  }
+  100%{
+    transform: translate(200px,0px) rotateZ(7200deg) scale(0.5);
+  }
+}
     position:relative;
     display:flex;
     align-items:center;
@@ -650,7 +692,7 @@ const Book = styled.div`
   width: 46px;
   height: 210px;
   margin: 0px 10px;
-  transform: rotateZ(0deg);
+  /* transform: rotateZ(0deg); */
   /* transition: linear .1s; */
   
   /* background-image:url('');
@@ -659,8 +701,9 @@ const Book = styled.div`
     z-index:40;
     /* transform: translateY(20%) */
     /* transform: translateX(100%) */
-    transform: rotateZ(9000deg) scale(0.2);
-    transition:ease-in-out 4s;
+    /* transform: rotateZ(7200deg) scale(0.5); */
+    animation: book 2s forwards;
+    transition:ease-in-out 2s;
   }
   @media (max-width:1000px){
     margin: 0px 5px;

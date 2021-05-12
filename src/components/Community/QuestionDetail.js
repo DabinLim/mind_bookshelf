@@ -86,7 +86,9 @@ const QuestionDetail = (props) => {
             <ContainerUpper>
               <ContainerUpperLeft>
                 <HashTag style={{ background: color, boxShadow: boxShadow, overflow:'visible' }}>
+                  <span>
                   #{topic}
+                  </span>
                 </HashTag>
                 <QuestionTitle>
                   {question_info ? question_info.questionContents : "질문 내용"}
@@ -348,6 +350,11 @@ const QuestionTitle = styled.h2`
     font: normal normal bold 22px/24px Roboto;
     width:80%;
   }
+  @media(max-width:650px){
+    margin: 12px 0 0 0;
+    width:226;
+    font: normal normal bold 18px/22px Roboto;
+  }
 `;
 
 const HashTag = styled.span`
@@ -357,16 +364,21 @@ const HashTag = styled.span`
   background: #ededed;
   padding: 8px 12px;
   border-radius: 24px;
-  text-align: center;
+  display:flex;
+  justify-content:center;
+  align-items:center;
   font: normal normal bold 14px/19px Roboto;
   box-shadow: 0px 0px 5px #ffffff;
   letter-spacing: 0px;
   color: #363636;
   font-size: 14px;
   margin-right: 10px;
-  :hover {
-    cursor: pointer;
-  }
+  cursor: pointer;
+  @media(max-width:650px){
+    min-width:58px;
+    max-width:58px;
+    max-height:25px;
+    }
 `;
 
 const FilterBtnBoxMobile = styled.div`
@@ -377,7 +389,7 @@ const FilterBtnBoxMobile = styled.div`
   align-items:flex-end;
   font-size:12px;
   margin-right:20px;
-  padding-top:60px;
+  padding-top:35px;
   box-sizing:border-box;
   @media(min-width:650px){
     display:none;
