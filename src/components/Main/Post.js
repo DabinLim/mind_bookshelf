@@ -382,6 +382,10 @@ const HashTag = styled.span`
   :hover {
     cursor: pointer;
   }
+
+  @media (min-width: 500px) {
+    font-size: 11px;
+  }
 `;
 
 const CardContent = styled.p`
@@ -393,11 +397,12 @@ const CardContent = styled.p`
 
 const SmallCardContent = styled.p`
   margin-top: 17px;
-  font-size: 17px;
+  font-size: 14px;
   font-weight: bolder;
   text-align: left;
-  min-height: 80px;
-  max-height: 80px;
+  min-height: 60px;
+  max-height: 70px;
+  margin-bottom: 0;
   @media (min-width: 500px) {
     display: none;
   }
@@ -423,12 +428,16 @@ const CardWriterProfile = styled.img`
   }
 `;
 
-const CardWriter = styled.span``;
+const CardWriter = styled.span`
+  @media (max-width: 500px) {
+    font-size: 11px;
+  }
+`;
 
 const PostBox = styled.div`
   @media (max-width: 500px) {
-    min-height: 220px;
-    max-height: 220px;
+    min-height: 250px;
+    max-height: 250px;
   }
 `;
 
@@ -453,13 +462,14 @@ const ElTextarea = styled.textarea`
 
   @media (max-width: 500px) {
     padding: 0;
+    font-size: 12px;
   }
 `;
 
 const SmallBtnGroup = styled.div`
   width: 100%;
-  min-height: 70px;
-  max-height: 75px;
+  min-height: 160px;
+  max-height: 165px;
   display: flex;
   justify-content: space-between;
   align-items: flex-end;

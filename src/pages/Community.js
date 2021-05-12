@@ -58,17 +58,17 @@ const CommunityBox = styled.div`
     margin: 60px 0px 50px 0px;
   }
   ::-webkit-scrollbar {
-    display:none;
+    display: none;
     width: 10px; /* width of the entire scrollbar */
   }
 
   ::-webkit-scrollbar-track {
-    display:none;
+    display: none;
     background: none; /* color of the tracking area */
   }
 
   ::-webkit-scrollbar-thumb {
-    display:none;
+    display: none;
     background-color: #ffffff; /* color of the scroll thumb */
     border-radius: 20px; /* roundness of the scroll thumb */
   }
@@ -83,6 +83,9 @@ const CommunityContainer = styled.div`
   align-items: center;
   justify-content: space-between;
   overflow-y: auto;
+  @media (max-width: 500px) {
+    z-index: 50;
+  }
 `;
 
 const ImgRight = styled.div`

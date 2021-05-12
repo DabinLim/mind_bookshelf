@@ -89,6 +89,10 @@ const CommentContainer = styled.div`
   ::-webkit-scrollbar {
     display: none;
   }
+  @media (max-width: 500px) {
+    height: 186px;
+    border-top-right-radius: 0px;
+  }
 `;
 
 export default CommentList;
