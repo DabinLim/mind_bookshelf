@@ -340,6 +340,7 @@ const MainContainer = styled.div`
 
   @media (max-width: 500px) {
     margin: 83px 0px 0px 0px;
+    align-items: center;
   }
 `;
 
@@ -370,7 +371,6 @@ const MainUpper = styled.section`
 
   @media (max-width: 500px) {
     text-align: left;
-    padding: 0 0 0 25px;
   }
 `;
 
@@ -438,6 +438,7 @@ const SlideBox = styled.div`
     padding: 27px 28px;
     width: 380px;
     box-sizing: border-box;
+    text-align: center;
   }
 `;
 
@@ -533,8 +534,8 @@ const DotQueue = styled.div`
 const SmallDotQueue = styled.div`
   display: flex;
   justify-content: center;
-  margin-top: 50px;
-  margin-bottom: 80px;
+  margin-top: 40px;
+  margin-bottom: 30px;
 
   @media (min-width: 500px) {
     /* margin: 60px 0px 5px 0px; */
