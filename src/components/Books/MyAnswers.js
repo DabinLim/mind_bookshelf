@@ -100,87 +100,65 @@ const MyAnswers = (props) => {
                   <Card key={idx} {...v}>
                     <Head>
                     <SubjectBox>
+                    {v.questiontopic?.length &&
+                          v.questiontopic[0] === '사랑' && <Subject
+                          style={{
+                            background: "#FFAAAA",
+                            boxShadow: "0px 0px 15px #FFAAAA",
+                          }}
+                        >
+                          <span>#사랑</span>
+                        </Subject>}
                         {v.questiontopic?.length &&
-                          v.questiontopic.map((v, idx) => {
-                            if (v === "사랑") {
-                              return (
-                                <Subject
-                                  key={idx}
-                                  style={{
-                                    background: "#FFAAAA",
-                                    boxShadow: "0px 0px 15px #FFAAAA",
-                                  }}
-                                >
-                                  <span>#사랑</span>
-                                </Subject>
-                              );
-                            }
-                            if (v === "우정") {
-                              return (
-                                <Subject
-                                  key={idx}
-                                  style={{
-                                    background: "#B9FFC4",
-                                    boxShadow: "0px 0px 15px #B9FFC4",
-                                  }}
-                                >
-                                  <span>#우정</span>
-                                </Subject>
-                              );
-                            }
-                            if (v === "꿈") {
-                              return (
-                                <Subject
-                                  key={idx}
-                                  style={{
-                                    background: "#B7E6FF",
-                                    boxShadow: "0px 0px 15px #B7E6FF",
-                                  }}
-                                >
-                                  <span>#꿈</span>
-                                </Subject>
-                              );
-                            }
-                            if (v === "가치") {
-                              return (
-                                <Subject
-                                  key={idx}
-                                  style={{
-                                    background: "#B5BDFF",
-                                    boxShadow: "0px 0px 15px #B5BDFF",
-                                  }}
-                                >
-                                  <span>#가치</span>
-                                </Subject>
-                              );
-                            }
-                            if (v === "관계") {
-                              return (
-                                <Subject
-                                  key={idx}
-                                  style={{
-                                    background: "#FFF09D",
-                                    boxShadow: "0px 0px 15px #FFF09D",
-                                  }}
-                                >
-                                  <span>#관계</span>
-                                </Subject>
-                              );
-                            }
-                            if (v === "나") {
-                              return (
-                                <Subject
-                                  key={idx}
-                                  style={{
-                                    background: "#F9D1FD",
-                                    boxShadow: "0px 0px 15px #F9D1FD",
-                                  }}
-                                >
-                                  <span>#나</span>
-                                </Subject>
-                              );
-                            }
-                          })}
+                          v.questiontopic[0] === '우정' && <Subject
+                          key={idx}
+                          style={{
+                            background: "#B9FFC4",
+                            boxShadow: "0px 0px 15px #B9FFC4",
+                          }}
+                        >
+                          <span>#우정</span>
+                        </Subject>}
+                        {v.questiontopic?.length &&
+                          v.questiontopic[0] === '꿈' && <Subject
+                          key={idx}
+                          style={{
+                            background: "#B7E6FF",
+                            boxShadow: "0px 0px 15px #B7E6FF",
+                          }}
+                        >
+                          <span>#꿈</span>
+                        </Subject>}
+                        {v.questiontopic?.length &&
+                          v.questiontopic[0] === '가치' && <Subject
+                          key={idx}
+                          style={{
+                            background: "#B5BDFF",
+                            boxShadow: "0px 0px 15px #B5BDFF",
+                          }}
+                        >
+                          <span>#가치</span>
+                        </Subject>}
+                        {v.questiontopic?.length &&
+                          v.questiontopic[0] === '관계' && <Subject
+                          key={idx}
+                          style={{
+                            background: "#FFF09D",
+                            boxShadow: "0px 0px 15px #FFF09D",
+                          }}
+                        >
+                          <span>#관계</span>
+                        </Subject>}
+                        {v.questiontopic?.length &&
+                          v.questiontopic[0] === '나' && <Subject
+                          key={idx}
+                          style={{
+                            background: "#F9D1FD",
+                            boxShadow: "0px 0px 15px #F9D1FD",
+                          }}
+                        >
+                          <span>#나</span>
+                        </Subject>}
                       </SubjectBox>
                       <div style={{marginLeft:'10px',fontWeight:'600',display:'flex',alignItems:'center'}}>
                       <span>{v.questionCreatedUserNickname}님의 질문</span>
@@ -235,86 +213,64 @@ const MyAnswers = (props) => {
                     <Head>
                     <SubjectBox>
                         {v.questiontopic?.length &&
-                          v.questiontopic.map((v, idx) => {
-                            if (v === "사랑") {
-                              return (
-                                <Subject
-                                  key={idx}
-                                  style={{
-                                    background: "#FFAAAA",
-                                    boxShadow: "0px 0px 15px #FFAAAA",
-                                  }}
-                                >
-                                  <span>#사랑</span>
-                                </Subject>
-                              );
-                            }
-                            if (v === "우정") {
-                              return (
-                                <Subject
-                                  key={idx}
-                                  style={{
-                                    background: "#B9FFC4",
-                                    boxShadow: "0px 0px 15px #B9FFC4",
-                                  }}
-                                >
-                                  <span>#우정</span>
-                                </Subject>
-                              );
-                            }
-                            if (v === "꿈") {
-                              return (
-                                <Subject
-                                  key={idx}
-                                  style={{
-                                    background: "#B7E6FF",
-                                    boxShadow: "0px 0px 15px #B7E6FF",
-                                  }}
-                                >
-                                  <span>#꿈</span>
-                                </Subject>
-                              );
-                            }
-                            if (v === "가치") {
-                              return (
-                                <Subject
-                                  key={idx}
-                                  style={{
-                                    background: "#B5BDFF",
-                                    boxShadow: "0px 0px 15px #B5BDFF",
-                                  }}
-                                >
-                                  <span>#가치</span>
-                                </Subject>
-                              );
-                            }
-                            if (v === "관계") {
-                              return (
-                                <Subject
-                                  key={idx}
-                                  style={{
-                                    background: "#FFF09D",
-                                    boxShadow: "0px 0px 15px #FFF09D",
-                                  }}
-                                >
-                                  <span>#관계</span>
-                                </Subject>
-                              );
-                            }
-                            if (v === "나") {
-                              return (
-                                <Subject
-                                  key={idx}
-                                  style={{
-                                    background: "#F9D1FD",
-                                    boxShadow: "0px 0px 15px #F9D1FD",
-                                  }}
-                                >
-                                  <span>#나</span>
-                                </Subject>
-                              );
-                            }
-                          })}
+                          v.questiontopic[0] === '사랑' && <Subject
+                          style={{
+                            background: "#FFAAAA",
+                            boxShadow: "0px 0px 15px #FFAAAA",
+                          }}
+                        >
+                          <span>#사랑</span>
+                        </Subject>}
+                        {v.questiontopic?.length &&
+                          v.questiontopic[0] === '우정' && <Subject
+                          key={idx}
+                          style={{
+                            background: "#B9FFC4",
+                            boxShadow: "0px 0px 15px #B9FFC4",
+                          }}
+                        >
+                          <span>#우정</span>
+                        </Subject>}
+                        {v.questiontopic?.length &&
+                          v.questiontopic[0] === '꿈' && <Subject
+                          key={idx}
+                          style={{
+                            background: "#B7E6FF",
+                            boxShadow: "0px 0px 15px #B7E6FF",
+                          }}
+                        >
+                          <span>#꿈</span>
+                        </Subject>}
+                        {v.questiontopic?.length &&
+                          v.questiontopic[0] === '가치' && <Subject
+                          key={idx}
+                          style={{
+                            background: "#B5BDFF",
+                            boxShadow: "0px 0px 15px #B5BDFF",
+                          }}
+                        >
+                          <span>#가치</span>
+                        </Subject>}
+                        {v.questiontopic?.length &&
+                          v.questiontopic[0] === '관계' && <Subject
+                          key={idx}
+                          style={{
+                            background: "#FFF09D",
+                            boxShadow: "0px 0px 15px #FFF09D",
+                          }}
+                        >
+                          <span>#관계</span>
+                        </Subject>}
+                        {v.questiontopic?.length &&
+                          v.questiontopic[0] === '나' && <Subject
+                          key={idx}
+                          style={{
+                            background: "#F9D1FD",
+                            boxShadow: "0px 0px 15px #F9D1FD",
+                          }}
+                        >
+                          <span>#나</span>
+                        </Subject>}
                       </SubjectBox>
                       <div style={{marginLeft:'10px',fontWeight:'600',display:'flex',alignItems:'center'}}>
                       <span>{v.questionCreatedUserNickname}님의 질문</span>
@@ -509,7 +465,7 @@ const QuestionContents = styled.span`
   text-overflow: ellipsis;
   @media (max-width: 500px) {
     height:60px;
-    margin-top:14px;
+    margin-top:12px;
   }
 `;
 
@@ -524,7 +480,7 @@ const AnswerContents = styled.span`
   overflow: hidden;
   text-overflow: ellipsis;
   @media (max-width: 500px) {
-    margin-top:8px;
+    margin-top:6px;
   }
 `;
 
