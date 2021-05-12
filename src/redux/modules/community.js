@@ -3,6 +3,7 @@ import { getCookie } from "../../shared/Cookie";
 import axios from "axios";
 import swal from "sweetalert";
 import { editDetailLikeInfo } from "./moreview";
+import { Drafts } from "@material-ui/icons";
 
 axios.defaults.baseURL = "https://lkj99.shop";
 axios.defaults.headers.common["Authorization"] = `Bearer ${getCookie(
@@ -68,6 +69,15 @@ const communitySlice = createSlice({
           state.question[idx].answers[answerIdx].commentCount +
           action.payload.decision,
       };
+    },
+    deleteAnswer : (state, action) => {
+      let idx = state.question.findIndex(
+        (q) => q.id === action.payload.questionId
+      );
+      let answerIdx = state.question[idx].answers.findIndex(
+        (a) => a.answerId === action.payload.answerId
+      );
+      state.question[idx].answers.splice(answerIdx,1)
     },
   },
 });
@@ -241,6 +251,33 @@ const getCardDetail = (a_id, type) => {
   };
 };
 
+const deleteAnswerAX = (answerId, questionId) => {
+  return function (dispatch) {
+    axios
+      .delete(`/card/myAnswer/${answerId}`)
+      .then((res)=>{
+        dispatch(deleteAnswer({
+          answerId: answerId, 
+          questionId: questionId,
+        }))
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
+}
+
+const editAnswerAX = (answer) => {
+  return function (dispatch) {
+    console.log(answer)
+    axios
+      .patch(`/card/myAnswer`, {answerId: answer.answerId, contents: answer.contents, isOpen: answer.isOpen})
+      .then((res) => {
+        console.log(res)
+      })
+  }
+}
+
 export const {
   setCommunity,
   editLikeInfo,
@@ -250,6 +287,7 @@ export const {
   editLikeCard,
   editCommentInfo,
   changeType,
+  deleteAnswer,
 } = communitySlice.actions;
 
 export const api = {
@@ -257,6 +295,8 @@ export const api = {
   addLikeAX,
   deleteLikeAX,
   getCardDetail,
+  deleteAnswerAX,
+  editAnswerAX,
 };
 
 export default communitySlice.reducer;
