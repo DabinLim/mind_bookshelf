@@ -23,6 +23,8 @@ import { getCookie } from "../../shared/Cookie";
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import CustomSwitch from '../../shared/CustomSwitch'
 import CancelConfirm from './CancelConfirm'
+import { LeftOutlined } from "@ant-design/icons";
+import ChannelService from '../../shared/ChannelService'
 
 const CardModal = (props) => {
   const answerInfo = useSelector((state) => state.community.card_detail);
@@ -46,6 +48,15 @@ const CardModal = (props) => {
   const ok_submit = comments ? true : false;
   const url = window.location.href.split("/");
   const id = url[url.length - 1];
+
+  React.useEffect(()=>{
+    ChannelService.shutdown();
+    return () => {
+      ChannelService.boot({
+        "pluginKey": "1e06f0ed-5da8-42f4-bb69-7e215b14ec18" 
+      });
+    }
+  }, [])
 
   function clickOpen() {
     if (isOpen) {

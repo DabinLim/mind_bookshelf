@@ -38,7 +38,7 @@ function App() {
       dispatch(userActions.LoginCheckAX());
     }
     ChannelService.boot({
-      "pluginKey": "1e06f0ed-5da8-42f4-bb69-7e215b14ec18" //please fill with your plugin key
+      "pluginKey": "1e06f0ed-5da8-42f4-bb69-7e215b14ec18" 
     });
   }, []);
   return (
