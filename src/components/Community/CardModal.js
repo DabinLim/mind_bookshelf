@@ -22,6 +22,7 @@ import swal from "sweetalert";
 import { getCookie } from "../../shared/Cookie";
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import CustomSwitch from '../../shared/CustomSwitch'
+import CancelConfirm from './CancelConfirm'
 
 const CardModal = (props) => {
   const answerInfo = useSelector((state) => state.community.card_detail);
@@ -40,6 +41,7 @@ const CardModal = (props) => {
   const [updateAnswer, setUpdateAnswer] = useState(false)
   const [answer, setAnswer] = useState()
   const [isOpen, setOpen] = useState(true);
+  const [cancelModal, setCancelModal] = useState(false)
   const cmtInput = useRef();
   const ok_submit = comments ? true : false;
   const url = window.location.href.split("/");
@@ -54,6 +56,9 @@ const CardModal = (props) => {
   }
   
   const changeAnswer = (e) => {
+    if(answer.length > 1000){
+      return
+    }
     setAnswer(e.target.value)
   }
 
@@ -344,8 +349,8 @@ const CardModal = (props) => {
 
   return (
     <React.Fragment>
-      {updateModal? 
-      <CardUpdateModal setAnswer={setAnswer} setUpdateAnswer={setUpdateAnswer}  close={props.close} setUpdateModal={setUpdateModal} {...answerInfo} />
+      {cancelModal ? 
+      <CancelConfirm {...answerInfo} setCancelModal={setCancelModal} close={props.close} />
       :null}
       <Component
         onClick={() => {
@@ -694,6 +699,19 @@ const CardModal = (props) => {
                   </CardWriterNickNameLeft>
                 </CardWriterLeft>
                 <HashTag style={{ background: color }}>{topic}</HashTag>
+                {answerInfo.answerUserId === user_info.id ? 
+                <div style={{marginRight:"10px", cursor: "pointer", position:"relative"}} >
+                  {updateModal? 
+                  <CardUpdateModal setCancelModal={setCancelModal} setAnswer={setAnswer} setUpdateAnswer={setUpdateAnswer}  close={props.close} setUpdateModal={setUpdateModal} {...answerInfo} />
+                  :null}
+                  <MoreVertIcon onClick={()=>{
+                    if(updateModal){
+                      setUpdateModal(false)
+                    }else{
+                      setUpdateModal(true)}} 
+                    }/>
+                </div>
+              :null}
               </CardWriterInfoLeft>
               {/* 카드 질문 내용 */}
               <CardQuestionContent>
@@ -704,6 +722,8 @@ const CardModal = (props) => {
               {updateAnswer?
               <AnswerUpdateBox>
                 <CardAnswerInput value={answer} onChange={changeAnswer} />
+                <div style={{display:"flex", justifyContent:'flex-end', marginTop:"20px"}} >
+                  <CustomSwitch isOpen={isOpen} onClick={clickOpen}/>
                   <CardAnswerBtn onClick={()=>{
                     let _answer = {
                       answerId: answerInfo.answerId,
@@ -714,7 +734,7 @@ const CardModal = (props) => {
                     dispatch(communityActions.editAnswerAX(_answer))
                     setUpdateAnswer(false)
                   }} >수정</CardAnswerBtn>
-                  <CustomSwitch isOpen={isOpen} onClick={clickOpen}/>
+                </div>
               </AnswerUpdateBox>
               :
               <CardAnswerContent style={{ whiteSpace: "pre-wrap" }}>
@@ -778,11 +798,6 @@ const CardModal = (props) => {
                 </CommentBtn>
               </CommentContainer>
               </IconBox>
-              {answerInfo.answerUserId === user_info.id ? 
-                <div style={{marginRight:"10px", cursor: "pointer"}} >
-                  <MoreVertIcon onClick={()=>{setUpdateModal(true)}} />
-                </div>
-              :null}
             </IconContainer>
           </ModalContent>
           <ModalRightContainer>
@@ -972,15 +987,15 @@ const CardAnswerInput = styled.textarea`
   padding: 30px 0 0 0;
   border: none; 
   width: 85%;
-  height: 140px;
+  height: 155px;
   box-sizing: border-box;
   outline: none;
   line-height: 1.5;
   resize: none;
 `
 const CardAnswerBtn = styled.div`
-  margin-right: 30px;
-  align-self: flex-end;
+  margin-right: 20px;
+  margin-left: 20px;
   font-size: 16px;
   cursor: pointer;
   color: white;
@@ -1025,26 +1040,6 @@ const CardWriterProfile = styled.img`
   }
 `;
 
-// const CardWriter = styled.span`
-//   margin-left: 8px;
-// `;
-
-// const CommentListBox = styled.div`
-//   max-height: 300px;
-//   overflow: auto;
-//   ::-webkit-scrollbar {
-//     width: 12px; /* width of the entire scrollbar */
-//   }
-
-//   ::-webkit-scrollbar-track {
-//     background: white; /* color of the tracking area */
-//   }
-
-//   ::-webkit-scrollbar-thumb {
-//     background-color: #d8d9dc; /* color of the scroll thumb */
-//     border-radius: 20px; /* roundness of the scroll thumb */
-//   }
-// `;
 
 const ModalCmtInputBox = styled.div`
   width: 100%;

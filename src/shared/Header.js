@@ -7,7 +7,6 @@ import { logOut } from "../redux/modules/user";
 import SearchIcon from "@material-ui/icons/Search";
 import { history } from "../redux/configStore";
 import MenuIcon from "@material-ui/icons/Menu";
-import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
 import Notification from "../components/Notification/Notification";
@@ -18,14 +17,16 @@ import swal from "sweetalert";
 import { getCookie } from "./Cookie";
 import axios from "axios";
 import { CardModal } from "../components/Community/communityindex";
-import InfoIcon from "@material-ui/icons/Info";
 import { About } from "./sharedindex";
-import HomeIcon from "@material-ui/icons/Home";
-import PermIdentityIcon from "@material-ui/icons/PermIdentity";
-import ImportContactsIcon from "@material-ui/icons/ImportContacts";
-import ForumOutlinedIcon from "@material-ui/icons/ForumOutlined";
+import ForumIcon from '@material-ui/icons/Forum';
+import ImportContactsIcon from '@material-ui/icons/ImportContactsOutlined';
+import ForumOutlinedIcon from '@material-ui/icons/ForumOutlined';
+import HomeIcon from '@material-ui/icons/Home';
+import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined';
 import ChatOutlinedIcon from "@material-ui/icons/ChatOutlined";
 import { LogoutOutlined, LoginOutlined } from "@ant-design/icons";
+import CollectionsBookmarkIcon from '@material-ui/icons/CollectionsBookmark';
+import CollectionsBookmarkOutlinedIcon from '@material-ui/icons/CollectionsBookmarkOutlined';
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -34,11 +35,13 @@ const Header = () => {
   const searchModal = useSelector((state) => state.noti.searchModal);
   const [notiModal, setNoti] = useState(false);
   const is_checked = useSelector((state) => state.noti.is_checked);
+  const pathname = useSelector((state) => state.router.location.pathname )
   const user = useSelector((state) => state.user.user);
   const [recent_list, setRecent] = useState();
   const [loading, setLoading] = useState(true);
   const [cardModal, setCardModal] = useState(false);
   const [aboutModal, setAboutModal] = useState(false);
+  
 
   const closeNotiModal = () => {
     setNoti(false);
@@ -85,17 +88,17 @@ const Header = () => {
         {/* 모바일 로그인 했을 때 */}
         {isMenuOpen ? (
           <MobileLoginModal>
-            <h3
+            <div
               onClick={() => {
                 dispatch(notiActions.leaveAlarmIO(user.id));
                 setMenuOpen(false);
               }}
             >
               로그아웃 <LogoutOutlined />
-            </h3>
-            <h3>
-              
-            </h3>
+            </div>
+            <div>
+              About
+            </div>
           </MobileLoginModal>
         ) : null}
 
@@ -109,8 +112,12 @@ const Header = () => {
               history.push("/");
               dispatch(setComponent(""));
             }}
-          >
+          > 
+            {pathname==="/" ? 
             <HomeIcon fontSize="large" />
+            :
+            <HomeOutlinedIcon fontSize="large" />
+            }
             <MenuText>오늘의 낙서</MenuText>
           </Menu>
           <Menu
@@ -126,8 +133,12 @@ const Header = () => {
               dispatch(setComponent(""));
               history.push("/mybook");
             }}
-          >
-            <ImportContactsIcon fontSize="large" />
+          > 
+            {pathname === "/mybook" ? 
+            <CollectionsBookmarkIcon fontSize="large"/>
+            :
+            <CollectionsBookmarkOutlinedIcon fontSize="large"/>
+            }
             <MenuText>나의 책장</MenuText>
           </Menu>
           <Menu
@@ -135,8 +146,12 @@ const Header = () => {
               history.push("/community");
               dispatch(setComponent(""));
             }}
-          >
-            <ChatOutlinedIcon fontSize="large" />
+          > 
+            {pathname.includes("/community")  ? 
+            <ForumIcon fontSize="large" />
+            :
+            <ForumOutlinedIcon fontSize="large" />
+            }
             <MenuText>커뮤니티</MenuText>
           </Menu>
         </NaviModal>
@@ -295,7 +310,7 @@ const Header = () => {
             dispatch(setComponent(""));
           }}
         >
-          <HomeIcon fontSize="large" />
+          <HomeOutlinedIcon fontSize="large" />
           <MenuText>오늘의 낙서</MenuText>
         </Menu>
         <Menu
@@ -444,15 +459,19 @@ const HeaderInnerContainer = styled.div`
   } ;
 `;
 
+const NaviIcon = styled.div`
+
+`
+
 const NaviModal = styled.div`
   display: none;
-  height: 60px;
+  height: 70px;
   width: 100vw;
   position: fixed;
   z-index: 100;
   bottom: 0;
   right: 0;
-  background-color: #ebeff2;
+  background-color: white;
   @media (max-width: 900px) {
     display: flex;
     padding: 0px 80px;
@@ -475,7 +494,8 @@ const Menu = styled.div`
   cursor: pointer;
 `
 const MenuText = styled.div`
-  display:none;
+  font-size:14px;
+
 `
 
 
@@ -571,6 +591,7 @@ const MobileLoginModal = styled.div`
   font-size: 14px;
   background: #ebeff2;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   border-top-right-radius: 20px;
@@ -580,5 +601,7 @@ const MobileLoginModal = styled.div`
     cursor: pointer;
   }
 `;
+
+
 
 export default Header;

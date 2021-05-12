@@ -310,7 +310,11 @@ const MainFrame = styled.div`
   flex-direction: column;
   justify-content: space-between;
   overflow-y: auto;
-  background-image: url("https://user-images.githubusercontent.com/77369674/117848527-5be1ff00-b2be-11eb-8453-fab2f5db554c.png");
+  @media (max-width: 500px) {
+    background-image: url("https://user-images.githubusercontent.com/67696504/118025811-3545c600-b39b-11eb-9980-32dcb66ebac8.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
 `;
 
 const MainContainer = styled.div`
