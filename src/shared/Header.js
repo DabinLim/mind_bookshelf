@@ -289,6 +289,7 @@ const Header = () => {
   return (
     <React.Fragment>
       {loginModal ? <LoginModal close={closeLoginModal} /> : null}
+      {aboutModal ? <About setAboutModal={setAboutModal} /> : null}
       {isMenuOpen ? (
         <>
           <Component
@@ -343,6 +344,7 @@ const Header = () => {
               <MenuLi
                 onClick={() => {
                   setAboutModal(true);
+                  setMenuOpen(false);
                 }}
               >
                 소개
