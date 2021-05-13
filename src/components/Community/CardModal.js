@@ -760,6 +760,9 @@ const CardModal = (props) => {
               </CardQuestionContent>
             </CardWriterBox>
             <CardWriteLeftBody>
+              <SmallQuestionContent>
+                {answerInfo?.questionContents}
+              </SmallQuestionContent>
               {updateAnswer ? (
                 <AnswerUpdateBox>
                   <CardAnswerInput value={answer} onChange={changeAnswer} />
@@ -829,7 +832,7 @@ const CardModal = (props) => {
                 <LikeContainer>
                   {answerInfo.like ? (
                     <LikeBtn
-                      style={{ color: "red" }}
+                      style={{ color: "#061366" }}
                       onClick={() => {
                         if (!getCookie("is_login")) {
                           swal({
@@ -1070,13 +1073,13 @@ const CardWriteLeftBody = styled.div`
   box-sizing: border-box;
 
   @media (max-width: 500px) {
-    min-height: 100px;
-    max-height: 100px;
+    min-height: 180px;
+    max-height: 180px;
     padding: 0 29px 0 20px;
     border-bottom: none;
     display: flex;
     width: 100%;
-    align-items: center;
+    flex-direction: column;
   }
 `;
 
@@ -1140,9 +1143,19 @@ const CardQuestionContent = styled.div`
   color: #363636;
   opacity: 1;
   @media (max-width: 500px) {
-    margin: 0;
-    font-size: 21px;
-    padding: 0 29px 0 20px;
+    display: none;
+  }
+`;
+
+const SmallQuestionContent = styled.div`
+  margin: 0;
+  font-size: 21px;
+  padding: 0;
+  font-weight: bold;
+  margin: 10px 0;
+
+  @media (min-width: 500px) {
+    display: none;
   }
 `;
 
