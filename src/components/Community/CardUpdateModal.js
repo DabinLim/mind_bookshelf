@@ -8,14 +8,16 @@ const CardUpdateModal = (props) => {
 
   return(
     <React.Fragment>
-        {/* <Background onClick={()=>{props.setUpdateModal(false)}} /> */}
+        <Background onClick={()=>{props.setUpdateModal(false)}} />
         <UpdateComponent>
           <ModalButtonContainer>
               <ModalSubmitBtn onClick={() =>{
                 props.setAnswer(answerInfo.answerContents)
                 props.setUpdateAnswer(true);
                 props.setUpdateModal(false);
-              }} >
+              }} 
+                style={{borderBottom: '0.5px solid #D3D4D3'}}
+              >
                 수정
               </ModalSubmitBtn>
               <ModalSubmitBtn
@@ -45,45 +47,35 @@ const Background = styled.div`
 
 const UpdateComponent = styled.div`
   position: absolute;
-  top: 40px;
-  left: 0px;
-  width: 100px;
+  top: -270px;
+  left: 350px;
+  width: 164px;
+  height: 98px;
+  border-radius: 20px;
   background-color: white;
   z-index: 150;
-  box-shadow: 0px 0px 14px #0000001A;
+  box-shadow: 0px 0px 20px #0000001A;
 `
 
 const ModalButtonContainer = styled.div`
   box-sizing: border-box; 
-  margin-bottom: 10px;
   display: flex;
+  height:100%;
+  align-items: center;
+  flex-direction: column;
   justify-content: space-between;
-  align-items: center;
 `
-
-const ModalSubmitBox = styled.div`
-  display: flex;
-  align-items: center;
-`
-const SubmitDot = styled.div`
-  width: 10px;
-  height: 8px;
-  border-radius: 10px;
-  background: #C3CAFF;
-  margin: 0;
-  margin-right: 5px;
-  padding: 0;
-`
-
 
 const ModalSubmitBtn = styled.button`
   width: 100%;
   border: none;
   outline: none;
   padding: 10px 0;
+  height: 100%;
   font-size: 15px;
   color: black;
   cursor: pointer;
+  align-self: center;
   background: transparent;
   border-radius: 4px;
   &:hover{

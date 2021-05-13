@@ -88,7 +88,7 @@ const CommunityBox = styled.div`
     margin: 100px 0px 60px 0px;
   }
   @media (max-width: 500px) {
-    margin: 60px 0px 60px 0px;
+    margin: 60px 0px 0px 0px;
     background-size: cover;
     background-repeat: no-repeat;
     background-image: url("https://user-images.githubusercontent.com/67696504/117994109-4088f980-b37b-11eb-8f2c-9d42c93fd0a3.png");
@@ -110,6 +110,7 @@ const CommunityBox = styled.div`
   }
   @media (max-width: 750px) {
     margin: 50px 0px 0px 0px;
+    padding: 20px 20px;
   }
 `;
 
@@ -122,8 +123,8 @@ const CommunityContainer = styled.div`
   align-items: center;
   justify-content: space-between;
   overflow-y: auto;
-  @media (max-width: 500px) {
-    z-index: 50;
+  @media (max-width: 900px) {
+    z-index: 40;
   }
 `;
 

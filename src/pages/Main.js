@@ -341,7 +341,7 @@ const MainContainer = styled.div`
   }
 
   @media (max-width: 500px) {
-    margin: 60px 0px 50px 0px;
+    margin: 60px 0px 0px 0px;
     align-items: center;
   }
 `;

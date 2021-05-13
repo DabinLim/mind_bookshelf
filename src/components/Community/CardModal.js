@@ -354,6 +354,16 @@ const CardModal = (props) => {
 
   return (
     <React.Fragment>
+      {updateModal ? (
+        <CardUpdateModal
+          setCancelModal={setCancelModal}
+          setAnswer={setAnswer}
+          setUpdateAnswer={setUpdateAnswer}
+          close={props.close}
+          setUpdateModal={setUpdateModal}
+          {...answerInfo}
+        />
+      ) : null}
       {cancelModal ? (
         <CancelConfirm
           {...answerInfo}
@@ -731,16 +741,6 @@ const CardModal = (props) => {
                       position: "relative",
                     }}
                   >
-                    {updateModal ? (
-                      <CardUpdateModal
-                        setCancelModal={setCancelModal}
-                        setAnswer={setAnswer}
-                        setUpdateAnswer={setUpdateAnswer}
-                        close={props.close}
-                        setUpdateModal={setUpdateModal}
-                        {...answerInfo}
-                      />
-                    ) : null}
                     <MoreVertIcon
                       onClick={() => {
                         if (updateModal) {
@@ -1213,10 +1213,9 @@ const ModalRightContainer = styled.div`
   border-radius: 0px 50px 50px 0px;
   @media (max-width: 750px) {
     width: 100%;
-    height: 50%;
     padding: 0;
     border-radius: 0 0 20px 20px;
-    justify-content: space-between;
+    height: 43%;
   }
 `;
 

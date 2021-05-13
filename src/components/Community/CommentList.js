@@ -89,8 +89,8 @@ const CommentContainer = styled.div`
   ::-webkit-scrollbar {
     display: none;
   }
-  @media (max-width: 500px) {
-    height: 186px;
+  @media (max-width: 750px) {
+    height: 300px;
     border-top-right-radius: 0px;
   }
 `;

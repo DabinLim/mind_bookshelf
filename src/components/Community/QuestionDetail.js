@@ -52,31 +52,31 @@ const QuestionDetail = (props) => {
     };
   }, []);
 
-  let color = "";
-  let topic = "";
-  let boxShadow = "";
-  if (question_info?.questionTopic?.length > 0) {
-    topic = question_info?.questionTopic[0];
-    if (question_info?.questionTopic[0] === "나") {
-      color = "#F9D9FC";
-      boxShadow = "0px 0px 15px #F9D1FD";
-    } else if (question_info?.questionTopic[0] === "사랑") {
-      color = "#FEBABA";
-      boxShadow = "0px 0px 15px #FFAAAA";
-    } else if (question_info?.questionTopic[0] === "관계") {
-      color = "#FDF1AE";
-      boxShadow = "0px 0px 15px #FFF09D";
-    } else if (question_info?.questionTopic[0] === "가치") {
-      color = "#C2C8FD";
-      boxShadow = "0px 0px 15px #B5BDFF";
-    } else if (question_info?.questionTopic[0] === "우정") {
-      color = "#C4FCCD";
-      boxShadow = "0px 0px 15px #B9FFC4";
-    } else if (question_info?.questionTopic[0] === "꿈") {
-      color = "#C3E9FD";
-      boxShadow = "0px 0px 15px #B7E6FF";
-    }
-  }
+  // let color = "";
+  // let topic = "";
+  // let boxShadow = "";
+  // if (question_info?.questionTopic?.length > 0) {
+  //   topic = question_info?.questionTopic[0];
+  //   if (question_info?.questionTopic[0] === "나") {
+  //     color = "#F9D9FC";
+  //     boxShadow = "0px 0px 15px #F9D1FD";
+  //   } else if (question_info?.questionTopic[0] === "사랑") {
+  //     color = "#FEBABA";
+  //     boxShadow = "0px 0px 15px #FFAAAA";
+  //   } else if (question_info?.questionTopic[0] === "관계") {
+  //     color = "#FDF1AE";
+  //     boxShadow = "0px 0px 15px #FFF09D";
+  //   } else if (question_info?.questionTopic[0] === "가치") {
+  //     color = "#C2C8FD";
+  //     boxShadow = "0px 0px 15px #B5BDFF";
+  //   } else if (question_info?.questionTopic[0] === "우정") {
+  //     color = "#C4FCCD";
+  //     boxShadow = "0px 0px 15px #B9FFC4";
+  //   } else if (question_info?.questionTopic[0] === "꿈") {
+  //     color = "#C3E9FD";
+  //     boxShadow = "0px 0px 15px #B7E6FF";
+  //   }
+  // }
 
   return (
     <React.Fragment>
@@ -85,9 +85,9 @@ const QuestionDetail = (props) => {
           <Container>
             <ContainerUpper>
               <ContainerUpperLeft>
-                <HashTag style={{ background: color, boxShadow: boxShadow, overflow:'visible' }}>
+                <HashTag style={{ background: "#B5BDFF", boxShadow: "0px 0px 15px #C3C9FE", overflow:'visible' }}>
                   <span>
-                  #{topic}
+                  #{question_info?.questionTopic[0]}
                   </span>
                 </HashTag>
                 <QuestionTitle>

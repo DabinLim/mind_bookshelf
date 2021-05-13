@@ -36,38 +36,38 @@ const CommunityQnA = (props) => {
   return (
     <React.Fragment>
       <QnAContainer>
-        <div>
+        <div style={{display:"flex"}} >
           {props.topic.map((t) => {
-            let color = "";
-            let background = "";
-            if (t === "나") {
-              color = "#F9D9FC";
-              background = "#F9D1FD";
-            } else if (t === "사랑") {
-              color = "#FEBABA";
-              background = "#FFAAAA";
-            } else if (t === "관계") {
-              color = "#FDF1AE";
-              background = "#FFF09D";
-            } else if (t === "가치") {
-              color = "#C2C8FD";
-              background = "#B5BDFF";
-            } else if (t === "우정") {
-              color = "#C4FCCD";
-              background = "#B9FFC4";
-            } else if (t === "꿈") {
-              color = "#C3E9FD";
-              background = "#B7E6FF";
-            }
+            // let color = "";
+            // let background = "";
+            // if (t === "나") {
+            //   color = "#B5BDFF";
+            //   background = "#C3C9FE";
+            // } else if (t === "사랑") {
+            //   color = "#B5BDFF";
+            //   background = "#C3C9FE";
+            // } else if (t === "관계") {
+            //   color = "#B5BDFF";
+            //   background = "#C3C9FE";
+            // } else if (t === "가치") {
+            //   color = "#B5BDFF";
+            //   background = "#C3C9FE";
+            // } else if (t === "우정") {
+            //   color = "#B5BDFF";
+            //   background = "#C3C9FE";
+            // } else if (t === "꿈") {
+            //   color = "#B5BDFF";
+            //   background = "#C3C9FE";
+            // }
             return (
               <Topic
                 style={{
-                  background: color,
-                  boxShadow: `0px 0px 5px ${background}`,
+                  background: "#B5BDFF",
+                  boxShadow: `0px 0px 15px #C3C9FE`,
                   marginBottom: "5px",
                 }}
               >
-                #{t}
+                <span>#{t}</span> 
               </Topic>
             );
           })}
@@ -167,8 +167,8 @@ const Question = styled.div`
   font-weight: 600;
   width: 500px;
   @media (max-width: 500px) {
-    font-size: 22px;
-    width: 220px;
+    font-size: 20px;
+    width: 270px;
   }
 `;
 
@@ -203,9 +203,9 @@ const Answer = styled.div`
   border-radius: 20px;
   margin-right: 20px;
   @media (max-width: 500px) {
-    min-width: 181px;
-    max-width: 181px;
-    height: 144px;
+    min-width: 200px;
+    max-width: 200px;
+    height: 160px;
   }
   box-shadow: 0px 0px 20px #0000001A;
 `;
@@ -294,11 +294,22 @@ const Topic = styled.div`
   margin-top: 30px;
   margin-right: 10px;
   display: inline-block;
-  padding: 5px 14px;
+  min-width: 72px;
+  max-width: 72px;
+  max-height: 31px;
+  padding: 8px 12px;
+  letter-spacing: 0px;
   border-radius: 18px;
   font-weight: 600;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   @media (max-width: 500px) {
     margin-top: 0px;
+    min-width:63px;
+    max-width:63px;
+    max-height:30px;
   }
 `;
 
