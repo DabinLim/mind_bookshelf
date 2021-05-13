@@ -360,7 +360,6 @@ const Header = () => {
       <HeaderContainer>
         <HeaderInnerContainer>
           <NaviContainer>
-            <Logo>Logo</Logo>
             <MobileIcon
               onClick={() => {
                 setMenuOpen(true);
@@ -368,6 +367,27 @@ const Header = () => {
             >
               <MenuIcon />
             </MobileIcon>
+            <Logo>생각낙서</Logo>
+            <div style={{ display: "flex" }}>
+                <MobileIcon style={{ marginLeft: "35px" }}>
+                  {/* {searchModal ? (
+                  <Search
+                    recent_list={recent_list}
+                    setLoading={setLoading}
+                    loading={loading}
+                  />
+                ) : null} */}
+                  <SearchIcon
+                    style={{ cursor: "pointer" }}
+                    onClick={() => {
+                      // recentUser();
+                      // // dispatch(userActions.getRecentUserAX())
+                      // dispatch(setSearch(true));
+                      history.push("/search");
+                    }}
+                  />
+              </MobileIcon>
+              </div>
             <PageButton
               onClick={() => {
                 history.push("/");

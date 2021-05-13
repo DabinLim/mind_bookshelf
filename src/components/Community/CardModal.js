@@ -393,8 +393,8 @@ const CardModal = (props) => {
                           {v.questionTopic[0] === "사랑" && (
                             <BooksSubject
                               style={{
-                                background: "#FFAAAA",
-                                boxShadow: "0px 0px 15px #FFAAAA",
+                                background: "#B5BDFF",
+                                boxShadow: "0px 0px 15px #C3C9FE",
                               }}
                             >
                               <span>#사랑</span>
@@ -403,8 +403,8 @@ const CardModal = (props) => {
                           {v.questionTopic[0] === "우정" && (
                             <BooksSubject
                               style={{
-                                background: "#B9FFC4",
-                                boxShadow: "0px 0px 15px #B9FFC4",
+                                background: "#B5BDFF",
+                                boxShadow: "0px 0px 15px #C3C9FE",
                               }}
                             >
                               <span>#우정</span>
@@ -413,8 +413,8 @@ const CardModal = (props) => {
                           {v.questionTopic[0] === "꿈" && (
                             <BooksSubject
                               style={{
-                                background: "#B7E6FF",
-                                boxShadow: "0px 0px 15px #B7E6FF",
+                                background: "#B5BDFF",
+                                boxShadow: "0px 0px 15px #C3C9FE",
                               }}
                             >
                               <span>#꿈</span>
@@ -424,7 +424,7 @@ const CardModal = (props) => {
                             <BooksSubject
                               style={{
                                 background: "#B5BDFF",
-                                boxShadow: "0px 0px 15px #B5BDFF",
+                                boxShadow: "0px 0px 15px #C3C9FE",
                               }}
                             >
                               <span>#가치</span>
@@ -433,8 +433,8 @@ const CardModal = (props) => {
                           {v.questionTopic[0] === "관계" && (
                             <BooksSubject
                               style={{
-                                background: "#FFF09D",
-                                boxShadow: "0px 0px 15px #FFF09D",
+                                background: "#B5BDFF",
+                                boxShadow: "0px 0px 15px #C3C9FE",
                               }}
                             >
                               <span>#관계</span>
@@ -443,8 +443,8 @@ const CardModal = (props) => {
                           {v.questionTopic[0] === "나" && (
                             <BooksSubject
                               style={{
-                                background: "#F9D1FD",
-                                boxShadow: "0px 0px 15px #F9D1FD",
+                                background: "#B5BDFF",
+                                boxShadow: "0px 0px 15px #C3C9FE",
                               }}
                             >
                               <span>#나</span>
