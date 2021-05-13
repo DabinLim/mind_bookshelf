@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { api as communityActions } from "../redux/modules/community";
 import Loader from "react-loader-spinner";
 import { setLoading } from "../redux/modules/community";
-import ReplayIcon from '@material-ui/icons/Replay';
+import ReplayIcon from "@material-ui/icons/Replay";
 
 const Community = () => {
   const dispatch = useDispatch();
@@ -21,21 +21,25 @@ const Community = () => {
 
   return (
     <React.Fragment>
-      {is_loading ? 
-      <CommunityBtn style={{paddingTop:"5px"}} ><Loader type="TailSpin" color="Black" height={30} width={30} /></CommunityBtn>
-      :
-      <CommunityBtn
-        onClick={()=>{
-          dispatch(communityActions.communityQuestionAX());
-          dispatch(setLoading(true));
-        }}
-      ><ReplayIcon fontSize="large" /></CommunityBtn>
-      }
-      <ImgRight/>
-      <ImgLeft/>
+      {is_loading ? (
+        <CommunityBtn style={{ paddingTop: "5px" }}>
+          <Loader type="TailSpin" color="Black" height={30} width={30} />
+        </CommunityBtn>
+      ) : (
+        <CommunityBtn
+          onClick={() => {
+            dispatch(communityActions.communityQuestionAX());
+            dispatch(setLoading(true));
+          }}
+        >
+          <ReplayIcon fontSize="large" />
+        </CommunityBtn>
+      )}
+      <ImgRight />
+      <ImgLeft />
       <CommunityContainer>
         {is_loading ? (
-          <div style={{marginTop: "250px"}} >
+          <div style={{ marginTop: "250px" }}>
             <Loader type="Oval" color="#3d66ba" height={50} width={50} />
           </div>
         ) : (
@@ -68,7 +72,7 @@ const CommunityBtn = styled.div`
   @media (max-width: 500px) {
     display: none;
   }
-`
+`;
 
 const CommunityBox = styled.div`
   height: 100vh;
@@ -87,7 +91,7 @@ const CommunityBox = styled.div`
     margin: 60px 0px 60px 0px;
     background-size: cover;
     background-repeat: no-repeat;
-    background-image: url("https://user-images.githubusercontent.com/67696504/117994109-4088f980-b37b-11eb-8f2c-9d42c93fd0a3.png")
+    background-image: url("https://user-images.githubusercontent.com/67696504/117994109-4088f980-b37b-11eb-8f2c-9d42c93fd0a3.png");
   }
   ::-webkit-scrollbar {
     display: none;
@@ -104,8 +108,8 @@ const CommunityBox = styled.div`
     background-color: #ffffff; /* color of the scroll thumb */
     border-radius: 20px; /* roundness of the scroll thumb */
   }
-  @media(max-width:750px){
-    margin:50px 0px 0px 0px;
+  @media (max-width: 750px) {
+    margin: 50px 0px 0px 0px;
   }
 `;
 
