@@ -691,10 +691,10 @@ const CardModal = (props) => {
               </RightArrowBtn>
             </>
           )}
-          <ModalContent>
+          <ModalContent type={answerInfo?.type}>
             <CardWriterBox>
               <CardWriterInfoLeft>
-                <CardWriterLeft>
+                <CardWriterLeft type={answerInfo?.type}>
                   <GoBackBtn onClick={props.close}>
                     <LeftOutlined />
                   </GoBackBtn>
@@ -791,7 +791,7 @@ const CardModal = (props) => {
                   </div>
                 </AnswerUpdateBox>
               ) : (
-                <CardAnswerContent style={{ whiteSpace: "pre-wrap" }}>
+                <CardAnswerContent type={answerInfo?.type} style={{ whiteSpace: "pre-wrap" }}>
                   {answerInfo?.answerContents}
                 </CardAnswerContent>
               )}
@@ -889,7 +889,7 @@ const CardModal = (props) => {
                 </CardAnswerContent>
               )}
             </CardWriteLeftBody> */}
-            <IconContainer>
+            <IconContainer type={answerInfo?.type}>
               <IconBox>
                 <LikeContainer>
                   {answerInfo.like ? (
@@ -1018,12 +1018,13 @@ const Component = styled.div`
   width: 100vw;
   background: black;
   z-index: 120;
-  @media (max-width: 500px) {
+  @media (max-width: 750px) {
     z-index: 300;
   }
 `;
 
 const ModalComponent = styled.div`
+  overflow-y:auto;
   /* overflow: hidden; */
   border-radius: 50px;
   position: fixed;
@@ -1041,6 +1042,8 @@ const ModalComponent = styled.div`
   }
 
   @media (max-width: 750px) {
+    border-radius: 16px;
+    ${(props) => (props.book ? `` : `margin-top:60px`)};
     top: 0%;
     left: 0%;
     width: 100%;
@@ -1049,13 +1052,9 @@ const ModalComponent = styled.div`
     align-items: center;
     background: none;
     transform: translate(0%, 0%);
-    margin: 58px 0 0 0;
     z-index: 350;
   }
 
-  @media (max-width: 500px) {
-    margin: 50px 0 0 0;
-  }
 `;
 
 const ModalContent = styled.div`
@@ -1067,7 +1066,7 @@ const ModalContent = styled.div`
 
   @media (max-width: 750px) {
     width: 100%;
-    height: 50%;
+    ${props => props.type === 'book'? `height:100%`:`height:50%`};
     border: none;
     border-radius: 20px 20px 0 0;
     background: white;
@@ -1095,13 +1094,13 @@ const HashTag = styled.span`
     cursor: pointer;
   }
 
-  @media (max-width: 500px) {
+  @media (max-width: 750px) {
     display: none;
   }
 `;
 
 const GoBackBtn = styled.span`
-  @media (min-width: 500px) {
+  @media (min-width: 750px) {
     display: none;
   }
 `;
@@ -1122,7 +1121,7 @@ const SmallHashTag = styled.div`
     cursor: pointer;
   }
 
-  @media (min-width: 500px) {
+  @media (min-width: 750px) {
     display: none;
   }
 `;
@@ -1133,9 +1132,10 @@ const CardWriteLeftBody = styled.div`
   border-bottom: 1px solid #efefef;
   box-sizing: border-box;
 
-  @media (max-width: 500px) {
+  @media (max-width: 750px) {
+    margin-top:30px;
     min-height: 180px;
-    max-height: 180px;
+    ${props => props.type === 'book' ? `max-height: 360px` :`max-height: 180px`};
     padding: 20px 29px 0 20px;
     border-bottom: none;
     display: flex;
@@ -1149,7 +1149,7 @@ const CardWriterBox = styled.div`
   min-height: 30%;
   max-height: 30%;
 
-  @media (max-width: 500px) {
+  @media (max-width: 750px) {
     border: none;
     min-height: 33px;
     max-height: 33px;
@@ -1162,7 +1162,7 @@ const CardWriterInfoLeft = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  @media (max-width: 500px) {
+  @media (max-width: 750px) {
     padding: 20px 29px 10px 20px;
     border-bottom: 1px solid #d3d3d3;
   }
@@ -1176,7 +1176,7 @@ const CardWriterLeft = styled.div`
   height: 100%;
   margin: 0 40px;
 
-  @media (max-width: 500px) {
+  @media (max-width: 750px) {
     margin: 0;
   }
 `;
@@ -1189,7 +1189,7 @@ const CardWriterProfileLeft = styled.div`
   background-size: cover;
   cursor: pointer;
 
-  @media (max-width: 500px) {
+  @media (max-width: 750px) {
     display: none;
   }
 `;
@@ -1205,19 +1205,19 @@ const CardQuestionContent = styled.div`
   letter-spacing: 0px;
   color: #363636;
   opacity: 1;
-  @media (max-width: 500px) {
+  @media (max-width: 750px) {
     display: none;
   }
 `;
 
 const SmallQuestionContent = styled.div`
-  margin: 0;
-  font-size: 21px;
+  
+  font: normal normal bold 19px/27px Noto Sans KR;
   padding: 0;
   font-weight: bold;
   margin: 10px 0;
 
-  @media (min-width: 500px) {
+  @media (min-width: 750px) {
     display: none;
   }
 `;
@@ -1225,10 +1225,11 @@ const SmallQuestionContent = styled.div`
 const CardAnswerContent = styled.div`
   margin: 0 40px 0;
   padding: 30px 0 0 0;
-  @media (max-width: 500px) {
+  @media (max-width: 750px) {
     margin: 0;
     padding: 0;
     width: 100%;
+    ${props => props.type === 'book' ? `min-height:240px`:''};
   }
 `;
 
@@ -1293,7 +1294,7 @@ const ModalCmtInputBox = styled.div`
   box-sizing: border-box;
   border-top: 1px solid #efefef;
 
-  @media (max-width: 500px) {
+  @media (max-width: 750px) {
     min-height: 60px;
     max-height: 60px;
     border-top: 1px solid #d3d3d3;
@@ -1312,7 +1313,7 @@ const ModalUpload = styled.div`
   color: #3897f0;
   font-weight: 600;
 
-  @media (max-width: 500px) {
+  @media (max-width: 750px) {
     margin: 0;
   }
 `;
@@ -1326,9 +1327,11 @@ const IconContainer = styled.div`
   box-sizing: border-box;
   margin: 0 0 0 40px;
 
-  @media (max-width: 500px) {
+  @media (max-width: 750px) {
+    min-height: 50px;
+    max-height: 50px;
     padding: 0 0 0 20px;
-    margin: 0;
+    ${props => props.type === 'book' ? `margin: 200px 0px 0px 0px`:`margin: 0px`};
     border-top: 1px solid #d3d3d3;
     border-bottom: 1px solid #d3d3d3;
   }
@@ -1534,7 +1537,7 @@ const SmallInputBox = styled.div`
   width: 100%;
   padding: 8px 12px;
   justify-content: space-between;
-  @media (min-width: 500px) {
+  @media (min-width: 750px) {
     display: none;
   }
 `;
