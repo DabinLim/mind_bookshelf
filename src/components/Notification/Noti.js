@@ -46,11 +46,12 @@ const Noti = (props) => {
         </NotiFrame>
       ) : (
         <NotiFrame onClick={openCard}>
-          <NotiProfileInfo>
-            <NotiProfile src={props.recentProfileImg}></NotiProfile>
-            <NotiProfileName>{props.recentNickname}님</NotiProfileName>
-          </NotiProfileInfo>
-          <NotiContent>으로부터 {eventType} 알림이 있어요!</NotiContent>
+          <div style={{display:'flex', alignItems: "center", cursor: 'pointer' }} >
+            <NotiProfileInfo>
+              <NotiProfile src={props.recentProfileImg}></NotiProfile>
+              <NotiProfileName><span style={{fontWeight: '600'}}>{props.recentNickname}</span> 님으로부터 {eventType} 알림이 있어요!</NotiProfileName>
+            </NotiProfileInfo>
+          </div>
           <NotiTime>{time_data}</NotiTime>
         </NotiFrame>
       )}
@@ -60,37 +61,31 @@ const Noti = (props) => {
 
 const NotiFrame = styled.div`
   display: flex;
-  align-items: center;
+  align-items: start;
   width: 100%;
-  border: 1px solid #ececec;
-  padding: 12px 16px;
-  cursor: pointer;
-  @media (max-width: 500px){
-    padding: 10px 12px;
-  }
+  justify-content: space-between;
+  padding: 10px 20px;
+  
 `;
 
 const NotiProfileInfo = styled.div`
   display: flex;
   align-items: center;
+  width: 250px;
 `;
 
 const NotiProfile = styled.img`
-  width: 28px;
-  height: 28px;
+  width: 35px;
+  height: 35px;
   border-radius: 50%;
   background: gray;
-  :hover {
-    cursor: pointer;
-  }
 `;
 
 const NotiProfileName = styled.span`
   margin-left: 8px;
-  font-weight: bold;
   font-size: 14px;
-  @media (max-width: 500px){
-    font-size: 13px;
+  &:hover{
+    font-weight: bold;
   }
 `;
 

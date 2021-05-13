@@ -340,8 +340,10 @@ const MainContainer = styled.div`
     border-radius: 20px; /* roundness of the scroll thumb */
   }
 
-  @media (max-width: 500px) {
+  @media (max-width: 750px) {
     margin: 60px 0px 0px 0px;
+  }
+  @media (max-width: 500px){
     align-items: center;
   }
 `;
@@ -370,7 +372,6 @@ const LoaderBox = styled.div`
 const MainUpper = styled.section`
   margin-top: 30px;
   text-align: center;
-
   @media (max-width: 500px) {
     text-align: left;
     width: 100%;

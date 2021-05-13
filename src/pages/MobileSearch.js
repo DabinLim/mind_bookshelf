@@ -108,7 +108,7 @@ const MobileSearch = (props) => {
                         </UserInfoContainer>
               })
               :
-              <UserText>최신 유저 목록이 없습니다.</UserText> 
+              <UserText>최근 유저 목록이 없습니다.</UserText> 
               }
             </UserContainer>
             }
@@ -125,9 +125,13 @@ const SearchContainer = styled.div`
   height: 100vh;
   align-items: center;
   color: black;
-  display: flex;
+  display: none;
   flex-direction: column;
   margin-top: 60px;
+  @media (max-width: 750px) {
+    display: flex;
+  }
+
 `
 
 const SearchInput = styled.input`

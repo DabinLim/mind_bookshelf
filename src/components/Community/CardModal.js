@@ -26,6 +26,7 @@ import CancelConfirm from "./CancelConfirm";
 import { LeftOutlined } from "@ant-design/icons";
 import ChannelService from "../../shared/ChannelService";
 
+
 const CardModal = (props) => {
   const answerInfo = useSelector((state) => state.community.card_detail);
   const comment_list = useSelector((state) => state.comment.list);

@@ -22,13 +22,19 @@ const MobileNoti = (props) => {
     };
   },[])
 
+  const closeCard = () => {
+    setCardModal(false)
+  }
 
   return(
     <React.Fragment>
       {cardModal ? 
-        <CardModal/>
+        <CardModal close={closeCard} />
         :null}
       <NotiContainer>
+        <NotiHeader>
+          알람
+        </NotiHeader>
         <MobileNotiList setCardModal={setCardModal} />
         <MobileNewNotiList setCardModal={setCardModal} />
       </NotiContainer>
@@ -42,10 +48,24 @@ const NotiContainer = styled.div`
   height: 100vh;
   align-items: center;
   color: black;
-  display: flex;
+  display: none;
   flex-direction: column;
   margin-top: 60px;
+  @media (max-width: 750px) {
+    display: flex;
+  }
 `
+
+const NotiHeader = styled.div`
+width: 100%;
+padding: 10px 20px;
+text-align: left;
+margin-top: 25px;
+font: normal normal bold 14px/16px Roboto;
+letter-spacing: 0px;
+color: #333333;
+`
+
 
 export default MobileNoti
 
