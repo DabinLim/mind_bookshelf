@@ -38,7 +38,13 @@ const TagContainer = styled.div`
   background-color: white;
   z-index: 30;
   bottom: 66px;
+  border-radius: 10px;
   box-shadow: 0 3px 6px rgba(0,0,0,0.12), 0 2px 5px rgba(0,0,0,0.24);
+  @media (max-width: 750px) {
+    left:5px;
+    bottom:80px;
+    
+  }
 `
 
 const SpinContainer = styled.div`
