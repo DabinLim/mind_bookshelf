@@ -72,7 +72,7 @@ const Search = (props) => {
             </UserContainer>
             :
             <UserContainer>
-              <RecentSearch>최신검색</RecentSearch>
+              <RecentSearch>최근검색</RecentSearch>
               {props.recent_list ? 
               props.recent_list.map((r) => {
                 return  <UserInfoContainer style={{marginTop: "10px"}} key={r.id} onClick={() => clickOther(r.searchUserId)} >
@@ -81,7 +81,7 @@ const Search = (props) => {
                         </UserInfoContainer>
               })
               :
-              <UserText>최신 유저 목록이 없습니다.</UserText> 
+              <UserText>최근 유저 목록이 없습니다.</UserText> 
               }
             </UserContainer>
             }

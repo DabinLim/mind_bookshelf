@@ -18,15 +18,10 @@ import { getCookie } from "./Cookie";
 import axios from "axios";
 import { CardModal } from "../components/Community/communityindex";
 import { About } from "./sharedindex";
-import ForumIcon from "@material-ui/icons/Forum";
-import ImportContactsIcon from "@material-ui/icons/ImportContactsOutlined";
-import ForumOutlinedIcon from "@material-ui/icons/ForumOutlined";
-import HomeIcon from "@material-ui/icons/Home";
-import HomeOutlinedIcon from "@material-ui/icons/HomeOutlined";
-import ChatOutlinedIcon from "@material-ui/icons/ChatOutlined";
 import { CloseOutlined } from "@ant-design/icons";
 import CollectionsBookmarkIcon from "@material-ui/icons/CollectionsBookmark";
 import CollectionsBookmarkOutlinedIcon from "@material-ui/icons/CollectionsBookmarkOutlined";
+import NotificationsNoneOutlinedIcon from '@material-ui/icons/NotificationsNoneOutlined';
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -178,23 +173,24 @@ const Header = () => {
                       history.push("/search");
                     }}
                   />
-                </MobileIcon>
-                <MobileIcon>
-                  {is_checked ? <AlarmBadge /> : null}
-                  {notiModal ? (
-                    <Notification
-                      close={closeNotiModal}
-                      setCardModal={setCardModal}
-                    />
-                  ) : null}
-                  <NotificationsIcon
-                    style={{ cursor: "pointer" }}
-                    onClick={() => {
-                      setNoti(true);
-                      dispatch(notiActions.openAlarmIO(user.id));
-                    }}
+              </MobileIcon>
+              <MobileIcon>
+                {is_checked ? <AlarmBadge /> : null}
+                {notiModal ? (
+                  <Notification
+                    close={closeNotiModal}
+                    setCardModal={setCardModal}
                   />
-                </MobileIcon>
+                ) : null}
+                <NotificationsNoneOutlinedIcon
+                style={{ cursor: "pointer" }}
+                onClick={() => {
+                  // setNoti(true);
+                  // dispatch(notiActions.openAlarmIO(user.id));
+                  history.push('/noti')
+                }}
+              />
+              </MobileIcon>
               </div>
               <PageButton
                 onClick={() => {
@@ -585,6 +581,7 @@ const Logo = styled.div`
     margin-right: 80px;
   }
   @media (max-width: 750px) {
+    margin-left: 35px;
     margin-right: 0px;
   } ;
 `;

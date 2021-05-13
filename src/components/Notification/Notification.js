@@ -11,12 +11,25 @@ const Notification = (props) => {
     <React.Fragment>
       <Background onClick={props.close} />
       <SearchContainer>
+        <NotiHeader>
+          알람
+        </NotiHeader>
         <NewNotiList setCardModal={props.setCardModal} close={props.close} />
         <NotiList setCardModal={props.setCardModal} close={props.close} />
       </SearchContainer>
     </React.Fragment>
   );
 };
+
+const NotiHeader = styled.div`
+width: 100%;
+padding: 10px 20px;
+text-align: left;
+margin-top: 10px;
+font: normal normal bold 14px/16px Roboto;
+letter-spacing: 0px;
+color: #333333;
+`
 
 const SearchContainer = styled.div`
   border-radius:20px;
