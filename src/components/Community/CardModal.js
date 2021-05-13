@@ -795,6 +795,68 @@ const CardModal = (props) => {
                   {answerInfo?.answerContents}
                 </CardAnswerContent>
               )}
+              {answerInfo?.type ==='book' && <TodayCards>
+                <DateBox>
+                <Date>
+                <ArrowForwardIosIcon
+                  disabled={card_loading}
+                  onClick={() => {
+                    setUpdateAnswer(false);
+                    previousDay();
+                  }}
+                  style={{
+                    cursor: "pointer",
+                    transform: "rotateZ(180deg)",
+                    color: "#000000",
+                    fontSize: "16px",
+                  }}
+                />
+                <span
+                  style={{
+                    fontWeight: "600",
+                    fontSize: "14px",
+                    color: "#000000",
+                  }}
+                >
+                  {nowdate.format("M")}월{nowdate.format("D")}일
+                </span>
+                <ArrowForwardIosIcon
+                  disabled={card_loading}
+                  onClick={() => {
+                    setUpdateAnswer(false);
+                    nextDay();
+                  }}
+                  style={{
+                    cursor: "pointer",
+                    color: "#000000",
+                    fontSize: "16px",
+                  }}
+                />
+                    </Date>
+                    </DateBox>
+                  <Cards>
+                    {answerQuantity.length && answerQuantity.map((v,idx)=> {
+                      console.log(v)
+                      if(v.answerId === answerInfo.answerId){
+                        return(
+                          <div style={{display:'flex',flexDirection:'row',alignItems:'center'}}>
+                            <Selected>{v.questionContents}</Selected>
+                            <span style={{font:'normal normal 300 10px/15px Noto Sans KR',color:'#939393',marginLeft:'10px'}}>현재글</span>
+                          </div>
+                        )
+                      } else{
+                        return(
+                          <NotSelected disabled={card_loading}
+                          onClick={() => {
+                            setUpdateAnswer(false);
+                            selectedCard(v.answerId);
+                          }}>{v.questionContents}</NotSelected>
+                        )
+                      }
+                    })}
+                  </Cards>
+              </TodayCards>}
+              
             </CardWriteLeftBody>
             {/* <IconContainer>
               <IconBox>
@@ -1322,6 +1384,9 @@ const CardDate = styled.div`
   position: absolute;
   top: -60px;
   left: 42%;
+  @media(max-width:750px){
+    display:none;
+  }
 `;
 
 const LeftArrowBtn = styled.button`
@@ -1348,6 +1413,13 @@ const LeftArrowBtn = styled.button`
     transform: scale(1.1);
     box-shadow: 0px 0px 20px #ffffff;
   }
+  @media(max-width:1100px){
+    top:-100px;
+    left:25%;
+  }
+  @media(max-width:750px){
+    display:none;
+  }
 `;
 
 const RightArrowBtn = styled.button`
@@ -1373,6 +1445,13 @@ const RightArrowBtn = styled.button`
   :hover {
     transform: scale(1.1);
     box-shadow: 0px 0px 20px #ffffff;
+  }
+  @media(max-width:1100px){
+    top:-100px;
+    left:65%;
+  }
+  @media(max-width:750px){
+    display:none;
   }
 `;
 
@@ -1459,5 +1538,63 @@ const SmallInputBox = styled.div`
     display: none;
   }
 `;
+
+const TodayCards = styled.div`
+  width:100%;
+  min-height:160px;
+  border: 0.5px solid #D9D9D9;
+  box-sizing:border-box;
+  padding:15px;
+  @media(min-width:750px){
+    display:none;
+  }
+`;
+
+const DateBox = styled.div`
+  display:flex;
+  flex-direction:row;
+  justify-content: flex-start;
+  margin-bottom:10px;
+`;
+
+const Date = styled.div`
+  display:flex;
+  flex-direction:row;
+  align-items:center;
+  justify-content:space-between;
+`;
+
+const Cards = styled.div`
+  display:flex;
+  flex-direction:column;
+  width:100%;
+`;
+
+const Selected = styled.span`
+  width:80%;
+  margin-bottom:10px;
+  max-height:24px;
+  font:normal normal normal 12px/30px Noto Sans KR;
+  color:#000000;
+  opacity:0.9;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`;
+
+const NotSelected = styled.span`
+width:80%;
+margin-bottom:10px;
+max-height:24px;
+  font:normal normal normal 12px/30px Noto Sans KR;
+  color:#D3D3D3;
+  opacity:0.9;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`;
+
 
 export default CardModal;

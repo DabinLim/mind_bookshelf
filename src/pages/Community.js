@@ -124,7 +124,7 @@ const CommunityContainer = styled.div`
   justify-content: space-between;
   overflow-y: auto;
   @media (max-width: 900px) {
-    z-index: 40;
+    z-index: 20;
   }
 `;
 

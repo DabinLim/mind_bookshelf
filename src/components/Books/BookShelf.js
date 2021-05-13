@@ -852,35 +852,7 @@ const BookRow = styled.div`
 `;
 
 const Book = styled.div`
-  @keyframes book {
-    0% {
-      transform: translate(0, 0) rotateZ(0deg);
-    }
-    12% {
-      transform: translate(0, -300px) rotateZ(1800deg) scale(0.7);
-    }
-    25% {
-      transform: translate(300px, -300px) rotateZ(3600deg) scale(0.5);
-    }
-    37% {
-      transform: translate(300px, 0px) rotateZ(4800deg) scale(0.2);
-    }
-    50% {
-      transform: translate(0px, 0px) rotateZ(7200deg) scale(0);
-    }
-    67% {
-      transform: translate(0, -300px) rotateZ(9000deg) scale(0.2);
-    }
-    75% {
-      transform: translate(300px, -300px) rotateZ(10800deg) scale(0.5);
-    }
-    87% {
-      transform: translate(300px, 0px) rotateZ(12600deg) scale(0.7);
-    }
-    100% {
-      transform: translate(0px, 0px) rotateZ(14400deg) scale(1);
-    }
-  }
+  
   position: relative;
   display: flex;
   align-items: center;
@@ -892,8 +864,7 @@ const Book = styled.div`
 
   &:hover {
     z-index: 40;
-    animation: book 4s infinite forwards;
-    transition: linear 4s;
+    transform:translateY(-20%);
   }
   @media (max-width: 1000px) {
     margin: 0px 5px;
