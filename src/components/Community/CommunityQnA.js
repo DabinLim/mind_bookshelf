@@ -3,26 +3,12 @@ import styled from "styled-components";
 import { history } from "../../redux/configStore";
 import { CardModal } from "./communityindex";
 import { useSelector, useDispatch } from "react-redux";
-import { api as commentActions } from "../../redux/modules/comment";
-import { api as communityActions } from "../../redux/modules/community";
 import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 
 const CommunityQnA = (props) => {
-  const dispatch = useDispatch();
-  const [cardModal, setCardModal] = useState(false);
   const user = useSelector((state) => state.user.user);
-  const closeCardModal = () => {
-    setCardModal(false);
-  };
-
-  const openCard = (a) => {
-    const type = "community";
-    setCardModal(true);
-    dispatch(communityActions.getCardDetail(a.answerId, type));
-    dispatch(commentActions.getCommentAX(a.answerId));
-  };
 
   const getDate = (date) => {
     let year = "20" + date.substring(0, 2);
@@ -66,7 +52,7 @@ const CommunityQnA = (props) => {
           {props.answers.map((a) => {
             return (
               <Answer key={a.id}>
-                {cardModal ? <CardModal close={closeCardModal} /> : null}
+                
                 <AnswerHeader
                   onClick={() => {
                     if (a.userId === user.id) {
@@ -81,7 +67,7 @@ const CommunityQnA = (props) => {
                 </AnswerHeader>
                 <AnswerContents
                   onClick={() => {
-                    openCard(a);
+                    props.openCard(a);
                   }}
                 >
                   {a.contents}
@@ -102,7 +88,7 @@ const CommunityQnA = (props) => {
                     </LikeBox>
                     <CommentBox
                       onClick={() => {
-                        openCard(a);
+                        props.openCard(a);
                       }}
                     >
                       <ChatBubbleOutlineIcon />
