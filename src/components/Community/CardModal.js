@@ -377,6 +377,7 @@ const CardModal = (props) => {
               {answerQuantity.length &&
                 answerQuantity.map((v, idx) => {
                   if (v.answerId !== answerInfo.answerId && !card_loading) {
+                    console.log('씨발')
                     return (
                       <DetailContainer key={idx}>
                         <Head>
@@ -532,6 +533,7 @@ const CardModal = (props) => {
                 {answerQuantity.length &&
                   answerQuantity.map((v, idx) => {
                     if (v.answerId !== answerInfo.answerId && !card_loading) {
+                      console.log('씨발')
                       return (
                         <DetailContainer key={idx}>
                           <Head>
@@ -953,6 +955,47 @@ const CardModal = (props) => {
           <ModalRightContainer>
             <CommentList />
             <ModalCmtInputBox>
+              <WebModalInputBox>
+            <ModalCmtInput
+                  type="text"
+                  placeholder="게시물에 대해 이야기를 나눠보세요."
+                  onChange={selectComment}
+                  value={comments}
+                  ref={cmtInput}
+                  onKeyPress={(e) => {
+                    if (e.key === "Enter") {
+                      addComment();
+                    }
+                  }}
+                  onKeyUp={(e) => {
+                    if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
+                      selectComment(e);
+                    }
+                  }}
+                  onClick={selectComment}
+                />
+                {ok_submit ? (
+                  <ModalUpload
+                    onClick={() => {
+                      if (!getCookie("is_login")) {
+                        swal({
+                          title: "댓글 추가 실패 😥",
+                          text: "로그인 후 이용 가능한 서비스입니다.",
+                          icon: "error",
+                        });
+                        setComments("");
+                        return;
+                      }
+                      addComment();
+                    }}
+                    style={{ cursor: "pointer" }}
+                  >
+                    게시
+                  </ModalUpload>
+                ) : (
+                  <ModalUpload style={{ opacity: "0.3" }}>게시</ModalUpload>
+                )}
+              </WebModalInputBox>
               <SmallInputBox>
                 <ModalCmtInput
                   type="text"
@@ -1024,7 +1067,6 @@ const Component = styled.div`
 `;
 
 const ModalComponent = styled.div`
-  overflow-y:auto;
   /* overflow: hidden; */
   border-radius: 50px;
   position: fixed;
@@ -1042,6 +1084,7 @@ const ModalComponent = styled.div`
   }
 
   @media (max-width: 750px) {
+    overflow-y:auto;
     border-radius: 16px;
     ${(props) => (props.book ? `` : `margin-top:60px`)};
     top: 0%;
@@ -1135,8 +1178,9 @@ const CardWriteLeftBody = styled.div`
   @media (max-width: 750px) {
     margin-top:30px;
     min-height: 180px;
-    ${props => props.type === 'book' ? `max-height: 360px` :`max-height: 180px`};
-    padding: 20px 29px 0 20px;
+    ${props => props.type === 'book' ? `max-height: 360px` :`max-height: 360px`};
+    ${props => props.type === 'book' ? `padding: 20px 29px 0 20px` :`padding: 20px 29px 150px 20px`};
+    /* padding: 20px 29px 0 20px; */
     border-bottom: none;
     display: flex;
     width: 100%;
@@ -1229,7 +1273,7 @@ const CardAnswerContent = styled.div`
     margin: 0;
     padding: 0;
     width: 100%;
-    ${props => props.type === 'book' ? `min-height:240px`:''};
+    ${props => props.type === 'book' ? `min-height:220px`:''};
   }
 `;
 
@@ -1331,7 +1375,7 @@ const IconContainer = styled.div`
     min-height: 50px;
     max-height: 50px;
     padding: 0 0 0 20px;
-    ${props => props.type === 'book' ? `margin: 200px 0px 0px 0px`:`margin: 0px`};
+    ${props => props.type === 'book' ? `margin: 380px 0px 0px 0px`:`margin: 0px`};
     border-top: 1px solid #d3d3d3;
     border-bottom: 1px solid #d3d3d3;
   }
@@ -1472,6 +1516,9 @@ const DetailContainer = styled.div`
   width: 50%;
   height: 100%;
   margin: 0px 45px 0px 10px;
+  @media(max-width:750px){
+    display:none;
+  }
 `;
 
 const Head = styled.div`
@@ -1528,6 +1575,17 @@ const Contents = styled.span`
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+`;
+
+const WebModalInputBox = styled.div`
+width:100%;
+display: flex;
+  justify-content: space-between;
+  flex-direction:row;
+  align-items: center;
+  @media(max-width:750px){
+    display:none;
+  }
 `;
 
 const SmallInputBox = styled.div`
