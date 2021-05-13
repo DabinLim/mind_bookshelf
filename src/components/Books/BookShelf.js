@@ -1,65 +1,32 @@
 import React from "react";
 import styled from "styled-components";
-import { history } from "../../redux/configStore";
-import {CardDetail} from './booksindex';
-import { ArrowLeft, ArrowRight } from "@material-ui/icons";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
-import { changeDate, setComponent, setDateVisible, setBookDetailModal } from "../../redux/modules/books";
-import CardModal from '../Community/CardModal';
+import { changeDate, setBookDetailModal } from "../../redux/modules/books";
+import CardModal from "../Community/CardModal";
 import { useSelector, useDispatch } from "react-redux";
-import { api as booksActions} from "../../redux/modules/books";
+import { api as booksActions } from "../../redux/modules/books";
 
 const BookShelf = (props) => {
-//   let num = 32;
-//   let book = [];
-//   for (let i = 1; i < num; i++) {
-//     book.push(i);
-//   }
-// const book_1 = book.filter((v, idx) => {
-//     if (idx < 15) {
-//       return true;
-//     }
-//   });
-//   const book_2 = book.filter((v, idx) => {
-//     if (idx >= 15) {
-//       return true;
-//     }
-//   });
-// const [bookDetailModal, setBookDetailModal] = React.useState(null);
-const bookDetailModal = useSelector(state=> state.books.book_detail_modal);
-// const [date_visible, setDateVisible ] = React.useState(true);
-const date_visible = useSelector(state => state.books.date_visible);
+  const bookDetailModal = useSelector((state) => state.books.book_detail_modal);
+  const date_visible = useSelector((state) => state.books.date_visible);
   const dispatch = useDispatch();
   const formated_date = useSelector((state) => state.books.formated_date);
   const book_list = useSelector((state) => state.books.books);
   const [cardDetailModal, setCardDetailModal] = React.useState(false);
   const url = window.location.href.split("/");
   let id = url[url.length - 1];
-  const date = useSelector((state) => state.books.date);
 
   const openBook = (givendate) => {
     dispatch(changeDate(`20${givendate}`));
-    // if (id === "mybook") {
-    //   history.push(`/mybook/${v._id}`);
-    // } else {
-    //   history.push(`/others/${id}/${v._id}`);
-    // }
-    // if(bookDetailModal === givendate){
-    //   dispatch(setBookDetailModal(null));
-    //   dispatch(setDateVisible(true));
-    //   console.log(givendate, bookDetailModal)
-    //   return
-    // }
-    if(id === 'mybook'){
+    if (id === "mybook") {
       dispatch(booksActions.getNextDetail(givendate));
-    }else{
-      dispatch(booksActions.getNextOthersBookDetail(givendate,id))
+    } else {
+      dispatch(booksActions.getNextOthersBookDetail(givendate, id));
     }
     setCardDetailModal(givendate);
     dispatch(setBookDetailModal(givendate));
-    // dispatch(setDateVisible(false));
-    console.log(givendate, bookDetailModal)
-  }
+    console.log(givendate, bookDetailModal);
+  };
 
   const book_1 = book_list.filter((v, idx) => {
     if (idx < 15) {
@@ -73,51 +40,44 @@ const date_visible = useSelector(state => state.books.date_visible);
   });
 
   const book_mobile_1 = book_list.filter((v, idx) => {
-    if(idx < 5) {
-      return true
+    if (idx < 5) {
+      return true;
     }
-  })
+  });
 
   const book_mobile_2 = book_list.filter((v, idx) => {
-    if(5 <= idx && idx < 10) {
-      return true
+    if (5 <= idx && idx < 10) {
+      return true;
     }
-  })
+  });
 
   const book_mobile_3 = book_list.filter((v, idx) => {
-    if(10 <= idx  && idx < 15) {
-      return true
+    if (10 <= idx && idx < 15) {
+      return true;
     }
-  })
+  });
 
   const book_mobile_4 = book_list.filter((v, idx) => {
-    if(15 <= idx  && idx < 20) {
-      return true
+    if (15 <= idx && idx < 20) {
+      return true;
     }
-  })
+  });
 
   const book_mobile_5 = book_list.filter((v, idx) => {
-    if(20 <= idx && idx < 25) {
-      return true
+    if (20 <= idx && idx < 25) {
+      return true;
     }
-  })
+  });
 
   const book_mobile_6 = book_list.filter((v, idx) => {
-    if(25 <= idx) {
-      return true
+    if (25 <= idx) {
+      return true;
     }
-  })
-
-  console.log(book_mobile_1)
-  console.log(book_mobile_2)
-  console.log(book_mobile_3)
-  console.log(book_mobile_4)
-  console.log(book_mobile_5)
-  console.log(book_mobile_6)
+  });
 
   const close = () => {
     setCardDetailModal(false);
-};
+  };
 
   const previousMonth = () => {
     if (id === "mybook") {
@@ -148,57 +108,97 @@ const date_visible = useSelector(state => state.books.date_visible);
     <React.Fragment>
       <Container>
         <ForDate>
-          {date_visible ? 
-          <>
-          <ArrowForwardIosIcon style={{fontSize:'16px',transform:'rotateZ(180deg)'}} onClick={previousMonth} cursor='pointer'/>
-          <span style={{margin:'0px 10px'}}>{formated_date}</span> 
-          <ArrowForwardIosIcon style={{fontSize:'16px'}} onClick={nextMonth} cursor='pointer'/>
-          </>
-          : ''}
+          {date_visible ? (
+            <>
+              <ArrowForwardIosIcon
+                style={{ fontSize: "16px", transform: "rotateZ(180deg)" }}
+                onClick={previousMonth}
+                cursor="pointer"
+              />
+              <span style={{ margin: "0px 10px" }}>{formated_date}</span>
+              <ArrowForwardIosIcon
+                style={{ fontSize: "16px" }}
+                onClick={nextMonth}
+                cursor="pointer"
+              />
+            </>
+          ) : (
+            ""
+          )}
         </ForDate>
         <ShelfBox>
           {/* <ImgLeft/> */}
           <BookRow>
-          {book_1 &&
+            {book_1 &&
               book_1.map((v, idx) => {
                 return (
                   <>
-                  {/* {bookDetailModal === v._id && <BookDetail openCard={setCardDetailModal} openBook={openBook} date={v._id}/>} */}
-                  {cardDetailModal === v._id && <CardModal book date={v._id} close={close}/>}
-                  {v.count === 1 && <Book
-                    key={idx}
-                  >
-                    <div style={{position:'relative', width:'100%', height:'100%', cursor:'pointer',zIndex:'3'}} onClick={() => {openBook(v._id)}}>
-                    </div>
-                      <Date>
-                      {v._id.charAt(v._id.length - 2)}
-                      {v._id.charAt(v._id.length - 1)}
-                    </Date>
-                    <BookImage src='https://user-images.githubusercontent.com/77574867/117760850-53a7a680-b261-11eb-8a8e-2727d0edbc91.png'/>
-                  </Book>}
-                  {v.count === 2 && <Book
-                    key={idx}
-                  >
-                    <div style={{position:'relative', width:'100%', height:'100%', cursor:'pointer',zIndex:'3'}} onClick={() => {openBook(v._id)}}>
-                    </div>
-                      <Date>
-                      {v._id.charAt(v._id.length - 2)}
-                      {v._id.charAt(v._id.length - 1)}
-                    </Date>
-                    <BookImage src='https://user-images.githubusercontent.com/77574867/117760848-530f1000-b261-11eb-8593-6e8d9699c0b4.png'/>
-                  </Book>}
-                  {v.count >= 3  && <Book
-                    key={idx}
-                  >
-                    <div style={{position:'relative', width:'100%', height:'100%', cursor:'pointer',zIndex:'3'}} onClick={() => {openBook(v._id)}}>
-                    </div>
-                      <Date>
-                      {v._id.charAt(v._id.length - 2)}
-                      {v._id.charAt(v._id.length - 1)}
-                    </Date>
-                    <BookImage src='https://user-images.githubusercontent.com/77574867/117760845-51dde300-b261-11eb-8d57-7bdd1870d003.png'/>
-                  </Book>}
-                  
+                    {cardDetailModal === v._id && (
+                      <CardModal book date={v._id} close={close} />
+                    )}
+                    {v.count === 1 && (
+                      <Book key={idx}>
+                        <div
+                          style={{
+                            position: "relative",
+                            width: "100%",
+                            height: "100%",
+                            cursor: "pointer",
+                            zIndex: "3",
+                          }}
+                          onClick={() => {
+                            openBook(v._id);
+                          }}
+                        ></div>
+                        <Date>
+                          {v._id.charAt(v._id.length - 2)}
+                          {v._id.charAt(v._id.length - 1)}
+                        </Date>
+                        <BookImage src="https://user-images.githubusercontent.com/77574867/117760850-53a7a680-b261-11eb-8a8e-2727d0edbc91.png" />
+                      </Book>
+                    )}
+                    {v.count === 2 && (
+                      <Book key={idx}>
+                        <div
+                          style={{
+                            position: "relative",
+                            width: "100%",
+                            height: "100%",
+                            cursor: "pointer",
+                            zIndex: "3",
+                          }}
+                          onClick={() => {
+                            openBook(v._id);
+                          }}
+                        ></div>
+                        <Date>
+                          {v._id.charAt(v._id.length - 2)}
+                          {v._id.charAt(v._id.length - 1)}
+                        </Date>
+                        <BookImage src="https://user-images.githubusercontent.com/77574867/117760848-530f1000-b261-11eb-8593-6e8d9699c0b4.png" />
+                      </Book>
+                    )}
+                    {v.count >= 3 && (
+                      <Book key={idx}>
+                        <div
+                          style={{
+                            position: "relative",
+                            width: "100%",
+                            height: "100%",
+                            cursor: "pointer",
+                            zIndex: "3",
+                          }}
+                          onClick={() => {
+                            openBook(v._id);
+                          }}
+                        ></div>
+                        <Date>
+                          {v._id.charAt(v._id.length - 2)}
+                          {v._id.charAt(v._id.length - 1)}
+                        </Date>
+                        <BookImage src="https://user-images.githubusercontent.com/77574867/117760845-51dde300-b261-11eb-8d57-7bdd1870d003.png" />
+                      </Book>
+                    )}
                   </>
                 );
               })}
@@ -207,342 +207,551 @@ const date_visible = useSelector(state => state.books.date_visible);
         </ShelfBox>
         <ShelfBox>
           <BookRow>
-          {book_2 &&
+            {book_2 &&
               book_2.map((v, idx) => {
                 return (
                   <>
-                  {/* {bookDetailModal === v._id && <BookDetailLow openCard={setCardDetailModal} openBook={openBook} date={v._id}/>} */}
-                  {cardDetailModal === v._id && <CardModal book date={v._id} close={close}/>}
-                  {v.count === 1 && <Book
-                    key={idx}
-                  >
-                    <div style={{position:'relative', width:'100%', height:'100%', cursor:'pointer',zIndex:'3'}} onClick={() => {openBook(v._id)}}>
-                    </div>
-                      <Date>
-                      {v._id.charAt(v._id.length - 2)}
-                      {v._id.charAt(v._id.length - 1)}
-                    </Date>
-                    <BookImage src='https://user-images.githubusercontent.com/77574867/117760850-53a7a680-b261-11eb-8a8e-2727d0edbc91.png'/>
-                  </Book>}
-                  {v.count === 2 && <Book
-                    key={idx}
-                  >
-                    <div style={{position:'relative', width:'100%', height:'100%', cursor:'pointer',zIndex:'3'}} onClick={() => {openBook(v._id)}}>
-                    </div>
-                      <Date>
-                      {v._id.charAt(v._id.length - 2)}
-                      {v._id.charAt(v._id.length - 1)}
-                    </Date>
-                    <BookImage src='https://user-images.githubusercontent.com/77574867/117760848-530f1000-b261-11eb-8593-6e8d9699c0b4.png'/>
-                  </Book>}
-                  {v.count >= 3  && <Book
-                    key={idx}
-                  >
-                    <div style={{position:'relative', width:'100%', height:'100%', cursor:'pointer',zIndex:'3'}} onClick={() => {openBook(v._id)}}>
-                    </div>
-                      <Date>
-                      {v._id.charAt(v._id.length - 2)}
-                      {v._id.charAt(v._id.length - 1)}
-                    </Date>
-                    <BookImage src='https://user-images.githubusercontent.com/77574867/117760845-51dde300-b261-11eb-8d57-7bdd1870d003.png'/>
-                  </Book>}
+                    {cardDetailModal === v._id && (
+                      <CardModal book date={v._id} close={close} />
+                    )}
+                    {v.count === 1 && (
+                      <Book key={idx}>
+                        <div
+                          style={{
+                            position: "relative",
+                            width: "100%",
+                            height: "100%",
+                            cursor: "pointer",
+                            zIndex: "3",
+                          }}
+                          onClick={() => {
+                            openBook(v._id);
+                          }}
+                        ></div>
+                        <Date>
+                          {v._id.charAt(v._id.length - 2)}
+                          {v._id.charAt(v._id.length - 1)}
+                        </Date>
+                        <BookImage src="https://user-images.githubusercontent.com/77574867/117760850-53a7a680-b261-11eb-8a8e-2727d0edbc91.png" />
+                      </Book>
+                    )}
+                    {v.count === 2 && (
+                      <Book key={idx}>
+                        <div
+                          style={{
+                            position: "relative",
+                            width: "100%",
+                            height: "100%",
+                            cursor: "pointer",
+                            zIndex: "3",
+                          }}
+                          onClick={() => {
+                            openBook(v._id);
+                          }}
+                        ></div>
+                        <Date>
+                          {v._id.charAt(v._id.length - 2)}
+                          {v._id.charAt(v._id.length - 1)}
+                        </Date>
+                        <BookImage src="https://user-images.githubusercontent.com/77574867/117760848-530f1000-b261-11eb-8593-6e8d9699c0b4.png" />
+                      </Book>
+                    )}
+                    {v.count >= 3 && (
+                      <Book key={idx}>
+                        <div
+                          style={{
+                            position: "relative",
+                            width: "100%",
+                            height: "100%",
+                            cursor: "pointer",
+                            zIndex: "3",
+                          }}
+                          onClick={() => {
+                            openBook(v._id);
+                          }}
+                        ></div>
+                        <Date>
+                          {v._id.charAt(v._id.length - 2)}
+                          {v._id.charAt(v._id.length - 1)}
+                        </Date>
+                        <BookImage src="https://user-images.githubusercontent.com/77574867/117760845-51dde300-b261-11eb-8d57-7bdd1870d003.png" />
+                      </Book>
+                    )}
                   </>
                 );
               })}
-              
           </BookRow>
           <Shelf></Shelf>
         </ShelfBox>
         <ShelfBoxMobile>
           <BookRow>
-          {book_mobile_1 &&
+            {book_mobile_1 &&
               book_mobile_1.map((v, idx) => {
                 return (
                   <>
-                  {/* {bookDetailModal === v._id && <BookDetailLow openCard={setCardDetailModal} openBook={openBook} date={v._id}/>} */}
-                  {cardDetailModal === v._id && <CardModal book date={v._id} close={close}/>}
-                  {v.count === 1 && <Book
-                    key={idx}
-                  >
-                    <div style={{position:'relative', width:'100%', height:'100%', cursor:'pointer',zIndex:'3'}} onClick={() => {openBook(v._id)}}>
-                    </div>
-                      <Date>
-                      {v._id.charAt(v._id.length - 2)}
-                      {v._id.charAt(v._id.length - 1)}
-                    </Date>
-                    <BookImage src='https://user-images.githubusercontent.com/77574867/117977886-3ca1ab00-b36c-11eb-8b1f-3f14de5a096d.png'/>
-                  </Book>}
-                  {v.count === 2 && <Book
-                    key={idx}
-                  >
-                    <div style={{position:'relative', width:'100%', height:'100%', cursor:'pointer',zIndex:'3'}} onClick={() => {openBook(v._id)}}>
-                    </div>
-                      <Date>
-                      {v._id.charAt(v._id.length - 2)}
-                      {v._id.charAt(v._id.length - 1)}
-                    </Date>
-                    <BookImage src='https://user-images.githubusercontent.com/77574867/117977881-3c091480-b36c-11eb-8fef-0f43a351bedc.png'/>
-                  </Book>}
-                  {v.count >= 3  && <Book
-                    key={idx}
-                  >
-                    <div style={{position:'relative', width:'100%', height:'100%', cursor:'pointer',zIndex:'3'}} onClick={() => {openBook(v._id)}}>
-                    </div>
-                      <Date>
-                      {v._id.charAt(v._id.length - 2)}
-                      {v._id.charAt(v._id.length - 1)}
-                    </Date>
-                    <BookImage src='https://user-images.githubusercontent.com/77574867/117977875-3ad7e780-b36c-11eb-884a-bb3b4d9618cc.png'/>
-                  </Book>}
+                    {cardDetailModal === v._id && (
+                      <CardModal book date={v._id} close={close} />
+                    )}
+                    {v.count === 1 && (
+                      <Book key={idx}>
+                        <div
+                          style={{
+                            position: "relative",
+                            width: "100%",
+                            height: "100%",
+                            cursor: "pointer",
+                            zIndex: "3",
+                          }}
+                          onClick={() => {
+                            openBook(v._id);
+                          }}
+                        ></div>
+                        <Date>
+                          {v._id.charAt(v._id.length - 2)}
+                          {v._id.charAt(v._id.length - 1)}
+                        </Date>
+                        <BookImage src="https://user-images.githubusercontent.com/77574867/117977886-3ca1ab00-b36c-11eb-8b1f-3f14de5a096d.png" />
+                      </Book>
+                    )}
+                    {v.count === 2 && (
+                      <Book key={idx}>
+                        <div
+                          style={{
+                            position: "relative",
+                            width: "100%",
+                            height: "100%",
+                            cursor: "pointer",
+                            zIndex: "3",
+                          }}
+                          onClick={() => {
+                            openBook(v._id);
+                          }}
+                        ></div>
+                        <Date>
+                          {v._id.charAt(v._id.length - 2)}
+                          {v._id.charAt(v._id.length - 1)}
+                        </Date>
+                        <BookImage src="https://user-images.githubusercontent.com/77574867/117977881-3c091480-b36c-11eb-8fef-0f43a351bedc.png" />
+                      </Book>
+                    )}
+                    {v.count >= 3 && (
+                      <Book key={idx}>
+                        <div
+                          style={{
+                            position: "relative",
+                            width: "100%",
+                            height: "100%",
+                            cursor: "pointer",
+                            zIndex: "3",
+                          }}
+                          onClick={() => {
+                            openBook(v._id);
+                          }}
+                        ></div>
+                        <Date>
+                          {v._id.charAt(v._id.length - 2)}
+                          {v._id.charAt(v._id.length - 1)}
+                        </Date>
+                        <BookImage src="https://user-images.githubusercontent.com/77574867/117977875-3ad7e780-b36c-11eb-884a-bb3b4d9618cc.png" />
+                      </Book>
+                    )}
                   </>
                 );
               })}
-              
           </BookRow>
           <Shelf></Shelf>
         </ShelfBoxMobile>
         <ShelfBoxMobile>
           <BookRow>
-          {book_mobile_2 &&
+            {book_mobile_2 &&
               book_mobile_2.map((v, idx) => {
                 return (
                   <>
-                  {/* {bookDetailModal === v._id && <BookDetailLow openCard={setCardDetailModal} openBook={openBook} date={v._id}/>} */}
-                  {cardDetailModal === v._id && <CardModal book date={v._id} close={close}/>}
-                  {v.count === 1 && <Book
-                    key={idx}
-                  >
-                    <div style={{position:'relative', width:'100%', height:'100%', cursor:'pointer',zIndex:'3'}} onClick={() => {openBook(v._id)}}>
-                    </div>
-                      <Date>
-                      {v._id.charAt(v._id.length - 2)}
-                      {v._id.charAt(v._id.length - 1)}
-                    </Date>
-                    <BookImage src='https://user-images.githubusercontent.com/77574867/117977886-3ca1ab00-b36c-11eb-8b1f-3f14de5a096d.png'/>
-                  </Book>}
-                  {v.count === 2 && <Book
-                    key={idx}
-                  >
-                    <div style={{position:'relative', width:'100%', height:'100%', cursor:'pointer',zIndex:'3'}} onClick={() => {openBook(v._id)}}>
-                    </div>
-                      <Date>
-                      {v._id.charAt(v._id.length - 2)}
-                      {v._id.charAt(v._id.length - 1)}
-                    </Date>
-                    <BookImage src='https://user-images.githubusercontent.com/77574867/117977881-3c091480-b36c-11eb-8fef-0f43a351bedc.png'/>
-                  </Book>}
-                  {v.count >= 3  && <Book
-                    key={idx}
-                  >
-                    <div style={{position:'relative', width:'100%', height:'100%', cursor:'pointer',zIndex:'3'}} onClick={() => {openBook(v._id)}}>
-                    </div>
-                      <Date>
-                      {v._id.charAt(v._id.length - 2)}
-                      {v._id.charAt(v._id.length - 1)}
-                    </Date>
-                    <BookImage src='https://user-images.githubusercontent.com/77574867/117977875-3ad7e780-b36c-11eb-884a-bb3b4d9618cc.png'/>
-                  </Book>}
+                    {cardDetailModal === v._id && (
+                      <CardModal book date={v._id} close={close} />
+                    )}
+                    {v.count === 1 && (
+                      <Book key={idx}>
+                        <div
+                          style={{
+                            position: "relative",
+                            width: "100%",
+                            height: "100%",
+                            cursor: "pointer",
+                            zIndex: "3",
+                          }}
+                          onClick={() => {
+                            openBook(v._id);
+                          }}
+                        ></div>
+                        <Date>
+                          {v._id.charAt(v._id.length - 2)}
+                          {v._id.charAt(v._id.length - 1)}
+                        </Date>
+                        <BookImage src="https://user-images.githubusercontent.com/77574867/117977886-3ca1ab00-b36c-11eb-8b1f-3f14de5a096d.png" />
+                      </Book>
+                    )}
+                    {v.count === 2 && (
+                      <Book key={idx}>
+                        <div
+                          style={{
+                            position: "relative",
+                            width: "100%",
+                            height: "100%",
+                            cursor: "pointer",
+                            zIndex: "3",
+                          }}
+                          onClick={() => {
+                            openBook(v._id);
+                          }}
+                        ></div>
+                        <Date>
+                          {v._id.charAt(v._id.length - 2)}
+                          {v._id.charAt(v._id.length - 1)}
+                        </Date>
+                        <BookImage src="https://user-images.githubusercontent.com/77574867/117977881-3c091480-b36c-11eb-8fef-0f43a351bedc.png" />
+                      </Book>
+                    )}
+                    {v.count >= 3 && (
+                      <Book key={idx}>
+                        <div
+                          style={{
+                            position: "relative",
+                            width: "100%",
+                            height: "100%",
+                            cursor: "pointer",
+                            zIndex: "3",
+                          }}
+                          onClick={() => {
+                            openBook(v._id);
+                          }}
+                        ></div>
+                        <Date>
+                          {v._id.charAt(v._id.length - 2)}
+                          {v._id.charAt(v._id.length - 1)}
+                        </Date>
+                        <BookImage src="https://user-images.githubusercontent.com/77574867/117977875-3ad7e780-b36c-11eb-884a-bb3b4d9618cc.png" />
+                      </Book>
+                    )}
                   </>
                 );
               })}
-              
           </BookRow>
           <Shelf></Shelf>
         </ShelfBoxMobile>
         <ShelfBoxMobile>
           <BookRow>
-          {book_mobile_3 &&
+            {book_mobile_3 &&
               book_mobile_3.map((v, idx) => {
                 return (
                   <>
-                  {/* {bookDetailModal === v._id && <BookDetailLow openCard={setCardDetailModal} openBook={openBook} date={v._id}/>} */}
-                  {cardDetailModal === v._id && <CardModal book date={v._id} close={close}/>}
-                  {v.count === 1 && <Book
-                    key={idx}
-                  >
-                    <div style={{position:'relative', width:'100%', height:'100%', cursor:'pointer',zIndex:'3'}} onClick={() => {openBook(v._id)}}>
-                    </div>
-                      <Date>
-                      {v._id.charAt(v._id.length - 2)}
-                      {v._id.charAt(v._id.length - 1)}
-                    </Date>
-                    <BookImage src='https://user-images.githubusercontent.com/77574867/117977886-3ca1ab00-b36c-11eb-8b1f-3f14de5a096d.png'/>
-                  </Book>}
-                  {v.count === 2 && <Book
-                    key={idx}
-                  >
-                    <div style={{position:'relative', width:'100%', height:'100%', cursor:'pointer',zIndex:'3'}} onClick={() => {openBook(v._id)}}>
-                    </div>
-                      <Date>
-                      {v._id.charAt(v._id.length - 2)}
-                      {v._id.charAt(v._id.length - 1)}
-                    </Date>
-                    <BookImage src='https://user-images.githubusercontent.com/77574867/117977881-3c091480-b36c-11eb-8fef-0f43a351bedc.png'/>
-                  </Book>}
-                  {v.count >= 3  && <Book
-                    key={idx}
-                  >
-                    <div style={{position:'relative', width:'100%', height:'100%', cursor:'pointer',zIndex:'3'}} onClick={() => {openBook(v._id)}}>
-                    </div>
-                      <Date>
-                      {v._id.charAt(v._id.length - 2)}
-                      {v._id.charAt(v._id.length - 1)}
-                    </Date>
-                    <BookImage src='https://user-images.githubusercontent.com/77574867/117977875-3ad7e780-b36c-11eb-884a-bb3b4d9618cc.png'/>
-                  </Book>}
+                    {cardDetailModal === v._id && (
+                      <CardModal book date={v._id} close={close} />
+                    )}
+                    {v.count === 1 && (
+                      <Book key={idx}>
+                        <div
+                          style={{
+                            position: "relative",
+                            width: "100%",
+                            height: "100%",
+                            cursor: "pointer",
+                            zIndex: "3",
+                          }}
+                          onClick={() => {
+                            openBook(v._id);
+                          }}
+                        ></div>
+                        <Date>
+                          {v._id.charAt(v._id.length - 2)}
+                          {v._id.charAt(v._id.length - 1)}
+                        </Date>
+                        <BookImage src="https://user-images.githubusercontent.com/77574867/117977886-3ca1ab00-b36c-11eb-8b1f-3f14de5a096d.png" />
+                      </Book>
+                    )}
+                    {v.count === 2 && (
+                      <Book key={idx}>
+                        <div
+                          style={{
+                            position: "relative",
+                            width: "100%",
+                            height: "100%",
+                            cursor: "pointer",
+                            zIndex: "3",
+                          }}
+                          onClick={() => {
+                            openBook(v._id);
+                          }}
+                        ></div>
+                        <Date>
+                          {v._id.charAt(v._id.length - 2)}
+                          {v._id.charAt(v._id.length - 1)}
+                        </Date>
+                        <BookImage src="https://user-images.githubusercontent.com/77574867/117977881-3c091480-b36c-11eb-8fef-0f43a351bedc.png" />
+                      </Book>
+                    )}
+                    {v.count >= 3 && (
+                      <Book key={idx}>
+                        <div
+                          style={{
+                            position: "relative",
+                            width: "100%",
+                            height: "100%",
+                            cursor: "pointer",
+                            zIndex: "3",
+                          }}
+                          onClick={() => {
+                            openBook(v._id);
+                          }}
+                        ></div>
+                        <Date>
+                          {v._id.charAt(v._id.length - 2)}
+                          {v._id.charAt(v._id.length - 1)}
+                        </Date>
+                        <BookImage src="https://user-images.githubusercontent.com/77574867/117977875-3ad7e780-b36c-11eb-884a-bb3b4d9618cc.png" />
+                      </Book>
+                    )}
                   </>
                 );
               })}
-              
           </BookRow>
           <Shelf></Shelf>
         </ShelfBoxMobile>
         <ShelfBoxMobile>
           <BookRow>
-          {book_mobile_4 &&
+            {book_mobile_4 &&
               book_mobile_4.map((v, idx) => {
                 return (
                   <>
-                  {/* {bookDetailModal === v._id && <BookDetailLow openCard={setCardDetailModal} openBook={openBook} date={v._id}/>} */}
-                  {cardDetailModal === v._id && <CardModal book date={v._id} close={close}/>}
-                  {v.count === 1 && <Book
-                    key={idx}
-                  >
-                    <div style={{position:'relative', width:'100%', height:'100%', cursor:'pointer',zIndex:'3'}} onClick={() => {openBook(v._id)}}>
-                    </div>
-                      <Date>
-                      {v._id.charAt(v._id.length - 2)}
-                      {v._id.charAt(v._id.length - 1)}
-                    </Date>
-                    <BookImage src='https://user-images.githubusercontent.com/77574867/117977886-3ca1ab00-b36c-11eb-8b1f-3f14de5a096d.png'/>
-                  </Book>}
-                  {v.count === 2 && <Book
-                    key={idx}
-                  >
-                    <div style={{position:'relative', width:'100%', height:'100%', cursor:'pointer',zIndex:'3'}} onClick={() => {openBook(v._id)}}>
-                    </div>
-                      <Date>
-                      {v._id.charAt(v._id.length - 2)}
-                      {v._id.charAt(v._id.length - 1)}
-                    </Date>
-                    <BookImage src='https://user-images.githubusercontent.com/77574867/117977881-3c091480-b36c-11eb-8fef-0f43a351bedc.png'/>
-                  </Book>}
-                  {v.count >= 3  && <Book
-                    key={idx}
-                  >
-                    <div style={{position:'relative', width:'100%', height:'100%', cursor:'pointer',zIndex:'3'}} onClick={() => {openBook(v._id)}}>
-                    </div>
-                      <Date>
-                      {v._id.charAt(v._id.length - 2)}
-                      {v._id.charAt(v._id.length - 1)}
-                    </Date>
-                    <BookImage src='https://user-images.githubusercontent.com/77574867/117977875-3ad7e780-b36c-11eb-884a-bb3b4d9618cc.png'/>
-                  </Book>}
+                    {cardDetailModal === v._id && (
+                      <CardModal book date={v._id} close={close} />
+                    )}
+                    {v.count === 1 && (
+                      <Book key={idx}>
+                        <div
+                          style={{
+                            position: "relative",
+                            width: "100%",
+                            height: "100%",
+                            cursor: "pointer",
+                            zIndex: "3",
+                          }}
+                          onClick={() => {
+                            openBook(v._id);
+                          }}
+                        ></div>
+                        <Date>
+                          {v._id.charAt(v._id.length - 2)}
+                          {v._id.charAt(v._id.length - 1)}
+                        </Date>
+                        <BookImage src="https://user-images.githubusercontent.com/77574867/117977886-3ca1ab00-b36c-11eb-8b1f-3f14de5a096d.png" />
+                      </Book>
+                    )}
+                    {v.count === 2 && (
+                      <Book key={idx}>
+                        <div
+                          style={{
+                            position: "relative",
+                            width: "100%",
+                            height: "100%",
+                            cursor: "pointer",
+                            zIndex: "3",
+                          }}
+                          onClick={() => {
+                            openBook(v._id);
+                          }}
+                        ></div>
+                        <Date>
+                          {v._id.charAt(v._id.length - 2)}
+                          {v._id.charAt(v._id.length - 1)}
+                        </Date>
+                        <BookImage src="https://user-images.githubusercontent.com/77574867/117977881-3c091480-b36c-11eb-8fef-0f43a351bedc.png" />
+                      </Book>
+                    )}
+                    {v.count >= 3 && (
+                      <Book key={idx}>
+                        <div
+                          style={{
+                            position: "relative",
+                            width: "100%",
+                            height: "100%",
+                            cursor: "pointer",
+                            zIndex: "3",
+                          }}
+                          onClick={() => {
+                            openBook(v._id);
+                          }}
+                        ></div>
+                        <Date>
+                          {v._id.charAt(v._id.length - 2)}
+                          {v._id.charAt(v._id.length - 1)}
+                        </Date>
+                        <BookImage src="https://user-images.githubusercontent.com/77574867/117977875-3ad7e780-b36c-11eb-884a-bb3b4d9618cc.png" />
+                      </Book>
+                    )}
                   </>
                 );
               })}
-              
           </BookRow>
           <Shelf></Shelf>
         </ShelfBoxMobile>
         <ShelfBoxMobile>
           <BookRow>
-          {book_mobile_5 &&
+            {book_mobile_5 &&
               book_mobile_5.map((v, idx) => {
                 return (
                   <>
-                  {/* {bookDetailModal === v._id && <BookDetailLow openCard={setCardDetailModal} openBook={openBook} date={v._id}/>} */}
-                  {cardDetailModal === v._id && <CardModal book date={v._id} close={close}/>}
-                  {v.count === 1 && <Book
-                    key={idx}
-                  >
-                    <div style={{position:'relative', width:'100%', height:'100%', cursor:'pointer',zIndex:'3'}} onClick={() => {openBook(v._id)}}>
-                    </div>
-                      <Date>
-                      {v._id.charAt(v._id.length - 2)}
-                      {v._id.charAt(v._id.length - 1)}
-                    </Date>
-                    <BookImage src='https://user-images.githubusercontent.com/77574867/117977886-3ca1ab00-b36c-11eb-8b1f-3f14de5a096d.png'/>
-                  </Book>}
-                  {v.count === 2 && <Book
-                    key={idx}
-                  >
-                    <div style={{position:'relative', width:'100%', height:'100%', cursor:'pointer',zIndex:'3'}} onClick={() => {openBook(v._id)}}>
-                    </div>
-                      <Date>
-                      {v._id.charAt(v._id.length - 2)}
-                      {v._id.charAt(v._id.length - 1)}
-                    </Date>
-                    <BookImage src='https://user-images.githubusercontent.com/77574867/117977881-3c091480-b36c-11eb-8fef-0f43a351bedc.png'/>
-                  </Book>}
-                  {v.count >= 3  && <Book
-                    key={idx}
-                  >
-                    <div style={{position:'relative', width:'100%', height:'100%', cursor:'pointer',zIndex:'3'}} onClick={() => {openBook(v._id)}}>
-                    </div>
-                      <Date>
-                      {v._id.charAt(v._id.length - 2)}
-                      {v._id.charAt(v._id.length - 1)}
-                    </Date>
-                    <BookImage src='https://user-images.githubusercontent.com/77574867/117977875-3ad7e780-b36c-11eb-884a-bb3b4d9618cc.png'/>
-                  </Book>}
+                    {cardDetailModal === v._id && (
+                      <CardModal book date={v._id} close={close} />
+                    )}
+                    {v.count === 1 && (
+                      <Book key={idx}>
+                        <div
+                          style={{
+                            position: "relative",
+                            width: "100%",
+                            height: "100%",
+                            cursor: "pointer",
+                            zIndex: "3",
+                          }}
+                          onClick={() => {
+                            openBook(v._id);
+                          }}
+                        ></div>
+                        <Date>
+                          {v._id.charAt(v._id.length - 2)}
+                          {v._id.charAt(v._id.length - 1)}
+                        </Date>
+                        <BookImage src="https://user-images.githubusercontent.com/77574867/117977886-3ca1ab00-b36c-11eb-8b1f-3f14de5a096d.png" />
+                      </Book>
+                    )}
+                    {v.count === 2 && (
+                      <Book key={idx}>
+                        <div
+                          style={{
+                            position: "relative",
+                            width: "100%",
+                            height: "100%",
+                            cursor: "pointer",
+                            zIndex: "3",
+                          }}
+                          onClick={() => {
+                            openBook(v._id);
+                          }}
+                        ></div>
+                        <Date>
+                          {v._id.charAt(v._id.length - 2)}
+                          {v._id.charAt(v._id.length - 1)}
+                        </Date>
+                        <BookImage src="https://user-images.githubusercontent.com/77574867/117977881-3c091480-b36c-11eb-8fef-0f43a351bedc.png" />
+                      </Book>
+                    )}
+                    {v.count >= 3 && (
+                      <Book key={idx}>
+                        <div
+                          style={{
+                            position: "relative",
+                            width: "100%",
+                            height: "100%",
+                            cursor: "pointer",
+                            zIndex: "3",
+                          }}
+                          onClick={() => {
+                            openBook(v._id);
+                          }}
+                        ></div>
+                        <Date>
+                          {v._id.charAt(v._id.length - 2)}
+                          {v._id.charAt(v._id.length - 1)}
+                        </Date>
+                        <BookImage src="https://user-images.githubusercontent.com/77574867/117977875-3ad7e780-b36c-11eb-884a-bb3b4d9618cc.png" />
+                      </Book>
+                    )}
                   </>
                 );
               })}
-              
           </BookRow>
           <Shelf></Shelf>
         </ShelfBoxMobile>
         <ShelfBoxMobile>
           <BookRow>
-          {book_mobile_6 &&
+            {book_mobile_6 &&
               book_mobile_6.map((v, idx) => {
                 return (
                   <>
-                  {/* {bookDetailModal === v._id && <BookDetailLow openCard={setCardDetailModal} openBook={openBook} date={v._id}/>} */}
-                  {cardDetailModal === v._id && <CardModal book date={v._id} close={close}/>}
-                  {v.count === 1 && <Book
-                    key={idx}
-                  >
-                    <div style={{position:'relative', width:'100%', height:'100%', cursor:'pointer',zIndex:'3'}} onClick={() => {openBook(v._id)}}>
-                    </div>
-                      <Date>
-                      {v._id.charAt(v._id.length - 2)}
-                      {v._id.charAt(v._id.length - 1)}
-                    </Date>
-                    <BookImage src='https://user-images.githubusercontent.com/77574867/117977886-3ca1ab00-b36c-11eb-8b1f-3f14de5a096d.png'/>
-                  </Book>}
-                  {v.count === 2 && <Book
-                    key={idx}
-                  >
-                    <div style={{position:'relative', width:'100%', height:'100%', cursor:'pointer',zIndex:'3'}} onClick={() => {openBook(v._id)}}>
-                    </div>
-                      <Date>
-                      {v._id.charAt(v._id.length - 2)}
-                      {v._id.charAt(v._id.length - 1)}
-                    </Date>
-                    <BookImage src='https://user-images.githubusercontent.com/77574867/117977881-3c091480-b36c-11eb-8fef-0f43a351bedc.png'/>
-                  </Book>}
-                  {v.count >= 3  && <Book
-                    key={idx}
-                  >
-                    <div style={{position:'relative', width:'100%', height:'100%', cursor:'pointer',zIndex:'3'}} onClick={() => {openBook(v._id)}}>
-                    </div>
-                      <Date>
-                      {v._id.charAt(v._id.length - 2)}
-                      {v._id.charAt(v._id.length - 1)}
-                    </Date>
-                    <BookImage src='https://user-images.githubusercontent.com/77574867/117977875-3ad7e780-b36c-11eb-884a-bb3b4d9618cc.png'/>
-                  </Book>}
+                    {cardDetailModal === v._id && (
+                      <CardModal book date={v._id} close={close} />
+                    )}
+                    {v.count === 1 && (
+                      <Book key={idx}>
+                        <div
+                          style={{
+                            position: "relative",
+                            width: "100%",
+                            height: "100%",
+                            cursor: "pointer",
+                            zIndex: "3",
+                          }}
+                          onClick={() => {
+                            openBook(v._id);
+                          }}
+                        ></div>
+                        <Date>
+                          {v._id.charAt(v._id.length - 2)}
+                          {v._id.charAt(v._id.length - 1)}
+                        </Date>
+                        <BookImage src="https://user-images.githubusercontent.com/77574867/117977886-3ca1ab00-b36c-11eb-8b1f-3f14de5a096d.png" />
+                      </Book>
+                    )}
+                    {v.count === 2 && (
+                      <Book key={idx}>
+                        <div
+                          style={{
+                            position: "relative",
+                            width: "100%",
+                            height: "100%",
+                            cursor: "pointer",
+                            zIndex: "3",
+                          }}
+                          onClick={() => {
+                            openBook(v._id);
+                          }}
+                        ></div>
+                        <Date>
+                          {v._id.charAt(v._id.length - 2)}
+                          {v._id.charAt(v._id.length - 1)}
+                        </Date>
+                        <BookImage src="https://user-images.githubusercontent.com/77574867/117977881-3c091480-b36c-11eb-8fef-0f43a351bedc.png" />
+                      </Book>
+                    )}
+                    {v.count >= 3 && (
+                      <Book key={idx}>
+                        <div
+                          style={{
+                            position: "relative",
+                            width: "100%",
+                            height: "100%",
+                            cursor: "pointer",
+                            zIndex: "3",
+                          }}
+                          onClick={() => {
+                            openBook(v._id);
+                          }}
+                        ></div>
+                        <Date>
+                          {v._id.charAt(v._id.length - 2)}
+                          {v._id.charAt(v._id.length - 1)}
+                        </Date>
+                        <BookImage src="https://user-images.githubusercontent.com/77574867/117977875-3ad7e780-b36c-11eb-884a-bb3b4d9618cc.png" />
+                      </Book>
+                    )}
                   </>
                 );
               })}
-              
           </BookRow>
           <Shelf></Shelf>
         </ShelfBoxMobile>
       </Container>
-      {/* <ImgRight/> */}
     </React.Fragment>
   );
 };
@@ -552,13 +761,13 @@ const Container = styled.section`
   display: flex;
   flex-direction: column;
   margin: 20px 0px;
-  padding-bottom:110px;
-  @media (min-height:1200px){
-    padding-bottom:300px;
+  padding-bottom: 110px;
+  @media (min-height: 1200px) {
+    padding-bottom: 300px;
   }
 
-  @media (max-width:750px){
-    margin:5px 0px;
+  @media (max-width: 750px) {
+    margin: 5px 0px;
   }
 `;
 
@@ -568,10 +777,10 @@ const ForDate = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
-  align-items:center;
-  margin-bottom:30px;
-  @media(min-width:750px){
-    transform:scale(1.2)
+  align-items: center;
+  margin-bottom: 30px;
+  @media (min-width: 750px) {
+    transform: scale(1.2);
   }
 `;
 
@@ -582,25 +791,25 @@ const ShelfBox = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  @media (max-width:1040px){
-    margin-left:0px;
-}
-@media (max-width:750px){
-    display:none;
-}
+  @media (max-width: 1040px) {
+    margin-left: 0px;
+  }
+  @media (max-width: 750px) {
+    display: none;
+  }
 `;
 
 const ShelfBoxMobile = styled.div`
-  position:relative;
-  width:100%;
-  max-width:335px;
-  margin:0px auto;
-  display:flex;
-  flex-direction:column;
+  position: relative;
+  width: 100%;
+  max-width: 335px;
+  margin: 0px auto;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  @media(min-width:750px){
-    display:none;
+  @media (min-width: 750px) {
+    display: none;
   }
 `;
 
@@ -609,13 +818,13 @@ const Shelf = styled.div`
   position: relative;
   margin: -20px 0px 20px 0px;
   width: 100%;
-  max-width:1040px;
+  max-width: 1040px;
   height: 34px;
   background-color: #ffffff;
 `;
 
 const BookRow = styled.div`
-  position:relative;
+  position: relative;
   display: flex;
   flex-direction: row;
   width: 100%;
@@ -623,138 +832,101 @@ const BookRow = styled.div`
   max-width: 1055px;
   /* overflow:hidden; */
   margin: 10px 0px -5px 55px;
-  @media (max-width:1000px){
-        
-        width:900px;
-    }
-    @media (max-width:1040px){
-    margin:10px 0px -5px 20px;
-}
-@media (max-width:800px){
-    margin:10px 0px -5px 160px;
-}
+  @media (max-width: 1000px) {
+    width: 900px;
+  }
+  @media (max-width: 1040px) {
+    margin: 10px 0px -5px 20px;
+  }
+  @media (max-width: 800px) {
+    margin: 10px 0px -5px 160px;
+  }
 
-@media(max-width:750px){
-    margin:10px 0px -15px 0px;
-    max-width:300px;
-    height:150px;
+  @media (max-width: 750px) {
+    margin: 10px 0px -15px 0px;
+    max-width: 300px;
+    height: 150px;
     /* overflow:hidden; */
-    justify-content:flex-start;
+    justify-content: flex-start;
   }
 `;
 
-
 const Book = styled.div`
-@keyframes book {
-  0%{
-    transform: translate(0,0) rotateZ(0deg);
+  @keyframes book {
+    0% {
+      transform: translate(0, 0) rotateZ(0deg);
+    }
+    12% {
+      transform: translate(0, -300px) rotateZ(1800deg) scale(0.7);
+    }
+    25% {
+      transform: translate(300px, -300px) rotateZ(3600deg) scale(0.5);
+    }
+    37% {
+      transform: translate(300px, 0px) rotateZ(4800deg) scale(0.2);
+    }
+    50% {
+      transform: translate(0px, 0px) rotateZ(7200deg) scale(0);
+    }
+    67% {
+      transform: translate(0, -300px) rotateZ(9000deg) scale(0.2);
+    }
+    75% {
+      transform: translate(300px, -300px) rotateZ(10800deg) scale(0.5);
+    }
+    87% {
+      transform: translate(300px, 0px) rotateZ(12600deg) scale(0.7);
+    }
+    100% {
+      transform: translate(0px, 0px) rotateZ(14400deg) scale(1);
+    }
   }
-  12%{
-    transform: translate(0,-300px) rotateZ(1800deg) scale(0.7);
-  }
-  25%{
-    transform: translate(300px,-300px) rotateZ(3600deg) scale(0.5);
-  }
-  37%{
-    transform: translate(300px,0px) rotateZ(4800deg) scale(0.2);
-  }
-  50%{
-    transform: translate(0px,0px) rotateZ(7200deg) scale(0);
-  }
-  67%{
-    transform: translate(0,-300px) rotateZ(9000deg) scale(0.2);
-  }
-  75%{
-    transform: translate(300px,-300px) rotateZ(10800deg) scale(0.5);
-  }
-  87%{
-    transform: translate(300px,0px) rotateZ(12600deg) scale(0.7);
-  }
-  100%{
-    transform: translate(0px,0px) rotateZ(14400deg) scale(1);
-  }
-}
-    position:relative;
-    display:flex;
-    align-items:center;
-    justify-content:center;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   z-index: 2;
   width: 46px;
   height: 210px;
   margin: 0px 10px;
-  /* transform: rotateZ(0deg); */
-  /* transition: linear .1s; */
-  
-  /* background-image:url('');
-  background-size:cover; */
-  &:hover{
-    z-index:40;
-    /* transform: translateY(20%) */
-    /* transform: translateX(100%) */
-    /* transform: rotateZ(7200deg) scale(0.5); */
+
+  &:hover {
+    z-index: 40;
     animation: book 4s infinite forwards;
-    transition:linear 4s;
+    transition: linear 4s;
   }
-  @media (max-width:1000px){
+  @media (max-width: 1000px) {
     margin: 0px 5px;
-    }
-    @media (max-width:750px){
+  }
+  @media (max-width: 750px) {
     margin: 0px 13px;
-    width:40px;
-    height:140px;
-    }
+    width: 40px;
+    height: 140px;
+  }
 `;
 
 const Date = styled.span`
-  position:absolute;
-  top:20px;
-  left:14px;
-  z-index:2;
-  color:#ffffff;
-  font-weight:600;
-  @media(max-width:750px){
-    top:10px;
-    left:15px;
+  position: absolute;
+  top: 20px;
+  left: 14px;
+  z-index: 2;
+  color: #ffffff;
+  font-weight: 600;
+  @media (max-width: 750px) {
+    top: 10px;
+    left: 15px;
   }
 `;
 
 const BookImage = styled.img`
-  position:absolute;
-  top:-10px;
-  left:-23px;
-  z-index:1;
-  @media(max-width:750px){
-    top:-10px;
-    left:-13px;
+  position: absolute;
+  top: -10px;
+  left: -23px;
+  z-index: 1;
+  @media (max-width: 750px) {
+    top: -10px;
+    left: -13px;
   }
 `;
-
-
-
-// const ImgRight = styled.div`
-//     z-index:2;
-//     position:absolute;
-//     background-image:url('https://user-images.githubusercontent.com/77574867/116843082-cbe6ea00-ac19-11eb-934f-a8c5535229d4.png');
-//     background-size:contain;
-//     background-repeat:no-repeat;
-//     right:0;
-//     bottom:0;
-//     width:500px;
-//     height:635px;
-
-// `;
-
-// const ImgLeft = styled.div`
-//     z-index:2;
-//     position:absolute;
-//     background-image:url('https://user-images.githubusercontent.com/77574867/116843085-cdb0ad80-ac19-11eb-914e-23580b56f529.png');
-//     background-size:contain;
-//     background-repeat:no-repeat;
-//     left:0;
-//     bottom:20;
-//     width:450px;
-//     height:450px;
-
-// `;
 
 export default BookShelf;

@@ -72,6 +72,7 @@ const Header = () => {
     return (
       <React.Fragment>
         {cardModal ? <CardModal close={closeCardModal} /> : null}
+        {aboutModal ? <About setAboutModal={setAboutModal} /> : null}
         {isMenuOpen ? (
           <>
             <Component
@@ -123,6 +124,14 @@ const Header = () => {
                   커뮤니티
                 </MenuLi>
                 <br></br>
+                <MenuLi
+                  onClick={() => {
+                    setAboutModal(true);
+                    setMenuOpen(false);
+                  }}
+                >
+                  소개
+                </MenuLi>
                 <MenuLi
                   onClick={() => {
                     dispatch(notiActions.leaveAlarmIO(user.id));
@@ -329,6 +338,13 @@ const Header = () => {
               <br></br>
               <MenuLi
                 onClick={() => {
+                  setAboutModal(true);
+                }}
+              >
+                소개
+              </MenuLi>
+              <MenuLi
+                onClick={() => {
                   setLogin(true);
                   setMenuOpen(false);
                 }}
@@ -509,7 +525,7 @@ const Menu = styled.div`
   width: 90%;
   height: 100%;
   background: black;
-  z-index: 1000;
+  z-index: 140;
   color: white;
   padding: 102px 0 0 16px;
   font-size: 22px;

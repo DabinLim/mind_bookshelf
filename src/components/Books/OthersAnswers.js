@@ -5,33 +5,31 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   api as customActions,
   resetAll,
-  setView
+  setView,
 } from "../../redux/modules/custom";
-import {setComponent} from '../../redux/modules/books';
+import { setComponent } from "../../redux/modules/books";
 import InfinityScroll from "../../shared/InfinityScroll";
 import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 
-
 const OthersAnswers = (props) => {
   const dispatch = useDispatch();
   const [modalVisible, setModalVisible] = React.useState(false);
   const answer_list = useSelector((state) => state.custom.custom_question);
-  const pop_list = useSelector(state => state.custom.pop_list);
-  const answer_count = useSelector((state) => state.custom.custom_count);
+  const pop_list = useSelector((state) => state.custom.pop_list);
   const user_info = useSelector((state) => state.user.other);
   const is_loading = useSelector((state) => state.custom.loading);
-  const pop_loading = useSelector(state => state.custom.pop_loading);
+  const pop_loading = useSelector((state) => state.custom.pop_loading);
   const is_next = useSelector((state) => state.custom.next);
-  const pop_next = useSelector(state => state.custom.pop_next);
-  const now_view = useSelector(state => state.custom.now_view);
+  const pop_next = useSelector((state) => state.custom.pop_next);
+  const now_view = useSelector((state) => state.custom.now_view);
   const container = React.useRef();
   const pop_container = React.useRef();
   const [openFilter, setOpenFilter] = React.useState(false);
-  const url = window.location.href.split('/');
-  const id = url[url.length -1];
+  const url = window.location.href.split("/");
+  const id = url[url.length - 1];
   console.log(answer_list);
   React.useEffect(() => {
     dispatch(customActions.getOthersAnswers(id));
@@ -47,304 +45,391 @@ const OthersAnswers = (props) => {
       <Container>
         <Background />
         <TitleContainerMobile>
-          <ArrowForwardIosIcon onClick={() => {dispatch(setComponent(''))}}style={{transform:'rotateZ(180deg)'}}/>
+          <ArrowForwardIosIcon
+            onClick={() => {
+              dispatch(setComponent(""));
+            }}
+            style={{ transform: "rotateZ(180deg)" }}
+          />
           <TitleMobile>{user_info?.nickname}님의 낙서</TitleMobile>
-          <EmptyDiv/>
+          <EmptyDiv />
         </TitleContainerMobile>
         <FilterBtnBoxMobile>
-                <FilterToggle>
-              {now_view === 'new' && <span>최신순</span>}
-              {now_view === 'pop' && <span>인기순</span>}
-              {openFilter ? <ArrowForwardIosIcon
-                  onClick={()=>{setOpenFilter(false)}}
-                  style={{
-                    cursor: "pointer",
-                    color: "black",
-                    fontSize: "12px",
-                    transform:'rotateZ(270deg)',
-                    marginLeft:'5px'
-                  }}
-                /> : <ArrowForwardIosIcon
-                onClick={()=>{setOpenFilter(true)}}
+          <FilterToggle>
+            {now_view === "new" && <span>최신순</span>}
+            {now_view === "pop" && <span>인기순</span>}
+            {openFilter ? (
+              <ArrowForwardIosIcon
+                onClick={() => {
+                  setOpenFilter(false);
+                }}
                 style={{
                   cursor: "pointer",
                   color: "black",
                   fontSize: "12px",
-                  transform:'rotateZ(90deg)',
-                  marginLeft:'5px'
+                  transform: "rotateZ(270deg)",
+                  marginLeft: "5px",
                 }}
-              />}
-                </FilterToggle>
-                {openFilter && now_view === 'new' && <span onClick={()=>{dispatch(setView('pop'))}}>인기순</span>}
-                {openFilter && now_view === 'pop' && <span onClick={()=>{dispatch(setView('new'))}}>최신순</span>}
-                </FilterBtnBoxMobile>
+              />
+            ) : (
+              <ArrowForwardIosIcon
+                onClick={() => {
+                  setOpenFilter(true);
+                }}
+                style={{
+                  cursor: "pointer",
+                  color: "black",
+                  fontSize: "12px",
+                  transform: "rotateZ(90deg)",
+                  marginLeft: "5px",
+                }}
+              />
+            )}
+          </FilterToggle>
+          {openFilter && now_view === "new" && (
+            <span
+              onClick={() => {
+                dispatch(setView("pop"));
+              }}
+            >
+              인기순
+            </span>
+          )}
+          {openFilter && now_view === "pop" && (
+            <span
+              onClick={() => {
+                dispatch(setView("new"));
+              }}
+            >
+              최신순
+            </span>
+          )}
+        </FilterBtnBoxMobile>
         <TitleContainer>
           <Title>
-            <span style={{ fontWeight: "600" }}>{user_info?.nickname}</span>님이 남긴 낙서는{" "}
-            <span style={{ fontWeight: "600" }}>{user_info?.otherAnswerCount}개</span>입니다.
+            <span style={{ fontWeight: "600" }}>{user_info?.nickname}</span>님이
+            남긴 낙서는{" "}
+            <span style={{ fontWeight: "600" }}>
+              {user_info?.otherAnswerCount}개
+            </span>
+            입니다.
           </Title>
-        <FilterBtnBox>
-          {now_view === "new" ? (
-                  <FilterBtn
-                    style={{ fontWeight: "bold" }}
-                    onClick={() => {
-                      dispatch(setView("new"));
-                    }}
-                  >
-                    •<span style={{ marginLeft: "5px" }}>최신순</span>
-                  </FilterBtn>
-                ) : (
-                  <FilterBtn
-                    onClick={() => {
-                      dispatch(setView("new"));
-                    }}
-                  >
-                    최신순
-                  </FilterBtn>
-                )}
-                {now_view === "pop" ? (
-                  <FilterBtn
-                    style={{ fontWeight: "bold" }}
-                    onClick={() => {
-                      dispatch(setView("pop"));
-                    }}
-                  >
-                    •<span style={{ marginLeft: "5px" }}>인기순</span>
-                  </FilterBtn>
-                ) : (
-                  <FilterBtn
-                    onClick={() => {
-                      dispatch(setView("pop"));
-                    }}
-                  >
-                    인기순
-                  </FilterBtn>
-                )}
-                </FilterBtnBox>
+          <FilterBtnBox>
+            {now_view === "new" ? (
+              <FilterBtn
+                style={{ fontWeight: "bold" }}
+                onClick={() => {
+                  dispatch(setView("new"));
+                }}
+              >
+                •<span style={{ marginLeft: "5px" }}>최신순</span>
+              </FilterBtn>
+            ) : (
+              <FilterBtn
+                onClick={() => {
+                  dispatch(setView("new"));
+                }}
+              >
+                최신순
+              </FilterBtn>
+            )}
+            {now_view === "pop" ? (
+              <FilterBtn
+                style={{ fontWeight: "bold" }}
+                onClick={() => {
+                  dispatch(setView("pop"));
+                }}
+              >
+                •<span style={{ marginLeft: "5px" }}>인기순</span>
+              </FilterBtn>
+            ) : (
+              <FilterBtn
+                onClick={() => {
+                  dispatch(setView("pop"));
+                }}
+              >
+                인기순
+              </FilterBtn>
+            )}
+          </FilterBtnBox>
         </TitleContainer>
         <CardContainer view={now_view} ref={container}>
-          {now_view === 'new' && <InfinityScroll
-            callNext={() => {
-              console.log("scroooolled!");
-              dispatch(customActions.getOthersAnswers(id));
-            }}
-            is_next={is_next ? true : false}
-            is_loading={is_loading}
-            ref_value={container.current}
-          >
-            {answer_list &&
-              answer_list.map((v, idx) => {
-                return (
-                  <Card key={idx} {...v}>
-                    <Head>
-                    <SubjectBox>
-                    {v.questiontopic?.length &&
-                          v.questiontopic[0] === '사랑' && <Subject
+          {now_view === "new" && (
+            <InfinityScroll
+              callNext={() => {
+                console.log("scroooolled!");
+                dispatch(customActions.getOthersAnswers(id));
+              }}
+              is_next={is_next ? true : false}
+              is_loading={is_loading}
+              ref_value={container.current}
+            >
+              {answer_list &&
+                answer_list.map((v, idx) => {
+                  return (
+                    <Card key={idx} {...v}>
+                      <Head>
+                        <SubjectBox>
+                          {v.questiontopic?.length &&
+                            v.questiontopic[0] === "사랑" && (
+                              <Subject
+                                style={{
+                                  background: "#FFAAAA",
+                                  boxShadow: "0px 0px 15px #FFAAAA",
+                                }}
+                              >
+                                <span>#사랑</span>
+                              </Subject>
+                            )}
+                          {v.questiontopic?.length &&
+                            v.questiontopic[0] === "우정" && (
+                              <Subject
+                                key={idx}
+                                style={{
+                                  background: "#B9FFC4",
+                                  boxShadow: "0px 0px 15px #B9FFC4",
+                                }}
+                              >
+                                <span>#우정</span>
+                              </Subject>
+                            )}
+                          {v.questiontopic?.length &&
+                            v.questiontopic[0] === "꿈" && (
+                              <Subject
+                                key={idx}
+                                style={{
+                                  background: "#B7E6FF",
+                                  boxShadow: "0px 0px 15px #B7E6FF",
+                                }}
+                              >
+                                <span>#꿈</span>
+                              </Subject>
+                            )}
+                          {v.questiontopic?.length &&
+                            v.questiontopic[0] === "가치" && (
+                              <Subject
+                                key={idx}
+                                style={{
+                                  background: "#B5BDFF",
+                                  boxShadow: "0px 0px 15px #B5BDFF",
+                                }}
+                              >
+                                <span>#가치</span>
+                              </Subject>
+                            )}
+                          {v.questiontopic?.length &&
+                            v.questiontopic[0] === "관계" && (
+                              <Subject
+                                key={idx}
+                                style={{
+                                  background: "#FFF09D",
+                                  boxShadow: "0px 0px 15px #FFF09D",
+                                }}
+                              >
+                                <span>#관계</span>
+                              </Subject>
+                            )}
+                          {v.questiontopic?.length &&
+                            v.questiontopic[0] === "나" && (
+                              <Subject
+                                key={idx}
+                                style={{
+                                  background: "#F9D1FD",
+                                  boxShadow: "0px 0px 15px #F9D1FD",
+                                }}
+                              >
+                                <span>#나</span>
+                              </Subject>
+                            )}
+                        </SubjectBox>
+                        <div
                           style={{
-                            background: "#FFAAAA",
-                            boxShadow: "0px 0px 15px #FFAAAA",
+                            marginLeft: "10px",
+                            fontWeight: "600",
+                            display: "flex",
+                            alignItems: "center",
                           }}
                         >
-                          <span>#사랑</span>
-                        </Subject>}
-                        {v.questiontopic?.length &&
-                          v.questiontopic[0] === '우정' && <Subject
-                          key={idx}
-                          style={{
-                            background: "#B9FFC4",
-                            boxShadow: "0px 0px 15px #B9FFC4",
-                          }}
-                        >
-                          <span>#우정</span>
-                        </Subject>}
-                        {v.questiontopic?.length &&
-                          v.questiontopic[0] === '꿈' && <Subject
-                          key={idx}
-                          style={{
-                            background: "#B7E6FF",
-                            boxShadow: "0px 0px 15px #B7E6FF",
-                          }}
-                        >
-                          <span>#꿈</span>
-                        </Subject>}
-                        {v.questiontopic?.length &&
-                          v.questiontopic[0] === '가치' && <Subject
-                          key={idx}
-                          style={{
-                            background: "#B5BDFF",
-                            boxShadow: "0px 0px 15px #B5BDFF",
-                          }}
-                        >
-                          <span>#가치</span>
-                        </Subject>}
-                        {v.questiontopic?.length &&
-                          v.questiontopic[0] === '관계' && <Subject
-                          key={idx}
-                          style={{
-                            background: "#FFF09D",
-                            boxShadow: "0px 0px 15px #FFF09D",
-                          }}
-                        >
-                          <span>#관계</span>
-                        </Subject>}
-                        {v.questiontopic?.length &&
-                          v.questiontopic[0] === '나' && <Subject
-                          key={idx}
-                          style={{
-                            background: "#F9D1FD",
-                            boxShadow: "0px 0px 15px #F9D1FD",
-                          }}
-                        >
-                          <span>#나</span>
-                        </Subject>}
-                      </SubjectBox>
-                      <div style={{marginLeft:'10px',fontWeight:'600',display:'flex',alignItems:'center'}}>
-                      <span>{v.questionCreatedUserNickname}님의 질문</span>
-                      </div>
-                    </Head>
-                    <QuestionContents>{v.questionContents}</QuestionContents>
-                    <AnswerContents>
-                    {v.answerContents}
-                    </AnswerContents>
-                    <Footer>
-                    <IconBox>
-                    <LikeBox>
-                      {v.currentLike ? (
-                        <>
-                          <FavoriteIcon fontSize='small' style={{ color: "red" }}
-                            
-                          />{" "}
-                        </>
-                      ) : (
-                        <>
-                          <FavoriteBorderIcon fontSize='small'/>{" "}
-                        </>
-                      )}
-                      <LikeCount>{v.likeCount}개</LikeCount>
-                    </LikeBox>
-                    <CommentBox>
-                      <ChatBubbleOutlineIcon fontSize='small'/>
-                      <CommentCount>{v.commentCount}개</CommentCount>
-                    </CommentBox>
-                  </IconBox>
-                      <CreatedAt>20{v.answerCreatedAt?.charAt(0)}{v.answerCreatedAt?.charAt(1)}년 {v.answerCreatedAt?.charAt(2)}{v.answerCreatedAt?.charAt(3)}월 {v.answerCreatedAt?.charAt(4)}{v.answerCreatedAt?.charAt(5)}일</CreatedAt>
-                    </Footer>
-                  </Card>
-                );
-              })}
-          </InfinityScroll>}
+                          <span>{v.questionCreatedUserNickname}님의 질문</span>
+                        </div>
+                      </Head>
+                      <QuestionContents>{v.questionContents}</QuestionContents>
+                      <AnswerContents>{v.answerContents}</AnswerContents>
+                      <Footer>
+                        <IconBox>
+                          <LikeBox>
+                            {v.currentLike ? (
+                              <>
+                                <FavoriteIcon
+                                  fontSize="small"
+                                  style={{ color: "red" }}
+                                />{" "}
+                              </>
+                            ) : (
+                              <>
+                                <FavoriteBorderIcon fontSize="small" />{" "}
+                              </>
+                            )}
+                            <LikeCount>{v.likeCount}개</LikeCount>
+                          </LikeBox>
+                          <CommentBox>
+                            <ChatBubbleOutlineIcon fontSize="small" />
+                            <CommentCount>{v.commentCount}개</CommentCount>
+                          </CommentBox>
+                        </IconBox>
+                        <CreatedAt>
+                          20{v.answerCreatedAt?.charAt(0)}
+                          {v.answerCreatedAt?.charAt(1)}년{" "}
+                          {v.answerCreatedAt?.charAt(2)}
+                          {v.answerCreatedAt?.charAt(3)}월{" "}
+                          {v.answerCreatedAt?.charAt(4)}
+                          {v.answerCreatedAt?.charAt(5)}일
+                        </CreatedAt>
+                      </Footer>
+                    </Card>
+                  );
+                })}
+            </InfinityScroll>
+          )}
         </CardContainer>
         <CardContainerPop view={now_view} ref={pop_container}>
-          {now_view === 'pop' && <InfinityScroll
-            callNext={() => {
-              console.log("scroooolled!");
-              dispatch(customActions.getOthersPopAnswers(id));
-            }}
-            is_next={pop_next ? true : false}
-            is_loading={pop_loading}
-            ref_value={pop_container.current}
-          >
-            {pop_list &&
-              pop_list.map((v, idx) => {
-                return (
-                  <Card key={idx} {...v}>
-                    <Head>
-                    <SubjectBox>
-                        {v.questiontopic?.length &&
-                          v.questiontopic[0] === '사랑' && <Subject
+          {now_view === "pop" && (
+            <InfinityScroll
+              callNext={() => {
+                console.log("scroooolled!");
+                dispatch(customActions.getOthersPopAnswers(id));
+              }}
+              is_next={pop_next ? true : false}
+              is_loading={pop_loading}
+              ref_value={pop_container.current}
+            >
+              {pop_list &&
+                pop_list.map((v, idx) => {
+                  return (
+                    <Card key={idx} {...v}>
+                      <Head>
+                        <SubjectBox>
+                          {v.questiontopic?.length &&
+                            v.questiontopic[0] === "사랑" && (
+                              <Subject
+                                style={{
+                                  background: "#FFAAAA",
+                                  boxShadow: "0px 0px 15px #FFAAAA",
+                                }}
+                              >
+                                <span>#사랑</span>
+                              </Subject>
+                            )}
+                          {v.questiontopic?.length &&
+                            v.questiontopic[0] === "우정" && (
+                              <Subject
+                                key={idx}
+                                style={{
+                                  background: "#B9FFC4",
+                                  boxShadow: "0px 0px 15px #B9FFC4",
+                                }}
+                              >
+                                <span>#우정</span>
+                              </Subject>
+                            )}
+                          {v.questiontopic?.length &&
+                            v.questiontopic[0] === "꿈" && (
+                              <Subject
+                                key={idx}
+                                style={{
+                                  background: "#B7E6FF",
+                                  boxShadow: "0px 0px 15px #B7E6FF",
+                                }}
+                              >
+                                <span>#꿈</span>
+                              </Subject>
+                            )}
+                          {v.questiontopic?.length &&
+                            v.questiontopic[0] === "가치" && (
+                              <Subject
+                                key={idx}
+                                style={{
+                                  background: "#B5BDFF",
+                                  boxShadow: "0px 0px 15px #B5BDFF",
+                                }}
+                              >
+                                <span>#가치</span>
+                              </Subject>
+                            )}
+                          {v.questiontopic?.length &&
+                            v.questiontopic[0] === "관계" && (
+                              <Subject
+                                key={idx}
+                                style={{
+                                  background: "#FFF09D",
+                                  boxShadow: "0px 0px 15px #FFF09D",
+                                }}
+                              >
+                                <span>#관계</span>
+                              </Subject>
+                            )}
+                          {v.questiontopic?.length &&
+                            v.questiontopic[0] === "나" && (
+                              <Subject
+                                key={idx}
+                                style={{
+                                  background: "#F9D1FD",
+                                  boxShadow: "0px 0px 15px #F9D1FD",
+                                }}
+                              >
+                                <span>#나</span>
+                              </Subject>
+                            )}
+                        </SubjectBox>
+                        <div
                           style={{
-                            background: "#FFAAAA",
-                            boxShadow: "0px 0px 15px #FFAAAA",
+                            marginLeft: "10px",
+                            fontWeight: "600",
+                            display: "flex",
+                            alignItems: "center",
                           }}
                         >
-                          <span>#사랑</span>
-                        </Subject>}
-                        {v.questiontopic?.length &&
-                          v.questiontopic[0] === '우정' && <Subject
-                          key={idx}
-                          style={{
-                            background: "#B9FFC4",
-                            boxShadow: "0px 0px 15px #B9FFC4",
-                          }}
-                        >
-                          <span>#우정</span>
-                        </Subject>}
-                        {v.questiontopic?.length &&
-                          v.questiontopic[0] === '꿈' && <Subject
-                          key={idx}
-                          style={{
-                            background: "#B7E6FF",
-                            boxShadow: "0px 0px 15px #B7E6FF",
-                          }}
-                        >
-                          <span>#꿈</span>
-                        </Subject>}
-                        {v.questiontopic?.length &&
-                          v.questiontopic[0] === '가치' && <Subject
-                          key={idx}
-                          style={{
-                            background: "#B5BDFF",
-                            boxShadow: "0px 0px 15px #B5BDFF",
-                          }}
-                        >
-                          <span>#가치</span>
-                        </Subject>}
-                        {v.questiontopic?.length &&
-                          v.questiontopic[0] === '관계' && <Subject
-                          key={idx}
-                          style={{
-                            background: "#FFF09D",
-                            boxShadow: "0px 0px 15px #FFF09D",
-                          }}
-                        >
-                          <span>#관계</span>
-                        </Subject>}
-                        {v.questiontopic?.length &&
-                          v.questiontopic[0] === '나' && <Subject
-                          key={idx}
-                          style={{
-                            background: "#F9D1FD",
-                            boxShadow: "0px 0px 15px #F9D1FD",
-                          }}
-                        >
-                          <span>#나</span>
-                        </Subject>}
-                      </SubjectBox>
-                      <div style={{marginLeft:'10px',fontWeight:'600',display:'flex',alignItems:'center'}}>
-                      <span>{v.questionCreatedUserNickname}님의 질문</span>
-                      </div>
-                    </Head>
-                    <QuestionContents>{v.questionContents}</QuestionContents>
-                    <AnswerContents>
-                    {v.answerContents}
-                    </AnswerContents>
-                    <Footer>
-                    <IconBox>
-                    <LikeBox>
-                      {v.currentLike ? (
-                        <>
-                          <FavoriteIcon fontSize='small' style={{ color: "red" }}
-                            
-                          />{" "}
-                        </>
-                      ) : (
-                        <>
-                          <FavoriteBorderIcon fontSize='small'/>{" "}
-                        </>
-                      )}
-                      <LikeCount>{v.likeCount}개</LikeCount>
-                    </LikeBox>
-                    <CommentBox>
-                      <ChatBubbleOutlineIcon fontSize='small'/>
-                      <CommentCount>{v.commentCount}개</CommentCount>
-                    </CommentBox>
-                  </IconBox>
-                      <CreatedAt>20{v.answerCreatedAt?.charAt(0)}{v.answerCreatedAt?.charAt(1)}년 {v.answerCreatedAt?.charAt(2)}{v.answerCreatedAt?.charAt(3)}월 {v.answerCreatedAt?.charAt(4)}{v.answerCreatedAt?.charAt(5)}일</CreatedAt>
-                    </Footer>
-                  </Card>
-                );
-              })}
-          </InfinityScroll>}
+                          <span>{v.questionCreatedUserNickname}님의 질문</span>
+                        </div>
+                      </Head>
+                      <QuestionContents>{v.questionContents}</QuestionContents>
+                      <AnswerContents>{v.answerContents}</AnswerContents>
+                      <Footer>
+                        <IconBox>
+                          <LikeBox>
+                            {v.currentLike ? (
+                              <>
+                                <FavoriteIcon
+                                  fontSize="small"
+                                  style={{ color: "red" }}
+                                />{" "}
+                              </>
+                            ) : (
+                              <>
+                                <FavoriteBorderIcon fontSize="small" />{" "}
+                              </>
+                            )}
+                            <LikeCount>{v.likeCount}개</LikeCount>
+                          </LikeBox>
+                          <CommentBox>
+                            <ChatBubbleOutlineIcon fontSize="small" />
+                            <CommentCount>{v.commentCount}개</CommentCount>
+                          </CommentBox>
+                        </IconBox>
+                        <CreatedAt>
+                          20{v.answerCreatedAt?.charAt(0)}
+                          {v.answerCreatedAt?.charAt(1)}년{" "}
+                          {v.answerCreatedAt?.charAt(2)}
+                          {v.answerCreatedAt?.charAt(3)}월{" "}
+                          {v.answerCreatedAt?.charAt(4)}
+                          {v.answerCreatedAt?.charAt(5)}일
+                        </CreatedAt>
+                      </Footer>
+                    </Card>
+                  );
+                })}
+            </InfinityScroll>
+          )}
         </CardContainerPop>
       </Container>
       {modalVisible ? <NewQuestion setModalVisible={setModalVisible} /> : null}
@@ -360,14 +445,14 @@ const Container = styled.section`
   height: 100%;
   max-width: 988px;
   max-height: 632px;
-  margin:50px auto;
+  margin: 50px auto;
   border-radius: 20px;
   overflow: hidden;
   @media (max-width: 750px) {
-    margin-top:30px;
-    margin-bottom:0px;
+    margin-top: 30px;
+    margin-bottom: 0px;
     padding: 20px 25px 20px 25px;
-    max-height:100%;
+    max-height: 100%;
   }
 `;
 const Background = styled.div`
@@ -381,8 +466,8 @@ const Background = styled.div`
   background-color: #ffffff;
   box-shadow: 0px 0px 20px;
   opacity: 0.3;
-  @media(max-width:750px){
-    display:none;
+  @media (max-width: 750px) {
+    display: none;
   }
 `;
 
@@ -396,7 +481,7 @@ const TitleContainer = styled.div`
   justify-content: space-between;
   margin-bottom: 38px;
   @media (max-width: 750px) {
-    display:none;
+    display: none;
   }
 `;
 
@@ -407,7 +492,7 @@ const Title = styled.span`
   font-size: 22px;
   font-weight: 400;
   @media (max-width: 750px) {
-    font-size:18px;
+    font-size: 18px;
     width: 200px;
     min-width: 200px;
     font-size: 18px;
@@ -415,62 +500,64 @@ const Title = styled.span`
 `;
 
 const TitleContainerMobile = styled.div`
-  width:100%;
-  height:25px;
-  display:flex;
-  flex-direction:row;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:25px;
-  @media(min-width:750px){
-    display:none;
+  width: 100%;
+  height: 25px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+  @media (min-width: 750px) {
+    display: none;
   }
 `;
 
 const TitleMobile = styled.span`
-  width:auto;
-  text-align:center;
+  width: auto;
+  text-align: center;
   font: normal normal bold 15px/22px Noto Sans KR;
 `;
 
 const EmptyDiv = styled.div`
-  width:24px;
-  height:100%;
+  width: 24px;
+  height: 100%;
 `;
 
 const CardContainer = styled.section`
   box-sizing: border-box;
   padding-right: 50px;
-  ${props => props.view === 'new' ? `width:100%`: `width:0`};
-  ${props => props.view === 'new' ? `height:100%`: `height:0`};
+  ${(props) => (props.view === "new" ? `width:100%` : `width:0`)};
+  ${(props) => (props.view === "new" ? `height:100%` : `height:0`)};
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   flex-wrap: wrap;
   overflow: auto;
-  ${props => props.view === 'new' ? `padding-bottom:60px`: `padding-bottom:0px`};
+  ${(props) =>
+    props.view === "new" ? `padding-bottom:60px` : `padding-bottom:0px`};
   @media (max-width: 750px) {
-    padding-right:0px;
-    flex-direction:column;
-    flex-wrap:nowrap;
+    padding-right: 0px;
+    flex-direction: column;
+    flex-wrap: nowrap;
   }
 `;
 
 const CardContainerPop = styled.section`
   box-sizing: border-box;
   padding-right: 50px;
-  ${props => props.view === 'pop' ? `width:100%`: `width:0`};
-  ${props => props.view === 'pop' ? `height:100%`: `height:0`};
+  ${(props) => (props.view === "pop" ? `width:100%` : `width:0`)};
+  ${(props) => (props.view === "pop" ? `height:100%` : `height:0`)};
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   flex-wrap: wrap;
   overflow: auto;
-  ${props => props.view === 'pop' ? `padding-bottom:60px`: `padding-bottom:0px`};
+  ${(props) =>
+    props.view === "pop" ? `padding-bottom:60px` : `padding-bottom:0px`};
   @media (max-width: 750px) {
-    padding-right:0px;
-    flex-direction:column;
-    flex-wrap:nowrap;
+    padding-right: 0px;
+    flex-direction: column;
+    flex-wrap: nowrap;
   }
 `;
 
@@ -481,7 +568,7 @@ const Card = styled.div`
   height: 100%;
   max-width: 410px;
   max-height: 230px;
-  min-height:180px;
+  min-height: 180px;
   margin: 0px 20px 25px 0px;
   background: #ffffff;
   box-shadow: 0px 0px 20px #0000001a;
@@ -489,14 +576,13 @@ const Card = styled.div`
   box-sizing: border-box;
   padding: 18px;
   @media (max-width: 750px) {
-    box-shadow: 0px 0px 10px #0000001A;
+    box-shadow: 0px 0px 10px #0000001a;
     padding: 14px 14px 10px 14px;
-    margin:0px 0px 15px 0px;
-    min-height:150px;
-    max-height:150px;
-    border-radius:16px;
+    margin: 0px 0px 15px 0px;
+    min-height: 150px;
+    max-height: 150px;
+    border-radius: 16px;
   }
-
 `;
 
 const Head = styled.div`
@@ -507,7 +593,7 @@ const Head = styled.div`
   align-items: center;
   justify-content: flex-start;
   @media (max-width: 750px) {
-    display:none;
+    display: none;
   }
 `;
 
@@ -516,8 +602,8 @@ const SubjectBox = styled.div`
   flex-direction: row;
   width: auto;
   height: 100%;
-  @media(max-width:750px){
-    display:none;
+  @media (max-width: 750px) {
+    display: none;
   }
 `;
 
@@ -533,10 +619,6 @@ const Subject = styled.div`
   font-weight: 600;
 `;
 
-const AnswerCount = styled.span`
-  font-size: 11px;
-`;
-
 const QuestionContents = styled.span`
   font-size: 15px;
   font-weight: 600;
@@ -549,9 +631,9 @@ const QuestionContents = styled.span`
   overflow: hidden;
   text-overflow: ellipsis;
   @media (max-width: 750px) {
-    height:25px;
-    margin-top:0px;
-    font-size:13px;
+    height: 25px;
+    margin-top: 0px;
+    font-size: 13px;
   }
 `;
 
@@ -566,25 +648,25 @@ const AnswerContents = styled.span`
   overflow: hidden;
   text-overflow: ellipsis;
   @media (max-width: 750px) {
-    height:60px;
-    margin-top:6px;
+    height: 60px;
+    margin-top: 6px;
     margin-bottom: 20px;
-    font-size:13px;
+    font-size: 13px;
   }
 `;
 
 const Footer = styled.div`
-  display:flex;
-  flex-direction:row;
-  align-items:center;
-  justify-content:space-between;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
   box-sizing: border-box;
   border-top: 1px solid #bbbbbb;
   padding-top: 13px;
-  margin-top:10px;
+  margin-top: 10px;
   @media (max-width: 750px) {
-    margin-top:0px;
-    padding-top:10px;
+    margin-top: 0px;
+    padding-top: 10px;
   }
 `;
 
@@ -618,28 +700,28 @@ const CreatedAt = styled.span`
 `;
 
 const FilterBtnBoxMobile = styled.div`
-  width:100%;
-  display:flex;
-  flex-direction:column;
-  justify-content:flex-end;
-  align-items:flex-end;
-  font-size:12px;
-  margin-right:20px;
-  padding-right:20px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
+  font-size: 12px;
+  margin-right: 20px;
+  padding-right: 20px;
   padding-bottom: 20px;
-  box-sizing:border-box;
-  @media(min-width:750px){
-    display:none;
+  box-sizing: border-box;
+  @media (min-width: 750px) {
+    display: none;
   }
 `;
 
 const FilterToggle = styled.div`
- display:flex;
- flex-direction:row;
- align-items:center;
- font-weight:600;
- justify-content:flex-end;
- margin-right:-17px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-weight: 600;
+  justify-content: flex-end;
+  margin-right: -17px;
 `;
 
 const FilterBtnBox = styled.div`
@@ -647,12 +729,11 @@ const FilterBtnBox = styled.div`
   justify-content: flex-end;
   align-items: flex-end;
   width: 50%;
-  
 `;
 
 const FilterBtn = styled.button`
   cursor: pointer;
-  max-width:80px;
+  max-width: 80px;
   max-height: 17px;
   text-align: left;
   font: normal normal normal 14px/19px Roboto;
@@ -665,7 +746,6 @@ const FilterBtn = styled.button`
   :hover {
     font-weight: bold;
   }
-  
 `;
 
 export default OthersAnswers;

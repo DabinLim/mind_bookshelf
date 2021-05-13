@@ -975,7 +975,7 @@ const ModalComponent = styled.div`
   display: flex;
   /* box-shadow: 0px 0px 15px #c1c7fc; */
   @media (max-width: 950px) {
-    width: 600px;
+    width: 750px;
   }
 
   @media (max-width: 750px) {
@@ -1220,27 +1220,6 @@ const ModalRightContainer = styled.div`
   }
 `;
 
-// const CardWriter = styled.span`
-//   margin-left: 8px;
-// `;
-
-// const CommentListBox = styled.div`
-//   max-height: 300px;
-//   overflow: auto;
-//   ::-webkit-scrollbar {
-//     width: 12px; /* width of the entire scrollbar */
-//   }
-
-//   ::-webkit-scrollbar-track {
-//     background: white; /* color of the tracking area */
-//   }
-
-//   ::-webkit-scrollbar-thumb {
-//     background-color: #d8d9dc; /* color of the scroll thumb */
-//     border-radius: 20px; /* roundness of the scroll thumb */
-//   }
-// `;
-
 const ModalCmtInputBox = styled.div`
   width: 100%;
   min-height: 92px;
@@ -1332,19 +1311,6 @@ const LikeBtn = styled.div`
 const LikeCount = styled.div`
   font-size: 17px;
 `;
-
-// const MoreBtn = styled.button`
-//   font-size: 20px;
-//   outline: none;
-//   border: none;
-//   background: none;
-//   cursor: pointer;
-
-//   :hover {
-//     background: #c4c4c4;
-//     border-radius: 50%;
-//   }
-// `;
 
 const CardDate = styled.div`
   display: flex;
