@@ -606,6 +606,9 @@ const FollowBtnMobile = styled.button`
   background-color: #efe7ff;
   font: normal normal normal 13px/19px Noto Sans KR;
   cursor: pointer;
+  @media (min-width: 750px) {
+    display: none;
+  }
 `;
 
 const UnFollowBtnMobile = styled.button`
@@ -616,6 +619,9 @@ const UnFollowBtnMobile = styled.button`
   background-color: #f0f0f0;
   font: normal normal normal 13px/19px Noto Sans KR;
   cursor: pointer;
+  @media (min-width: 750px) {
+    display: none;
+  }
 `;
 
 const MyQuestionBtn = styled.div`

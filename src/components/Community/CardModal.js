@@ -760,7 +760,7 @@ const CardModal = (props) => {
                 {answerInfo?.questionContents}
               </CardQuestionContent>
             </CardWriterBox>
-            <CardWriteLeftBody>
+            <CardWriteLeftBody type={answerInfo?.type}>
               <SmallHashTag>{topic}</SmallHashTag>
               <SmallQuestionContent>
                 {answerInfo?.questionContents}
@@ -1179,7 +1179,7 @@ const CardWriteLeftBody = styled.div`
     margin-top:30px;
     min-height: 180px;
     ${props => props.type === 'book' ? `max-height: 360px` :`max-height: 360px`};
-    ${props => props.type === 'book' ? `padding: 20px 29px 0 20px` :`padding: 20px 29px 150px 20px`};
+    ${props => props.type === 'book' ? `padding: 20px 29px 0px 20px` :`padding: 20px 29px 150px 20px`};
     /* padding: 20px 29px 0 20px; */
     border-bottom: none;
     display: flex;
@@ -1375,7 +1375,7 @@ const IconContainer = styled.div`
     min-height: 50px;
     max-height: 50px;
     padding: 0 0 0 20px;
-    ${props => props.type === 'book' ? `margin: 380px 0px 0px 0px`:`margin: 0px`};
+    ${props => props.type === 'book' ? `margin: 200px 0px 0px 0px`:`margin: 0px`};
     border-top: 1px solid #d3d3d3;
     border-bottom: 1px solid #d3d3d3;
   }
