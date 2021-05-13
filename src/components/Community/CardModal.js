@@ -856,15 +856,6 @@ const CardModal = (props) => {
                   </CommentBtn>
                 </CommentContainer>
               </IconBox>
-              {answerInfo.answerUserId === user_info.id ? (
-                <div style={{ marginRight: "10px", cursor: "pointer" }}>
-                  <MoreVertIcon
-                    onClick={() => {
-                      setUpdateModal(true);
-                    }}
-                  />
-                </div>
-              ) : null}
             </IconContainer>
           </ModalContent>
           <ModalRightContainer>
