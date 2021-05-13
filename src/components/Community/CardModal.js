@@ -736,7 +736,6 @@ const CardModal = (props) => {
                 {answerInfo.answerUserId === user_info.id ? (
                   <div
                     style={{
-                      marginRight: "10px",
                       cursor: "pointer",
                       position: "relative",
                     }}
@@ -1255,7 +1254,7 @@ const ModalCmtInputBox = styled.div`
   @media (max-width: 500px) {
     min-height: 60px;
     max-height: 60px;
-    border-top: none;
+    border-top: 1px solid #d3d3d3;
   }
 `;
 const ModalCmtInput = styled.input`
