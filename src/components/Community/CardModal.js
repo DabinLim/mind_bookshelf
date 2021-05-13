@@ -387,7 +387,6 @@ const CardModal = (props) => {
               {answerQuantity.length &&
                 answerQuantity.map((v, idx) => {
                   if (v.answerId !== answerInfo.answerId && !card_loading) {
-                    console.log('씨발')
                     return (
                       <DetailContainer key={idx}>
                         <Head>
@@ -1086,7 +1085,6 @@ const ModalComponent = styled.div`
   @media (max-width: 750px) {
     overflow-y:auto;
     border-radius: 16px;
-    ${(props) => (props.book ? `` : `margin-top:60px`)};
     top: 0%;
     left: 0%;
     width: 100%;
@@ -1109,7 +1107,7 @@ const ModalContent = styled.div`
 
   @media (max-width: 750px) {
     width: 100%;
-    ${props => props.type === 'book'? `height:100%`:`height:50%`};
+    ${props => props.type === 'book'? `height:100%`:`height:100%`};
     border: none;
     border-radius: 20px 20px 0 0;
     background: white;
@@ -1273,7 +1271,8 @@ const CardAnswerContent = styled.div`
     margin: 0;
     padding: 0;
     width: 100%;
-    ${props => props.type === 'book' ? `min-height:220px`:''};
+    overflow-y:auto;
+    ${props => props.type === 'book' ? `min-height:160px`:'min-height:110px'};
   }
 `;
 
@@ -1363,6 +1362,7 @@ const ModalUpload = styled.div`
 `;
 
 const IconContainer = styled.div`
+  z-index:1;
   display: flex;
   min-height: 20%;
   max-height: 20%;
@@ -1375,7 +1375,7 @@ const IconContainer = styled.div`
     min-height: 50px;
     max-height: 50px;
     padding: 0 0 0 20px;
-    ${props => props.type === 'book' ? `margin: 200px 0px 0px 0px`:`margin: 0px`};
+    ${props => props.type === 'book' ? `margin: 160px 0px 0px 0px`:`margin: 0px 0px 0px 0px`};
     border-top: 1px solid #d3d3d3;
     border-bottom: 1px solid #d3d3d3;
   }
