@@ -27,7 +27,6 @@ const Profile = (props) => {
   const followed = idx !== -1 ? true : false;
   const is_login = useSelector((state) => state.user.is_login);
   const userLoading = useSelector((state) => state.user.is_userLoading);
-  const friendLoading = useSelector((state) => state.user.is_friendLoading);
 
   const closeUpdateModal = () => {
     setUpdateModal(false);
@@ -67,7 +66,6 @@ const Profile = (props) => {
                 }}
               >
                 <ProfileImg src={other_info.profileImg} />
-                {/* <SettingIcon src="https://cdn4.iconfinder.com/data/icons/forgen-phone-settings/48/setting-512.png" /> */}
               </ProfileImgContainer>
               <ProfileDetail>
                 <Head>
@@ -214,7 +212,7 @@ const Profile = (props) => {
                     낙서
                     <CountText>{other_info.otherAnswerCount}</CountText>
                   </Answers>
-                  <Line/>
+                  <Line />
                   <MyQuestionBtn
                     onClick={() => {
                       dispatch(setComponent("othersquestion"));
@@ -223,7 +221,7 @@ const Profile = (props) => {
                     질문
                     <CountText>{other_info.otherCustomQuestionCount}</CountText>
                   </MyQuestionBtn>
-                  <Line/>
+                  <Line />
                   <Myfollowers
                     onClick={() => {
                       setFollowModal(true);
@@ -234,30 +232,37 @@ const Profile = (props) => {
                 </Body>
                 <Bottom>
                   <Introduce>{other_info.introduce}</Introduce>
-                  {/* <QuestionBtn onClick={()=>{dispatch(setComponent('othersquestion'))}}>질문 카드 보러가기</QuestionBtn> */}
                 </Bottom>
                 {is_login && other_info.nickname !== "알 수 없는 유저" ? (
-                      followed ? (
-                        <UnFollowBtnMobile onClick={() => {
-                          dispatch(
-                            userActions.unfollowOtherAX(
-                              props.id,
-                              other_info.nickname
-                            )
-                          );
-                        }}>구독중</UnFollowBtnMobile>
-                      ) : (
-                        <FollowBtnMobile onClick={() => {
-                          dispatch(
-                            userActions.followOtherAX(
-                              props.id,
-                              other_info.nickname,
-                              other_info.profileImg
-                            )
-                          );
-                        }}>구독</FollowBtnMobile>
-                      )
-                    ) : null}
+                  followed ? (
+                    <UnFollowBtnMobile
+                      onClick={() => {
+                        dispatch(
+                          userActions.unfollowOtherAX(
+                            props.id,
+                            other_info.nickname
+                          )
+                        );
+                      }}
+                    >
+                      구독중
+                    </UnFollowBtnMobile>
+                  ) : (
+                    <FollowBtnMobile
+                      onClick={() => {
+                        dispatch(
+                          userActions.followOtherAX(
+                            props.id,
+                            other_info.nickname,
+                            other_info.profileImg
+                          )
+                        );
+                      }}
+                    >
+                      구독
+                    </FollowBtnMobile>
+                  )
+                ) : null}
               </ProfileDetail>
             </>
           )}
@@ -394,7 +399,7 @@ const Profile = (props) => {
                     낙서
                     <CountText>{user_info.myAnswerCount}</CountText>
                   </Answers>
-                  <Line/>
+                  <Line />
                   <MyQuestionBtn
                     onClick={() => {
                       dispatch(setComponent("myquestion"));
@@ -403,7 +408,7 @@ const Profile = (props) => {
                     질문
                     <CountText>{user_info.myCustomQuestionCount}</CountText>
                   </MyQuestionBtn>
-                  <Line/>
+                  <Line />
                   <Myfollowers
                     onClick={() => {
                       setFollowModal(true);
@@ -415,7 +420,6 @@ const Profile = (props) => {
                 </Body>
                 <Bottom>
                   <Introduce>{user_info.introduce}</Introduce>
-                  {/* <QuestionBtn onClick={()=>{dispatch(setComponent('myquestion'))}}>나의 질문 카드 보러가기</QuestionBtn> */}
                 </Bottom>
               </ProfileDetail>
             </>
@@ -436,20 +440,19 @@ const Background = styled.div`
   opacity: 0.5;
   box-shadow: 0px 0px 6px #ffffff;
   border-radius: 20px;
-  @media(max-width:750px){
-    opacity:0.9;
-    box-shadow: 0px 0px 20px #AEA1E590;
+  @media (max-width: 750px) {
+    opacity: 0.9;
+    box-shadow: 0px 0px 20px #aea1e590;
   }
-  
 `;
 
 const ProfileImgContainer = styled.div`
   position: relative;
   width: 126px;
   height: 100%;
-  @media(max-width:750px){
-    width:68px;
-    height:68px;
+  @media (max-width: 750px) {
+    width: 68px;
+    height: 68px;
   }
 `;
 
@@ -458,11 +461,10 @@ const ProfileImg = styled.img`
   height: 126px;
   border-radius: 50%;
   object-fit: cover;
-  @media(max-width:750px){
-    width:68px;
-    height:68px;
+  @media (max-width: 750px) {
+    width: 68px;
+    height: 68px;
   }
-  
 `;
 
 const SettingIcon = styled.img`
@@ -476,25 +478,24 @@ const SettingIcon = styled.img`
   padding: 3px;
   cursor: pointer;
   box-shadow: 0px 0px 6px #00000029;
-  @media(max-width:750px){
-    top:0px;
-    right:0px;
-    width:20px;
-    height:20px;
+  @media (max-width: 750px) {
+    top: 0px;
+    right: 0px;
+    width: 20px;
+    height: 20px;
   }
 `;
 
 const ProfileDetail = styled.div`
-  z-index:1;
+  z-index: 1;
   margin: 0px 0px 0px 45px;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  @media(max-width:750px){
-    margin:0px;
+  @media (max-width: 750px) {
+    margin: 0px;
   }
-  
 `;
 
 const Head = styled.div`
@@ -502,10 +503,10 @@ const Head = styled.div`
   width: 100%;
   flex-direction: row;
   justify-content: space-between;
-  @media(max-width:750px){
-    justify-content:center;
-    margin-top:10px;
-    margin-bottom:10px;
+  @media (max-width: 750px) {
+    justify-content: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
   }
 `;
 
@@ -514,22 +515,21 @@ const Body = styled.div`
   width: 100%;
   flex-direction: row;
   align-items: center;
-  @media(max-width:750px){
-    justify-content:center;
-    width:178px;
-    height:20px;
-    box-sizing:border-box;
-
+  @media (max-width: 750px) {
+    justify-content: center;
+    width: 178px;
+    height: 20px;
+    box-sizing: border-box;
   }
 `;
 
 const Line = styled.div`
-  width:1px;
-  margin:1px 10px 0px 10px;
-  height:8px;
-  border-right:1px solid #212121;
-  @media(min-width:750px){
-    display:none;
+  width: 1px;
+  margin: 1px 10px 0px 10px;
+  height: 8px;
+  border-right: 1px solid #212121;
+  @media (min-width: 750px) {
+    display: none;
   }
 `;
 
@@ -538,10 +538,10 @@ const Bottom = styled.div`
   width: 100%;
   justify-content: space-between;
   margin-top: 20px;
-  @media(max-width:750px){
-    margin-top:0px;
-    margin-bottom:22px;
-    justify-content:center;
+  @media (max-width: 750px) {
+    margin-top: 0px;
+    margin-bottom: 22px;
+    justify-content: center;
     font: normal normal normal 12px/18px Noto Sans KR;
   }
 `;
@@ -549,26 +549,24 @@ const Bottom = styled.div`
 const Nickname = styled.div`
   font-weight: 600;
   font-size: 22px;
-  @media(max-width:750px){
-    text-align:center;
+  @media (max-width: 750px) {
+    text-align: center;
     font: normal normal bold 18px/27px Noto Sans KR;
   }
-  
 `;
 
 const CountText = styled.span`
   font-weight: 600;
   margin-left: 5px;
-  @media(max-width:750px){
+  @media (max-width: 750px) {
     font: normal normal bold 14px/20px Noto Sans KR;
   }
-  
 `;
 
 const Introduce = styled.div`
   margin-top: 20px;
   font-size: 14px;
-  @media(max-width:750px){
+  @media (max-width: 750px) {
     font: normal normal normal 12px/18px Noto Sans KR;
   }
 `;
@@ -579,14 +577,13 @@ const Answers = styled.div`
   margin-right: 20px;
   font-weight: 400;
   font-size: 14px;
-  @media(max-width:750px){
-    display:flex;
-    align-items:center;
-    margin-top:0px;
-    margin-right:0px;
-    font-size:11px;
+  @media (max-width: 750px) {
+    display: flex;
+    align-items: center;
+    margin-top: 0px;
+    margin-right: 0px;
+    font-size: 11px;
   }
-  
 `;
 
 const FollowerBtn = styled.div`
@@ -594,29 +591,29 @@ const FollowerBtn = styled.div`
   cursor: pointer;
   font-weight: 600;
   font-size: 14px;
-  @media(max-width:750px){
-    display:none;
-  }  
+  @media (max-width: 750px) {
+    display: none;
+  }
 `;
 
 const FollowBtnMobile = styled.button`
-  width:100%;
-  height:36px;
-  border-style:none;
-  border-radius:45px;
-  background-color:#EFE7FF;
+  width: 100%;
+  height: 36px;
+  border-style: none;
+  border-radius: 45px;
+  background-color: #efe7ff;
   font: normal normal normal 13px/19px Noto Sans KR;
-  cursor:pointer;
+  cursor: pointer;
 `;
 
 const UnFollowBtnMobile = styled.button`
-  width:100%;
-  height:36px;
-  border-style:none;
-  border-radius:45px;
-  background-color:#F0F0F0;
+  width: 100%;
+  height: 36px;
+  border-style: none;
+  border-radius: 45px;
+  background-color: #f0f0f0;
   font: normal normal normal 13px/19px Noto Sans KR;
-  cursor:pointer;
+  cursor: pointer;
 `;
 
 const MyQuestionBtn = styled.div`
@@ -625,25 +622,22 @@ const MyQuestionBtn = styled.div`
   cursor: pointer;
   font-weight: 400;
   font-size: 14px;
-  @media(max-width:750px){
-    display:flex;
-    align-items:center;
-    margin-top:0px;
-    margin-right:0px;
-    font-size:11px;
+  @media (max-width: 750px) {
+    display: flex;
+    align-items: center;
+    margin-top: 0px;
+    margin-right: 0px;
+    font-size: 11px;
   }
-  
 `;
 
 const SubjectContainer = styled.div`
   display: flex;
   flex-direction: row;
-  @media(max-width:750px){
-    display:none;
+  @media (max-width: 750px) {
+    display: none;
   }
-  
 `;
-
 
 const Subject1 = styled.div`
   display: flex;
@@ -656,7 +650,6 @@ const Subject1 = styled.div`
   border-radius: 45px;
   font-size: 14px;
   font-weight: 600;
-  
 `;
 
 const Myfollowers = styled.div`
@@ -665,14 +658,13 @@ const Myfollowers = styled.div`
   font-size: 14px;
   cursor: pointer;
   font-weight: 400;
-  @media(max-width:750px){
-    display:flex;
-    align-items:center;
-    margin-top:0px;
-    margin-right:0px;
-    font-size:11px;
+  @media (max-width: 750px) {
+    display: flex;
+    align-items: center;
+    margin-top: 0px;
+    margin-right: 0px;
+    font-size: 11px;
   }
-  
 `;
 
 const SpinnerContainer = styled.div`
@@ -681,14 +673,6 @@ const SpinnerContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-`;
-
-const QuestionBtn = styled.div`
-  padding: 8px 18px;
-  background: #ffffff;
-  border-radius: 20px;
-  cursor: pointer;
-  font-weight: 600;
 `;
 
 export default Profile;

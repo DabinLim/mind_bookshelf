@@ -11,9 +11,6 @@ const Comment = (props) => {
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.user.user);
   const answerInfo = useSelector((state) => state.community.card_detail);
-  // let contents = props.CommentContent
-  // const comment = props.commentContents.replace(``)
-  // console.log(props.comment)
 
   const deleteComment = () => {
     dispatch(
@@ -24,14 +21,6 @@ const Comment = (props) => {
       )
     );
   };
-
-  //   let test = reactStringReplace('내 이름은 이대호', '이대호', (match, i)=> (
-  //     <span key={i} style={{color: "blue", cursor: "pointer"}} onClick={() => {history.push('/')}}>{match}</span>
-  // ));
-
-  // {reactStringReplace(props.conmmentContents, /\@[a-zA-Zㄱ-ㅎㅏ-ㅣ가-힣0-9~!@#$%^&*()_]*/g, (match, i)=>(
-  //   <span key={i} style={{color: "blue", cursor: "pointer"}} onClick={() => {history.push(`/others/${props.tag[i-1][1]}`)}}>{match}</span>
-  // ))}
 
   let timeFormat =
     props.commentCreatedAt !== "방금전"
@@ -52,16 +41,6 @@ const Comment = (props) => {
       </span>
     ));
   });
-
-  // let contents;
-  //   props.tag.map((t, idx)=> {
-  //     contents = props.commentContents.replace(`@${t[0]}`,<span style={{color:'blue'}} onClick={()=>{
-  //       history.push(`/others/${t[1]}`)}}>{t[0]}</span>)
-  //   })
-  // console.log(JSON.stringify(contents))
-  // console.log(contents)
-  // console.log(props.commentContents, contents)
-  console.log(props.commentContents);
 
   return (
     <CommentFrame>

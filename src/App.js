@@ -6,7 +6,7 @@ import { Route } from "react-router-dom";
 import { history } from "./redux/configStore";
 import { useDispatch } from "react-redux";
 import { api as userActions } from "./redux/modules/user";
-import { Sidebar, Header } from "./shared/sharedindex";
+import { Header } from "./shared/sharedindex";
 import {
   Main,
   Auth,
@@ -19,8 +19,8 @@ import { getCookie } from "./shared/Cookie";
 import QuestionDetail from "./components/Community/QuestionDetail";
 import { socket, addNoti } from "./redux/modules/noti";
 import ComponentSlider from "./components/Main/ComponentSlider";
-import axios from 'axios'
-import ChannelService from './shared/ChannelService'
+import axios from "axios";
+import ChannelService from "./shared/ChannelService";
 
 function App() {
   axios.defaults.baseURL = "https://lkj99.shop";
@@ -39,7 +39,7 @@ function App() {
       dispatch(userActions.LoginCheckAX());
     }
     ChannelService.boot({
-      "pluginKey": "1e06f0ed-5da8-42f4-bb69-7e215b14ec18" 
+      pluginKey: "1e06f0ed-5da8-42f4-bb69-7e215b14ec18",
     });
   }, []);
   return (

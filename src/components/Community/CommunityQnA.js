@@ -5,7 +5,6 @@ import { CardModal } from "./communityindex";
 import { useSelector, useDispatch } from "react-redux";
 import { api as commentActions } from "../../redux/modules/comment";
 import { api as communityActions } from "../../redux/modules/community";
-import { setAnswerInfo } from "../../redux/modules/comment";
 import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import FavoriteIcon from "@material-ui/icons/Favorite";
@@ -36,29 +35,8 @@ const CommunityQnA = (props) => {
   return (
     <React.Fragment>
       <QnAContainer>
-        <div style={{display:"flex"}} >
+        <div style={{ display: "flex" }}>
           {props.topic.map((t) => {
-            // let color = "";
-            // let background = "";
-            // if (t === "나") {
-            //   color = "#B5BDFF";
-            //   background = "#C3C9FE";
-            // } else if (t === "사랑") {
-            //   color = "#B5BDFF";
-            //   background = "#C3C9FE";
-            // } else if (t === "관계") {
-            //   color = "#B5BDFF";
-            //   background = "#C3C9FE";
-            // } else if (t === "가치") {
-            //   color = "#B5BDFF";
-            //   background = "#C3C9FE";
-            // } else if (t === "우정") {
-            //   color = "#B5BDFF";
-            //   background = "#C3C9FE";
-            // } else if (t === "꿈") {
-            //   color = "#B5BDFF";
-            //   background = "#C3C9FE";
-            // }
             return (
               <Topic
                 style={{
@@ -67,7 +45,7 @@ const CommunityQnA = (props) => {
                   marginBottom: "5px",
                 }}
               >
-                <span>#{t}</span> 
+                <span>#{t}</span>
               </Topic>
             );
           })}
@@ -113,20 +91,20 @@ const CommunityQnA = (props) => {
                     <LikeBox>
                       {a.like ? (
                         <>
-                          <FavoriteIcon style={{ color: "red" }} />{" "}
+                          <FavoriteIcon style={{ color: "#061366" }} />{" "}
                         </>
                       ) : (
                         <>
-                          <FavoriteBorderIcon onClick={()=>{
-
-                          }} />{" "}
+                          <FavoriteBorderIcon onClick={() => {}} />{" "}
                         </>
                       )}
                       <LikeCount>{a.likeCount}개</LikeCount>
                     </LikeBox>
-                    <CommentBox onClick={()=>{
-                      openCard(a);
-                    }}>
+                    <CommentBox
+                      onClick={() => {
+                        openCard(a);
+                      }}
+                    >
                       <ChatBubbleOutlineIcon />
                       <CommentCount>{a.commentCount}개</CommentCount>
                     </CommentBox>
@@ -207,7 +185,7 @@ const Answer = styled.div`
     max-width: 200px;
     height: 160px;
   }
-  box-shadow: 0px 0px 20px #0000001A;
+  box-shadow: 0px 0px 20px #0000001a;
 `;
 
 const AnswerHeader = styled.div`
@@ -307,9 +285,9 @@ const Topic = styled.div`
   justify-content: center;
   @media (max-width: 500px) {
     margin-top: 0px;
-    min-width:63px;
-    max-width:63px;
-    max-height:30px;
+    min-width: 63px;
+    max-width: 63px;
+    max-height: 30px;
   }
 `;
 
