@@ -339,23 +339,9 @@ const CardModal = (props) => {
     setComments("");
   };
 
-  let color = "";
   let topic = "";
   if (answerInfo?.questionTopic?.length > 0) {
     topic = answerInfo?.questionTopic[0];
-    if (answerInfo?.questionTopic[0] === "나") {
-      color = "#F9D9FC";
-    } else if (answerInfo?.questionTopic[0] === "사랑") {
-      color = "#FEBABA";
-    } else if (answerInfo?.questionTopic[0] === "관계") {
-      color = "#FDF1AE";
-    } else if (answerInfo?.questionTopic[0] === "가치") {
-      color = "#C2C8FD";
-    } else if (answerInfo?.questionTopic[0] === "우정") {
-      color = "#C4FCCD";
-    } else if (answerInfo?.questionTopic[0] === "꿈") {
-      color = "#C3E9FD";
-    }
   }
 
   const getDate = (date) => {
@@ -746,11 +732,10 @@ const CardModal = (props) => {
                     </span>
                   </CardWriterNickNameLeft>
                 </CardWriterLeft>
-                <HashTag style={{ background: color }}>{topic}</HashTag>
+                <HashTag>{topic}</HashTag>
                 {answerInfo.answerUserId === user_info.id ? (
                   <div
                     style={{
-                      marginRight: "10px",
                       cursor: "pointer",
                       position: "relative",
                     }}
@@ -767,15 +752,16 @@ const CardModal = (props) => {
                   </div>
                 ) : null}
               </CardWriterInfoLeft>
-              <SmallHashTag style={{ background: color }}>
-                #{topic}
-              </SmallHashTag>
               {/* 카드 질문 내용 */}
               <CardQuestionContent>
                 {answerInfo?.questionContents}
               </CardQuestionContent>
             </CardWriterBox>
             <CardWriteLeftBody>
+              <SmallHashTag>{topic}</SmallHashTag>
+              <SmallQuestionContent>
+                {answerInfo?.questionContents}
+              </SmallQuestionContent>
               {updateAnswer ? (
                 <AnswerUpdateBox>
                   <CardAnswerInput value={answer} onChange={changeAnswer} />
@@ -845,7 +831,7 @@ const CardModal = (props) => {
                 <LikeContainer>
                   {answerInfo.like ? (
                     <LikeBtn
-                      style={{ color: "red" }}
+                      style={{ color: "#061366" }}
                       onClick={() => {
                         if (!getCookie("is_login")) {
                           swal({
@@ -988,10 +974,10 @@ const ModalComponent = styled.div`
   display: flex;
   /* box-shadow: 0px 0px 15px #c1c7fc; */
   @media (max-width: 950px) {
-    width: 400px;
+    width: 600px;
   }
 
-  @media (max-width: 500px) {
+  @media (max-width: 750px) {
     top: 0%;
     left: 0%;
     width: 100%;
@@ -1000,8 +986,12 @@ const ModalComponent = styled.div`
     align-items: center;
     background: none;
     transform: translate(0%, 0%);
-    margin: 50px 0 0 0;
+    margin: 58px 0 0 0;
     z-index: 350;
+  }
+
+  @media (max-width: 500px) {
+    margin: 50px 0 0 0;
   }
 `;
 
@@ -1012,10 +1002,7 @@ const ModalContent = styled.div`
   height: 500px;
   border-right: 1px solid #efefef;
 
-  @media (max-width: 950px) {
-    display: none;
-  }
-  @media (max-width: 500px) {
+  @media (max-width: 750px) {
     width: 100%;
     height: 50%;
     border: none;
@@ -1036,7 +1023,7 @@ const HashTag = styled.span`
   border-radius: 24px;
   text-align: center;
   font: normal normal bold 14px/19px Roboto;
-  box-shadow: 0px 0px 15px #c1c7fc;
+  box-shadow: 0px 0px 15px #c3c9fe;
   letter-spacing: 0px;
   color: #363636;
   font-size: 14px;
@@ -1059,7 +1046,7 @@ const GoBackBtn = styled.span`
 const SmallHashTag = styled.div`
   min-width: 58px;
   max-width: 58px;
-  background: #ededed;
+  background: #c3c9fe;
   padding: 8px 12px;
   border-radius: 24px;
   text-align: center;
@@ -1068,7 +1055,6 @@ const SmallHashTag = styled.div`
   letter-spacing: 0px;
   color: #363636;
   font-size: 11px;
-  margin: 0px 20px 10px 20px;
   :hover {
     cursor: pointer;
   }
@@ -1085,11 +1071,13 @@ const CardWriteLeftBody = styled.div`
   box-sizing: border-box;
 
   @media (max-width: 500px) {
-    min-height: 100px;
-    max-height: 100px;
-    padding: 0 29px 0 20px;
-    margin-top: 30px;
+    min-height: 180px;
+    max-height: 180px;
+    padding: 20px 29px 0 20px;
     border-bottom: none;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
   }
 `;
 
@@ -1100,6 +1088,8 @@ const CardWriterBox = styled.div`
 
   @media (max-width: 500px) {
     border: none;
+    min-height: 33px;
+    max-height: 33px;
   }
 `;
 
@@ -1110,7 +1100,8 @@ const CardWriterInfoLeft = styled.div`
   align-items: center;
   width: 100%;
   @media (max-width: 500px) {
-    padding: 20px 29px 20px 20px;
+    padding: 20px 29px 10px 20px;
+    border-bottom: 1px solid #d3d3d3;
   }
 `;
 
@@ -1124,7 +1115,6 @@ const CardWriterLeft = styled.div`
 
   @media (max-width: 500px) {
     margin: 0;
-    border-bottom: 1px solid #efefef;
   }
 `;
 
@@ -1145,7 +1135,7 @@ const CardWriterNickNameLeft = styled.span`
   margin-left: 8px;
 `;
 
-const CardQuestionContent = styled.p`
+const CardQuestionContent = styled.div`
   margin: 0px 40px;
   padding: 15px 0;
   font: normal normal bold 17px/23px Roboto;
@@ -1153,9 +1143,19 @@ const CardQuestionContent = styled.p`
   color: #363636;
   opacity: 1;
   @media (max-width: 500px) {
-    margin: 0;
-    font-size: 21px;
-    padding: 0 29px 0 20px;
+    display: none;
+  }
+`;
+
+const SmallQuestionContent = styled.div`
+  margin: 0;
+  font-size: 21px;
+  padding: 0;
+  font-weight: bold;
+  margin: 10px 0;
+
+  @media (min-width: 500px) {
+    display: none;
   }
 `;
 
@@ -1164,6 +1164,8 @@ const CardAnswerContent = styled.div`
   padding: 30px 0 0 0;
   @media (max-width: 500px) {
     margin: 0;
+    padding: 0;
+    width: 100%;
   }
 `;
 
@@ -1209,12 +1211,11 @@ const ModalRightContainer = styled.div`
   background-color: white;
   padding: 25px 0 0 0;
   border-radius: 0px 50px 50px 0px;
-  @media (max-width: 500px) {
+  @media (max-width: 750px) {
     width: 100%;
-    height: 50%;
     padding: 0;
     border-radius: 0 0 20px 20px;
-    justify-content: flex-start;
+    height: 43%;
   }
 `;
 
@@ -1253,7 +1254,7 @@ const ModalCmtInputBox = styled.div`
   @media (max-width: 500px) {
     min-height: 60px;
     max-height: 60px;
-    border-top: none;
+    border-top: 1px solid #d3d3d3;
   }
 `;
 const ModalCmtInput = styled.input`

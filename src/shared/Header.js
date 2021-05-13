@@ -18,16 +18,10 @@ import { getCookie } from "./Cookie";
 import axios from "axios";
 import { CardModal } from "../components/Community/communityindex";
 import { About } from "./sharedindex";
-import ForumIcon from '@material-ui/icons/Forum';
-import ImportContactsIcon from '@material-ui/icons/ImportContactsOutlined';
-import ForumOutlinedIcon from '@material-ui/icons/ForumOutlined';
-import HomeIcon from '@material-ui/icons/Home';
-import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined';
-import ChatOutlinedIcon from "@material-ui/icons/ChatOutlined";
-import { LogoutOutlined, LoginOutlined } from "@ant-design/icons";
-import CollectionsBookmarkIcon from '@material-ui/icons/CollectionsBookmark';
-import CollectionsBookmarkOutlinedIcon from '@material-ui/icons/CollectionsBookmarkOutlined';
-
+import { CloseOutlined } from "@ant-design/icons";
+import CollectionsBookmarkIcon from "@material-ui/icons/CollectionsBookmark";
+import CollectionsBookmarkOutlinedIcon from "@material-ui/icons/CollectionsBookmarkOutlined";
+import NotificationsNoneOutlinedIcon from '@material-ui/icons/NotificationsNoneOutlined';
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -36,13 +30,12 @@ const Header = () => {
   const searchModal = useSelector((state) => state.noti.searchModal);
   const [notiModal, setNoti] = useState(false);
   const is_checked = useSelector((state) => state.noti.is_checked);
-  const pathname = useSelector((state) => state.router.location.pathname )
+  const pathname = useSelector((state) => state.router.location.pathname);
   const user = useSelector((state) => state.user.user);
   const [recent_list, setRecent] = useState();
   const [loading, setLoading] = useState(true);
   const [cardModal, setCardModal] = useState(false);
   const [aboutModal, setAboutModal] = useState(false);
-  
 
   const closeNotiModal = () => {
     setNoti(false);
@@ -75,114 +68,102 @@ const Header = () => {
   // 모바일 화면에서 메뉴 활성화
   const [isMenuOpen, setMenuOpen] = useState(false);
 
-  const SetMenuModal = () => {
-    if (isMenuOpen) {
-      setMenuOpen(false);
-      return;
-    }
-    setMenuOpen(true);
-  };
-
   if (is_login) {
     return (
       <React.Fragment>
-        {/* 모바일 로그인 했을 때 */}
+        {cardModal ? <CardModal close={closeCardModal} /> : null}
         {isMenuOpen ? (
-          <MobileLoginModal>
-            <div
+          <>
+            <Component
               onClick={() => {
-                dispatch(notiActions.leaveAlarmIO(user.id));
                 setMenuOpen(false);
               }}
-            >
-              로그아웃 <LogoutOutlined />
-            </div>
-            <div>
-              About
-            </div>
-          </MobileLoginModal>
+            />
+            <Menu>
+              <MenuCloseBtn
+                onClick={() => {
+                  setMenuOpen(false);
+                }}
+              >
+                <CloseOutlined />
+              </MenuCloseBtn>
+              <MenuUl>
+                <MenuLi
+                  onClick={() => {
+                    history.push("/");
+                    setMenuOpen(false);
+                  }}
+                >
+                  오늘의 낙서
+                </MenuLi>
+                <MenuLi
+                  onClick={() => {
+                    if (!getCookie("is_login")) {
+                      swal({
+                        title: "로그인 필수!",
+                        text: "로그인 후 이용가능해요",
+                        icon: "info",
+                      });
+                      return;
+                    }
+                    dispatch(setComponent(""));
+                    history.push("/mybook");
+                    setMenuOpen(false);
+                  }}
+                >
+                  나의 책장
+                </MenuLi>
+                <MenuLi
+                  onClick={() => {
+                    history.push("/community");
+                    dispatch(setComponent(""));
+                    setMenuOpen(false);
+                  }}
+                >
+                  커뮤니티
+                </MenuLi>
+                <br></br>
+                <MenuLi
+                  onClick={() => {
+                    dispatch(notiActions.leaveAlarmIO(user.id));
+                    setMenuOpen(false);
+                  }}
+                >
+                  로그아웃
+                </MenuLi>
+              </MenuUl>
+            </Menu>
+          </>
         ) : null}
-
-        <NaviModal>
-          <Menu onClick={SetMenuModal}>
-            <MenuIcon fontSize="medium" />
-            <MenuText>메뉴</MenuText>
-          </Menu>
-          <Menu
-            onClick={() => {
-              history.push("/");
-              dispatch(setComponent(""));
-            }}
-          > 
-            {pathname==="/" ? 
-            <HomeIcon fontSize="large" />
-            :
-            <HomeOutlinedIcon fontSize="large" />
-            }
-            {/* <NaviIcon src="" /> */}
-            <MenuText>오늘의 낙서</MenuText>
-          </Menu>
-          <Menu
-            onClick={() => {
-              if (!getCookie("is_login")) {
-                swal({
-                  title: "로그인 필수!",
-                  text: "로그인 후 이용가능해요",
-                  icon: "info",
-                });
-                return;
-              }
-              dispatch(setComponent(""));
-              history.push("/mybook");
-            }}
-          > 
-            {pathname === "/mybook" ? 
-            <CollectionsBookmarkIcon fontSize="large"/>
-            :
-            <CollectionsBookmarkOutlinedIcon fontSize="large"/>
-            }
-            <MenuText>나의 책장</MenuText>
-          </Menu>
-          <Menu
-            onClick={() => {
-              history.push("/community");
-              dispatch(setComponent(""));
-            }}
-          > 
-            {pathname.includes("/community")  ? 
-            <ForumIcon fontSize="large" />
-            :
-            <ForumOutlinedIcon fontSize="large" />
-            }
-            <MenuText>커뮤니티</MenuText>
-          </Menu>
-        </NaviModal>
-        {cardModal ? <CardModal close={closeCardModal} /> : null}
         <HeaderContainer>
           <HeaderInnerContainer>
             <NaviContainer>
-              <MobileIcon>
+              <MobileIcon
+                onClick={() => {
+                  setMenuOpen(true);
+                }}
+              >
                 <MenuIcon />
               </MobileIcon>
               <Logo>생각낙서</Logo>
-              <div style={{display:'flex'}} >
-              <MobileIcon style={{marginRight:"10px"}}>
-                {/* {searchModal ? (
+              <div style={{ display: "flex" }}>
+                <MobileIcon style={{ marginRight: "10px" }}>
+                  {/* {searchModal ? (
                   <Search
                     recent_list={recent_list}
                     setLoading={setLoading}
                     loading={loading}
                   />
                 ) : null} */}
-                <SearchIcon
-                  style={{ cursor: "pointer" }}
-                  onClick={() => {
-                    // recentUser();
-                    // // dispatch(userActions.getRecentUserAX())
-                    // dispatch(setSearch(true));
-                    history.push('/search')
-                  }}
-                />
+                  <SearchIcon
+                    style={{ cursor: "pointer" }}
+                    onClick={() => {
+                      // recentUser();
+                      // // dispatch(userActions.getRecentUserAX())
+                      // dispatch(setSearch(true));
+                      history.push("/search");
+                    }}
+                  />
               </MobileIcon>
               <MobileIcon>
                 {is_checked ? <AlarmBadge /> : null}
@@ -192,14 +173,14 @@ const Header = () => {
                     setCardModal={setCardModal}
                   />
                 ) : null}
-                <NotificationsIcon
-                  style={{ cursor: "pointer" }}
-                  onClick={() => {
-                    // setNoti(true);
-                    // dispatch(notiActions.openAlarmIO(user.id));
-                    history.push('/noti')
-                  }}
-                />
+                <NotificationsNoneOutlinedIcon
+                style={{ cursor: "pointer" }}
+                onClick={() => {
+                  // setNoti(true);
+                  // dispatch(notiActions.openAlarmIO(user.id));
+                  history.push('/noti')
+                }}
+              />
               </MobileIcon>
               </div>
               <PageButton
@@ -295,64 +276,80 @@ const Header = () => {
   return (
     <React.Fragment>
       {loginModal ? <LoginModal close={closeLoginModal} /> : null}
-      {/* 모바일 로그인 안 했을 때 */}
       {isMenuOpen ? (
-        <MobileLoginModal>
-          <h3
+        <>
+          <Component
             onClick={() => {
-              setLogin(true);
               setMenuOpen(false);
             }}
-          >
-            로그인 <LoginOutlined />
-          </h3>
-        </MobileLoginModal>
+          />
+          <Menu>
+            <MenuCloseBtn
+              onClick={() => {
+                setMenuOpen(false);
+              }}
+            >
+              <CloseOutlined />
+            </MenuCloseBtn>
+            <MenuUl>
+              <MenuLi
+                onClick={() => {
+                  history.push("/");
+                  setMenuOpen(false);
+                }}
+              >
+                오늘의 낙서
+              </MenuLi>
+              <MenuLi
+                onClick={() => {
+                  if (!getCookie("is_login")) {
+                    swal({
+                      title: "로그인 필수!",
+                      text: "로그인 후 이용가능해요",
+                      icon: "info",
+                    });
+                    return;
+                  }
+                  dispatch(setComponent(""));
+                  history.push("/mybook");
+                  setMenuOpen(false);
+                }}
+              >
+                나의 책장
+              </MenuLi>
+              <MenuLi
+                onClick={() => {
+                  history.push("/community");
+                  dispatch(setComponent(""));
+                  setMenuOpen(false);
+                }}
+              >
+                커뮤니티
+              </MenuLi>
+              <br></br>
+              <MenuLi
+                onClick={() => {
+                  setLogin(true);
+                  setMenuOpen(false);
+                }}
+              >
+                로그인
+              </MenuLi>
+            </MenuUl>
+          </Menu>
+        </>
       ) : null}
-      <NaviModal>
-        <Menu onClick={SetMenuModal}>
-          <MenuIcon fontSize="large" />
-          <MenuText>메뉴</MenuText>
-        </Menu>
-        <Menu
-          onClick={() => {
-            history.push("/");
-            dispatch(setComponent(""));
-          }}
-        >
-          <HomeOutlinedIcon fontSize="large" />
-          <MenuText>오늘의 낙서</MenuText>
-        </Menu>
-        <Menu
-          onClick={() => {
-            if (!getCookie("is_login")) {
-              swal({
-                title: "로그인 필수!",
-                text: "로그인 후 이용가능해요",
-                icon: "info",
-              });
-              return;
-            }
-            dispatch(setComponent(""));
-            history.push("/mybook");
-          }}
-        >
-          <ImportContactsIcon fontSize="large" />
-          <MenuText>나의 책장</MenuText>
-        </Menu>
-        <Menu
-          onClick={() => {
-            history.push("/community");
-            dispatch(setComponent(""));
-          }}
-        >
-          <ChatOutlinedIcon fontSize="large" />
-          <MenuText>커뮤니티</MenuText>
-        </Menu>
-      </NaviModal>
       <HeaderContainer>
         <HeaderInnerContainer>
           <NaviContainer>
             <Logo>Logo</Logo>
+            <MobileIcon
+              onClick={() => {
+                setMenuOpen(true);
+              }}
+            >
+              <MenuIcon />
+            </MobileIcon>
             <PageButton
               onClick={() => {
                 history.push("/");
@@ -468,9 +465,7 @@ const HeaderInnerContainer = styled.div`
   } ;
 `;
 
-const NaviIcon = styled.img`
-
-`
+const NaviIcon = styled.img``;
 
 const NaviModal = styled.div`
   display: none;
@@ -495,19 +490,56 @@ const NaviModal = styled.div`
   } ;
 `;
 
+const Component = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  opacity: 0.4;
+  height: 100vh;
+  width: 100vw;
+  background: black;
+  z-index: 120;
+`;
+
 const Menu = styled.div`
+  position: fixed;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  font-size: 14px;
-  justify-content: space-between;
+  cursor: default;
+  width: 90%;
+  height: 100%;
+  background: black;
+  z-index: 1000;
+  color: white;
+  padding: 102px 0 0 16px;
+  font-size: 22px;
+  font-weight: bold;
+`;
+
+const MenuCloseBtn = styled.button`
+  position: absolute;
+  font-size: 26px;
+  top: 10px;
+  right: 10px;
+  background: none;
+  outline: none;
+  border: none;
+`;
+
+const MenuUl = styled.ul`
+  margin: 0;
+  padding: 0;
+`;
+
+const MenuLi = styled.li`
+  list-style: none;
+  margin-bottom: 27px;
   cursor: pointer;
 `;
+
 const MenuText = styled.div`
-  font-size:14px;
-`
-
-
+  font-size: 14px;
+`;
 
 const NaviContainer = styled.div`
   display: flex;
@@ -529,8 +561,9 @@ const Logo = styled.div`
   transition: 0.5s;
   @media (max-width: 900px) {
     margin-right: 80px;
-  } ;
+  }
   @media (max-width: 750px) {
+    margin-left: 35px;
     margin-right: 0px;
   } ;
 `;
@@ -613,7 +646,5 @@ const MobileLoginModal = styled.div`
     cursor: pointer;
   }
 `;
-
-
 
 export default Header;

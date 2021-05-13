@@ -110,6 +110,7 @@ const CommunityBox = styled.div`
   }
   @media (max-width: 750px) {
     margin: 50px 0px 0px 0px;
+    padding: 20px 20px;
   }
 `;
 
@@ -124,7 +125,6 @@ const CommunityContainer = styled.div`
   overflow-y: auto;
   @media (max-width: 900px) {
     z-index: 40;
-    margin-bottom: 50px;
   }
 `;
 

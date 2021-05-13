@@ -174,6 +174,12 @@ function Main() {
           {/* 메인 위쪽 편 */}
           <MainUpper>
             <DateIndicator>{displayedDate}</DateIndicator>
+            <SmallQuestionIndicator>
+              <b>
+                {user?.nickname ? user?.nickname + "님" : "당신"}의 <br />
+                머리속은?
+              </b>
+            </SmallQuestionIndicator>
             <QuestionIndicator className="main">
               <b>{user?.nickname ? user?.nickname + "님" : "당신"}</b>의
               머리속은?
@@ -192,7 +198,7 @@ function Main() {
           <SlideBox>
             <SmallCardContainer>
               <Swiper
-                spaceBetween={50}
+                spaceBetween={30}
                 slidesPerView={1}
                 onSlideChange={(e) => {
                   doSwipe(e);
@@ -200,19 +206,13 @@ function Main() {
                 onSwiper={(swiper) => console.log(swiper)}
               >
                 <SwiperSlide>
-                  <EachCard>
-                    <Post {...question_list[0]} allChecked={allChecked} />
-                  </EachCard>
+                  <Post {...question_list[0]} allChecked={allChecked} />
                 </SwiperSlide>
                 <SwiperSlide>
-                  <EachCard>
-                    <Post {...question_list[1]} allChecked={allChecked} />
-                  </EachCard>
+                  <Post {...question_list[1]} allChecked={allChecked} />
                 </SwiperSlide>
                 <SwiperSlide>
-                  <EachCard>
-                    <Post {...question_list[2]} allChecked={allChecked} />
-                  </EachCard>
+                  <Post {...question_list[2]} allChecked={allChecked} />
                 </SwiperSlide>
               </Swiper>
             </SmallCardContainer>
@@ -276,21 +276,21 @@ function Main() {
             <SmallDotQueue>
               <FiberManualRecordIcon
                 style={{
-                  fontSize: "20px",
+                  fontSize: "15px",
                   margin: "0 5px",
                 }}
                 className={dot_1S}
               />
               <FiberManualRecordIcon
                 style={{
-                  fontSize: "20px",
+                  fontSize: "15px",
                   margin: "0 5px",
                 }}
                 className={dot_2S}
               />
               <FiberManualRecordIcon
                 style={{
-                  fontSize: "20px",
+                  fontSize: "15px",
                   margin: "0 5px",
                 }}
                 className={dot_3S}
@@ -341,7 +341,7 @@ const MainContainer = styled.div`
   }
 
   @media (max-width: 500px) {
-    margin: 60px 0px 50px 0px;
+    margin: 60px 0px 0px 0px;
     align-items: center;
   }
 `;
@@ -373,6 +373,8 @@ const MainUpper = styled.section`
 
   @media (max-width: 500px) {
     text-align: left;
+    width: 100%;
+    padding: 0 28px;
   }
 `;
 
@@ -400,9 +402,16 @@ const QuestionIndicator = styled.h3`
   color: #262626;
 
   @media (max-width: 500px) {
-    text-align: left;
-    font-size: 26px;
-    margin-bottom: 0px;
+    display: none;
+  }
+`;
+
+const SmallQuestionIndicator = styled.p`
+  text-align: left;
+  font-size: 26px;
+  margin-bottom: 0px;
+  @media (min-width: 500px) {
+    display: none;
   }
 `;
 
@@ -438,8 +447,8 @@ const SlideBox = styled.div`
 
   @media (max-width: 500px) {
     margin: 0;
-    padding: 27px 28px;
-    width: 380px;
+    width: 100%;
+    padding: 27px 28px 27px 28px;
     box-sizing: border-box;
     text-align: center;
   }

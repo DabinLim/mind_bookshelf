@@ -68,29 +68,8 @@ const Post = (props) => {
   }, []);
 
   let opacity = props.available ? 1 : 0.4;
-  let color = "";
-  let boxShadow = "";
   let topic = "";
   if (props.topic?.length > 0) {
-    if (props.topic[0] === "나") {
-      color = "#F9D9FC";
-      boxShadow = "0px 0px 15px #F9D1FD";
-    } else if (props.topic[0] === "사랑") {
-      color = "#FEBABA";
-      boxShadow = "0px 0px 15px #FFAAAA";
-    } else if (props.topic[0] === "관계") {
-      color = "#FDF1AE";
-      boxShadow = "0px 0px 15px #FFF09D";
-    } else if (props.topic[0] === "가치") {
-      color = "#C2C8FD";
-      boxShadow = "0px 0px 15px #B5BDFF";
-    } else if (props.topic[0] === "우정") {
-      color = "#C4FCCD";
-      boxShadow = "0px 0px 15px #B9FFC4";
-    } else if (props.topic[0] === "꿈") {
-      color = "#C3E9FD";
-      boxShadow = "0px 0px 15px #B7E6FF";
-    }
     topic = props.topic[0];
   }
 
@@ -115,9 +94,7 @@ const Post = (props) => {
             </CardWriter>
             {/* 500px 아래로 내려갈 때!!!! */}
           </CardWriterInfo>
-          <SmallCardLeft style={{ background: color, boxShadow: boxShadow }}>
-            #{topic}
-          </SmallCardLeft>
+          <SmallCardLeft>#{topic}</SmallCardLeft>
           <ExtraGroup>
             <AnswerInfo>
               {props?.otherProfileImg?.length > 0 ? (
@@ -150,9 +127,7 @@ const Post = (props) => {
         </SmallCardContent>
         <CardUpper>
           <CardLeft style={{ opacity: opacity }}>
-            <HashTag style={{ background: color, boxShadow: boxShadow }}>
-              #{topic}
-            </HashTag>
+            <HashTag>#{topic}</HashTag>
           </CardLeft>
           <CardRight style={{ opacity: opacity }}>
             <CardContent>{props.contents}</CardContent>
@@ -277,6 +252,7 @@ const CardFrame = styled.div`
     border-radius: 20px;
     min-height: 462px;
     max-height: 462px;
+    width: 100%;
   }
 `;
 
@@ -347,12 +323,12 @@ const CardLeft = styled.div`
 const SmallCardLeft = styled.span`
   min-width: 58px;
   max-width: 58px;
-  background: #ededed;
+  background: #b5bdff;
   padding: 8px 12px;
   border-radius: 24px;
   text-align: center;
   font: normal normal bold 11px/15px Roboto;
-  box-shadow: 0px 0px 15px #c1c7fc;
+  box-shadow: 0px 0px 15px #c3c9fe;
   letter-spacing: 0px;
   color: #363636;
   :hover {
@@ -370,12 +346,12 @@ const CardRight = styled.div`
 const HashTag = styled.span`
   min-width: 72px;
   max-width: 72px;
-  background: #ededed;
+  background: #b5bdff;
   padding: 8px 12px;
   border-radius: 24px;
   text-align: center;
   font: normal normal bold 14px/19px Roboto;
-  box-shadow: 0px 0px 15px #c1c7fc;
+  box-shadow: 0px 0px 15px #c3c9fe;
   letter-spacing: 0px;
   color: #363636;
   font-size: 14px;
