@@ -490,6 +490,7 @@ const CardContainer = styled.section`
   overflow: auto;
   ${props => props.view === 'new' ? `padding-bottom:60px`: `padding-bottom:0px`};
   @media (max-width: 750px) {
+    ${props => props.view === 'new' ? `height:auto`: `height:0`};
     padding-right:0px;
   }
 `;
@@ -506,6 +507,7 @@ const CardContainerPop = styled.section`
   overflow: auto;
   ${props => props.view === 'pop' ? `padding-bottom:60px`: `padding-bottom:0px`};
   @media (max-width: 750px) {
+    ${props => props.view === 'pop' ? `height:auto`: `height:0`};
     padding-right:0px;
   }
 `;
