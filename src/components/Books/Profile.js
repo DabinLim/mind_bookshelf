@@ -236,6 +236,28 @@ const Profile = (props) => {
                   <Introduce>{other_info.introduce}</Introduce>
                   {/* <QuestionBtn onClick={()=>{dispatch(setComponent('othersquestion'))}}>질문 카드 보러가기</QuestionBtn> */}
                 </Bottom>
+                {is_login && other_info.nickname !== "알 수 없는 유저" ? (
+                      followed ? (
+                        <UnFollowBtnMobile onClick={() => {
+                          dispatch(
+                            userActions.unfollowOtherAX(
+                              props.id,
+                              other_info.nickname
+                            )
+                          );
+                        }}>구독중</UnFollowBtnMobile>
+                      ) : (
+                        <FollowBtnMobile onClick={() => {
+                          dispatch(
+                            userActions.followOtherAX(
+                              props.id,
+                              other_info.nickname,
+                              other_info.profileImg
+                            )
+                          );
+                        }}>구독</FollowBtnMobile>
+                      )
+                    ) : null}
               </ProfileDetail>
             </>
           )}
@@ -518,6 +540,7 @@ const Bottom = styled.div`
   margin-top: 20px;
   @media(max-width:750px){
     margin-top:0px;
+    margin-bottom:22px;
     justify-content:center;
     font: normal normal normal 12px/18px Noto Sans KR;
   }
@@ -571,9 +594,31 @@ const FollowerBtn = styled.div`
   cursor: pointer;
   font-weight: 600;
   font-size: 14px;
-  
-  
+  @media(max-width:750px){
+    display:none;
+  }  
 `;
+
+const FollowBtnMobile = styled.button`
+  width:100%;
+  height:36px;
+  border-style:none;
+  border-radius:45px;
+  background-color:#EFE7FF;
+  font: normal normal normal 13px/19px Noto Sans KR;
+  cursor:pointer;
+`;
+
+const UnFollowBtnMobile = styled.button`
+  width:100%;
+  height:36px;
+  border-style:none;
+  border-radius:45px;
+  background-color:#F0F0F0;
+  font: normal normal normal 13px/19px Noto Sans KR;
+  cursor:pointer;
+`;
+
 const MyQuestionBtn = styled.div`
   margin-top: 11px;
   margin-right: 20px;
