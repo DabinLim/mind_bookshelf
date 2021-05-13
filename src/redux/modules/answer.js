@@ -30,9 +30,8 @@ const answerSlice = createSlice({
     },
     setQuestion: (state, action) => {
       state.question_list = action.payload;
-      console.log(state.question_list)
-      let index = state.question_list.findIndex((q) => q.available === true);
 
+      let index = state.question_list.findIndex((q) => q.available === true);
       if (index !== -1) {
         let temp = state.question_list[0];
         state.question_list[0] = state.question_list[index];
@@ -67,6 +66,7 @@ const getQuestionAX = () => {
     };
     axios(options)
       .then((response) => {
+        console.log(response.data)
         dispatch(setQuestion(response.data.cards));
       })
       .catch((err) => {
@@ -121,6 +121,7 @@ const getRecentAnswerAX = (userId) => {
 
 const sendAnswerAX = (question_id, content, isChecked) => {
   return function (dispatch, getState) {
+    console.log(question_id, content, isChecked)
     let userInfo = getState().user.user;
     if (userInfo?.nickname === "") {
       swal({
@@ -143,7 +144,7 @@ const sendAnswerAX = (question_id, content, isChecked) => {
     axios(options)
       .then((response) => {
         console.log(response.data);
-        dispatch(setQuestion(response.data.cards));
+        dispatch(setQuestion(response.data.cards, response.data.result));
         swal({
           title: "답변 완료✌",
           text: "답변이 등록되었어요 🤩",

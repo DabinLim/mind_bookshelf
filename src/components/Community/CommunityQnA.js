@@ -52,7 +52,7 @@ const CommunityQnA = (props) => {
         </div>
         <QuestionBox>
           <Question>{props.contents}</Question>
-          {props.answers?.length >= 4 ? (
+          {props.answers?.length >= 1 ? (
             <DetailBtn
               onClick={() => {
                 history.push(`/community/${props.id}`);

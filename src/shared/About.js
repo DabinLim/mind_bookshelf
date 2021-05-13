@@ -36,20 +36,20 @@ const About = (props) => {
             </div>
             <LinkContainer>
               Notion :{" "}
-              <Link href="https://www.notion.so/236571f296c0486e803d7da663172ebf">
+              <Link target="_blank" href="https://www.notion.so/236571f296c0486e803d7da663172ebf">
                 생각낙서 노션
               </Link>{" "}
               <br />
             </LinkContainer>
             <LinkContainer>
               Instagram :{" "}
-              <Link href="https://www.instagram.com/think_doodle/">
+              <Link target="_blank" href="https://www.instagram.com/think_doodle/">
                 인스타그램
               </Link>
             </LinkContainer>
             <LinkContainer>
               Facebook :{" "}
-              <Link href="https://www.facebook.com/thinkdoodle1004">
+              <Link target="_blank" href="https://www.facebook.com/thinkdoodle1004">
                 페이스북
               </Link>
             </LinkContainer>
