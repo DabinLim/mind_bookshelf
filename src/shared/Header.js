@@ -28,6 +28,7 @@ import { LogoutOutlined, LoginOutlined } from "@ant-design/icons";
 import CollectionsBookmarkIcon from '@material-ui/icons/CollectionsBookmark';
 import CollectionsBookmarkOutlinedIcon from '@material-ui/icons/CollectionsBookmarkOutlined';
 
+
 const Header = () => {
   const dispatch = useDispatch();
   const is_login = useSelector((state) => state.user.is_login);
@@ -194,8 +195,9 @@ const Header = () => {
                 <NotificationsIcon
                   style={{ cursor: "pointer" }}
                   onClick={() => {
-                    setNoti(true);
-                    dispatch(notiActions.openAlarmIO(user.id));
+                    // setNoti(true);
+                    // dispatch(notiActions.openAlarmIO(user.id));
+                    history.push('/noti')
                   }}
                 />
               </MobileIcon>

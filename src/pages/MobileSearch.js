@@ -9,6 +9,7 @@ import Loader from "react-loader-spinner";
 import {setSearch} from '../redux/modules/noti';
 import {api as userActions} from '../redux/modules/user'
 import { getCookie } from '../shared/Cookie'
+import ChannelService from "../shared/ChannelService"
 
 const MobileSearch = (props) => {
   const dispatch = useDispatch();
@@ -19,6 +20,12 @@ const MobileSearch = (props) => {
   
   useEffect(() => {
     recentUser()
+    ChannelService.shutdown();
+    return () => {
+      ChannelService.boot({
+        pluginKey: "1e06f0ed-5da8-42f4-bb69-7e215b14ec18",
+      });
+    };
   },[])
 
   const recentUser = async () => {
@@ -125,9 +132,10 @@ const SearchContainer = styled.div`
 
 const SearchInput = styled.input`
   width: 90%;
-  height: 50px;
+  min-height: 50px;
+  max-height: 50px;
   font-size: 13px;
-  padding: 5px 25px;
+  padding: 0px 25px;
   background: #F2F2F2;
   opacity:0.8;
   margin-top: 30px;
@@ -136,7 +144,7 @@ const SearchInput = styled.input`
   outline: none;
 `
 const UserContainer = styled.div`
-  margin-top: 20px;
+  margin-top: 30px;
   margin-bottom: 15px;
   width: 90%;
   display: flex;
