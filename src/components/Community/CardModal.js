@@ -355,16 +355,6 @@ const CardModal = (props) => {
 
   return (
     <React.Fragment>
-      {updateModal ? (
-        <CardUpdateModal
-          setCancelModal={setCancelModal}
-          setAnswer={setAnswer}
-          setUpdateAnswer={setUpdateAnswer}
-          close={props.close}
-          setUpdateModal={setUpdateModal}
-          {...answerInfo}
-        />
-      ) : null}
       {cancelModal ? (
         <CancelConfirm
           {...answerInfo}
@@ -548,8 +538,8 @@ const CardModal = (props) => {
                             {v.questionTopic[0] === "사랑" && (
                               <BooksSubject
                                 style={{
-                                  background: "#FFAAAA",
-                                  boxShadow: "0px 0px 15px #FFAAAA",
+                                  background: "#B5BDFF",
+                                  boxShadow: "0px 0px 15px #C3C9FE",
                                 }}
                               >
                                 <span>#사랑</span>
@@ -558,8 +548,8 @@ const CardModal = (props) => {
                             {v.questionTopic[0] === "우정" && (
                               <BooksSubject
                                 style={{
-                                  background: "#B9FFC4",
-                                  boxShadow: "0px 0px 15px #B9FFC4",
+                                  background: "#B5BDFF",
+                                  boxShadow: "0px 0px 15px #C3C9FE",
                                 }}
                               >
                                 <span>#우정</span>
@@ -568,8 +558,8 @@ const CardModal = (props) => {
                             {v.questionTopic[0] === "꿈" && (
                               <BooksSubject
                                 style={{
-                                  background: "#B7E6FF",
-                                  boxShadow: "0px 0px 15px #B7E6FF",
+                                  background: "#B5BDFF",
+                                  boxShadow: "0px 0px 15px #C3C9FE",
                                 }}
                               >
                                 <span>#꿈</span>
@@ -579,7 +569,7 @@ const CardModal = (props) => {
                               <BooksSubject
                                 style={{
                                   background: "#B5BDFF",
-                                  boxShadow: "0px 0px 15px #B5BDFF",
+                                  boxShadow: "0px 0px 15px #C3C9FE",
                                 }}
                               >
                                 <span>#가치</span>
@@ -588,8 +578,8 @@ const CardModal = (props) => {
                             {v.questionTopic[0] === "관계" && (
                               <BooksSubject
                                 style={{
-                                  background: "#FFF09D",
-                                  boxShadow: "0px 0px 15px #FFF09D",
+                                  background: "#B5BDFF",
+                                  boxShadow: "0px 0px 15px #C3C9FE",
                                 }}
                               >
                                 <span>#관계</span>
@@ -598,8 +588,8 @@ const CardModal = (props) => {
                             {v.questionTopic[0] === "나" && (
                               <BooksSubject
                                 style={{
-                                  background: "#F9D1FD",
-                                  boxShadow: "0px 0px 15px #F9D1FD",
+                                  background: "#B5BDFF",
+                                  boxShadow: "0px 0px 15px #C3C9FE",
                                 }}
                               >
                                 <span>#나</span>
@@ -733,7 +723,7 @@ const CardModal = (props) => {
                     </span>
                   </CardWriterNickNameLeft>
                 </CardWriterLeft>
-                <HashTag>{topic}</HashTag>
+                <HashTag>#{topic}</HashTag>
                 {answerInfo.answerUserId === user_info.id ? (
                   <div
                     style={{
@@ -741,6 +731,16 @@ const CardModal = (props) => {
                       position: "relative",
                     }}
                   >
+                    {updateModal ? (
+                      <CardUpdateModal
+                        setCancelModal={setCancelModal}
+                        setAnswer={setAnswer}
+                        setUpdateAnswer={setUpdateAnswer}
+                        close={props.close}
+                        setUpdateModal={setUpdateModal}
+                        {...answerInfo}
+                      />
+                    ) : null}
                     <MoreVertIcon
                       onClick={() => {
                         if (updateModal) {
@@ -1067,7 +1067,7 @@ const ModalContent = styled.div`
 
   @media (max-width: 750px) {
     width: 100%;
-    height: 50%;
+    height: auto;
     border: none;
     border-radius: 20px 20px 0 0;
     background: white;
@@ -1081,12 +1081,12 @@ const ModalContent = styled.div`
 const HashTag = styled.span`
   min-width: 72px;
   max-width: 72px;
-  background: #ededed;
+  background: #B5BDFF;
   padding: 8px 12px;
   border-radius: 24px;
   text-align: center;
   font: normal normal bold 14px/19px Roboto;
-  box-shadow: 0px 0px 15px #c3c9fe;
+  box-shadow: 0px 0px 15px #C3C9FE;
   letter-spacing: 0px;
   color: #363636;
   font-size: 14px;
@@ -1134,8 +1134,8 @@ const CardWriteLeftBody = styled.div`
   box-sizing: border-box;
 
   @media (max-width: 500px) {
-    min-height: 180px;
-    max-height: 180px;
+    min-height: auto;
+    max-height: auto;
     padding: 20px 29px 0 20px;
     border-bottom: none;
     display: flex;
@@ -1278,7 +1278,7 @@ const ModalRightContainer = styled.div`
     width: 100%;
     padding: 0;
     border-radius: 0 0 20px 20px;
-    height: 43%;
+    // height: auto;
   }
 `;
 

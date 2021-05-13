@@ -64,6 +64,9 @@ const Search = (props) => {
             {user_list ? 
             <UserContainer>
               {user_list.map((u) => {
+                if(u.nickname === "알 수 없는 유저"){
+                  return
+                }
                 return  <UserInfoContainer key={u.id} onClick={() => clickOther(u.userId)} >
                           <ProfileImage src={u.profileImg} />
                           <Username>{u.nickname}</Username>
@@ -75,6 +78,9 @@ const Search = (props) => {
               <RecentSearch>최근검색</RecentSearch>
               {props.recent_list ? 
               props.recent_list.map((r) => {
+                if(r.nickname === "알 수 없는 유저"){
+                  return
+                }
                 return  <UserInfoContainer style={{marginTop: "10px"}} key={r.id} onClick={() => clickOther(r.searchUserId)} >
                           <ProfileImage src={r.profileImg} />
                           <Username>{r.nickname}</Username>
