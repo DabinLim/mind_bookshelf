@@ -35,7 +35,7 @@ const Upload = (props) => {
 
   return(
     <ImageLabel style={{backgroundImage:`url(${image})`}} >
-
+        <ImageIcon src="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-camera-512.png" />
         <input id={"file-input"} style={{ display: 'none' }} type="file" name="imageFile"
           onChange={selectFile} ref={fileInput}/>
 
@@ -53,5 +53,18 @@ const ImageLabel = styled.label`
   background-size: cover;
   cursor:pointer;
 `
+
+const ImageIcon = styled.img`
+  width: 35px;
+  height: 35px;
+  position: absolute;
+  top: 110px;
+  right: 12px;
+  border-radius: 30px;
+  background: white;
+  padding: 5px;
+  cursor: pointer;
+  box-shadow: 0px 0px 6px #00000029;
+`;
 
 export default Upload

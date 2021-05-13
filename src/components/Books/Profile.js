@@ -443,6 +443,8 @@ const Background = styled.div`
   @media (max-width: 750px) {
     opacity: 0.9;
     box-shadow: 0px 0px 20px #aea1e590;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
   }
 `;
 

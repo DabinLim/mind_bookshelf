@@ -61,8 +61,8 @@ const CommunityBtn = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  right: 24px;
-  bottom: 180px;
+  right: 28px;
+  bottom: 100px;
   width: 63px;
   height: 63px;
   border-radius: 50px;

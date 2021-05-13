@@ -47,6 +47,7 @@ const WithdrawalContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  border-radius: 15px;
   @media (max-width: 500px){
     height: 200px;
     width: 90%;
@@ -55,18 +56,18 @@ const WithdrawalContainer = styled.div`
 const Head = styled.div`
   font-weight: 600;
   font-size: 20px;
-  margin-top: 40px;
+  margin-top: 20px;
 `
 
 const ButtonContainer = styled.div`
   display: flex;
-  margin-top: 50px;
+  margin-top: 40px;
 
 `
 
 const Button = styled.div`
   cursor: pointer;
-  font-size: 24px;
+  font-size: 20px;
   &:hover{
     font-weight: 600;
   }

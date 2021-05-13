@@ -189,8 +189,8 @@ const NewQuestion = (props) => {
                 <CheckedLabel
                   onClick={checkedFriendship}
                   style={{
-                    background: "#B9FFC4",
-                    boxShadow: "0px 0px 15px #C5FDCE",
+                    background: "#B5BDFF",
+                    boxShadow: "0px 0px 15px #C3C9FE",
                   }}
                 >
                   #우정
@@ -207,8 +207,8 @@ const NewQuestion = (props) => {
                 <CheckedLabel
                   onClick={checkedLove}
                   style={{
-                    background: "#FFAAAA",
-                    boxShadow: "0px 0px 15px #FDB9B9",
+                    background: "#B5BDFF",
+                    boxShadow: "0px 0px 15px #C3C9FE",
                   }}
                 >
                   #사랑
@@ -225,8 +225,8 @@ const NewQuestion = (props) => {
                 <CheckedLabel
                   onClick={checkedDream}
                   style={{
-                    background: "#B7E6FF",
-                    boxShadow: "0px 0px 15px #C4EAFE",
+                    background: "#B5BDFF",
+                    boxShadow: "0px 0px 15px #C3C9FE",
                   }}
                 >
                   #꿈
@@ -246,7 +246,7 @@ const NewQuestion = (props) => {
                   onClick={checkedWorth}
                   style={{
                     background: "#B5BDFF",
-                    boxShadow: "0px 0px 15px #C1C7FC",
+                    boxShadow: "0px 0px 15px #C3C9FE",
                   }}
                 >
                   #가치
@@ -263,8 +263,8 @@ const NewQuestion = (props) => {
                 <CheckedLabel
                   onClick={checkedRelationship}
                   style={{
-                    background: "#FFF09D",
-                    boxShadow: "0px 0px 15px #FEF2AF",
+                    background: "#B5BDFF",
+                    boxShadow: "0px 0px 15px #C3C9FE",
                   }}
                 >
                   #관계
@@ -281,8 +281,8 @@ const NewQuestion = (props) => {
                 <CheckedLabel
                   onClick={checkedMyself}
                   style={{
-                    background: "#F9D1FD",
-                    boxShadow: "0px 0px 15px #F9D9FC",
+                    background: "#B5BDFF",
+                    boxShadow: "0px 0px 15px #C3C9FE",
                   }}
                 >
                   #나

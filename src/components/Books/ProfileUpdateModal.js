@@ -188,7 +188,6 @@ const ProfileUpdateModal = (props) => {
       <UpdateBox>
         <ImageUpdate>
           <Upload setImage={setImage} />
-          <ImageIcon src="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-camera-512.png" />
         </ImageUpdate>
         <Nickname>
           {user_info.nickname}
@@ -413,6 +412,9 @@ const UpdateBox = styled.div`
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.12), 0 2px 5px rgba(0, 0, 0, 0.24);
   @media (max-width: 420px) {
     width: 95%;
+  } ;
+  @media (max-width: 750px) {
+    top: 370px;
   } ;
 `;
 

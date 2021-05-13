@@ -15,27 +15,31 @@ const About = (props) => {
         </HeaderContainer> */}
         <ContentsContainer>
           <div>
-            <ImageContainer src="https://user-images.githubusercontent.com/67696504/117532322-dd693100-b021-11eb-81de-abdf05670f0e.png" />
+            <ImageContainer src="https://user-images.githubusercontent.com/67696504/118116495-4e935480-b425-11eb-83ac-e1d08bf27ee8.png" />
           </div>
           <div>
             <Content>
-              생각을 낙서하며, 나와 주변의 생각의 역사들을 <br />
+              나와 주변의 생각들을 <br />
               책장처럼 정리해둔 서비스입니다.
               <br />
               <br />
             </Content>
+
+            <LinkContainer>
+              사이트 설문 :{" "}
+              <Link href="https://forms.gle/SFxL22PrETj23CBD8">
+                설문지
+              </Link>
+            </LinkContainer>
+            <div style={{borderTop:"0.3px black solid", width: '150px', margin:'auto', marginTop:"15px",marginBottom:"15px"}}>
+              
+            </div>
             <LinkContainer>
               Notion :{" "}
               <Link href="https://www.notion.so/236571f296c0486e803d7da663172ebf">
                 생각낙서 노션
               </Link>{" "}
               <br />
-            </LinkContainer>
-            <LinkContainer>
-              사이트 설문 :{" "}
-              <Link href="https://forms.gle/SFxL22PrETj23CBD8">
-                구글 설문지
-              </Link>
             </LinkContainer>
             <LinkContainer>
               Instagram :{" "}
@@ -86,16 +90,13 @@ const ModalComponent = styled.div`
   }
 `;
 
-const HeaderContainer = styled.div`
-  margin-top: 30px;
-  font-weight: 600;
-  font-size: 24px;
-`;
 
 const Content = styled.div`
   font-size: 15px;
   margin-top: 30px;
-  // margin-bottom: 30px;
+  @media (max-width: 450px) {
+    margin-top:10px;
+  }
 `;
 
 const ContentsContainer = styled.div`
@@ -112,10 +113,9 @@ const ContentsContainer = styled.div`
   ::-webkit-scrollbar {
     display: none;
   }
-`;
-
-const Bold = styled.span`
-  font-weight: bold;
+  @media (max-width: 450px) {
+    padding: 20px 0;
+  }
 `;
 
 const ImageContainer = styled.img`
@@ -125,17 +125,6 @@ const ImageContainer = styled.img`
   border-top-right-radius: 15px;
 `;
 
-const ExitBtn = styled.button`
-  border: none;
-  outline: none;
-  cursor: pointer;
-  font-weight: 600;
-  font-size: 18px;
-  background-color: #ffcc4d;
-  border-radius: 5px;
-  padding: 8px 12px;
-  margin-bottom: 30px;
-`;
 
 const LinkContainer = styled.div`
   text-align: center;
