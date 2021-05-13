@@ -198,7 +198,7 @@ function Main() {
           <SlideBox>
             <SmallCardContainer>
               <Swiper
-                spaceBetween={10}
+                spaceBetween={30}
                 slidesPerView={1}
                 onSlideChange={(e) => {
                   doSwipe(e);
@@ -206,19 +206,13 @@ function Main() {
                 onSwiper={(swiper) => console.log(swiper)}
               >
                 <SwiperSlide>
-                  <EachCard>
-                    <Post {...question_list[0]} allChecked={allChecked} />
-                  </EachCard>
+                  <Post {...question_list[0]} allChecked={allChecked} />
                 </SwiperSlide>
                 <SwiperSlide>
-                  <EachCard>
-                    <Post {...question_list[1]} allChecked={allChecked} />
-                  </EachCard>
+                  <Post {...question_list[1]} allChecked={allChecked} />
                 </SwiperSlide>
                 <SwiperSlide>
-                  <EachCard>
-                    <Post {...question_list[2]} allChecked={allChecked} />
-                  </EachCard>
+                  <Post {...question_list[2]} allChecked={allChecked} />
                 </SwiperSlide>
               </Swiper>
             </SmallCardContainer>
@@ -453,8 +447,8 @@ const SlideBox = styled.div`
 
   @media (max-width: 500px) {
     margin: 0;
-    padding: 27px 28px;
-    width: 380px;
+    width: 100%;
+    padding: 27px 28px 27px 28px;
     box-sizing: border-box;
     text-align: center;
   }

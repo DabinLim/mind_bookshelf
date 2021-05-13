@@ -91,3 +91,8 @@
 .false {
   color: #797676 !important;
 }
+
+.swiper-container {
+  width: 100%;
+  height: 100%;
+}

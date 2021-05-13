@@ -18,15 +18,15 @@ import { getCookie } from "./Cookie";
 import axios from "axios";
 import { CardModal } from "../components/Community/communityindex";
 import { About } from "./sharedindex";
-import ForumIcon from '@material-ui/icons/Forum';
-import ImportContactsIcon from '@material-ui/icons/ImportContactsOutlined';
-import ForumOutlinedIcon from '@material-ui/icons/ForumOutlined';
-import HomeIcon from '@material-ui/icons/Home';
-import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined';
+import ForumIcon from "@material-ui/icons/Forum";
+import ImportContactsIcon from "@material-ui/icons/ImportContactsOutlined";
+import ForumOutlinedIcon from "@material-ui/icons/ForumOutlined";
+import HomeIcon from "@material-ui/icons/Home";
+import HomeOutlinedIcon from "@material-ui/icons/HomeOutlined";
 import ChatOutlinedIcon from "@material-ui/icons/ChatOutlined";
 import { LogoutOutlined, LoginOutlined } from "@ant-design/icons";
-import CollectionsBookmarkIcon from '@material-ui/icons/CollectionsBookmark';
-import CollectionsBookmarkOutlinedIcon from '@material-ui/icons/CollectionsBookmarkOutlined';
+import CollectionsBookmarkIcon from "@material-ui/icons/CollectionsBookmark";
+import CollectionsBookmarkOutlinedIcon from "@material-ui/icons/CollectionsBookmarkOutlined";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -35,13 +35,12 @@ const Header = () => {
   const searchModal = useSelector((state) => state.noti.searchModal);
   const [notiModal, setNoti] = useState(false);
   const is_checked = useSelector((state) => state.noti.is_checked);
-  const pathname = useSelector((state) => state.router.location.pathname )
+  const pathname = useSelector((state) => state.router.location.pathname);
   const user = useSelector((state) => state.user.user);
   const [recent_list, setRecent] = useState();
   const [loading, setLoading] = useState(true);
   const [cardModal, setCardModal] = useState(false);
   const [aboutModal, setAboutModal] = useState(false);
-  
 
   const closeNotiModal = () => {
     setNoti(false);
@@ -96,9 +95,7 @@ const Header = () => {
             >
               로그아웃 <LogoutOutlined />
             </div>
-            <div>
-              About
-            </div>
+            <div>About</div>
           </MobileLoginModal>
         ) : null}
 
@@ -112,12 +109,12 @@ const Header = () => {
               history.push("/");
               dispatch(setComponent(""));
             }}
-          > 
-            {pathname==="/" ? 
-            <HomeIcon fontSize="large" />
-            :
-            <HomeOutlinedIcon fontSize="large" />
-            }
+          >
+            {pathname === "/" ? (
+              <HomeIcon fontSize="large" />
+            ) : (
+              <HomeOutlinedIcon fontSize="large" />
+            )}
             <MenuText>오늘의 낙서</MenuText>
           </Menu>
           <Menu
@@ -133,12 +130,12 @@ const Header = () => {
               dispatch(setComponent(""));
               history.push("/mybook");
             }}
-          > 
-            {pathname === "/mybook" ? 
-            <CollectionsBookmarkIcon fontSize="large"/>
-            :
-            <CollectionsBookmarkOutlinedIcon fontSize="large"/>
-            }
+          >
+            {pathname === "/mybook" ? (
+              <CollectionsBookmarkIcon fontSize="large" />
+            ) : (
+              <CollectionsBookmarkOutlinedIcon fontSize="large" />
+            )}
             <MenuText>나의 책장</MenuText>
           </Menu>
           <Menu
@@ -146,12 +143,12 @@ const Header = () => {
               history.push("/community");
               dispatch(setComponent(""));
             }}
-          > 
-            {pathname.includes("/community")  ? 
-            <ForumIcon fontSize="large" />
-            :
-            <ForumOutlinedIcon fontSize="large" />
-            }
+          >
+            {pathname.includes("/community") ? (
+              <ForumIcon fontSize="large" />
+            ) : (
+              <ForumOutlinedIcon fontSize="large" />
+            )}
             <MenuText>커뮤니티</MenuText>
           </Menu>
         </NaviModal>
@@ -433,7 +430,7 @@ const HeaderContainer = styled.div`
   z-index: 50;
   // margin-bottom: 10px;
   overflow: visible;
-  @media (max-width: 500px) {
+  @media (max-width: 750px) {
     padding-top: 10px;
     padding-bottom: 10px;
     background: black;
@@ -459,9 +456,7 @@ const HeaderInnerContainer = styled.div`
   } ;
 `;
 
-const NaviIcon = styled.div`
-
-`
+const NaviIcon = styled.div``;
 
 const NaviModal = styled.div`
   display: none;
@@ -494,10 +489,8 @@ const Menu = styled.div`
   cursor: pointer;
 `;
 const MenuText = styled.div`
-  font-size:14px;
-`
-
-
+  font-size: 14px;
+`;
 
 const NaviContainer = styled.div`
   display: flex;
@@ -600,7 +593,5 @@ const MobileLoginModal = styled.div`
     cursor: pointer;
   }
 `;
-
-
 
 export default Header;
