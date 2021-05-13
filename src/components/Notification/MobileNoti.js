@@ -6,7 +6,7 @@ import { api as commentActions } from "../../redux/modules/comment";
 import { api as communityActions } from "../../redux/modules/community";
 import { history } from "../../redux/configStore";
 
-const Noti = (props) => {
+const MobileNoti = (props) => {
   const dispatch = useDispatch();
 
   let eventType = "";
@@ -23,7 +23,6 @@ const Noti = (props) => {
 
   const openCard = () => {
     const type = "noti";
-    props.close();
     dispatch(communityActions.getCardDetail(props.cardId, type));
     dispatch(commentActions.getCommentAX(props.cardId));
     props.setCardModal(true);
@@ -61,22 +60,29 @@ const Noti = (props) => {
 
 const NotiFrame = styled.div`
   display: flex;
-  align-items: start;
+  align-items: center;
   width: 100%;
   justify-content: space-between;
-  padding: 10px 20px;
-  
+  padding: 12px 16px;
+  @media (max-width: 400px){
+    align-items: start;
+  }
+  @media (max-width: 500px){
+    padding: 15px 16px;
+  }
 `;
 
 const NotiProfileInfo = styled.div`
   display: flex;
   align-items: center;
-  width: 250px;
+  @media (max-width: 400px){
+    width: 250px;
+  }
 `;
 
 const NotiProfile = styled.img`
-  width: 35px;
-  height: 35px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   background: gray;
 `;
@@ -99,6 +105,8 @@ const NotiContent = styled.p`
 const NotiTime = styled.span`
   margin-left: 4px;
   font-size: 10px;
+  font: normal normal normal 12px/18px Noto Sans KR;
+  color: #939393;
 `;
 
-export default Noti;
+export default MobileNoti;
