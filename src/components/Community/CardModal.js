@@ -753,13 +753,13 @@ const CardModal = (props) => {
                   </div>
                 ) : null}
               </CardWriterInfoLeft>
-              <SmallHashTag>{topic}</SmallHashTag>
               {/* 카드 질문 내용 */}
               <CardQuestionContent>
                 {answerInfo?.questionContents}
               </CardQuestionContent>
             </CardWriterBox>
             <CardWriteLeftBody>
+              <SmallHashTag>{topic}</SmallHashTag>
               <SmallQuestionContent>
                 {answerInfo?.questionContents}
               </SmallQuestionContent>
@@ -1056,7 +1056,6 @@ const SmallHashTag = styled.div`
   letter-spacing: 0px;
   color: #363636;
   font-size: 11px;
-  margin: 10px 20px 10px 20px;
   :hover {
     cursor: pointer;
   }
@@ -1075,7 +1074,7 @@ const CardWriteLeftBody = styled.div`
   @media (max-width: 500px) {
     min-height: 180px;
     max-height: 180px;
-    padding: 0 29px 0 20px;
+    padding: 20px 29px 0 20px;
     border-bottom: none;
     display: flex;
     width: 100%;
@@ -1090,6 +1089,8 @@ const CardWriterBox = styled.div`
 
   @media (max-width: 500px) {
     border: none;
+    min-height: 33px;
+    max-height: 33px;
   }
 `;
 
