@@ -135,7 +135,7 @@ const ProfileContainer = styled.section`
         margin-top:0px;
         margin-bottom:30px;
         height:100%;
-        min-height:270px;
+        min-height:320px;
         flex-direction:column;
         align-items:center;
     }
