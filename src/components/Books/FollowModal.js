@@ -29,7 +29,12 @@ const FollowModal = (props) => {
     <React.Fragment>
       <Background onClick={props.close}/>
       <FollowContainer>
+        <div style={{width:'100%', display:'flex', justifyContent:'center', padding:'5px 0px 20px 0px', borderBottom:'1px solid lightgray'}}>
+        <span style={{color:'black',font:'normal normal bold 14px/20px Noto Sans KR'}}>구독</span>
+        </div>
+        {/* <div style={{width:'100%', display:'flex', justifyContent:'center', padding:'20px 0px', borderTop:'1px solid lightgray', borderBottom:'1px solid lightgray'}}>
         <SearchInput onChange={onChange} placeholder="유저를 검색해보세요." />
+        </div> */}
         <UserContainer>
           {userInput.length !== 0 ?
           userInput.map((f, idx) => {
@@ -55,6 +60,8 @@ const FollowContainer = styled.div`
   width: 300px;
   height: 400px;
   border-radius: 20px;
+  padding: 15px 0px;
+  box-sizing:border-box;
   background: #FFFFFF;
   align-items: center;
   transform: translate(-50%, -50%);
@@ -65,20 +72,19 @@ const FollowContainer = styled.div`
 `
 
 const SearchInput = styled.input`
+  box-sizing:border-box;
   width: 250px;
-  font-size: 15px;
-  padding: 5px 20px;
+  font-size: 13px;
+  padding: 10px 20px;
   background: #F2F2F2;
-  margin-top: 30px;
   border-radius: 30px;
   outline: none;
   border: none;
 `
 
 const UserContainer = styled.div`
-  margin-top: 30px;
-  margin-bottom: 15px;
-  width: 80%;
+  padding:0px 15px;
+  width: 100%;
   display: flex;
   flex-direction: column;
   overflow-y: scroll;
@@ -89,7 +95,11 @@ const UserContainer = styled.div`
 
 const UserInfoContainer = styled.div`
   display: flex;
-  padding: 15px 8px;
+  flex-direction:row;
+  justify-content: flex-start;
+  align-items:center;
+  margin-top:20px;
+  width:100%;
   cursor: pointer;
   &:hover{
     background: silver;
@@ -98,14 +108,13 @@ const UserInfoContainer = styled.div`
 const ProfileImage = styled.img`
   border-radius: 50%;
   background-size: cover;
-  height: 30px;
-  width: 30px;
-  margin-right: 20px;
+  height: 40px;
+  width: 40px;
+  margin-right: 10px;
 `
 
-const Username = styled.div`
-  font-size: 15px;
-  font-weight: 600;
+const Username = styled.span`
+  font: normal normal bold 14px/20px Noto Sans KR;
 `
 
 const Background = styled.div`

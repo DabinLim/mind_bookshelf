@@ -440,7 +440,7 @@ const HeaderContainer = styled.div`
   z-index: 50;
   // margin-bottom: 10px;
   overflow: visible;
-  @media (max-width: 500px) {
+  @media (max-width: 750px) {
     padding-top: 10px;
     padding-bottom: 10px;
     background: black;
@@ -461,7 +461,7 @@ const HeaderInnerContainer = styled.div`
   @media (max-width: 900px) {
     padding: 0 40px 0 40px;
   }
-  @media (max-width: 500px) {
+  @media (max-width: 750px) {
     padding: 0 20px 0 20px;
   } ;
 `;
