@@ -433,7 +433,7 @@ const HeaderContainer = styled.div`
   z-index: 50;
   // margin-bottom: 10px;
   overflow: visible;
-  @media (max-width: 500px) {
+  @media (max-width: 750px) {
     padding-top: 10px;
     padding-bottom: 10px;
     background: black;
@@ -454,7 +454,7 @@ const HeaderInnerContainer = styled.div`
   @media (max-width: 900px) {
     padding: 0 60px 0 60px;
   }
-  @media (max-width: 500px) {
+  @media (max-width: 750px) {
     padding: 0 20px 0 20px;
   } ;
 `;
@@ -478,7 +478,7 @@ const NaviModal = styled.div`
     align-items: center;
     justify-content: space-between;
   }
-  @media (max-width: 500px) {
+  @media (max-width: 750px) {
     display: flex;
     padding: 0px 20px;
     align-items: center;
