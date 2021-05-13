@@ -1331,7 +1331,7 @@ const ModalCmtInputBox = styled.div`
   width: 100%;
   min-height: 92px;
   max-height: 92px;
-  padding: 0px 16px;
+  padding: 10px 16px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -1339,8 +1339,8 @@ const ModalCmtInputBox = styled.div`
   border-top: 1px solid #efefef;
 
   @media (max-width: 750px) {
-    min-height: 60px;
-    max-height: 60px;
+    min-height: 80px;
+    max-height: 80px;
     border-top: 1px solid #d3d3d3;
   }
 `;
