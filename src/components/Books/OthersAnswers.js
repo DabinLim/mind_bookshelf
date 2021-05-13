@@ -489,6 +489,7 @@ const Card = styled.div`
   box-sizing: border-box;
   padding: 18px;
   @media (max-width: 750px) {
+    box-shadow: 0px 0px 10px #0000001A;
     padding: 14px 14px 10px 14px;
     margin:0px 0px 15px 0px;
     min-height:150px;

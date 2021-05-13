@@ -7,8 +7,10 @@ import {
   resetAll,
   setView
 } from "../../redux/modules/custom";
+import {setComponent} from '../../redux/modules/books';
 import InfinityScroll from "../../shared/InfinityScroll";
 import {history} from '../../redux/configStore';
+import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 
 const MyQuestion = (props) => {
   const dispatch = useDispatch();
@@ -24,6 +26,7 @@ const MyQuestion = (props) => {
   const now_view = useSelector(state => state.custom.now_view);
   const container = React.useRef();
   const pop_container = React.useRef();
+  const [openFilter, setOpenFilter] = React.useState(false);
   React.useEffect(() => {
 
     dispatch(customActions.getMyQuest());
@@ -38,6 +41,38 @@ const MyQuestion = (props) => {
     <React.Fragment>
       <Container>
         <Background />
+        <TitleContainerMobile>
+          <ArrowForwardIosIcon onClick={() => {dispatch(setComponent(''))}}style={{transform:'rotateZ(180deg)'}}/>
+          <TitleMobile>{user_info?.nickname}님의 질문</TitleMobile>
+          <AddBtnMobile onClick={()=>{setModalVisible(true)}}><span style={{fontSize:'24px'}}>+</span></AddBtnMobile>
+        </TitleContainerMobile>
+        <FilterBtnBoxMobile>
+                <FilterToggle>
+              {now_view === 'new' && <span>최신순</span>}
+              {now_view === 'pop' && <span>인기순</span>}
+              {openFilter ? <ArrowForwardIosIcon
+                  onClick={()=>{setOpenFilter(false)}}
+                  style={{
+                    cursor: "pointer",
+                    color: "black",
+                    fontSize: "12px",
+                    transform:'rotateZ(270deg)',
+                    marginLeft:'5px'
+                  }}
+                /> : <ArrowForwardIosIcon
+                onClick={()=>{setOpenFilter(true)}}
+                style={{
+                  cursor: "pointer",
+                  color: "black",
+                  fontSize: "12px",
+                  transform:'rotateZ(90deg)',
+                  marginLeft:'5px'
+                }}
+              />}
+                </FilterToggle>
+                {openFilter && now_view === 'new' && <span onClick={()=>{dispatch(setView('pop'))}}>인기순</span>}
+                {openFilter && now_view === 'pop' && <span onClick={()=>{dispatch(setView('new'))}}>최신순</span>}
+                </FilterBtnBoxMobile>
         <TitleContainer>
           <Title>
             <span style={{ fontWeight: "600" }}>{user_info?.nickname}</span>님의
@@ -201,6 +236,7 @@ const MyQuestion = (props) => {
                     </Head>
                     <QuestionContents onClick={() => {history.push(`/community/${v.questionId}`)}}>{v.questionContents}</QuestionContents>
                     <CreatedAtBox>
+                      <AnswerCountMobile>{v.answerCount}명 낙서중</AnswerCountMobile>
                       <CreatedAt >{v.questionCreatedAt}</CreatedAt>
                     </CreatedAtBox>
                   </Card>
@@ -312,6 +348,7 @@ const MyQuestion = (props) => {
                     </Head>
                     <QuestionContents onClick={() => {history.push(`/community/${v.questionId}`)}}>{v.questionContents}</QuestionContents>
                     <CreatedAtBox>
+                    <AnswerCountMobile>{v.answerCount}명 낙서중</AnswerCountMobile>
                       <CreatedAt >{v.questionCreatedAt}</CreatedAt>
                     </CreatedAtBox>
                   </Card>
@@ -336,9 +373,11 @@ const Container = styled.section`
   margin:50px auto;
   border-radius: 20px;
   overflow: hidden;
-  @media (max-width: 500px) {
-    padding: 20px;
-    min-height: 300px;
+  @media (max-width: 750px) {
+    margin-top:30px;
+    margin-bottom:0px;
+    padding: 20px 25px 20px 25px;
+    max-height:100%;
   }
 `;
 const Background = styled.div`
@@ -364,8 +403,7 @@ const TitleContainer = styled.div`
   justify-content: space-between;
   margin-bottom: 38px;
   @media (max-width: 500px) {
-    padding-right: 10px;
-    height: 30px;
+    display:none;
   }
 `;
 
@@ -380,6 +418,34 @@ const Title = styled.span`
     min-width: 180px;
     font-size: 18px;
   }
+`;
+
+const TitleContainerMobile = styled.div`
+  width:100%;
+  height:25px;
+  display:flex;
+  flex-direction:row;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:25px;
+  @media(min-width:750px){
+    display:none;
+  }
+`;
+
+const TitleMobile = styled.span`
+  width:auto;
+  text-align:center;
+  font: normal normal bold 15px/22px Noto Sans KR;
+`;
+
+const AddBtnMobile = styled.div`
+  width:24px;
+  height:100%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  cursor:pointer;
 `;
 
 const AddBtn = styled.div`
@@ -423,6 +489,9 @@ const CardContainer = styled.section`
   flex-wrap: wrap;
   overflow: auto;
   ${props => props.view === 'new' ? `padding-bottom:60px`: `padding-bottom:0px`};
+  @media (max-width: 750px) {
+    padding-right:0px;
+  }
 `;
 
 const CardContainerPop = styled.section`
@@ -436,6 +505,9 @@ const CardContainerPop = styled.section`
   flex-wrap: wrap;
   overflow: auto;
   ${props => props.view === 'pop' ? `padding-bottom:60px`: `padding-bottom:0px`};
+  @media (max-width: 750px) {
+    padding-right:0px;
+  }
 `;
 
 const Card = styled.div`
@@ -451,6 +523,14 @@ const Card = styled.div`
   border-radius: 20px;
   box-sizing: border-box;
   padding: 18px;
+  @media (max-width: 750px) {
+    padding: 12px 12px 10px 12px;
+    box-shadow: 0px 0px 10px #0000001A;
+    margin:0px 4px 10px 3px;
+    max-width:155px;
+    max-height:118px;
+    border-radius:16px
+  }
 `;
 
 const Head = styled.div`
@@ -460,6 +540,9 @@ const Head = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  @media(max-width:750px){
+    display:none;
+  }
 `;
 
 const SubjectBox = styled.div`
@@ -485,6 +568,13 @@ const AnswerCount = styled.span`
   font-size: 11px;
 `;
 
+const AnswerCountMobile = styled.span`
+  font-size:11px;
+  @media(min-width:750px){
+    display:none;
+  }
+`;
+
 const QuestionContents = styled.span`
   cursor:pointer;
   font-size: 15px;
@@ -501,16 +591,52 @@ const QuestionContents = styled.span`
     font-weight:800;
     font-size:16px;
   }
+  @media(max-width:750px){
+    margin-top:0px;
+    font: normal normal bold 13px/19px Noto Sans KR;
+  }
 `;
 
 const CreatedAtBox = styled.div`
   box-sizing: border-box;
   border-top: 1px solid #bbbbbb;
   padding-top: 13px;
+  @media(max-width:750px){
+    padding-top:5px;
+  }
 `;
 
 const CreatedAt = styled.span`
   font-size: 11px;
+  @media(max-width:750px){
+    display:none;
+  }
+`;
+
+
+const FilterBtnBoxMobile = styled.div`
+  width:100%;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-end;
+  align-items:flex-end;
+  font-size:12px;
+  margin-right:20px;
+  padding-right:20px;
+  padding-bottom: 20px;
+  box-sizing:border-box;
+  @media(min-width:750px){
+    display:none;
+  }
+`;
+
+const FilterToggle = styled.div`
+ display:flex;
+ flex-direction:row;
+ align-items:center;
+ font-weight:600;
+ justify-content:flex-end;
+ margin-right:-17px;
 `;
 
 const FilterBtnBox = styled.div`
