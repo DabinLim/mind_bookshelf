@@ -104,7 +104,7 @@ const Header = () => {
 
         <NaviModal>
           <Menu onClick={SetMenuModal}>
-            <MenuIcon fontSize="large" />
+            <MenuIcon fontSize="medium" />
             <MenuText>메뉴</MenuText>
           </Menu>
           <Menu
@@ -118,6 +118,7 @@ const Header = () => {
             :
             <HomeOutlinedIcon fontSize="large" />
             }
+            {/* <NaviIcon src="" /> */}
             <MenuText>오늘의 낙서</MenuText>
           </Menu>
           <Menu
@@ -160,23 +161,28 @@ const Header = () => {
           <HeaderInnerContainer>
             <NaviContainer>
               <MobileIcon>
-                {searchModal ? (
+                <MenuIcon />
+              </MobileIcon>
+              <Logo>생각낙서</Logo>
+              <div style={{display:'flex'}} >
+              <MobileIcon style={{marginRight:"10px"}}>
+                {/* {searchModal ? (
                   <Search
                     recent_list={recent_list}
                     setLoading={setLoading}
                     loading={loading}
                   />
-                ) : null}
+                ) : null} */}
                 <SearchIcon
                   style={{ cursor: "pointer" }}
                   onClick={() => {
-                    recentUser();
-                    // dispatch(userActions.getRecentUserAX())
-                    dispatch(setSearch(true));
+                    // recentUser();
+                    // // dispatch(userActions.getRecentUserAX())
+                    // dispatch(setSearch(true));
+                    history.push('/search')
                   }}
                 />
               </MobileIcon>
-              <Logo>Logo</Logo>
               <MobileIcon>
                 {is_checked ? <AlarmBadge /> : null}
                 {notiModal ? (
@@ -193,6 +199,7 @@ const Header = () => {
                   }}
                 />
               </MobileIcon>
+              </div>
               <PageButton
                 onClick={() => {
                   history.push("/");
@@ -452,34 +459,34 @@ const HeaderInnerContainer = styled.div`
   box-sizing: border-box;
   overflow: visible;
   @media (max-width: 900px) {
-    padding: 0 60px 0 60px;
+    padding: 0 40px 0 40px;
   }
   @media (max-width: 500px) {
     padding: 0 20px 0 20px;
   } ;
 `;
 
-const NaviIcon = styled.div`
+const NaviIcon = styled.img`
 
 `
 
 const NaviModal = styled.div`
   display: none;
-  height: 70px;
+  height: 68px;
   width: 100vw;
   position: fixed;
   z-index: 100;
   bottom: 0;
   right: 0;
   background-color: white;
-  @media (max-width: 900px) {
+  @media (max-width: 750px) {
     display: flex;
     padding: 0px 80px;
     align-items: center;
     justify-content: space-between;
   }
   @media (max-width: 500px) {
-    display: flex;
+    display: none;
     padding: 0px 20px;
     align-items: center;
     justify-content: space-between;
@@ -491,6 +498,7 @@ const Menu = styled.div`
   flex-direction: column;
   align-items: center;
   font-size: 14px;
+  justify-content: space-between;
   cursor: pointer;
 `;
 const MenuText = styled.div`
@@ -506,18 +514,21 @@ const NaviContainer = styled.div`
   align-items: center;
   height: 100%;
   justify-content: flex-start;
-  @media (max-width: 900px) {
+  @media (max-width: 750px) {
     justify-content: space-between;
     width: 100%;
   } ;
 `;
 
-const Logo = styled.span`
+const Logo = styled.div`
   margin-right: 140px;
   font-size: 18px;
   font-weight: 800;
   transition: 0.5s;
   @media (max-width: 900px) {
+    margin-right: 80px;
+  } ;
+  @media (max-width: 750px) {
     margin-right: 0px;
   } ;
 `;
@@ -527,7 +538,7 @@ const PageButton = styled.span`
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
-  @media (max-width: 900px) {
+  @media (max-width: 750px) {
     display: none;
   } ;
 `;
@@ -544,7 +555,7 @@ const TextBtn = styled.div`
   font-size: 18px;
   cursor: pointer;
   margin-left: 25px;
-  @media (max-width: 900px) {
+  @media (max-width: 750px) {
     display: none;
   } ;
 `;
@@ -553,7 +564,7 @@ const Icon = styled.div`
   position: relative;
   margin-left: 25px;
   margin-top: 9px;
-  @media (max-width: 900px) {
+  @media (max-width: 750px) {
     display: none;
   } ;
 `;
@@ -562,7 +573,7 @@ const MobileIcon = styled.div`
   position: relative;
   display: none;
   margin-top: 9px;
-  @media (max-width: 900px) {
+  @media (max-width: 750px) {
     display: block;
   } ;
 `;

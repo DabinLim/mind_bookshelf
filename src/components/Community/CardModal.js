@@ -368,6 +368,16 @@ const CardModal = (props) => {
 
   return (
     <React.Fragment>
+      {updateModal ? (
+        <CardUpdateModal
+          setCancelModal={setCancelModal}
+          setAnswer={setAnswer}
+          setUpdateAnswer={setUpdateAnswer}
+          close={props.close}
+          setUpdateModal={setUpdateModal}
+          {...answerInfo}
+        />
+      ) : null}
       {cancelModal ? (
         <CancelConfirm
           {...answerInfo}
@@ -745,16 +755,6 @@ const CardModal = (props) => {
                       position: "relative",
                     }}
                   >
-                    {updateModal ? (
-                      <CardUpdateModal
-                        setCancelModal={setCancelModal}
-                        setAnswer={setAnswer}
-                        setUpdateAnswer={setUpdateAnswer}
-                        close={props.close}
-                        setUpdateModal={setUpdateModal}
-                        {...answerInfo}
-                      />
-                    ) : null}
                     <MoreVertIcon
                       onClick={() => {
                         if (updateModal) {

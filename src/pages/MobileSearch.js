@@ -1,5 +1,5 @@
-import React, {useState} from 'react';  
-import styled from  'styled-components';
+import React, {useState, useEffect} from 'react' 
+import styled from 'styled-components'
 import axios from 'axios'
 import {config} from '../shared/config'
 import _ from "lodash";
@@ -8,33 +8,54 @@ import {useSelector, useDispatch} from 'react-redux'
 import Loader from "react-loader-spinner";
 import {setSearch} from '../redux/modules/noti';
 import {api as userActions} from '../redux/modules/user'
+import { getCookie } from '../shared/Cookie'
 
-const Search = (props) => {
+const MobileSearch = (props) => {
   const dispatch = useDispatch();
   const [user_list, setUser] = useState();
   const user = useSelector(state => state.user.user)
+  const [loading, setLoading] = useState(true);
+  const [recent_list, setRecent] = useState();
+  
+  useEffect(() => {
+    recentUser()
+  },[])
 
-  console.log(props.recent_list)
+  const recentUser = async () => {
+    if (!getCookie("is_login")) {
+      setLoading(false);
+      return;
+    }
+    const result = await axios.get("/bookshelf/searchUser");
+    console.log(result);
+    if (result.data.result.searchUser.length === 0) {
+      setRecent();
+      setLoading(false);
+    } else {
+      setRecent(result.data.result.searchUser);
+      setLoading(false);
+    }
+  };
+
   const debounce = _.debounce((words) => {
-    props.setLoading(true)
+    setLoading(true)
     const searchUsers = async() => {
       console.log(words)
       const result = await axios.post(`${config.api}/bookshelf/searchUser`, {words: words})
       console.log(result)
       if(result.data.userInfo === "none" || result.data.userInfo.length === 0){
         setUser()
-        props.setLoading(false)
+        setLoading(false)
       }else{
         setUser(result.data.userInfo)
-        props.setLoading(false)
+        setLoading(false)
       }
     }
     searchUsers()
   }, 500);
-  console.log(user_list)
 
   const keyPress = React.useCallback(debounce, []);
-  
+
   const onChange = (e) => {
     keyPress(e.target.value)
   }
@@ -52,10 +73,9 @@ const Search = (props) => {
 
   return(
     <React.Fragment>
-      <Background onClick={()=> {dispatch(setSearch(false))}}/>
       <SearchContainer>
             <SearchInput placeholder='유저를 검색해보세요.' onChange={onChange}/>
-            {props.loading?
+            {loading?
             <SpinContainer>
               <Loader type="Oval" color="#3d66ba" height={50} width={50} />
             </SpinContainer>
@@ -72,9 +92,9 @@ const Search = (props) => {
             </UserContainer>
             :
             <UserContainer>
-              <RecentSearch>최신검색</RecentSearch>
-              {props.recent_list ? 
-              props.recent_list.map((r) => {
+              <RecentSearch>최근검색</RecentSearch>
+              {recent_list ? 
+              recent_list.map((r) => {
                 return  <UserInfoContainer style={{marginTop: "10px"}} key={r.id} onClick={() => clickOther(r.searchUserId)} >
                           <ProfileImage src={r.profileImg} />
                           <Username>{r.nickname}</Username>
@@ -93,27 +113,21 @@ const Search = (props) => {
 }
 
 const SearchContainer = styled.div`
-  position: absolute;
-  border-radius:20px;
-  top: 190px;
-  right: -115px;
-  width: 250px;
-  height: 300px;
-  background: #FFFFFF;
+  background: white;
+  width: 100vw;
+  height: 100vh;
   align-items: center;
   color: black;
-  transform: translate(-50%, -50%);
-  box-shadow: 0px 0px 15px #0000001A;
-  z-index: 30;
   display: flex;
   flex-direction: column;
+  margin-top: 60px;
 `
 
 const SearchInput = styled.input`
-  width: 200px;
-  height:35px;
+  width: 90%;
+  height: 50px;
   font-size: 13px;
-  padding: 5px 15px;
+  padding: 5px 25px;
   background: #F2F2F2;
   opacity:0.8;
   margin-top: 30px;
@@ -124,7 +138,7 @@ const SearchInput = styled.input`
 const UserContainer = styled.div`
   margin-top: 20px;
   margin-bottom: 15px;
-  width: 80%;
+  width: 90%;
   display: flex;
   flex-direction: column;
   overflow-y: scroll;
@@ -148,14 +162,15 @@ const UserInfoContainer = styled.div`
 const ProfileImage = styled.img`
   border-radius: 50%;
   background-size: cover;
-  height: 28px;
-  width: 28px;
+  height: 40px;
+  width: 40px;
   margin-right: 10px;
 `
 
 const Username = styled.div`
   margin: auto 0px;
-  font-size: 14px;
+  font: normal normal bold 14px/16px Roboto;
+  color: #7D7D7D;
   font-weight: 600;
 `
 
@@ -179,8 +194,9 @@ const UserText = styled.div`
 `
 
 const RecentSearch = styled.div`
-  font-weight: 600;
-  font-size: 14px;
+  font: normal normal bold 14px/16px Roboto;
+  color: #333333;
   margin-left: 8px;
 `
-export default Search
+
+export default MobileSearch

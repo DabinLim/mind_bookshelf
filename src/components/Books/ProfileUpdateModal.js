@@ -232,35 +232,35 @@ const ProfileUpdateModal = (props) => {
         <TypeContainer>
           <div style={{marginBottom: '13px'}}>
           {_friendship?
-            <CheckedLabel onClick={checkedFriendship} style={{background:"#B9FFC4" , boxShadow: '0px 0px 15px #C5FDCE'}} >#우정</CheckedLabel>
+            <CheckedLabel onClick={checkedFriendship} style={{background:"#B5BDFF" , boxShadow: '0px 0px 15px #C3C9FE'}} >#우정</CheckedLabel>
             :
             <CheckedLabel style={{background:"#F4F4F4"}} onClick={checkedFriendship} >#우정</CheckedLabel>
           }
           {_love? 
-            <CheckedLabel onClick={checkedLove} style={{background:"#FFAAAA" , boxShadow: '0px 0px 15px #FDB9B9'}} >#사랑</CheckedLabel>
+            <CheckedLabel onClick={checkedLove} style={{background:"#B5BDFF" , boxShadow: '0px 0px 15px #C3C9FE'}} >#사랑</CheckedLabel>
             :
             <CheckedLabel onClick={checkedLove} style={{background:"#F4F4F4"}} >#사랑</CheckedLabel>
           }
           {_dream? 
-            <CheckedLabel onClick={checkedDream} style={{background:"#B7E6FF" , boxShadow: '0px 0px 15px #C4EAFE'}} >#꿈</CheckedLabel>
+            <CheckedLabel onClick={checkedDream} style={{background:"#B5BDFF" , boxShadow: '0px 0px 15px #C3C9FE'}} >#꿈</CheckedLabel>
             :
             <CheckedLabel onClick={checkedDream} style={{background:"#F4F4F4"}} >#꿈</CheckedLabel>
           }
           </div>
           <div>
           {_worth? 
-            <CheckedLabel onClick={checkedWorth} style={{background:"#B5BDFF" , boxShadow: '0px 0px 15px #C1C7FC'}} >#가치</CheckedLabel>
+            <CheckedLabel onClick={checkedWorth} style={{background:"#B5BDFF" , boxShadow: '0px 0px 15px #C3C9FE'}} >#가치</CheckedLabel>
             :
             <CheckedLabel onClick={checkedWorth} style={{background:"#F4F4F4"}} >#가치</CheckedLabel>
           }
           {_relationship? 
-            <CheckedLabel onClick={checkedRelationship} style={{background:"#FFF09D", boxShadow: '0px 0px 15px #FEF2AF'}}>#관계</CheckedLabel>
+            <CheckedLabel onClick={checkedRelationship} style={{background:"#B5BDFF", boxShadow: '0px 0px 15px #C3C9FE'}}>#관계</CheckedLabel>
             :
             <CheckedLabel onClick={checkedRelationship} style={{background:"#F4F4F4"}} >#관계</CheckedLabel>
             
           }
           {_myself? 
-            <CheckedLabel onClick={checkedMyself} style={{background:"#F9D1FD", boxShadow: '0px 0px 15px #F9D9FC' }} >#나</CheckedLabel>
+            <CheckedLabel onClick={checkedMyself} style={{background:"#B5BDFF", boxShadow: '0px 0px 15px #C3C9FE' }} >#나</CheckedLabel>
             :
             <CheckedLabel onClick={checkedMyself} style={{background:"#F4F4F4"}} >#나</CheckedLabel>
           }

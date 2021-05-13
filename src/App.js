@@ -13,6 +13,7 @@ import {
   MyBooks,
   OthersBooks,
   Community,
+  MobileSearch,
 } from "./pages/pagesindex";
 import { getCookie } from "./shared/Cookie";
 import QuestionDetail from "./components/Community/QuestionDetail";
@@ -56,6 +57,7 @@ function App() {
           <Route exact path="/community" component={Community} />
           <Route exact path="/community/:id" component={QuestionDetail} />
           <Route exact path="/test" component={ComponentSlider} />
+          <Route exact path="/search" component={MobileSearch} />
         </ConnectedRouter>
       </ContentFrame>
     </React.Fragment>
