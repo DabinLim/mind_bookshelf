@@ -22,6 +22,7 @@ const CardUpdateModal = (props) => {
               </ModalSubmitBtn>
               <ModalSubmitBtn
                 onClick={() => {
+                  console.log('삭제')
                   props.setUpdateModal(false);
                   props.setCancelModal(true);
                 }}

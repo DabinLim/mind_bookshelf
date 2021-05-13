@@ -355,23 +355,6 @@ const CardModal = (props) => {
 
   return (
     <React.Fragment>
-      {updateModal ? (
-        <CardUpdateModal
-          setCancelModal={setCancelModal}
-          setAnswer={setAnswer}
-          setUpdateAnswer={setUpdateAnswer}
-          close={props.close}
-          setUpdateModal={setUpdateModal}
-          {...answerInfo}
-        />
-      ) : null}
-      {cancelModal ? (
-        <CancelConfirm
-          {...answerInfo}
-          setCancelModal={setCancelModal}
-          close={props.close}
-        />
-      ) : null}
       <Component
         onClick={() => {
           props.close();
@@ -379,7 +362,7 @@ const CardModal = (props) => {
             dispatch(setBookDetailModal(nowdate.format("YYMMDD")));
           }
         }}
-      />
+        />
       {card_loading ? (
         <ModalComponent book={props.book}>
           {answerInfo?.type === "book" && (
@@ -743,6 +726,23 @@ const CardModal = (props) => {
                       position: "relative",
                     }}
                   >
+                    {updateModal ? (
+                      <CardUpdateModal
+                        setCancelModal={setCancelModal}
+                        setAnswer={setAnswer}
+                        setUpdateAnswer={setUpdateAnswer}
+                        close={props.close}
+                        setUpdateModal={setUpdateModal}
+                        {...answerInfo}
+                      />
+                    ) : null}
+                    {cancelModal ? (
+                      <CancelConfirm
+                        {...answerInfo}
+                        setCancelModal={setCancelModal}
+                        close={props.close}
+                      />
+                    ) : null}
                     <MoreVertIcon
                       onClick={() => {
                         if (updateModal) {

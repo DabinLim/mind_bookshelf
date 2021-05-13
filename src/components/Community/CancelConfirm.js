@@ -35,10 +35,14 @@ const Background = styled.div`
   top: 0;
   left:0;
   opacity: 0.4;
-  height: 100vh;
-  width: 100vw;
+  height: 100%;
+  width: 100%;
   background-color: black;
   z-index: 151;
+  border-radius: 50px;
+  @media (max-width: 750px) {
+    border-radius: 20px;
+    }
 `
 
 const ConfirmBox = styled.div`

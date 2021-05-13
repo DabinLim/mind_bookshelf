@@ -6,11 +6,14 @@ import { api as communityActions } from "../redux/modules/community";
 import Loader from "react-loader-spinner";
 import { setLoading } from "../redux/modules/community";
 import ReplayIcon from "@material-ui/icons/Replay";
+import { CardModal } from "../components/Community/communityindex";
+import { api as commentActions } from "../redux/modules/comment";
 
 const Community = () => {
   const dispatch = useDispatch();
   const question_list = useSelector((state) => state.community.question);
   const is_loading = useSelector((state) => state.community.is_loading);
+  const [cardModal, setCardModal] = useState(false);
 
   useEffect(() => {
     dispatch(communityActions.communityQuestionAX());
@@ -19,8 +22,20 @@ const Community = () => {
     };
   }, []);
 
+  const openCard = (a) => {
+    const type = "community";
+    setCardModal(true);
+    dispatch(communityActions.getCardDetail(a.answerId, type));
+    dispatch(commentActions.getCommentAX(a.answerId));
+  };
+
+  const closeCardModal = () => {
+    setCardModal(false);
+  };
+
   return (
     <React.Fragment>
+      {cardModal ? <CardModal close={closeCardModal} /> : null}
       {is_loading ? (
         <CommunityBtn style={{ paddingTop: "5px" }}>
           <Loader type="TailSpin" color="Black" height={30} width={30} />
@@ -46,7 +61,7 @@ const Community = () => {
           <CommunityBox>
             {question_list !== 0
               ? question_list.map((q) => {
-                  return <CommunityQnA key={q.id} {...q} />;
+                  return <CommunityQnA key={q.id} {...q} openCard={openCard} />;
                 })
               : null}
           </CommunityBox>
