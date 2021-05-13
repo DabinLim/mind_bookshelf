@@ -154,7 +154,7 @@ const Header = () => {
               >
                 <MenuIcon />
               </MobileIcon>
-              <Logo>생각낙서</Logo>
+              <Logo onClick={()=>{history.push('/')}} >생각낙서</Logo>
               <div style={{ display: "flex" }}>
                 <MobileIcon style={{ marginRight: "10px" }}>
                   {/* {searchModal ? (
@@ -367,7 +367,7 @@ const Header = () => {
             >
               <MenuIcon />
             </MobileIcon>
-            <Logo>생각낙서</Logo>
+            <Logo onClick={()=>{history.push('/')}} >생각낙서</Logo>
             <div style={{ display: "flex" }}>
                 <MobileIcon style={{ marginLeft: "35px" }}>
                   {/* {searchModal ? (
@@ -597,6 +597,7 @@ const Logo = styled.div`
   font-size: 18px;
   font-weight: 800;
   transition: 0.5s;
+  cursor:pointer;
   @media (max-width: 900px) {
     margin-right: 80px;
   }

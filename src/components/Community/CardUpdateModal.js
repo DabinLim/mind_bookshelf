@@ -39,22 +39,31 @@ const Background = styled.div`
   top: 0;
   left:0;
   opacity: 0.4;
-  height: 100vh;
-  width: 100vw;
+  height: 100%;
+  width: 100%;
   background-color: black;
-  z-index: 149;
+  z-index: 450;
+  border-radius: 50px;
+  @media (max-width: 750px) {
+    border-radius: 20px;
+    }
+  // display: none;
 `
 
 const UpdateComponent = styled.div`
   position: absolute;
-  top: -270px;
-  left: 350px;
+  top: 30px;
+  right: 0px;
   width: 164px;
   height: 98px;
   border-radius: 20px;
   background-color: white;
-  z-index: 150;
+  z-index: 500;
   box-shadow: 0px 0px 20px #0000001A;
+  @media (max-width: 750px) {
+  right: 0px;
+  width: 164px;
+  }
 `
 
 const ModalButtonContainer = styled.div`
