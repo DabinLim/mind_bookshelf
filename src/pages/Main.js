@@ -398,7 +398,7 @@ const DateIndicator = styled.h2`
 
 const QuestionIndicator = styled.h3`
   text-align: center;
-  font: normal normal normal 46px/60px Roboto;
+  font: normal normal bold 26px/32px Noto Sans KR;
   letter-spacing: 0px;
   color: #262626;
 

@@ -144,7 +144,7 @@ const sendAnswerAX = (question_id, content, isChecked) => {
     axios(options)
       .then((response) => {
         console.log(response.data);
-        dispatch(setQuestion(response.data.cards, response.data.result));
+        dispatch(setQuestion(response.data.cards));
         swal({
           title: "답변 완료✌",
           text: "답변이 등록되었어요 🤩",

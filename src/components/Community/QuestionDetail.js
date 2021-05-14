@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import styled from "styled-components";
 import AnswerCard from "../../shared/AnswerCard2";
 // import {response} from '../redux/Mock/Answers';
@@ -12,6 +12,10 @@ import InfinityScroll from "../../shared/InfinityScroll";
 import { getCookie } from "../../shared/Cookie";
 import swal from "sweetalert";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
+import CardModal from "./CardModal"
+import { api as commentActions } from "../../redux/modules/comment";
+import { api as communityActions } from "../../redux/modules/community";
+
 
 const QuestionDetail = (props) => {
   const dispatch = useDispatch();
@@ -35,12 +39,21 @@ const QuestionDetail = (props) => {
     (state) => state.moreview.firends_loading
   );
   const [openFilter, setOpenFilter] = React.useState(false);
+  const [cardModal, setCardModal] = useState(false);
   const container = React.useRef();
   const like_container = React.useRef();
   const friends_container = React.useRef();
-  // console.log(container);
-  // console.log(like_container);
-  // console.log(friends_container);
+
+  const openCard = (a) => {
+    const type = "detail";
+    dispatch(communityActions.getCardDetail(a, type));
+    dispatch(commentActions.getCommentAX(a));
+    setCardModal(true);
+  };
+
+  const closeCardModal = () => {
+    setCardModal(false);
+  };
 
   React.useEffect(() => {
     dispatch(moreviewActions.getQuestionInfo(id));
@@ -81,6 +94,7 @@ const QuestionDetail = (props) => {
   return (
     <React.Fragment>
       <Outer>
+      {cardModal ? <CardModal close={closeCardModal}  /> : null}
         <CommunityContainer>
           <Container>
             <ContainerUpper>
@@ -209,7 +223,7 @@ const QuestionDetail = (props) => {
                 >
                   {answers.length ? (
                     answers.map((v, idx) => {
-                      return <AnswerCard key={idx} {...v} />;
+                      return <AnswerCard openCard={openCard} key={idx} {...v} />;
                     })
                   ) : (
                     <h2>답변이 없습니다. 아시겠어요?</h2>
@@ -230,7 +244,7 @@ const QuestionDetail = (props) => {
                 >
                   {like_answers.length ? (
                     like_answers.map((v, idx) => {
-                      return <AnswerCard key={idx} {...v} />;
+                      return <AnswerCard openCard={openCard} key={idx} {...v} />;
                     })
                   ) : (
                     <h2>답변이 없습니다. 아시겠어요?</h2>
@@ -251,7 +265,7 @@ const QuestionDetail = (props) => {
                 >
                   {friends_answers.length ? (
                     friends_answers.map((v, idx) => {
-                      return <AnswerCard key={idx} {...v} />;
+                      return <AnswerCard openCard={openCard} key={idx} {...v} />;
                     })
                   ) : (
                     <h2>답변이 없습니다. 아시겠어요?</h2>
@@ -292,6 +306,12 @@ const Outer = styled.section`
   @media(max-width:650px){
     margin-top:100px;
   }
+  @media (max-width: 500px) {
+    margin: 60px 0px 0px 0px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-image: url("https://user-images.githubusercontent.com/67696504/117994109-4088f980-b37b-11eb-8f2c-9d42c93fd0a3.png");
+  }
 `;
 
 const CommunityContainer = styled.div`
@@ -306,6 +326,7 @@ const CommunityContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   overflow-y:auto;
+
 `;
 
 const Container = styled.section`
@@ -334,6 +355,9 @@ const ContainerUpper = styled.div`
   justify-content: space-between;
   height: 80px;
   padding:15px 20px;
+  @media (max-width: 500px) {
+    margin-top: 10px;
+  }
 `;
 
 const ContainerUpperLeft = styled.div`

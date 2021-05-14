@@ -1,6 +1,9 @@
+import toDate from 'date-fns/toDate'
+
 const time = (value) => {
-  const today = new Date();
-  const timeValue = new Date(value);
+  const today = toDate(new Date());
+  const timeValue = toDate(new Date(value));
+  console.log(today, timeValue, value)
   const betweenTime = Math.floor((today.getTime() - timeValue.getTime()) / 1000 / 60);
   if (betweenTime < 1) return '방금전';
   if (betweenTime < 60) {
