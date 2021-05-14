@@ -307,7 +307,7 @@ const Outer = styled.section`
     margin-top:100px;
   }
   @media (max-width: 500px) {
-    margin: 60px 0px 0px 0px;
+    margin: 50px 0px 0px 0px;
     background-size: cover;
     background-repeat: no-repeat;
     background-image: url("https://user-images.githubusercontent.com/67696504/117994109-4088f980-b37b-11eb-8f2c-9d42c93fd0a3.png");

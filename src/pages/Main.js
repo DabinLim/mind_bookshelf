@@ -341,7 +341,7 @@ const MainContainer = styled.div`
   }
 
   @media (max-width: 750px) {
-    margin: 60px 0px 0px 0px;
+    margin: 50px 0px 0px 0px;
   }
   @media (max-width: 500px){
     align-items: center;
@@ -398,7 +398,7 @@ const DateIndicator = styled.h2`
 
 const QuestionIndicator = styled.h3`
   text-align: center;
-  font: normal normal bold 26px/32px Noto Sans KR;
+  font: normal normal normal 46px/60px Roboto;
   letter-spacing: 0px;
   color: #262626;
 
@@ -409,7 +409,7 @@ const QuestionIndicator = styled.h3`
 
 const SmallQuestionIndicator = styled.p`
   text-align: left;
-  font-size: 26px;
+  font: normal normal bold 26px/32px Noto Sans KR;
   margin-bottom: 0px;
   @media (min-width: 500px) {
     display: none;

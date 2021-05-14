@@ -483,6 +483,7 @@ const HeaderContainer = styled.div`
     padding-bottom: 10px;
     background: black;
     color: white;
+    height: 50px;
   }
 `;
 
@@ -606,6 +607,7 @@ const Logo = styled.div`
   @media (max-width: 750px) {
     margin-left: 35px;
     margin-right: 0px;
+    font: normal normal bold 14px/20px Noto Sans KR;
   } ;
 `;
 

@@ -1,9 +1,10 @@
 import toDate from 'date-fns/toDate'
 
 const time = (value) => {
-  const today = toDate(new Date());
-  const timeValue = toDate(new Date(value));
+  const today = new Date();
+  const timeValue = new Date(value.substring(0,4), value.substring(5,7)-1, value.substring(8,10), value.substring(11,13), value.substring(14,16), value.substring(17,19));
   console.log(today, timeValue, value)
+  console.log(value.substring(0,4), value.substring(5,7), value.substring(8,10), value.substring(11,13), value.substring(14,16), value.substring(17,19))
   const betweenTime = Math.floor((today.getTime() - timeValue.getTime()) / 1000 / 60);
   if (betweenTime < 1) return '방금전';
   if (betweenTime < 60) {

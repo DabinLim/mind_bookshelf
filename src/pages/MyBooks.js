@@ -68,7 +68,7 @@ const ContainerBox = styled.div`
     display: none;
     };
     @media (max-width: 750px) {
-        margin: 60px 0px 0px 0px;
+        margin: 50px 0px 0px 0px;
       }
 `
 
