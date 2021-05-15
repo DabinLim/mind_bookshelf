@@ -2,6 +2,7 @@ import toDate from 'date-fns/toDate'
 
 const time = (value) => {
   const today = new Date();
+//   사파리에서도 시간을 적용하기 위해서 년,월,일,시,분,초로 나눴습니다.
   const timeValue = new Date(value.substring(0,4), value.substring(5,7)-1, value.substring(8,10), value.substring(11,13), value.substring(14,16), value.substring(17,19));
   console.log(today, timeValue, value)
   console.log(value.substring(0,4), value.substring(5,7), value.substring(8,10), value.substring(11,13), value.substring(14,16), value.substring(17,19))
