@@ -13,6 +13,8 @@ import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord";
 import "../static/Card.css";
 
+import Slider from "react-slick";
+
 import SwiperCore, { Navigation, Pagination } from "swiper";
 
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -24,6 +26,17 @@ import "swiper/components/pagination/pagination.scss";
 import "swiper/components/scrollbar/scrollbar.scss";
 
 function Main() {
+  var settings = {
+    className: "center",
+    centerMode: true,
+    centerPadding: "40px",
+    dots: true,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+  };
+
   const dispatch = useDispatch();
   // 유저 인포 확인하는 것 (아마 이 안에서 is_login 으로 확인해야할듯)
   const user_info = useSelector((state) => state.user.is_login);
@@ -197,7 +210,12 @@ function Main() {
           {/* 메인 아래쪽 */}
           <SlideBox>
             <SmallCardContainer>
-              <Swiper
+              <Slider {...settings} className="sliderCheck">
+                <Post {...question_list[0]} allChecked={allChecked} />
+                <Post {...question_list[1]} allChecked={allChecked} />
+                <Post {...question_list[2]} allChecked={allChecked} />
+              </Slider>
+              {/* <Swiper
                 spaceBetween={30}
                 slidesPerView={1}
                 onSlideChange={(e) => {
@@ -214,7 +232,7 @@ function Main() {
                 <SwiperSlide>
                   <Post {...question_list[2]} allChecked={allChecked} />
                 </SwiperSlide>
-              </Swiper>
+              </Swiper> */}
             </SmallCardContainer>
             <LargeCardContainer
               style={{
@@ -273,7 +291,7 @@ function Main() {
               />
             </DotQueue>
             {/* 모바일 화면일 때~ */}
-            <SmallDotQueue>
+            {/* <SmallDotQueue>
               <FiberManualRecordIcon
                 style={{
                   fontSize: "15px",
@@ -295,7 +313,7 @@ function Main() {
                 }}
                 className={dot_3S}
               />
-            </SmallDotQueue>
+            </SmallDotQueue> */}
           </SlideBox>
         </MainContainer>
       )}
@@ -343,7 +361,7 @@ const MainContainer = styled.div`
   @media (max-width: 750px) {
     margin: 60px 0px 0px 0px;
   }
-  @media (max-width: 500px){
+  @media (max-width: 500px) {
     align-items: center;
   }
 `;
@@ -449,9 +467,11 @@ const SlideBox = styled.div`
   @media (max-width: 500px) {
     margin: 0;
     width: 100%;
-    padding: 27px 28px 27px 28px;
+    /* flex-direction: row; */
+    /* padding: 27px 28px 27px 28px;
     box-sizing: border-box;
     text-align: center;
+    flex-direction: row; */
   }
 `;
 

@@ -248,11 +248,11 @@ const CardFrame = styled.div`
   text-align: center;
   border-top-left-radius: 50px;
   @media (max-width: 600px) {
+    width: 95%;
     padding: 17px 18px;
     border-radius: 20px;
     min-height: 462px;
     max-height: 462px;
-    width: 100%;
   }
 `;
 
