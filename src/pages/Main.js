@@ -34,8 +34,13 @@ function Main() {
     dots: true,
     infinite: false,
     speed: 500,
+    swipeToSlide: true,
     slidesToShow: 1,
     slidesToScroll: 1,
+    dotsClass: "slick-dots slick-thumb",
+    customPaging: function (i) {
+      return <button>•</button>;
+    },
   };
 
   const dispatch = useDispatch();

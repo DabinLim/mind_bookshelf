@@ -131,6 +131,17 @@
   margin: 0 5px !important;
 }
 
-.slick-dots li {
-  border-radius: 50% !important;
+.slick-dots li button {
+  background: none !important;
+  outline: none !important;
+  border: none;
+  font-size: 36px !important;
+  display: flex !important;
+  align-items: center !important;
+  color: #797676 !important;
+}
+
+.slick-dots li.slick-active button {
+  color: #ffffff !important;
+  transform: scale(1.3);
 }
