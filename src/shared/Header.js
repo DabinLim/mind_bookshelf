@@ -115,6 +115,7 @@ const Header = () => {
                   나의 책장
                 </MenuLi>
                 <MenuLi
+                  style={{marginBottom:"105px"}}
                   onClick={() => {
                     history.push("/community");
                     dispatch(setComponent(""));
@@ -123,23 +124,23 @@ const Header = () => {
                 >
                   커뮤니티
                 </MenuLi>
-                <br></br>
-                <MenuLi
+
+                <MenuText
                   onClick={() => {
                     setAboutModal(true);
                     setMenuOpen(false);
                   }}
                 >
                   소개
-                </MenuLi>
-                <MenuLi
+                </MenuText>
+                <MenuText
                   onClick={() => {
                     dispatch(notiActions.leaveAlarmIO(user.id));
                     setMenuOpen(false);
                   }}
                 >
                   로그아웃
-                </MenuLi>
+                </MenuText>
               </MenuUl>
             </Menu>
           </>
@@ -333,26 +334,26 @@ const Header = () => {
                   dispatch(setComponent(""));
                   setMenuOpen(false);
                 }}
+                style={{marginBottom:"105px"}}
               >
                 커뮤니티
               </MenuLi>
-              <br></br>
-              <MenuLi
+              <MenuText
                 onClick={() => {
                   setAboutModal(true);
                   setMenuOpen(false);
                 }}
               >
                 소개
-              </MenuLi>
-              <MenuLi
+              </MenuText>
+              <MenuText
                 onClick={() => {
                   setLogin(true);
                   setMenuOpen(false);
                 }}
               >
                 로그인
-              </MenuLi>
+              </MenuText>
             </MenuUl>
           </Menu>
         </>
@@ -398,10 +399,10 @@ const Header = () => {
             </PageButton>
             <PageButton
               onClick={() => {
-                if (!getCookie("is_login")) {
+                if (!is_login) {
                   swal({
                     title: "로그인 필수!",
-                    text: "로그인 후 이용가능해요😊",
+                    text: "로그인 후 이용가능해요.",
                     icon: "info",
                   });
                   return;
@@ -482,6 +483,7 @@ const HeaderContainer = styled.div`
     padding-bottom: 10px;
     background: black;
     color: white;
+    height: 50px;
   }
 `;
 
@@ -544,14 +546,12 @@ const Menu = styled.div`
   display: flex;
   flex-direction: column;
   cursor: default;
-  width: 90%;
+  width: 240px;
   height: 100%;
   background: black;
   z-index: 140;
   color: white;
   padding: 102px 0 0 16px;
-  font-size: 22px;
-  font-weight: bold;
 `;
 
 const MenuCloseBtn = styled.button`
@@ -571,12 +571,15 @@ const MenuUl = styled.ul`
 
 const MenuLi = styled.li`
   list-style: none;
-  margin-bottom: 27px;
+  margin-bottom: 24px;
   cursor: pointer;
+  font: normal normal bold 20px/29px Noto Sans KR;
 `;
 
 const MenuText = styled.div`
-  font-size: 14px;
+  font: normal normal bold 16px/24px Noto Sans KR;
+  cursor: pointer;
+  margin-bottom: 14px;
 `;
 
 const NaviContainer = styled.div`
@@ -604,6 +607,7 @@ const Logo = styled.div`
   @media (max-width: 750px) {
     margin-left: 35px;
     margin-right: 0px;
+    font: normal normal bold 14px/20px Noto Sans KR;
   } ;
 `;
 

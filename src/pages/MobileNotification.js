@@ -50,7 +50,7 @@ const NotiContainer = styled.div`
   color: black;
   display: none;
   flex-direction: column;
-  margin-top: 60px;
+  margin-top: 50px;
   @media (max-width: 750px) {
     display: flex;
   }

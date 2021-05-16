@@ -15,6 +15,7 @@ import "../static/Card.css";
 
 import Slider from "react-slick";
 
+import ProfileUpdateModal from "../components/Books/ProfileUpdateModal";
 import SwiperCore, { Navigation, Pagination } from "swiper";
 
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -44,6 +45,9 @@ function Main() {
   // 스피너 먹이려고
   const is_loading = useSelector((state) => state.answer.is_loading);
 
+  //처음 회원가입했을 때 프로필 수정 모달 상태 관리
+  const [profileUpdate, setProfileUpdate] = React.useState(user.first);
+  console.log(profileUpdate);
   // 날짜 지정
   let today = moment().format("YYYY-MM-DD").split("-");
   let month = today[1];
@@ -136,6 +140,10 @@ function Main() {
     }
   };
 
+  const closeProfileUpdate = () => {
+    setProfileUpdate(false);
+  };
+
   // 작은 화면일 때 pagination
 
   const [dot_1S, setDot1S] = React.useState("true");
@@ -184,6 +192,9 @@ function Main() {
         <LoaderBox></LoaderBox>
       ) : (
         <MainContainer>
+          {user.first ? (
+            <ProfileUpdateModal close={closeProfileUpdate} />
+          ) : null}
           {/* 메인 위쪽 편 */}
           <MainUpper>
             <DateIndicator>{displayedDate}</DateIndicator>
@@ -359,7 +370,7 @@ const MainContainer = styled.div`
   }
 
   @media (max-width: 750px) {
-    margin: 60px 0px 0px 0px;
+    margin: 50px 0px 0px 0px;
   }
   @media (max-width: 500px) {
     align-items: center;
@@ -406,6 +417,7 @@ const DateIndicator = styled.h2`
   color: #262626;
   opacity: 1;
   margin-top: 50px;
+  cursor: context-menu;
 
   @media (max-width: 500px) {
     text-align: left;
@@ -419,7 +431,7 @@ const QuestionIndicator = styled.h3`
   font: normal normal normal 46px/60px Roboto;
   letter-spacing: 0px;
   color: #262626;
-
+  cursor: context-menu;
   @media (max-width: 500px) {
     display: none;
   }
@@ -427,8 +439,9 @@ const QuestionIndicator = styled.h3`
 
 const SmallQuestionIndicator = styled.p`
   text-align: left;
-  font-size: 26px;
+  font: normal normal bold 26px/32px Noto Sans KR;
   margin-bottom: 0px;
+  cursor: context-menu;
   @media (min-width: 500px) {
     display: none;
   }

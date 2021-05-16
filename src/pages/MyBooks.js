@@ -1,7 +1,7 @@
 import React from 'react';
 import {history} from '../redux/configStore';
 import styled from 'styled-components';
-import {BookShelf, Profile, MyQuestion, MyAnswers} from '../components/Books/booksindex';
+import {BookShelf, Profile, MyQuestion, MyAnswers, ProfileUpdateModal} from '../components/Books/booksindex';
 import {useSelector, useDispatch} from 'react-redux';
 import {setComponent, setBookDetailModal, setDateVisible} from '../redux/modules/books';
 import { getCookie } from '../shared/Cookie';
@@ -13,9 +13,13 @@ const MyBook = (props) => {
     const component = useSelector(state => state.books.component)
     const date = useSelector(state => state.books.date)
     const answerInfo = useSelector((state) => state.community.card_detail);
+    const [UpdateModal, setUpdateModal] = React.useState(false);
     let url = window.location.href.split('/');
     let id = url[url.length -1];
     
+    const closeUpdateModal = () => {
+        setUpdateModal(false);
+      };
 
     React.useEffect(() => {
         if(!getCookie('is_login')){
@@ -32,11 +36,12 @@ const MyBook = (props) => {
     },[])
     return(
         <React.Fragment>
+            {UpdateModal ? <ProfileUpdateModal close={closeUpdateModal} /> : null}
             <Container>
                 <ContainerBox>
                     {id === 'mybook' && component === '' && <ImgLeft/>}
                     <ProfileContainer component={component}>
-                        <Profile/>
+                        <Profile setUpdateModal={setUpdateModal} />
                     </ProfileContainer>
                         {id === 'mybook' && component === '' &&
                         <BookShelf date={date}/>
@@ -68,7 +73,7 @@ const ContainerBox = styled.div`
     display: none;
     };
     @media (max-width: 750px) {
-        margin: 60px 0px 0px 0px;
+        margin: 50px 0px 0px 0px;
       }
 `
 

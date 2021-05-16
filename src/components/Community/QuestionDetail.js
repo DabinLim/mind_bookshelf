@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import styled from "styled-components";
 import AnswerCard from "../../shared/AnswerCard2";
 // import {response} from '../redux/Mock/Answers';
@@ -12,11 +12,16 @@ import InfinityScroll from "../../shared/InfinityScroll";
 import { getCookie } from "../../shared/Cookie";
 import swal from "sweetalert";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
+import CardModal from "./CardModal"
+import { api as commentActions } from "../../redux/modules/comment";
+import { api as communityActions } from "../../redux/modules/community";
+
 
 const QuestionDetail = (props) => {
   const dispatch = useDispatch();
   const url = window.location.href.split("/");
   const id = url[url.length - 1];
+  const is_login = useSelector((state) => state.user.is_login);
   const now_view = useSelector((state) => state.moreview.now_view);
   const question_info = useSelector((state) => state.moreview.question_info);
   const answers = useSelector((state) => state.moreview.answers);
@@ -35,12 +40,21 @@ const QuestionDetail = (props) => {
     (state) => state.moreview.firends_loading
   );
   const [openFilter, setOpenFilter] = React.useState(false);
+  const [cardModal, setCardModal] = useState(false);
   const container = React.useRef();
   const like_container = React.useRef();
   const friends_container = React.useRef();
-  // console.log(container);
-  // console.log(like_container);
-  // console.log(friends_container);
+
+  const openCard = (a) => {
+    const type = "detail";
+    dispatch(communityActions.getCardDetail(a, type));
+    dispatch(commentActions.getCommentAX(a));
+    setCardModal(true);
+  };
+
+  const closeCardModal = () => {
+    setCardModal(false);
+  };
 
   React.useEffect(() => {
     dispatch(moreviewActions.getQuestionInfo(id));
@@ -81,6 +95,7 @@ const QuestionDetail = (props) => {
   return (
     <React.Fragment>
       <Outer>
+      {cardModal ? <CardModal close={closeCardModal}  /> : null}
         <CommunityContainer>
           <Container>
             <ContainerUpper>
@@ -164,9 +179,9 @@ const QuestionDetail = (props) => {
                   <FilterBtn
                     style={{ fontWeight: "bold" }}
                     onClick={() => {
-                      if (!getCookie("is_login")) {
+                      if (!is_login) {
                         swal({
-                          title: "접근 실패 😥",
+                          title: "접근 실패",
                           text: "로그인 후 이용 가능합니다❕",
                           icon: "info",
                         });
@@ -180,9 +195,9 @@ const QuestionDetail = (props) => {
                 ) : (
                   <FilterBtn
                     onClick={() => {
-                      if (!getCookie("is_login")) {
+                      if (!is_login) {
                         swal({
-                          title: "접근 실패 😥",
+                          title: "접근 실패",
                           text: "로그인 후 이용 가능합니다❕",
                           icon: "info",
                         });
@@ -209,7 +224,7 @@ const QuestionDetail = (props) => {
                 >
                   {answers.length ? (
                     answers.map((v, idx) => {
-                      return <AnswerCard key={idx} {...v} />;
+                      return <AnswerCard openCard={openCard} key={idx} {...v} />;
                     })
                   ) : (
                     <h2>답변이 없습니다. 아시겠어요?</h2>
@@ -230,7 +245,7 @@ const QuestionDetail = (props) => {
                 >
                   {like_answers.length ? (
                     like_answers.map((v, idx) => {
-                      return <AnswerCard key={idx} {...v} />;
+                      return <AnswerCard openCard={openCard} key={idx} {...v} />;
                     })
                   ) : (
                     <h2>답변이 없습니다. 아시겠어요?</h2>
@@ -251,7 +266,7 @@ const QuestionDetail = (props) => {
                 >
                   {friends_answers.length ? (
                     friends_answers.map((v, idx) => {
-                      return <AnswerCard key={idx} {...v} />;
+                      return <AnswerCard openCard={openCard} key={idx} {...v} />;
                     })
                   ) : (
                     <h2>답변이 없습니다. 아시겠어요?</h2>
@@ -259,23 +274,6 @@ const QuestionDetail = (props) => {
                 </InfinityScroll>
               )}
             </AnswersBoxFriends>
-            {/* {now_view === 'friends' && 
-            <InfinityScroll
-              callNext={() => {
-                console.log('friends scroooolled');
-                dispatch(moreviewActions.getFriendsAnswers(user_info.id));
-      
-              }}
-              is_next={friends_next? true: false}
-              is_loading={friends_loading}
-              ref_value={friends_container.current}
-            >
-              {friends_answers.length ?
-              friends_answers.map((v, idx) => {
-                return <AnswerCard key={idx} {...v} />;
-              }) : <span>답변이 없네요</span>}
-              </InfinityScroll>
-          } */}
           </Container>
         </CommunityContainer>
       </Outer>
@@ -292,6 +290,12 @@ const Outer = styled.section`
   @media(max-width:650px){
     margin-top:100px;
   }
+  @media (max-width: 500px) {
+    margin: 50px 0px 0px 0px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-image: url("https://user-images.githubusercontent.com/67696504/117994109-4088f980-b37b-11eb-8f2c-9d42c93fd0a3.png");
+  }
 `;
 
 const CommunityContainer = styled.div`
@@ -306,6 +310,7 @@ const CommunityContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   overflow-y:auto;
+
 `;
 
 const Container = styled.section`
@@ -334,6 +339,9 @@ const ContainerUpper = styled.div`
   justify-content: space-between;
   height: 80px;
   padding:15px 20px;
+  @media (max-width: 500px) {
+    margin-top: 10px;
+  }
 `;
 
 const ContainerUpperLeft = styled.div`

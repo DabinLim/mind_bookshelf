@@ -43,7 +43,8 @@ const userSlice = createSlice({
     },
     logOut: (state) => {
       deleteCookie("is_login");
-      state.user = null;
+      // state.user = null;
+      state.user.nickname = "";
       state.is_login = false;
       // window.location.reload();
     },
@@ -95,6 +96,7 @@ const LoginCheckAX = () => {
             nickname: res.data.nickname,
             id: res.data.userId,
             topic: res.data.topic,
+            first: res.data.first,
           })
         );
         dispatch(notiActions.joinAlarmIO());
@@ -120,9 +122,11 @@ const SocialLoginAX = () => {
             nickname: res.data.nickname,
             id: res.data.userId,
             topic: res.data.topic,
+            first: res.data.first,
           })
         );
         dispatch(notiActions.joinAlarmIO());
+      }).then((res) => {
         history.replace("/");
       })
       .catch((error) => {
@@ -311,7 +315,7 @@ const followOtherAX = (id, nickname, profileImg) => {
         })
       );
       swal({
-        title: "정상적으로 추가되었습니다. 😀",
+        title: "정상적으로 추가되었습니다.",
         text: `${nickname}님을 구독하였습니다.`,
         icon: "success",
       });

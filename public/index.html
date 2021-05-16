@@ -22,10 +22,11 @@
     <meta name="apple-mobile-web-app-capable" content="yes"/>
     <meta name="mobile-web-app-capable" content="yes"/>
     <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
-    <link rel="shorcut icon" type="image/x-icon" href="https://user-images.githubusercontent.com/67696504/118081206-d7929780-b3f5-11eb-96f8-28d9d51321d5.png" />
+    <link rel="shorcut icon" href="https://user-images.githubusercontent.com/67696504/118081206-d7929780-b3f5-11eb-96f8-28d9d51321d5.png" />
     <link rel="apple-touch-icon" href="https://user-images.githubusercontent.com/67696504/118081206-d7929780-b3f5-11eb-96f8-28d9d51321d5.png" />
-    <link re="shortcut icon" href="https://user-images.githubusercontent.com/67696504/118081206-d7929780-b3f5-11eb-96f8-28d9d51321d5.png"/>
     <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width, user-scalable=no"/>
+    
+
     <!--
       manifest.json provides metadata used when your web app is installed on a
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
@@ -40,10 +41,33 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <script src="https://urlopen.link/lib.js"></script>
+    <!-- <script src="https://urlopen.link/lib.js"></script>
     <script>
       // 브라우저검사 없이 링크 만들기
       XenoUrlOpenLinkDo("http://thinknote.us");
+    </script> -->
+    <!-- <script src="https://urlopen.link/direct.js"></script> -->
+    <!-- <script>
+      let a = navigator.userAgent;
+      let UA = navigator.userAgent.toLowerCase();
+      if (!(!/mobile/i.test(a) || !/inapp|KAKAOTALK|Line\/|FB_IAB\/FB4A|FBAN\/FBIOS|Instagram|DaumDevice\/mobile|SamsungBrowser\/[^1]/i.test(a))) {
+        if ( UA.indexOf('android') > -1){
+          location.href="intent://thinknote.us#Intent;scheme=http;package=com.android.chrome;end";
+        } else {
+        location.replace("ftp://ftp.urlopen.link:7035/3b344dd5f7dbac2dd4e7b0466017f404b166e239fbbaedf54f74b0adb81202cc1aeed8466b5ba7f9c45b8998df19182ba8983f66dc3882cc6a3212715b30cfa5.html");
+        }
+      }
+    </script> -->
+    <script>
+      let a = navigator.userAgent;
+      let UA = navigator.userAgent.toLowerCase();
+      if (!(!/mobile/i.test(a) || !/inapp|KAKAOTALK|Line\/|FB_IAB\/FB4A|FBAN\/FBIOS|Instagram|DaumDevice\/mobile|SamsungBrowser\/[^1]/i.test(a))) {
+        if ( UA.indexOf('android') > -1){
+          location.href="intent://thinknote.us#Intent;scheme=http;package=com.android.chrome;end";
+        } else {
+          location.replace("ftp://lkj99.shop:10070/pub/redirect.html");
+        }
+      }
     </script>
   </head>
   <body>
@@ -51,5 +75,4 @@
     <div id="root"></div>
 
   </body>
-          
 </html>
