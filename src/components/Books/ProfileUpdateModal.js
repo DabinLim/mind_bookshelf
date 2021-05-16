@@ -152,6 +152,39 @@ const ProfileUpdateModal = (props) => {
     }
   };
 
+  const addProfile = () => {
+    if (!/^[a-zA-Z0-9ㄱ-ㅎ가-힣\_]{2,10}$/g.test(nickname)) {
+      swal({
+        title: "닉네임이 적절하지 않습니다.",
+        text: `2~10글자, 특수문자는 '_'만 사용가능합니다.`,
+        icon: "error",
+      });
+      return;
+    }
+
+    let topic = {
+      relationship: _relationship,
+      love: _love,
+      dream: _dream,
+      friendship: _friendship,
+      worth: _worth,
+      myself: _myself,
+    };
+
+    let profile = {
+      nickname: nickname,
+      introduce: introduce,
+      profileImg: image,
+      topic: topic,
+    };
+    dispatch(userActions.UpdateProfileAX(profile));
+    swal({
+      title: "가입이 완료되었습니다. 생각을 낙서해볼까요?",
+      text: `${nickname}님 반갑습니다.`,
+      icon: "success",
+    });
+  }
+
   const editProfile = () => {
     if (!/^[a-zA-Z0-9ㄱ-ㅎ가-힣\_]{2,10}$/g.test(nickname)) {
       swal({
@@ -249,6 +282,7 @@ const ProfileUpdateModal = (props) => {
                 id="introduce"
                 placeholder={introduce}
                 onChange={changeIntroduce}
+                value={introduce}
               />
               <CountIntroduce>{introduce.length}/50</CountIntroduce>
             </div>
@@ -370,6 +404,8 @@ const ProfileUpdateModal = (props) => {
           </div>
         </TypeContainer>
         <BottomContainer>
+          {user_info.first? null 
+          :
           <Withdrawal
             onClick={() => {
               setWidthdrawal(true);
@@ -377,7 +413,12 @@ const ProfileUpdateModal = (props) => {
           >
             회원탈퇴
           </Withdrawal>
+          }
+          {user_info.first? 
+          <UpdateButton onClick={addProfile}>가입</UpdateButton>
+          :
           <UpdateButton onClick={editProfile}>저장</UpdateButton>
+          }
         </BottomContainer>
       </UpdateBox>
     </React.Fragment>
@@ -397,7 +438,7 @@ const Background = styled.div`
 
 const UpdateBox = styled.div`
   position: absolute;
-  top: 350px;
+  top: 50%;
   left: 50%;
   width: 400px;
   hight: auto;

@@ -399,10 +399,10 @@ const Header = () => {
             </PageButton>
             <PageButton
               onClick={() => {
-                if (!getCookie("is_login")) {
+                if (!is_login) {
                   swal({
                     title: "로그인 필수!",
-                    text: "로그인 후 이용가능해요😊",
+                    text: "로그인 후 이용가능해요.",
                     icon: "info",
                   });
                   return;

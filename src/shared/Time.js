@@ -1,5 +1,3 @@
-import toDate from 'date-fns/toDate'
-
 const time = (value) => {
   const today = new Date();
 //   사파리에서도 시간을 적용하기 위해서 년,월,일,시,분,초로 나눴습니다.

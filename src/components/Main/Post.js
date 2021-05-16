@@ -35,10 +35,14 @@ const Post = (props) => {
   const ok_submit = contents ? true : false;
 
   const changeContents = (e) => {
-    if (count === 1000) {
-      setContents(contents.substring(0, contents.length - 1));
-      setCount(contents.length - 1);
-      return;
+    // if (count === 1000) {
+    //   setContents(contents.substring(0, contents.length - 1));
+    //   setCount(contents.length - 1);
+    //   return;
+    // }
+    // input 값이 1000자 넘었을 때 부터 추가 안되게
+    if(e.target.value.length > 1000){
+      return
     }
     setContents(e.target.value);
     setCount(e.target.value.length);
@@ -137,7 +141,7 @@ const Post = (props) => {
         <PostBox>
           {is_login === false ? (
             <>
-              <div style={{ margin: "90px 0 0 0 " }}>
+              <div style={{ margin: "90px 0 0 0 ", cursor:"context-menu" }}>
                 <pre>
                   <span style={{ fontSize: "14px" }}>
                     당신이라면 어떻게 대답하시겠나요?
@@ -331,9 +335,7 @@ const SmallCardLeft = styled.span`
   box-shadow: 0px 0px 15px #c3c9fe;
   letter-spacing: 0px;
   color: #363636;
-  :hover {
-    cursor: pointer;
-  }
+  cursor: context-menu;
   @media (min-width: 500px) {
     display: none;
   }
@@ -355,9 +357,7 @@ const HashTag = styled.span`
   letter-spacing: 0px;
   color: #363636;
   font-size: 14px;
-  :hover {
-    cursor: pointer;
-  }
+  cursor: context-menu;
 
   @media (min-width: 500px) {
     font-size: 11px;
@@ -369,6 +369,7 @@ const CardContent = styled.p`
   font-size: 17px;
   font-weight: bolder;
   text-align: left;
+  cursor: context-menu;
 `;
 
 const SmallCardContent = styled.p`
@@ -405,6 +406,7 @@ const CardWriterProfile = styled.img`
 `;
 
 const CardWriter = styled.span`
+  cursor: context-menu;
   @media (max-width: 500px) {
     font-size: 11px;
   }

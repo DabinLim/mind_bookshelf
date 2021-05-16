@@ -16,7 +16,6 @@ import { Container } from "@material-ui/core";
 
 const Profile = (props) => {
   const dispatch = useDispatch();
-  const [UpdateModal, setUpdateModal] = useState(false);
   const [followModal, setFollowModal] = useState(false);
   const user_info = useSelector((state) => state.user.user);
   const is_other = props.id ? true : false;
@@ -28,9 +27,7 @@ const Profile = (props) => {
   const is_login = useSelector((state) => state.user.is_login);
   const userLoading = useSelector((state) => state.user.is_userLoading);
 
-  const closeUpdateModal = () => {
-    setUpdateModal(false);
-  };
+
 
   const closeFollowModal = () => {
     setFollowModal(false);
@@ -59,12 +56,8 @@ const Profile = (props) => {
                   close={closeFollowModal}
                 />
               ) : null}
-              <Background />
-              <ProfileImgContainer
-                onClick={() => {
-                  setUpdateModal(true);
-                }}
-              >
+              <Background/>
+              <ProfileImgContainer>
                 <ProfileImg src={other_info.profileImg} />
               </ProfileImgContainer>
               <ProfileDetail>
@@ -272,17 +265,16 @@ const Profile = (props) => {
           {followModal ? (
             <FollowModal friend_list={myfriend_list} close={closeFollowModal} />
           ) : null}
-          {UpdateModal ? <ProfileUpdateModal close={closeUpdateModal} /> : null}
           {!is_login ? (
             <SpinnerContainer>
               <Loader type="Oval" color="#3d66ba" height={50} width={50} />
             </SpinnerContainer>
           ) : (
             <>
-              <Background />
+              <Background/>
               <ProfileImgContainer
                 onClick={() => {
-                  setUpdateModal(true);
+                  props.setUpdateModal(true);
                 }}
               >
                 <ProfileImg
@@ -432,8 +424,8 @@ const Profile = (props) => {
 
 const Background = styled.div`
   position: absolute;
-  width: 100%;
-  height: 100%;
+  width: 988px;
+  height: 190px;
   background-color: #ffffff;
   top: 0;
   left: 0;

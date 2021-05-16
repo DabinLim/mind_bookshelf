@@ -21,6 +21,7 @@ const QuestionDetail = (props) => {
   const dispatch = useDispatch();
   const url = window.location.href.split("/");
   const id = url[url.length - 1];
+  const is_login = useSelector((state) => state.user.is_login);
   const now_view = useSelector((state) => state.moreview.now_view);
   const question_info = useSelector((state) => state.moreview.question_info);
   const answers = useSelector((state) => state.moreview.answers);
@@ -178,9 +179,9 @@ const QuestionDetail = (props) => {
                   <FilterBtn
                     style={{ fontWeight: "bold" }}
                     onClick={() => {
-                      if (!getCookie("is_login")) {
+                      if (!is_login) {
                         swal({
-                          title: "접근 실패 😥",
+                          title: "접근 실패",
                           text: "로그인 후 이용 가능합니다❕",
                           icon: "info",
                         });
@@ -194,9 +195,9 @@ const QuestionDetail = (props) => {
                 ) : (
                   <FilterBtn
                     onClick={() => {
-                      if (!getCookie("is_login")) {
+                      if (!is_login) {
                         swal({
-                          title: "접근 실패 😥",
+                          title: "접근 실패",
                           text: "로그인 후 이용 가능합니다❕",
                           icon: "info",
                         });
@@ -273,23 +274,6 @@ const QuestionDetail = (props) => {
                 </InfinityScroll>
               )}
             </AnswersBoxFriends>
-            {/* {now_view === 'friends' && 
-            <InfinityScroll
-              callNext={() => {
-                console.log('friends scroooolled');
-                dispatch(moreviewActions.getFriendsAnswers(user_info.id));
-      
-              }}
-              is_next={friends_next? true: false}
-              is_loading={friends_loading}
-              ref_value={friends_container.current}
-            >
-              {friends_answers.length ?
-              friends_answers.map((v, idx) => {
-                return <AnswerCard key={idx} {...v} />;
-              }) : <span>답변이 없네요</span>}
-              </InfinityScroll>
-          } */}
           </Container>
         </CommunityContainer>
       </Outer>

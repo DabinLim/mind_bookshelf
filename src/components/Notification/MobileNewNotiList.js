@@ -9,7 +9,7 @@ const MobileNewNotiList = (props) => {
     <>
       <NotiListFrame>
         {new_list?.map((n, idx) => {
-          return <MobileNoti key={idx} {...n} setCardModal={props.setCardModal} />;
+          return <MobileNoti key={idx} type="newList" {...n} setCardModal={props.setCardModal} />;
         })}
       </NotiListFrame>
     </>
