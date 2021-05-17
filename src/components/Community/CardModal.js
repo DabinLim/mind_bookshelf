@@ -486,7 +486,7 @@ const CardModal = (props) => {
                   }}
                 />
               </CardDate>
-              <LeftArrowBtn
+              {/* <LeftArrowBtn
                 disabled={card_loading}
                 onClick={() => {
                   setUpdateAnswer(false);
@@ -513,7 +513,7 @@ const CardModal = (props) => {
                     fontWeight: "400",
                   }}
                 />
-              </RightArrowBtn>
+              </RightArrowBtn> */}
             </>
           )}
         </ModalComponent>
@@ -525,7 +525,6 @@ const CardModal = (props) => {
                 {answerQuantity.length &&
                   answerQuantity.map((v, idx) => {
                     if (v.answerId !== answerInfo.answerId && !card_loading) {
-                      console.log('씨발')
                       return (
                         <DetailContainer key={idx}>
                           <Head>
@@ -645,7 +644,7 @@ const CardModal = (props) => {
                   }}
                 />
               </CardDate>
-              <LeftArrowBtn
+              {/* <LeftArrowBtn
                 disabled={card_loading}
                 onClick={() => {
                   setUpdateAnswer(false);
@@ -672,7 +671,7 @@ const CardModal = (props) => {
                     fontWeight: "400",
                   }}
                 />
-              </RightArrowBtn>
+              </RightArrowBtn> */}
             </>
           )}
           <ModalContent type={answerInfo?.type}>
@@ -1267,11 +1266,12 @@ const SmallQuestionContent = styled.div`
 const CardAnswerContent = styled.div`
   margin: 0 40px 0;
   padding: 30px 0 0 0;
+  overflow-y:auto;
+  max-height:210px;
   @media (max-width: 750px) {
     margin: 0;
     padding: 0;
     width: 100%;
-    overflow-y:auto;
     ${props => props.type === 'book' ? `min-height:160px`:'min-height:110px'};
   }
 `;
