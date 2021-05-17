@@ -6,7 +6,7 @@ const TagModal = (props) => {
 
 
   return(
-    <TagContainer>
+    <TagContainer mobile={props.mobile}>
       {props.loading? 
       <SpinContainer>
         <Loader type="Oval" color="#3d66ba" height={50} width={50} />
@@ -48,7 +48,7 @@ const TagContainer = styled.div`
 `
 
 const SpinContainer = styled.div`
-    margin-top: 80px;
+    margin: 80px auto 0px auto;
 `
 
 const UserContainer = styled.div`

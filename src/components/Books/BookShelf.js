@@ -4,7 +4,8 @@ import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 import { changeDate, setBookDetailModal } from "../../redux/modules/books";
 import CardModal from "../Community/CardModal";
 import { useSelector, useDispatch } from "react-redux";
-import { api as booksActions } from "../../redux/modules/books";
+import { api as booksActions , resetBooks} from "../../redux/modules/books";
+import {history} from '../../redux/configStore';
 
 const BookShelf = (props) => {
   const bookDetailModal = useSelector((state) => state.books.book_detail_modal);
@@ -18,6 +19,15 @@ const BookShelf = (props) => {
 
   const openBook = (givendate) => {
     dispatch(changeDate(`20${givendate}`));
+    if(window.innerWidth <= 500){
+      if (id === "mybook") {
+        dispatch(booksActions.getBookDetail(givendate, history));
+      } else {
+        dispatch(booksActions.getOthersBookDetail(givendate, id, history));
+      }
+      return
+    }
+
     if (id === "mybook") {
       dispatch(booksActions.getNextDetail(givendate));
     } else {
@@ -101,6 +111,10 @@ const BookShelf = (props) => {
       dispatch(booksActions.getBooks(0));
     } else {
       dispatch(booksActions.getOthersBooks(0, id));
+    }
+
+    return () => {
+      resetBooks();
     }
   }, []);
 

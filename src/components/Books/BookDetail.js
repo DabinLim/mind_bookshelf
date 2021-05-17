@@ -4,8 +4,12 @@ import {history} from '../../redux/configStore';
 import {useDispatch, useSelector} from 'react-redux';
 import { api as commentActions } from "../../redux/modules/comment";
 import { api as communityActions } from "../../redux/modules/community";
-import CommentList from './CommentList';
-import CommentInput from './CommentInput';
+import {
+    api as booksActions,
+    changeDate,
+  } from "../../redux/modules/books";
+import CommentList from '../Community/CommentList';
+import CommentInput from '../Community/CommentInput';
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import { LeftOutlined } from "@ant-design/icons";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
@@ -13,21 +17,85 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
 import swal from "sweetalert";
 import ChannelService from "../../shared/ChannelService";
+import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 
 
-const CardDetail = (props) => {
+const BookDetail = (props) => {
     const dispatch = useDispatch();
     const url = window.location.href.split('/');
     const id = url[url.length -1];
+    const is_my = url[url.length -3];
     const comment_list = useSelector(state => state.comment.list);
     const answerInfo = useSelector(state => state.community.card_detail);
     const is_login = useSelector(state => state.user.is_login);
+    const [updateAnswer, setUpdateAnswer] = React.useState(false);
+    const thisMonthBooks = useSelector((state) => state.books.books);
+    const nowdate = useSelector((state) => state.books.date);
+    const card_loading = useSelector((state) => state.community.card_loading);
+    const book_detail = useSelector((state) => state.books.book_detail);
+
+    const selectedCard = (id) => {
+        dispatch(communityActions.getCardDetail(id, "book"));
+        dispatch(commentActions.getCommentAX(id));
+      };
 
 
+    const nextDay = () => {
+        const nowBook = thisMonthBooks.findIndex((v) => {
+          if (v._id === nowdate.format("YYMMDD")) {
+            return v;
+          }
+        });
+        if (nowBook === thisMonthBooks.length - 1) {
+          window.alert("이번달에는 작성하신 카드가 더 이상 없습니다.");
+          return;
+        }
+    
+        dispatch(changeDate(`20${thisMonthBooks[nowBook + 1]._id}`));
+        if (id === "mybook") {
+          dispatch(booksActions.getNextDetail(thisMonthBooks[nowBook + 1]._id));
+        } else {
+          dispatch(
+            booksActions.getNextOthersBookDetail(
+              thisMonthBooks[nowBook + 1]._id,
+              id
+            )
+          );
+        }
+      };
+    
+      const previousDay = () => {
+        const nowBook = thisMonthBooks.findIndex((v) => {
+          if (v._id === nowdate.format("YYMMDD")) {
+            return v;
+          }
+        });
+        if (nowBook === 0) {
+          window.alert("이번달에는 작성하신 카드가 더 이상 없습니다.");
+          return;
+        }
+    
+        dispatch(changeDate(`20${thisMonthBooks[nowBook - 1]._id}`));
+        if (id === "mybook") {
+          // 이 부분 전날로 돌아가서 첫번째 답변 띄우려고 getNext 호출입니다.
+          // 혹시 수정 하실 일 있으시면 참고해 주세요.
+          dispatch(booksActions.getNextDetail(thisMonthBooks[nowBook - 1]._id));
+        } else {
+          dispatch(
+            booksActions.getNextOthersBookDetail(
+              thisMonthBooks[nowBook - 1]._id,
+              id
+            )
+          );
+        }
+      };
     
 
     React.useEffect(() => {
-        const type = 'not_book';
+        if(is_my){
+
+        }
+        const type = 'book';
         dispatch(communityActions.getCardDetail(id, type));
         dispatch(commentActions.getCommentAX(id));
 
@@ -127,6 +195,67 @@ const CardDetail = (props) => {
                     <Answer>
                         {answerInfo?.answerContents}
                     </Answer>
+                    {answerInfo?.type ==='book' && <TodayCards>
+                <CardDate>
+                <Date>
+                <ArrowForwardIosIcon
+                  disabled={card_loading}
+                  onClick={() => {
+                    setUpdateAnswer(false);
+                    previousDay();
+                  }}
+                  style={{
+                    cursor: "pointer",
+                    transform: "rotateZ(180deg)",
+                    color: "#000000",
+                    fontSize: "16px",
+                  }}
+                />
+                <span
+                  style={{
+                    fontWeight: "600",
+                    fontSize: "14px",
+                    color: "#000000",
+                  }}
+                >
+                  {nowdate.format("M")}월{nowdate.format("D")}일
+                </span>
+                <ArrowForwardIosIcon
+                  disabled={card_loading}
+                  onClick={() => {
+                    setUpdateAnswer(false);
+                    nextDay();
+                  }}
+                  style={{
+                    cursor: "pointer",
+                    color: "#000000",
+                    fontSize: "16px",
+                  }}
+                />
+                    </Date>
+                    </CardDate>
+                  <Cards>
+                    {book_detail.length && book_detail.map((v,idx)=> {
+                      console.log(v)
+                      if(v.answerId === answerInfo.answerId){
+                        return(
+                          <div style={{display:'flex',flexDirection:'row',alignItems:'center'}}>
+                            <Selected>{v.questionContents}</Selected>
+                            <span style={{font:'normal normal 300 10px/15px Noto Sans KR',color:'#939393',marginLeft:'10px'}}>현재글</span>
+                          </div>
+                        )
+                      } else{
+                        return(
+                          <NotSelected disabled={card_loading}
+                          onClick={() => {
+                            setUpdateAnswer(false);
+                            selectedCard(v.answerId);
+                          }}>{v.questionContents}</NotSelected>
+                        )
+                      }
+                    })}
+                  </Cards>
+              </TodayCards>}
                 </Body>
                 <MiddleBelt>
                     <IconBox>
@@ -192,7 +321,7 @@ const CardDetail = (props) => {
 const Container = styled.section`
     margin-top: 50px;
     width:100%;
-    height:762px;
+    height:100%;
     overflow-y:auto;
     border: 0.5px solid #D3D3D3;
     border-radius:16px;
@@ -246,7 +375,7 @@ const Body = styled.div`
     box-sizing:border-box;
     padding:20px 25px;
     border-bottom: 0.5px solid #D3D3D3;
-    height:330px;
+    height:500px;
 `;
 
 const SubjectBox = styled.div`
@@ -284,11 +413,13 @@ const Question = styled.div`
 
 const Answer = styled.div`
     width:100%;
-    max-height:135px;
+    min-height:130px;
+    max-height:130px;
     overflow-y:auto;
     font: normal normal normal 13px/19px Noto Sans KR;
     letter-spacing: 0px;
     color: #262626;
+    margin-bottom:30px;
 `;
 
 const MiddleBelt = styled.div`
@@ -361,4 +492,61 @@ const CommentInputBox = styled.div`
     padding:18px 25px;
 `;
 
-export default CardDetail;
+const TodayCards = styled.div`
+  width:100%;
+  min-height:160px;
+  border: 0.5px solid #D9D9D9;
+  box-sizing:border-box;
+  padding:15px;
+  @media(min-width:750px){
+    display:none;
+  }
+`;
+
+const CardDate = styled.div`
+  display:flex;
+  flex-direction:row;
+  justify-content: flex-start;
+  margin-bottom:10px;
+`;
+
+const Date = styled.div`
+  display:flex;
+  flex-direction:row;
+  align-items:center;
+  justify-content:space-between;
+`;
+
+const Cards = styled.div`
+  display:flex;
+  flex-direction:column;
+  width:100%;
+`;
+
+const Selected = styled.span`
+  width:80%;
+  margin-bottom:10px;
+  max-height:24px;
+  font:normal normal normal 12px/30px Noto Sans KR;
+  color:#000000;
+  opacity:0.9;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`;
+
+const NotSelected = styled.span`
+width:80%;
+margin-bottom:10px;
+max-height:24px;
+  font:normal normal normal 12px/30px Noto Sans KR;
+  color:#D3D3D3;
+  opacity:0.9;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`;
+
+export default BookDetail;

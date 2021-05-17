@@ -75,11 +75,13 @@ const booksSlice = createSlice({
     },
     setBookLoading: (state, action) => {
         state.book_loading = action.payload;
-    }
+    },
     // setSelect : (state, action) => {
     //     state.selected_card = action.payload
     // }
-
+    resetBooks: (state) => {
+        state.books = [];
+    }
   },
 });
 
@@ -114,7 +116,7 @@ const getBooks = (towhen) => {
 
 
 
-const getBookDetail = (date) => {
+const getBookDetail = (date, history) => {
     return function(dispatch) { 
         console.log(date)
         const options = {
@@ -124,8 +126,8 @@ const getBookDetail = (date) => {
         axios(options).then((response) => {
             console.log(response.data)
             dispatch(setBookDetail(response.data.booksDiary))
-            
             dispatch(setBookLoading(false))
+            history.push(`/bookdetail/${date}/${response.data.booksDiary[0].answerId}`)
         }).catch((err) => {
             console.log(err);
             if(err.response){
@@ -222,7 +224,7 @@ const getOthersBooks = (towhen, id) => {
     }
 }
 
-const getOthersBookDetail = (date,id) => {
+const getOthersBookDetail = (date,id,history) => {
     return function(dispatch) { 
 
         dispatch(setBookLoading(true));
@@ -234,6 +236,7 @@ const getOthersBookDetail = (date,id) => {
         axios(options).then((response) => {
             dispatch(setBookDetail(response.data.booksDiary));
             dispatch(setBookLoading(false));
+            history.push(`/othersdetail/${date}/${id}/${response.data.booksDiary[0].answerId}`)
         }).catch((err) => {
             console.log(err);
             if(err.response){
@@ -368,6 +371,7 @@ export const {
     setBookLoading,
     setDateVisible,
     setBookDetailModal,
+    resetBooks
     // setCardAnswers,
     // setOther
  } = booksSlice.actions;
