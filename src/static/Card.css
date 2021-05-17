@@ -105,6 +105,7 @@
 
 .slick-slide.slick-active {
   opacity: 1;
+  pointer-events: auto;
 }
 
 .slick-slide {
