@@ -138,11 +138,13 @@
   font-size: 36px !important;
   display: flex !important;
   align-items: center !important;
-  color: #797676 !important;
+  color: #474747 !important;
+  opacity: 0.6 !important;
 }
 
 .slick-dots li.slick-active button {
-  color: #ffffff !important;
+  color: #3c3c3c !important;
+  opacity: 1 !important;
   transform: scale(1.3);
 }
 

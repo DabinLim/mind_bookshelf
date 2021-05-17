@@ -355,7 +355,7 @@ const MainFrame = styled.div`
   justify-content: space-between;
   overflow-y: auto;
   @media (max-width: 500px) {
-    background-image: url("https://user-images.githubusercontent.com/67696504/118025811-3545c600-b39b-11eb-9980-32dcb66ebac8.png");
+    background-image: url("https://user-images.githubusercontent.com/77369674/118459848-1b0f3d80-b737-11eb-8f1a-906da3e390e2.jpeg");
     background-size: cover;
     background-repeat: no-repeat;
   }
@@ -456,7 +456,7 @@ const QuestionIndicator = styled.h3`
 const SmallQuestionIndicator = styled.p`
   text-align: left;
   font: normal normal bold 26px/30px Nanum Myeongjo;
-  margin-bottom: 41px;
+  margin-bottom: 31px;
   cursor: context-menu;
   @media (min-width: 500px) {
     display: none;

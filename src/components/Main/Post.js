@@ -257,6 +257,7 @@ const CardFrame = styled.div`
     padding: 17px 18px;
     /* border-radius: 20px; */
     border-top-left-radius: 0px;
+    box-shadow: 0px 0px 20px #0000001a;
     min-height: 462px;
     max-height: 462px;
   }
@@ -329,14 +330,14 @@ const CardLeft = styled.div`
 const SmallCardLeft = styled.span`
   min-width: 58px;
   max-width: 58px;
-  background: #b5bdff;
   padding: 8px 12px;
   border-radius: 24px;
+  border: 1px solid #7249b4;
   text-align: center;
   font: normal normal bold 11px/15px Roboto;
-  box-shadow: 0px 0px 15px #c3c9fe;
+  box-shadow: 0px 3px 15px #c3c9fe;
   letter-spacing: 0px;
-  color: #363636;
+  color: #7249b4;
   cursor: context-menu;
   @media (min-width: 500px) {
     display: none;
