@@ -73,9 +73,6 @@ const getCommentAX = (cardId) => {
 
 const sendCommentAX = (cardId, content, tagId = [], questionId) => {
   return function (dispatch, getState) {
-    // console.log(cardId, content);
-    // return;
-    console.log('하이')
     let comment_data = {
       commentContents: content,
       tag: tagId,
@@ -97,13 +94,15 @@ const sendCommentAX = (cardId, content, tagId = [], questionId) => {
           );
           return;
         }
-        dispatch(
-          editCommentInfo({
-            questionId: questionId,
-            answerId: cardId,
-            decision: 1,
-          })
-        );
+        else if (getState().community.card_detail.type === "community"){
+          dispatch(
+            editCommentInfo({
+              questionId: questionId,
+              answerId: cardId,
+              decision: 1,
+            })
+          );
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -128,14 +127,16 @@ const deleteCommentAX = (commentId, questionId, cardId) => {
             editDetailCommentInfo({ answerId: cardId, decision: "substract" })
           );
           return;
+        } 
+        else if (getState().community.card_detail.type === "community"){
+          dispatch(
+            editCommentInfo({
+              questionId: questionId,
+              answerId: cardId,
+              decision: -1,
+            })
+          );
         }
-        dispatch(
-          editCommentInfo({
-            questionId: questionId,
-            answerId: cardId,
-            decision: -1,
-          })
-        );
       })
       .catch((err) => {
         swal({
