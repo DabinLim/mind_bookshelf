@@ -8,6 +8,7 @@ import { setLoading } from "../redux/modules/community";
 import ReplayIcon from "@material-ui/icons/Replay";
 import { CardModal } from "../components/Community/communityindex";
 import { api as commentActions } from "../redux/modules/comment";
+import {history} from '../redux/configStore';
 
 const Community = () => {
   const dispatch = useDispatch();
@@ -23,6 +24,11 @@ const Community = () => {
   }, []);
 
   const openCard = (a) => {
+    console.log(window.innerWidth);
+    if(window.innerWidth <= 500){
+      history.push(`/carddetail/${a.answerId}`)
+      return
+    }
     const type = "community";
     setCardModal(true);
     dispatch(communityActions.getCardDetail(a.answerId, type));
