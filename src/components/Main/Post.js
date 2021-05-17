@@ -55,7 +55,7 @@ const Post = (props) => {
     if (check === "") {
       swal({
         title: "업로드에 실패하였습니다 😥",
-        text: "빈칸만 넣으면 모를 줄 알았죠?!!",
+        text: "답변란이 공란입니다!",
         icon: "error",
       });
       setContents("");
@@ -255,7 +255,8 @@ const CardFrame = styled.div`
   @media (max-width: 600px) {
     width: 95%;
     padding: 17px 18px;
-    border-radius: 20px;
+    /* border-radius: 20px; */
+    border-top-left-radius: 0px;
     min-height: 462px;
     max-height: 462px;
   }

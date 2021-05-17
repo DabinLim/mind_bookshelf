@@ -22,6 +22,7 @@ import { CloseOutlined } from "@ant-design/icons";
 import CollectionsBookmarkIcon from "@material-ui/icons/CollectionsBookmark";
 import CollectionsBookmarkOutlinedIcon from "@material-ui/icons/CollectionsBookmarkOutlined";
 import NotificationsNoneOutlinedIcon from "@material-ui/icons/NotificationsNoneOutlined";
+import "../static/Card.css";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -36,6 +37,40 @@ const Header = () => {
   const [loading, setLoading] = useState(true);
   const [cardModal, setCardModal] = useState(false);
   const [aboutModal, setAboutModal] = useState(false);
+
+  // active 된 페이지 헤더 표시하기
+  let main = "";
+  let bookshelf = "";
+  let community = "";
+  let mainM = "";
+  let bookshelfM = "";
+  let communityM = "";
+
+  if (pathname === "/") {
+    main = "main";
+    bookshelf = "";
+    community = "";
+
+    mainM = "mainM";
+    bookshelfM = "";
+    communityM = "";
+  } else if (pathname === "/mybook" || pathname.includes("others")) {
+    main = "";
+    bookshelf = "bookshelf";
+    community = "";
+
+    mainM = "";
+    bookshelfM = "bookshelfM";
+    communityM = "";
+  } else {
+    main = "";
+    bookshelf = "";
+    community = "community";
+
+    mainM = "";
+    bookshelfM = "";
+    communityM = "communityM";
+  }
 
   const closeNotiModal = () => {
     setNoti(false);
@@ -94,8 +129,19 @@ const Header = () => {
                     history.push("/");
                     setMenuOpen(false);
                   }}
+                  className={mainM}
                 >
                   오늘의 낙서
+                  <br />
+                  <span
+                    style={{
+                      textAlign: "left",
+                      fontSize: "11px",
+                      color: "#909090",
+                    }}
+                  >
+                    오늘 받은 질문 확인, 답변
+                  </span>
                 </MenuLi>
                 <MenuLi
                   onClick={() => {
@@ -111,8 +157,19 @@ const Header = () => {
                     history.push("/mybook");
                     setMenuOpen(false);
                   }}
+                  className={bookshelfM}
                 >
                   책장
+                  <br />
+                  <span
+                    style={{
+                      textAlign: "left",
+                      fontSize: "11px",
+                      color: "#909090",
+                    }}
+                  >
+                    나의 모든 질문과 답변 한눈에 확인
+                  </span>
                 </MenuLi>
                 <MenuLi
                   style={{ marginBottom: "105px" }}
@@ -121,6 +178,7 @@ const Header = () => {
                     dispatch(setComponent(""));
                     setMenuOpen(false);
                   }}
+                  className={communityM}
                 >
                   커뮤니티
                 </MenuLi>
@@ -204,6 +262,7 @@ const Header = () => {
                   history.push("/");
                   dispatch(setComponent(""));
                 }}
+                className={main}
               >
                 오늘의 낙서
               </PageButton>
@@ -220,6 +279,7 @@ const Header = () => {
                   dispatch(setComponent(""));
                   history.push("/mybook");
                 }}
+                className={bookshelf}
               >
                 책장
               </PageButton>
@@ -228,6 +288,7 @@ const Header = () => {
                   history.push("/community");
                   dispatch(setComponent(""));
                 }}
+                className={community}
               >
                 커뮤니티
               </PageButton>
@@ -314,8 +375,18 @@ const Header = () => {
                   history.push("/");
                   setMenuOpen(false);
                 }}
+                className={mainM}
               >
-                오늘의 낙서
+                오늘의 낙서 <br />
+                <span
+                  style={{
+                    textAlign: "left",
+                    fontSize: "11px",
+                    color: "#909090",
+                  }}
+                >
+                  오늘 받은 질문 확인, 답변
+                </span>
               </MenuLi>
               <MenuLi
                 onClick={() => {
@@ -331,8 +402,19 @@ const Header = () => {
                   history.push("/mybook");
                   setMenuOpen(false);
                 }}
+                className={bookshelfM}
               >
                 책장
+                <br />
+                <span
+                  style={{
+                    textAlign: "left",
+                    fontSize: "11px",
+                    color: "#909090",
+                  }}
+                >
+                  나의 모든 질문과 답변 한눈에 확인
+                </span>
               </MenuLi>
               <MenuLi
                 onClick={() => {
@@ -341,6 +423,7 @@ const Header = () => {
                   setMenuOpen(false);
                 }}
                 style={{ marginBottom: "105px" }}
+                className={communityM}
               >
                 커뮤니티
               </MenuLi>
@@ -406,6 +489,7 @@ const Header = () => {
                 history.push("/");
                 dispatch(setComponent(""));
               }}
+              className={main}
             >
               오늘의 낙서
             </PageButton>
@@ -422,6 +506,7 @@ const Header = () => {
                 dispatch(setComponent(""));
                 history.push("/mybook");
               }}
+              className={bookshelf}
             >
               책장
             </PageButton>
@@ -430,6 +515,7 @@ const Header = () => {
                 history.push("/community");
                 dispatch(setComponent(""));
               }}
+              className={community}
             >
               커뮤니티
             </PageButton>
@@ -563,7 +649,7 @@ const Menu = styled.div`
   background: black;
   z-index: 140;
   color: white;
-  padding: 102px 0 0 16px;
+  padding: 102px 0px 0 0px;
 `;
 
 const MenuCloseBtn = styled.button`
@@ -586,12 +672,14 @@ const MenuLi = styled.li`
   margin-bottom: 24px;
   cursor: pointer;
   font: normal normal bold 20px/29px Noto Sans KR;
+  padding-left: 16px;
 `;
 
 const MenuText = styled.div`
   font: normal normal bold 16px/24px Noto Sans KR;
   cursor: pointer;
   margin-bottom: 14px;
+  padding-left: 16px;
 `;
 
 const NaviContainer = styled.div`

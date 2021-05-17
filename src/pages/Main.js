@@ -151,34 +151,34 @@ function Main() {
 
   // 작은 화면일 때 pagination
 
-  const [dot_1S, setDot1S] = React.useState("true");
-  const [dot_2S, setDot2S] = React.useState("false");
-  const [dot_3S, setDot3S] = React.useState("false");
+  // const [dot_1S, setDot1S] = React.useState("true");
+  // const [dot_2S, setDot2S] = React.useState("false");
+  // const [dot_3S, setDot3S] = React.useState("false");
 
-  const doSwipe = (e) => {
-    if (e.swipeDirection === "prev" && e.activeIndex === 0) {
-      setDot1S("true");
-      setDot2S("false");
-      setDot3S("false");
-    }
-    if (e.swipeDirection === "prev" && e.activeIndex === 1) {
-      setDot2S("true");
-      setDot1S("false");
-      setDot3S("false");
-    }
-    if (e.swipeDirection === "next" && e.activeIndex === 1) {
-      setDot2S("true");
-      setDot1S("false");
-      setDot3S("false");
-    }
-    if (e.swipeDirection === "next" && e.activeIndex === 2) {
-      setDot3S("true");
-      setDot1S("false");
-      setDot2S("false");
-    }
-  };
+  // const doSwipe = (e) => {
+  //   if (e.swipeDirection === "prev" && e.activeIndex === 0) {
+  //     setDot1S("true");
+  //     setDot2S("false");
+  //     setDot3S("false");
+  //   }
+  //   if (e.swipeDirection === "prev" && e.activeIndex === 1) {
+  //     setDot2S("true");
+  //     setDot1S("false");
+  //     setDot3S("false");
+  //   }
+  //   if (e.swipeDirection === "next" && e.activeIndex === 1) {
+  //     setDot2S("true");
+  //     setDot1S("false");
+  //     setDot3S("false");
+  //   }
+  //   if (e.swipeDirection === "next" && e.activeIndex === 2) {
+  //     setDot3S("true");
+  //     setDot1S("false");
+  //     setDot2S("false");
+  //   }
+  // };
 
-  SwiperCore.use([Navigation, Pagination]);
+  // SwiperCore.use([Navigation, Pagination]);
 
   // 렌더링시 로그인 상태 확인하고 질문카드 뿌려주는 것
   React.useEffect(() => {
@@ -202,14 +202,24 @@ function Main() {
           ) : null}
           {/* 메인 위쪽 편 */}
           <MainUpper>
-            <DateIndicator>{displayedDate}</DateIndicator>
+            <DateIndicator>
+              {displayedDate}{" "}
+              <SmallToMyBookShelf
+                onClick={() => {
+                  history.push("/mybook");
+                }}
+                className="toMyBookShelf"
+              >
+                나의 책장으로 가기 <RightOutlined />
+              </SmallToMyBookShelf>
+            </DateIndicator>
             <SmallQuestionIndicator>
               <b>
                 {user?.nickname ? user?.nickname + "님" : "당신"}의 <br />
                 머리속은?
               </b>
             </SmallQuestionIndicator>
-            <QuestionIndicator className="main">
+            <QuestionIndicator>
               <b>{user?.nickname ? user?.nickname + "님" : "당신"}</b>의
               머리속은?
             </QuestionIndicator>
@@ -415,7 +425,7 @@ const MainUpper = styled.section`
 
 // 토글버튼 있어야한다..
 
-const DateIndicator = styled.h2`
+const DateIndicator = styled.div`
   text-align: center;
   font: normal normal bold 20px/26px Roboto;
   letter-spacing: 0px;
@@ -424,10 +434,11 @@ const DateIndicator = styled.h2`
   margin-top: 50px;
   cursor: context-menu;
 
-  @media (max-width: 500px) {
-    text-align: left;
+  @media (max-width: 750px) {
+    display: flex;
+    justify-content: space-between;
     font-size: 12px;
-    margin: 0;
+    margin: 0 0 17px 0;
   }
 `;
 
@@ -444,8 +455,8 @@ const QuestionIndicator = styled.h3`
 
 const SmallQuestionIndicator = styled.p`
   text-align: left;
-  font: normal normal bold 26px/32px Noto Sans KR;
-  margin-bottom: 0px;
+  font: normal normal bold 26px/30px Nanum Myeongjo;
+  margin-bottom: 41px;
   cursor: context-menu;
   @media (min-width: 500px) {
     display: none;
@@ -467,9 +478,21 @@ const ToMyBookShelf = styled.button`
     font-weight: bold;
   }
 
-  @media (max-width: 500px) {
-    text-align: left;
-    font-size: 11px;
+  @media (max-width: 750px) {
+    display: none;
+  }
+`;
+
+const SmallToMyBookShelf = styled.button`
+  font-size: 11px;
+  color: #333333;
+  font-weight: 500;
+  background: none;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  @media (min-width: 750px) {
+    display: none;
   }
 `;
 
@@ -551,13 +574,11 @@ const RightArrowBtn = styled.button`
   // position: absolute;
   // right: 15%;
   // top: 30%;
-  background: none;
   color: #ffffff;
   cursor: pointer;
   // display: flex;
   // align-items: center;
   // justify-content: center;
-  padding-left: 20px;
   background: none;
 
   :hover {
