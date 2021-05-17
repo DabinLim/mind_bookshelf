@@ -31,6 +31,7 @@ const CardModal = (props) => {
   const answerInfo = useSelector((state) => state.community.card_detail);
   const comment_list = useSelector((state) => state.comment.list);
   const user_info = useSelector((state) => state.user.user);
+  const is_login = useSelector((state) => state.user.is_login);
   const card_loading = useSelector((state) => state.community.card_loading);
   const answerQuantity = useSelector((state) => state.books.book_detail);
   const thisMonthBooks = useSelector((state) => state.books.books);
@@ -270,6 +271,10 @@ const CardModal = (props) => {
   };
 
   const selectComment = (e) => {
+    //100자이상부터는 막기
+    if(e.target.value.length > 100){
+      return
+    }
     const word = tagSetting(e.target.selectionStart, e.target.value);
     if (word) {
       setTagModal(true);
@@ -896,9 +901,9 @@ const CardModal = (props) => {
                     <LikeBtn
                       style={{ color: "#061366" }}
                       onClick={() => {
-                        if (!getCookie("is_login")) {
+                        if (!is_login) {
                           swal({
-                            title: "좋아요 누르기 실패 😥",
+                            title: "좋아요 누르기 실패",
                             text: "로그인 후 이용 가능한 서비스입니다.",
                             icon: "error",
                           });
@@ -917,9 +922,9 @@ const CardModal = (props) => {
                   ) : (
                     <LikeBtn
                       onClick={() => {
-                        if (!getCookie("is_login")) {
+                        if (!is_login) {
                           swal({
-                            title: "좋아요 누르기 실패 😥",
+                            title: "좋아요 누르기 실패",
                             text: "로그인 후 이용 가능한 서비스입니다.",
                             icon: "error",
                           });
@@ -975,9 +980,9 @@ const CardModal = (props) => {
                 {ok_submit ? (
                   <ModalUpload
                     onClick={() => {
-                      if (!getCookie("is_login")) {
+                      if (!is_login) {
                         swal({
-                          title: "댓글 추가 실패 😥",
+                          title: "댓글 추가 실패",
                           text: "로그인 후 이용 가능한 서비스입니다.",
                           icon: "error",
                         });
@@ -1016,9 +1021,9 @@ const CardModal = (props) => {
                 {ok_submit ? (
                   <ModalUpload
                     onClick={() => {
-                      if (!getCookie("is_login")) {
+                      if (!is_login) {
                         swal({
-                          title: "댓글 추가 실패 😥",
+                          title: "댓글 추가 실패",
                           text: "로그인 후 이용 가능한 서비스입니다.",
                           icon: "error",
                         });
@@ -1076,6 +1081,7 @@ const ModalComponent = styled.div`
   background-color: white;
   z-index: 130;
   display: flex;
+  cursor: context-menu;
   /* box-shadow: 0px 0px 15px #c1c7fc; */
   @media (max-width: 950px) {
     width: 750px;
@@ -1216,7 +1222,6 @@ const CardWriterLeft = styled.div`
   width: auto;
   height: 100%;
   margin: 0 40px;
-
   @media (max-width: 750px) {
     margin: 0;
   }
@@ -1264,16 +1269,20 @@ const SmallQuestionContent = styled.div`
 `;
 
 const CardAnswerContent = styled.div`
-  margin: 0 40px 0;
-  padding: 30px 0 0 0;
-  overflow-y:auto;
-  max-height:210px;
+  margin: 20px 40px 0;
+  padding: 10px 0 10px 0;
+  max-height: 210px;
+  overflow-y: scroll;
+  ::-webkit-scrollbar {
+    display: none;
+  };
   @media (max-width: 750px) {
     margin: 0;
     padding: 0;
     width: 100%;
+    overflow-y: scroll;
     ${props => props.type === 'book' ? `min-height:160px`:'min-height:110px'};
-  }
+  };
 `;
 
 const AnswerUpdateBox = styled.div`
@@ -1400,7 +1409,6 @@ const CommentBtn = styled.div`
   justify-content: center;
   align-items: center;
   font-size: 18px;
-  cursor: pointer;
   margin-right: 5px;
 `;
 

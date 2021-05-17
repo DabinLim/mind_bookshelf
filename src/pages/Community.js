@@ -76,16 +76,20 @@ const CommunityBtn = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  right: 28px;
+  right: 26px;
   bottom: 100px;
   width: 63px;
   height: 63px;
   border-radius: 50px;
   background: white;
-  z-index: 10;
+  z-index: 50;
   cursor: pointer;
+  box-shadow: 0px 0px 20px #0000001a;
   @media (max-width: 500px) {
-    display: none;
+    width: 50px;
+    height: 50px;
+    right: 14px;
+    bottom: 80px;
   }
 `;
 

@@ -13,6 +13,9 @@ import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord";
 import "../static/Card.css";
 
+import Slider from "react-slick";
+
+import ProfileUpdateModal from "../components/Books/ProfileUpdateModal";
 import SwiperCore, { Navigation, Pagination } from "swiper";
 
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -24,6 +27,22 @@ import "swiper/components/pagination/pagination.scss";
 import "swiper/components/scrollbar/scrollbar.scss";
 
 function Main() {
+  var settings = {
+    className: "center",
+    centerMode: true,
+    centerPadding: "40px",
+    dots: true,
+    infinite: false,
+    speed: 500,
+    swipeToSlide: true,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    dotsClass: "slick-dots slick-thumb",
+    customPaging: function (i) {
+      return <button>•</button>;
+    },
+  };
+
   const dispatch = useDispatch();
   // 유저 인포 확인하는 것 (아마 이 안에서 is_login 으로 확인해야할듯)
   const user_info = useSelector((state) => state.user.is_login);
@@ -31,6 +50,9 @@ function Main() {
   // 스피너 먹이려고
   const is_loading = useSelector((state) => state.answer.is_loading);
 
+  //처음 회원가입했을 때 프로필 수정 모달 상태 관리
+  const [profileUpdate, setProfileUpdate] = React.useState(user.first);
+  console.log(profileUpdate);
   // 날짜 지정
   let today = moment().format("YYYY-MM-DD").split("-");
   let month = today[1];
@@ -123,6 +145,10 @@ function Main() {
     }
   };
 
+  const closeProfileUpdate = () => {
+    setProfileUpdate(false);
+  };
+
   // 작은 화면일 때 pagination
 
   const [dot_1S, setDot1S] = React.useState("true");
@@ -171,6 +197,9 @@ function Main() {
         <LoaderBox></LoaderBox>
       ) : (
         <MainContainer>
+          {user.first ? (
+            <ProfileUpdateModal close={closeProfileUpdate} />
+          ) : null}
           {/* 메인 위쪽 편 */}
           <MainUpper>
             <DateIndicator>{displayedDate}</DateIndicator>
@@ -197,7 +226,12 @@ function Main() {
           {/* 메인 아래쪽 */}
           <SlideBox>
             <SmallCardContainer>
-              <Swiper
+              <Slider {...settings} className="sliderCheck">
+                <Post {...question_list[0]} allChecked={allChecked} />
+                <Post {...question_list[1]} allChecked={allChecked} />
+                <Post {...question_list[2]} allChecked={allChecked} />
+              </Slider>
+              {/* <Swiper
                 spaceBetween={30}
                 slidesPerView={1}
                 onSlideChange={(e) => {
@@ -214,7 +248,7 @@ function Main() {
                 <SwiperSlide>
                   <Post {...question_list[2]} allChecked={allChecked} />
                 </SwiperSlide>
-              </Swiper>
+              </Swiper> */}
             </SmallCardContainer>
             <LargeCardContainer
               style={{
@@ -273,7 +307,7 @@ function Main() {
               />
             </DotQueue>
             {/* 모바일 화면일 때~ */}
-            <SmallDotQueue>
+            {/* <SmallDotQueue>
               <FiberManualRecordIcon
                 style={{
                   fontSize: "15px",
@@ -295,7 +329,7 @@ function Main() {
                 }}
                 className={dot_3S}
               />
-            </SmallDotQueue>
+            </SmallDotQueue> */}
           </SlideBox>
         </MainContainer>
       )}
@@ -343,7 +377,7 @@ const MainContainer = styled.div`
   @media (max-width: 750px) {
     margin: 50px 0px 0px 0px;
   }
-  @media (max-width: 500px){
+  @media (max-width: 500px) {
     align-items: center;
   }
 `;
@@ -388,6 +422,7 @@ const DateIndicator = styled.h2`
   color: #262626;
   opacity: 1;
   margin-top: 50px;
+  cursor: context-menu;
 
   @media (max-width: 500px) {
     text-align: left;
@@ -401,7 +436,7 @@ const QuestionIndicator = styled.h3`
   font: normal normal normal 46px/60px Roboto;
   letter-spacing: 0px;
   color: #262626;
-
+  cursor: context-menu;
   @media (max-width: 500px) {
     display: none;
   }
@@ -411,6 +446,7 @@ const SmallQuestionIndicator = styled.p`
   text-align: left;
   font: normal normal bold 26px/32px Noto Sans KR;
   margin-bottom: 0px;
+  cursor: context-menu;
   @media (min-width: 500px) {
     display: none;
   }
@@ -449,9 +485,11 @@ const SlideBox = styled.div`
   @media (max-width: 500px) {
     margin: 0;
     width: 100%;
-    padding: 27px 28px 27px 28px;
+    /* flex-direction: row; */
+    /* padding: 27px 28px 27px 28px;
     box-sizing: border-box;
     text-align: center;
+    flex-direction: row; */
   }
 `;
 

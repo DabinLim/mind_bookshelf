@@ -35,9 +35,13 @@ const Post = (props) => {
   const ok_submit = contents ? true : false;
 
   const changeContents = (e) => {
-    if (count === 1000) {
-      setContents(contents.substring(0, contents.length - 1));
-      setCount(contents.length - 1);
+    // if (count === 1000) {
+    //   setContents(contents.substring(0, contents.length - 1));
+    //   setCount(contents.length - 1);
+    //   return;
+    // }
+    // input 값이 1000자 넘었을 때 부터 추가 안되게
+    if (e.target.value.length > 1000) {
       return;
     }
     setContents(e.target.value);
@@ -137,7 +141,7 @@ const Post = (props) => {
         <PostBox>
           {is_login === false ? (
             <>
-              <div style={{ margin: "90px 0 0 0 " }}>
+              <div style={{ margin: "90px 0 0 0 ", cursor: "context-menu" }}>
                 <pre>
                   <span style={{ fontSize: "14px" }}>
                     당신이라면 어떻게 대답하시겠나요?
@@ -155,7 +159,8 @@ const Post = (props) => {
                 rows={8}
                 placeholder={`${
                   user_info?.nickname ? user_info?.nickname + "님" : "당신"
-                }이라면 어떻게 답변하시겠어요? \n답변과 그 이유, 느낌 등을 같이 적어주세요.`}
+                }의 생각을 낙서해주세요. \n답변과 그 이유를 같이 적어주시면 생각이 더 풍부해집니다.
+`}
                 onChange={changeContents}
                 value={contents}
               ></ElTextarea>
@@ -248,11 +253,11 @@ const CardFrame = styled.div`
   text-align: center;
   border-top-left-radius: 50px;
   @media (max-width: 600px) {
+    width: 95%;
     padding: 17px 18px;
     border-radius: 20px;
     min-height: 462px;
     max-height: 462px;
-    width: 100%;
   }
 `;
 
@@ -331,9 +336,7 @@ const SmallCardLeft = styled.span`
   box-shadow: 0px 0px 15px #c3c9fe;
   letter-spacing: 0px;
   color: #363636;
-  :hover {
-    cursor: pointer;
-  }
+  cursor: context-menu;
   @media (min-width: 500px) {
     display: none;
   }
@@ -355,9 +358,7 @@ const HashTag = styled.span`
   letter-spacing: 0px;
   color: #363636;
   font-size: 14px;
-  :hover {
-    cursor: pointer;
-  }
+  cursor: context-menu;
 
   @media (min-width: 500px) {
     font-size: 11px;
@@ -369,6 +370,7 @@ const CardContent = styled.p`
   font-size: 17px;
   font-weight: bolder;
   text-align: left;
+  cursor: context-menu;
 `;
 
 const SmallCardContent = styled.p`
@@ -405,6 +407,7 @@ const CardWriterProfile = styled.img`
 `;
 
 const CardWriter = styled.span`
+  cursor: context-menu;
   @media (max-width: 500px) {
     font-size: 11px;
   }
