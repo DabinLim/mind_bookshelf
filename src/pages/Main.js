@@ -203,21 +203,21 @@ function Main() {
           {/* 메인 위쪽 편 */}
           <MainUpper>
             <DateIndicator>
-              {displayedDate}{" "}
-              <SmallToMyBookShelf
-                onClick={() => {
-                  history.push("/mybook");
-                }}
-                className="toMyBookShelf"
-              >
-                나의 책장으로 가기 <RightOutlined />
-              </SmallToMyBookShelf>
+              {displayedDate}
+              {user_info ? (
+                <SmallToMyBookShelf
+                  onClick={() => {
+                    history.push("/mybook");
+                  }}
+                  className="toMyBookShelf"
+                >
+                  나의 책장으로 가기 <RightOutlined />
+                </SmallToMyBookShelf>
+              ) : null}
             </DateIndicator>
             <SmallQuestionIndicator>
-              <b>
-                {user?.nickname ? user?.nickname + "님" : "당신"}의 <br />
-                머리속은?
-              </b>
+              <b>{user?.nickname ? user?.nickname + "님" : "당신"}</b>의 <br />
+              머리속은?
             </SmallQuestionIndicator>
             <QuestionIndicator>
               <b>{user?.nickname ? user?.nickname + "님" : "당신"}</b>의
@@ -455,7 +455,7 @@ const QuestionIndicator = styled.h3`
 
 const SmallQuestionIndicator = styled.p`
   text-align: left;
-  font: normal normal bold 26px/30px Nanum Myeongjo;
+  font: normal normal 26px/30px Nanum Myeongjo;
   margin-bottom: 31px;
   cursor: context-menu;
   @media (min-width: 500px) {

@@ -126,7 +126,7 @@ const Post = (props) => {
           </ExtraGroup>
         </CardInfo>
         {/* 질문 보여주는 곳 */}
-        <SmallCardContent style={{ opacity: opacity }}>
+        <SmallCardContent style={{ opacity: opacity, fontWeight: "bold" }}>
           {props.contents}
         </SmallCardContent>
         <CardUpper>
@@ -194,7 +194,7 @@ const Post = (props) => {
                     <SubmitBtn
                       onClick={addAnswer}
                       style={{
-                        background: "#061366",
+                        background: "#3C3C3C",
                         color: "#ffffff",
                         transition: "all 200ms ease-in-out",
                       }}
@@ -288,6 +288,7 @@ const AnswerInfo = styled.span`
 
 const ThreeProfileBox = styled.div`
   display: flex;
+  cursor: default;
 `;
 
 const UserProfile = styled.img`
@@ -378,7 +379,7 @@ const CardContent = styled.p`
 const SmallCardContent = styled.p`
   margin-top: 17px;
   font-size: 14px;
-  font-weight: bolder;
+  font-weight: bold;
   text-align: left;
   min-height: 60px;
   max-height: 70px;
@@ -493,14 +494,13 @@ const SubmitBtn = styled.button`
   padding: 8px 12px;
   border: none;
   outline: none;
-  border-radius: 24px;
-  color: #061366;
-  background: #e2eaff;
+  color: #ffffff;
+  background: #939393;
   margin-left: 10px;
   cursor: pointer;
   @media (max-width: 500px) {
     width: 112px;
-    height: 40px;
+    height: 36px;
   }
 `;
 

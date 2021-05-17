@@ -21,13 +21,13 @@ const CommunityQnA = (props) => {
   return (
     <React.Fragment>
       <QnAContainer>
-        <div style={{ display: "flex" }}>
+        <div style={{ display: "flex", marginBottom: "12px" }}>
           {props.topic.map((t) => {
             return (
               <Topic
                 style={{
-                  background: "#B5BDFF",
-                  boxShadow: `0px 0px 15px #C3C9FE`,
+                  border: "1px solid #7249b4",
+                  boxShadow: `0px 3px 15px #c3c9fe`,
                   marginBottom: "5px",
                 }}
               >
@@ -38,7 +38,7 @@ const CommunityQnA = (props) => {
         </div>
         <QuestionBox>
           <Question>{props.contents}</Question>
-          {props.answers?.length >= 1 ? (
+          {props.answers?.length >= 4 ? (
             <DetailBtn
               onClick={() => {
                 history.push(`/community/${props.id}`);
@@ -52,7 +52,6 @@ const CommunityQnA = (props) => {
           {props.answers.map((a) => {
             return (
               <Answer key={a.id}>
-                
                 <AnswerHeader
                   onClick={() => {
                     if (a.userId === user.id) {
@@ -130,9 +129,9 @@ const Question = styled.div`
   font-size: 30px;
   font-weight: 600;
   width: 500px;
-  @media (max-width: 500px) {
-    font-size: 20px;
+  @media (max-width: 750px) {
     width: 270px;
+    font: normal normal bold 19px Nanum Myeongjo;
   }
 `;
 
@@ -164,7 +163,6 @@ const Answer = styled.div`
   flex-direction: column;
   justify-content: space-between;
   background-color: #ffffff;
-  border-radius: 20px;
   margin-right: 20px;
   @media (max-width: 500px) {
     min-width: 200px;
@@ -269,6 +267,7 @@ const Topic = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  color: #7249b4;
   @media (max-width: 500px) {
     margin-top: 0px;
     min-width: 63px;
