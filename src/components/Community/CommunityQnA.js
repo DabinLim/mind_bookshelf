@@ -22,16 +22,31 @@ const CommunityQnA = (props) => {
     <React.Fragment>
       <QnAContainer>
         <div style={{ display: "flex", marginBottom: "12px" }}>
-          {props.topic.map((t) => {
+          {props.topic?.map((t) => {
+            let topic = "";
+            let color = "";
+            topic = t;
+            if (topic === "가치") {
+              color = "#7249B4";
+            } else if (topic === "관계") {
+              color = "#2761CC";
+            } else if (topic === "우정") {
+              color = "#E0692D";
+            } else if (topic === "나") {
+              color = "#458857";
+            } else if (topic === "사랑") {
+              color = "#D34242";
+            } else {
+              color = "#E6BA28";
+            }
             return (
               <Topic
                 style={{
-                  border: "1px solid #7249b4",
-                  boxShadow: `0px 3px 15px #c3c9fe`,
+                  border: `1px solid ${color}`,
                   marginBottom: "5px",
                 }}
               >
-                <span>#{t}</span>
+                <span style={{ color: color }}>#{t}</span>
               </Topic>
             );
           })}
@@ -62,7 +77,9 @@ const CommunityQnA = (props) => {
                   }}
                 >
                   <AnswerProfileImg src={a.profileImg} />
-                  <AnswerNickname>{a.nickname}</AnswerNickname>
+                  <AnswerNickname>
+                    <b>{a.nickname}</b>님
+                  </AnswerNickname>
                 </AnswerHeader>
                 <AnswerContents
                   onClick={() => {
@@ -187,15 +204,16 @@ const AnswerProfileImg = styled.img`
 `;
 
 const AnswerNickname = styled.div`
-  font-weight: 600;
   margin-left: 10px;
+  font-family: Sans KR, sans-serif;
 `;
 
 const AnswerContents = styled.div`
   max-height: 63px;
   min-height: 63px;
   padding: 0px 18px;
-  font: normal normal medium 15px/20px Roboto;
+  font: normal normal medium 15px/20px;
+  font-family: Sans KR, sans-serif;
   letter-spacing: 0px;
   color: #262626;
   display: -webkit-box;
@@ -278,10 +296,12 @@ const Topic = styled.div`
 
 const LikeCount = styled.span`
   font-size: 12px;
+  font-family: Sans KR, sans-serif;
 `;
 
 const CommentCount = styled.span`
   font-size: 12px;
+  font-family: Sans KR, sans-serif;
 `;
 
 export default CommunityQnA;
