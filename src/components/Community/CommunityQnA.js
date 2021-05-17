@@ -27,7 +27,6 @@ const CommunityQnA = (props) => {
               <Topic
                 style={{
                   border: "1px solid #7249b4",
-                  boxShadow: `0px 3px 15px #c3c9fe`,
                   marginBottom: "5px",
                 }}
               >
