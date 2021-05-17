@@ -73,8 +73,22 @@ const Post = (props) => {
 
   let opacity = props.available ? 1 : 0.4;
   let topic = "";
+  let color = "";
   if (props.topic?.length > 0) {
     topic = props.topic[0];
+    if (topic === "가치") {
+      color = "#7249B4";
+    } else if (topic === "관계") {
+      color = "#2761CC";
+    } else if (topic === "우정") {
+      color = "#E0692D";
+    } else if (topic === "나") {
+      color = "#458857";
+    } else if (topic === "사랑") {
+      color = "#D34242";
+    } else {
+      color = "#E6BA28";
+    }
   }
 
   return (
@@ -98,7 +112,9 @@ const Post = (props) => {
             </CardWriter>
             {/* 500px 아래로 내려갈 때!!!! */}
           </CardWriterInfo>
-          <SmallCardLeft>#{topic}</SmallCardLeft>
+          <SmallCardLeft style={{ color: color, border: `1px solid ${color}` }}>
+            #{topic}
+          </SmallCardLeft>
           <ExtraGroup>
             <AnswerInfo>
               {props?.otherProfileImg?.length > 0 ? (
@@ -336,7 +352,6 @@ const SmallCardLeft = styled.span`
   border: 1px solid #7249b4;
   text-align: center;
   font: normal normal bold 11px/15px Roboto;
-  box-shadow: 0px 3px 15px #c3c9fe;
   letter-spacing: 0px;
   color: #7249b4;
   cursor: context-menu;

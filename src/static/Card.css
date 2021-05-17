@@ -166,24 +166,6 @@
   border-radius: 20px;
 }
 
-.mainM {
-  border-top: 1px solid white;
-  border-bottom: 1px solid white;
-  padding: 12px 16px;
-}
-
-.bookshelfM {
-  border-top: 1px solid white;
-  border-bottom: 1px solid white;
-  padding: 12px 16px;
-}
-
-.communityM {
-  border-top: 1px solid white;
-  border-bottom: 1px solid white;
-  padding: 12px 16px;
-}
-
 /* 메인 나눔명조 */
 @import url("https://fonts.googleapis.com/css2?family=Nanum+Myeongjo&display=swap");
 

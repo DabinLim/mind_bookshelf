@@ -19,6 +19,7 @@ import {
 } from "./pages/pagesindex";
 import { getCookie } from "./shared/Cookie";
 import QuestionDetail from "./components/Community/QuestionDetail";
+import CardDetail from './components/Community/CardDetail';
 import { socket, addNoti } from "./redux/modules/noti";
 import ComponentSlider from "./components/Main/ComponentSlider";
 import axios from "axios";
@@ -50,20 +51,19 @@ function App() {
       <ContentFrame>
         {/* <Sidebar /> */}
         <ConnectedRouter history={history}>
-          <Switch>
-            <Route exact path="/" component={Main} />
-            <Route exact path="/auth/:id" component={Auth} />
-            <Route exact path="/mybook" component={MyBooks}></Route>
-            <Route exact path="/mybook/:date" component={MyBooks}></Route>
-            <Route exact path="/others/:id" component={OthersBooks} />
-            <Route exact path="/others/:id/:date" component={OthersBooks} />
-            <Route exact path="/community" component={Community} />
-            <Route exact path="/community/:id" component={QuestionDetail} />
-            <Route exact path="/test" component={ComponentSlider} />
-            <Route exact path="/search" component={MobileSearch} />
-            <Route exact path="/noti" component={MobileNotification} />
-            <Route exact component={NotFound} />
-          </Switch>
+          <Route exact path="/" component={Main} />
+          <Route exact path="/auth/:id" component={Auth} />
+          <Route exact path="/mybook" component={MyBooks}></Route>
+          <Route exact path="/mybook/:date" component={MyBooks}></Route>
+          <Route exact path="/others/:id" component={OthersBooks} />
+          <Route exact path="/others/:id/:date" component={OthersBooks} />
+          <Route exact path="/community" component={Community} />
+          <Route exact path="/community/:id" component={QuestionDetail} />
+          <Route exact path='/bookdetail/:id' component={CardDetail}/>
+          <Route exact path='/carddetail/:id' component={CardDetail}/>
+          <Route exact path="/test" component={ComponentSlider} />
+          <Route exact path="/search" component={MobileSearch} />
+          <Route exact path="/noti" component={MobileNotification} />
         </ConnectedRouter>
       </ContentFrame>
     </React.Fragment>
