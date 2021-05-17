@@ -10,15 +10,20 @@ const MobileNoti = (props) => {
   const dispatch = useDispatch();
 
   let eventType = "";
+  let text = "";
   let time_data = time(`20${props.time}`);
   if (props.eventType === "like") {
     eventType = "좋아요";
+    text = "회원님의 글을 좋아합니다.";
   } else if (props.eventType === "comment") {
     eventType = "댓글";
+    text = "댓글을 남겼습니다.";
   } else if (props.eventType === "tag") {
     eventType = "태그";
+    text = "태그를 남겼습니다."
   } else {
     eventType = "커스텀";
+    text = "질문 답변을 남겼습니다."
   }
 
   const openCard = () => {
@@ -41,9 +46,9 @@ const MobileNoti = (props) => {
               <NotiProfileInfo>
                 <NotiProfile src={props.recentProfileImg}></NotiProfile>
                 {props.countOthers >= 1? 
-                <NotiProfileName><span style={{fontWeight: '600'}}>{props.recentNickname} 님 외 {props.countOthers}명</span>에게 {eventType} 알림이 있어요!</NotiProfileName>
+                <NotiProfileName><span style={{fontWeight: '600'}}>{props.recentNickname} 님 외 {props.countOthers}명</span>이 {text}</NotiProfileName>
                 :
-                <NotiProfileName><span style={{fontWeight: '600'}}>{props.recentNickname}</span> 님으로부터 {eventType} 알림이 있어요!</NotiProfileName>
+                <NotiProfileName><span style={{fontWeight: '600'}}>{props.recentNickname}</span> 님으로부터 {text}</NotiProfileName>
                 }
               </NotiProfileInfo>
             </div>
@@ -55,9 +60,9 @@ const MobileNoti = (props) => {
               <NotiProfileInfo>
                 <NotiProfile src={props.recentProfileImg}></NotiProfile>
                 {props.countOthers >= 1? 
-                <NotiProfileName><span style={{fontWeight: '600'}}>{props.recentNickname} 님 외 {props.countOthers}명</span>에게 {eventType} 알림이 있어요!</NotiProfileName>
+                <NotiProfileName><span style={{fontWeight: '600'}}>{props.recentNickname}님 외 {props.countOthers}명</span>이 {text}</NotiProfileName>
                 :
-                <NotiProfileName><span style={{fontWeight: '600'}}>{props.recentNickname}</span> 님으로부터 {eventType} 알림이 있어요!</NotiProfileName>
+                <NotiProfileName><span style={{fontWeight: '600'}}>{props.recentNickname}</span>님이 {text}</NotiProfileName>
                 }
               </NotiProfileInfo>
             </div>
@@ -78,7 +83,7 @@ const MobileNoti = (props) => {
             <div style={{display:'flex', alignItems: "center", cursor: 'pointer' }} >
               <NotiProfileInfo>
                 <NotiProfile src={props.recentProfileImg}></NotiProfile>
-                <NotiProfileName><span style={{fontWeight: '600'}}>{props.recentNickname}</span> 님으로부터 {eventType} 알림이 있어요!</NotiProfileName>
+                <NotiProfileName><span style={{fontWeight: '600'}}>{props.recentNickname}</span>님이 {text}</NotiProfileName>
               </NotiProfileInfo>
             </div>
             <NotiTime>{time_data}</NotiTime>
@@ -88,7 +93,7 @@ const MobileNoti = (props) => {
             <div style={{display:'flex', alignItems: "center", cursor: 'pointer' }} >
               <NotiProfileInfo>
                 <NotiProfile src={props.recentProfileImg}></NotiProfile>
-                <NotiProfileName><span style={{fontWeight: '600'}}>{props.recentNickname}</span> 님으로부터 {eventType} 알림이 있어요!</NotiProfileName>
+                <NotiProfileName><span style={{fontWeight: '600'}}>{props.recentNickname}</span>님이 {text}</NotiProfileName>
               </NotiProfileInfo>
             </div>
             <NotiTime>{time_data}</NotiTime>

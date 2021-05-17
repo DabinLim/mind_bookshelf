@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import {useDispatch, useSelector} from "react-redux";
 import {setPreview} from '../redux/modules/user'
 import swal from "sweetalert";
+import heic2any from "heic2any"
 
 const Upload = (props) => {
   const dispatch = useDispatch();
@@ -13,23 +14,39 @@ const Upload = (props) => {
 
   const selectFile = (e) => {
     const reader = new FileReader();
-    const file = fileInput.current.files[0]
-    const type = file.type.split('/')
-    if (type[0] !=="image"){
-      swal({
-        title: "업로드에 실패하였습니다. 😅",
-        text: "이미지만 업로드 할 수 있습니다.",
-        icon: "error"
+    let file = fileInput.current.files[0]
+    console.log(file)
+    if(file.name.split('.')[1] === 'heic'){
+      let blob = fileInput.current.files[0];
+      heic2any({blob : blob, toType : "image/jpeg"})
+      .then(function (resultBlob) {
+        file = new File([resultBlob], file.name.split('.')[0]+".jpg",{type:"image/jpeg", lastModified:new Date().getTime()});
+        console.log(file)
+        props.setImage(file)
+        reader.readAsDataURL(file);
+        reader.onloadend = () => {
+        dispatch(setPreview(reader.result))
+    }
       })
-      return
+      .catch(function (x){
+        console.log(x)
+      })
+    } else{
+      const type = file.type.split('/')
+      if (type[0] !=="image"){
+        swal({
+          title: "업로드에 실패하였습니다.",
+          text: "이미지만 업로드 할 수 있습니다.",
+          icon: "error"
+        })
+        return
+      }
+      props.setImage(file)
+        reader.readAsDataURL(file);
+        reader.onloadend = () => {
+        dispatch(setPreview(reader.result))
+      }
     }
-    props.setImage(file)
-    reader.readAsDataURL(file);
-    reader.onloadend = () => {
-      dispatch(setPreview(reader.result))
-    }
-
-
   }
 
 
@@ -46,25 +63,36 @@ const Upload = (props) => {
 
 const ImageLabel = styled.label`
   display: block;
-  width: 150px;
-  height: 150px;
+  width: 110px;
+  height: 110px;
   border-radius: 75px;
   background-position: center;
   background-size: cover;
   cursor:pointer;
+  @media (max-width: 500px) {
+    width: 90px;
+  height: 90px;
+  } ;
 `
 
 const ImageIcon = styled.img`
-  width: 35px;
-  height: 35px;
+  width: 30px;
+  height: 30px;
   position: absolute;
-  top: 110px;
-  right: 12px;
+  top: 78px;
+  right: 6px;
   border-radius: 30px;
   background: white;
-  padding: 5px;
+  padding: 3px;
   cursor: pointer;
   box-shadow: 0px 0px 6px #00000029;
+  @media (max-width: 500px) {
+    width: 30px;
+    height: 30px;
+    top: 60px;
+    right: 0px;
+    padding: 3px;
+  } ;
 `;
 
 export default Upload

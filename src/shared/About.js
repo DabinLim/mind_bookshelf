@@ -36,7 +36,7 @@ const About = (props) => {
             </div>
             <LinkContainer>
               Notion :{" "}
-              <Link target="_blank" href="https://www.notion.so/236571f296c0486e803d7da663172ebf">
+              <Link target="_blank" href="https://www.notion.so/5ba8f469ecb346109d73439c05c095e6">
                 생각낙서 노션
               </Link>{" "}
               <br />

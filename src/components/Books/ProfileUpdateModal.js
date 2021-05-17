@@ -217,14 +217,29 @@ const ProfileUpdateModal = (props) => {
   return (
     <React.Fragment>
       {withdrawal ? <WithdrawalModal setWidthdrawal={setWidthdrawal} /> : null}
+      {user_info.first? null 
+      :
       <Background onClick={props.close} />
+      }
       <UpdateBox>
+        <ProfileUpdateHeader>
+          {user_info.first? 
+          <ProfileCancelButton style={{color:"#FAFAFA", cursor:"context-menu"}} >취소</ProfileCancelButton>
+          :
+          <ProfileCancelButton onClick={props.close} >취소</ProfileCancelButton>
+          }
+          <ProfileHeaderText>프로필 편집</ProfileHeaderText>
+          {user_info.first? 
+          <ProfileHeaderButton onClick={addProfile} >가입</ProfileHeaderButton>
+          :
+          <ProfileHeaderButton onClick={editProfile} >완료</ProfileHeaderButton>
+          }
+        </ProfileUpdateHeader>
         <ImageUpdate>
           <Upload setImage={setImage} />
         </ImageUpdate>
         <Nickname>
           {user_info.nickname}
-          <span style={{ fontWeight: "400" }}>님</span>
         </Nickname>
         <RemoveProfileBtn
           onClick={() => {
@@ -256,18 +271,18 @@ const ProfileUpdateModal = (props) => {
                     <Loader
                       type="Oval"
                       color="#3d66ba"
-                      height={20}
-                      width={20}
+                      height={15}
+                      width={15}
                     />
                   </InputRandom>
                 ) : (
                   <InputRandom>
                     <CasinoIcon
-                      style={{ margin: "0 5px 0 0", fontSize: "16px" }}
+                      style={{ width: "15px", height: "15px" }}
                     />
                   </InputRandom>
                 )}
-                <InputRandom>랜덤 돌리기</InputRandom>
+                <InputRandomText>랜덤 돌리기</InputRandomText>
               </RandomBox>
             </InputUpper>
             <div style={{ position: "relative" }}>
@@ -288,121 +303,129 @@ const ProfileUpdateModal = (props) => {
             </div>
           </InputContainer>
         </InputBox>
-
-        <TypeContainer>
-          <div style={{ marginBottom: "13px" }}>
-            {_friendship ? (
-              <CheckedLabel
-                onClick={checkedFriendship}
-                style={{
-                  background: "#B5BDFF",
-                  boxShadow: "0px 0px 15px #C3C9FE",
-                }}
-              >
-                #우정
-              </CheckedLabel>
-            ) : (
-              <CheckedLabel
-                style={{ background: "#F4F4F4" }}
-                onClick={checkedFriendship}
-              >
-                #우정
-              </CheckedLabel>
-            )}
-            {_love ? (
-              <CheckedLabel
-                onClick={checkedLove}
-                style={{
-                  background: "#B5BDFF",
-                  boxShadow: "0px 0px 15px #C3C9FE",
-                }}
-              >
-                #사랑
-              </CheckedLabel>
-            ) : (
-              <CheckedLabel
-                onClick={checkedLove}
-                style={{ background: "#F4F4F4" }}
-              >
-                #사랑
-              </CheckedLabel>
-            )}
-            {_dream ? (
-              <CheckedLabel
-                onClick={checkedDream}
-                style={{
-                  background: "#B5BDFF",
-                  boxShadow: "0px 0px 15px #C3C9FE",
-                }}
-              >
-                #꿈
-              </CheckedLabel>
-            ) : (
-              <CheckedLabel
-                onClick={checkedDream}
-                style={{ background: "#F4F4F4" }}
-              >
-                #꿈
-              </CheckedLabel>
-            )}
-          </div>
-          <div>
-            {_worth ? (
-              <CheckedLabel
-                onClick={checkedWorth}
-                style={{
-                  background: "#B5BDFF",
-                  boxShadow: "0px 0px 15px #C3C9FE",
-                }}
-              >
-                #가치
-              </CheckedLabel>
-            ) : (
-              <CheckedLabel
-                onClick={checkedWorth}
-                style={{ background: "#F4F4F4" }}
-              >
-                #가치
-              </CheckedLabel>
-            )}
-            {_relationship ? (
-              <CheckedLabel
-                onClick={checkedRelationship}
-                style={{
-                  background: "#B5BDFF",
-                  boxShadow: "0px 0px 15px #C3C9FE",
-                }}
-              >
-                #관계
-              </CheckedLabel>
-            ) : (
-              <CheckedLabel
-                onClick={checkedRelationship}
-                style={{ background: "#F4F4F4" }}
-              >
-                #관계
-              </CheckedLabel>
-            )}
-            {_myself ? (
-              <CheckedLabel
-                onClick={checkedMyself}
-                style={{
-                  background: "#B5BDFF",
-                  boxShadow: "0px 0px 15px #C3C9FE",
-                }}
-              >
-                #나
-              </CheckedLabel>
-            ) : (
-              <CheckedLabel
-                onClick={checkedMyself}
-                style={{ background: "#F4F4F4" }}
-              >
-                #나
-              </CheckedLabel>
-            )}
-          </div>
-        </TypeContainer>
+        <TypeBox>
+          <TypeLabel>선호태그</TypeLabel>
+          <TypeContainer>
+            <div style={{ marginBottom: "13px" }}>
+              {_friendship ? (
+                <CheckedLabel
+                  onClick={checkedFriendship}
+                  style={{
+                    background: "#B5BDFF",
+                    boxShadow: "0px 0px 15px #C3C9FE",
+                    marginRight:"13px",
+                  }}
+                >
+                  #우정
+                </CheckedLabel>
+              ) : (
+                <CheckedLabel
+                  style={{ 
+                    background: "#F4F4F4", 
+                    marginRight:"13px" }}
+                  onClick={checkedFriendship}
+                >
+                  #우정
+                </CheckedLabel>
+              )}
+              {_love ? (
+                <CheckedLabel
+                  onClick={checkedLove}
+                  style={{
+                    background: "#B5BDFF",
+                    boxShadow: "0px 0px 15px #C3C9FE",
+                    marginRight:"13px",
+                  }}
+                >
+                  #사랑
+                </CheckedLabel>
+              ) : (
+                <CheckedLabel
+                  onClick={checkedLove}
+                  style={{ background: "#F4F4F4", marginRight:"13px" }}
+                >
+                  #사랑
+                </CheckedLabel>
+              )}
+              {_dream ? (
+                <CheckedLabel
+                  onClick={checkedDream}
+                  style={{
+                    background: "#B5BDFF",
+                    boxShadow: "0px 0px 15px #C3C9FE",
+                  }}
+                >
+                  #꿈
+                </CheckedLabel>
+              ) : (
+                <CheckedLabel
+                  onClick={checkedDream}
+                  style={{ background: "#F4F4F4" }}
+                >
+                  #꿈
+                </CheckedLabel>
+              )}
+            </div>
+            <div>
+              {_worth ? (
+                <CheckedLabel
+                  onClick={checkedWorth}
+                  style={{
+                    background: "#B5BDFF",
+                    boxShadow: "0px 0px 15px #C3C9FE",
+                    marginRight:"13px"
+                  }}
+                >
+                  #가치
+                </CheckedLabel>
+              ) : (
+                <CheckedLabel
+                  onClick={checkedWorth}
+                  style={{ background: "#F4F4F4",marginRight:"13px" }}
+                >
+                  #가치
+                </CheckedLabel>
+              )}
+              {_relationship ? (
+                <CheckedLabel
+                  onClick={checkedRelationship}
+                  style={{
+                    background: "#B5BDFF",
+                    boxShadow: "0px 0px 15px #C3C9FE",
+                    marginRight:"13px"
+                  }}
+                >
+                  #관계
+                </CheckedLabel>
+              ) : (
+                <CheckedLabel
+                  onClick={checkedRelationship}
+                  style={{ background: "#F4F4F4", marginRight:"13px" }}
+                >
+                  #관계
+                </CheckedLabel>
+              )}
+              {_myself ? (
+                <CheckedLabel
+                  onClick={checkedMyself}
+                  style={{
+                    background: "#B5BDFF",
+                    boxShadow: "0px 0px 15px #C3C9FE",
+                  }}
+                >
+                  #나
+                </CheckedLabel>
+              ) : (
+                <CheckedLabel
+                  onClick={checkedMyself}
+                  style={{ background: "#F4F4F4" }}
+                >
+                  #나
+                </CheckedLabel>
+              )}
+            </div>
+          </TypeContainer>
+        </TypeBox>
         <BottomContainer>
           {user_info.first? null 
           :
@@ -442,6 +465,7 @@ const UpdateBox = styled.div`
   left: 50%;
   width: 400px;
   hight: auto;
+  margin: 20px 0 ;
   transform: translate(-50%, -50%);
   background-color: #fafafa;
   z-index: 100;
@@ -450,48 +474,80 @@ const UpdateBox = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  cursor: context-menu;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.12), 0 2px 5px rgba(0, 0, 0, 0.24);
   @media (max-width: 420px) {
-    width: 95%;
-  } ;
-  @media (max-width: 750px) {
-    top: 370px;
+    width: 100%;
+    top: 50px;
+    left: 0px;
+    transform: translate(0%, 0%);
+    margin: 0;
   } ;
 `;
+
+const ProfileUpdateHeader = styled.div`
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 61px;
+    border-bottom: 0.3px solid #e0e0e0;
+    padding: 0 24px;
+`
+
+const ProfileHeaderButton = styled.div`
+  font: normal normal medium 14px/16px Roboto;
+  cursor: pointer;
+  &:hover {
+    color: black;
+    font-weight: 600;
+  }
+`
+
+const ProfileCancelButton = styled.div`
+color: #A8A8A8;
+font: normal normal medium 14px/16px Roboto;
+cursor: pointer;
+&:hover {
+  color: black;
+  font-weight: 600;
+}
+
+`
+
+const ProfileHeaderText = styled.div`
+  font: normal normal bold 14px/20px Noto Sans KR;
+`
 
 const ImageUpdate = styled.div`
   position: relative;
-  margin: 50px 0 20px 0;
-`;
-
-const ImageIcon = styled.img`
-  width: 35px;
-  height: 35px;
-  position: absolute;
-  top: 110px;
-  right: 12px;
-  border-radius: 30px;
-  background: white;
-  padding: 5px;
-  cursor: pointer;
-  box-shadow: 0px 0px 6px #00000029;
+  margin: 27px 0 17px 0;
+  @media (max-width: 500px) {
+    margin: 27px 0 17px 0;
+  } ;
 `;
 
 const Nickname = styled.div`
-  font-size: 20px;
+  font: normal normal bold 15px/20px Noto Sans KR;  
   font-weight: 600;
+  @media (max-width: 500px) {
+    font: normal normal bold 14px/20px Noto Sans KR;
+  } ;
 `;
 
 const RemoveProfileBtn = styled.div`
   margin-top: 8px;
   margin-bottom: 20px;
-  font-size: 14px;
+  font: normal normal normal 12px/18px Noto Sans KR;
   cursor: pointer;
-  opacity: 0.4;
+  color: #A8A8A8;
   &:hover {
-    opacity: 1;
-    font-weight: 600;
+    color: #000000;
   }
+  @media (max-width: 500px) {
+    font: normal normal normal 12px/18px Noto Sans KR;
+    margin-bottom: 27px;
+  } ;
 `;
 
 const InputBox = styled.div`
@@ -515,37 +571,49 @@ const InputContainer = styled.div`
 const InputLabel = styled.label`
   font-weight: 600;
   font-size: 17px;
-  margin-bottom: 3px;
+  margin-bottom: 10px;
+  @media (max-width: 500px) {
+    font: normal normal bold 13px/19px Noto Sans KR;
+  } ;
 `;
 const CountNickname = styled.div`
   position: absolute;
   top: 8px;
   right: 12px;
   opacity: 0.6;
+  @media (max-width: 500px) {
+    font: normal normal normal 12px/18px Noto Sans KR;
+  } ;
+  
 `;
 
 const CountIntroduce = styled.div`
   position: absolute;
-  top: 35px;
+  bottom: 10px;
   right: 12px;
   opacity: 0.6;
+  @media (max-width: 500px) {
+    font: normal normal normal 12px/18px Noto Sans KR;
+  } ;
 `;
 
 const Input = styled.input`
   position: relative;
   display: block;
   outline: none;
-  border: none;
-  background: #f2f2f2 0% 0% no-repeat padding-box;
+  background: #F5F5F5 0% 0% no-repeat padding-box;
   border-radius: 10px;
-  opacity: 0.8;
-  padding: 10px 22px;
-  font-size: 14px;
+  height: 42px;
+  padding: 0px 15px;
+  font: normal normal normal 13px/19px Noto Sans KR;
   width: 350px;
   border: none;
   box-sizing: border-box;
-  @media (max-width: 420px) {
-    width: 280px;
+  border-radius: 15px;
+  @media (max-width: 500px) {
+    width: 327px;
+    height: 42px;
+    padding: 0px 15px;
   } ;
 `;
 
@@ -553,33 +621,44 @@ const Input2 = styled.textarea`
   display: block;
   outline: none;
   border: none;
-  background: #f2f2f2 0% 0% no-repeat padding-box;
+  background: #F5F5F5 0% 0% no-repeat padding-box;
   border-radius: 10px;
   opacity: 0.8;
-  padding: 10px 22px;
-  font-size: 14px;
+  height: 110px;
+  padding: 11px 15px;
+  font: normal normal normal 13px/19px Noto Sans KR;
+  color: #939393;
   width: 350px;
   border: none;
+  border-radius: 15px;
   box-sizing: border-box;
-  @media (max-width: 420px) {
-    width: 280px;
+  resize: none;
+  @media (max-width: 500px) {
+    width: 327px;
   } ;
 `;
 
 const InputUpper = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
 `;
 
 const InputRandom = styled.div`
+  position: absolute;
   cursor: pointer;
   display: inline-block;
+  top: -3px;
+  left: -17px;
 `;
 
+const InputRandomText = styled.div`
+  font: normal normal normal 12px/14px Roboto;
+  cursor: pointer;
+`
+
 const RandomBox = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  position: relative;
   color: #a8a8a8;
   &:hover {
     color: black;
@@ -588,30 +667,37 @@ const RandomBox = styled.div`
 `;
 
 const Withdrawal = styled.div`
-  position: absolute;
-  top: 5px;
-  left: 40px;
-  font-weight: 600;
+  font: normal normal medium 14px/20px Noto Sans KR;
   cursor: pointer;
-  opacity: 0.1;
+  color: #A8A8A8;
   &:hover {
-    opacity: 1;
+    color: black;
+    font-weight: 600;
   }
 `;
 
-const TypeContainer = styled.div`
+const TypeBox = styled.div` 
+  display: flex;
+  border-bottom: 0.3px solid #e0e0e0;
   width: 100%;
-  margin: auto;
-  padding: 20px 0;
+  justify-content: space-between;
+  padding: 20px 24px;
+`
+
+const TypeLabel = styled.div`
+  font: normal normal bold 13px/19px Noto Sans KR;
+`
+
+const TypeContainer = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
-  border-bottom: 0.3px solid #e0e0e0;
+  // align-items: center;
 `;
+
 const CheckedLabel = styled.div`
   display: inline-block;
-  margin-right: 14px;
-  margin-left: 14px;
+  // margin-right: 8px;
+  // margin-left: 8px;
   cursor: pointer;
   width: 72px;
   padding: 6px 0;
@@ -627,16 +713,22 @@ const UpdateButton = styled.div`
   padding: 5px 0;
   width: 73px;
   margin: auto;
+  display: none;
   &:hover {
     border: 1px solid #303685;
     background: #303685;
     color: white;
     font-weight: 600;
+  };
+  @media (max-width: 500px) {
+    display: none;
   }
 `;
 const BottomContainer = styled.div`
   width: 100%;
-  position: relative;
-  margin: 20px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 63px;
 `;
 export default ProfileUpdateModal;

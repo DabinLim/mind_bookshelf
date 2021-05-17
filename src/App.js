@@ -2,7 +2,7 @@ import React from "react";
 import "./static/App.css";
 import styled from "styled-components";
 import { ConnectedRouter } from "connected-react-router";
-import { Route } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import { history } from "./redux/configStore";
 import { useDispatch } from "react-redux";
 import { api as userActions } from "./redux/modules/user";
@@ -15,6 +15,7 @@ import {
   Community,
   MobileSearch,
   MobileNotification,
+  NotFound,
 } from "./pages/pagesindex";
 import { getCookie } from "./shared/Cookie";
 import QuestionDetail from "./components/Community/QuestionDetail";
@@ -49,17 +50,20 @@ function App() {
       <ContentFrame>
         {/* <Sidebar /> */}
         <ConnectedRouter history={history}>
-          <Route exact path="/" component={Main} />
-          <Route exact path="/auth/:id" component={Auth} />
-          <Route exact path="/mybook" component={MyBooks}></Route>
-          <Route exact path="/mybook/:date" component={MyBooks}></Route>
-          <Route exact path="/others/:id" component={OthersBooks} />
-          <Route exact path="/others/:id/:date" component={OthersBooks} />
-          <Route exact path="/community" component={Community} />
-          <Route exact path="/community/:id" component={QuestionDetail} />
-          <Route exact path="/test" component={ComponentSlider} />
-          <Route exact path="/search" component={MobileSearch} />
-          <Route exact path="/noti" component={MobileNotification} />
+          <Switch>
+            <Route exact path="/" component={Main} />
+            <Route exact path="/auth/:id" component={Auth} />
+            <Route exact path="/mybook" component={MyBooks}></Route>
+            <Route exact path="/mybook/:date" component={MyBooks}></Route>
+            <Route exact path="/others/:id" component={OthersBooks} />
+            <Route exact path="/others/:id/:date" component={OthersBooks} />
+            <Route exact path="/community" component={Community} />
+            <Route exact path="/community/:id" component={QuestionDetail} />
+            <Route exact path="/test" component={ComponentSlider} />
+            <Route exact path="/search" component={MobileSearch} />
+            <Route exact path="/noti" component={MobileNotification} />
+            <Route exact component={NotFound} />
+          </Switch>
         </ConnectedRouter>
       </ContentFrame>
     </React.Fragment>
