@@ -828,7 +828,7 @@ const ShelfBoxMobile = styled.div`
 `;
 
 const Shelf = styled.div`
-  opacity: 0.3;
+  opacity: 1;
   position: relative;
   margin: -20px 0px 20px 0px;
   width: 100%;
