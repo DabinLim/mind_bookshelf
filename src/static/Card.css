@@ -128,7 +128,7 @@
 }
 
 .slick-dots li:nth-child(2) {
-  margin: 0 5px !important;
+  margin: 0px !important;
 }
 
 .slick-dots li button {
@@ -139,7 +139,9 @@
   display: flex !important;
   align-items: center !important;
   color: #474747 !important;
+  padding: 1px 3px !important;
   opacity: 0.6 !important;
+  max-height: 75.4px !important;
 }
 
 .slick-dots li.slick-active button {
