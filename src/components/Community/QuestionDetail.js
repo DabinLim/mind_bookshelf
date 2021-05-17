@@ -291,7 +291,7 @@ const QuestionDetail = (props) => {
                       );
                     })
                   ) : (
-                    <h2>답변이 없습니다. 아시겠어요?</h2>
+                    <h2>답변이 없습니다.</h2>
                   )}
                 </InfinityScroll>
               )}

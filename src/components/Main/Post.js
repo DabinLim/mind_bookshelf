@@ -55,7 +55,7 @@ const Post = (props) => {
     if (check === "") {
       swal({
         title: "업로드에 실패하였습니다 😥",
-        text: "빈칸만 넣으면 모를 줄 알았죠?!!",
+        text: "답변란이 공란입니다!",
         icon: "error",
       });
       setContents("");
@@ -73,8 +73,22 @@ const Post = (props) => {
 
   let opacity = props.available ? 1 : 0.4;
   let topic = "";
+  let color = "";
   if (props.topic?.length > 0) {
     topic = props.topic[0];
+    if (topic === "가치") {
+      color = "#7249B4";
+    } else if (topic === "관계") {
+      color = "#2761CC";
+    } else if (topic === "우정") {
+      color = "#E0692D";
+    } else if (topic === "나") {
+      color = "#458857";
+    } else if (topic === "사랑") {
+      color = "#D34242";
+    } else {
+      color = "#E6BA28";
+    }
   }
 
   return (
@@ -98,7 +112,9 @@ const Post = (props) => {
             </CardWriter>
             {/* 500px 아래로 내려갈 때!!!! */}
           </CardWriterInfo>
-          <SmallCardLeft>#{topic}</SmallCardLeft>
+          <SmallCardLeft style={{ color: color, border: `1px solid ${color}` }}>
+            #{topic}
+          </SmallCardLeft>
           <ExtraGroup>
             <AnswerInfo>
               {props?.otherProfileImg?.length > 0 ? (
@@ -126,7 +142,7 @@ const Post = (props) => {
           </ExtraGroup>
         </CardInfo>
         {/* 질문 보여주는 곳 */}
-        <SmallCardContent style={{ opacity: opacity }}>
+        <SmallCardContent style={{ opacity: opacity, fontWeight: "bold" }}>
           {props.contents}
         </SmallCardContent>
         <CardUpper>
@@ -194,7 +210,7 @@ const Post = (props) => {
                     <SubmitBtn
                       onClick={addAnswer}
                       style={{
-                        background: "#061366",
+                        background: "#3C3C3C",
                         color: "#ffffff",
                         transition: "all 200ms ease-in-out",
                       }}
@@ -255,7 +271,9 @@ const CardFrame = styled.div`
   @media (max-width: 600px) {
     width: 95%;
     padding: 17px 18px;
-    border-radius: 20px;
+    /* border-radius: 20px; */
+    border-top-left-radius: 0px;
+    box-shadow: 0px 0px 20px #0000001a;
     min-height: 462px;
     max-height: 462px;
   }
@@ -286,6 +304,7 @@ const AnswerInfo = styled.span`
 
 const ThreeProfileBox = styled.div`
   display: flex;
+  cursor: default;
 `;
 
 const UserProfile = styled.img`
@@ -328,14 +347,13 @@ const CardLeft = styled.div`
 const SmallCardLeft = styled.span`
   min-width: 58px;
   max-width: 58px;
-  background: #b5bdff;
   padding: 8px 12px;
   border-radius: 24px;
+  border: 1px solid #7249b4;
   text-align: center;
   font: normal normal bold 11px/15px Roboto;
-  box-shadow: 0px 0px 15px #c3c9fe;
   letter-spacing: 0px;
-  color: #363636;
+  color: #7249b4;
   cursor: context-menu;
   @media (min-width: 500px) {
     display: none;
@@ -376,7 +394,7 @@ const CardContent = styled.p`
 const SmallCardContent = styled.p`
   margin-top: 17px;
   font-size: 14px;
-  font-weight: bolder;
+  font-weight: bold;
   text-align: left;
   min-height: 60px;
   max-height: 70px;
@@ -491,14 +509,13 @@ const SubmitBtn = styled.button`
   padding: 8px 12px;
   border: none;
   outline: none;
-  border-radius: 24px;
-  color: #061366;
-  background: #e2eaff;
+  color: #ffffff;
+  background: #939393;
   margin-left: 10px;
   cursor: pointer;
   @media (max-width: 500px) {
     width: 112px;
-    height: 40px;
+    height: 36px;
   }
 `;
 

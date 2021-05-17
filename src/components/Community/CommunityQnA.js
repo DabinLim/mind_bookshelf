@@ -21,24 +21,39 @@ const CommunityQnA = (props) => {
   return (
     <React.Fragment>
       <QnAContainer>
-        <div style={{ display: "flex" }}>
-          {props.topic.map((t) => {
+        <div style={{ display: "flex", marginBottom: "12px" }}>
+          {props.topic?.map((t) => {
+            let topic = "";
+            let color = "";
+            topic = t;
+            if (topic === "가치") {
+              color = "#7249B4";
+            } else if (topic === "관계") {
+              color = "#2761CC";
+            } else if (topic === "우정") {
+              color = "#E0692D";
+            } else if (topic === "나") {
+              color = "#458857";
+            } else if (topic === "사랑") {
+              color = "#D34242";
+            } else {
+              color = "#E6BA28";
+            }
             return (
               <Topic
                 style={{
-                  background: "#B5BDFF",
-                  boxShadow: `0px 0px 15px #C3C9FE`,
+                  border: `1px solid ${color}`,
                   marginBottom: "5px",
                 }}
               >
-                <span>#{t}</span>
+                <span style={{ color: color }}>#{t}</span>
               </Topic>
             );
           })}
         </div>
         <QuestionBox>
           <Question>{props.contents}</Question>
-          {props.answers?.length >= 1 ? (
+          {props.answers?.length >= 4 ? (
             <DetailBtn
               onClick={() => {
                 history.push(`/community/${props.id}`);
@@ -52,7 +67,6 @@ const CommunityQnA = (props) => {
           {props.answers.map((a) => {
             return (
               <Answer key={a.id}>
-                
                 <AnswerHeader
                   onClick={() => {
                     if (a.userId === user.id) {
@@ -63,7 +77,9 @@ const CommunityQnA = (props) => {
                   }}
                 >
                   <AnswerProfileImg src={a.profileImg} />
-                  <AnswerNickname>{a.nickname}</AnswerNickname>
+                  <AnswerNickname>
+                    <b>{a.nickname}</b>님
+                  </AnswerNickname>
                 </AnswerHeader>
                 <AnswerContents
                   onClick={() => {
@@ -130,9 +146,9 @@ const Question = styled.div`
   font-size: 30px;
   font-weight: 600;
   width: 500px;
-  @media (max-width: 500px) {
-    font-size: 20px;
+  @media (max-width: 750px) {
     width: 270px;
+    font: normal normal bold 19px Nanum Myeongjo;
   }
 `;
 
@@ -164,7 +180,6 @@ const Answer = styled.div`
   flex-direction: column;
   justify-content: space-between;
   background-color: #ffffff;
-  border-radius: 20px;
   margin-right: 20px;
   @media (max-width: 500px) {
     min-width: 200px;
@@ -189,15 +204,16 @@ const AnswerProfileImg = styled.img`
 `;
 
 const AnswerNickname = styled.div`
-  font-weight: 600;
   margin-left: 10px;
+  font-family: Sans KR, sans-serif;
 `;
 
 const AnswerContents = styled.div`
   max-height: 63px;
   min-height: 63px;
   padding: 0px 18px;
-  font: normal normal medium 15px/20px Roboto;
+  font: normal normal medium 15px/20px;
+  font-family: Sans KR, sans-serif;
   letter-spacing: 0px;
   color: #262626;
   display: -webkit-box;
@@ -269,6 +285,7 @@ const Topic = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  color: #7249b4;
   @media (max-width: 500px) {
     margin-top: 0px;
     min-width: 63px;
@@ -279,10 +296,12 @@ const Topic = styled.div`
 
 const LikeCount = styled.span`
   font-size: 12px;
+  font-family: Sans KR, sans-serif;
 `;
 
 const CommentCount = styled.span`
   font-size: 12px;
+  font-family: Sans KR, sans-serif;
 `;
 
 export default CommunityQnA;

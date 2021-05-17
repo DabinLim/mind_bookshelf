@@ -2,7 +2,7 @@ import React from "react";
 import "./static/App.css";
 import styled from "styled-components";
 import { ConnectedRouter } from "connected-react-router";
-import { Route } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import { history } from "./redux/configStore";
 import { useDispatch } from "react-redux";
 import { api as userActions } from "./redux/modules/user";
@@ -15,6 +15,7 @@ import {
   Community,
   MobileSearch,
   MobileNotification,
+  NotFound,
 } from "./pages/pagesindex";
 import { getCookie } from "./shared/Cookie";
 import QuestionDetail from "./components/Community/QuestionDetail";
