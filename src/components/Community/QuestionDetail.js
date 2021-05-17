@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import AnswerCard from "../../shared/AnswerCard2";
 // import {response} from '../redux/Mock/Answers';
@@ -12,10 +12,9 @@ import InfinityScroll from "../../shared/InfinityScroll";
 import { getCookie } from "../../shared/Cookie";
 import swal from "sweetalert";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
-import CardModal from "./CardModal"
+import CardModal from "./CardModal";
 import { api as commentActions } from "../../redux/modules/comment";
 import { api as communityActions } from "../../redux/modules/community";
-
 
 const QuestionDetail = (props) => {
   const dispatch = useDispatch();
@@ -95,15 +94,19 @@ const QuestionDetail = (props) => {
   return (
     <React.Fragment>
       <Outer>
-      {cardModal ? <CardModal close={closeCardModal}  /> : null}
+        {cardModal ? <CardModal close={closeCardModal} /> : null}
         <CommunityContainer>
           <Container>
             <ContainerUpper>
               <ContainerUpperLeft>
-                <HashTag style={{ background: "#B5BDFF", boxShadow: "0px 0px 15px #C3C9FE", overflow:'visible' }}>
-                  <span>
-                  #{question_info?.questionTopic[0]}
-                  </span>
+                <HashTag
+                  style={{
+                    background: "#B5BDFF",
+                    boxShadow: "0px 0px 15px #C3C9FE",
+                    overflow: "visible",
+                  }}
+                >
+                  <span>#{question_info?.questionTopic[0]}</span>
                 </HashTag>
                 <QuestionTitle>
                   {question_info ? question_info.questionContents : "질문 내용"}
@@ -111,33 +114,92 @@ const QuestionDetail = (props) => {
               </ContainerUpperLeft>
               <FilterBtnBoxMobile>
                 <FilterToggle>
-              {now_view === 'new' && <span>최신순</span>}
-              {now_view === 'like' && <span>인기순</span>}
-              {now_view === 'friends' && <span>팔로우</span>}
-              {openFilter ? <ArrowForwardIosIcon
-                  onClick={()=>{setOpenFilter(false)}}
-                  style={{
-                    cursor: "pointer",
-                    color: "black",
-                    fontSize: "12px",
-                    transform:'rotateZ(270deg)',
-                    marginLeft:'5px'
-                  }}
-                /> : <ArrowForwardIosIcon
-                onClick={()=>{setOpenFilter(true)}}
-                style={{
-                  cursor: "pointer",
-                  color: "black",
-                  fontSize: "12px",
-                  transform:'rotateZ(90deg)',
-                  marginLeft:'5px'
-                }}
-              />}
+                  {now_view === "new" && <span>최신순</span>}
+                  {now_view === "like" && <span>인기순</span>}
+                  {now_view === "friends" && <span>구독자</span>}
+                  {openFilter ? (
+                    <ArrowForwardIosIcon
+                      onClick={() => {
+                        setOpenFilter(false);
+                      }}
+                      style={{
+                        cursor: "pointer",
+                        color: "black",
+                        fontSize: "12px",
+                        transform: "rotateZ(270deg)",
+                        marginLeft: "5px",
+                      }}
+                    />
+                  ) : (
+                    <ArrowForwardIosIcon
+                      onClick={() => {
+                        setOpenFilter(true);
+                      }}
+                      style={{
+                        cursor: "pointer",
+                        color: "black",
+                        fontSize: "12px",
+                        transform: "rotateZ(90deg)",
+                        marginLeft: "5px",
+                      }}
+                    />
+                  )}
                 </FilterToggle>
-                {openFilter && now_view === 'new' && <><span onClick={()=>{dispatch(setView('like'))}}>인기순</span><span onClick={()=>{dispatch(setView('friends'))}}>팔로우</span></>}
-                {openFilter && now_view === 'like' && <><span onClick={()=>{dispatch(setView('new'))}}>최신순</span><span onClick={()=>{dispatch(setView('friends'))}}>팔로우</span></>}
-                {openFilter && now_view === 'friends' && <><span onClick={()=>{dispatch(setView('new'))}}>최신순</span><span onClick={()=>{dispatch(setView('like'))}}>인기순</span></>}
-                </FilterBtnBoxMobile>
+                {openFilter && now_view === "new" && (
+                  <>
+                    <span
+                      onClick={() => {
+                        dispatch(setView("like"));
+                      }}
+                    >
+                      인기순
+                    </span>
+                    <span
+                      onClick={() => {
+                        dispatch(setView("friends"));
+                      }}
+                    >
+                      팔로우
+                    </span>
+                  </>
+                )}
+                {openFilter && now_view === "like" && (
+                  <>
+                    <span
+                      onClick={() => {
+                        dispatch(setView("new"));
+                      }}
+                    >
+                      최신순
+                    </span>
+                    <span
+                      onClick={() => {
+                        dispatch(setView("friends"));
+                      }}
+                    >
+                      팔로우
+                    </span>
+                  </>
+                )}
+                {openFilter && now_view === "friends" && (
+                  <>
+                    <span
+                      onClick={() => {
+                        dispatch(setView("new"));
+                      }}
+                    >
+                      최신순
+                    </span>
+                    <span
+                      onClick={() => {
+                        dispatch(setView("like"));
+                      }}
+                    >
+                      인기순
+                    </span>
+                  </>
+                )}
+              </FilterBtnBoxMobile>
               <FilterBtnBox>
                 {now_view === "new" ? (
                   <FilterBtn
@@ -224,7 +286,9 @@ const QuestionDetail = (props) => {
                 >
                   {answers.length ? (
                     answers.map((v, idx) => {
-                      return <AnswerCard openCard={openCard} key={idx} {...v} />;
+                      return (
+                        <AnswerCard openCard={openCard} key={idx} {...v} />
+                      );
                     })
                   ) : (
                     <h2>답변이 없습니다. 아시겠어요?</h2>
@@ -245,7 +309,9 @@ const QuestionDetail = (props) => {
                 >
                   {like_answers.length ? (
                     like_answers.map((v, idx) => {
-                      return <AnswerCard openCard={openCard} key={idx} {...v} />;
+                      return (
+                        <AnswerCard openCard={openCard} key={idx} {...v} />
+                      );
                     })
                   ) : (
                     <h2>답변이 없습니다. 아시겠어요?</h2>
@@ -266,7 +332,9 @@ const QuestionDetail = (props) => {
                 >
                   {friends_answers.length ? (
                     friends_answers.map((v, idx) => {
-                      return <AnswerCard openCard={openCard} key={idx} {...v} />;
+                      return (
+                        <AnswerCard openCard={openCard} key={idx} {...v} />
+                      );
                     })
                   ) : (
                     <h2>답변이 없습니다. 아시겠어요?</h2>
@@ -287,8 +355,8 @@ const Outer = styled.section`
   justify-content: center;
   align-items: center;
   margin-top: 150px;
-  @media(max-width:650px){
-    margin-top:100px;
+  @media (max-width: 650px) {
+    margin-top: 100px;
   }
   @media (max-width: 500px) {
     margin: 50px 0px 0px 0px;
@@ -309,8 +377,7 @@ const CommunityContainer = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  overflow-y:auto;
-
+  overflow-y: auto;
 `;
 
 const Container = styled.section`
@@ -338,7 +405,7 @@ const ContainerUpper = styled.div`
   flex-direction: row;
   justify-content: space-between;
   height: 80px;
-  padding:15px 20px;
+  padding: 15px 20px;
   @media (max-width: 500px) {
     margin-top: 10px;
   }
@@ -354,13 +421,13 @@ const QuestionTitle = styled.h2`
   letter-spacing: 0px;
   width: 60%;
   margin: 29px 0 0 0;
-  @media(max-width:750px){
+  @media (max-width: 750px) {
     font: normal normal bold 22px/24px Roboto;
-    width:80%;
+    width: 80%;
   }
-  @media(max-width:650px){
+  @media (max-width: 650px) {
     margin: 12px 0 0 0;
-    width:226;
+    width: 226;
     font: normal normal bold 18px/22px Roboto;
   }
 `;
@@ -372,9 +439,9 @@ const HashTag = styled.div`
   background: #ededed;
   padding: 8px 12px;
   border-radius: 24px;
-  display:flex;
-  justify-content:center;
-  align-items:center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font: normal normal bold 14px/19px Roboto;
   box-shadow: 0px 0px 5px #ffffff;
   letter-spacing: 0px;
@@ -382,55 +449,55 @@ const HashTag = styled.div`
   font-size: 14px;
   margin-right: 10px;
   cursor: pointer;
-  @media(max-width:650px){
-    min-width:63px;
-    max-width:63px;
-    max-height:30px;
-    }
+  @media (max-width: 650px) {
+    min-width: 63px;
+    max-width: 63px;
+    max-height: 30px;
+  }
 `;
 
 const FilterBtnBoxMobile = styled.div`
-  width:40%;
-  display:flex;
-  flex-direction:column;
-  justify-content:flex-start;
-  align-items:flex-end;
-  font-size:12px;
-  margin-right:20px;
-  padding-top:35px;
-  box-sizing:border-box;
-  @media(min-width:650px){
-    display:none;
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-end;
+  font-size: 12px;
+  margin-right: 20px;
+  padding-top: 35px;
+  box-sizing: border-box;
+  @media (min-width: 650px) {
+    display: none;
   }
 `;
 
 const FilterToggle = styled.div`
- display:flex;
- flex-direction:row;
- align-items:center;
- font-weight:600;
- justify-content:flex-end;
- margin-right:-18px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-weight: 600;
+  justify-content: flex-end;
+  margin-right: -18px;
 `;
 
 const FilterBtnBox = styled.div`
   display: flex;
-  height:100%;
+  height: 100%;
   justify-content: flex-end;
   align-items: flex-end;
   width: 40%;
-  @media(max-width:650px){
-    flex-direction:column;
-    min-width:80px;
-    justify-content:center;
-    margin-top:100px;
-    display:none;
+  @media (max-width: 650px) {
+    flex-direction: column;
+    min-width: 80px;
+    justify-content: center;
+    margin-top: 100px;
+    display: none;
   }
 `;
 
 const FilterBtn = styled.button`
   cursor: pointer;
-  max-width:80px;
+  max-width: 80px;
   max-height: 17px;
   text-align: left;
   font: normal normal normal 14px/19px Roboto;
@@ -443,13 +510,13 @@ const FilterBtn = styled.button`
   :hover {
     font-weight: bold;
   }
-  @media(max-width:650px){
-    margin-bottom:10px;
+  @media (max-width: 650px) {
+    margin-bottom: 10px;
   }
 `;
 
 const AnswersBox = styled.div`
-  padding:0px 20px;
+  padding: 0px 20px;
   box-sizing: border-box;
   ${(props) => (props.view === "new" ? `margin: 140px 0px` : ` margin: 0px`)};
   width: 100%;
@@ -471,24 +538,24 @@ const AnswersBox = styled.div`
     background-color: #ffffff; /* color of the scroll thumb */
     border-radius: 20px; /* roundness of the scroll thumb */
   }
-  @media(max-width:650px){
+  @media (max-width: 650px) {
     ::-webkit-scrollbar {
-    display:none;
-  }
+      display: none;
+    }
 
-  ::-webkit-scrollbar-track {
-    background: none; /* color of the tracking area */
-  }
+    ::-webkit-scrollbar-track {
+      background: none; /* color of the tracking area */
+    }
 
-  ::-webkit-scrollbar-thumb {
-    display:none; 
-  }
-  ${(props) => (props.view === "new" ? `margin: 80px 0px` : ` margin: 0px`)};
+    ::-webkit-scrollbar-thumb {
+      display: none;
+    }
+    ${(props) => (props.view === "new" ? `margin: 80px 0px` : ` margin: 0px`)};
   }
 `;
 
 const AnswersBoxLike = styled.div`
-  padding:0px 20px;
+  padding: 0px 20px;
   box-sizing: border-box;
   ${(props) => (props.view === "like" ? `margin: 140px 0px` : ` margin: 0px`)};
   width: 100%;
@@ -510,24 +577,24 @@ const AnswersBoxLike = styled.div`
     background-color: #ffffff; /* color of the scroll thumb */
     border-radius: 20px; /* roundness of the scroll thumb */
   }
-  @media(max-width:650px){
+  @media (max-width: 650px) {
     ::-webkit-scrollbar {
-    display:none;
-  }
+      display: none;
+    }
 
-  ::-webkit-scrollbar-track {
-    background: none; /* color of the tracking area */
-  }
+    ::-webkit-scrollbar-track {
+      background: none; /* color of the tracking area */
+    }
 
-  ::-webkit-scrollbar-thumb {
-    display:none; 
-  }
-  ${(props) => (props.view === "like" ? `margin: 80px 0px` : ` margin: 0px`)};
+    ::-webkit-scrollbar-thumb {
+      display: none;
+    }
+    ${(props) => (props.view === "like" ? `margin: 80px 0px` : ` margin: 0px`)};
   }
 `;
 
 const AnswersBoxFriends = styled.div`
-  padding:0px 20px;
+  padding: 0px 20px;
   box-sizing: border-box;
   ${(props) =>
     props.view === "friends" ? `margin: 140px 0px` : ` margin: 0px`};
@@ -550,20 +617,21 @@ const AnswersBoxFriends = styled.div`
     background-color: #ffffff; /* color of the scroll thumb */
     border-radius: 20px; /* roundness of the scroll thumb */
   }
-  @media(max-width:650px){
+  @media (max-width: 650px) {
     ::-webkit-scrollbar {
-    display:none;
-  }
+      display: none;
+    }
 
-  ::-webkit-scrollbar-track {
-    background: none; /* color of the tracking area */
-  }
+    ::-webkit-scrollbar-track {
+      background: none; /* color of the tracking area */
+    }
 
-  ::-webkit-scrollbar-thumb {
-    display:none; 
-  }
+    ::-webkit-scrollbar-thumb {
+      display: none;
+    }
 
-  ${(props) => (props.view === "friends" ? `margin: 80px 0px` : ` margin: 0px`)};
+    ${(props) =>
+      props.view === "friends" ? `margin: 80px 0px` : ` margin: 0px`};
   }
 `;
 

@@ -41,8 +41,8 @@ const Post = (props) => {
     //   return;
     // }
     // input 값이 1000자 넘었을 때 부터 추가 안되게
-    if(e.target.value.length > 1000){
-      return
+    if (e.target.value.length > 1000) {
+      return;
     }
     setContents(e.target.value);
     setCount(e.target.value.length);
@@ -141,7 +141,7 @@ const Post = (props) => {
         <PostBox>
           {is_login === false ? (
             <>
-              <div style={{ margin: "90px 0 0 0 ", cursor:"context-menu" }}>
+              <div style={{ margin: "90px 0 0 0 ", cursor: "context-menu" }}>
                 <pre>
                   <span style={{ fontSize: "14px" }}>
                     당신이라면 어떻게 대답하시겠나요?
@@ -159,7 +159,8 @@ const Post = (props) => {
                 rows={8}
                 placeholder={`${
                   user_info?.nickname ? user_info?.nickname + "님" : "당신"
-                }이라면 어떻게 답변하시겠어요? \n답변과 그 이유, 느낌 등을 같이 적어주세요.`}
+                }의 생각을 낙서해주세요. \n답변과 그 이유를 같이 적어주시면 생각이 더 풍부해집니다.
+`}
                 onChange={changeContents}
                 value={contents}
               ></ElTextarea>

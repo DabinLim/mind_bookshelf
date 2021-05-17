@@ -21,7 +21,7 @@ import { About } from "./sharedindex";
 import { CloseOutlined } from "@ant-design/icons";
 import CollectionsBookmarkIcon from "@material-ui/icons/CollectionsBookmark";
 import CollectionsBookmarkOutlinedIcon from "@material-ui/icons/CollectionsBookmarkOutlined";
-import NotificationsNoneOutlinedIcon from '@material-ui/icons/NotificationsNoneOutlined';
+import NotificationsNoneOutlinedIcon from "@material-ui/icons/NotificationsNoneOutlined";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -112,10 +112,10 @@ const Header = () => {
                     setMenuOpen(false);
                   }}
                 >
-                  나의 책장
+                  책장
                 </MenuLi>
                 <MenuLi
-                  style={{marginBottom:"105px"}}
+                  style={{ marginBottom: "105px" }}
                   onClick={() => {
                     history.push("/community");
                     dispatch(setComponent(""));
@@ -155,7 +155,13 @@ const Header = () => {
               >
                 <MenuIcon />
               </MobileIcon>
-              <Logo onClick={()=>{history.push('/')}} >생각낙서</Logo>
+              <Logo
+                onClick={() => {
+                  history.push("/");
+                }}
+              >
+                생각낙서
+              </Logo>
               <div style={{ display: "flex" }}>
                 <MobileIcon style={{ marginRight: "10px" }}>
                   {/* {searchModal ? (
@@ -174,24 +180,24 @@ const Header = () => {
                       history.push("/search");
                     }}
                   />
-              </MobileIcon>
-              <MobileIcon>
-                {is_checked ? <AlarmBadge /> : null}
-                {notiModal ? (
-                  <Notification
-                    close={closeNotiModal}
-                    setCardModal={setCardModal}
+                </MobileIcon>
+                <MobileIcon>
+                  {is_checked ? <AlarmBadge /> : null}
+                  {notiModal ? (
+                    <Notification
+                      close={closeNotiModal}
+                      setCardModal={setCardModal}
+                    />
+                  ) : null}
+                  <NotificationsNoneOutlinedIcon
+                    style={{ cursor: "pointer" }}
+                    onClick={() => {
+                      // setNoti(true);
+                      // dispatch(notiActions.openAlarmIO(user.id));
+                      history.push("/noti");
+                    }}
                   />
-                ) : null}
-                <NotificationsNoneOutlinedIcon
-                style={{ cursor: "pointer" }}
-                onClick={() => {
-                  // setNoti(true);
-                  // dispatch(notiActions.openAlarmIO(user.id));
-                  history.push('/noti')
-                }}
-              />
-              </MobileIcon>
+                </MobileIcon>
               </div>
               <PageButton
                 onClick={() => {
@@ -215,7 +221,7 @@ const Header = () => {
                   history.push("/mybook");
                 }}
               >
-                나의 책장
+                책장
               </PageButton>
               <PageButton
                 onClick={() => {
@@ -326,7 +332,7 @@ const Header = () => {
                   setMenuOpen(false);
                 }}
               >
-                나의 책장
+                책장
               </MenuLi>
               <MenuLi
                 onClick={() => {
@@ -334,7 +340,7 @@ const Header = () => {
                   dispatch(setComponent(""));
                   setMenuOpen(false);
                 }}
-                style={{marginBottom:"105px"}}
+                style={{ marginBottom: "105px" }}
               >
                 커뮤니티
               </MenuLi>
@@ -368,27 +374,33 @@ const Header = () => {
             >
               <MenuIcon />
             </MobileIcon>
-            <Logo onClick={()=>{history.push('/')}} >생각낙서</Logo>
+            <Logo
+              onClick={() => {
+                history.push("/");
+              }}
+            >
+              생각낙서
+            </Logo>
             <div style={{ display: "flex" }}>
-                <MobileIcon style={{ marginLeft: "35px" }}>
-                  {/* {searchModal ? (
+              <MobileIcon style={{ marginLeft: "35px" }}>
+                {/* {searchModal ? (
                   <Search
                     recent_list={recent_list}
                     setLoading={setLoading}
                     loading={loading}
                   />
                 ) : null} */}
-                  <SearchIcon
-                    style={{ cursor: "pointer" }}
-                    onClick={() => {
-                      // recentUser();
-                      // // dispatch(userActions.getRecentUserAX())
-                      // dispatch(setSearch(true));
-                      history.push("/search");
-                    }}
-                  />
+                <SearchIcon
+                  style={{ cursor: "pointer" }}
+                  onClick={() => {
+                    // recentUser();
+                    // // dispatch(userActions.getRecentUserAX())
+                    // dispatch(setSearch(true));
+                    history.push("/search");
+                  }}
+                />
               </MobileIcon>
-              </div>
+            </div>
             <PageButton
               onClick={() => {
                 history.push("/");
@@ -411,7 +423,7 @@ const Header = () => {
                 history.push("/mybook");
               }}
             >
-              나의 책장
+              책장
             </PageButton>
             <PageButton
               onClick={() => {
@@ -600,7 +612,7 @@ const Logo = styled.div`
   font-size: 18px;
   font-weight: 800;
   transition: 0.5s;
-  cursor:pointer;
+  cursor: pointer;
   @media (max-width: 900px) {
     margin-right: 80px;
   }
