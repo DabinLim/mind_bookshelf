@@ -13,10 +13,14 @@ import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
+import { CardModal } from "../Community/communityindex";
+import { api as commentActions } from "../../redux/modules/comment";
+import { api as communityActions } from "../../redux/modules/community";
 
 const OthersAnswers = (props) => {
   const dispatch = useDispatch();
   const [modalVisible, setModalVisible] = React.useState(false);
+  const [cardModal, setCardModal] = React.useState(false);
   const answer_list = useSelector((state) => state.custom.custom_question);
   const pop_list = useSelector((state) => state.custom.pop_list);
   const user_info = useSelector((state) => state.user.other);
@@ -30,7 +34,17 @@ const OthersAnswers = (props) => {
   const [openFilter, setOpenFilter] = React.useState(false);
   const url = window.location.href.split("/");
   const id = url[url.length - 1];
-  console.log(answer_list);
+
+  const openCard = (a) => {
+    const type = "community";
+    setCardModal(true);
+    dispatch(communityActions.getCardDetail(a.answerId, type));
+    dispatch(commentActions.getCommentAX(a.answerId));
+  };
+
+  const closeCardModal = () => {
+    setCardModal(false);
+  };
   React.useEffect(() => {
     dispatch(customActions.getOthersAnswers(id));
     dispatch(customActions.getOthersPopAnswers(id));
@@ -44,6 +58,7 @@ const OthersAnswers = (props) => {
     <React.Fragment>
       <Container>
         <Background />
+        {cardModal && <CardModal close={closeCardModal}/>}
         <TitleContainerMobile>
           <ArrowForwardIosIcon
             onClick={() => {
@@ -254,7 +269,7 @@ const OthersAnswers = (props) => {
                         </div>
                       </Head>
                       <QuestionContents>{v.questionContents}</QuestionContents>
-                      <AnswerContents>{v.answerContents}</AnswerContents>
+                      <AnswerContents onClick={()=>{openCard(v)}}>{v.answerContents}</AnswerContents>
                       <Footer>
                         <IconBox>
                           <LikeBox>
@@ -393,7 +408,7 @@ const OthersAnswers = (props) => {
                         </div>
                       </Head>
                       <QuestionContents>{v.questionContents}</QuestionContents>
-                      <AnswerContents>{v.answerContents}</AnswerContents>
+                      <AnswerContents onClick={()=>{openCard(v)}}>{v.answerContents}</AnswerContents>
                       <Footer>
                         <IconBox>
                           <LikeBox>
@@ -647,6 +662,10 @@ const AnswerContents = styled.span`
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+  cursor:pointer;
+  &:hover{
+    font-weight:600;
+  }
   @media (max-width: 750px) {
     height: 60px;
     margin-top: 6px;

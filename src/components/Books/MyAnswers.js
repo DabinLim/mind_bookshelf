@@ -13,10 +13,14 @@ import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
+import { CardModal } from "../Community/communityindex";
+import { api as commentActions } from "../../redux/modules/comment";
+import { api as communityActions } from "../../redux/modules/community";
 
 const MyAnswers = (props) => {
   const dispatch = useDispatch();
   const [modalVisible, setModalVisible] = React.useState(false);
+  const [cardModal, setCardModal] = React.useState(false);
   const answer_list = useSelector((state) => state.custom.custom_question);
   const pop_list = useSelector((state) => state.custom.pop_list);
   const user_info = useSelector((state) => state.user.user);
@@ -29,7 +33,17 @@ const MyAnswers = (props) => {
   const pop_container = React.useRef();
   const [openFilter, setOpenFilter] = React.useState(false);
 
-  console.log(answer_list);
+  const openCard = (a) => {
+    const type = "community";
+    setCardModal(true);
+    dispatch(communityActions.getCardDetail(a.answerId, type));
+    dispatch(commentActions.getCommentAX(a.answerId));
+  };
+
+  const closeCardModal = () => {
+    setCardModal(false);
+  };
+
   React.useEffect(() => {
     dispatch(customActions.getMyAnswers());
     dispatch(customActions.getMyPopAnswers());
@@ -43,6 +57,7 @@ const MyAnswers = (props) => {
     <React.Fragment>
       <Container>
         <Background />
+        {cardModal && <CardModal close={closeCardModal}/>}
         <TitleContainerMobile>
           <ArrowForwardIosIcon
             onClick={() => {
@@ -253,7 +268,7 @@ const MyAnswers = (props) => {
                         </div>
                       </Head>
                       <QuestionContents>{v.questionContents}</QuestionContents>
-                      <AnswerContents>{v.answerContents}</AnswerContents>
+                      <AnswerContents onClick={()=>{openCard(v)}}>{v.answerContents}</AnswerContents>
                       <Footer>
                         <IconBox>
                           <LikeBox>
@@ -261,18 +276,19 @@ const MyAnswers = (props) => {
                               <>
                                 <FavoriteIcon
                                   fontSize="small"
-                                  style={{ color: "red" }}
+                                  fontWeight='200'
+                                  style={{ color: "#061366" }}
                                 />{" "}
                               </>
                             ) : (
                               <>
-                                <FavoriteBorderIcon fontSize="small" />{" "}
+                                <FavoriteBorderIcon fontWeight='200' fontSize='small' style={{fontWeight:'200'}} />{" "}
                               </>
                             )}
                             <LikeCount>{v.likeCount}개</LikeCount>
                           </LikeBox>
                           <CommentBox>
-                            <ChatBubbleOutlineIcon fontSize="small" />
+                            <ChatBubbleOutlineIcon style={{fontWeight:'200'}} fontWeight='200' fontSize="small" />
                             <CommentCount>{v.commentCount}개</CommentCount>
                           </CommentBox>
                         </IconBox>
@@ -392,7 +408,7 @@ const MyAnswers = (props) => {
                         </div>
                       </Head>
                       <QuestionContents>{v.questionContents}</QuestionContents>
-                      <AnswerContents>{v.answerContents}</AnswerContents>
+                      <AnswerContents onClick={()=>{openCard(v)}}>{v.answerContents}</AnswerContents>
                       <Footer>
                         <IconBox>
                           <LikeBox>
@@ -643,6 +659,10 @@ const AnswerContents = styled.span`
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+  cursor:pointer;
+  &:hover{
+    font-weight:600;
+  }
   @media (max-width: 750px) {
     height: 60px;
     margin-top: 6px;

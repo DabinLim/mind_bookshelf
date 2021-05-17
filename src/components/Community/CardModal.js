@@ -491,7 +491,7 @@ const CardModal = (props) => {
                   }}
                 />
               </CardDate>
-              <LeftArrowBtn
+              {/* <LeftArrowBtn
                 disabled={card_loading}
                 onClick={() => {
                   setUpdateAnswer(false);
@@ -518,7 +518,7 @@ const CardModal = (props) => {
                     fontWeight: "400",
                   }}
                 />
-              </RightArrowBtn>
+              </RightArrowBtn> */}
             </>
           )}
         </ModalComponent>
@@ -649,7 +649,7 @@ const CardModal = (props) => {
                   }}
                 />
               </CardDate>
-              <LeftArrowBtn
+              {/* <LeftArrowBtn
                 disabled={card_loading}
                 onClick={() => {
                   setUpdateAnswer(false);
@@ -676,7 +676,7 @@ const CardModal = (props) => {
                     fontWeight: "400",
                   }}
                 />
-              </RightArrowBtn>
+              </RightArrowBtn> */}
             </>
           )}
           <ModalContent type={answerInfo?.type}>
@@ -1271,7 +1271,7 @@ const SmallQuestionContent = styled.div`
 const CardAnswerContent = styled.div`
   margin: 20px 40px 0;
   padding: 10px 0 10px 0;
-  height: 210px;
+  max-height: 210px;
   overflow-y: scroll;
   ::-webkit-scrollbar {
     display: none;
