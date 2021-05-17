@@ -7,30 +7,30 @@ const LoginModal = (props) => {
     <React.Fragment>
       <Background onClick={props.close} />
       <LoginBox>
-        <Header>Login</Header>
+        <Header>로그인</Header>
         <ButtonContainer>
           <Button
-            style={{ background: "#FFFFFF", borderBottom: "1px solid #e9ecef" }}
+            style={{ background: "#FFFFFF", marginTop: "0" }}
             href="http://lkj99.shop/auth/google"
           >
             <ButtonIcon src="https://www.freedomforuminstitute.org/wp-content/uploads/2016/10/google-icon.png" />
             <ButtonText>구글로 로그인</ButtonText>
           </Button>
           <Button
-            style={{ background: "#FAE100" }}
+            style={{ background: "#FFFFFF" }}
+            href="http://lkj99.shop/auth/naver"
+          >
+            <ButtonIcon src="https://m.animalplanet.co.kr/assets/image/icon/icon_main_naver.png" />
+            <ButtonText>
+              네이버로 로그인
+            </ButtonText>
+          </Button>
+          <Button
+            style={{ background: "#FAE100", border:"none" }}
             href="http://lkj99.shop/auth/kakao"
           >
             <ButtonIcon src="https://blog.kakaocdn.net/dn/RvGHm/btq0c3b6Thg/7CI0zUHJcapuNgqLP1K5xK/img.png" />
             <ButtonText>카카오로 로그인</ButtonText>
-          </Button>
-          <Button
-            style={{ background: "#00C300" }}
-            href="http://lkj99.shop/auth/naver"
-          >
-            <ButtonIcon src="https://blog.kakaocdn.net/dn/czMTX6/btqNbvGUwIu/xxqSeZd4eRMvTHqbfIZUd0/img.png" />
-            <ButtonText style={{ color: "white", fontWeight: "400" }}>
-              네이버로 로그인
-            </ButtonText>
           </Button>
         </ButtonContainer>
       </LoginBox>
@@ -56,61 +56,69 @@ const LoginBox = styled.div`
   width: 500px;
   height: 400px;
   transform: translate(-50%, -50%);
-  background-color: #fafafa;
+  background-color: #FFFFFF;
   z-index: 30;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
   @media (max-width: 500px) {
-    height: 200px;
-    width: 90%;
+    height: 256px;
+    width: 280px;
   } ;
 `;
 
 const Header = styled.div`
   font-weight: 600;
   font-size: 20px;
-  margin-top: 30px;
+  color: #121212;
+  margin-top: 22px;
+  margin-bottom: 22px;
+  @media (max-width: 500px) {
+    font: normal normal bold 14px/20px Noto Sans KR;
+  } ;
 `;
 
 const ButtonContainer = styled.div`
   display: flex;
   flex-direction: column;
-  margin-bottom: 30px;
+  margin-bottom: 33px;
   @media (max-width: 500px) {
-    flex-direction: row;
+
   } ;
 `;
 
 const Button = styled.a`
   height: 50px;
+  width: 300px;
   padding: 8px 0;
   margin-top: 8px;
   display: flex;
   align-items: center;
   cursor: pointer;
-  border-radius: 5px;
   text-decoration: none;
   color: black;
+  border: 0.699999988079071px solid #D3D3D3;
   @media (max-width: 500px) {
-    margin-right: 8px;
-    margin-left: 8px;
+    width: 200px;
+    height: 46px;
   } ;
 `;
 const ButtonIcon = styled.img`
   width: 50px;
   height: auto;
   padding: 0px 10px;
+  @media (max-width: 500px) {
+    
+  } ;
 `;
 const ButtonText = styled.div`
   text-align: center;
-  width: 300px;
   margin: auto;
   font-size: 20px;
   font-weight: 600;
   @media (max-width: 500px) {
-    display: none;
+    font-size: 15px;
   } ;
 `;
 

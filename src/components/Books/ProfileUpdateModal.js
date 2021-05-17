@@ -224,7 +224,7 @@ const ProfileUpdateModal = (props) => {
       <UpdateBox>
         <ProfileUpdateHeader>
           {user_info.first? 
-          <ProfileCancelButton style={{color:"#FAFAFA", cursor:"context-menu"}} >취소</ProfileCancelButton>
+          <ProfileCancelButton style={{color:"#FFFFFF", cursor:"context-menu"}} >취소</ProfileCancelButton>
           :
           <ProfileCancelButton onClick={props.close} >취소</ProfileCancelButton>
           }
@@ -311,8 +311,9 @@ const ProfileUpdateModal = (props) => {
                 <CheckedLabel
                   onClick={checkedFriendship}
                   style={{
-                    background: "#B5BDFF",
-                    boxShadow: "0px 0px 15px #C3C9FE",
+                    background: "#F4F4F4", 
+                    color: "#E0692D",
+                    border: "2px solid #E0692D",
                     marginRight:"13px",
                   }}
                 >
@@ -332,8 +333,9 @@ const ProfileUpdateModal = (props) => {
                 <CheckedLabel
                   onClick={checkedLove}
                   style={{
-                    background: "#B5BDFF",
-                    boxShadow: "0px 0px 15px #C3C9FE",
+                    background: "#F4F4F4", 
+                    color: "#D34242",
+                    border: "2px solid #D34242",
                     marginRight:"13px",
                   }}
                 >
@@ -351,8 +353,9 @@ const ProfileUpdateModal = (props) => {
                 <CheckedLabel
                   onClick={checkedDream}
                   style={{
-                    background: "#B5BDFF",
-                    boxShadow: "0px 0px 15px #C3C9FE",
+                    background: "#F4F4F4", 
+                    color: "#E6BA28",
+                    border: "2px solid #E6BA28",
                   }}
                 >
                   #꿈
@@ -371,8 +374,9 @@ const ProfileUpdateModal = (props) => {
                 <CheckedLabel
                   onClick={checkedWorth}
                   style={{
-                    background: "#B5BDFF",
-                    boxShadow: "0px 0px 15px #C3C9FE",
+                    background: "#F4F4F4", 
+                    color: "#7249B4",
+                    border: "2px solid #7249B4",
                     marginRight:"13px"
                   }}
                 >
@@ -390,8 +394,9 @@ const ProfileUpdateModal = (props) => {
                 <CheckedLabel
                   onClick={checkedRelationship}
                   style={{
-                    background: "#B5BDFF",
-                    boxShadow: "0px 0px 15px #C3C9FE",
+                    background: "#F4F4F4", 
+                    color: "#2761CC",
+                    border: "2px solid #2761CC",
                     marginRight:"13px"
                   }}
                 >
@@ -409,8 +414,9 @@ const ProfileUpdateModal = (props) => {
                 <CheckedLabel
                   onClick={checkedMyself}
                   style={{
-                    background: "#B5BDFF",
-                    boxShadow: "0px 0px 15px #C3C9FE",
+                    background: "#F4F4F4", 
+                    color: "#458857",
+                    border: "2px solid #458857",
                   }}
                 >
                   #나
@@ -467,7 +473,7 @@ const UpdateBox = styled.div`
   hight: auto;
   margin: 20px 0 ;
   transform: translate(-50%, -50%);
-  background-color: #fafafa;
+  background-color: #FFFFFF;
   z-index: 100;
   border-radius: 20px;
   display: flex;
@@ -696,13 +702,12 @@ const TypeContainer = styled.div`
 
 const CheckedLabel = styled.div`
   display: inline-block;
-  // margin-right: 8px;
-  // margin-left: 8px;
   cursor: pointer;
   width: 72px;
   padding: 6px 0;
   text-align: center;
   border-radius: 20px;
+  box-sizing: border-box;
 `;
 const UpdateButton = styled.div`
   font-size: 15px;

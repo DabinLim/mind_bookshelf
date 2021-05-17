@@ -820,7 +820,8 @@ const Shelf = styled.div`
   width: 100%;
   max-width: 1040px;
   height: 34px;
-  background-color: #ffffff;
+  background: #FFFFFF 0% 0% no-repeat padding-box;
+  box-shadow: 0px 0px 10px #0000001A;
 `;
 
 const BookRow = styled.div`
@@ -846,6 +847,7 @@ const BookRow = styled.div`
     margin: 10px 0px -15px 0px;
     max-width: 300px;
     height: 150px;
+    
     /* overflow:hidden; */
     justify-content: flex-start;
   }
