@@ -42,34 +42,19 @@ const Header = () => {
   let main = "";
   let bookshelf = "";
   let community = "";
-  let mainM = "";
-  let bookshelfM = "";
-  let communityM = "";
 
   if (pathname === "/") {
     main = "main";
     bookshelf = "";
     community = "";
-
-    mainM = "mainM";
-    bookshelfM = "";
-    communityM = "";
   } else if (pathname === "/mybook" || pathname.includes("others")) {
     main = "";
     bookshelf = "bookshelf";
     community = "";
-
-    mainM = "";
-    bookshelfM = "bookshelfM";
-    communityM = "";
   } else {
     main = "";
     bookshelf = "";
     community = "community";
-
-    mainM = "";
-    bookshelfM = "";
-    communityM = "communityM";
   }
 
   const closeNotiModal = () => {
@@ -129,11 +114,9 @@ const Header = () => {
                     history.push("/");
                     setMenuOpen(false);
                   }}
-                  className={mainM}
                 >
                   오늘의 낙서
-                  <br />
-                  <span
+                  <p
                     style={{
                       textAlign: "left",
                       fontSize: "11px",
@@ -141,7 +124,7 @@ const Header = () => {
                     }}
                   >
                     오늘 받은 질문 확인, 답변
-                  </span>
+                  </p>
                 </MenuLi>
                 <MenuLi
                   onClick={() => {
@@ -157,11 +140,9 @@ const Header = () => {
                     history.push("/mybook");
                     setMenuOpen(false);
                   }}
-                  className={bookshelfM}
                 >
                   책장
-                  <br />
-                  <span
+                  <p
                     style={{
                       textAlign: "left",
                       fontSize: "11px",
@@ -169,7 +150,7 @@ const Header = () => {
                     }}
                   >
                     나의 모든 질문과 답변 한눈에 확인
-                  </span>
+                  </p>
                 </MenuLi>
                 <MenuLi
                   style={{ marginBottom: "105px" }}
@@ -178,7 +159,6 @@ const Header = () => {
                     dispatch(setComponent(""));
                     setMenuOpen(false);
                   }}
-                  className={communityM}
                 >
                   커뮤니티
                 </MenuLi>
@@ -375,10 +355,9 @@ const Header = () => {
                   history.push("/");
                   setMenuOpen(false);
                 }}
-                className={mainM}
               >
-                오늘의 낙서 <br />
-                <span
+                오늘의 낙서
+                <p
                   style={{
                     textAlign: "left",
                     fontSize: "11px",
@@ -386,7 +365,7 @@ const Header = () => {
                   }}
                 >
                   오늘 받은 질문 확인, 답변
-                </span>
+                </p>
               </MenuLi>
               <MenuLi
                 onClick={() => {
@@ -402,11 +381,9 @@ const Header = () => {
                   history.push("/mybook");
                   setMenuOpen(false);
                 }}
-                className={bookshelfM}
               >
                 책장
-                <br />
-                <span
+                <p
                   style={{
                     textAlign: "left",
                     fontSize: "11px",
@@ -414,7 +391,7 @@ const Header = () => {
                   }}
                 >
                   나의 모든 질문과 답변 한눈에 확인
-                </span>
+                </p>
               </MenuLi>
               <MenuLi
                 onClick={() => {
@@ -423,7 +400,6 @@ const Header = () => {
                   setMenuOpen(false);
                 }}
                 style={{ marginBottom: "105px" }}
-                className={communityM}
               >
                 커뮤니티
               </MenuLi>
@@ -669,7 +645,7 @@ const MenuUl = styled.ul`
 
 const MenuLi = styled.li`
   list-style: none;
-  margin-bottom: 24px;
+  margin-bottom: 22px;
   cursor: pointer;
   font: normal normal bold 20px/29px Noto Sans KR;
   padding-left: 16px;
