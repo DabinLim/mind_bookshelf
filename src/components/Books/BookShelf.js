@@ -117,7 +117,7 @@ const BookShelf = (props) => {
     return () => {
       resetBooks();
     }
-  }, []);
+  }, [id]);
 
   return (
     <React.Fragment>
