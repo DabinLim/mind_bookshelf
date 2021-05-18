@@ -159,6 +159,7 @@ const CommentInput = (pros) => {
 
     return(
         <React.Fragment>
+            <Container>
             <SmallInputBox>
                 <ModalCmtInput
                   type="text"
@@ -208,17 +209,33 @@ const CommentInput = (pros) => {
               />
             ) : null}
               </SmallInputBox>
-              
+              </Container>
         </React.Fragment>
     )
 }
+
+const Container = styled.div`
+  width: 100%;
+  height:78px;
+  position:fixed;
+  bottom:0;
+  left:0;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background-color:#ffffff;
+  border: 0.5px solid #D3D3D3;
+  border-radius:0px 0px 16px 16px;
+  box-sizing:border-box;
+  padding:18px 25px;
+`;
 
 const SmallInputBox = styled.div`
   border-radius: 45px;
   background: #F5F5F5;
   display: flex;
   width: 100%;
-  padding: 8px 12px;
+  padding: 10px 22px;
   justify-content: space-between;
 `;
 
@@ -232,7 +249,7 @@ const ModalCmtInput = styled.input`
 const ModalUpload = styled.div`
   margin: 0px;
   font-size: 14px;
-  color: #3897f0;
+  color: #3C3C3C;
   font-weight: 600;
 `;
 

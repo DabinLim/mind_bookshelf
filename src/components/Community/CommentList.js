@@ -11,7 +11,7 @@ const CommentList = (props) => {
       {comment_list?.map((c, idx) => {
         return (
           <>
-            <Comment key={idx} {...c} />
+            <Comment mobile={props.mobile} key={idx} {...c} />
           </>
         );
       })}
@@ -22,7 +22,7 @@ const CommentList = (props) => {
 const CommentContainer = styled.div`
   display: flex;
   flex-direction: column;
-  height: 408px;
+  ${props => props.mobile ? `height:auto`:`height: 408px`};
   overflow-y: scroll;
   border-top-right-radius: 50px;
   ::-webkit-scrollbar {
