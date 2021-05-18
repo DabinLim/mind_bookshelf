@@ -76,6 +76,7 @@ const OthersAnswers = (props) => {
           <EmptyDiv />
         </TitleContainerMobile>
         <FilterBtnBoxMobile>
+        <AnswerCount>{user_info?.otherAnswerCount}개</AnswerCount>
           <FilterToggle>
             {now_view === "new" && <span>최신순</span>}
             {now_view === "pop" && <span>인기순</span>}
@@ -744,8 +745,8 @@ const FilterBtnBoxMobile = styled.div`
   position:relative;
   width: 100%;
   display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
+  flex-direction: row;
+  justify-content: space-between;
   align-items: flex-end;
   font-size: 12px;
   margin-right: 20px;
@@ -796,6 +797,15 @@ color: #121212;
 & > div:nth-child(2) {
   border-top: 1px solid #00000026;
 }
+`;
+
+
+const AnswerCount = styled.span`
+  font: normal normal medium 12px/18px Noto Sans KR;
+  font-weight:600;
+  letter-spacing: 0px;
+  color: #333333;
+  margin-left:2px;
 `;
 
 const FilterToggle = styled.div`
