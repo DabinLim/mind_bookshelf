@@ -8,7 +8,7 @@ const CardUpdateModal = (props) => {
 
   return(
     <React.Fragment>
-        <Background onClick={()=>{props.setUpdateModal(false)}} />
+        {/* <Background onClick={()=>{props.setUpdateModal(false)}} /> */}
         <UpdateComponent>
           <ModalButtonContainer>
               <ModalSubmitBtn onClick={() =>{
@@ -44,7 +44,6 @@ const Background = styled.div`
   width: 100%;
   background-color: black;
   z-index: 450;
-  border-radius: 50px;
   @media (max-width: 750px) {
     border-radius: 20px;
     }
@@ -57,13 +56,14 @@ const UpdateComponent = styled.div`
   right: 0px;
   width: 164px;
   height: 98px;
-  border-radius: 20px;
   background-color: white;
   z-index: 500;
-  box-shadow: 0px 0px 20px #0000001A;
-  @media (max-width: 750px) {
-  right: 0px;
-  width: 164px;
+  box-shadow: 0px 0px 20px #00000026;
+  @media (max-width: 500px) {
+  top: 110px;
+  right: 20px;
+  width: 120px;
+  height: 80px;
   }
 `
 
@@ -90,6 +90,10 @@ const ModalSubmitBtn = styled.button`
   border-radius: 4px;
   &:hover{
     font-weight: 600;
+  }
+  @media (max-width: 500px) {
+    font: normal normal medium 14px/20px Noto Sans CJK KR;
+    height: 40px;
   }
 `
 

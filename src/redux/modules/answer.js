@@ -126,7 +126,7 @@ const sendAnswerAX = (question_id, content, isChecked) => {
     if (userInfo?.nickname === "") {
       swal({
         title: "로그인 필수!",
-        text: "로그인 후 이용가능해요😊",
+        text: "로그인 후 이용가능해요",
         icon: "info",
       });
       return;
@@ -146,8 +146,8 @@ const sendAnswerAX = (question_id, content, isChecked) => {
         console.log(response.data);
         dispatch(setQuestion(response.data.cards));
         swal({
-          title: "답변 완료✌",
-          text: "답변이 등록되었어요 🤩",
+          title: "답변 완료",
+          text: "답변이 등록되었어요 ",
           icon: "success",
         });
       })
