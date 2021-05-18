@@ -16,6 +16,7 @@ import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 import { CardModal } from "../Community/communityindex";
 import { api as commentActions } from "../../redux/modules/comment";
 import { api as communityActions } from "../../redux/modules/community";
+import {history} from '../../redux/configStore';
 
 const OthersAnswers = (props) => {
   const dispatch = useDispatch();
@@ -36,6 +37,10 @@ const OthersAnswers = (props) => {
   const id = url[url.length - 1];
 
   const openCard = (a) => {
+    if(window.innerWidth <= 500){
+      history.push(`/carddetail/${a}`)
+      return
+    }
     const type = "community";
     setCardModal(true);
     dispatch(communityActions.getCardDetail(a.answerId, type));

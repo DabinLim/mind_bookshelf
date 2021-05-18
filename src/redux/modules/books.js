@@ -116,7 +116,7 @@ const getBooks = (towhen) => {
 
 
 
-const getBookDetail = (date, history) => {
+const getBookDetail = (date, history, type=null) => {
     return function(dispatch) { 
         console.log(date)
         const options = {
@@ -127,7 +127,9 @@ const getBookDetail = (date, history) => {
             console.log(response.data)
             dispatch(setBookDetail(response.data.booksDiary))
             dispatch(setBookLoading(false))
-            history.push(`/bookdetail/${date}/${response.data.booksDiary[0].answerId}`)
+            if(type){
+                history.push(`/bookdetail/${date}/${response.data.booksDiary[0].answerId}`)
+            }
         }).catch((err) => {
             console.log(err);
             if(err.response){
@@ -224,7 +226,7 @@ const getOthersBooks = (towhen, id) => {
     }
 }
 
-const getOthersBookDetail = (date,id,history) => {
+const getOthersBookDetail = (date,id,history,type=null) => {
     return function(dispatch) { 
 
         dispatch(setBookLoading(true));
@@ -236,7 +238,9 @@ const getOthersBookDetail = (date,id,history) => {
         axios(options).then((response) => {
             dispatch(setBookDetail(response.data.booksDiary));
             dispatch(setBookLoading(false));
-            history.push(`/othersdetail/${date}/${id}/${response.data.booksDiary[0].answerId}`)
+            if(type){
+                history.push(`/othersdetail/${date}/${id}/${response.data.booksDiary[0].answerId}`)
+            }
         }).catch((err) => {
             console.log(err);
             if(err.response){
@@ -258,6 +262,7 @@ const getNextOthersBookDetail = (date,id) => {
             method:'GET',
         };
         axios(options).then((response) => {
+            console.log(response.data)
             dispatch(setBookDetail(response.data.booksDiary));
         }).then(()=>{
             const book_detail = getState().books.book_detail
