@@ -120,25 +120,91 @@ const communityQuestionAX = () => {
   };
 };
 
-// const addLikeQnA = (answerId, questionId) => {
-//   if (!getCookie("is_login")) {
-//     swal({
-//       title: "좋아요 실패",
-//       text: "로그인이 필요한 기능이에요❕",
-//       icon: "info",
-//     });
-//     return;
-//   }
-//   return function (dispatch, getState) {
-//     const type = getState().community.card_detail.type;
-//     console.log(answerId, questionId);
-//     axios
-//       .post("/bookshelf/like/answerCard", { answerCardId: answerId })
-//       .then((res) => {
+const addLikeDetail = (answerId) => {
+  return function (dispatch, getState) {
+    console.log(answerId);
+    axios
+      .post("/bookshelf/like/answerCard", { answerCardId: answerId })
+      .then((res) => {
+        console.log(res)
+        dispatch(
+          editDetailLikeInfo({
+            answerId: answerId,
+            likeCount: res.data.likeCountNum,
+            like: res.data.currentLike,
+          })
+        );
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+}
 
-//       })
-//   }
-// }
+const deleteLikeDetail = (answerId) => {
+  return function (dispatch, getState) {
+    console.log(answerId);
+    axios
+      .patch("/bookshelf/like/answerCard", { answerCardId: answerId })
+      .then((res) => {
+        console.log(res)
+        dispatch(
+          editDetailLikeInfo({
+            answerId: answerId,
+            likeCount: res.data.likeCountNum,
+            like: res.data.currentLike,
+          })
+        );
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+}
+
+const addLikeQnA = (answerId, questionId) => {
+  return function (dispatch, getState) {
+    console.log(answerId, questionId);
+    axios
+      .post("/bookshelf/like/answerCard", { answerCardId: answerId })
+      .then((res) => {
+        console.log(res)
+        dispatch(
+          editLikeInfo({
+            likeCount: res.data.likeCountNum,
+            like: res.data.currentLike,
+            answerId: answerId,
+            questionId: questionId,
+          })
+        );
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+}
+
+const deleteLikeQnA = (answerId, questionId) => {
+  return function (dispatch, getState) {
+    console.log(answerId, questionId);
+    axios
+      .patch("/bookshelf/like/answerCard", { answerCardId: answerId })
+      .then((res) => {
+        console.log(res)
+        dispatch(
+          editLikeInfo({
+            likeCount: res.data.likeCountNum,
+            like: res.data.currentLike,
+            answerId: answerId,
+            questionId: questionId,
+          })
+        );
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+}
 
 const addLikeAX = (answerId, questionId) => {
   if (!getCookie("is_login")) {
@@ -362,6 +428,10 @@ export const api = {
   getCardDetail,
   deleteAnswerAX,
   editAnswerAX,
+  addLikeQnA,
+  deleteLikeQnA,
+  addLikeDetail,
+  deleteLikeDetail,
 };
 
 export default communitySlice.reducer;

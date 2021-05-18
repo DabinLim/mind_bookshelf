@@ -3,12 +3,16 @@ import styled from "styled-components";
 import { history } from "../../redux/configStore";
 import { CardModal } from "./communityindex";
 import { useSelector, useDispatch } from "react-redux";
+import swal from "sweetalert";
+import { api as communityActions } from "../../redux/modules/community";
 import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 
 const CommunityQnA = (props) => {
   const user = useSelector((state) => state.user.user);
+  const is_login = useSelector(state => state.user.is_login);
+  const dispatch = useDispatch();
 
   const getDate = (date) => {
     let year = "20" + date.substring(0, 2);
@@ -93,11 +97,43 @@ const CommunityQnA = (props) => {
                     <LikeBox>
                       {a.like ? (
                         <>
-                          <FavoriteIcon style={{ color: "#061366" }} />{" "}
+                          <FavoriteIcon style={{ color: "#061366" }} 
+                            onClick={()=>{
+                              if (!is_login) {
+                                swal({
+                                  title: "좋아요 누르기 실패",
+                                  text: "로그인 후 이용 가능한 서비스입니다.",
+                                  icon: "error",
+                                });
+                                return;
+                              }
+                              dispatch(
+                                communityActions.deleteLikeQnA(
+                                  a.answerId,
+                                  props.id,
+                                )
+                              );
+                            }}
+                          />{" "}
                         </>
                       ) : (
                         <>
-                          <FavoriteBorderIcon onClick={() => {}} />{" "}
+                          <FavoriteBorderIcon onClick={() => {
+                            if (!is_login) {
+                              swal({
+                                title: "좋아요 누르기 실패",
+                                text: "로그인 후 이용 가능한 서비스입니다.",
+                                icon: "error",
+                              });
+                              return;
+                            }
+                            dispatch(
+                              communityActions.addLikeQnA(
+                                a.answerId,
+                                props.id,
+                              )
+                            );
+                          }} />{" "}
                         </>
                       )}
                       <LikeCount>{a.likeCount}개</LikeCount>

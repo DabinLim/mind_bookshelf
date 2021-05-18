@@ -22,7 +22,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes"/>
     <meta name="mobile-web-app-capable" content="yes"/>
     <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
-    <link rel="shorcut icon" href="https://user-images.githubusercontent.com/67696504/118081206-d7929780-b3f5-11eb-96f8-28d9d51321d5.png" />
+    <link rel="shorcut icon" href="https://user-images.githubusercontent.com/67696504/118605678-7dc50f80-b7f1-11eb-91a4-37be6a4b7f61.png" />
     <link rel="apple-touch-icon" href="https://user-images.githubusercontent.com/67696504/118081206-d7929780-b3f5-11eb-96f8-28d9d51321d5.png" />
     <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width, user-scalable=no"/>
     
@@ -58,6 +58,15 @@
         }
       }
     </script> -->
+    <script type="text/javascript" language = "javascript">
+      // 모바일 웹 주소창 숨기기
+      window.addEventListener('load', function() {
+        // body의 height를 살짝 늘리는 코드
+        document.body.style.height = (document.documentElement.clientHeight + 5) + 'px';
+        // scroll를 제어 하는 코드
+        setTimeout(scrollTo, 0, 0, 1);
+      }, false);
+    </script>
     <script>
       let a = navigator.userAgent;
       let UA = navigator.userAgent.toLowerCase();
