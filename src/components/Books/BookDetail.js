@@ -326,9 +326,9 @@ const BookDetail = (props) => {
                       console.log(v)
                       if(v.answerId === answerInfo.answerId){
                         return(
-                          <div style={{display:'flex',flexDirection:'row',alignItems:'center'}}>
+                          <div style={{display:'flex',flexDirection:'row',alignItems:'flex-end'}}>
                             <Selected>{v.questionContents}</Selected>
-                            <span style={{font:'normal normal 300 10px/15px Noto Sans CJK KR',color:'#473674',marginLeft:'10px'}}>현재글</span>
+                            <span style={{font:'normal normal 300 10px/15px Noto Sans CJK KR',color:'#473674',marginLeft:'10px',marginBottom:'2px'}}>현재글</span>
                           </div>
                         )
                       } else{

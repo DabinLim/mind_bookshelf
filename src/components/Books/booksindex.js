@@ -10,5 +10,6 @@ import ProfileUpdateModal from './ProfileUpdateModal';
 import OthersAnswers from './OthersAnswers';
 import OthersQuestion from './OthersQuestion';
 import CardDetail from './CardDetail';
+import UnfollowConfirmModal from './UnfollowConfirmModal'
 
-export {CardDetail, BookShelf, FollowModal, MyAnswers, OthersAnswers, MyQuestion, OthersQuestion, NewQuestion, Profile, ProfileUpdateModal};
+export {UnfollowConfirmModal, CardDetail, BookShelf, FollowModal, MyAnswers, OthersAnswers, MyQuestion, OthersQuestion, NewQuestion, Profile, ProfileUpdateModal};

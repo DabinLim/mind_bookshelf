@@ -10,7 +10,7 @@ import {
 import {setComponent} from '../../redux/modules/books';
 import InfinityScroll from "../../shared/InfinityScroll";
 import {history} from '../../redux/configStore';
-import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
+import { LeftOutlined } from "@ant-design/icons";
 
 const MyQuestion = (props) => {
   const dispatch = useDispatch();
@@ -42,30 +42,30 @@ const MyQuestion = (props) => {
       <Container>
         <Background />
         <TitleContainerMobile>
-          <ArrowForwardIosIcon onClick={() => {dispatch(setComponent(''))}}style={{transform:'rotateZ(180deg)'}}/>
+          <LeftOutlined onClick={() => {dispatch(setComponent(''))}}style={{fontSize:'22px' , transform:'scaleX(0.8)'}}/>
           <TitleMobile>{user_info?.nickname}님의 질문</TitleMobile>
-          <AddBtnMobile onClick={()=>{setModalVisible(true)}}><span style={{fontSize:'24px'}}>+</span></AddBtnMobile>
+          <AddBtnMobile onClick={()=>{setModalVisible(true)}}><span style={{fontSize:'30px'}}>+</span></AddBtnMobile>
         </TitleContainerMobile>
         <FilterBtnBoxMobile>
                 <FilterToggle>
               {now_view === 'new' && <span>최신순</span>}
               {now_view === 'pop' && <span>인기순</span>}
-              {openFilter ? <ArrowForwardIosIcon
+              {openFilter ? <LeftOutlined
                   onClick={()=>{setOpenFilter(false)}}
                   style={{
                     cursor: "pointer",
                     color: "black",
                     fontSize: "12px",
-                    transform:'rotateZ(270deg)',
+                    transform:'rotateZ(90deg)',
                     marginLeft:'5px'
                   }}
-                /> : <ArrowForwardIosIcon
+                /> : <LeftOutlined
                 onClick={()=>{setOpenFilter(true)}}
                 style={{
                   cursor: "pointer",
                   color: "black",
                   fontSize: "12px",
-                  transform:'rotateZ(90deg)',
+                  transform:'rotateZ(270deg)',
                   marginLeft:'5px'
                 }}
               />}
@@ -87,7 +87,7 @@ const MyQuestion = (props) => {
           >
             {" "}
             <AddBtn>
-            <span style={{ fontSize: "24px" }}> + </span>
+            <span style={{ fontSize: "24px", fontWeight:'600'}}> + </span>
             <AddText> 질문 등록하기</AddText>
             <AddTextMobile>질문등록</AddTextMobile>
             </AddBtn>
@@ -374,9 +374,8 @@ const Container = styled.section`
   border-radius: 20px;
   overflow: hidden;
   @media (max-width: 750px) {
-    margin-top:30px;
-    margin-bottom:0px;
-    padding: 20px 25px 20px 25px;
+    margin: 0px auto;
+    padding: 23px 25px 20px 25px;
     max-height:100%;
   }
 `;
@@ -436,7 +435,7 @@ const TitleContainerMobile = styled.div`
 const TitleMobile = styled.span`
   width:auto;
   text-align:center;
-  font: normal normal bold 15px/22px Noto Sans KR;
+  font: normal normal bold 15px/22px Noto Sans CJK KR;
 `;
 
 const AddBtnMobile = styled.div`
@@ -526,12 +525,14 @@ const Card = styled.div`
   box-sizing: border-box;
   padding: 18px;
   @media (max-width: 750px) {
-    padding: 12px 12px 10px 12px;
+    padding: 12px 0px 10px 0px;
     box-shadow: 0px 0px 10px #0000001A;
     margin:0px 4px 10px 3px;
     max-width:155px;
+    min-height:118px;
     max-height:118px;
-    border-radius:16px
+    border-radius:0px;
+    
   }
 `;
 
@@ -594,16 +595,20 @@ const QuestionContents = styled.span`
     font-size:16px;
   }
   @media(max-width:750px){
+    padding:0px 12px;
+    height: 100px;
+    margin-bottom:13px;
     margin-top:0px;
-    font: normal normal bold 13px/19px Noto Sans KR;
+    font: normal normal bold 13px/19px Noto Sans CJK KR;
   }
 `;
 
 const CreatedAtBox = styled.div`
   box-sizing: border-box;
-  border-top: 1px solid #bbbbbb;
+  border-top: 0.5px solid #E2E2E2;
   padding-top: 13px;
   @media(max-width:750px){
+    padding:0px 12px;
     padding-top:5px;
   }
 `;
@@ -654,7 +659,7 @@ const FilterBtn = styled.button`
   max-width:80px;
   max-height: 17px;
   text-align: left;
-  font: normal normal normal 14px/19px Roboto;
+  font: normal normal normal 14px/19px Noto Sans CJK KR;
   border: none;
   outline: none;
   background: none;

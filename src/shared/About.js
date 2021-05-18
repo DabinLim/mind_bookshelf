@@ -14,9 +14,9 @@ const About = (props) => {
           사이트 소개
         </HeaderContainer> */}
         <ContentsContainer>
-          <div>
+          {/* <div>
             <ImageContainer src="https://user-images.githubusercontent.com/67696504/118116495-4e935480-b425-11eb-83ac-e1d08bf27ee8.png" />
-          </div>
+          </div> */}
           <div>
             <Content>
               나와 주변의 생각들을 <br />
@@ -85,7 +85,7 @@ const ModalComponent = styled.div`
     width: 85%;
   }
   @media (max-width: 450px) {
-    width: 95%;
+    width: 85%;
     // height: 400px;
   }
 `;
