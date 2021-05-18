@@ -263,6 +263,7 @@ const Container = styled.section`
     overflow-y:auto;
     border: 0.5px solid #D3D3D3;
     border-radius:16px;
+    background-color: white;
 `;
 
 const Head = styled.div`
@@ -302,6 +303,7 @@ const QuestionCreatedUser = styled.span`
 `;
 
 const Toggle = styled.div`
+    position: relative;
     width:30px;
     height:20px;
     display:flex;

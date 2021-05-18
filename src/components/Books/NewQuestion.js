@@ -179,18 +179,24 @@ const NewQuestion = (props) => {
       />
       <ModalInner>
         <Container>
+          <HeaderContainer>
+          <SubmitBtn style={{color:"#A8A8A8"}} onClick={()=>{
+            props.setModalVisible(false);
+          }} >취소</SubmitBtn>
           <Header>나의 질문</Header>
-          <div style={{ width: "300", marginLeft: "50px" }}>
-            <InputLabel>주제</InputLabel>
-          </div>
+          <SubmitBtn onClick={addQuestion} >완료</SubmitBtn>
+          </HeaderContainer>
+          <Line/>
           <TypeContainer>
-            <div style={{ marginBottom: "13px" }}>
+            <InputLabel>주제</InputLabel>
+            <TypeBox style={{marginBottom: "13px"}}>
               {_friendship ? (
                 <CheckedLabel
                   onClick={checkedFriendship}
                   style={{
-                    background: "#B5BDFF",
-                    boxShadow: "0px 0px 15px #C3C9FE",
+                    background: "#F4F4F4", 
+                    color: "#E0692D",
+                    border: "2px solid #E0692D",
                   }}
                 >
                   #우정
@@ -207,8 +213,9 @@ const NewQuestion = (props) => {
                 <CheckedLabel
                   onClick={checkedLove}
                   style={{
-                    background: "#B5BDFF",
-                    boxShadow: "0px 0px 15px #C3C9FE",
+                    background: "#F4F4F4", 
+                    color: "#D34242",
+                    border: "2px solid #D34242",
                   }}
                 >
                   #사랑
@@ -225,8 +232,9 @@ const NewQuestion = (props) => {
                 <CheckedLabel
                   onClick={checkedDream}
                   style={{
-                    background: "#B5BDFF",
-                    boxShadow: "0px 0px 15px #C3C9FE",
+                    background: "#F4F4F4", 
+                    color: "#E6BA28",
+                    border: "2px solid #E6BA28",
                   }}
                 >
                   #꿈
@@ -239,14 +247,15 @@ const NewQuestion = (props) => {
                   #꿈
                 </CheckedLabel>
               )}
-            </div>
-            <div>
+            </TypeBox>
+            <TypeBox>
               {_worth ? (
                 <CheckedLabel
                   onClick={checkedWorth}
                   style={{
-                    background: "#B5BDFF",
-                    boxShadow: "0px 0px 15px #C3C9FE",
+                    background: "#F4F4F4", 
+                    color: "#7249B4",
+                    border: "2px solid #7249B4",
                   }}
                 >
                   #가치
@@ -263,8 +272,9 @@ const NewQuestion = (props) => {
                 <CheckedLabel
                   onClick={checkedRelationship}
                   style={{
-                    background: "#B5BDFF",
-                    boxShadow: "0px 0px 15px #C3C9FE",
+                    background: "#F4F4F4", 
+                    color: "#2761CC",
+                    border: "2px solid #2761CC",
                   }}
                 >
                   #관계
@@ -281,8 +291,9 @@ const NewQuestion = (props) => {
                 <CheckedLabel
                   onClick={checkedMyself}
                   style={{
-                    background: "#B5BDFF",
-                    boxShadow: "0px 0px 15px #C3C9FE",
+                    background: "#F4F4F4", 
+                    color: "#458857",
+                    border: "2px solid #458857",
                   }}
                 >
                   #나
@@ -295,8 +306,9 @@ const NewQuestion = (props) => {
                   #나
                 </CheckedLabel>
               )}
-            </div>
+            </TypeBox>
           </TypeContainer>
+          <Line/>
           <InputContainer>
             <InputLabel>질문</InputLabel>
             <div style={{ position: "relative" }}>
@@ -310,7 +322,6 @@ const NewQuestion = (props) => {
               <CountQuestion>{question.length}/50</CountQuestion>
             </div>
           </InputContainer>
-          <SubmitBtn onClick={addQuestion}>등록</SubmitBtn>
         </Container>
       </ModalInner>
     </React.Fragment>
@@ -333,16 +344,14 @@ const ModalInner = styled.div`
   box-sizing: border-box;
   box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.5);
   background-color: #fff;
-  border-radius: 10px;
-  width: 400px;
   height: auto;
-  max-width: 480px;
+  width: 480px;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
   z-index: 100;
   @media (max-width: 420px) {
-    width: 95%;
+    width: 290px;
   } ;
 `;
 
@@ -352,28 +361,41 @@ const Container = styled.div`
   flex-direction: column;
 `;
 
+const HeaderContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding:0 24px;
+  height: 48px;
+`
+
 const Header = styled.div`
   margin: auto;
-  margin-top: 30px;
-  margin-bottom: 20px;
-  font-weight: 600;
-  font-size: 20px;
+  font: normal normal bold 14px/20px Noto Sans CJK KR;
 `;
 
 const TypeContainer = styled.div`
-  width: 350px;
+  width: 242px;
   margin: auto;
-  padding: 10px 0 20px 0;
+  padding: 20px 0 20px 0;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  border-bottom: 0.3px solid #e0e0e0;
 `;
+
+const TypeBox = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+`
+const Line = styled.div`
+  width: 100%;
+  border-bottom: 0.5px solid #D3D4D3;
+
+`
 
 const CheckedLabel = styled.div`
   display: inline-block;
-  margin-right: 14px;
-  margin-left: 14px;
+  font: normal normal bold 12px/18px Noto Sans CJK KR;
   cursor: pointer;
   width: 72px;
   padding: 6px 0;
@@ -382,15 +404,15 @@ const CheckedLabel = styled.div`
 `;
 
 const InputContainer = styled.div`
-  width: 300px;
+  width: 242px;
   margin: auto;
   margin-top: 20px;
   margin-bottom: 20px;
 `;
 
-const InputLabel = styled.label`
-  font-weight: 600;
-  font-size: 17px;
+const InputLabel = styled.div`
+  font: normal normal bold 14px/20px Noto Sans CJK KR;
+  margin-bottom: 9px;
 `;
 
 const Textarea = styled.textarea`
@@ -416,21 +438,8 @@ const CountQuestion = styled.div`
 `;
 
 const SubmitBtn = styled.div`
-  font-size: 15px;
   cursor: pointer;
-  text-align: center;
-  border: 1px solid #707070;
-  border-radius: 45px;
-  padding: 5px 0;
-  width: 73px;
-  margin: auto;
-  &:hover {
-    border: 1px solid #303685;
-    background: #303685;
-    color: white;
-    font-weight: 600;
-  }
-  margin-bottom: 30px;
+  font: normal normal normal 14px/20px Noto Sans CJK KR;
 `;
 
 export default NewQuestion;

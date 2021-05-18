@@ -737,6 +737,7 @@ const Subject1 = styled.div`
   @media (max-width: 750px) {
     width: 58px;
     height: 25px;
+    font: normal normal bold 11px/17px Noto Sans CJK KR;
   };
 `;
 

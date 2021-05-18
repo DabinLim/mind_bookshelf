@@ -97,7 +97,7 @@ const CommunityQnA = (props) => {
                     <LikeBox>
                       {a.like ? (
                         <>
-                          <FavoriteIcon style={{ color: "#061366" }} 
+                          <FavoriteIcon style={{ color: "#061366", fontSize: "16px" }} 
                             onClick={()=>{
                               if (!is_login) {
                                 swal({
@@ -118,7 +118,7 @@ const CommunityQnA = (props) => {
                         </>
                       ) : (
                         <>
-                          <FavoriteBorderIcon onClick={() => {
+                          <FavoriteBorderIcon style={{fontSize:"16px"}} onClick={() => {
                             if (!is_login) {
                               swal({
                                 title: "좋아요 누르기 실패",
@@ -136,15 +136,15 @@ const CommunityQnA = (props) => {
                           }} />{" "}
                         </>
                       )}
-                      <LikeCount>{a.likeCount}개</LikeCount>
+                      <LikeCount>{a.likeCount}</LikeCount>
                     </LikeBox>
                     <CommentBox
                       onClick={() => {
                         props.openCard(a);
                       }}
                     >
-                      <ChatBubbleOutlineIcon />
-                      <CommentCount>{a.commentCount}개</CommentCount>
+                      <ChatBubbleOutlineIcon style={{fontSize:"16px"}} />
+                      <CommentCount>{a.commentCount}</CommentCount>
                     </CommentBox>
                   </IconBox>
                   <DateYMD>{getDate(a.answerCreated)}</DateYMD>
@@ -278,7 +278,7 @@ const AnswerLikes = styled.div`
   align-items: center;
   justify-content: space-between;
   @media (max-width: 500px) {
-    min-height: 40px;
+    min-height: 37px;
   }
 `;
 
@@ -289,6 +289,20 @@ const IconBox = styled.div`
     margin-right: 5px;
   }
 `;
+
+const LikeIcon = styled.img`
+  width:13px;
+  height: 12px;
+
+
+`
+
+const CommentIcon = styled.img`
+  width:13px;
+  height: 12px;
+
+
+`
 
 const LikeBox = styled.div`
   display: flex;

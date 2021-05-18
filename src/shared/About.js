@@ -79,7 +79,6 @@ const ModalComponent = styled.div`
   background-color: white;
   z-index: 160;
   width: 550px;
-  border-radius: 15px;
   opacity: 1;
   @media (max-width: 600px) {
     width: 85%;

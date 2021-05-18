@@ -50,7 +50,7 @@ const AnswerCard2 = (props) => {
             <LikeBox>
               {props.like ? (
                 <>
-                  <FavoriteIcon style={{ color: "red" }} fontSize='small'
+                  <FavoriteIcon style={{ color: "#061366", fontSize:"16px" }} fontSize='small'
                     onClick={()=>{
                       if (!is_login) {
                         swal({
@@ -67,11 +67,11 @@ const AnswerCard2 = (props) => {
                       );
                     }}
                   />
-                  <LikeCount>{props.answerLikes}개</LikeCount>
+                  <LikeCount>{props.answerLikes}</LikeCount>
                 </>
               ) : (
                 <>
-                  <FavoriteBorderIcon fontSize='small'
+                  <FavoriteBorderIcon style={{fontSize:"16px"}}
                     onClick={()=>{
                       if (!is_login) {
                         swal({
@@ -88,13 +88,13 @@ const AnswerCard2 = (props) => {
                       );
                     }}
                   />
-                  <LikeCount>{props.answerLikes}개</LikeCount>
+                  <LikeCount>{props.answerLikes}</LikeCount>
                 </>
               )}
             </LikeBox>
             <CommentBox>
-              <ChatBubbleOutlineIcon fontSize='small'/>
-              <CommentCount>{props.commentCount}개</CommentCount>
+              <ChatBubbleOutlineIcon style={{fontSize:"16px"}}/>
+              <CommentCount>{props.commentCount}</CommentCount>
             </CommentBox>
           </IconBox>
           <DateYMD>{getDate(props.createdAt?.split("T")[0])}</DateYMD>
