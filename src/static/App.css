@@ -82,3 +82,7 @@ body {
 h3 {
   font-family: "Noto Sans KR", sans-serif;
 }
+
+br {
+  display: block;
+}
