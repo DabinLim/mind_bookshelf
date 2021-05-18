@@ -10,6 +10,9 @@ import {
   } from "../../redux/modules/books";
 import CommentList from '../Community/CommentList';
 import CommentInput from '../Community/CommentInput';
+import CardUpdateModal from '../Community/CardUpdateModal';
+import CancelConfirm from '../Community/CancelConfirm';
+import CustomSwitch from '../../shared/CustomSwitch';
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import { LeftOutlined } from "@ant-design/icons";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
@@ -25,14 +28,34 @@ const BookDetail = (props) => {
     const url = window.location.href.split('/');
     const id = url[url.length -1];
     const is_my = url[url.length -3];
+    const user_info = useSelector((state) => state.user.user);
     const comment_list = useSelector(state => state.comment.list);
     const answerInfo = useSelector(state => state.community.card_detail);
     const is_login = useSelector(state => state.user.is_login);
-    const [updateAnswer, setUpdateAnswer] = React.useState(false);
     const thisMonthBooks = useSelector((state) => state.books.books);
     const nowdate = useSelector((state) => state.books.date);
     const card_loading = useSelector((state) => state.community.card_loading);
     const book_detail = useSelector((state) => state.books.book_detail);
+    const [updateAnswer, setUpdateAnswer] = React.useState(false);
+    const [updateModal, setUpdateModal] = React.useState(false);
+    const [cancelModal, setCancelModal] = React.useState(false);
+    const [answer, setAnswer] = React.useState();
+    const [isOpen, setOpen] = React.useState(true);
+
+    function clickOpen() {
+        if (isOpen) {
+          setOpen(false);
+          return;
+        }
+        setOpen(true);
+      }
+
+    const changeAnswer = (e) => {
+        if (answer.length > 1000) {
+          return;
+        }
+        setAnswer(e.target.value);
+      };
 
     const selectedCard = (id) => {
         dispatch(communityActions.getCardDetail(id, "book"));
@@ -52,15 +75,18 @@ const BookDetail = (props) => {
         }
     
         dispatch(changeDate(`20${thisMonthBooks[nowBook + 1]._id}`));
-        if (id === "mybook") {
+        if (is_my === "bookdetail") {
           dispatch(booksActions.getNextDetail(thisMonthBooks[nowBook + 1]._id));
+          history.push(`/bookdetail/${thisMonthBooks[nowBook + 1]._id}/${id}`)
         } else {
+            const user_id = url[url.length-2];
           dispatch(
             booksActions.getNextOthersBookDetail(
               thisMonthBooks[nowBook + 1]._id,
-              id
+              user_id
             )
           );
+          history.push(`/othersdetail/${thisMonthBooks[nowBook + 1]._id}/${user_id}/${id}`)
         }
       };
     
@@ -76,24 +102,40 @@ const BookDetail = (props) => {
         }
     
         dispatch(changeDate(`20${thisMonthBooks[nowBook - 1]._id}`));
-        if (id === "mybook") {
+        if (is_my === 'bookdetail') {
           // 이 부분 전날로 돌아가서 첫번째 답변 띄우려고 getNext 호출입니다.
           // 혹시 수정 하실 일 있으시면 참고해 주세요.
           dispatch(booksActions.getNextDetail(thisMonthBooks[nowBook - 1]._id));
+          history.push(`/bookdetail/${thisMonthBooks[nowBook - 1]._id}/${id}`)
         } else {
+            const user_id = url[url.length-2];
           dispatch(
             booksActions.getNextOthersBookDetail(
               thisMonthBooks[nowBook - 1]._id,
-              id
+              user_id
             )
           );
+          history.push(`/othersdetail/${thisMonthBooks[nowBook - 1]._id}/${user_id}/${id}`)
         }
       };
     
 
     React.useEffect(() => {
-        if(is_my){
-
+        if(is_my === 'bookdetail'){
+            const date = url[url.length-2];
+            dispatch(changeDate(`20${date}`));
+            if(!thisMonthBooks.length){
+                dispatch(booksActions.getBooks(0));
+                dispatch(booksActions.getBookDetail(date, history));
+            }
+        } else {
+            const date = url[url.length-3];
+            const userid = url[url.length-2];
+            dispatch(changeDate(`20${date}`));
+            if(!thisMonthBooks.length){
+                dispatch(booksActions.getOthersBooks(0, userid));
+                dispatch(booksActions.getOthersBookDetail(date, userid, history, 'move'));
+            }
         }
         const type = 'book';
         dispatch(communityActions.getCardDetail(id, type));
@@ -127,7 +169,34 @@ const BookDetail = (props) => {
                         </QuestionCreatedUser>
                     </Nickname>
                     <Toggle>
-                    <MoreVertIcon style={{fontSize:'20px'}}/>
+                        {answerInfo?.answerUserId === user_info?.id &&(
+                            <>
+                        {updateModal ? (
+                            <CardUpdateModal
+                              setCancelModal={setCancelModal}
+                              setAnswer={setAnswer}
+                              setUpdateAnswer={setUpdateAnswer}
+                              close={props.close}
+                              setUpdateModal={setUpdateModal}
+                              {...answerInfo}
+                            />
+                          ) : null}
+                          {cancelModal ? (
+                            <CancelConfirm
+                              {...answerInfo}
+                              setCancelModal={setCancelModal}
+                              close={props.close}
+                            />
+                          ) : null}
+                          <MoreVertIcon onClick={() => {
+                              if (updateModal) {
+                                setUpdateModal(false);
+                              } else {
+                                setUpdateModal(true);
+                              }}} style={{fontSize:'20px'}}/>
+                              </>
+                              )
+                        }
                     </Toggle>
                 </Head>
                 <Body>
@@ -192,9 +261,27 @@ const BookDetail = (props) => {
                     <Question>
                         {answerInfo?.questionContents}
                     </Question>
-                    <Answer>
+                    {updateAnswer ? <AnswerInputBox>
+                        <AnswerInput value={answer} onChange={changeAnswer}/>
+                        <EditBox>
+                            <CustomSwitch isOpen={isOpen} onClick={clickOpen} />
+                            <ButtonBox>
+                            <EditBtn onClick={() => {
+                        let _answer = {
+                          answerId: answerInfo.answerId,
+                          questionId: answerInfo.questionId,
+                          contents: answer,
+                          isOpen: isOpen,
+                        };
+                        dispatch(communityActions.editAnswerAX(_answer));
+                        setUpdateAnswer(false);
+                      }}>수정</EditBtn>
+                            <CancelBtn onClick={()=>{setUpdateAnswer(false)}}>취소</CancelBtn>
+                            </ButtonBox>
+                        </EditBox>
+                    </AnswerInputBox>:<Answer>
                         {answerInfo?.answerContents}
-                    </Answer>
+                    </Answer>}
                     {answerInfo?.type ==='book' && <TodayCards>
                 <CardDate>
                 <Date>
@@ -241,7 +328,7 @@ const BookDetail = (props) => {
                         return(
                           <div style={{display:'flex',flexDirection:'row',alignItems:'center'}}>
                             <Selected>{v.questionContents}</Selected>
-                            <span style={{font:'normal normal 300 10px/15px Noto Sans KR',color:'#939393',marginLeft:'10px'}}>현재글</span>
+                            <span style={{font:'normal normal 300 10px/15px Noto Sans CJK KR',color:'#473674',marginLeft:'10px'}}>현재글</span>
                           </div>
                         )
                       } else{
@@ -416,10 +503,63 @@ const Answer = styled.div`
     min-height:130px;
     max-height:130px;
     overflow-y:auto;
-    font: normal normal normal 13px/19px Noto Sans KR;
+    font: normal normal normal 13px/19px Noto Sans CJK KR;
     letter-spacing: 0px;
     color: #262626;
     margin-bottom:30px;
+`;
+
+const AnswerInputBox = styled.div`
+    width:100%;
+    min-height:130px;
+    max-height:130px;
+    overflow-y:auto;
+    font: normal normal normal 13px/19px Noto Sans CJK KR;
+    letter-spacing: 0px;
+    color: #262626;
+    margin-bottom:30px;
+`;
+
+const AnswerInput = styled.textarea`
+    border-style:none;
+    min-height:100px;
+    width:100%;
+    height:100%;
+`;
+
+const EditBox = styled.div`
+    display:flex;
+    flex-direction:row;
+    justify-content:space-between;
+    align-items:center;
+`;
+
+const ButtonBox = styled.div`
+    display:flex;
+    flex-direction:row;
+    justify-content:flex-end;
+    align-items:center;
+`;
+
+const EditBtn = styled.button`
+    border-style:none;
+    width:80px;
+    height:25px;
+    border-radius:15px;
+    background-color:#473674;
+    margin-right:10px;
+    color:#ffffff; 
+    font-weight:600;
+`;
+
+const CancelBtn = styled.button`
+    border-style:none;
+    width:80px;
+    height:25px;
+    border-radius:15px;
+    background-color:#473674;
+    color:#ffffff; 
+    font-weight:600;
 `;
 
 const MiddleBelt = styled.div`
@@ -462,13 +602,13 @@ const Count = styled.span`
     text-align:center;
     margin-left:7px;
     margin-bottom:2px;
-    font: normal normal normal 14px/20px Noto Sans KR;
+    font: normal normal normal 14px/20px Noto Sans CJK KR;
     letter-spacing: 0px;
     color: #2F2F2F;
 `;
 
 const DateBox = styled.div`
-    font: normal normal normal 12px/18px Noto Sans KR;
+    font: normal normal normal 12px/18px Noto Sans CJK KR;
     letter-spacing: 0px;
     color: #939393;
     width:50px;
@@ -494,6 +634,9 @@ const CommentInputBox = styled.div`
 
 const TodayCards = styled.div`
   width:100%;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
   min-height:160px;
   border: 0.5px solid #D9D9D9;
   box-sizing:border-box;
@@ -520,14 +663,14 @@ const Date = styled.div`
 const Cards = styled.div`
   display:flex;
   flex-direction:column;
+  justify-content:flex-end;
   width:100%;
 `;
 
 const Selected = styled.span`
   width:80%;
-  margin-bottom:10px;
   max-height:24px;
-  font:normal normal normal 12px/30px Noto Sans KR;
+  font:normal normal normal 12px/30px Noto Sans CJK KR;
   color:#000000;
   opacity:0.9;
   -webkit-line-clamp: 1;
@@ -538,9 +681,8 @@ const Selected = styled.span`
 
 const NotSelected = styled.span`
 width:80%;
-margin-bottom:10px;
 max-height:24px;
-  font:normal normal normal 12px/30px Noto Sans KR;
+  font:normal normal normal 12px/30px Noto Sans CJK KR;
   color:#D3D3D3;
   opacity:0.9;
   -webkit-line-clamp: 1;

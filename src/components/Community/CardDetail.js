@@ -6,6 +6,9 @@ import { api as commentActions } from "../../redux/modules/comment";
 import { api as communityActions } from "../../redux/modules/community";
 import CommentList from './CommentList';
 import CommentInput from './CommentInput';
+import CardUpdateModal from './CardUpdateModal';
+import CancelConfirm from './CancelConfirm';
+import CustomSwitch from '../../shared/CustomSwitch';
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import { LeftOutlined } from "@ant-design/icons";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
@@ -19,11 +22,30 @@ const CardDetail = (props) => {
     const dispatch = useDispatch();
     const url = window.location.href.split('/');
     const id = url[url.length -1];
+    const user_info = useSelector((state) => state.user.user);
     const comment_list = useSelector(state => state.comment.list);
     const answerInfo = useSelector(state => state.community.card_detail);
     const is_login = useSelector(state => state.user.is_login);
+    const [updateAnswer, setUpdateAnswer] = React.useState(false);
+    const [updateModal, setUpdateModal] = React.useState(false);
+    const [cancelModal, setCancelModal] = React.useState(false);
+    const [answer, setAnswer] = React.useState();
+    const [isOpen, setOpen] = React.useState(true);
 
+    function clickOpen() {
+        if (isOpen) {
+          setOpen(false);
+          return;
+        }
+        setOpen(true);
+      }
 
+    const changeAnswer = (e) => {
+        if (answer.length > 1000) {
+          return;
+        }
+        setAnswer(e.target.value);
+      };
     
 
     React.useEffect(() => {
@@ -59,7 +81,34 @@ const CardDetail = (props) => {
                         </QuestionCreatedUser>
                     </Nickname>
                     <Toggle>
-                    <MoreVertIcon style={{fontSize:'20px'}}/>
+                    {answerInfo?.answerUserId === user_info?.id &&(
+                            <>
+                        {updateModal ? (
+                            <CardUpdateModal
+                              setCancelModal={setCancelModal}
+                              setAnswer={setAnswer}
+                              setUpdateAnswer={setUpdateAnswer}
+                              close={props.close}
+                              setUpdateModal={setUpdateModal}
+                              {...answerInfo}
+                            />
+                          ) : null}
+                          {cancelModal ? (
+                            <CancelConfirm
+                              {...answerInfo}
+                              setCancelModal={setCancelModal}
+                              close={props.close}
+                            />
+                          ) : null}
+                          <MoreVertIcon onClick={() => {
+                              if (updateModal) {
+                                setUpdateModal(false);
+                              } else {
+                                setUpdateModal(true);
+                              }}} style={{fontSize:'20px'}}/>
+                              </>
+                              )
+                        }
                     </Toggle>
                 </Head>
                 <Body>
@@ -124,9 +173,27 @@ const CardDetail = (props) => {
                     <Question>
                         {answerInfo?.questionContents}
                     </Question>
-                    <Answer>
+                    {updateAnswer ? <AnswerInputBox>
+                        <AnswerInput value={answer} onChange={changeAnswer}/>
+                        <EditBox>
+                            <CustomSwitch isOpen={isOpen} onClick={clickOpen} />
+                            <ButtonBox>
+                            <EditBtn onClick={() => {
+                        let _answer = {
+                          answerId: answerInfo.answerId,
+                          questionId: answerInfo.questionId,
+                          contents: answer,
+                          isOpen: isOpen,
+                        };
+                        dispatch(communityActions.editAnswerAX(_answer));
+                        setUpdateAnswer(false);
+                      }}>수정</EditBtn>
+                            <CancelBtn onClick={()=>{setUpdateAnswer(false)}}>취소</CancelBtn>
+                            </ButtonBox>
+                        </EditBox>
+                    </AnswerInputBox>:<Answer>
                         {answerInfo?.answerContents}
-                    </Answer>
+                    </Answer>}
                 </Body>
                 <MiddleBelt>
                     <IconBox>
@@ -291,6 +358,59 @@ const Answer = styled.div`
     color: #262626;
 `;
 
+const AnswerInputBox = styled.div`
+    width:100%;
+    min-height:130px;
+    max-height:130px;
+    overflow-y:auto;
+    font: normal normal normal 13px/19px Noto Sans KR;
+    letter-spacing: 0px;
+    color: #262626;
+    margin-bottom:30px;
+`;
+
+const AnswerInput = styled.textarea`
+    border-style:none;
+    min-height:100px;
+    width:100%;
+    height:100%;
+`;
+
+const EditBox = styled.div`
+    display:flex;
+    flex-direction:row;
+    justify-content:space-between;
+    align-items:center;
+`;
+
+const ButtonBox = styled.div`
+    display:flex;
+    flex-direction:row;
+    justify-content:flex-end;
+    align-items:center;
+`;
+
+const EditBtn = styled.button`
+    border-style:none;
+    width:80px;
+    height:25px;
+    border-radius:15px;
+    background-color:#473674;
+    margin-right:10px;
+    color:#ffffff; 
+    font-weight:600;
+`;
+
+const CancelBtn = styled.button`
+    border-style:none;
+    width:80px;
+    height:25px;
+    border-radius:15px;
+    background-color:#473674;
+    color:#ffffff; 
+    font-weight:600;
+`;
+
 const MiddleBelt = styled.div`
     width:100%;
     height:50px;
@@ -360,5 +480,7 @@ const CommentInputBox = styled.div`
     box-sizing:border-box;
     padding:18px 25px;
 `;
+
+
 
 export default CardDetail;
