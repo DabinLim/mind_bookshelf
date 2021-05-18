@@ -212,7 +212,7 @@ const AnswerContents = styled.div`
   max-height: 63px;
   min-height: 63px;
   padding: 0px 18px;
-  font: normal normal medium 15px/20px;
+  font: normal normal normal 12px/18px Noto Sans CJK KR;
   font-family: Sans KR, sans-serif;
   letter-spacing: 0px;
   color: #262626;
@@ -225,9 +225,10 @@ const AnswerContents = styled.div`
     font-weight: 600;
   }
   cursor: pointer;
-  @media (max-width: 500px) {
+  @media (max-width: 750px) {
     max-height: 40px;
-    min-height: 40px;
+    min-height: auto;
+    -webkit-line-clamp: 2;
   }
 `;
 
@@ -295,13 +296,11 @@ const Topic = styled.div`
 `;
 
 const LikeCount = styled.span`
-  font-size: 12px;
-  font-family: Sans KR, sans-serif;
+font: normal normal normal 13px/19px Noto Sans CJK KR;
 `;
 
 const CommentCount = styled.span`
-  font-size: 12px;
-  font-family: Sans KR, sans-serif;
+font: normal normal normal 13px/19px Noto Sans CJK KR;
 `;
 
 export default CommunityQnA;
