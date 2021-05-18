@@ -336,7 +336,7 @@ const Subject = styled.div`
     letter-spacing: 0px;
 `;
 
-const Question = styled.div`
+const Question = styled.pre`
     width:100%;
     min-height:25px;
     max-height:82px;
@@ -355,10 +355,10 @@ const Answer = styled.div`
     overflow-y:auto;
     font: normal normal normal 13px/19px Noto Sans CJK KR;
     letter-spacing: 0px;
-    color: #262626;
+    color: #333333;
 `;
 
-const AnswerInputBox = styled.div`
+const AnswerInputBox = styled.pre`
     width:100%;
     min-height:130px;
     max-height:130px;
@@ -367,6 +367,7 @@ const AnswerInputBox = styled.div`
     letter-spacing: 0px;
     color: #262626;
     margin-bottom:30px;
+    white-space: pre-wrap;
 `;
 
 const AnswerInput = styled.textarea`
