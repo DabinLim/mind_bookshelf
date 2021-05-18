@@ -620,7 +620,7 @@ const CardModal = (props) => {
                   }}
                   style={{
                     cursor: "pointer",
-                    transform: "rotateY(180deg)",
+                    transform: "rotateZ(180deg)",
                     color: "white",
                     fontSize: "25px",
                   }}
