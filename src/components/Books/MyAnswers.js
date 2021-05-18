@@ -12,7 +12,7 @@ import InfinityScroll from "../../shared/InfinityScroll";
 import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import FavoriteIcon from "@material-ui/icons/Favorite";
-import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
+import { LeftOutlined } from "@ant-design/icons";
 import { CardModal } from "../Community/communityindex";
 import { api as commentActions } from "../../redux/modules/comment";
 import { api as communityActions } from "../../redux/modules/community";
@@ -64,7 +64,7 @@ const MyAnswers = (props) => {
         <Background />
         {cardModal && <CardModal close={closeCardModal}/>}
         <TitleContainerMobile>
-          <ArrowForwardIosIcon
+          <LeftOutlined
             onClick={() => {
               dispatch(setComponent(""));
             }}
@@ -78,7 +78,7 @@ const MyAnswers = (props) => {
             {now_view === "new" && <span>최신순</span>}
             {now_view === "pop" && <span>인기순</span>}
             {openFilter ? (
-              <ArrowForwardIosIcon
+              <LeftOutlined
                 onClick={() => {
                   setOpenFilter(false);
                 }}
@@ -91,7 +91,7 @@ const MyAnswers = (props) => {
                 }}
               />
             ) : (
-              <ArrowForwardIosIcon
+              <LeftOutlined
                 onClick={() => {
                   setOpenFilter(true);
                 }}

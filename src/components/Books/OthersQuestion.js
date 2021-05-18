@@ -401,10 +401,9 @@ const Container = styled.section`
   border-radius: 20px;
   overflow: hidden;
   @media (max-width: 750px) {
-    margin-top: 30px;
-    margin-bottom: 0px;
-    padding: 20px 25px 20px 25px;
-    max-height: 100%;
+    margin: 23px auto;
+    padding: 23px 25px 20px 25px;
+    max-height:100%;
   }
 `;
 const Background = styled.div`
@@ -463,7 +462,7 @@ const TitleContainerMobile = styled.div`
 const TitleMobile = styled.span`
   width: auto;
   text-align: center;
-  font: normal normal bold 15px/22px Noto Sans KR;
+  font: normal normal bold 15px/22px Noto Sans CJK KR;
 `;
 
 const EmptyDiv = styled.div`
@@ -521,12 +520,13 @@ const Card = styled.div`
   box-sizing: border-box;
   padding: 18px;
   @media (max-width: 750px) {
-    padding: 12px 12px 10px 12px;
-    box-shadow: 0px 0px 10px #0000001a;
-    margin: 0px 4px 10px 3px;
-    max-width: 155px;
-    max-height: 118px;
-    border-radius: 16px;
+    padding: 12px 0px 10px 0px;
+    box-shadow: 0px 0px 10px #0000001A;
+    margin:0px 4px 10px 3px;
+    max-width:155px;
+    min-height:118px;
+    max-height:118px;
+    border-radius:0px;
   }
 `;
 
@@ -589,17 +589,20 @@ const QuestionContents = styled.span`
     font-size: 16px;
   }
   @media (max-width: 750px) {
-    margin-top: 0px;
-    font: normal normal bold 13px/19px Noto Sans KR;
+    padding:0px 12px;
+    height: 113px;
+    margin-top:0px;
+    font: normal normal bold 13px/19px Noto Sans CJK KR;
   }
 `;
 
 const CreatedAtBox = styled.div`
   box-sizing: border-box;
-  border-top: 1px solid #bbbbbb;
+  border-top: 0.5px solid #E2E2E2;
   padding-top: 13px;
-  @media (max-width: 750px) {
-    padding-top: 5px;
+  @media(max-width:750px){
+    padding:0px 12px;
+    padding-top:5px;
   }
 `;
 
