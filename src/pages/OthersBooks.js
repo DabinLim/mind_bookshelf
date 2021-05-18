@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import {BookShelf, Profile, OthersQuestion, OthersAnswers} from '../components/Books/booksindex';
+import {BookShelf, Profile, OthersQuestion, OthersAnswers, UnfollowConfirmModal} from '../components/Books/booksindex';
 import {api as userActions} from '../redux/modules/user';
 import {useSelector, useDispatch} from 'react-redux';
 import { getCookie } from "../shared/Cookie";
@@ -15,6 +15,8 @@ const OthersBooks = (props) => {
     const formated_date = useSelector(state => state.books.formated_date);
     const answerInfo = useSelector((state) => state.community.card_detail);
     const cookie = getCookie("is_login") ? true : false;
+    const [UnfollowModal, setUnfollowModal] = React.useState(false) 
+
     let url = window.location.href.split('/');
     console.log(url)
     let id = url[url.length -2];
@@ -41,10 +43,13 @@ const OthersBooks = (props) => {
 
     return(
         <React.Fragment>
+            {UnfollowModal? 
+                <UnfollowConfirmModal id={userId} setUnfollowModal={setUnfollowModal} />
+            :null}
             <Container>
                 <ContainerBox>
             <ProfileContainer component={component}>
-                <Profile id={userId} />
+                <Profile id={userId} setUnfollowModal={setUnfollowModal} />
             </ProfileContainer>
                 {id === 'others' && component === '' &&
                 <BookShelf date={date}/>
@@ -118,7 +123,6 @@ const Container = styled.div`
 `;
 
 const ProfileContainer = styled.section`
-
     position:relative;
     box-sizing:border-box;
     padding:30px;
