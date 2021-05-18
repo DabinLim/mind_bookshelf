@@ -187,7 +187,7 @@ const Post = (props) => {
                   <SubmitBtn
                     onClick={addAnswer}
                     style={{
-                      background: "#061366",
+                      background: "#3c3c3c",
                       color: "#ffffff",
                       transition: "all 200ms ease-in-out",
                     }}
@@ -209,7 +209,7 @@ const Post = (props) => {
                     <SubmitBtn
                       onClick={addAnswer}
                       style={{
-                        background: "#3C3C3C",
+                        background: "#061366",
                         color: "#ffffff",
                         transition: "all 200ms ease-in-out",
                       }}
