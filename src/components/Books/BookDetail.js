@@ -507,6 +507,7 @@ const Answer = styled.div`
     letter-spacing: 0px;
     color: #262626;
     margin-bottom:30px;
+    white-space: pre-wrap;
 `;
 
 const AnswerInputBox = styled.div`
@@ -518,6 +519,7 @@ const AnswerInputBox = styled.div`
     letter-spacing: 0px;
     color: #262626;
     margin-bottom:30px;
+    white-space: pre-wrap;
 `;
 
 const AnswerInput = styled.textarea`
