@@ -287,14 +287,14 @@ const Nickname = styled.span`
     width: auto;
     height: 20px;
     letter-spacing: 0px;
-    font: normal normal bold;
+    font: normal normal bold Noto Sans CJK KR;
     font-weight:800;
 `;
 
 const QuestionCreatedUser = styled.span`
     width:auto;
     height:100%;
-    font: normal normal medium 14px/20px;
+    font: normal normal medium 14px/20px Noto Sans CJK KR;
     letter-spacing:0px;
     font-weight:600;
     color: #363636;
@@ -353,7 +353,7 @@ const Answer = styled.div`
     width:100%;
     max-height:135px;
     overflow-y:auto;
-    font: normal normal normal 13px/19px Noto Sans KR;
+    font: normal normal normal 13px/19px Noto Sans CJK KR;
     letter-spacing: 0px;
     color: #262626;
 `;
@@ -363,7 +363,7 @@ const AnswerInputBox = styled.div`
     min-height:130px;
     max-height:130px;
     overflow-y:auto;
-    font: normal normal normal 13px/19px Noto Sans KR;
+    font: normal normal normal 13px/19px Noto Sans CJK KR;
     letter-spacing: 0px;
     color: #262626;
     margin-bottom:30px;
@@ -451,13 +451,13 @@ const Count = styled.span`
     text-align:center;
     margin-left:7px;
     margin-bottom:2px;
-    font: normal normal normal 14px/20px Noto Sans KR;
+    font: normal normal normal 14px/20px Noto Sans CJK KR;
     letter-spacing: 0px;
     color: #2F2F2F;
 `;
 
 const DateBox = styled.div`
-    font: normal normal normal 12px/18px Noto Sans KR;
+    font: normal normal normal 12px/18px Noto Sans CJK KR;
     letter-spacing: 0px;
     color: #939393;
     width:50px;

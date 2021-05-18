@@ -436,14 +436,14 @@ const Nickname = styled.span`
     width: auto;
     height: 20px;
     letter-spacing: 0px;
-    font: normal normal bold;
+    font: normal normal bold Noto Sans CJK KR;
     font-weight:800;
 `;
 
 const QuestionCreatedUser = styled.span`
     width:auto;
     height:100%;
-    font: normal normal medium 14px/20px;
+    font: normal normal medium 14px/20px Noto Sans CJK KR;
     letter-spacing:0px;
     font-weight:600;
     color: #363636;
