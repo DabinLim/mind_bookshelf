@@ -107,7 +107,7 @@ const Container = styled.div`
 
 @media (max-width: 500px) {
     margin: 0;
-    background-image: url("https://user-images.githubusercontent.com/67696504/117994109-4088f980-b37b-11eb-8f2c-9d42c93fd0a3.png");
+    background-image: url("https://user-images.githubusercontent.com/77369674/118459848-1b0f3d80-b737-11eb-8f1a-906da3e390e2.jpeg");
     background-size:cover;
     }
     

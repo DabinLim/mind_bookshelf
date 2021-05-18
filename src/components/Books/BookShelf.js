@@ -4,7 +4,8 @@ import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 import { changeDate, setBookDetailModal } from "../../redux/modules/books";
 import CardModal from "../Community/CardModal";
 import { useSelector, useDispatch } from "react-redux";
-import { api as booksActions } from "../../redux/modules/books";
+import { api as booksActions , resetBooks} from "../../redux/modules/books";
+import {history} from '../../redux/configStore';
 
 const BookShelf = (props) => {
   const bookDetailModal = useSelector((state) => state.books.book_detail_modal);
@@ -18,6 +19,15 @@ const BookShelf = (props) => {
 
   const openBook = (givendate) => {
     dispatch(changeDate(`20${givendate}`));
+    if(window.innerWidth <= 500){
+      if (id === "mybook") {
+        dispatch(booksActions.getBookDetail(givendate, history));
+      } else {
+        dispatch(booksActions.getOthersBookDetail(givendate, id, history));
+      }
+      return
+    }
+
     if (id === "mybook") {
       dispatch(booksActions.getNextDetail(givendate));
     } else {
@@ -101,6 +111,10 @@ const BookShelf = (props) => {
       dispatch(booksActions.getBooks(0));
     } else {
       dispatch(booksActions.getOthersBooks(0, id));
+    }
+
+    return () => {
+      resetBooks();
     }
   }, []);
 
@@ -814,13 +828,14 @@ const ShelfBoxMobile = styled.div`
 `;
 
 const Shelf = styled.div`
-  opacity: 0.3;
+  opacity: 1;
   position: relative;
   margin: -20px 0px 20px 0px;
   width: 100%;
   max-width: 1040px;
   height: 34px;
-  background-color: #ffffff;
+  background: #FFFFFF 0% 0% no-repeat padding-box;
+  box-shadow: 0px 0px 10px #0000001A;
 `;
 
 const BookRow = styled.div`
@@ -846,6 +861,7 @@ const BookRow = styled.div`
     margin: 10px 0px -15px 0px;
     max-width: 300px;
     height: 150px;
+    
     /* overflow:hidden; */
     justify-content: flex-start;
   }

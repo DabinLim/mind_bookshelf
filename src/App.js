@@ -20,6 +20,7 @@ import {
 import { getCookie } from "./shared/Cookie";
 import QuestionDetail from "./components/Community/QuestionDetail";
 import CardDetail from './components/Community/CardDetail';
+import BookDetail from './components/Books/BookDetail';
 import { socket, addNoti } from "./redux/modules/noti";
 import ComponentSlider from "./components/Main/ComponentSlider";
 import axios from "axios";
@@ -59,7 +60,8 @@ function App() {
           <Route exact path="/others/:id/:date" component={OthersBooks} />
           <Route exact path="/community" component={Community} />
           <Route exact path="/community/:id" component={QuestionDetail} />
-          <Route exact path='/bookdetail/:id' component={CardDetail}/>
+          <Route exact path='/bookdetail/:date/:answerid' component={BookDetail}/>
+          <Route exact path='/othersdetail/:date/:userid/:answerid' component={BookDetail}/>
           <Route exact path='/carddetail/:id' component={CardDetail}/>
           <Route exact path="/test" component={ComponentSlider} />
           <Route exact path="/search" component={MobileSearch} />

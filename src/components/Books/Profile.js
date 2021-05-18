@@ -424,8 +424,8 @@ const Profile = (props) => {
 
 const Background = styled.div`
   position: absolute;
-  width: 988px;
-  height: 190px;
+  width: 100%;
+  height: 100%;
   background-color: #ffffff;
   top: 0;
   left: 0;

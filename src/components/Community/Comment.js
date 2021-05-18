@@ -107,7 +107,7 @@ const CommentContent = styled.p`
   margin: 0 0 0 38px;
   font: normal normal normal 13px/18px Roboto;
   letter-spacing: 0px;
-  color: #939393;
+  color: #000000;
 `;
 
 const TimeIndicator = styled.span`
