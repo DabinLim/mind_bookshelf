@@ -25,16 +25,21 @@ const rootReducer = combineReducers({
   router: connectRouter(history),
 });
 
-const { logger } = require("redux-logger");
+const middlewares = [
+  ...getDefaultMiddleware({
+    serializableCheck: false,
+  })
+]
+
+
+if (process.env.NODE_ENV === "development") {
+  const { logger } = require("redux-logger");
+  middlewares.push(logger);
+}
 
 let store = configureStore({
   reducer: rootReducer,
-  middleware: [
-    ...getDefaultMiddleware({
-      serializableCheck: false,
-    }),
-    logger,
-  ],
+  middleware: middlewares,
   devTools: process.env.NODE_ENV !== "production",
 });
 

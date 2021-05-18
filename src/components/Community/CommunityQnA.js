@@ -3,12 +3,16 @@ import styled from "styled-components";
 import { history } from "../../redux/configStore";
 import { CardModal } from "./communityindex";
 import { useSelector, useDispatch } from "react-redux";
+import swal from "sweetalert";
+import { api as communityActions } from "../../redux/modules/community";
 import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 
 const CommunityQnA = (props) => {
   const user = useSelector((state) => state.user.user);
+  const is_login = useSelector(state => state.user.is_login);
+  const dispatch = useDispatch();
 
   const getDate = (date) => {
     let year = "20" + date.substring(0, 2);
@@ -93,22 +97,54 @@ const CommunityQnA = (props) => {
                     <LikeBox>
                       {a.like ? (
                         <>
-                          <FavoriteIcon style={{ color: "#061366" }} />{" "}
+                          <FavoriteIcon style={{ color: "#061366", fontSize: "16px" }} 
+                            onClick={()=>{
+                              if (!is_login) {
+                                swal({
+                                  title: "좋아요 누르기 실패",
+                                  text: "로그인 후 이용 가능한 서비스입니다.",
+                                  icon: "error",
+                                });
+                                return;
+                              }
+                              dispatch(
+                                communityActions.deleteLikeQnA(
+                                  a.answerId,
+                                  props.id,
+                                )
+                              );
+                            }}
+                          />{" "}
                         </>
                       ) : (
                         <>
-                          <FavoriteBorderIcon onClick={() => {}} />{" "}
+                          <FavoriteBorderIcon style={{fontSize:"16px"}} onClick={() => {
+                            if (!is_login) {
+                              swal({
+                                title: "좋아요 누르기 실패",
+                                text: "로그인 후 이용 가능한 서비스입니다.",
+                                icon: "error",
+                              });
+                              return;
+                            }
+                            dispatch(
+                              communityActions.addLikeQnA(
+                                a.answerId,
+                                props.id,
+                              )
+                            );
+                          }} />{" "}
                         </>
                       )}
-                      <LikeCount>{a.likeCount}개</LikeCount>
+                      <LikeCount>{a.likeCount}</LikeCount>
                     </LikeBox>
                     <CommentBox
                       onClick={() => {
                         props.openCard(a);
                       }}
                     >
-                      <ChatBubbleOutlineIcon />
-                      <CommentCount>{a.commentCount}개</CommentCount>
+                      <ChatBubbleOutlineIcon style={{fontSize:"16px"}} />
+                      <CommentCount>{a.commentCount}</CommentCount>
                     </CommentBox>
                   </IconBox>
                   <DateYMD>{getDate(a.answerCreated)}</DateYMD>
@@ -242,7 +278,7 @@ const AnswerLikes = styled.div`
   align-items: center;
   justify-content: space-between;
   @media (max-width: 500px) {
-    min-height: 40px;
+    min-height: 37px;
   }
 `;
 
@@ -253,6 +289,20 @@ const IconBox = styled.div`
     margin-right: 5px;
   }
 `;
+
+const LikeIcon = styled.img`
+  width:13px;
+  height: 12px;
+
+
+`
+
+const CommentIcon = styled.img`
+  width:13px;
+  height: 12px;
+
+
+`
 
 const LikeBox = styled.div`
   display: flex;

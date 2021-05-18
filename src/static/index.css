@@ -28,7 +28,7 @@ html {
 @font-face {
   font-family: 'Noto Sans CJK KR';
   font-style: normal;
-  font-weight: 500;
+  font-weight: medium;
   src: url("./fonts/NotoSansKR-Medium.woff2") format('woff2'),
   url("./fonts/NotoSansKR-Medium.woff") format('woff'),
   url("./fonts/NotoSansKR-Medium.otf") format('truetype')
@@ -38,19 +38,22 @@ html {
   font-family: 'Noto Sans CJK KR';
   font-style: normal;
   font-weight: bold;
-  src: url("./fonts/NotoSansKR-Bold.woff2") format('woff2'),
-  url("./fonts/NotoSansKR-Bold.woff") format('woff'),
-  url("./fonts/NotoSansKR-Bold.otf") format('truetype')
+  src: url("./fonts/NotoSansKR-Black.woff2") format('woff2'),
+  url("./fonts/NotoSansKR-Black.woff") format('woff'),
+  url("./fonts/NotoSansKR-Black.otf") format('truetype')
 }
 
 
 body {
   margin: 0;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   font-family: "Noto Sans CJK KR", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+
 
 #root {
   height: 100%;

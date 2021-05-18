@@ -10,10 +10,10 @@ const CancelConfirm = (props) => {
       <Background onClick={()=>{props.setCancelModal(false)}} />
       <ConfirmBox>
         <Question>
-          정말로 삭제하시겠습니까?
+          게시물을 삭제하시겠어요?
         </Question>
         <BtnBox>
-          <ConfirmBtn style={{marginRight:"20px"}}
+          <ConfirmBtn style={{color:"#EB5959", borderBottom: '0.5px solid #D3D4D3'}}
             onClick={()=>{
               props.close();
               dispatch(communityActions.deleteAnswerAX(props.answerId, props.questionId))
@@ -39,9 +39,7 @@ const Background = styled.div`
   width: 100%;
   background-color: black;
   z-index: 151;
-  border-radius: 50px;
   @media (max-width: 750px) {
-    border-radius: 20px;
     }
 `
 
@@ -49,46 +47,35 @@ const ConfirmBox = styled.div`
   position: fixed;
   top: 50%;
   left: 50%;
-  width:  300px;
+  width: 240px;
   height: 200px;
-  border-radius: 10px;
   transform: translate(-50%, -50%);
   background-color: white;
-  padding: 30px 30px;
   z-index: 152;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
 `
 const Question = styled.div`
-  font-size: 16px;
-  font-weight: 600;
-`
-const Info = styled.div`
-  line-height: 1.6;
-  font-size:14px;
+  height: 106px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font: normal normal bold 14px/20px Noto Sans CJK KR  ;
+  border-bottom: 0.5px solid #D3D4D3;
 `
 
 const BtnBox = styled.div`
-  display: flex;
+height: 94px;
+display: flex;
+flex-direction: column;
+align-items: center;
 `
 
 const ConfirmBtn = styled.div`
-font-size: 15px;
-cursor: pointer;
-text-align: center;
-border: 1px solid #707070;
-border-radius: 45px;
-padding: 5px 0;
-width: 73px;
-margin: auto;
-&:hover{
-  border:1px solid #303685;
-  background: #303685;
-  color: white;
-  font-weight: 600;
-}
+  width: 100%;
+  height: 47px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font: normal normal normal 14px/20px Noto Sans CJK KR;
 `
 
 export default CancelConfirm

@@ -395,11 +395,9 @@ const BookDetail = (props) => {
                     </DateBox>
                 </MiddleBelt>
                 <CommentBox>
-                    <CommentList/>
+                    <CommentList mobile/>
                 </CommentBox>
-                <CommentInputBox>
                     <CommentInput/>
-                </CommentInputBox>
             </Container>
         </React.Fragment>
     )
@@ -408,10 +406,14 @@ const BookDetail = (props) => {
 const Container = styled.section`
     margin-top: 50px;
     width:100%;
-    height:100%;
+    height:85%;
     overflow-y:auto;
     border: 0.5px solid #D3D3D3;
-    border-radius:16px;
+    background-color: white;
+    border-radius:16px 16px 0px 0px;
+    @media(max-height:700px){
+        height:82%;
+    }
 `;
 
 const Head = styled.div`
@@ -623,16 +625,10 @@ const DateBox = styled.div`
 
 const CommentBox = styled.div`
     width:100%;
-    height:235px;
-    overflow-y:auto;
-    border-bottom: 0.5px solid #D3D3D3;
+    height:auto;
+    padding:20px 0px;
 `;
 
-const CommentInputBox = styled.div`
-    width:100%;
-    box-sizing:border-box;
-    padding:18px 25px;
-`;
 
 const TodayCards = styled.div`
   width:100%;

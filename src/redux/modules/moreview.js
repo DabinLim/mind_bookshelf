@@ -91,7 +91,6 @@ const moreviewSlice = createSlice({
       state.now_view = "new";
     },
     editDetailLikeInfo: (state, action) => {
-      let decision = action.payload.decision;
       let index = state.answers.findIndex(
         (a) => a.answerId === action.payload.answerId
       );
@@ -104,51 +103,29 @@ const moreviewSlice = createSlice({
         (a) => a.answerId === action.payload.answerId
       );
 
-      if (decision === "like") {
-        state.answers[index] = {
-          ...state.answers[index],
-          like: action.payload,
-          answerLikes: state.answers[index].answerLikes + 1,
-        };
-
-        state.like_answers[like_index] = {
-          ...state.like_answers[like_index],
-          like: action.payload,
-          answerLikes: state.like_answers[like_index].answerLikes + 1,
-        };
-
-        state.like_answers.sort((a, b) =>
-          a.answerLikes > b.answerLikes ? -1 : 1
-        );
+        if (index !== -1){
+          state.answers[index] = {
+            ...state.answers[index],
+            like: action.payload.like,
+            answerLikes: action.payload.likeCount,
+          };
+        }
+        
+        if (like_index !== -1){
+          state.like_answers[like_index] = {
+            ...state.like_answers[like_index],
+            like: action.payload.like,
+            answerLikes: action.payload.likeCount,
+          };
+        }
 
         if (friends_index !== -1) {
           state.friends_answers[friends_index] = {
             ...state.friends_answers[friends_index],
-            like: action.payload,
-            answerLikes: state.friends_answers[friends_index].answerLikes + 1,
+            like: action.payload.like,
+            answerLikes: action.payload.likeCount,
           };
         }
-      } else {
-        state.answers[index] = {
-          ...state.answers[index],
-          like: action.payload,
-          answerLikes: state.answers[index].answerLikes - 1,
-        };
-
-        state.like_answers[like_index] = {
-          ...state.like_answers[like_index],
-          like: action.payload,
-          answerLikes: state.like_answers[like_index].answerLikes - 1,
-        };
-
-        if (friends_index !== -1) {
-          state.friends_answers[friends_index] = {
-            ...state.friends_answers[friends_index],
-            like: action.payload,
-            answerLikes: state.friends_answers[friends_index].answerLikes - 1,
-          };
-        }
-      }
     },
     editDetailCommentInfo: (state, action) => {
       let decision = action.payload.decision;
