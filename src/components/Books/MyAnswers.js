@@ -17,6 +17,7 @@ import { CardModal } from "../Community/communityindex";
 import { api as commentActions } from "../../redux/modules/comment";
 import { api as communityActions } from "../../redux/modules/community";
 import {history} from '../../redux/configStore';
+import {CheckOutlined} from "@ant-design/icons";
 
 const MyAnswers = (props) => {
   const dispatch = useDispatch();
@@ -78,18 +79,19 @@ const MyAnswers = (props) => {
             {now_view === "new" && <span>최신순</span>}
             {now_view === "pop" && <span>인기순</span>}
             {openFilter ? (
+              <>
+              <Close onClick={() => {setOpenFilter(false)}}/>
               <LeftOutlined
-                onClick={() => {
-                  setOpenFilter(false);
-                }}
-                style={{
-                  cursor: "pointer",
-                  color: "black",
-                  fontSize: "12px",
-                  transform: "rotateZ(90deg)",
-                  marginLeft: "5px",
-                }}
-              />
+                  onClick={()=>{setOpenFilter(false)}}
+                  style={{
+                    cursor: "pointer",
+                    color: "black",
+                    fontSize: "12px",
+                    transform:'rotateZ(90deg)',
+                    marginLeft:'5px'
+                  }}
+                />
+                </>
             ) : (
               <LeftOutlined
                 onClick={() => {
@@ -105,24 +107,35 @@ const MyAnswers = (props) => {
               />
             )}
           </FilterToggle>
-          {openFilter && now_view === "new" && (
-            <span
-              onClick={() => {
-                dispatch(setView("pop"));
-              }}
-            >
-              인기순
-            </span>
-          )}
-          {openFilter && now_view === "pop" && (
-            <span
-              onClick={() => {
-                dispatch(setView("new"));
-              }}
-            >
-              최신순
-            </span>
-          )}
+          {openFilter && now_view === 'new' && <FilterWhiteBox>
+                    <div style={{marginLeft:'8px'}}
+                      onClick={() => {
+                        dispatch(setView("new"));
+                      }}
+                    >최신순 <span style={{width:'0',overflow:'visible'}}><CheckOutlined /></span></div>
+                    <div
+                      onClick={() => {
+                        dispatch(setView("pop"));
+                      }}
+                    >
+                      인기순
+                    </div>
+                  </FilterWhiteBox>}
+                {openFilter && now_view === 'pop' && <FilterWhiteBox>
+                    <div
+                      onClick={() => {
+                        dispatch(setView("new"));
+                      }}
+                    >최신순 </div>
+                    <div
+                    style={{marginLeft:'8px'}}
+                      onClick={() => {
+                        dispatch(setView("pop"));
+                      }}
+                    >
+                      인기순<span style={{width:'0',overflow:'visible'}}><CheckOutlined /></span>
+                    </div>
+                  </FilterWhiteBox>}
         </FilterBtnBoxMobile>
         <TitleContainer>
           <Title>
@@ -719,6 +732,7 @@ const CreatedAt = styled.span`
 `;
 
 const FilterBtnBoxMobile = styled.div`
+  position: relative;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -732,6 +746,47 @@ const FilterBtnBoxMobile = styled.div`
   @media (min-width: 750px) {
     display: none;
   }
+`;
+
+const Close = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  z-index: 3;`;
+
+const FilterWhiteBox = styled.div`
+position:absolute;
+z-index: 5;
+width: 120px;
+min-height: 80px;
+top:23px;
+right:22px;
+display: flex;
+flex-direction: column;
+font: normal normal medium 14px/20px Noto Sans CJK KR;
+background: #FFFFFF 0% 0% no-repeat padding-box;
+box-shadow: 0px 0px 20px #00000026;
+margin: 0 -18px 0 0;
+& > div {
+  display: flex;
+  justify-content: center;
+  padding: 8px 12px;
+  height: 40px;
+  align-items: center;
+  font: normal normal medium 14px/20px Noto Sans CJK KR;
+letter-spacing: 0px;
+color: #121212;
+}
+
+& > div > span {
+  margin-left: 8px;
+}
+
+& > div:nth-child(2) {
+  border-top: 1px solid #00000026;
+}
 `;
 
 const FilterToggle = styled.div`
