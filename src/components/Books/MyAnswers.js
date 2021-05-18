@@ -68,7 +68,7 @@ const MyAnswers = (props) => {
             onClick={() => {
               dispatch(setComponent(""));
             }}
-            style={{ transform: "rotateZ(180deg)" }}
+            style={{fontSize:'22px' , transform:'scaleX(0.8)'}}
           />
           <TitleMobile>{user_info?.nickname}님의 낙서</TitleMobile>
           <EmptyDiv />
@@ -86,7 +86,7 @@ const MyAnswers = (props) => {
                   cursor: "pointer",
                   color: "black",
                   fontSize: "12px",
-                  transform: "rotateZ(270deg)",
+                  transform: "rotateZ(90deg)",
                   marginLeft: "5px",
                 }}
               />
@@ -99,7 +99,7 @@ const MyAnswers = (props) => {
                   cursor: "pointer",
                   color: "black",
                   fontSize: "12px",
-                  transform: "rotateZ(90deg)",
+                  transform: "rotateZ(270deg)",
                   marginLeft: "5px",
                 }}
               />
@@ -280,21 +280,19 @@ const MyAnswers = (props) => {
                             {v.currentLike ? (
                               <>
                                 <FavoriteIcon
-                                  fontSize="small"
-                                  fontWeight='200'
-                                  style={{ color: "#061366" }}
+                                  style={{ color: "#443870",fontSize:'20px' }}
                                 />{" "}
                               </>
                             ) : (
                               <>
-                                <FavoriteBorderIcon fontWeight='200' fontSize='small' style={{fontWeight:'200'}} />{" "}
+                                <FavoriteBorderIcon style={{ fontSize:'20px' }} />{" "}
                               </>
                             )}
-                            <LikeCount>{v.likeCount}개</LikeCount>
+                            <LikeCount>{v.likeCount}</LikeCount>
                           </LikeBox>
                           <CommentBox>
-                            <ChatBubbleOutlineIcon style={{fontWeight:'200'}} fontWeight='200' fontSize="small" />
-                            <CommentCount>{v.commentCount}개</CommentCount>
+                            <ChatBubbleOutlineIcon style={{ fontSize:'20px',marginTop:'3px' }} />
+                            <CommentCount>{v.commentCount}</CommentCount>
                           </CommentBox>
                         </IconBox>
                         <CreatedAt>
@@ -419,18 +417,18 @@ const MyAnswers = (props) => {
                           <LikeBox>
                             {v.currentLike ? (
                               <>
-                                <FavoriteIcon style={{ color: "red" }} />{" "}
+                                <FavoriteIcon style={{ color: "#443870",fontSize:'20px' }} />{" "}
                               </>
                             ) : (
                               <>
-                                <FavoriteBorderIcon fontSize="small" />{" "}
+                                <FavoriteBorderIcon style={{ fontSize:'20px' }} />{" "}
                               </>
                             )}
-                            <LikeCount>{v.likeCount}개</LikeCount>
+                            <LikeCount>{v.likeCount}</LikeCount>
                           </LikeBox>
                           <CommentBox>
-                            <ChatBubbleOutlineIcon fontSize="small" />
-                            <CommentCount>{v.commentCount}개</CommentCount>
+                            <ChatBubbleOutlineIcon style={{ fontSize:'20px',marginTop:'3px' }} />
+                            <CommentCount>{v.commentCount}</CommentCount>
                           </CommentBox>
                         </IconBox>
                         <CreatedAt>
@@ -466,9 +464,8 @@ const Container = styled.section`
   border-radius: 20px;
   overflow: hidden;
   @media (max-width: 750px) {
-    margin-top: 30px;
-    margin-bottom: 0px;
-    padding: 20px 25px 20px 25px;
+    margin:0px auto;
+    padding: 23px 25px 20px 25px;
     max-height: 100%;
   }
 `;
@@ -508,12 +505,7 @@ const Title = styled.span`
   height: 60px;
   font-size: 22px;
   font-weight: 400;
-  @media (max-width: 750px) {
-    font-size: 18px;
-    width: 200px;
-    min-width: 200px;
-    font-size: 18px;
-  }
+  letter-spacing: 0px;
 `;
 
 const TitleContainerMobile = styled.div`
@@ -532,7 +524,8 @@ const TitleContainerMobile = styled.div`
 const TitleMobile = styled.span`
   width: auto;
   text-align: center;
-  font: normal normal bold 15px/22px Noto Sans KR;
+  letter-spacing: 0px;
+  font: normal normal bold 14px/20px Noto Sans CJK KR;
 `;
 
 const EmptyDiv = styled.div`
@@ -589,16 +582,17 @@ const Card = styled.div`
   margin: 0px 20px 25px 0px;
   background: #ffffff;
   box-shadow: 0px 0px 20px #0000001a;
+  opacity: 0.9;
   border-radius: 20px;
   box-sizing: border-box;
   padding: 18px;
   @media (max-width: 750px) {
     box-shadow: 0px 0px 10px #0000001a;
-    padding: 14px 14px 10px 14px;
+    padding: 14px 0px 10px 0px;
     margin: 0px 0px 15px 0px;
-    min-height: 150px;
-    max-height: 150px;
-    border-radius: 16px;
+    min-height: 154px;
+    max-height: 154px;
+    border-radius:0px;
   }
 `;
 
@@ -647,10 +641,12 @@ const QuestionContents = styled.span`
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+  letter-spacing: 0px;
   @media (max-width: 750px) {
     height: 25px;
     margin-top: 0px;
-    font-size: 13px;
+    font: normal normal bold 13px/19px Noto Sans CJK KR;
+    padding:0px 14px;
   }
 `;
 
@@ -664,15 +660,17 @@ const AnswerContents = styled.span`
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+  letter-spacing: 0px;
   cursor:pointer;
   &:hover{
     font-weight:600;
   }
   @media (max-width: 750px) {
-    height: 60px;
+    height: 65px;
     margin-top: 6px;
-    margin-bottom: 20px;
-    font-size: 13px;
+    margin-bottom: 15px;
+    font: normal normal normal 13px/19px Noto Sans CJK KR;
+    padding:0px 14px;
   }
 `;
 
@@ -687,7 +685,7 @@ const Footer = styled.div`
   margin-top: 10px;
   @media (max-width: 750px) {
     margin-top: 0px;
-    padding-top: 10px;
+    padding:10px 14px 0px 14px;
   }
 `;
 
@@ -701,7 +699,7 @@ const IconBox = styled.div`
 const LikeBox = styled.div`
   display: flex;
   align-items: center;
-  margin-right: 8px;
+  margin-right: 15px;
 `;
 const CommentBox = styled.div`
   display: flex;
@@ -757,7 +755,7 @@ const FilterBtn = styled.button`
   max-width: 80px;
   max-height: 17px;
   text-align: left;
-  font: normal normal normal 14px/19px Roboto;
+  font: normal normal normal 14px/19px Noto Sans CJK KR;
   border: none;
   outline: none;
   background: none;
