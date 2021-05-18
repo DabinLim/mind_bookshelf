@@ -448,7 +448,6 @@ const ContainerUpperLeft = styled.div`
 
 const QuestionTitle = styled.h2`
   font: normal normal bold 30px/39px;
-  font-family: 
   letter-spacing: 0px;
   width: 60%;
   margin: 29px 0 0 0;

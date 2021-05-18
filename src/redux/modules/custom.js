@@ -239,9 +239,9 @@ const getOthersQuest = (id) => {
 const getOthersPopQuest = (id) => {
     return function(dispatch, getState){
 
-        const loading = getState().custom.loading;
-        const page = getState().custom.page;
-        const next = getState().custom.next;
+        const loading = getState().custom.pop_loading;
+        const page = getState().custom.pop_page;
+        const next = getState().custom.pop_next;
 
         if(!next){
             console.log('next is none');
