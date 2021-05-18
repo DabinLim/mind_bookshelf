@@ -7,7 +7,6 @@ import { history } from "../../redux/configStore";
 import { api as answerActions } from "../../redux/modules/answer";
 import { CheckCircleOutlined } from "@ant-design/icons";
 import CustomSwitch from "../../shared/CustomSwitch";
-import { Radio } from "antd";
 
 const Post = (props) => {
   const dispatch = useDispatch();
