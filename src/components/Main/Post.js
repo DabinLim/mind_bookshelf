@@ -158,13 +158,13 @@ const Post = (props) => {
             <>
               <div style={{ margin: "90px 0 0 0 ", cursor: "context-menu" }}>
                 <pre>
-                  <span style={{ fontSize: "13px", fontFamily: "Noto Sans KR, sans-serif" }}>
+                  <PreLoginText style={{ fontSize: "13px", fontFamily: "Noto Sans KR, sans-serif" }}>
                     당신이라면 어떻게 대답하시겠나요?
-                  </span>
+                  </PreLoginText>
                   <br />
-                  <span style={{ fontSize: "13px", fontFamily: "Noto Sans KR, sans-serif" }}>
+                  <PreLoginText style={{ fontSize: "13px", fontFamily: "Noto Sans KR, sans-serif" }}>
                     로그인시 답변 가능합니다.
-                  </span>
+                  </PreLoginText>
                 </pre>
               </div>
             </>
@@ -527,6 +527,7 @@ const CompletedBox = styled.div`
 const CheckCircle = styled.img`
 width: 70px;
 height: 70px;
+margin-bottom: 14px;
 `;
 
 const CompletedBoxInner = styled.div``;

@@ -109,7 +109,7 @@ const SmallCircle = styled.span`
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: gray;
+  background: #3C3C3C;
   position: absolute;
   top: 16%;
   right: 10%;
