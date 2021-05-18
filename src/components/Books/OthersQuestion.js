@@ -590,7 +590,8 @@ const QuestionContents = styled.span`
   }
   @media (max-width: 750px) {
     padding:0px 12px;
-    height: 113px;
+    height: 100px;
+    margin-bottom:13px;
     margin-top:0px;
     font: normal normal bold 13px/19px Noto Sans CJK KR;
   }
