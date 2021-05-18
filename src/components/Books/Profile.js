@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
-import { FollowModal, ProfileUpdateModal } from "./booksindex";
+import { FollowModal } from "./booksindex";
 import {
   setComponent,
   setPageOwner,

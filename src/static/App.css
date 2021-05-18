@@ -68,7 +68,7 @@ body {
   background-image: url("https://user-images.githubusercontent.com/77574867/116995144-a7236d00-ad14-11eb-9021-940b83e5089e.png");
   background-size: cover;
   background-repeat: no-repeat;
-  font-family: "Noto Sans KR", sans-serif;
+  font-family: "Noto Sans CJK KR", sans-serif;
 }
 
 @media screen and (max-width: 500px) {
@@ -80,5 +80,5 @@ body {
 }
 
 h3 {
-  font-family: "Noto Sans KR", sans-serif;
+  font-family: "Noto Sans CJK KR", sans-serif;
 }

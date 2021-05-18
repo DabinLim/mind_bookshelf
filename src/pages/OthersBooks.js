@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import {BookShelf, Profile, OthersQuestion, OthersAnswers} from '../components/Books/booksindex';
+import {BookShelf, Profile, OthersQuestion, OthersAnswers, UnfollowConfirmModal} from '../components/Books/booksindex';
 import {api as userActions} from '../redux/modules/user';
 import {useSelector, useDispatch} from 'react-redux';
 import { getCookie } from "../shared/Cookie";
@@ -41,6 +41,7 @@ const OthersBooks = (props) => {
 
     return(
         <React.Fragment>
+            <UnfollowConfirmModal/>
             <Container>
                 <ContainerBox>
             <ProfileContainer component={component}>
@@ -118,7 +119,6 @@ const Container = styled.div`
 `;
 
 const ProfileContainer = styled.section`
-
     position:relative;
     box-sizing:border-box;
     padding:30px;
