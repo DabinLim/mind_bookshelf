@@ -34,7 +34,6 @@ const MobileSearch = (props) => {
       return;
     }
     const result = await axios.get("/bookshelf/searchUser");
-    console.log(result);
     if (result.data.result.searchUser.length === 0) {
       setRecent();
       setLoading(false);
@@ -47,9 +46,7 @@ const MobileSearch = (props) => {
   const debounce = _.debounce((words) => {
     setLoading(true)
     const searchUsers = async() => {
-      console.log(words)
       const result = await axios.post(`${config.api}/bookshelf/searchUser`, {words: words})
-      console.log(result)
       if(result.data.userInfo === "none" || result.data.userInfo.length === 0){
         setUser()
         setLoading(false)

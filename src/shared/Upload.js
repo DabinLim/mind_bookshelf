@@ -18,10 +18,12 @@ const Upload = (props) => {
     console.log(file)
     if(file.name.split('.')[1] === 'heic'){
       let blob = fileInput.current.files[0];
+      // blob에다가 변환 시키고 싶은 file값을 value로 놓는다.
+			// toType에다가는 heic를 변환시키고싶은 이미지 타입을 넣는다.
       heic2any({blob : blob, toType : "image/jpeg"})
       .then(function (resultBlob) {
+        //file에 새로운 파일 데이터를 씌웁니다.
         file = new File([resultBlob], file.name.split('.')[0]+".jpg",{type:"image/jpeg", lastModified:new Date().getTime()});
-        console.log(file)
         props.setImage(file)
         reader.readAsDataURL(file);
         reader.onloadend = () => {

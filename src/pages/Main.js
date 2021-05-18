@@ -52,7 +52,6 @@ function Main() {
 
   //처음 회원가입했을 때 프로필 수정 모달 상태 관리
   const [profileUpdate, setProfileUpdate] = React.useState(user.first);
-  console.log(profileUpdate);
   // 날짜 지정
   let today = moment().format("YYYY-MM-DD").split("-");
   let month = today[1];

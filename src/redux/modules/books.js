@@ -51,7 +51,6 @@ const booksSlice = createSlice({
     },
 
     changeDate: (state, action) => {
-        console.log(action.payload)
         if(action.payload === 2){
             const new_date = state.date.add(1,'M');
             state.date = new_date
@@ -97,13 +96,11 @@ const getBooks = (towhen) => {
         }
 
         const date = getState().books.date.format('YYMM')
-        // console.log(date)
         const options = {
             url:`/bookshelf/books/${date}`,
             method:'GET',
         };
         axios(options).then((response) => {
-            console.log(response.data)
             dispatch(setBooks(response.data.books))
         }).catch((err) => {
             console.log(err)
@@ -118,20 +115,20 @@ const getBooks = (towhen) => {
 
 const getBookDetail = (date, history, type=null) => {
     return function(dispatch) { 
-        console.log(date)
+
         const options = {
             url:`bookshelf/bookDetail/${date}`,
             method:'GET',
         };
         axios(options).then((response) => {
-            console.log(response.data)
+
             dispatch(setBookDetail(response.data.booksDiary))
             dispatch(setBookLoading(false))
             if(type){
                 history.push(`/bookdetail/${date}/${response.data.booksDiary[0].answerId}`)
             }
         }).catch((err) => {
-            console.log(err);
+
             if(err.response){
                 console.log(err.response.data)
             }
@@ -143,14 +140,13 @@ const getBookDetail = (date, history, type=null) => {
 const getNextDetail = (date) => {
     return function(dispatch, getState) { 
 
-        console.log(date)
         dispatch(setCardLoading(true))
         const options = {
             url:`bookshelf/bookDetail/${date}`,
             method:'GET',
         };
         axios(options).then((response) => {
-            console.log(response.data)
+
             dispatch(setBookDetail(response.data.booksDiary))
         }).then(()=> {
             const book_detail = getState().books.book_detail
@@ -176,7 +172,7 @@ const getPreviousDetail = (date) => {
             method:'GET',
         };
         axios(options).then((response) => {
-            console.log(response.data)
+
             dispatch(setBookDetail(response.data.booksDiary))
         }).then(()=> {
             const book_detail = getState().books.book_detail
@@ -215,7 +211,7 @@ const getOthersBooks = (towhen, id) => {
             method:'GET',
         };
         axios(options).then((response) => {
-            console.log(response.data)
+
             dispatch(setBooks(response.data.books))
         }).catch((err) => {
             console.log(err)
@@ -262,7 +258,6 @@ const getNextOthersBookDetail = (date,id) => {
             method:'GET',
         };
         axios(options).then((response) => {
-            console.log(response.data)
             dispatch(setBookDetail(response.data.booksDiary));
         }).then(()=>{
             const book_detail = getState().books.book_detail
@@ -312,9 +307,7 @@ const getPreviousOthersBookDetail = (date,id) => {
 
 const addQuest = (topic, contents) => {
     return function(getState){
-        console.log(topic, contents)
-        // const nickname = getState().user.user.nickname;
-        console.log(topic, contents)
+
         const options = {
             url:'bookshelf/question',
             method:'POST',
@@ -323,9 +316,8 @@ const addQuest = (topic, contents) => {
                 contents:contents
             }
         };
-        console.log(topic, contents)
+
         axios(options).then((response)=> {
-            console.log(response.data)
             swal({
                 title: "정상적으로 등록되었습니다.",
                 text: `질문이 등록되었습니다.`,
