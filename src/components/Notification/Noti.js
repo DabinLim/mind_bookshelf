@@ -49,7 +49,7 @@ const Noti = (props) => {
                 {props.countOthers >= 1? 
                 <NotiProfileName><span style={{fontWeight: '600'}}>{props.recentNickname}님 외 {props.countOthers}명</span>이 {text}</NotiProfileName>
                 :
-                <NotiProfileName><span style={{fontWeight: '600'}}>{props.recentNickname}</span>님이 {eventType} {text}</NotiProfileName>
+                <NotiProfileName><span style={{fontWeight: '600'}}>{props.recentNickname}</span>님이 {text}</NotiProfileName>
                 }
               </NotiProfileInfo>
             </div>
@@ -63,7 +63,7 @@ const Noti = (props) => {
                 {props.countOthers >= 1? 
                 <NotiProfileName><span style={{fontWeight: '600'}}>{props.recentNickname}님 외 {props.countOthers}명</span>이 {text}</NotiProfileName>
                 :
-                <NotiProfileName><span style={{fontWeight: '600'}}>{props.recentNickname}</span>님이 {eventType} {text}</NotiProfileName>
+                <NotiProfileName><span style={{fontWeight: '600'}}>{props.recentNickname}</span>님이 {text}</NotiProfileName>
                 }
               </NotiProfileInfo>
             </div>

@@ -109,7 +109,7 @@ const Profile = (props) => {
                   other_info.topic?.worth === false ? (
                     <SubjectContainer>
                       <div style={{ display: "flex", alignItems: "center" }}>
-                        <span
+                        <Tagtext
                           style={{
                             fontSize: "14px",
                             marginRight: "17px",
@@ -117,13 +117,13 @@ const Profile = (props) => {
                           }}
                         >
                           선택하신 선호 태그가 없습니다.
-                        </span>
+                        </Tagtext>
                       </div>
                     </SubjectContainer>
                   ) : (
                     <SubjectContainer>
                       <div style={{ display: "flex", alignItems: "center" }}>
-                        <span
+                        <Tagtext
                           style={{
                             fontSize: "14px",
                             marginRight: "17px",
@@ -131,68 +131,70 @@ const Profile = (props) => {
                           }}
                         >
                           선호 태그
-                        </span>
+                        </Tagtext>
                       </div>
-                      {user_info.topic.friendship ? (
-                        <Subject1
-                          style={{
-                            background: "#B9FFC4",
-                            boxShadow: "0px 0px 15px #B9FFC4",
-                          }}
-                        >
-                          <span>#우정</span>
-                        </Subject1>
-                      ) : null}
-                      {user_info.topic.love ? (
-                        <Subject1
-                          style={{
-                            background: "#FFAAAA",
-                            boxShadow: "0px 0px 15px #FFAAAA",
-                          }}
-                        >
-                          <span>#사랑</span>
-                        </Subject1>
-                      ) : null}
-                      {user_info.topic.dream ? (
-                        <Subject1
-                          style={{
-                            background: "#B7E6FF",
-                            boxShadow: "0px 0px 15px #B7E6FF",
-                          }}
-                        >
-                          <span>#꿈</span>
-                        </Subject1>
-                      ) : null}
-                      {user_info.topic.worth ? (
-                        <Subject1
-                          style={{
-                            background: "#B5BDFF",
-                            boxShadow: "0px 0px 15px #B5BDFF",
-                          }}
-                        >
-                          <span>#가치</span>
-                        </Subject1>
-                      ) : null}
-                      {user_info.topic.relationship ? (
-                        <Subject1
-                          style={{
-                            background: "#FFF09D",
-                            boxShadow: "0px 0px 15px #FFF09D",
-                          }}
-                        >
-                          <span>#관계</span>
-                        </Subject1>
-                      ) : null}
-                      {user_info.topic.myself ? (
-                        <Subject1
-                          style={{
-                            background: "#F9D1FD",
-                            boxShadow: "0px 0px 15px #F9D1FD",
-                          }}
-                        >
-                          <span>#나</span>
-                        </Subject1>
-                      ) : null}
+                      <TagContainer>
+                        {other_info.topic.friendship ? (
+                          <Subject1
+                            style={{
+                              color: "#E0692D",
+                              border: "2px solid #E0692D",
+                            }}
+                          >
+                            <span>#우정</span>
+                          </Subject1>
+                        ) : null}
+                        {other_info.topic.love ? (
+                          <Subject1
+                            style={{
+                              color: "#D34242",
+                              border: "2px solid #D34242",
+                            }}
+                          >
+                            <span>#사랑</span>
+                          </Subject1>
+                        ) : null}
+                        {other_info.topic.dream ? (
+                          <Subject1
+                            style={{
+                              color: "#E6BA28",
+                              border: "2px solid #E6BA28",
+                            }}
+                          >
+                            <span>#꿈</span>
+                          </Subject1>
+                        ) : null}
+                        {other_info.topic.worth ? (
+                          <Subject1
+                            style={{
+                              color: "#7249B4",
+                              border: "2px solid #7249B4",
+                            }}
+                          >
+                            <span>#가치</span>
+                          </Subject1>
+                        ) : null}
+                        {other_info.topic.relationship ? (
+                          <Subject1
+                            style={{
+                              color: "#2761CC",
+                              border: "2px solid #2761CC",
+                            }}
+                          >
+                            <span>#관계</span>
+                          </Subject1>
+                        ) : null}
+                        {other_info.topic.myself ? (
+                          <Subject1
+                            style={{
+                              color: "#458857",
+                              border: "2px solid #458857",
+                            }}
+                          >
+                            <span>#나</span>
+                          </Subject1>
+                        ) : null}
+                      </TagContainer>
                     </SubjectContainer>
                   )}
                 </Head>
@@ -295,21 +297,21 @@ const Profile = (props) => {
                   user_info.topic?.worth === false ? (
                     <SubjectContainer>
                       <div style={{ display: "flex", alignItems: "center" }}>
-                        <span
+                        <Tagtext
                           style={{
                             fontSize: "14px",
                             marginRight: "17px",
                             fontWeight: "800",
                           }}
                         >
-                          선택하신 선호 태그가 없습니다. 😗
-                        </span>
+                          선택하신 선호 태그가 없습니다.
+                        </Tagtext>
                       </div>
                     </SubjectContainer>
                   ) : (
                     <SubjectContainer>
                       <div style={{ display: "flex", alignItems: "center" }}>
-                        <span
+                        <Tagtext
                           style={{
                             fontSize: "14px",
                             marginRight: "17px",
@@ -317,68 +319,70 @@ const Profile = (props) => {
                           }}
                         >
                           선호 태그
-                        </span>
+                        </Tagtext>
                       </div>
-                      {user_info.topic.friendship ? (
-                        <Subject1
-                          style={{
-                            background: "#B9FFC4",
-                            boxShadow: "0px 0px 15px #B9FFC4",
-                          }}
-                        >
-                          <span>#우정</span>
-                        </Subject1>
-                      ) : null}
-                      {user_info.topic.love ? (
-                        <Subject1
-                          style={{
-                            background: "#FFAAAA",
-                            boxShadow: "0px 0px 15px #FFAAAA",
-                          }}
-                        >
-                          <span>#사랑</span>
-                        </Subject1>
-                      ) : null}
-                      {user_info.topic.dream ? (
-                        <Subject1
-                          style={{
-                            background: "#B7E6FF",
-                            boxShadow: "0px 0px 15px #B7E6FF",
-                          }}
-                        >
-                          <span>#꿈</span>
-                        </Subject1>
-                      ) : null}
-                      {user_info.topic.worth ? (
-                        <Subject1
-                          style={{
-                            background: "#B5BDFF",
-                            boxShadow: "0px 0px 15px #B5BDFF",
-                          }}
-                        >
-                          <span>#가치</span>
-                        </Subject1>
-                      ) : null}
-                      {user_info.topic.relationship ? (
-                        <Subject1
-                          style={{
-                            background: "#FFF09D",
-                            boxShadow: "0px 0px 15px #FFF09D",
-                          }}
-                        >
-                          <span>#관계</span>
-                        </Subject1>
-                      ) : null}
-                      {user_info.topic.myself ? (
-                        <Subject1
-                          style={{
-                            background: "#F9D1FD",
-                            boxShadow: "0px 0px 15px #F9D1FD",
-                          }}
-                        >
-                          <span>#나</span>
-                        </Subject1>
-                      ) : null}
+                      <TagContainer>
+                        {user_info.topic.friendship ? (
+                          <Subject1
+                            style={{
+                              color: "#E0692D",
+                              border: "2px solid #E0692D",
+                            }}
+                          >
+                            <span>#우정</span>
+                          </Subject1>
+                        ) : null}
+                        {user_info.topic.love ? (
+                          <Subject1
+                            style={{
+                              color: "#D34242",
+                              border: "2px solid #D34242",
+                            }}
+                          >
+                            <span>#사랑</span>
+                          </Subject1>
+                        ) : null}
+                        {user_info.topic.dream ? (
+                          <Subject1
+                            style={{
+                              color: "#E6BA28",
+                              border: "2px solid #E6BA28",
+                            }}
+                          >
+                            <span>#꿈</span>
+                          </Subject1>
+                        ) : null}
+                        {user_info.topic.worth ? (
+                          <Subject1
+                            style={{
+                              color: "#7249B4",
+                              border: "2px solid #7249B4",
+                            }}
+                          >
+                            <span>#가치</span>
+                          </Subject1>
+                        ) : null}
+                        {user_info.topic.relationship ? (
+                          <Subject1
+                            style={{
+                              color: "#2761CC",
+                              border: "2px solid #2761CC",
+                            }}
+                          >
+                            <span>#관계</span>
+                          </Subject1>
+                        ) : null}
+                        {user_info.topic.myself ? (
+                          <Subject1
+                            style={{
+                              color: "#458857",
+                              border: "2px solid #458857",
+                            }}
+                          >
+                            <span>#나</span>
+                          </Subject1>
+                        ) : null}
+                      </TagContainer>
                     </SubjectContainer>
                   )}
                 </Head>
@@ -456,8 +460,8 @@ const ProfileImg = styled.img`
   border-radius: 50%;
   object-fit: cover;
   @media (max-width: 750px) {
-    width: 68px;
-    height: 68px;
+    width: 70px;
+    height: 70px;
   }
 `;
 
@@ -498,9 +502,10 @@ const Head = styled.div`
   flex-direction: row;
   justify-content: space-between;
   @media (max-width: 750px) {
-    justify-content: center;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    flex-direction : column;
+    margin-top: 13px;
+    margin-bottom: 13px;
+    align-items: center;
   }
 `;
 
@@ -518,10 +523,9 @@ const Body = styled.div`
 `;
 
 const Line = styled.div`
-  width: 1px;
   margin: 1px 10px 0px 10px;
-  height: 8px;
-  border-right: 1px solid #212121;
+  height: 9px;
+  border: 0.5px solid #707070;
   @media (min-width: 750px) {
     display: none;
   }
@@ -532,11 +536,12 @@ const Bottom = styled.div`
   width: 100%;
   justify-content: space-between;
   margin-top: 20px;
+  font-family: Sans KR, sans-serif;
   @media (max-width: 750px) {
     margin-top: 0px;
-    margin-bottom: 22px;
+    margin-bottom: 20px;
     justify-content: center;
-    font: normal normal normal 12px/18px Noto Sans KR;
+    font-size: 12px/18px;
   }
 `;
 
@@ -545,7 +550,7 @@ const Nickname = styled.div`
   font-size: 22px;
   @media (max-width: 750px) {
     text-align: center;
-    font: normal normal bold 18px/27px Noto Sans KR;
+    font: normal normal bold 17px/25px Sans KR;
   }
 `;
 
@@ -553,7 +558,7 @@ const CountText = styled.span`
   font-weight: 600;
   margin-left: 5px;
   @media (max-width: 750px) {
-    font: normal normal bold 14px/20px Noto Sans KR;
+    font: normal normal bold 14px/20px Sans KR;
   }
 `;
 
@@ -561,7 +566,7 @@ const Introduce = styled.div`
   margin-top: 20px;
   font-size: 14px;
   @media (max-width: 750px) {
-    font: normal normal normal 12px/18px Noto Sans KR;
+    font: normal normal normal 12px/18px Sans KR;
   }
 `;
 
@@ -576,7 +581,7 @@ const Answers = styled.div`
     align-items: center;
     margin-top: 0px;
     margin-right: 0px;
-    font-size: 11px;
+    font: normal normal medium 11px/17px Sans KR;
   }
 `;
 
@@ -596,7 +601,8 @@ const FollowBtnMobile = styled.button`
   border-style: none;
   border-radius: 45px;
   background-color: #efe7ff;
-  font: normal normal normal 13px/19px Noto Sans KR;
+  font-size: 13px/19px;
+  font-family: Sans KR, sans-serif;
   cursor: pointer;
   @media (min-width: 750px) {
     display: none;
@@ -609,7 +615,7 @@ const UnFollowBtnMobile = styled.button`
   border-style: none;
   border-radius: 45px;
   background-color: #f0f0f0;
-  font: normal normal normal 13px/19px Noto Sans KR;
+  font: normal normal normal 13px/19px Sans KR;
   cursor: pointer;
   @media (min-width: 750px) {
     display: none;
@@ -627,17 +633,30 @@ const MyQuestionBtn = styled.div`
     align-items: center;
     margin-top: 0px;
     margin-right: 0px;
-    font-size: 11px;
-  }
+    font: normal normal medium 11px/17px Sans KR;
+  };
 `;
 
 const SubjectContainer = styled.div`
   display: flex;
   flex-direction: row;
   @media (max-width: 750px) {
-    display: none;
-  }
+  };
 `;
+
+const Tagtext = styled.span`
+  @media (max-width: 750px) {
+    display: none;
+  };
+`
+
+const TagContainer = styled.span`
+  display: flex;
+  @media (max-width: 750px) {
+    display: flex;
+    margin-top: 13px;
+  };
+`
 
 const Subject1 = styled.div`
   display: flex;
@@ -650,6 +669,10 @@ const Subject1 = styled.div`
   border-radius: 45px;
   font-size: 14px;
   font-weight: 600;
+  @media (max-width: 750px) {
+    width: 58px;
+    height: 25px;
+  };
 `;
 
 const Myfollowers = styled.div`
@@ -663,7 +686,7 @@ const Myfollowers = styled.div`
     align-items: center;
     margin-top: 0px;
     margin-right: 0px;
-    font-size: 11px;
+    font: normal normal medium 11px/17px Sans KR;
   }
 `;
 
