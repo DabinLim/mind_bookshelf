@@ -9,7 +9,7 @@ import {
 import { setComponent } from "../../redux/modules/books";
 import InfinityScroll from "../../shared/InfinityScroll";
 import { history } from "../../redux/configStore";
-import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
+import { LeftOutlined } from "@ant-design/icons";
 
 const OthersQuestion = (props) => {
   const dispatch = useDispatch();
@@ -41,11 +41,11 @@ const OthersQuestion = (props) => {
       <Container>
         <Background />
         <TitleContainerMobile>
-          <ArrowForwardIosIcon
+          <LeftOutlined
             onClick={() => {
               dispatch(setComponent(""));
             }}
-            style={{ transform: "rotateZ(180deg)" }}
+            style={{fontSize:'22px' , transform:'scaleX(0.8)'}}
           />
           <TitleMobile>{user_info?.nickname}님의 질문</TitleMobile>
           <EmptyDiv />
@@ -55,7 +55,7 @@ const OthersQuestion = (props) => {
             {now_view === "new" && <span>최신순</span>}
             {now_view === "pop" && <span>인기순</span>}
             {openFilter ? (
-              <ArrowForwardIosIcon
+              <LeftOutlined
                 onClick={() => {
                   setOpenFilter(false);
                 }}
@@ -63,12 +63,12 @@ const OthersQuestion = (props) => {
                   cursor: "pointer",
                   color: "black",
                   fontSize: "12px",
-                  transform: "rotateZ(270deg)",
+                  transform: "rotateZ(90deg)",
                   marginLeft: "5px",
                 }}
               />
             ) : (
-              <ArrowForwardIosIcon
+              <LeftOutlined
                 onClick={() => {
                   setOpenFilter(true);
                 }}
@@ -76,7 +76,7 @@ const OthersQuestion = (props) => {
                   cursor: "pointer",
                   color: "black",
                   fontSize: "12px",
-                  transform: "rotateZ(90deg)",
+                  transform: "rotateZ(270deg)",
                   marginLeft: "5px",
                 }}
               />
