@@ -257,13 +257,13 @@ const CardDetail = (props) => {
 const Container = styled.section`
     margin-top: 50px;
     width:100%;
-    height:85%;
+    height:85vh;
     overflow-y:auto;
     border: 0.5px solid #D3D3D3;
     background-color: white;
     border-radius:16px 16px 0px 0px;
     @media(max-height:700px){
-        height:82%;
+        height:82vh;
     }
 `;
 
