@@ -374,7 +374,7 @@ const Container = styled.section`
   border-radius: 20px;
   overflow: hidden;
   @media (max-width: 750px) {
-    margin: 0px auto;
+    margin: 0px auto ;
     padding: 23px 25px 20px 25px;
     max-height:100%;
   }

@@ -551,7 +551,7 @@ const CardContainer = styled.section`
   flex-direction: row;
   justify-content: flex-start;
   flex-wrap: wrap;
-  overflow: auto;
+  overflow-y: auto;
   ${(props) =>
     props.view === "new" ? `padding-bottom:60px` : `padding-bottom:0px`};
   @media (max-width: 750px) {
