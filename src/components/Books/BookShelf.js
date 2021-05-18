@@ -863,7 +863,7 @@ const BookRow = styled.div`
   }
 
   @media (max-width: 750px) {
-    margin: 10px 0px -15px 0px;
+    margin: 10px 5px -15px 0px;
     max-width: 300px;
     height: 150px;
     
