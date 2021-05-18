@@ -62,24 +62,40 @@ const Profile = (props) => {
               </ProfileImgContainer>
               <ProfileDetail>
                 <Head>
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "row",
-                      alignItems: "flex-end",
-                    }}
-                  >
+                  <HeadBox>
                     <Nickname>{other_info.nickname}</Nickname>
+                    <HeadBody>
+                      <Answers
+                        onClick={() => {
+                          dispatch(setComponent("othersanswers"));
+                        }}
+                      >
+                        낙서
+                        <CountText>{other_info.otherAnswerCount}</CountText>
+                      </Answers>
+                      <Line />
+                      <MyQuestionBtn
+                        onClick={() => {
+                          dispatch(setComponent("othersquestion"));
+                        }}
+                      >
+                        질문
+                        <CountText>{other_info.otherCustomQuestionCount}</CountText>
+                      </MyQuestionBtn>
+                      <Line />
+                      <Myfollowers
+                        onClick={() => {
+                          setFollowModal(true);
+                        }}
+                      >
+                        구독<CountText>{otherfriend_list.length}</CountText>
+                      </Myfollowers>
+                    </HeadBody>
                     {is_login && other_info.nickname !== "알 수 없는 유저" ? (
                       followed ? (
                         <FollowerBtn
                           onClick={() => {
-                            dispatch(
-                              userActions.unfollowOtherAX(
-                                props.id,
-                                other_info.nickname
-                              )
-                            );
+                            props.setUnfollowModal(true)
                           }}
                         >
                           구독취소
@@ -100,7 +116,7 @@ const Profile = (props) => {
                         </FollowerBtn>
                       )
                     ) : null}
-                  </div>
+                  </HeadBox>
                   {other_info.topic?.friendship === false &&
                   other_info.topic?.love === false &&
                   other_info.topic?.dream === false &&
@@ -232,12 +248,7 @@ const Profile = (props) => {
                   followed ? (
                     <UnFollowBtnMobile
                       onClick={() => {
-                        dispatch(
-                          userActions.unfollowOtherAX(
-                            props.id,
-                            other_info.nickname
-                          )
-                        );
+                        props.setUnfollowModal(true)
                       }}
                     >
                       구독중
@@ -287,7 +298,37 @@ const Profile = (props) => {
               </ProfileImgContainer>
               <ProfileDetail>
                 <Head>
-                  <Nickname>{user_info.nickname}</Nickname>
+                  <HeadBox>
+                    <Nickname>{user_info.nickname}</Nickname>
+                    <HeadBody>
+                      <Answers
+                        onClick={() => {
+                          dispatch(setComponent("myanswers"));
+                        }}
+                      >
+                        낙서
+                        <CountText>{user_info.myAnswerCount}</CountText>
+                      </Answers>
+                      <Line />
+                      <MyQuestionBtn
+                        onClick={() => {
+                          dispatch(setComponent("myquestion"));
+                        }}
+                      >
+                        질문
+                        <CountText>{user_info.myCustomQuestionCount}</CountText>
+                      </MyQuestionBtn>
+                      <Line />
+                      <Myfollowers
+                        onClick={() => {
+                          setFollowModal(true);
+                        }}
+                      >
+                        구독
+                        <CountText>{myfriend_list.length}</CountText>
+                      </Myfollowers>
+                    </HeadBody>
+                    </HeadBox>
                   {}
                   {user_info.topic?.friendship === false &&
                   user_info.topic?.love === false &&
@@ -509,16 +550,37 @@ const Head = styled.div`
   }
 `;
 
+const HeadBox = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  @media (max-width: 750px) {
+    flex-direction: column;
+    align-items: center;
+  }
+`
+
+const HeadBody = styled.div`
+  display: none;
+  @media (max-width: 750px) {
+    display: flex;
+    justify-content: center;
+    width: 178px;
+    height: 20px;
+    box-sizing: border-box;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 10px;
+  }
+`
+
 const Body = styled.div`
   display: flex;
   width: 100%;
   flex-direction: row;
   align-items: center;
   @media (max-width: 750px) {
-    justify-content: center;
-    width: 178px;
-    height: 20px;
-    box-sizing: border-box;
+    display: none;
   }
 `;
 
@@ -568,6 +630,7 @@ const Introduce = styled.div`
   text-align:center;
   @media (max-width: 750px) {
     font: normal normal normal 12px/18px Noto Sans CJK KR;
+    margin-top: 5px;
   }
 `;
 

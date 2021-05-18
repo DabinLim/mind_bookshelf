@@ -15,6 +15,8 @@ const OthersBooks = (props) => {
     const formated_date = useSelector(state => state.books.formated_date);
     const answerInfo = useSelector((state) => state.community.card_detail);
     const cookie = getCookie("is_login") ? true : false;
+    const [UnfollowModal, setUnfollowModal] = React.useState(false) 
+
     let url = window.location.href.split('/');
     console.log(url)
     let id = url[url.length -2];
@@ -41,11 +43,13 @@ const OthersBooks = (props) => {
 
     return(
         <React.Fragment>
-            <UnfollowConfirmModal/>
+            {UnfollowModal? 
+                <UnfollowConfirmModal id={userId} setUnfollowModal={setUnfollowModal} />
+            :null}
             <Container>
                 <ContainerBox>
             <ProfileContainer component={component}>
-                <Profile id={userId} />
+                <Profile id={userId} setUnfollowModal={setUnfollowModal} />
             </ProfileContainer>
                 {id === 'others' && component === '' &&
                 <BookShelf date={date}/>
