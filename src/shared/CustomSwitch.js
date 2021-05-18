@@ -27,13 +27,12 @@ const CustomSwitch = (props) => {
       <RadioSwitch>
         {props.isOpen ? (
           <>
-            <Circle onClick={onClick}></Circle>
+            <Circle src={"https://user-images.githubusercontent.com/77369674/118648262-30f72e00-b81d-11eb-9ae7-632dbac0aef4.png"} onClick={onClick}></Circle>
             비공개
           </>
         ) : (
           <>
-            <Circle onClick={onClick}>
-              <SmallCircle />
+            <Circle src={"https://user-images.githubusercontent.com/77369674/118648260-305e9780-b81d-11eb-96d1-6fda0bb022e2.png"} onClick={onClick}>
             </Circle>
             비공개
           </>
@@ -95,24 +94,10 @@ const RadioSwitch = styled.div`
   }
 `;
 
-const Circle = styled.span`
+const Circle = styled.img`
   width: 16px;
   height: 16px;
-  border-radius: 50%;
-  border: 1px solid #939393;
-  background: white;
-  position: relative;
   margin-right: 5px;
-`;
-
-const SmallCircle = styled.span`
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: #3C3C3C;
-  position: absolute;
-  top: 16%;
-  right: 10%;
 `;
 
 export default CustomSwitch;
