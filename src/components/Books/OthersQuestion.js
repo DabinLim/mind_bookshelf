@@ -52,6 +52,7 @@ const OthersQuestion = (props) => {
           <EmptyDiv />
         </TitleContainerMobile>
         <FilterBtnBoxMobile>
+        <QuestionCount>{user_info?.otherCustomQuestionCount}개</QuestionCount>
           <FilterToggle>
             {now_view === "new" && <span>최신순</span>}
             {now_view === "pop" && <span>답변순</span>}
@@ -497,10 +498,8 @@ const CardContainer = styled.section`
   ${(props) =>
     props.view === "new" ? `padding-bottom:60px` : `padding-bottom:0px`};
   @media (max-width: 750px) {
-    /* ${(props) => (props.view === "new" ? `height:100` : `height:0`)}; */
-    /* flex-direction: column;
-    flex-wrap: wrap; */
-    padding-right: 0px;
+    align-content:flex-start;
+    padding-right:0px;
   }
 `;
 
@@ -517,8 +516,8 @@ const CardContainerPop = styled.section`
   ${(props) =>
     props.view === "pop" ? `padding-bottom:60px` : `padding-bottom:0px`};
   @media (max-width: 750px) {
-    /* ${(props) => (props.view === "pop" ? `height:auto` : `height:0`)}; */
-    padding-right: 0px;
+    align-content:flex-start;
+    padding-right:0px;
   }
 `;
 
@@ -634,8 +633,8 @@ const FilterBtnBoxMobile = styled.div`
   position:relative;
   width: 100%;
   display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
+  flex-direction: row;
+  justify-content: space-between;
   align-items: flex-end;
   font-size: 12px;
   margin-right: 20px;
@@ -686,6 +685,14 @@ color: #121212;
 & > div:nth-child(2) {
   border-top: 1px solid #00000026;
 }
+`;
+
+const QuestionCount = styled.span`
+  font: normal normal medium 12px/18px Noto Sans CJK KR;
+  font-weight:600;
+  letter-spacing: 0px;
+  color: #333333;
+  margin-left:2px;
 `;
 
 const FilterToggle = styled.div`

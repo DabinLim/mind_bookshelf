@@ -24,6 +24,7 @@ const MyAnswers = (props) => {
   const [modalVisible, setModalVisible] = React.useState(false);
   const [cardModal, setCardModal] = React.useState(false);
   const answer_list = useSelector((state) => state.custom.custom_question);
+  const custom_count = useSelector((state) => state.custom.custom_count);
   const pop_list = useSelector((state) => state.custom.pop_list);
   const user_info = useSelector((state) => state.user.user);
   const is_loading = useSelector((state) => state.custom.loading);
@@ -75,6 +76,7 @@ const MyAnswers = (props) => {
           <EmptyDiv />
         </TitleContainerMobile>
         <FilterBtnBoxMobile>
+          <AnswerCount>{custom_count}개</AnswerCount>
           <FilterToggle>
             {now_view === "new" && <span>최신순</span>}
             {now_view === "pop" && <span>인기순</span>}
@@ -735,8 +737,8 @@ const FilterBtnBoxMobile = styled.div`
   position: relative;
   width: 100%;
   display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
+  flex-direction: row;
+  justify-content: space-between;
   align-items: flex-end;
   font-size: 12px;
   margin-right: 20px;
@@ -787,6 +789,14 @@ color: #121212;
 & > div:nth-child(2) {
   border-top: 1px solid #00000026;
 }
+`;
+
+const AnswerCount = styled.span`
+  font: normal normal medium 12px/18px Noto Sans CJK KR;
+  font-weight:600;
+  letter-spacing: 0px;
+  color: #333333;
+  margin-left:2px;
 `;
 
 const FilterToggle = styled.div`
