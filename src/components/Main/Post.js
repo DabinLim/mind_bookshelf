@@ -158,11 +158,11 @@ const Post = (props) => {
             <>
               <div style={{ margin: "90px 0 0 0 ", cursor: "context-menu" }}>
                 <pre>
-                  <span style={{ fontSize: "14px" }}>
+                  <span style={{ fontSize: "13px", fontFamily: "Noto Sans KR, sans-serif" }}>
                     당신이라면 어떻게 대답하시겠나요?
                   </span>
                   <br />
-                  <span style={{ fontSize: "14px" }}>
+                  <span style={{ fontSize: "13px", fontFamily: "Noto Sans KR, sans-serif" }}>
                     로그인시 답변 가능합니다.
                   </span>
                 </pre>
@@ -225,13 +225,7 @@ const Post = (props) => {
           ) : (
             <CompletedBox>
               <CompletedBoxInner>
-                <CheckCircleOutlined
-                  style={{
-                    fontSize: "60px",
-                    marginBottom: "10px",
-                    fontWeight: "lighter",
-                  }}
-                />
+                <CheckCircle src={"https://user-images.githubusercontent.com/77369674/118619262-61c86a80-b7ff-11eb-9cf4-fc5154e9145d.png"}/>
                 <p style={{ fontSize: "24px", margin: "0" }}>답변완료</p>
                 {props.allChecked ? (
                   <>
@@ -523,11 +517,16 @@ const CompletedBox = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  font: normal normal bold 30px/39px Roboto;
+  font: normal normal bold 16px/24px Noto Sans CJK KR;
   letter-spacing: 0px;
   color: #121212;
   opacity: 0.9;
   height: 200px;
+`;
+
+const CheckCircle = styled.img`
+width: 70px;
+height: 70px;
 `;
 
 const CompletedBoxInner = styled.div``;

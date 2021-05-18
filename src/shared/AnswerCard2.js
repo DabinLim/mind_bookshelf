@@ -31,7 +31,7 @@ const AnswerCard2 = (props) => {
               history.push(`/others/${props.userId}`);
             }}
           />
-          <CardWriter>{props.userNickname}</CardWriter>
+          <CardWriter><b>{props.userNickname}</b>님</CardWriter>
         </AnswerHeader>
         <AnswerContents
           onClick={() => {
@@ -76,9 +76,10 @@ const CardFrame = styled.div`
   flex-direction: column;
   justify-content: space-between;
   background-color: #ffffff;
-  border-radius: 20px;
   margin: 0px 20px 20px 0px;
-  @media(max-width:650px){
+  @media(max-width:750px){
+    margin: 20px 20px 20px 0px;
+    box-shadow: 0px 0px 20px #0000001a;
     width:100%;
     min-width:100%;
     max-width:100%;
@@ -109,10 +110,9 @@ const AnswerNickname = styled.div`
   margin-left: 10px;
 `;
 const CardWriter = styled.span`
-  margin-left: 10px;
-  font-weight: 600;
-  @media(max-width:650px){
-    font-size:12px;
+  margin-left: 10px;s
+  @media(max-width:750px){
+    font: normal normal normal 11px/17px Noto Sans CJK KR;
     margin-left:6px;
   }
 `;
@@ -121,7 +121,7 @@ const AnswerContents = styled.div`
   max-height: 63px;
   min-height: 63px;
   padding: 0px 18px;
-  font: normal normal medium 15px/20px Roboto;
+  font: normal normal normal 12px/18px Noto Sans KR;
   letter-spacing: 0px;
   color: #262626;
   display: -webkit-box;
@@ -167,15 +167,15 @@ const CommentBox = styled.div`
 `;
 
 const DateYMD = styled.div`
-  font-size: 11px;
+font: normal normal normal 13px/19px Noto Sans KR;
 `;
 
 const LikeCount = styled.span`
-  font-size: 11px;
+font: normal normal normal 13px/19px Noto Sans KR;
 `;
 
 const CommentCount = styled.span`
-  font-size: 11px;
+font: normal normal normal 13px/19px Noto Sans KR;
 `;
 
 export default AnswerCard2;

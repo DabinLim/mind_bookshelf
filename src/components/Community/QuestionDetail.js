@@ -16,6 +16,7 @@ import CardModal from "./CardModal";
 import { api as commentActions } from "../../redux/modules/comment";
 import { api as communityActions } from "../../redux/modules/community";
 import {history} from '../../redux/configStore';
+import {CheckOutlined} from "@ant-design/icons";
 
 const QuestionDetail = (props) => {
   const dispatch = useDispatch();
@@ -70,31 +71,29 @@ const QuestionDetail = (props) => {
     };
   }, []);
 
-  // let color = "";
-  // let topic = "";
-  // let boxShadow = "";
-  // if (question_info?.questionTopic?.length > 0) {
-  //   topic = question_info?.questionTopic[0];
-  //   if (question_info?.questionTopic[0] === "나") {
-  //     color = "#F9D9FC";
-  //     boxShadow = "0px 0px 15px #F9D1FD";
-  //   } else if (question_info?.questionTopic[0] === "사랑") {
-  //     color = "#FEBABA";
-  //     boxShadow = "0px 0px 15px #FFAAAA";
-  //   } else if (question_info?.questionTopic[0] === "관계") {
-  //     color = "#FDF1AE";
-  //     boxShadow = "0px 0px 15px #FFF09D";
-  //   } else if (question_info?.questionTopic[0] === "가치") {
-  //     color = "#C2C8FD";
-  //     boxShadow = "0px 0px 15px #B5BDFF";
-  //   } else if (question_info?.questionTopic[0] === "우정") {
-  //     color = "#C4FCCD";
-  //     boxShadow = "0px 0px 15px #B9FFC4";
-  //   } else if (question_info?.questionTopic[0] === "꿈") {
-  //     color = "#C3E9FD";
-  //     boxShadow = "0px 0px 15px #B7E6FF";
-  //   }
-  // }
+  let color = "";
+  let border = "";
+  if (question_info?.questionTopic?.length > 0) {
+    if (question_info?.questionTopic[0] === "나") {
+      color = "#458857";
+      border = `1px solid ${color}`;
+    } else if (question_info?.questionTopic[0] === "사랑") {
+      color = "#D34242";
+      border = `1px solid ${color}`;
+    } else if (question_info?.questionTopic[0] === "관계") {
+      color = "#2761CC";
+      border = `1px solid ${color}`;
+    } else if (question_info?.questionTopic[0] === "가치") {
+      color = "#7249B4";
+      border = `1px solid ${color}`;
+    } else if (question_info?.questionTopic[0] === "우정") {
+      color = "#E0692D";
+      border = `1px solid ${color}`;
+    } else if (question_info?.questionTopic[0] === "꿈") {
+      color = "#E6BA28";
+      border = `1px solid ${color}`;
+    }
+  }
 
   return (
     <React.Fragment>
@@ -106,8 +105,8 @@ const QuestionDetail = (props) => {
               <ContainerUpperLeft>
                 <HashTag
                   style={{
-                    background: "#B5BDFF",
-                    boxShadow: "0px 0px 15px #C3C9FE",
+                    color: color,
+                    border: border,
                     overflow: "visible",
                   }}
                 >
@@ -123,6 +122,8 @@ const QuestionDetail = (props) => {
                   {now_view === "like" && <span>인기순</span>}
                   {now_view === "friends" && <span>구독자</span>}
                   {openFilter ? (
+                    <>
+                    <Component onClick={()=> {setOpenFilter(false)}}/>
                     <ArrowForwardIosIcon
                       onClick={() => {
                         setOpenFilter(false);
@@ -135,6 +136,7 @@ const QuestionDetail = (props) => {
                         marginLeft: "5px",
                       }}
                     />
+                    </>
                   ) : (
                     <ArrowForwardIosIcon
                       onClick={() => {
@@ -151,58 +153,73 @@ const QuestionDetail = (props) => {
                   )}
                 </FilterToggle>
                 {openFilter && now_view === "new" && (
-                  <>
-                    <span
+                  <FilterWhiteBox>
+                    <div
+                      onClick={() => {
+                        dispatch(setView("new"));
+                      }}
+                    >최신순 <span><CheckOutlined /></span></div>
+                    <div
                       onClick={() => {
                         dispatch(setView("like"));
                       }}
                     >
                       인기순
-                    </span>
-                    <span
+                    </div>
+                    <div
                       onClick={() => {
                         dispatch(setView("friends"));
                       }}
                     >
-                      팔로우
-                    </span>
-                  </>
+                      구독자
+                    </div>
+                  </FilterWhiteBox>
                 )}
                 {openFilter && now_view === "like" && (
-                  <>
-                    <span
+                  <FilterWhiteBox>
+                    <div
                       onClick={() => {
                         dispatch(setView("new"));
                       }}
                     >
                       최신순
-                    </span>
-                    <span
+                    </div>
+                    <div
+                      onClick={() => {
+                        dispatch(setView("like"));
+                      }}
+                    >인기순<span><CheckOutlined /></span></div>
+                    <div
                       onClick={() => {
                         dispatch(setView("friends"));
                       }}
                     >
-                      팔로우
-                    </span>
-                  </>
+                      구독자
+                    </div>
+                  </FilterWhiteBox>
                 )}
                 {openFilter && now_view === "friends" && (
-                  <>
-                    <span
+                  <FilterWhiteBox>
+                    <div
                       onClick={() => {
                         dispatch(setView("new"));
                       }}
                     >
                       최신순
-                    </span>
-                    <span
+                    </div>
+                    <div
                       onClick={() => {
                         dispatch(setView("like"));
                       }}
                     >
                       인기순
-                    </span>
-                  </>
+                    </div>
+                    <div
+                      onClick={() => {
+                        dispatch(setView("friends"));
+                      }}
+                    >구독자 <span><CheckOutlined /></span></div>
+                  </FilterWhiteBox>
                 )}
               </FilterBtnBoxMobile>
               <FilterBtnBox>
@@ -257,7 +274,7 @@ const QuestionDetail = (props) => {
                       dispatch(setView("friends"));
                     }}
                   >
-                    •<span style={{ marginLeft: "5px" }}>팔로우</span>
+                    •<span style={{ marginLeft: "5px" }}>구독자</span>
                   </FilterBtn>
                 ) : (
                   <FilterBtn
@@ -367,9 +384,17 @@ const Outer = styled.section`
     margin: 50px 0px 0px 0px;
     background-size: cover;
     background-repeat: no-repeat;
-    background-image: url("https://user-images.githubusercontent.com/67696504/117994109-4088f980-b37b-11eb-8f2c-9d42c93fd0a3.png");
+    background-image: url("https://user-images.githubusercontent.com/77369674/118459848-1b0f3d80-b737-11eb-8f1a-906da3e390e2.jpeg");
   }
 `;
+
+const Component = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  z-index: 3;`;
 
 const CommunityContainer = styled.div`
   z-index: 2;
@@ -422,18 +447,26 @@ const ContainerUpperLeft = styled.div`
 `;
 
 const QuestionTitle = styled.h2`
-  font: normal normal bold 30px/39px Roboto;
+  font: normal normal bold 30px/39px;
+  font-family: 
   letter-spacing: 0px;
   width: 60%;
   margin: 29px 0 0 0;
   @media (max-width: 750px) {
-    font: normal normal bold 22px/24px Roboto;
+    margin: 12px 0;
+    font: normal normal bold 22px/24px Nanum Myeongjo;
     width: 80%;
+    min-height: 100px;
+    max-height: 100px;
+    overflow: scroll;
   }
   @media (max-width: 650px) {
-    margin: 12px 0 0 0;
     width: 226;
-    font: normal normal bold 18px/22px Roboto;
+    text-align: left;
+    font: normal normal 800 19px/27px Nanum Myeongjo;
+    letter-spacing: 0px;
+    color: #000000;
+    opacity: 0.9;
   }
 `;
 
@@ -480,7 +513,7 @@ const FilterToggle = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  font-weight: 600;
+  font: normal normal medium 11px/17px Noto Sans CJK KR;
   justify-content: flex-end;
   margin-right: -18px;
 `;
@@ -518,6 +551,36 @@ const FilterBtn = styled.button`
   @media (max-width: 650px) {
     margin-bottom: 10px;
   }
+`;
+
+const FilterWhiteBox = styled.div`
+z-index: 5;
+width: 120px;
+min-height: 120px;
+display: flex;
+flex-direction: column;
+background: #FFFFFF 0% 0% no-repeat padding-box;
+box-shadow: 0px 0px 20px #00000026;
+margin: 0 -18px 0 0;
+& > div {
+  display: flex;
+  justify-content: center;
+  padding: 8px 12px;
+  height: 33.333%;
+  align-items: center;
+  font: normal normal medium 14px/20px Noto Sans CJK KR;
+letter-spacing: 0px;
+color: #121212;
+}
+
+& > div > span {
+  margin-left: 8px;
+}
+
+& > div:nth-child(2) {
+  border-top: 1px solid #00000026;
+  border-bottom: 1px solid #00000026;
+}
 `;
 
 const AnswersBox = styled.div`
