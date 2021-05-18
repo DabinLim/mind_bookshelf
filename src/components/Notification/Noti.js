@@ -27,6 +27,10 @@ const Noti = (props) => {
   }
 
   const openCard = () => {
+    if(window.innerWidth <= 500){
+      history.push(`/carddetail/${props.cardId}`)
+      return
+    }
     const type = "noti";
     props.close();
     dispatch(communityActions.getCardDetail(props.cardId, type));

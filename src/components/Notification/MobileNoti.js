@@ -27,6 +27,10 @@ const MobileNoti = (props) => {
   }
 
   const openCard = () => {
+    if(window.innerWidth <= 500){
+      history.push(`/carddetail/${props.cardId}`)
+      return
+    }
     const type = "noti";
     dispatch(communityActions.getCardDetail(props.cardId, type));
     dispatch(commentActions.getCommentAX(props.cardId));
