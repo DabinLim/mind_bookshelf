@@ -36,7 +36,7 @@ const MyAnswers = (props) => {
 
   const openCard = (a) => {
     if(window.innerWidth <= 500){
-      history.push(`/carddetail/${a}`)
+      history.push(`/carddetail/${a.answerId}`)
       return
     }
     const type = "community";
