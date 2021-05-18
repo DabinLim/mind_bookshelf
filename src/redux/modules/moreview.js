@@ -215,11 +215,9 @@ const getAnswers = (id) => {
     const page = getState().moreview.page;
     const next = getState().moreview.next;
     if (!next) {
-      console.log("next is none");
       return;
     }
     if (loading && page > 1) {
-      console.log("잡았다 요놈");
       return;
     }
     dispatch(setLoading(true));
@@ -228,7 +226,6 @@ const getAnswers = (id) => {
       method: "GET",
     };
     axios(options).then((response) => {
-      console.log(response.data);
       if (response.data.answer.length < 20) {
         dispatch(setAnswers(response.data.answer));
         dispatch(setNext(false));
@@ -248,11 +245,9 @@ const getLikeAnswer = (id) => {
     const page = getState().moreview.page;
     const next = getState().moreview.like_next;
     if (!next) {
-      console.log("next is none");
       return;
     }
     if (loading && page > 1) {
-      console.log("잡았다 요놈");
       return;
     }
     dispatch(setLikeLoading(true));
@@ -262,7 +257,6 @@ const getLikeAnswer = (id) => {
       method: "GET",
     };
     axios(options).then((response) => {
-      console.log(response.data);
       if (response.data.answer.length < 20) {
         dispatch(setLikeAnswers(response.data.answer));
         dispatch(setLikeNext(false));
@@ -282,11 +276,9 @@ const getFriendsAnswer = (id) => {
     const next = getState().moreview.friends_next;
     const page = getState().moreview.friends_page;
     if (!next) {
-      console.log("next is none");
       return;
     }
     if (loading && page > 1) {
-      console.log("잡았다 요놈");
       return;
     }
     dispatch(setFriendsLoading(true));
@@ -295,8 +287,6 @@ const getFriendsAnswer = (id) => {
       method: "GET",
     };
     axios(options).then((response) => {
-      console.log(response.data);
-      console.log("wtf");
       if (response.data.answer.length < 20) {
         dispatch(setFriendsAnswers(response.data.answer));
         dispatch(setFriendsNext(false));
@@ -317,7 +307,6 @@ const getQuestionInfo = (id) => {
       method: "GET",
     };
     axios(options).then((response) => {
-      console.log(response.data);
       dispatch(setQuestionInfo(response.data));
     });
   };

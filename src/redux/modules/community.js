@@ -100,7 +100,6 @@ const communityQuestionAX = () => {
     axios
       .get("/ourPlace/cards")
       .then((res) => {
-        // console.log(res)
         let question_list = [];
         res.data.result.forEach((_question) => {
           let question = {
@@ -122,11 +121,9 @@ const communityQuestionAX = () => {
 
 const addLikeDetail = (answerId) => {
   return function (dispatch, getState) {
-    console.log(answerId);
     axios
       .post("/bookshelf/like/answerCard", { answerCardId: answerId })
       .then((res) => {
-        console.log(res)
         dispatch(
           editDetailLikeInfo({
             answerId: answerId,
@@ -143,11 +140,9 @@ const addLikeDetail = (answerId) => {
 
 const deleteLikeDetail = (answerId) => {
   return function (dispatch, getState) {
-    console.log(answerId);
     axios
       .patch("/bookshelf/like/answerCard", { answerCardId: answerId })
       .then((res) => {
-        console.log(res)
         dispatch(
           editDetailLikeInfo({
             answerId: answerId,
@@ -164,11 +159,9 @@ const deleteLikeDetail = (answerId) => {
 
 const addLikeQnA = (answerId, questionId) => {
   return function (dispatch, getState) {
-    console.log(answerId, questionId);
     axios
       .post("/bookshelf/like/answerCard", { answerCardId: answerId })
       .then((res) => {
-        console.log(res)
         dispatch(
           editLikeInfo({
             likeCount: res.data.likeCountNum,
@@ -186,11 +179,9 @@ const addLikeQnA = (answerId, questionId) => {
 
 const deleteLikeQnA = (answerId, questionId) => {
   return function (dispatch, getState) {
-    console.log(answerId, questionId);
     axios
       .patch("/bookshelf/like/answerCard", { answerCardId: answerId })
       .then((res) => {
-        console.log(res)
         dispatch(
           editLikeInfo({
             likeCount: res.data.likeCountNum,
@@ -217,11 +208,9 @@ const addLikeAX = (answerId, questionId) => {
   }
   return function (dispatch, getState) {
     const type = getState().community.card_detail.type;
-    console.log(answerId, questionId);
     axios
       .post("/bookshelf/like/answerCard", { answerCardId: answerId })
       .then((res) => {
-        console.log(res);
         if (type === "community") {
           dispatch(
             editLikeInfo({
@@ -275,13 +264,10 @@ const deleteLikeAX = (answerId, questionId) => {
     return;
   }
   return function (dispatch, getState) {
-    console.log(answerId, questionId);
     const type = getState().community.card_detail.type;
     axios
       .patch("/bookshelf/like/answerCard", { answerCardId: answerId })
       .then((res) => {
-        console.log(res);
-        console.log(answerId, questionId);
         if (type === "community") {
           dispatch(
             editLikeInfo({
@@ -334,7 +320,6 @@ const getCardDetail = (a_id, type) => {
     };
     axios(options)
       .then((response) => {
-        console.log(response.data);
         dispatch(
           setCardDetail({ ...response.data.bookCardDetail[0], type: type })
         );
@@ -382,7 +367,6 @@ const deleteAnswerAX = (answerId, questionId) => {
 const editAnswerAX = (answer) => {
   return function (dispatch, getState) {
     const type = getState().community.card_detail.type;
-    console.log(answer)
     axios
       .patch(`/card/myAnswer`, {answerId: answer.answerId, contents: answer.contents, isOpen: answer.isOpen})
       .then((res) => {

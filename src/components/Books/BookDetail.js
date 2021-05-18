@@ -323,7 +323,6 @@ const BookDetail = (props) => {
                     </CardDate>
                   <Cards>
                     {book_detail.length && book_detail.map((v,idx)=> {
-                      console.log(v)
                       if(v.answerId === answerInfo.answerId){
                         return(
                           <div style={{display:'flex',flexDirection:'row',alignItems:'flex-end'}}>

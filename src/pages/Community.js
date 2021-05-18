@@ -24,7 +24,6 @@ const Community = () => {
   }, []);
 
   const openCard = (a) => {
-    console.log(window.innerWidth);
     if(window.innerWidth <= 500){
       history.push(`/carddetail/${a.answerId}`)
       return

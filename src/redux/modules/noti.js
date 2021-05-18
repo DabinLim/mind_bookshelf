@@ -5,7 +5,6 @@ import { config } from "../../shared/config";
 import { logOut } from "./user";
 import { setLoading } from "./answer";
 import { history } from "../configStore";
-import { Drafts } from "@material-ui/icons";
 
 const notiSlice = createSlice({
   name: "noti",
@@ -62,7 +61,6 @@ export const socket = socketIOClient(`https://lkj99.shop/alarm`);
 const joinAlarmIO = () => {
   return function (dispatch) {
     const token = getCookie("is_login");
-    console.log(token);
     socket.emit("joinAlarm", { token: token });
     socket.on("joinAlarm", function (data) {
       dispatch(setNoti(data));
