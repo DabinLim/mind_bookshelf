@@ -75,7 +75,7 @@ const Header = styled.div`
   margin-top: 22px;
   margin-bottom: 22px;
   @media (max-width: 500px) {
-    font: normal normal bold 14px/20px Noto Sans KR;
+    font: normal normal bold 14px/20px Sans KR;
   } ;
 `;
 
@@ -115,10 +115,10 @@ const ButtonIcon = styled.img`
 const ButtonText = styled.div`
   text-align: center;
   margin: auto;
-  font-size: 20px;
+  font: normal normal medium 20px Sans KR;
   font-weight: 600;
   @media (max-width: 500px) {
-    font-size: 15px;
+    font: normal normal medium 14px/20px Sans KR;
   } ;
 `;
 

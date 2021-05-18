@@ -522,7 +522,7 @@ cursor: pointer;
 `
 
 const ProfileHeaderText = styled.div`
-  font: normal normal bold 14px/20px Noto Sans KR;
+  font: normal normal bold 14px/20px Noto Sans CJK KR;
 `
 
 const ImageUpdate = styled.div`
@@ -534,24 +534,24 @@ const ImageUpdate = styled.div`
 `;
 
 const Nickname = styled.div`
-  font: normal normal bold 15px/20px Noto Sans KR;  
+  font: normal normal bold 15px/20px Noto Sans CJK KR;  
   font-weight: 600;
   @media (max-width: 500px) {
-    font: normal normal bold 14px/20px Noto Sans KR;
+    font: normal normal bold 14px/20px Noto Sans CJK KR;
   } ;
 `;
 
 const RemoveProfileBtn = styled.div`
   margin-top: 8px;
   margin-bottom: 20px;
-  font: normal normal normal 12px/18px Noto Sans KR;
+  font: normal normal normal 12px/18px Noto Sans CJK KR;
   cursor: pointer;
   color: #A8A8A8;
   &:hover {
     color: #000000;
   }
   @media (max-width: 500px) {
-    font: normal normal normal 12px/18px Noto Sans KR;
+    font: normal normal normal 12px/18px Noto Sans CJK KR;
     margin-bottom: 27px;
   } ;
 `;
@@ -579,7 +579,7 @@ const InputLabel = styled.label`
   font-size: 17px;
   margin-bottom: 10px;
   @media (max-width: 500px) {
-    font: normal normal bold 13px/19px Noto Sans KR;
+    font: normal normal bold 13px/19px Noto Sans CJK KR;
   } ;
 `;
 const CountNickname = styled.div`
@@ -588,7 +588,7 @@ const CountNickname = styled.div`
   right: 12px;
   opacity: 0.6;
   @media (max-width: 500px) {
-    font: normal normal normal 12px/18px Noto Sans KR;
+    font: normal normal normal 12px/18px Noto Sans CJK KR;
   } ;
   
 `;
@@ -599,7 +599,7 @@ const CountIntroduce = styled.div`
   right: 12px;
   opacity: 0.6;
   @media (max-width: 500px) {
-    font: normal normal normal 12px/18px Noto Sans KR;
+    font: normal normal normal 12px/18px Noto Sans CJK KR;
   } ;
 `;
 
@@ -611,7 +611,7 @@ const Input = styled.input`
   border-radius: 10px;
   height: 42px;
   padding: 0px 15px;
-  font: normal normal normal 13px/19px Noto Sans KR;
+  font: normal normal normal 13px/19px Noto Sans CJK KR;
   width: 350px;
   border: none;
   box-sizing: border-box;
@@ -632,7 +632,7 @@ const Input2 = styled.textarea`
   opacity: 0.8;
   height: 110px;
   padding: 11px 15px;
-  font: normal normal normal 13px/19px Noto Sans KR;
+  font: normal normal normal 13px/19px Noto Sans CJK KR;
   color: #939393;
   width: 350px;
   border: none;
@@ -673,7 +673,7 @@ const RandomBox = styled.div`
 `;
 
 const Withdrawal = styled.div`
-  font: normal normal medium 14px/20px Noto Sans KR;
+  font: normal normal medium 14px/20px Noto Sans CJK KR;
   cursor: pointer;
   color: #A8A8A8;
   &:hover {
@@ -691,7 +691,7 @@ const TypeBox = styled.div`
 `
 
 const TypeLabel = styled.div`
-  font: normal normal bold 13px/19px Noto Sans KR;
+  font: normal normal bold 13px/19px Noto Sans CJK KR;
 `
 
 const TypeContainer = styled.div`

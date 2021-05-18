@@ -536,7 +536,7 @@ const Bottom = styled.div`
   width: 100%;
   justify-content: space-between;
   margin-top: 20px;
-  font-family: Sans KR, sans-serif;
+  font-family: Noto Sans CJK KR, sans-serif;
   @media (max-width: 750px) {
     margin-top: 0px;
     margin-bottom: 20px;
@@ -550,7 +550,7 @@ const Nickname = styled.div`
   font-size: 22px;
   @media (max-width: 750px) {
     text-align: center;
-    font: normal normal bold 17px/25px Sans KR;
+    font: normal normal bold 17px/25px Noto Sans CJK KR;
   }
 `;
 
@@ -558,15 +558,16 @@ const CountText = styled.span`
   font-weight: 600;
   margin-left: 5px;
   @media (max-width: 750px) {
-    font: normal normal bold 14px/20px Sans KR;
+    font: normal normal bold 14px/20px Noto Sans CJK KR;
   }
 `;
 
 const Introduce = styled.div`
   margin-top: 20px;
   font-size: 14px;
+  text-align:center;
   @media (max-width: 750px) {
-    font: normal normal normal 12px/18px Sans KR;
+    font: normal normal normal 12px/18px Noto Sans CJK KR;
   }
 `;
 
@@ -581,7 +582,7 @@ const Answers = styled.div`
     align-items: center;
     margin-top: 0px;
     margin-right: 0px;
-    font: normal normal medium 11px/17px Sans KR;
+    font: normal normal medium 11px/17px Noto Sans CJK KR;
   }
 `;
 
@@ -602,7 +603,7 @@ const FollowBtnMobile = styled.button`
   border-radius: 45px;
   background-color: #efe7ff;
   font-size: 13px/19px;
-  font-family: Sans KR, sans-serif;
+  font-family: Noto Sans CJK KR, sans-serif;
   cursor: pointer;
   @media (min-width: 750px) {
     display: none;
@@ -615,7 +616,7 @@ const UnFollowBtnMobile = styled.button`
   border-style: none;
   border-radius: 45px;
   background-color: #f0f0f0;
-  font: normal normal normal 13px/19px Sans KR;
+  font: normal normal normal 13px/19px Noto Sans CJK KR;
   cursor: pointer;
   @media (min-width: 750px) {
     display: none;
@@ -633,7 +634,7 @@ const MyQuestionBtn = styled.div`
     align-items: center;
     margin-top: 0px;
     margin-right: 0px;
-    font: normal normal medium 11px/17px Sans KR;
+    font: normal normal medium 11px/17px Noto Sans CJK KR;
   };
 `;
 
@@ -665,7 +666,8 @@ const Subject1 = styled.div`
   width: 72px;
   height: 31px;
   opacity: 0.8;
-  margin-left: 10px;
+  margin-left: 5px;
+  margin-right: 5px;
   border-radius: 45px;
   font-size: 14px;
   font-weight: 600;
@@ -686,7 +688,7 @@ const Myfollowers = styled.div`
     align-items: center;
     margin-top: 0px;
     margin-right: 0px;
-    font: normal normal medium 11px/17px Sans KR;
+    font: normal normal medium 11px/17px Noto Sans CJK KR;
   }
 `;
 
