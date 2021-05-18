@@ -126,13 +126,14 @@ const ProfileContainer = styled.section`
     flex-direction: row;
     @media(max-width:750px){
         ${props => props.component === 'myanswers' || props.component === 'myquestion' ? `display:none`: `display:flex`};
-        padding:10px 50px 30px 50px;
+        // padding:10px 50px 30px 50px;
         margin-top:0px;
         margin-bottom:30px;
         height:100%;
-        min-height:220px;
+        min-height:280px;
         flex-direction:column;
         align-items:center;
+        
     }
 `;
 
