@@ -532,4 +532,10 @@ margin-bottom: 14px;
 
 const CompletedBoxInner = styled.div``;
 
+const PreLoginText = styled.span`
+font: normal normal normal 13px/19px Noto Sans CJK KR;
+letter-spacing: 0px;
+color: #191919;
+`;
+
 export default Post;
