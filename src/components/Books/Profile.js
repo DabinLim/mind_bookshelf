@@ -13,6 +13,7 @@ import {
 } from "../../redux/modules/user";
 import Loader from "react-loader-spinner";
 import { Container } from "@material-ui/core";
+import {history} from '../../redux/configStore';
 
 const Profile = (props) => {
   const dispatch = useDispatch();
@@ -26,6 +27,8 @@ const Profile = (props) => {
   const followed = idx !== -1 ? true : false;
   const is_login = useSelector((state) => state.user.is_login);
   const userLoading = useSelector((state) => state.user.is_userLoading);
+  const url = window.location.href.split('/');
+  const id = url[url.length -1];
 
 
 
@@ -67,6 +70,10 @@ const Profile = (props) => {
                     <HeadBody>
                       <Answers
                         onClick={() => {
+                          if(window.innerWidth <= 750){
+                            history.push(`/othersanswers/${id}`);
+                            return
+                          };
                           dispatch(setComponent("othersanswers"));
                         }}
                       >
@@ -76,6 +83,10 @@ const Profile = (props) => {
                       <Line />
                       <MyQuestionBtn
                         onClick={() => {
+                          if(window.innerWidth <= 750){
+                            history.push(`/othersquestion/${id}`);
+                            return
+                          };
                           dispatch(setComponent("othersquestion"));
                         }}
                       >
@@ -217,6 +228,10 @@ const Profile = (props) => {
                 <Body>
                   <Answers
                     onClick={() => {
+                      if(window.innerWidth <= 750){
+                        history.push(`/otheranswers/${id}`);
+                        return
+                      };
                       dispatch(setComponent("othersanswers"));
                     }}
                   >
@@ -226,6 +241,10 @@ const Profile = (props) => {
                   <Line />
                   <MyQuestionBtn
                     onClick={() => {
+                      if(window.innerWidth <= 750){
+                        history.push(`/othersquestion/${id}`);
+                        return
+                      };
                       dispatch(setComponent("othersquestion"));
                     }}
                   >
@@ -303,6 +322,10 @@ const Profile = (props) => {
                     <HeadBody>
                       <Answers
                         onClick={() => {
+                          if(window.innerWidth <= 750){
+                            history.push(`/myanswers`);
+                            return
+                          };
                           dispatch(setComponent("myanswers"));
                         }}
                       >
@@ -312,6 +335,10 @@ const Profile = (props) => {
                       <Line />
                       <MyQuestionBtn
                         onClick={() => {
+                          if(window.innerWidth <= 750){
+                            history.push(`/myquestion`);
+                            return
+                          };
                           dispatch(setComponent("myquestion"));
                         }}
                       >
@@ -430,6 +457,10 @@ const Profile = (props) => {
                 <Body>
                   <Answers
                     onClick={() => {
+                      if(window.innerWidth <= 750){
+                        history.push(`/myanswers`);
+                        return
+                      };
                       dispatch(setComponent("myanswers"));
                     }}
                   >
@@ -439,6 +470,10 @@ const Profile = (props) => {
                   <Line />
                   <MyQuestionBtn
                     onClick={() => {
+                      if(window.innerWidth <= 750){
+                        history.push(`/myquestion`);
+                        return
+                      };
                       dispatch(setComponent("myquestion"));
                     }}
                   >

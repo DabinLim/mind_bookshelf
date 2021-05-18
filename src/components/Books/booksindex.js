@@ -9,7 +9,7 @@ import Profile from './Profile';
 import ProfileUpdateModal from './ProfileUpdateModal';
 import OthersAnswers from './OthersAnswers';
 import OthersQuestion from './OthersQuestion';
-import CardDetail from './CardDetail';
 import UnfollowConfirmModal from './UnfollowConfirmModal'
+import BookDetail from './BookDetail';
 
-export {UnfollowConfirmModal, CardDetail, BookShelf, FollowModal, MyAnswers, OthersAnswers, MyQuestion, OthersQuestion, NewQuestion, Profile, ProfileUpdateModal};
+export {UnfollowConfirmModal, BookShelf, FollowModal, MyAnswers, OthersAnswers, MyQuestion, OthersQuestion, NewQuestion, Profile, ProfileUpdateModal,BookDetail};
