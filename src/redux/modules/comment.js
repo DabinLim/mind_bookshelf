@@ -42,25 +42,13 @@ const commentSlice = createSlice({
 
 const getCommentAX = (cardId) => {
   return function (dispatch) {
-    console.log(cardId);
     const options = {
       url: `/comment/${cardId}`,
       method: "GET",
     };
     axios(options)
       .then((response) => {
-        console.log(response.data.comments);
-        //   let test = reactStringReplace('내 이름은 이대호', '이대호', (match, i)=> (
-        //     <span>{match}</span>
-        // ));
-        //   console.log(test)
         dispatch(setComment(response.data.comments));
-        // let comment = response.data.comments
-        // comment.commentTag.map((t)=>{
-        //   comment.commentContents = reactStringReplace(comment.commentContents, `@${t[0]}`, (match, i)=> (
-        //     <span key={i} style={{color: "blue", cursor: "pointer"}} onClick={() => { history.push(`/others/${t[1]}`)}}>{match}</span>
-        //   ))
-        // })
       })
       .catch((err) => {
         console.log(err);
@@ -84,7 +72,6 @@ const sendCommentAX = (cardId, content, tagId = [], questionId) => {
     };
     axios(options)
       .then((response) => {
-        console.log(response)
         dispatch(
           addComment({ ...response.data.result, commentCreatedAt: "방금전" })
         );
@@ -114,7 +101,6 @@ const sendCommentAX = (cardId, content, tagId = [], questionId) => {
 };
 
 const deleteCommentAX = (commentId, questionId, cardId) => {
-  console.log(commentId);
   return function (dispatch, getState) {
     axios({
       method: "DELETE",

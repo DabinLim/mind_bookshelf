@@ -66,7 +66,6 @@ const getQuestionAX = () => {
     };
     axios(options)
       .then((response) => {
-        console.log(response.data)
         dispatch(setQuestion(response.data.cards));
       })
       .catch((err) => {
@@ -101,7 +100,6 @@ const getQuestionAX_NOTLOGIN = () => {
 
 const getRecentAnswerAX = (userId) => {
   return function (dispatch, getState) {
-    // dispatch(setLoading(true));
     const options = {
       url: `/card/recentAnswer/${userId}`,
       method: "GET",
@@ -121,7 +119,6 @@ const getRecentAnswerAX = (userId) => {
 
 const sendAnswerAX = (question_id, content, isChecked) => {
   return function (dispatch, getState) {
-    console.log(question_id, content, isChecked)
     let userInfo = getState().user.user;
     if (userInfo?.nickname === "") {
       swal({
@@ -143,7 +140,6 @@ const sendAnswerAX = (question_id, content, isChecked) => {
     };
     axios(options)
       .then((response) => {
-        console.log(response.data);
         dispatch(setQuestion(response.data.cards));
         swal({
           title: "답변 완료",

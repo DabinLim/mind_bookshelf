@@ -86,7 +86,6 @@ const LoginCheckAX = () => {
     axios
       .get(`/auth/user`)
       .then((res) => {
-        console.log(res.data);
         dispatch(
           setUser({
             myAnswerCount: res.data.myAnswerCount,
@@ -112,7 +111,6 @@ const SocialLoginAX = () => {
     axios
       .get(`/auth/user`)
       .then((res) => {
-        console.log(res.data);
         dispatch(
           setUser({
             myAnswerCount: res.data.myAnswerCount,
@@ -137,7 +135,6 @@ const SocialLoginAX = () => {
 
 const UpdateProfileAX = (profile) => {
   return function (dispatch, getState) {
-    console.log(profile);
     const _image = getState().user.preview;
     const _profileImg = getState().user.user.profileImg;
     if (_image !== _profileImg) {
@@ -192,100 +189,11 @@ const UpdateProfileAX = (profile) => {
   };
 };
 
-// const UpdateNicknameAX = (nickname) => {
-//   return function (dispatch) {
-//     axios
-//       .patch(`/myPage/profile/nickname`, { nickname: nickname })
-//       .then((res) => {
-//         dispatch(editUser({ nickname: nickname }));
-//       })
-//       .catch((err) => {
-//         console.log(err);
-//       });
-//   };
-// };
-
-//랜덤 닉네임 가져오는 함수
-// const getNicknameAX = () => {
-//   return function (dispatch){
-//     axios
-//       .get('myPage/profile/random-nickname')
-//       .then((res) => {
-//         console.log(res.data)
-//       })
-//   }
-// }
-
-// const UpdateIntroduceAX = (introduce) => {
-//   return function (dispatch) {
-//     axios
-//       .patch(`/mypage/profile/introduce`, { introduce: introduce })
-//       .then((res) => {
-//         console.log(res);
-//         dispatch(editUser({ introduce: introduce }));
-//       })
-//       .catch((err) => {
-//         console.log(err);
-//       });
-//   };
-// };
-
-// const UpdateProfileImgAX = (profileImg) => {
-//   return function (dispatch) {
-//     const formData = new FormData();
-//     formData.append("profileImg", profileImg);
-//     axios
-//       .patch(`/mypage/profile/profileImg`, formData)
-//       .then((res) => {
-//         console.log(res);
-//         dispatch(editUser({ profileImg: res.data.profileImg }));
-//       })
-//       .catch((err) => {
-//         console.log(err);
-//       });
-//   };
-// };
-
-// const DeleteProfileImgAX = () => {
-//   return function (dispatch) {
-//     axios
-//       .patch(`/mypage/profile/defaultImg`)
-//       .then((res) => {
-//         console.log(res);
-//         dispatch(editUser({ profileImg: res.data.profileImg }));
-//       })
-//       .catch((err) => {
-//         console.log(err);
-//       });
-//   };
-// };
-
-// const editTopicAX = (topic) => {
-//   return function (dispatch) {
-//     console.log(topic)
-//     axios
-//       .patch(`myPage/profile/preferredTopic`, {topic: topic})
-//       .then((res) => {
-//         console.log(res)
-//         dispatch(editUser({ topic: topic }));
-//         swal({
-//           title: "정상적으로 수정되었습니다. 😀",
-//           text: `토픽이 수정되었습니다.`,
-//           icon: "success",
-//         });
-//       }).catch((res)=> {
-//         console.log(res)
-//       })
-//   }
-// }
-
 const othersInfoAX = (id) => {
   return function (dispatch) {
-    console.log(id);
     axios
       .get(`/bookshelf/auth/user/${id}`)
       .then((res) => {
-        console.log(res.data);
         dispatch(
           setOther({
             otherAnswerCount: res.data.otherAnswerCount,
@@ -305,7 +213,6 @@ const othersInfoAX = (id) => {
 
 const followOtherAX = (id, nickname, profileImg) => {
   return function (dispatch) {
-    console.log(id);
     axios.post(`/bookshelf/addfriend`, { friendId: id }).then((res) => {
       dispatch(
         addFriend({
@@ -328,7 +235,6 @@ const unfollowOtherAX = (id, nickname) => {
     axios
       .delete("/bookshelf/friend", { friendId: id })
       .then((res) => {
-        console.log(res);
         dispatch(deleteFriend(id));
         swal({
           title: "정상적으로 취소되었습니다.",
@@ -346,7 +252,6 @@ const myFollowListAX = () => {
   return function (dispatch) {
     // dispatch(friendLoading(true))
     axios.get(`/bookshelf/friendList`).then((res) => {
-      console.log(res);
       let friend_list = [];
       res.data.friends.forEach((_friend) => {
         let friend = {
@@ -356,7 +261,6 @@ const myFollowListAX = () => {
         };
         friend_list.push(friend);
       });
-      console.log(friend_list);
 
       dispatch(setFriend(friend_list));
     });
@@ -366,9 +270,7 @@ const myFollowListAX = () => {
 const otherFriendListAX = (id) => {
   friendLoading();
   return function (dispatch) {
-    // console.log(id);
     axios.get(`/bookshelf/other/friendList/${id}`).then((res) => {
-      // console.log(res.data);
       let otherFriend_list = [];
       res.data.othersFriend.forEach((_friend) => {
         let friend = {
@@ -389,7 +291,6 @@ const withdrawalAX = () => {
     axios
       .delete("/myPage/profile/quit")
       .then((res) => {
-        console.log(res);
         history.replace("/");
         dispatch(logOut());
       })
@@ -405,7 +306,6 @@ const addRecentUserAX = (id) => {
     axios
       .post("/bookshelf/searchUserDetail", { id: id })
       .then((res) => {
-        console.log(res);
       })
       .catch((err) => {
         console.log(err);

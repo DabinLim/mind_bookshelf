@@ -323,7 +323,6 @@ const BookDetail = (props) => {
                     </CardDate>
                   <Cards>
                     {book_detail.length && book_detail.map((v,idx)=> {
-                      console.log(v)
                       if(v.answerId === answerInfo.answerId){
                         return(
                           <div style={{display:'flex',flexDirection:'row',alignItems:'flex-end'}}>
@@ -409,7 +408,6 @@ const Container = styled.section`
     height:85%;
     overflow-y:auto;
     border: 0.5px solid #D3D3D3;
-    background-color: white;
     border-radius:16px 16px 0px 0px;
     @media(max-height:700px){
         height:82%;

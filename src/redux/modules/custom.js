@@ -123,7 +123,6 @@ const getMyQuest = () => {
             method:"GET"
         };
         axios(options).then(response => {
-            console.log(response.data);
             if(response.data.myQuestion.length < 15){
                 dispatch(setCustomQuestion(response.data.myQuestion));
                 dispatch(setCustomCount(response.data.myQuestionCount));
@@ -137,7 +136,6 @@ const getMyQuest = () => {
             dispatch(setPage(page+1));
             dispatch(setLoading(false));
         }).catch(err => {
-            console.log(err);
             if(err.response){
                 console.log(err.response.data);
             };
@@ -168,7 +166,6 @@ const getMyPopQuest = () => {
             method:"GET"
         };
         axios(options).then(response => {
-            console.log(response.data);
             if(response.data.result.length < 15){
                 dispatch(setPopList(response.data.result));
                 // dispatch(setCustomCount(response.data.myQuestionCount));
@@ -199,11 +196,9 @@ const getOthersQuest = (id) => {
         const next = getState().custom.next;
 
         if(!next){
-            console.log('next is none');
             return
         }
         if(loading && page > 1){
-            console.log('잡았다 요놈');
             return
         }
         dispatch(setLoading(true))
@@ -213,7 +208,6 @@ const getOthersQuest = (id) => {
             method:"GET"
         };
         axios(options).then(response => {
-            console.log(response.data);
             if(response.data.otherQuestion.length < 15){
                 dispatch(setCustomQuestion(response.data.otherQuestion))
                 dispatch(setCustomCount(response.data.otherQuestionCount));
@@ -244,11 +238,9 @@ const getOthersPopQuest = (id) => {
         const next = getState().custom.pop_next;
 
         if(!next){
-            console.log('next is none');
             return
         }
         if(loading && page > 1){
-            console.log('잡았다 요놈');
             return
         }
         dispatch(setPopLoading(true))
@@ -258,7 +250,6 @@ const getOthersPopQuest = (id) => {
             method:"GET"
         };
         axios(options).then(response => {
-            console.log(response.data);
             if(response.data.result.length < 15){
                 dispatch(setPopList(response.data.result))
                 // dispatch(setCustomCount(response.data.otherQuestionCount));
@@ -288,11 +279,9 @@ const getMyAnswers = () => {
         const next = getState().custom.next;
 
         if(!next){
-            console.log('next is none');
             return
         }
         if(loading && page > 1){
-            console.log('잡았다 요놈');
             return
         }
         dispatch(setLoading(true))
@@ -302,7 +291,6 @@ const getMyAnswers = () => {
             method:"GET"
         };
         axios(options).then(response => {
-            console.log(response.data);
             if(response.data.allMyAnswer.length < 15){
                 dispatch(setCustomQuestion(response.data.allMyAnswer))
                 dispatch(setCustomCount(response.data.answerCount));
@@ -333,11 +321,9 @@ const getMyPopAnswers = () => {
         const next = getState().custom.pop_next;
 
         if(!next){
-            console.log('next is none');
             return
         }
         if(loading && page > 1){
-            console.log('잡았다 요놈');
             return
         }
         dispatch(setPopLoading(true))
@@ -347,7 +333,6 @@ const getMyPopAnswers = () => {
             method:"GET"
         };
         axios(options).then(response => {
-            console.log(response.data);
             if(response.data.allMyAnswer.length < 15){
                 dispatch(setPopList(response.data.allMyAnswer));
                 // dispatch(setCustomCount(response.data.myQuestionCount));
@@ -378,11 +363,9 @@ const getOthersAnswers = (id) => {
         const next = getState().custom.next;
 
         if(!next){
-            console.log('next is none');
             return
         }
         if(loading && page > 1){
-            console.log('잡았다 요놈');
             return
         }
         dispatch(setLoading(true))
@@ -392,7 +375,6 @@ const getOthersAnswers = (id) => {
             method:"GET"
         };
         axios(options).then(response => {
-            console.log(response.data);
             if(response.data.allMyAnswer.length < 15){
                 dispatch(setCustomQuestion(response.data.allMyAnswer))
                 // dispatch(setCustomCount(response.data.otherQuestionCount));
@@ -423,11 +405,9 @@ const getOthersPopAnswers = (id) => {
         const next = getState().custom.pop_next;
 
         if(!next){
-            console.log('next is none');
             return
         }
         if(loading && page > 1){
-            console.log('잡았다 요놈');
             return
         }
         dispatch(setPopLoading(true))
