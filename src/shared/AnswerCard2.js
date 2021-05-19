@@ -50,7 +50,7 @@ const AnswerCard2 = (props) => {
             <LikeBox>
               {props.like ? (
                 <>
-                  <FavoriteIcon style={{ color: "#061366", fontSize:"16px" }} fontSize='small'
+                  <LikeIcon src="https://user-images.githubusercontent.com/77369674/118684666-5f850100-b83d-11eb-884e-cb0ffbb34dca.png"
                     onClick={()=>{
                       if (!is_login) {
                         swal({
@@ -71,7 +71,7 @@ const AnswerCard2 = (props) => {
                 </>
               ) : (
                 <>
-                  <FavoriteBorderIcon style={{fontSize:"16px"}}
+                  <LikeIcon src="https://user-images.githubusercontent.com/77369674/118684661-5eec6a80-b83d-11eb-8eba-7ad33f5a05e2.png"
                     onClick={()=>{
                       if (!is_login) {
                         swal({
@@ -93,7 +93,7 @@ const AnswerCard2 = (props) => {
               )}
             </LikeBox>
             <CommentBox>
-              <ChatBubbleOutlineIcon style={{fontSize:"16px"}}/>
+              <CommentIcon src="https://user-images.githubusercontent.com/77369674/118684657-5e53d400-b83d-11eb-861f-41aa269aa89e.png"/>
               <CommentCount>{props.commentCount}</CommentCount>
             </CommentBox>
           </IconBox>
@@ -142,10 +142,30 @@ const CardWriterProfile = styled.img`
   }
 `;
 
-const AnswerNickname = styled.div`
-  font-weight: 600;
-  margin-left: 10px;
-`;
+const LikeIcon = styled.img`
+  cursor: pointer;
+  width: 16px;
+  height: 15px;
+  margin-right: 6px;
+  @media (max-width: 500px) {
+    width:13px;
+    height: 12px;
+    margin-right: 6px;
+  }
+`
+
+const CommentIcon = styled.img`
+  cursor: pointer;
+  width: 16px;
+  height: 15px;
+  margin-right: 6px;
+  @media (max-width: 500px) {
+    width:13px;
+    height: 12px;
+    margin-right: 6px;
+  }
+`
+
 const CardWriter = styled.span`
   margin-left: 10px;s
   @media(max-width:750px){
@@ -204,15 +224,21 @@ const CommentBox = styled.div`
 `;
 
 const DateYMD = styled.div`
-font: normal normal normal 13px/19px Noto Sans KR;
+font: normal normal normal 13px/19px Noto Sans CJK KR;
 `;
 
 const LikeCount = styled.span`
-font: normal normal normal 13px/19px Noto Sans KR;
+  font: normal normal normal 16px Noto Sans CJK KR;
+  @media (max-width: 500px) {
+    font: normal normal normal 13px/19px Noto Sans CJK KR;
+  }
 `;
 
 const CommentCount = styled.span`
-font: normal normal normal 13px/19px Noto Sans KR;
+  font: normal normal normal 16px Noto Sans CJK KR;
+  @media (max-width: 500px) {
+    font: normal normal normal 13px/19px Noto Sans CJK KR;
+  }
 `;
 
 export default AnswerCard2;

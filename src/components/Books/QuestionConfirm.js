@@ -13,17 +13,24 @@ const QuestionConfirm = (props) => {
           {props.question}
         </Question>
         <Info>
-          등록하시는 질문은 <b>삭제 수정</b>이 불가능해요.<br/>
-          질문이 제대로 작성되었는지 다시한번 확인해주세요!
+          등록하시는 질문은<br/> 
+          삭제와 수정이 불가능해요.<br/>
+          질문이 제대로 작성되었는지 확인해주세요!
         </Info>
         <BtnBox>
-          <ConfirmBtn style={{marginRight:"20px"}} 
+          <ConfirmBtn
             onClick={() => {
               dispatch(booksActions.addQuest(props.topic, props.question))
               props.setModalVisible(false)
-            }}
-          >확인</ConfirmBtn>
-          <ConfirmBtn onClick={()=>{props.setConfirmModal(false)}} >취소</ConfirmBtn>
+          }}>
+            <span>확인</span>
+          </ConfirmBtn>
+          <ConfirmBtn 
+            onClick={()=>{props.setConfirmModal(false)}} 
+            style={{color:"#BEBEBE"}}
+          >
+            <span>취소</span> 
+          </ConfirmBtn>
         </BtnBox>
       </ConfirmBox>
     </React.Fragment>
@@ -47,47 +54,53 @@ const ConfirmBox = styled.div`
   left: 50%;
   width:  400px;
   height: 300px;
-  border-radius: 10px;
   transform: translate(-50%, -50%);
   background-color: white;
-  padding: 30px 30px;
   z-index: 102;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
   @media (max-width: 500px){
-    width: 90%;
+    width: 250px;
+    height: 302px;
   };
 `
 const Question = styled.div`
+  margin: 30px 20px 0 20px;
+  text-align: center;
   font-size: 16px;
   font-weight: 600;
+  @media (max-width: 500px){
+    font: normal normal bold 13px/19px Noto Sans CJK KR;
+  };
 `
 const Info = styled.div`
   line-height: 1.6;
-  font-size:14px;
+  font: normal normal normal 12px/18px Noto Sans CJK KR;
+  text-align: center;
 `
 
 const BtnBox = styled.div`
   display: flex;
+  flex-direction: column;
+  width: 100%;
 `
 
 const ConfirmBtn = styled.div`
+display: flex;
+align-items: center;
+justify-content: center;
 font-size: 15px;
 cursor: pointer;
 text-align: center;
-border: 1px solid #707070;
-border-radius: 45px;
-padding: 5px 0;
-width: 73px;
+border-top: 0.5px solid #D3D4D3;
+width: 100%;
+height: 53px;
 margin: auto;
-&:hover{
-  border:1px solid #303685;
-  background: #303685;
-  color: white;
-  font-weight: 600;
-}
+@media (max-width: 500px){
+  font: normal normal normal 14px/20px Noto Sans CJK KR;
+};
 `
 export default QuestionConfirm
 

@@ -60,6 +60,7 @@ const userSlice = createSlice({
       state.friends.unshift(action.payload);
     },
     deleteFriend: (state, action) => {
+      console.log(action.payload)
       state.friends = state.friends.filter((f) => {
         if (f.id !== action.payload) {
           return [...state.friends, f];
@@ -230,7 +231,7 @@ const followOtherAX = (id, nickname, profileImg) => {
   };
 };
 
-const unfollowOtherAX = (id, nickname) => {
+const unfollowOtherAX = (id) => {
   return function (dispatch) {
     axios
       .delete("/bookshelf/friend", { friendId: id })
@@ -238,7 +239,6 @@ const unfollowOtherAX = (id, nickname) => {
         dispatch(deleteFriend(id));
         swal({
           title: "정상적으로 취소되었습니다.",
-          text: `${nickname}님을 구독취소 하였습니다.`,
           icon: "success",
         });
       })

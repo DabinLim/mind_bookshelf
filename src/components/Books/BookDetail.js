@@ -409,6 +409,7 @@ const Container = styled.section`
     overflow-y:auto;
     border: 0.5px solid #D3D3D3;
     border-radius:16px 16px 0px 0px;
+    background-color: white;
     @media(max-height:700px){
         height:82%;
     }
