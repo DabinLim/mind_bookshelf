@@ -148,7 +148,7 @@ const Post = (props) => {
         </CardUpper>
         {/*  포스트 작성하는 곳 */}
         <PostBox>
-          {is_login === true ? (
+          {is_login === false ? (
             <>
               <div style={{ marginTop: "100px", cursor: "context-menu" }}>
                 <pre>
