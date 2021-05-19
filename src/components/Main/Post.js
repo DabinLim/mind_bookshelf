@@ -469,7 +469,8 @@ const BtnGroup = styled.div`
   display: flex;
   justify-content: space-between;
   margin-bottom: 10px;
-  top: 409px;
+  position: relative;
+  top: 80px;
   & > button {
     cursor: pointer;
   }
@@ -479,7 +480,11 @@ const BtnGroup = styled.div`
   }
 `;
 
-const CountLetter = styled.span`
+const CountLetter = styled.div`
+display:flex;
+align-items: center;
+color: #939393;
+font: normal normal normal 14px/20px Noto Sans CJK KR;
   @media (max-width: 500px) {
     display: none;
   }
