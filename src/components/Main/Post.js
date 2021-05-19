@@ -422,9 +422,10 @@ const PostBox = styled.div`
 display: flex;
 flex-direction: column;
 bottom: 1px;
-  @media (max-width: 500px) {
-    min-height: 250px;
-    max-height: 250px;
+  @media (max-width: 750px) {
+    min-height: 320px;
+    max-height: 320px;
+    justify-content: space-between;
   }
 `;
 
