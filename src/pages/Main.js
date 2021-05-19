@@ -16,9 +16,6 @@ import "../static/Card.css";
 import Slider from "react-slick";
 
 import ProfileUpdateModal from "../components/Books/ProfileUpdateModal";
-import SwiperCore, { Navigation, Pagination } from "swiper";
-
-import { Swiper, SwiperSlide } from "swiper/react";
 
 // Import Swiper styles
 import "swiper/swiper.scss";
@@ -148,38 +145,6 @@ function Main() {
     setProfileUpdate(false);
   };
 
-  // 작은 화면일 때 pagination
-
-  // const [dot_1S, setDot1S] = React.useState("true");
-  // const [dot_2S, setDot2S] = React.useState("false");
-  // const [dot_3S, setDot3S] = React.useState("false");
-
-  // const doSwipe = (e) => {
-  //   if (e.swipeDirection === "prev" && e.activeIndex === 0) {
-  //     setDot1S("true");
-  //     setDot2S("false");
-  //     setDot3S("false");
-  //   }
-  //   if (e.swipeDirection === "prev" && e.activeIndex === 1) {
-  //     setDot2S("true");
-  //     setDot1S("false");
-  //     setDot3S("false");
-  //   }
-  //   if (e.swipeDirection === "next" && e.activeIndex === 1) {
-  //     setDot2S("true");
-  //     setDot1S("false");
-  //     setDot3S("false");
-  //   }
-  //   if (e.swipeDirection === "next" && e.activeIndex === 2) {
-  //     setDot3S("true");
-  //     setDot1S("false");
-  //     setDot2S("false");
-  //   }
-  // };
-
-  // SwiperCore.use([Navigation, Pagination]);
-
-  // 렌더링시 로그인 상태 확인하고 질문카드 뿌려주는 것
   React.useEffect(() => {
     if (getCookie("is_login")) {
       dispatch(answerActions.getQuestionAX());
@@ -190,8 +155,8 @@ function Main() {
 
   return (
     <MainFrame>
-      <ImgLeft />
-      <ImgRight />
+      {/* <ImgLeft />
+      <ImgRight /> */}
       {is_loading ? (
         <LoaderBox></LoaderBox>
       ) : (
@@ -240,24 +205,6 @@ function Main() {
                 <Post {...question_list[1]} allChecked={allChecked} />
                 <Post {...question_list[2]} allChecked={allChecked} />
               </Slider>
-              {/* <Swiper
-                spaceBetween={30}
-                slidesPerView={1}
-                onSlideChange={(e) => {
-                  doSwipe(e);
-                }}
-                onSwiper={(swiper) => console.log(swiper)}
-              >
-                <SwiperSlide>
-                  <Post {...question_list[0]} allChecked={allChecked} />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <Post {...question_list[1]} allChecked={allChecked} />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <Post {...question_list[2]} allChecked={allChecked} />
-                </SwiperSlide>
-              </Swiper> */}
             </SmallCardContainer>
             <LargeCardContainer
               style={{
@@ -295,50 +242,26 @@ function Main() {
             <DotQueue>
               <FiberManualRecordIcon
                 style={{
-                  fontSize: "20px",
+                  fontSize: "15px",
                   margin: "0 5px",
                 }}
                 className={dot_1}
               />
               <FiberManualRecordIcon
                 style={{
-                  fontSize: "20px",
+                  fontSize: "15px",
                   margin: "0 5px",
                 }}
                 className={dot_2}
               />
               <FiberManualRecordIcon
                 style={{
-                  fontSize: "20px",
+                  fontSize: "15px",
                   margin: "0 5px",
                 }}
                 className={dot_3}
               />
             </DotQueue>
-            {/* 모바일 화면일 때~ */}
-            {/* <SmallDotQueue>
-              <FiberManualRecordIcon
-                style={{
-                  fontSize: "15px",
-                  margin: "0 5px",
-                }}
-                className={dot_1S}
-              />
-              <FiberManualRecordIcon
-                style={{
-                  fontSize: "15px",
-                  margin: "0 5px",
-                }}
-                className={dot_2S}
-              />
-              <FiberManualRecordIcon
-                style={{
-                  fontSize: "15px",
-                  margin: "0 5px",
-                }}
-                className={dot_3S}
-              />
-            </SmallDotQueue> */}
           </SlideBox>
         </MainContainer>
       )}
@@ -393,7 +316,7 @@ const LargeCardContainer = styled.div`
 `;
 
 const SmallCardContainer = styled.div`
-  @media (min-width: 500px) {
+  @media (min-width: 501px) {
     display: none;
   }
 `;
@@ -421,7 +344,7 @@ const MainUpper = styled.section`
 
 const DateIndicator = styled.div`
   text-align: center;
-  font: normal normal bold 20px/26px Roboto;
+  font: normal normal bold 18px/27px Noto Sans CJK KR;
   letter-spacing: 0px;
   color: #262626;
   opacity: 1;
@@ -437,8 +360,9 @@ const DateIndicator = styled.div`
 `;
 
 const QuestionIndicator = styled.h3`
+margin-top: 14px;
   text-align: center;
-  font: normal normal normal 46px/60px Roboto;
+  font: normal normal 40px/46px Nanum Myeongjo;
   letter-spacing: 0px;
   color: #262626;
   cursor: context-menu;
@@ -452,7 +376,7 @@ const SmallQuestionIndicator = styled.p`
   font: normal normal 26px/30px Nanum Myeongjo;
   margin-bottom: 31px;
   cursor: context-menu;
-  @media (min-width: 500px) {
+  @media (min-width: 501px) {
     display: none;
   }
 `;
@@ -597,50 +521,38 @@ const DotQueue = styled.div`
   }
 `;
 
-const SmallDotQueue = styled.div`
-  display: flex;
-  justify-content: center;
-  margin-top: 28px;
-  margin-bottom: 14px;
+// const ImgRight = styled.div`
+//   z-index: 2;
+//   position: fixed;
+//   background-image: url("https://user-images.githubusercontent.com/77574867/116996886-0c785d80-ad17-11eb-9afd-175a104b7f33.png");
+//   background-size: contain;
+//   background-repeat: no-repeat;
+//   right: -70px;
+//   bottom: -13px;
+//   width: 593px;
+//   height: 731px;
+//   opacity: 0.8;
+//   pointer-events: none;
+//   @media (max-width: 1400px) {
+//     display: none;
+//   }
+// `;
 
-  @media (min-width: 500px) {
-    /* margin: 60px 0px 5px 0px; */
-    display: none;
-  }
-`;
-
-const ImgRight = styled.div`
-  z-index: 2;
-  position: fixed;
-  background-image: url("https://user-images.githubusercontent.com/77574867/116996886-0c785d80-ad17-11eb-9afd-175a104b7f33.png");
-  background-size: contain;
-  background-repeat: no-repeat;
-  right: -70px;
-  bottom: -13px;
-  width: 593px;
-  height: 731px;
-  opacity: 0.8;
-  pointer-events: none;
-  @media (max-width: 1400px) {
-    display: none;
-  }
-`;
-
-const ImgLeft = styled.div`
-  z-index: 2;
-  position: fixed;
-  background-image: url("https://user-images.githubusercontent.com/77574867/116996878-0b473080-ad17-11eb-8910-108950e25cb8.png");
-  background-size: contain;
-  background-repeat: no-repeat;
-  left: -20px;
-  top: 249px;
-  width: 365px;
-  height: 341px;
-  opacity: 0.8;
-  pointer-events: none;
-  @media (max-width: 1400px) {
-    display: none;
-  }
-`;
+// const ImgLeft = styled.div`
+//   z-index: 2;
+//   position: fixed;
+//   background-image: url("https://user-images.githubusercontent.com/77574867/116996878-0b473080-ad17-11eb-8910-108950e25cb8.png");
+//   background-size: contain;
+//   background-repeat: no-repeat;
+//   left: -20px;
+//   top: 249px;
+//   width: 365px;
+//   height: 341px;
+//   opacity: 0.8;
+//   pointer-events: none;
+//   @media (max-width: 1400px) {
+//     display: none;
+//   }
+// `;
 
 export default Main;

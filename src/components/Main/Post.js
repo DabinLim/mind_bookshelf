@@ -5,7 +5,7 @@ import swal from "sweetalert";
 import { history } from "../../redux/configStore";
 
 import { api as answerActions } from "../../redux/modules/answer";
-import { CheckCircleOutlined } from "@ant-design/icons";
+import { CheckCircleOutlined, RightOutlined } from "@ant-design/icons";
 import CustomSwitch from "../../shared/CustomSwitch";
 
 const Post = (props) => {
@@ -116,13 +116,6 @@ const Post = (props) => {
           </SmallCardLeft>
           <ExtraGroup>
             <AnswerInfo>
-              {props?.otherProfileImg?.length > 0 ? (
-                <ThreeProfileBox>
-                  {props?.otherProfileImg?.map((o, idx) => {
-                    return <UserProfile key={idx} src={o.otherProfileImg} />;
-                  })}
-                </ThreeProfileBox>
-              ) : null}
               <div
                 style={{
                   opacity: opacity,
@@ -135,7 +128,7 @@ const Post = (props) => {
                   history.push(`/community/${props.cardId}`);
                 }}
               >
-                <b>{props.answerCount}명</b>이 답변
+                {props.answerCount}명 낙서 중 <RightOutlined/>
               </div>
             </AnswerInfo>
           </ExtraGroup>
@@ -146,7 +139,7 @@ const Post = (props) => {
         </SmallCardContent>
         <CardUpper>
           <CardLeft style={{ opacity: opacity }}>
-            <HashTag>#{topic}</HashTag>
+            <HashTag style={{color: color, border: `1px solid ${color}`, fontSize: "14px"}}>#{topic}</HashTag>
           </CardLeft>
           <CardRight style={{ opacity: opacity }}>
             <CardContent>{props.contents}</CardContent>
@@ -156,7 +149,7 @@ const Post = (props) => {
         <PostBox>
           {is_login === false ? (
             <>
-              <div style={{ margin: "90px 0 0 0 ", cursor: "context-menu" }}>
+              <div style={{ marginTop: "100px", cursor: "context-menu" }}>
                 <pre>
                   <PreLoginText style={{ fontSize: "13px", fontFamily: "Noto Sans KR, sans-serif" }}>
                     당신이라면 어떻게 대답하시겠나요?
@@ -167,6 +160,10 @@ const Post = (props) => {
                   </PreLoginText>
                 </pre>
               </div>
+              <PreLoginBtnBox>
+              <CustomSwitch isOpen={true} />
+              <SubmitBtn>답변하기</SubmitBtn>
+              </PreLoginBtnBox>
             </>
           ) : props.available ? (
             <>
@@ -260,12 +257,10 @@ const CardFrame = styled.div`
   padding: 48px 50px 40px;
   background: white;
   text-align: center;
-  border-top-left-radius: 50px;
+  box-shadow: 0px 0px 20px #2211481A;
   @media (max-width: 600px) {
     width: 95%;
     padding: 17px 18px;
-    /* border-radius: 20px; */
-    border-top-left-radius: 0px;
     box-shadow: 0px 0px 20px #0000001a;
     min-height: 462px;
     max-height: 462px;
@@ -293,6 +288,7 @@ const AnswerInfo = styled.span`
   margin-right: 8px;
   display: flex;
   align-items: center;
+  font: normal normal normal 13px/19px Noto Sans CJK KR;
 `;
 
 const ThreeProfileBox = styled.div`
@@ -348,27 +344,24 @@ const SmallCardLeft = styled.span`
   letter-spacing: 0px;
   color: #7249b4;
   cursor: context-menu;
-  @media (min-width: 500px) {
+  @media (min-width: 501px) {
     display: none;
   }
 `;
 
 const CardRight = styled.div`
   width: 80%;
+  max-height: 60px;
 `;
 
 const HashTag = styled.span`
   min-width: 72px;
   max-width: 72px;
-  background: #b5bdff;
   padding: 8px 12px;
   border-radius: 24px;
   text-align: center;
-  font: normal normal bold 14px/19px Roboto;
-  box-shadow: 0px 0px 15px #c3c9fe;
+  font: normal normal bold 22px Roboto ;
   letter-spacing: 0px;
-  color: #363636;
-  font-size: 14px;
   cursor: context-menu;
 
   @media (min-width: 500px) {
@@ -382,6 +375,7 @@ const CardContent = styled.p`
   font-weight: bolder;
   text-align: left;
   cursor: context-menu;
+  max-height: 52px;
 `;
 
 const SmallCardContent = styled.p`
@@ -392,7 +386,7 @@ const SmallCardContent = styled.p`
   min-height: 60px;
   max-height: 70px;
   margin-bottom: 0;
-  @media (min-width: 500px) {
+  @media (min-width: 501px) {
     display: none;
   }
 `;
@@ -425,6 +419,8 @@ const CardWriter = styled.span`
 `;
 
 const PostBox = styled.div`
+display: flex;
+flex-direction: column;
   @media (max-width: 500px) {
     min-height: 250px;
     max-height: 250px;
@@ -470,10 +466,9 @@ const SmallBtnGroup = styled.div`
 
 const BtnGroup = styled.div`
   width: 100%;
-  height: 100%;
   display: flex;
   justify-content: space-between;
-  margin-top: 40px;
+  margin-bottom: 10px;
   & > button {
     cursor: pointer;
   }
@@ -499,6 +494,7 @@ const BtnBox = styled.div`
 
 const SubmitBtn = styled.button`
   width: 50%;
+  max-width: 200px;
   padding: 8px 12px;
   border: none;
   outline: none;
@@ -533,9 +529,24 @@ margin-bottom: 14px;
 const CompletedBoxInner = styled.div``;
 
 const PreLoginText = styled.span`
-font: normal normal normal 13px/19px Noto Sans CJK KR;
+font: normal normal normal 14px/20px Noto Sans CJK KR;
 letter-spacing: 0px;
 color: #191919;
+`;
+
+const PreLoginBtnBox = styled.div`
+  display: flex;
+  position: relative;
+  width: 100%;
+  top: 100px;
+  @media (max-width: 500px) {
+    top: 130px;
+    justify-content: space-between;
+  }
+ 
+  justify-content: flex-end;
+  align-items: center;
+  opacity: 0.4;
 `;
 
 export default Post;
