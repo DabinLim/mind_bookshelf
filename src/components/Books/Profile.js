@@ -18,6 +18,7 @@ import {history} from '../../redux/configStore';
 const Profile = (props) => {
   const dispatch = useDispatch();
   const [followModal, setFollowModal] = useState(false);
+  const [typeFollow, setTypeFollow] = useState(false);
   const user_info = useSelector((state) => state.user.user);
   const is_other = props.id ? true : false;
   const other_info = useSelector((state) => state.user.other);
@@ -57,6 +58,7 @@ const Profile = (props) => {
                 <FollowModal
                   friend_list={otherfriend_list}
                   close={closeFollowModal}
+                  typeFollow={typeFollow}
                 />
               ) : null}
               <Background/>
@@ -295,7 +297,11 @@ const Profile = (props) => {
       ) : (
         <React.Fragment>
           {followModal ? (
-            <FollowModal friend_list={myfriend_list} close={closeFollowModal} />
+            <FollowModal 
+              friend_list={myfriend_list} 
+              close={closeFollowModal}
+              typeFollow={typeFollow}
+            />
           ) : null}
           {!is_login ? (
             <SpinnerContainer>
@@ -348,6 +354,7 @@ const Profile = (props) => {
                       <Line />
                       <Myfollowers
                         onClick={() => {
+                          setTypeFollow(true);
                           setFollowModal(true);
                         }}
                       >
@@ -483,6 +490,7 @@ const Profile = (props) => {
                   <Line />
                   <Myfollowers
                     onClick={() => {
+                      setTypeFollow(true);
                       setFollowModal(true);
                     }}
                   >

@@ -71,33 +71,36 @@ const CommunityQnA = (props) => {
           {props.answers.map((a) => {
             return (
               <Answer key={a.id}>
-                <AnswerHeader
-                  onClick={() => {
-                    if (a.userId === user.id) {
-                      history.push("/mybook");
-                      return;
-                    }
-                    history.push(`/others/${a.userId}`);
-                  }}
-                >
-                  <AnswerProfileImg src={a.profileImg} />
-                  <AnswerNickname>
-                    <b>{a.nickname}</b>님
-                  </AnswerNickname>
+                <AnswerHeader>
+                  <div style={{display:"flex", alignItems:"center"}} 
+                     onClick={() => {
+                      if (a.userId === user.id) {
+                        history.push("/mybook");
+                        return;
+                      }
+                      history.push(`/others/${a.userId}`);
+                    }}
+                  >
+                    <AnswerProfileImg src={a.profileImg} />
+                    <AnswerNickname>
+                      <b>{a.nickname}</b>님
+                    </AnswerNickname>
+                    
+                  </div>
+                  <AnswerContents
+                    onClick={() => {
+                      props.openCard(a);
+                    }}
+                  >
+                    {a.contents}
+                  </AnswerContents>
                 </AnswerHeader>
-                <AnswerContents
-                  onClick={() => {
-                    props.openCard(a);
-                  }}
-                >
-                  {a.contents}
-                </AnswerContents>
                 <AnswerLikes>
                   <IconBox>
                     <LikeBox>
                       {a.like ? (
                         <>
-                          <FavoriteIcon style={{ color: "#061366", fontSize: "16px" }} 
+                          <LikeIcon src="https://user-images.githubusercontent.com/77369674/118684666-5f850100-b83d-11eb-884e-cb0ffbb34dca.png" 
                             onClick={()=>{
                               if (!is_login) {
                                 swal({
@@ -118,7 +121,8 @@ const CommunityQnA = (props) => {
                         </>
                       ) : (
                         <>
-                          <FavoriteBorderIcon style={{fontSize:"16px"}} onClick={() => {
+                          <LikeIcon src="https://user-images.githubusercontent.com/77369674/118684661-5eec6a80-b83d-11eb-8eba-7ad33f5a05e2.png" 
+                            onClick={() => {
                             if (!is_login) {
                               swal({
                                 title: "좋아요 누르기 실패",
@@ -143,7 +147,7 @@ const CommunityQnA = (props) => {
                         props.openCard(a);
                       }}
                     >
-                      <ChatBubbleOutlineIcon style={{fontSize:"16px"}} />
+                      <CommentIcon src="https://user-images.githubusercontent.com/77369674/118684657-5e53d400-b83d-11eb-861f-41aa269aa89e.png" />
                       <CommentCount>{a.commentCount}</CommentCount>
                     </CommentBox>
                   </IconBox>
@@ -227,7 +231,7 @@ const Answer = styled.div`
 
 const AnswerHeader = styled.div`
   display: flex;
-  align-items: center;
+  flex-direction: column;
   cursor: pointer;
   padding: 17px 18px 0;
 `;
@@ -245,16 +249,17 @@ const AnswerNickname = styled.div`
 `;
 
 const AnswerContents = styled.div`
-  max-height: 63px;
-  min-height: 63px;
-  padding: 0px 18px;
+  // height값을 주면 -webkit-line-clamp: 3;를 설정해도
+  // 그 뒤에값이 나옵니다.
+  // max-height: 63px;
+  // min-height: 63px;
+  margin-top: 20px;
   font: normal normal normal 12px/18px Noto Sans CJK KR;
-  font-family: Sans KR, sans-serif;
   letter-spacing: 0px;
   color: #262626;
   display: -webkit-box;
-  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
   overflow: hidden;
   text-overflow: ellipsis;
   &:hover {
@@ -262,8 +267,6 @@ const AnswerContents = styled.div`
   }
   cursor: pointer;
   @media (max-width: 750px) {
-    max-height: 40px;
-    min-height: auto;
     -webkit-line-clamp: 2;
   }
 `;
@@ -291,15 +294,28 @@ const IconBox = styled.div`
 `;
 
 const LikeIcon = styled.img`
-  width:13px;
-  height: 12px;
-
-
+  cursor: pointer;
+  width: 16px;
+  height: 15px;
+  margin-right: 6px;
+  @media (max-width: 500px) {
+    width:13px;
+    height: 12px;
+    margin-right: 6px;
+  }
+  
 `
 
 const CommentIcon = styled.img`
-  width:13px;
-  height: 12px;
+  cursor: pointer;
+  width: 16px;
+  height: 15px;
+  margin-right: 6px;
+  @media (max-width: 500px) {
+    width:13px;
+    height: 12px;
+    margin-right: 6px;
+  }
 
 
 `
@@ -346,11 +362,17 @@ const Topic = styled.div`
 `;
 
 const LikeCount = styled.span`
-font: normal normal normal 13px/19px Noto Sans CJK KR;
+  font: normal normal normal 16px Noto Sans CJK KR;
+  @media (max-width: 500px) {
+    font: normal normal normal 13px/19px Noto Sans CJK KR;
+  }
 `;
 
 const CommentCount = styled.span`
-font: normal normal normal 13px/19px Noto Sans CJK KR;
+  font: normal normal normal 16px Noto Sans CJK KR;
+  @media (max-width: 500px) {
+    font: normal normal normal 13px/19px Noto Sans CJK KR;
+  }
 `;
 
 export default CommunityQnA;

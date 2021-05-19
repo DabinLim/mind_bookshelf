@@ -19,7 +19,7 @@ const ProfileUpdateModal = (props) => {
     user_info.nickname ? user_info.nickname : ""
   );
   const [introduce, setIntroduce] = useState(
-    user_info.introduce ? user_info.introduce : "자신에 대해서 적어주세요."
+    user_info.introduce
   );
   const [loading, setLoading] = useState(false);
   const [withdrawal, setWidthdrawal] = useState(false);
@@ -295,7 +295,6 @@ const ProfileUpdateModal = (props) => {
             <div style={{ position: "relative" }}>
               <Input2
                 id="introduce"
-                placeholder={introduce}
                 onChange={changeIntroduce}
                 value={introduce}
               />

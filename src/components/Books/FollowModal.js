@@ -2,24 +2,22 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import _ from "lodash";
 import { history } from "../../redux/configStore";
+import {UnfollowConfirmModal} from "./booksindex"
 
 const FollowModal = (props) => {
-  const [userInput, setInput] = useState(props.friend_list);
-
-  const debounce = _.debounce((words) => {
-    const filteredUser = props.friend_list.filter((f) => {
-      return f.nickname.includes(words);
-    });
-    setInput(filteredUser);
-  }, 500);
-
+  const [UnfollowModal, setUnfollowModal] = useState(false);
+  const [userId, setUserId] = useState();
   const clickOther = (id) => {
     history.push(`/others/${id}`);
     props.close();
   };
 
+
   return (
     <React.Fragment>
+      {UnfollowModal? 
+        <UnfollowConfirmModal setUnfollowModal={setUnfollowModal} id={userId} />
+      :null}
       <Background onClick={props.close} />
       <FollowContainer>
         <div
@@ -34,24 +32,37 @@ const FollowModal = (props) => {
           <span
             style={{
               color: "black",
-              font: "normal normal bold 14px/20px Noto Sans KR",
+              font: "normal normal bold 14px/20px Noto Sans CJK KR",
             }}
           >
             구독
           </span>
         </div>
         <UserContainer>
-          {userInput.length !== 0 ? (
-            userInput.map((f, idx) => {
+          {props.friend_list.length !== 0 ? (
+            props.friend_list.map((f, idx) => {
               return (
-                <UserInfoContainer key={idx} onClick={() => clickOther(f.id)}>
-                  <ProfileImage src={f.profileImg} />
-                  <Username>{f.nickname}</Username>
-                </UserInfoContainer>
+                <Body>
+                  <UserInfoContainer key={idx} onClick={() => clickOther(f.id)}>
+                    <ProfileImage src={f.profileImg} />
+                    <Username>{f.nickname}</Username>
+                  </UserInfoContainer>
+                  {props.typeFollow? 
+                    <FollowBtn onClick={()=>{
+                      setUserId(f.id)
+                      setUnfollowModal(true)
+                      }} >
+                      <FollowBtnText>
+                        구독중 
+                      </FollowBtnText>
+                      <FollowCheckIcon src="https://user-images.githubusercontent.com/77369674/118684692-64e24b80-b83d-11eb-81fb-4976c2b190b4.png" />
+                    </FollowBtn>
+                  :null}
+                </Body>
               );
             })
           ) : (
-            <UserText>찾으시는 유저가 없습니다.</UserText>
+            <UserText>구독하는 유저가 없습니다.</UserText>
           )}
         </UserContainer>
       </FollowContainer>
@@ -65,10 +76,9 @@ const FollowContainer = styled.div`
   left: 50%;
   width: 300px;
   height: 400px;
-  border-radius: 20px;
   padding: 15px 0px;
   box-sizing: border-box;
-  background: #ffffff;
+  background-color: #FFFFFF;
   align-items: center;
   transform: translate(-50%, -50%);
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.12), 0 2px 5px rgba(0, 0, 0, 0.24);
@@ -78,7 +88,6 @@ const FollowContainer = styled.div`
 `;
 
 const UserContainer = styled.div`
-  padding: 0px 15px;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -93,7 +102,6 @@ const UserInfoContainer = styled.div`
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-  margin-top: 20px;
   width: 100%;
   cursor: pointer;
   &:hover {
@@ -108,8 +116,46 @@ const ProfileImage = styled.img`
   margin-right: 10px;
 `;
 
+const Body = styled.div`
+  padding: 0px 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+`
+
+const FollowBtn = styled.div`
+  width: 90px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #F0F0F0 0% 0% no-repeat padding-box;
+  border-radius: 30px;
+  &:hover{
+    background: #473674 0% 0% no-repeat padding-box;
+    color: #FFFFFF;
+  };
+`
+
+const FollowCheckIcon = styled.img`
+  width: 11px;
+  &:hover{
+    display:none;
+  };
+`
+
+const FollowBtnText = styled.span`
+  margin-right: 5px;
+  font-size: 12px;
+  font-family: Noto Sans CJK KR;
+  &:hover{
+    margin-right: 0px;
+  };
+`
+
 const Username = styled.span`
-  font: normal normal bold 14px/20px Noto Sans KR;
+  font: normal normal medium 13px/19px Noto Sans CJK KR;
 `;
 
 const Background = styled.div`
@@ -124,7 +170,7 @@ const Background = styled.div`
 `;
 const UserText = styled.div`
   margin: auto;
-  font-weight: 600;
+  font-weight: medium;
   font-size: 15px;
 `;
 

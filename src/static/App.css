@@ -69,6 +69,8 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
   font-family: "Noto Sans CJK KR", sans-serif;
+  /* 불필요한 커서는 context-menu가 default값이 되게 했습니다. */
+  cursor: context-menu;
 }
 
 @media screen and (max-width: 500px) {
@@ -76,8 +78,6 @@ body {
     background-image: url("https://user-images.githubusercontent.com/77369674/118459848-1b0f3d80-b737-11eb-8f1a-906da3e390e2.jpeg");
     background-size: cover;
     background-repeat: no-repeat;
-    width: 100vw;
-    /* height: 100vh; */
   }
 }
 

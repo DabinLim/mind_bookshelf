@@ -20,7 +20,6 @@ const UnfollowConfirmModal = (props) => {
               dispatch(
                 userActions.unfollowOtherAX(
                   props.id,
-                  other_info.nickname
                 )
               );
               props.setUnfollowModal(false)
@@ -38,14 +37,14 @@ const Background = styled.div`
   top: 0;
   left: 0;
   opacity: 0.4;
-  height: 100vh;
-  width: 100vw;
+  height: 100%;
+  width: 100%;
   background-color: black;
   z-index: 80;
 `
 
 const Container = styled.div`
-  position: absolute;
+  position: fixed;
   top: 50%;
   left: 50%;
   width: 240px;
@@ -53,6 +52,7 @@ const Container = styled.div`
   transform: translate(-50%, -50%);
   background: #FFFFFF;
   z-index: 81;
+  cursor: context-menu;
 `
 
 const Header = styled.div`
@@ -78,6 +78,7 @@ const Button = styled.div`
   align-items: center;
   justify-content: center;
   font: normal normal normal 14px/20px Noto Sans CJK KR;
+  cursor: pointer;
 `
 
 export default UnfollowConfirmModal

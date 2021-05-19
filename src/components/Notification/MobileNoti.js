@@ -114,20 +114,15 @@ const NotiFrame = styled.div`
   width: 100%;
   justify-content: space-between;
   padding: 12px 16px;
-  @media (max-width: 400px){
-    align-items: start;
-  }
   @media (max-width: 500px){
     padding: 15px 16px;
+    align-items: start;
   }
 `;
 
 const NotiProfileInfo = styled.div`
   display: flex;
   align-items: center;
-  @media (max-width: 400px){
-    width: 250px;
-  }
 `;
 
 const NotiProfile = styled.img`
@@ -138,11 +133,14 @@ const NotiProfile = styled.img`
 `;
 
 const NotiProfileName = styled.span`
-  margin-left: 8px;
+  margin-left: 10px;
   font-size: 14px;
   &:hover{
     font-weight: bold;
-  }
+  };
+  @media (max-width: 500px){
+    width: 200px;
+  };
 `;
 
 const NotiContent = styled.p`
