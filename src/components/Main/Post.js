@@ -5,7 +5,7 @@ import swal from "sweetalert";
 import { history } from "../../redux/configStore";
 
 import { api as answerActions } from "../../redux/modules/answer";
-import { CheckCircleOutlined, RightOutlined } from "@ant-design/icons";
+import {RightOutlined } from "@ant-design/icons";
 import CustomSwitch from "../../shared/CustomSwitch";
 
 const Post = (props) => {
@@ -109,11 +109,12 @@ const Post = (props) => {
             <CardWriter style={{ opacity: opacity }}>
               <b>{props.createdUser}님</b>의 질문
             </CardWriter>
-            {/* 500px 아래로 내려갈 때!!!! */}
           </CardWriterInfo>
+          {/* 500px 아래로 내려갈 때!!!! */}
           <SmallCardLeft style={{ color: color, border: `1px solid ${color}` }}>
             #{topic}
           </SmallCardLeft>
+          {/* 바로 위까지 모바일 화면 */}
           <ExtraGroup>
             <AnswerInfo>
               <div
@@ -147,7 +148,7 @@ const Post = (props) => {
         </CardUpper>
         {/*  포스트 작성하는 곳 */}
         <PostBox>
-          {is_login === false ? (
+          {is_login === true ? (
             <>
               <div style={{ marginTop: "100px", cursor: "context-menu" }}>
                 <pre>
@@ -168,7 +169,7 @@ const Post = (props) => {
           ) : props.available ? (
             <>
               <ElTextarea
-                rows={8}
+                rows={7}
                 placeholder={`${
                   user_info?.nickname ? user_info?.nickname + "님" : "당신"
                 }의 생각을 낙서해주세요. \n답변과 그 이유를 같이 적어주시면 생각이 더 풍부해집니다.
@@ -206,7 +207,7 @@ const Post = (props) => {
                     <SubmitBtn
                       onClick={addAnswer}
                       style={{
-                        background: "#061366",
+                        background: "#3c3c3c",
                         color: "#ffffff",
                         transition: "all 200ms ease-in-out",
                       }}
@@ -291,27 +292,10 @@ const AnswerInfo = styled.span`
   font: normal normal normal 13px/19px Noto Sans CJK KR;
 `;
 
-const ThreeProfileBox = styled.div`
-  display: flex;
-  cursor: default;
-`;
-
-const UserProfile = styled.img`
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-
-  &:nth-child(2) {
-    transform: translateX(-40%);
-  }
-
-  &:nth-child(3) {
-    transform: translateX(-80%);
-  }
-`;
-
 const CardUpper = styled.div`
   width: 100%;
+  max-height: 30%;
+  padding: 17px 0;
   display: flex;
   align-items: center;
   @media (max-width: 500px) {
@@ -370,7 +354,7 @@ const HashTag = styled.span`
 `;
 
 const CardContent = styled.p`
-  margin-top: 17px;
+  margin: 0px;
   font-size: 17px;
   font-weight: bolder;
   text-align: left;
@@ -421,7 +405,7 @@ const CardWriter = styled.span`
 const PostBox = styled.div`
 display: flex;
 flex-direction: column;
-bottom: 1px;
+max-height: 70%;  
   @media (max-width: 750px) {
     min-height: 320px;
     max-height: 320px;
@@ -456,7 +440,6 @@ const ElTextarea = styled.textarea`
 
 const SmallBtnGroup = styled.div`
   width: 100%;
- top: 409px;
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
