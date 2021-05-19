@@ -454,8 +454,7 @@ const ElTextarea = styled.textarea`
 
 const SmallBtnGroup = styled.div`
   width: 100%;
-  min-height: 160px;
-  max-height: 165px;
+ top: 409px;
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
@@ -469,6 +468,7 @@ const BtnGroup = styled.div`
   display: flex;
   justify-content: space-between;
   margin-bottom: 10px;
+  top: 409px;
   & > button {
     cursor: pointer;
   }
