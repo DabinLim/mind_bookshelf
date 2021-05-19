@@ -313,6 +313,7 @@ const UserProfile = styled.img`
 const CardUpper = styled.div`
   width: 100%;
   display: flex;
+  align-items: center;
   @media (max-width: 500px) {
     display: none;
   }
@@ -351,7 +352,6 @@ const SmallCardLeft = styled.span`
 
 const CardRight = styled.div`
   width: 80%;
-  max-height: 60px;
 `;
 
 const HashTag = styled.span`
@@ -421,6 +421,7 @@ const CardWriter = styled.span`
 const PostBox = styled.div`
 display: flex;
 flex-direction: column;
+bottom: 1px;
   @media (max-width: 500px) {
     min-height: 250px;
     max-height: 250px;
