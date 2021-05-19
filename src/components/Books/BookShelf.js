@@ -454,6 +454,7 @@ const BookShelf = (props) => {
           </BookRow>
           <Shelf></Shelf>
         </ShelfBoxMobile>
+        {book_mobile_3.length ? 
         <ShelfBoxMobile>
           <BookRow>
             {book_mobile_3 &&
@@ -531,7 +532,8 @@ const BookShelf = (props) => {
               })}
           </BookRow>
           <Shelf></Shelf>
-        </ShelfBoxMobile>
+        </ShelfBoxMobile>:''}
+        {book_mobile_4.length ?
         <ShelfBoxMobile>
           <BookRow>
             {book_mobile_4 &&
@@ -609,7 +611,8 @@ const BookShelf = (props) => {
               })}
           </BookRow>
           <Shelf></Shelf>
-        </ShelfBoxMobile>
+        </ShelfBoxMobile>:''}
+        {book_mobile_5.length ?
         <ShelfBoxMobile>
           <BookRow>
             {book_mobile_5 &&
@@ -687,7 +690,8 @@ const BookShelf = (props) => {
               })}
           </BookRow>
           <Shelf></Shelf>
-        </ShelfBoxMobile>
+        </ShelfBoxMobile>:''}
+        {book_mobile_6.length ? 
         <ShelfBoxMobile>
           <BookRow>
             {book_mobile_6 &&
@@ -765,7 +769,7 @@ const BookShelf = (props) => {
               })}
           </BookRow>
           <Shelf></Shelf>
-        </ShelfBoxMobile>
+        </ShelfBoxMobile>:''}
       </Container>
     </React.Fragment>
   );
