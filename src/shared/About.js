@@ -78,29 +78,22 @@ const ModalComponent = styled.div`
   transform: translate(-50%, -50%);
   background-color: white;
   z-index: 160;
-  width: 550px;
+  width: 300px;
+  // height: 300px;
   opacity: 1;
-  @media (max-width: 600px) {
-    width: 85%;
-  }
-  @media (max-width: 450px) {
-    width: 85%;
-    // height: 400px;
-  }
+
 `;
 
 
 const Content = styled.div`
   font-size: 15px;
-  margin-top: 30px;
-  @media (max-width: 450px) {
-    margin-top:10px;
-  }
+  margin-top: 10px;
+
 `;
 
 const ContentsContainer = styled.div`
   text-align: center;
-  padding: 70px 0;
+  padding: 20px 0;
   width: 100%;
   height: 100%;
   display: flex;
@@ -112,9 +105,7 @@ const ContentsContainer = styled.div`
   ::-webkit-scrollbar {
     display: none;
   }
-  @media (max-width: 450px) {
-    padding: 20px 0;
-  }
+
 `;
 
 const ImageContainer = styled.img`

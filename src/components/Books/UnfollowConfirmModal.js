@@ -52,6 +52,7 @@ const Container = styled.div`
   transform: translate(-50%, -50%);
   background: #FFFFFF;
   z-index: 81;
+  cursor: context-menu;
 `
 
 const Header = styled.div`
@@ -77,6 +78,7 @@ const Button = styled.div`
   align-items: center;
   justify-content: center;
   font: normal normal normal 14px/20px Noto Sans CJK KR;
+  cursor: pointer;
 `
 
 export default UnfollowConfirmModal

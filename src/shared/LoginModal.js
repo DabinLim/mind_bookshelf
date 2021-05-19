@@ -10,14 +10,14 @@ const LoginModal = (props) => {
         <Header>로그인</Header>
         <ButtonContainer>
           <Button
-            style={{ background: "#FFFFFF", marginTop: "0" }}
-            href="http://lkj99.shop/auth/google"
+            style={{ background: "#FAE100", border:"none" }}
+            href="http://lkj99.shop/auth/kakao"
           >
-            <ButtonIcon src="https://www.freedomforuminstitute.org/wp-content/uploads/2016/10/google-icon.png" />
-            <ButtonText>구글로 로그인</ButtonText>
+            <ButtonIcon src="https://blog.kakaocdn.net/dn/RvGHm/btq0c3b6Thg/7CI0zUHJcapuNgqLP1K5xK/img.png" />
+            <ButtonText>카카오로 로그인</ButtonText>
           </Button>
           <Button
-            style={{ background: "#FFFFFF" }}
+            style={{ background: "#FFFFFF", marginTop: "0" }}
             href="http://lkj99.shop/auth/naver"
           >
             <ButtonIcon src="https://m.animalplanet.co.kr/assets/image/icon/icon_main_naver.png" />
@@ -26,11 +26,11 @@ const LoginModal = (props) => {
             </ButtonText>
           </Button>
           <Button
-            style={{ background: "#FAE100", border:"none" }}
-            href="http://lkj99.shop/auth/kakao"
+            style={{ background: "#FFFFFF", marginTop: "0" }}
+            href="http://lkj99.shop/auth/google"
           >
-            <ButtonIcon src="https://blog.kakaocdn.net/dn/RvGHm/btq0c3b6Thg/7CI0zUHJcapuNgqLP1K5xK/img.png" />
-            <ButtonText>카카오로 로그인</ButtonText>
+            <ButtonIcon src="https://www.freedomforuminstitute.org/wp-content/uploads/2016/10/google-icon.png" />
+            <ButtonText>구글로 로그인</ButtonText>
           </Button>
         </ButtonContainer>
       </LoginBox>
@@ -99,6 +99,7 @@ const Button = styled.a`
   text-decoration: none;
   color: black;
   border: 0.699999988079071px solid #D3D3D3;
+  box-sizing: border-box;
   @media (max-width: 500px) {
     width: 200px;
     height: 46px;
