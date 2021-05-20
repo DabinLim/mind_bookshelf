@@ -345,7 +345,7 @@ const HashTag = styled.span`
   padding: 8px 12px;
   border-radius: 24px;
   text-align: center;
-  font: normal normal bold 22px Roboto ;
+  font: normal normal bold 22px Noto Sans CJK KR;
   letter-spacing: 0px;
 
   @media (min-width: 500px) {
