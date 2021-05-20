@@ -126,7 +126,7 @@ const deleteCommentAX = (commentId, questionId, cardId) => {
       })
       .catch((err) => {
         swal({
-          title: "코멘트 삭제 실패 😥",
+          title: "코멘트 삭제 실패",
           text: "댓글을 삭제하지 못했습니다❕",
           icon: "error",
         });

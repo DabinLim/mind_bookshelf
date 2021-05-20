@@ -132,6 +132,7 @@ const FollowBtn = styled.div`
   align-items: center;
   background: #F0F0F0 0% 0% no-repeat padding-box;
   border-radius: 30px;
+  cursor: pointer;
   &:hover{
     background: #473674 0% 0% no-repeat padding-box;
     color: #FFFFFF;
@@ -140,18 +141,12 @@ const FollowBtn = styled.div`
 
 const FollowCheckIcon = styled.img`
   width: 11px;
-  &:hover{
-    display:none;
-  };
 `
 
 const FollowBtnText = styled.span`
   margin-right: 5px;
   font-size: 12px;
   font-family: Noto Sans CJK KR;
-  &:hover{
-    margin-right: 0px;
-  };
 `
 
 const Username = styled.span`

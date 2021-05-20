@@ -349,7 +349,6 @@ const DateIndicator = styled.div`
   color: #262626;
   opacity: 1;
   margin-top: 50px;
-  cursor: context-menu;
 
   @media (max-width: 750px) {
     display: flex;
@@ -365,7 +364,6 @@ margin-top: 14px;
   font: normal normal 40px/46px Nanum Myeongjo;
   letter-spacing: 0px;
   color: #262626;
-  cursor: context-menu;
   @media (max-width: 500px) {
     display: none;
   }
@@ -375,7 +373,6 @@ const SmallQuestionIndicator = styled.p`
   text-align: left;
   font: normal normal 26px/30px Nanum Myeongjo;
   margin-bottom: 31px;
-  cursor: context-menu;
   @media (min-width: 501px) {
     display: none;
   }
@@ -422,7 +419,6 @@ const SlideBox = styled.div`
   position: relative;
   flex-direction: column;
   margin: 120px 100px 0px 100px;
-
   @media (max-width: 500px) {
     margin: 0;
     width: 100%;
@@ -460,15 +456,9 @@ const LeftArrowBtn = styled.button`
   outline: none;
   border: none;
   opacity: 1;
-  // position: absolute;
-  // left: 15%;
-  // top: 30%;
   color: #ffffff;
   cursor: pointer;
   text-align: center;
-  // display: flex;
-  // align-items: center;
-  // justify-content: center;
   padding-left: 20px;
   background: none;
 
@@ -489,14 +479,8 @@ const RightArrowBtn = styled.button`
   outline: none;
   border: none;
   opacity: 1;
-  // position: absolute;
-  // right: 15%;
-  // top: 30%;
   color: #ffffff;
   cursor: pointer;
-  // display: flex;
-  // align-items: center;
-  // justify-content: center;
   background: none;
 
   :hover {
@@ -516,7 +500,6 @@ const DotQueue = styled.div`
   margin-bottom: 80px;
 
   @media (max-width: 500px) {
-    /* margin: 60px 0px 5px 0px; */
     display: none;
   }
 `;

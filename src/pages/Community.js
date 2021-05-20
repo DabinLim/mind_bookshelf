@@ -55,8 +55,8 @@ const Community = () => {
           <ReplayIcon fontSize="large" />
         </CommunityBtn>
       )}
-      <ImgRight />
-      <ImgLeft />
+      {/* <ImgRight /> */}
+      {/* <ImgLeft /> */}
       <CommunityContainer>
         {is_loading ? (
           <div style={{ marginTop: "250px" }}>

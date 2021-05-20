@@ -150,7 +150,7 @@ const Post = (props) => {
         <PostBox>
           {is_login === false ? (
             <>
-              <div style={{ marginTop: "100px", cursor: "context-menu" }}>
+              <div style={{ marginTop: "100px" }}>
                 <pre>
                   <PreLoginText style={{ fontSize: "13px", fontFamily: "Noto Sans KR, sans-serif" }}>
                     당신이라면 어떻게 대답하시겠나요?
@@ -328,7 +328,6 @@ const SmallCardLeft = styled.span`
   font: normal normal bold 11px/15px Roboto;
   letter-spacing: 0px;
   color: #7249b4;
-  cursor: context-menu;
   @media (min-width: 501px) {
     display: none;
   }
@@ -346,7 +345,6 @@ const HashTag = styled.span`
   text-align: center;
   font: normal normal bold 22px Roboto ;
   letter-spacing: 0px;
-  cursor: context-menu;
 
   @media (min-width: 500px) {
     font-size: 11px;
@@ -358,7 +356,6 @@ const CardContent = styled.p`
   font-size: 17px;
   font-weight: bolder;
   text-align: left;
-  cursor: context-menu;
   max-height: 52px;
 `;
 
@@ -396,7 +393,6 @@ const CardWriterProfile = styled.img`
 `;
 
 const CardWriter = styled.span`
-  cursor: context-menu;
   @media (max-width: 500px) {
     font-size: 11px;
   }

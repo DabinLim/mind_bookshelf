@@ -57,8 +57,8 @@ const OthersBooks = (props) => {
                 {component === 'othersquestion' && <OthersQuestion/>}
                 {component === 'othersanswers' && <OthersAnswers/>}
                 </ContainerBox>
-                <ImgLeft/>
-            <ImgRight/>
+                {/* <ImgLeft/> */}
+            {/* <ImgRight/> */}
             </Container>
         </React.Fragment>
     )
