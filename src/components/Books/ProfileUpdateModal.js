@@ -502,7 +502,7 @@ const ProfileUpdateHeader = styled.div`
 `
 
 const ProfileHeaderButton = styled.div`
-  font: normal normal medium 14px/16px Roboto;
+  font: normal normal medium 14px/16px Noto Sans CJK KR;
   cursor: pointer;
   &:hover {
     color: black;
@@ -512,7 +512,7 @@ const ProfileHeaderButton = styled.div`
 
 const ProfileCancelButton = styled.div`
 color: #A8A8A8;
-font: normal normal medium 14px/16px Roboto;
+font: normal normal medium 14px/16px Noto Sans CJK KR;
 cursor: pointer;
 &:hover {
   color: black;

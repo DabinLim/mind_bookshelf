@@ -436,7 +436,7 @@ const editAnswerAX = (answer) => {
 const getTopicQuestion = (topic, page=1) => {
   return function (dispatch, getState) {
     axios
-      .get(`/topic/${topic}?page=${page}`)
+      .get(`/topic/${encodeURIComponent(topic)}?page=${page}`)
       .then((res) => {
         console.log(res)
       })

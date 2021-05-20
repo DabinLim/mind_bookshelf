@@ -98,7 +98,7 @@ const CommunityBtn = styled.div`
 `;
 
 const CommunityBox = styled.div`
-  height: 100vh;
+  // height: 100vh;
   margin: 50px 0px 0px 0px;
   width: 100%;
   max-width: 1200px;
@@ -108,7 +108,7 @@ const CommunityBox = styled.div`
   align-items: center;
   overflow-y: auto;
   @media (max-width: 900px) {
-    margin: 50px 0px 60px 0px;
+    margin: 50px 0px 0px 0px;
   }
   @media (max-width: 500px) {
     margin: 50px 0px 0px 0px;
@@ -130,7 +130,7 @@ const CommunityBox = styled.div`
   }
   @media (max-width: 750px) {
     margin: 50px 0px 0px 0px;
-    padding: 20px 20px;
+    // padding: 20px 20px;
   }
 `;
 
@@ -142,7 +142,7 @@ const CommunityContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  overflow-y: auto;
+  // overflow-y: auto;
   @media (max-width: 900px) {
     z-index: 20;
   }

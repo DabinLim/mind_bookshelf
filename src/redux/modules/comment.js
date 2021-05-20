@@ -31,7 +31,7 @@ const commentSlice = createSlice({
       state.list = action.payload;
     },
     addComment: (state, action) => {
-      state.list.unshift(action.payload);
+      state.list.push(action.payload);
     },
     deleteComment: (state, action) => {
       const index = state.list.findIndex((c) => c.commentId === action.payload);
