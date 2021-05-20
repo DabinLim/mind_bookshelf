@@ -24,7 +24,7 @@ const Community = () => {
   }, []);
 
   const openCard = (a) => {
-    if(window.innerWidth <= 500){
+    if(window.innerWidth <= 750){
       history.push(`/carddetail/${a.answerId}`)
       return
     }
@@ -55,8 +55,8 @@ const Community = () => {
           <ReplayIcon fontSize="large" />
         </CommunityBtn>
       )}
-      <ImgRight />
-      <ImgLeft />
+      {/* <ImgRight /> */}
+      {/* <ImgLeft /> */}
       <CommunityContainer>
         {is_loading ? (
           <div style={{ marginTop: "250px" }}>
@@ -100,7 +100,7 @@ const CommunityBtn = styled.div`
 
 const CommunityBox = styled.div`
   height: 100vh;
-  margin: 100px 0px 0px 0px;
+  margin: 50px 0px 0px 0px;
   width: 100%;
   max-width: 1200px;
   padding: 0px 20px;
@@ -109,10 +109,10 @@ const CommunityBox = styled.div`
   align-items: center;
   overflow-y: auto;
   @media (max-width: 900px) {
-    margin: 100px 0px 60px 0px;
+    margin: 50px 0px 60px 0px;
   }
   @media (max-width: 500px) {
-    margin: 60px 0px 0px 0px;
+    margin: 50px 0px 0px 0px;
   }
   ::-webkit-scrollbar {
     display: none;

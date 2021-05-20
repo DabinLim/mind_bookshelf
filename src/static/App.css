@@ -68,9 +68,9 @@ body {
   background-image: url("https://user-images.githubusercontent.com/77369674/118811425-f73f2980-b8e7-11eb-919a-d4421378e117.png");
   background-size: cover;
   background-repeat: no-repeat;
-  font-family: "Noto Sans CJK KR", sans-serif;
-  /* 불필요한 커서는 context-menu가 default값이 되게 했습니다. */
-  cursor: context-menu;
+  font-family: "Noto Sans CJK KR";
+  /* 불필요한 커서는 default가 default값이 되게 했습니다. */
+  cursor: default;
 }
 
 @media screen and (max-width: 500px) {

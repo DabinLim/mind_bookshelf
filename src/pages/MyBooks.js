@@ -39,7 +39,7 @@ const MyBook = (props) => {
             {UpdateModal ? <ProfileUpdateModal close={closeUpdateModal} /> : null}
             <Container>
                 <ContainerBox>
-                    {id === 'mybook' && component === '' && <ImgLeft/>}
+                    {/* {id === 'mybook' && component === '' && <ImgLeft/>} */}
                     <ProfileContainer component={component}>
                         <Profile setUpdateModal={setUpdateModal} />
                     </ProfileContainer>
@@ -50,7 +50,7 @@ const MyBook = (props) => {
                         {component === 'myanswers' && <MyAnswers/>}
                         {/* {id !=='mybook' && component === '' &&
                         <BookDetail date={date}/>} */}
-                        {id === 'mybook' && component === '' && <ImgRight/>}
+                        {/* {id === 'mybook' && component === '' && <ImgRight/>} */}
                 </ContainerBox>
             </Container>
         </React.Fragment>
@@ -59,7 +59,7 @@ const MyBook = (props) => {
 
 const ContainerBox = styled.div`
     height: 100vh;
-    margin: 100px 0px 0px 0px;
+    margin: 50px 0px 0px 0px;
     padding-left: 20px;
     display: flex;
     flex-direction: column;
@@ -67,7 +67,7 @@ const ContainerBox = styled.div`
     @media(max-width:750px){
         padding-left:0px;
         overflow-x:hidden;
-        margin:60px 0px 0px 0px;
+        margin:50px 0px 0px 0px;
     }
     ::-webkit-scrollbar {
     display: none;

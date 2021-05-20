@@ -19,8 +19,6 @@ import axios from "axios";
 import { CardModal } from "../components/Community/communityindex";
 import { About } from "./sharedindex";
 import { CloseOutlined } from "@ant-design/icons";
-import CollectionsBookmarkIcon from "@material-ui/icons/CollectionsBookmark";
-import CollectionsBookmarkOutlinedIcon from "@material-ui/icons/CollectionsBookmarkOutlined";
 import NotificationsNoneOutlinedIcon from "@material-ui/icons/NotificationsNoneOutlined";
 import "../static/Card.css";
 
@@ -114,6 +112,7 @@ const Header = () => {
                     history.push("/");
                     setMenuOpen(false);
                   }}
+                  className={main}
                 >
                   오늘의 낙서
                   <p
@@ -140,8 +139,9 @@ const Header = () => {
                     history.push("/mybook");
                     setMenuOpen(false);
                   }}
+                  className={bookshelf}
                 >
-                  책장
+                  나의책장
                   <p
                     style={{
                       textAlign: "left",
@@ -159,6 +159,7 @@ const Header = () => {
                     dispatch(setComponent(""));
                     setMenuOpen(false);
                   }}
+                  className={community}
                 >
                   커뮤니티
                 </MenuLi>
@@ -261,7 +262,7 @@ const Header = () => {
                 }}
                 className={bookshelf}
               >
-                책장
+                나의책장
               </PageButton>
               <PageButton
                 onClick={() => {
@@ -321,7 +322,7 @@ const Header = () => {
                   dispatch(notiActions.leaveAlarmIO(user.id));
                 }}
               >
-                Logout
+                로그아웃
               </TextBtn>
             </IconContainer>
           </HeaderInnerContainer>
@@ -355,6 +356,7 @@ const Header = () => {
                   history.push("/");
                   setMenuOpen(false);
                 }}
+                className={main}
               >
                 오늘의 낙서
                 <p
@@ -381,8 +383,9 @@ const Header = () => {
                   history.push("/mybook");
                   setMenuOpen(false);
                 }}
+                className={bookshelf}
               >
-                책장
+                나의책장
                 <p
                   style={{
                     textAlign: "left",
@@ -400,6 +403,7 @@ const Header = () => {
                   setMenuOpen(false);
                 }}
                 style={{ marginBottom: "105px" }}
+                className={community}
               >
                 커뮤니티
               </MenuLi>
@@ -442,19 +446,9 @@ const Header = () => {
             </Logo>
             <div style={{ display: "flex" }}>
               <MobileIcon style={{ marginLeft: "35px" }}>
-                {/* {searchModal ? (
-                  <Search
-                    recent_list={recent_list}
-                    setLoading={setLoading}
-                    loading={loading}
-                  />
-                ) : null} */}
                 <SearchIcon
                   style={{ cursor: "pointer" }}
                   onClick={() => {
-                    // recentUser();
-                    // // dispatch(userActions.getRecentUserAX())
-                    // dispatch(setSearch(true));
                     history.push("/search");
                   }}
                 />
@@ -484,7 +478,7 @@ const Header = () => {
               }}
               className={bookshelf}
             >
-              책장
+              나의책장
             </PageButton>
             <PageButton
               onClick={() => {
@@ -544,13 +538,14 @@ const Header = () => {
 
 const HeaderContainer = styled.div`
   position: fixed;
-  // width: 100vw;
-  // height: 120px;
-  padding-top: 30px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background: black;
+  color: white;
+  height: 50px;
   left: 0;
   top: 0;
   z-index: 50;
-  // margin-bottom: 10px;
   overflow: visible;
   @media (max-width: 750px) {
     padding-top: 10px;
@@ -576,31 +571,6 @@ const HeaderInnerContainer = styled.div`
   }
   @media (max-width: 750px) {
     padding: 0 20px 0 20px;
-  } ;
-`;
-
-const NaviIcon = styled.img``;
-
-const NaviModal = styled.div`
-  display: none;
-  height: 68px;
-  width: 100vw;
-  position: fixed;
-  z-index: 100;
-  bottom: 0;
-  right: 0;
-  background-color: white;
-  @media (max-width: 750px) {
-    display: flex;
-    padding: 0px 80px;
-    align-items: center;
-    justify-content: space-between;
-  }
-  @media (max-width: 500px) {
-    display: none;
-    padding: 0px 20px;
-    align-items: center;
-    justify-content: space-between;
   } ;
 `;
 
@@ -647,12 +617,12 @@ const MenuLi = styled.li`
   list-style: none;
   margin-bottom: 22px;
   cursor: pointer;
-  font: normal normal bold 20px/29px Noto Sans KR;
+  font: normal normal normal 20px/29px Noto Sans CJK KR;
   padding-left: 16px;
 `;
 
 const MenuText = styled.div`
-  font: normal normal bold 16px/24px Noto Sans KR;
+  font: normal normal normal 16px/24px Noto Sans CJK KR;
   cursor: pointer;
   margin-bottom: 14px;
   padding-left: 16px;
@@ -673,8 +643,7 @@ const NaviContainer = styled.div`
 
 const Logo = styled.div`
   margin-right: 140px;
-  font-size: 18px;
-  font-weight: 800;
+  font: normal normal medium 15px/22px Noto Sans CJK KR;
   transition: 0.5s;
   cursor: pointer;
   @media (max-width: 900px) {
@@ -683,14 +652,12 @@ const Logo = styled.div`
   @media (max-width: 750px) {
     margin-left: 35px;
     margin-right: 0px;
-    font: normal normal bold 14px/20px Noto Sans KR;
   } ;
 `;
 
 const PageButton = styled.span`
   margin: 10px;
-  font-size: 14px;
-  font-weight: 600;
+  font: normal normal medium 15px/22px Noto Sans CJK KR;
   cursor: pointer;
   @media (max-width: 750px) {
     display: none;
@@ -706,7 +673,7 @@ const IconContainer = styled.div`
 `;
 
 const TextBtn = styled.div`
-  font-size: 18px;
+  font: normal normal normal 15px/22px Noto Sans CJK KR;
   cursor: pointer;
   margin-left: 25px;
   @media (max-width: 750px) {

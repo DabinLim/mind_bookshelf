@@ -234,7 +234,7 @@ const followOtherAX = (id, nickname, profileImg) => {
 const unfollowOtherAX = (id) => {
   return function (dispatch) {
     axios
-      .delete("/bookshelf/friend", { friendId: id })
+      .delete(`/bookshelf/friend/${id}`)
       .then((res) => {
         dispatch(deleteFriend(id));
         swal({

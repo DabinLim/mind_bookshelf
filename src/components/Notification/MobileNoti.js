@@ -27,7 +27,7 @@ const MobileNoti = (props) => {
   }
 
   const openCard = () => {
-    if(window.innerWidth <= 500){
+    if(window.innerWidth <= 750){
       history.push(`/carddetail/${props.cardId}`)
       return
     }

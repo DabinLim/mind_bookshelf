@@ -47,7 +47,7 @@ const QuestionDetail = (props) => {
   const friends_container = React.useRef();
 
   const openCard = (a) => {
-    if(window.innerWidth <= 500){
+    if(window.innerWidth <= 750){
       history.push(`/carddetail/${a}`)
       return
     }
