@@ -1337,8 +1337,8 @@ const ModalRightContainer = styled.div`
 
 const ModalCmtInputBox = styled.div`
   width: 100%;
-  min-height: 92px;
-  max-height: 92px;
+  min-height: 74px;
+  max-height: 74px;
   padding: 10px 16px;
   display: flex;
   justify-content: space-between;
@@ -1373,7 +1373,7 @@ const ModalUpload = styled.div`
 const IconContainer = styled.div`
   z-index:1;
   display: flex;
-  min-height: 20%;
+  min-height: 16%;
   max-height: 20%;
   justify-content: space-between;
   align-items: center;

@@ -512,7 +512,11 @@ height: 70px;
 margin-bottom: 14px;
 `;
 
-const CompletedBoxInner = styled.div``;
+const CompletedBoxInner = styled.div`
+& > span {
+  font: normal normal normal 13px Noto Sans CJK KR;
+}
+`;
 
 const PreLoginText = styled.span`
 font: normal normal normal 14px/20px Noto Sans CJK KR;
