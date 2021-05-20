@@ -813,7 +813,7 @@ const CardModal = (props) => {
                 </LikeContainer>
                 <CommentContainer>
                   <CommentBtn>
-                    <ChatBubbleOutlineIcon />
+                  <CommentIcon src="https://user-images.githubusercontent.com/77369674/118684657-5e53d400-b83d-11eb-861f-41aa269aa89e.png" />
                     <CommentCount>{comment_list?.length}개</CommentCount>
                   </CommentBtn>
                 </CommentContainer>
@@ -1275,6 +1275,13 @@ const CommentBtn = styled.div`
   font-size: 18px;
   margin-right: 5px;
 `;
+
+const CommentIcon = styled.img`
+  cursor: pointer;
+  width: 20px;
+  height: 19px;
+
+`
 
 const CommentCount = styled.div`
 margin-left: 5px;

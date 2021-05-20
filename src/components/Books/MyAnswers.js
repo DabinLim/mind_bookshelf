@@ -299,7 +299,7 @@ const MyAnswers = (props) => {
                             <LikeCount>{v.likeCount}</LikeCount>
                           </LikeBox>
                           <CommentBox>
-                            <ChatBubbleOutlineIcon style={{ fontSize:'20px',marginTop:'3px' }} />
+                            <CommentIcon src="https://user-images.githubusercontent.com/77369674/118684657-5e53d400-b83d-11eb-861f-41aa269aa89e.png"/>
                             <CommentCount>{v.commentCount}</CommentCount>
                           </CommentBox>
                         </IconBox>
@@ -427,7 +427,7 @@ const MyAnswers = (props) => {
                             <LikeCount>{v.likeCount}</LikeCount>
                           </LikeBox>
                           <CommentBox>
-                            <ChatBubbleOutlineIcon style={{ fontSize:'20px',marginTop:'3px'}} />
+                            <CommentIcon src="https://user-images.githubusercontent.com/77369674/118684657-5e53d400-b83d-11eb-861f-41aa269aa89e.png"/>
                             <CommentCount>{v.commentCount}</CommentCount>
                           </CommentBox>
                         </IconBox>
@@ -711,30 +711,12 @@ const CommentBox = styled.div`
   align-items: center;
 `;
 
-const LikeIcon = styled.img`
-  cursor: pointer;
-  width: 16px;
-  height: 15px;
-  margin-right: 6px;
-  @media (max-width: 500px) {
-    width:13px;
-    height: 12px;
-    margin-right: 6px;
-  }
-  
-`
 
 const CommentIcon = styled.img`
   cursor: pointer;
   width: 16px;
   height: 15px;
   margin-right: 6px;
-  @media (max-width: 500px) {
-    width:13px;
-    height: 12px;
-    margin-right: 6px;
-  }
-
 
 `
 
