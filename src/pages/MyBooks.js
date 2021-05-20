@@ -81,7 +81,7 @@ const Container = styled.div`
     background-size: cover;
     background-repeat: no-repeat;
     width: 100%;
-    // height: 100%;
+    height: 100vh;
     display:flex;
     flex-direction:column;
     justify-content:space-between;
@@ -107,6 +107,7 @@ const Container = styled.div`
 @media (max-width:750px){
     background-image: url("https://user-images.githubusercontent.com/67696504/118986623-7b61e180-b9ba-11eb-9719-f898c5c5b7a2.png");
     margin:0px;
+    height: 100%;
 }
 
 @media (max-width: 500px) {
