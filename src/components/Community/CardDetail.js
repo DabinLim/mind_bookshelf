@@ -22,6 +22,7 @@ const CardDetail = (props) => {
     const dispatch = useDispatch();
     const url = window.location.href.split('/');
     const id = url[url.length -1];
+    const is_answer = url[url.length-2];
     const user_info = useSelector((state) => state.user.user);
     const comment_list = useSelector(state => state.comment.list);
     const answerInfo = useSelector(state => state.community.card_detail);

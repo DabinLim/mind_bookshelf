@@ -169,7 +169,7 @@ const CommentIcon = styled.img`
 `
 
 const CardWriter = styled.span`
-  margin-left: 10px;s
+  margin-left: 10px;
   @media(max-width:750px){
     font: normal normal normal 11px/17px Noto Sans CJK KR;
     margin-left:6px;

@@ -3,7 +3,8 @@ import { getCookie } from "../../shared/Cookie";
 import axios from "axios";
 import swal from "sweetalert";
 import { editDetailLikeInfo, deleteMoreview, editMoreviewAnswer } from "./moreview";
-import { deleteNoti } from "./noti"
+import {editAnswersLikeInfo} from './custom';
+import { deleteNoti } from "./noti";
 
 axios.defaults.baseURL = "https://lkj99.shop";
 axios.defaults.headers.common["Authorization"] = `Bearer ${getCookie(
@@ -145,6 +146,46 @@ const deleteLikeDetail = (answerId) => {
       .then((res) => {
         dispatch(
           editDetailLikeInfo({
+            answerId: answerId,
+            likeCount: res.data.likeCountNum,
+            like: res.data.currentLike,
+          })
+        );
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+}
+
+const addLikeAnswers = (answerId) => {
+  return function (dispatch, getState) {
+    axios
+      .post("/bookshelf/like/answerCard", { answerCardId: answerId })
+      .then((res) => {
+        console.log(res.data)
+        dispatch(
+          editAnswersLikeInfo({
+            answerId: answerId,
+            likeCount: res.data.likeCountNum,
+            like: res.data.currentLike,
+          })
+        );
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+}
+
+const deleteLikeAnswers = (answerId) => {
+  return function (dispatch, getState) {
+    axios
+      .patch("/bookshelf/like/answerCard", { answerCardId: answerId })
+      .then((res) => {
+        console.log(res.data)
+        dispatch(
+          editAnswersLikeInfo({
             answerId: answerId,
             likeCount: res.data.likeCountNum,
             like: res.data.currentLike,
@@ -416,6 +457,8 @@ export const api = {
   deleteLikeQnA,
   addLikeDetail,
   deleteLikeDetail,
+  addLikeAnswers,
+  deleteLikeAnswers
 };
 
 export default communitySlice.reducer;
