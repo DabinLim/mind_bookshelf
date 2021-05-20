@@ -10,14 +10,14 @@ const LoginModal = (props) => {
         <Header>로그인</Header>
         <ButtonContainer>
           <Button
-            style={{ background: "#FAE100", border:"none" }}
+            style={{ background: "#FAE100", border:"none", marginBottom:"10px" }}
             href="http://lkj99.shop/auth/kakao"
           >
             <ButtonIcon src="https://blog.kakaocdn.net/dn/RvGHm/btq0c3b6Thg/7CI0zUHJcapuNgqLP1K5xK/img.png" />
             <ButtonText>카카오로 로그인</ButtonText>
           </Button>
           <Button
-            style={{ background: "#FFFFFF", marginTop: "0" }}
+            style={{ background: "#FFFFFF", marginTop: "0", marginBottom:"10px" }}
             href="http://lkj99.shop/auth/naver"
           >
             <ButtonIcon src="https://m.animalplanet.co.kr/assets/image/icon/icon_main_naver.png" />

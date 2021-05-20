@@ -58,7 +58,7 @@ const MyBook = (props) => {
 }
 
 const ContainerBox = styled.div`
-    height: 100vh;
+    // height: 100vh;
     margin: 50px 0px 0px 0px;
     padding-left: 20px;
     display: flex;
@@ -74,6 +74,7 @@ const ContainerBox = styled.div`
     };
     @media (max-width: 750px) {
         margin: 50px 0px 0px 0px;
+        // height: 100vh;
       }
 `
 
@@ -82,7 +83,7 @@ const Container = styled.div`
     display:flex;
     flex-direction:column;
     justify-content:space-between;
-    overflow:auto;
+    // overflow:auto;
     ::-webkit-scrollbar {
     display:none;
     width: 10px; /* width of the entire scrollbar */
