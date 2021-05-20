@@ -56,7 +56,7 @@ const Comment = (props) => {
               history.push(`/others/${props.userId}`);
             }}
           />
-          <CommentProfileName onClick={() => {
+          <CommentProfileName style={{cursor: "pointer"}} onClick={() => {
               if (userInfo?.id === props.userId) {
                 history.push(`/mybook`);
                 return;

@@ -601,7 +601,7 @@ const CardModal = (props) => {
                     }}
                   />
                   <CardWriterNickNameLeft>
-                    <span style={{ fontWeight: "bold", letterSpacing: "-1px" }} onClick={() => {
+                    <span style={{ fontWeight: "bold", letterSpacing: "-1px", cursor: "pointer"}} onClick={() => {
                       if (
                         user_info?.nickname !== "" &&
                         user_info?.nickname === answerInfo?.nickname
