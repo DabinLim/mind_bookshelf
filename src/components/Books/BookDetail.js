@@ -21,6 +21,7 @@ import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
 import swal from "sweetalert";
 import ChannelService from "../../shared/ChannelService";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
+import Like from '../../shared/Like';
 
 
 const BookDetail = (props) => {
@@ -347,40 +348,10 @@ const BookDetail = (props) => {
                 </Body>
                 <MiddleBelt>
                     <IconBox>
-                        <Like>
-                            {answerInfo?.like ? <FavoriteIcon cursor='pointer' onClick={() => {
-                        if (!is_login) {
-                          swal({
-                            title: "좋아요 누르기 실패",
-                            text: "로그인 후 이용 가능한 서비스입니다.",
-                            icon: "error",
-                          });
-                          return;
-                        }
-                        dispatch(
-                          communityActions.deleteLikeAX(
-                            answerInfo.answerId,
-                            answerInfo.questionId
-                          )
-                        );
-                      }} style={{fontSize:'20px', color:'#061366'}}/>:<FavoriteBorderIcon cursor='pointer' onClick={() => {
-                        if (!is_login) {
-                          swal({
-                            title: "좋아요 누르기 실패",
-                            text: "로그인 후 이용 가능한 서비스입니다.",
-                            icon: "error",
-                          });
-                          return;
-                        }
-                        dispatch(
-                          communityActions.addLikeAX(
-                            answerInfo.answerId,
-                            answerInfo.questionId
-                          )
-                        );
-                      }} style={{fontSize:'20px'}}/>}
+                        <LikeBox>
+                        <Like m_width='16px' m_height='15px' currentLike={answerInfo?.like} answerId={answerInfo?.answerId} questionId={answerInfo?.questionId}/>
                             <Count>{answerInfo?.likeCount}</Count>
-                        </Like>
+                        </LikeBox>
                         <Comment>
                             <ChatBubbleOutlineIcon style={{fontSize:'20px',marginTop:'3px'}}/>
                             <Count>{comment_list?.length}</Count>
@@ -607,7 +578,7 @@ const IconBox = styled.div`
     align-items:center;
 `;
 
-const Like = styled.div`
+const LikeBox = styled.div`
     display:flex;
     flex-direction:row;
     align-items:center;

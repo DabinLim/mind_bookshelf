@@ -8,6 +8,7 @@ import { api as communityActions } from "../../redux/modules/community";
 import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import FavoriteIcon from "@material-ui/icons/Favorite";
+import Like from '../../shared/Like';
 
 const CommunityQnA = (props) => {
   const user = useSelector((state) => state.user.user);
@@ -99,48 +100,7 @@ const CommunityQnA = (props) => {
                 <AnswerLikes>
                   <IconBox>
                     <LikeBox>
-                      {a.like ? (
-                        <>
-                          <LikeIcon src="https://user-images.githubusercontent.com/77369674/118684666-5f850100-b83d-11eb-884e-cb0ffbb34dca.png" 
-                            onClick={()=>{
-                              if (!is_login) {
-                                swal({
-                                  title: "좋아요 누르기 실패",
-                                  text: "로그인 후 이용 가능한 서비스입니다.",
-                                  icon: "error",
-                                });
-                                return;
-                              }
-                              dispatch(
-                                communityActions.deleteLikeQnA(
-                                  a.answerId,
-                                  props.id,
-                                )
-                              );
-                            }}
-                          />{" "}
-                        </>
-                      ) : (
-                        <>
-                          <LikeIcon src="https://user-images.githubusercontent.com/77369674/118684661-5eec6a80-b83d-11eb-8eba-7ad33f5a05e2.png" 
-                            onClick={() => {
-                            if (!is_login) {
-                              swal({
-                                title: "좋아요 누르기 실패",
-                                text: "로그인 후 이용 가능한 서비스입니다.",
-                                icon: "error",
-                              });
-                              return;
-                            }
-                            dispatch(
-                              communityActions.addLikeQnA(
-                                a.answerId,
-                                props.id,
-                              )
-                            );
-                          }} />{" "}
-                        </>
-                      )}
+                    <Like currentLike={a.like} questionId={props.id} answerId={a.answerId} page='QnA'/>
                       <LikeCount>{a.likeCount}</LikeCount>
                     </LikeBox>
                     <CommentBox

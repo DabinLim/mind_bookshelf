@@ -25,6 +25,7 @@ import CustomSwitch from "../../shared/CustomSwitch";
 import CancelConfirm from "./CancelConfirm";
 import { LeftOutlined } from "@ant-design/icons";
 import ChannelService from "../../shared/ChannelService";
+import Like from '../../shared/Like';
 
 
 const CardModal = (props) => {
@@ -913,50 +914,7 @@ const CardModal = (props) => {
             <IconContainer type={answerInfo?.type}>
               <IconBox>
                 <LikeContainer>
-                  {answerInfo.like ? (
-                    <LikeBtn
-                      style={{ color: "#061366" }}
-                      onClick={() => {
-                        if (!is_login) {
-                          swal({
-                            title: "좋아요 누르기 실패",
-                            text: "로그인 후 이용 가능한 서비스입니다.",
-                            icon: "error",
-                          });
-                          return;
-                        }
-                        dispatch(
-                          communityActions.deleteLikeAX(
-                            answerInfo.answerId,
-                            answerInfo.questionId
-                          )
-                        );
-                      }}
-                    >
-                      <FavoriteIcon />
-                    </LikeBtn>
-                  ) : (
-                    <LikeBtn
-                      onClick={() => {
-                        if (!is_login) {
-                          swal({
-                            title: "좋아요 누르기 실패",
-                            text: "로그인 후 이용 가능한 서비스입니다.",
-                            icon: "error",
-                          });
-                          return;
-                        }
-                        dispatch(
-                          communityActions.addLikeAX(
-                            answerInfo.answerId,
-                            answerInfo.questionId
-                          )
-                        );
-                      }}
-                    >
-                      <FavoriteBorderIcon />
-                    </LikeBtn>
-                  )}
+                <Like width='20px' height='20px' currentLike={answerInfo?.like} answerId={answerInfo?.answerId} questionId={answerInfo?.questionId}/>
                   <LikeCount>{answerInfo?.likeCount}개</LikeCount>
                 </LikeContainer>
                 <CommentContainer>
@@ -1407,6 +1365,8 @@ const IconBox = styled.div`
 
 const LikeContainer = styled.div`
   display: flex;
+  align-items:center;
+  justify-content:center;
 `;
 
 const CommentContainer = styled.div`

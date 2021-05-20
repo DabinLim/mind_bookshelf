@@ -7,6 +7,7 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import { history } from "../redux/configStore";
 import swal from "sweetalert";
 import { api as communityActions } from "../redux/modules/community"; 
+import Like from './Like';
 
 const AnswerCard2 = (props) => {
   const user_info = useSelector((state) => state.user.user);
@@ -50,49 +51,8 @@ const AnswerCard2 = (props) => {
         <AnswerLikes>
           <IconBox>
             <LikeBox>
-              {props.like ? (
-                <>
-                  <LikeIcon src="https://user-images.githubusercontent.com/77369674/118684666-5f850100-b83d-11eb-884e-cb0ffbb34dca.png"
-                    onClick={()=>{
-                      if (!is_login) {
-                        swal({
-                          title: "좋아요 누르기 실패",
-                          text: "로그인 후 이용 가능한 서비스입니다.",
-                          icon: "error",
-                        });
-                        return;
-                      }
-                      dispatch(
-                        communityActions.deleteLikeDetail(
-                          props.answerId,
-                        )
-                      );
-                    }}
-                  />
-                  <LikeCount>{props.answerLikes}</LikeCount>
-                </>
-              ) : (
-                <>
-                  <LikeIcon src="https://user-images.githubusercontent.com/77369674/118684661-5eec6a80-b83d-11eb-8eba-7ad33f5a05e2.png"
-                    onClick={()=>{
-                      if (!is_login) {
-                        swal({
-                          title: "좋아요 누르기 실패",
-                          text: "로그인 후 이용 가능한 서비스입니다.",
-                          icon: "error",
-                        });
-                        return;
-                      }
-                      dispatch(
-                        communityActions.addLikeDetail(
-                          props.answerId,
-                        )
-                      );
-                    }}
-                  />
-                  <LikeCount>{props.answerLikes}</LikeCount>
-                </>
-              )}
+            <Like currentLike={props.like} answerId={props.answerId} page='detail'/>
+              <LikeCount>{props.answerLikes}</LikeCount>
             </LikeBox>
             <CommentBox>
               <CommentIcon src="https://user-images.githubusercontent.com/77369674/118684657-5e53d400-b83d-11eb-861f-41aa269aa89e.png"/>
