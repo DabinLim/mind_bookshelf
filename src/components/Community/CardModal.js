@@ -358,6 +358,22 @@ const CardModal = (props) => {
     return full_date;
   };
 
+  let color = "";
+
+    if (topic === "가치") {
+      color = "#7249B4";
+    } else if (topic === "관계") {
+      color = "#2761CC";
+    } else if (topic === "우정") {
+      color = "#E0692D";
+    } else if (topic === "나") {
+      color = "#458857";
+    } else if (topic === "사랑") {
+      color = "#D34242";
+    } else {
+      color = "#E6BA28";
+    }
+
   return (
     <React.Fragment>
       <Component
@@ -721,7 +737,7 @@ const CardModal = (props) => {
                     </span>
                   </CardWriterNickNameLeft>
                 </CardWriterLeft>
-                <HashTag>{topic}</HashTag>
+                <HashTag style={{color: color, border: `1px solid ${color}`}}>#{topic}</HashTag>
                 {answerInfo.answerUserId === user_info.id ? (
                   <div
                     style={{
@@ -1125,12 +1141,10 @@ const ModalContent = styled.div`
 const HashTag = styled.span`
   min-width: 72px;
   max-width: 72px;
-  background: #ededed;
   padding: 8px 12px;
   border-radius: 24px;
   text-align: center;
-  font: normal normal bold 14px/19px Roboto;
-  box-shadow: 0px 0px 15px #c3c9fe;
+  font: normal normal bold 14px/19px Noto Sans CJK KR;
   letter-spacing: 0px;
   color: #363636;
   font-size: 14px;
@@ -1246,7 +1260,7 @@ const CardWriterNickNameLeft = styled.span`
 const CardQuestionContent = styled.div`
   margin: 0px 40px;
   padding: 15px 0;
-  font: normal normal bold 17px/23px Roboto;
+  font: normal normal bold 17px/23px Nanum Myeongjo;
   letter-spacing: 0px;
   color: #363636;
   opacity: 1;
@@ -1412,6 +1426,7 @@ const CommentBtn = styled.div`
 `;
 
 const CommentCount = styled.div`
+margin-left: 5px;
   font-size: 17px;
 `;
 
