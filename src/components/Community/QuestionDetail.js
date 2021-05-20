@@ -447,7 +447,7 @@ const ContainerUpperLeft = styled.div`
 `;
 
 const QuestionTitle = styled.h2`
-  font: normal normal bold 30px/39px;
+font: normal normal bold 30px/39px Nanum Myeongjo;
   letter-spacing: 0px;
   width: 60%;
   margin: 29px 0 0 0;
@@ -478,7 +478,7 @@ const HashTag = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  font: normal normal bold 14px/19px Roboto;
+  font: normal normal bold 14px/19px Noto Sans CJK KR;
   box-shadow: 0px 0px 5px #ffffff;
   letter-spacing: 0px;
   color: #363636;
