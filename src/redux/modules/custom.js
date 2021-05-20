@@ -98,7 +98,34 @@ const customSlice = createSlice({
         },
         setLoading: (state, action) => {
             state.loading = action.payload;
-        }
+        },
+        editAnswersLikeInfo: (state, action) => {
+            let index = state.custom_question.findIndex(
+              (a) => a.answerId === action.payload.answerId
+            );
+      
+            let pop_index = state.pop_list.findIndex(
+              (a) => a.answerId === action.payload.answerId
+            );
+
+      
+              if (index !== -1){
+                state.custom_question[index] = {
+                  ...state.custom_question[index],
+                  currentLike: action.payload.like,
+                  likeCount: action.payload.likeCount,
+                };
+              }
+              
+              if (pop_index !== -1){
+                state.pop_list[pop_index] = {
+                  ...state.pop_list[pop_index],
+                  currentLike: action.payload.like,
+                  likeCount: action.payload.likeCount,
+                };
+              }
+          },
+          
     }
 })
 
@@ -455,7 +482,8 @@ export const {
     setPopList,
     setPopLoading,
     setAnswerList,
-    setAnswerPopList
+    setAnswerPopList,
+    editAnswersLikeInfo
 } = customSlice.actions;
 
 export const api = {
