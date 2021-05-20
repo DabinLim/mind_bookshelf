@@ -76,7 +76,7 @@ body {
 @media screen and (max-width: 500px) {
   body {
     background-image: url("https://user-images.githubusercontent.com/67696504/118986623-7b61e180-b9ba-11eb-9719-f898c5c5b7a2.png");
-    /* background-size: cover; */
+    background-size: cover;
     background-repeat: no-repeat;
   }
 }
