@@ -160,11 +160,11 @@ const Post = (props) => {
                     로그인시 답변 가능합니다.
                   </PreLoginText>
                 </pre>
-              </div>
-              <PreLoginBtnBox>
+                <PreLoginBtnBox>
               <CustomSwitch isOpen={true} />
-              <SubmitBtn>답변하기</SubmitBtn>
+              <SubmitBtn style={{cursor: "context-menu"}}>답변하기</SubmitBtn>
               </PreLoginBtnBox>
+              </div>
             </>
           ) : props.available ? (
             <>
