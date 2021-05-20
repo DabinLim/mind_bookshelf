@@ -16,6 +16,7 @@ import {
   MobileSearch,
   MobileNotification,
   NotFound,
+  Topic,
 } from "./pages/pagesindex";
 import { getCookie } from "./shared/Cookie";
 import QuestionDetail from "./components/Community/QuestionDetail";
@@ -53,24 +54,28 @@ function App() {
       <ContentFrame>
         {/* <Sidebar /> */}
         <ConnectedRouter history={history}>
-          <Route exact path="/" component={Main} />
-          <Route exact path="/auth/:id" component={Auth} />
-          <Route exact path="/mybook" component={MyBooks}></Route>
-          <Route exact path="/mybook/:date" component={MyBooks}></Route>
-          <Route exact path="/others/:id" component={OthersBooks} />
-          <Route exact path="/others/:id/:date" component={OthersBooks} />
-          <Route exact path="/myanswers" component={MyAnswers}/>
-          <Route exact path="/othersanswers/:id" component={OthersAnswers}/>
-          <Route exact path="/myquestion" component={MyQuestion}/>
-          <Route exact path="/othersquestion/:id" component={OthersQuestion}/>
-          <Route exact path="/community" component={Community} />
-          <Route exact path="/community/:id" component={QuestionDetail} />
-          <Route exact path='/bookdetail/:date/:answerid' component={BookDetail}/>
-          <Route exact path='/othersdetail/:date/:userid/:answerid' component={BookDetail}/>
-          <Route exact path='/carddetail/:id' component={CardDetail}/>
-          <Route exact path="/test" component={ComponentSlider} />
-          <Route exact path="/search" component={MobileSearch} />
-          <Route exact path="/noti" component={MobileNotification} />
+          <Switch>
+            <Route exact path="/" component={Main} />
+            <Route exact path="/auth/:id" component={Auth} />
+            <Route exact path="/mybook" component={MyBooks}></Route>
+            <Route exact path="/mybook/:date" component={MyBooks}></Route>
+            <Route exact path="/others/:id" component={OthersBooks} />
+            <Route exact path="/others/:id/:date" component={OthersBooks} />
+            <Route exact path="/myanswers" component={MyAnswers}/>
+            <Route exact path="/othersanswers/:id" component={OthersAnswers}/>
+            <Route exact path="/myquestion" component={MyQuestion}/>
+            <Route exact path="/othersquestion/:id" component={OthersQuestion}/>
+            <Route exact path="/community" component={Community} />
+            <Route exact path="/community/:id" component={QuestionDetail} />
+            <Route exact path='/bookdetail/:date/:answerid' component={BookDetail}/>
+            <Route exact path='/othersdetail/:date/:userid/:answerid' component={BookDetail}/>
+            <Route exact path='/carddetail/:id' component={CardDetail}/>
+            <Route exact path="/test" component={ComponentSlider} />
+            <Route exact path="/search" component={MobileSearch} />
+            <Route exact path="/noti" component={MobileNotification} />
+            <Route exact path="/topic/:topic" component={Topic} />
+            <Route exact component={NotFound}/>
+          </Switch>
         </ConnectedRouter>
       </ContentFrame>
     </React.Fragment>
