@@ -914,7 +914,7 @@ const CardModal = (props) => {
             <IconContainer type={answerInfo?.type}>
               <IconBox>
                 <LikeContainer>
-                <Like width='20px' height='20px' currentLike={answerInfo?.like} answerId={answerInfo?.answerId} questionId={answerInfo?.questionId}/>
+                <Like width='20px' height='19px' currentLike={answerInfo?.like} answerId={answerInfo?.answerId} questionId={answerInfo?.questionId}/>
                   <LikeCount>{answerInfo?.likeCount}개</LikeCount>
                 </LikeContainer>
                 <CommentContainer>
