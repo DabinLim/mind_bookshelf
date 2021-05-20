@@ -134,7 +134,7 @@ const ProfileContainer = styled.section`
     @media(max-width:750px){
         ${props => props.component === 'othersanswers' || props.component === 'othersquestion' ? `display:none`: `display:flex`};
         // padding:56px 50px 30px 50px;
-        margin-top:20px;
+        margin-top:0px;
         margin-bottom:30px;
         height:100%;
         min-height:330px;

@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import {useDispatch} from 'react-redux'
 import {api as communityActions} from '../../redux/modules/community'
+import {history} from '../../redux/configStore'
 
 const CancelConfirm = (props) => {
   const dispatch = useDispatch()
@@ -15,8 +16,13 @@ const CancelConfirm = (props) => {
         <BtnBox>
           <ConfirmBtn style={{color:"#EB5959", borderBottom: '0.5px solid #D3D4D3'}}
             onClick={()=>{
-              props.close();
-              dispatch(communityActions.deleteAnswerAX(props.answerId, props.questionId))
+              if(props.type === "mobile"){
+                history.goBack();
+                dispatch(communityActions.deleteAnswerAX(props.answerId, props.questionId))
+              }else{
+                props.close();
+                dispatch(communityActions.deleteAnswerAX(props.answerId, props.questionId))
+              }
             }}
           >
             삭제
