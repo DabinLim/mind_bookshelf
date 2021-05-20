@@ -415,10 +415,10 @@ const Container = styled.section`
   margin: 50px auto;
   border-radius: 20px;
   overflow: hidden;
-  background-image: url('https://user-images.githubusercontent.com/77369674/118459848-1b0f3d80-b737-11eb-8f1a-906da3e390e2.jpeg');
-  background-size:cover;
-  background-repeat:no-repeat;
   @media (max-width: 750px) {
+    background-image: url('https://user-images.githubusercontent.com/77369674/118459848-1b0f3d80-b737-11eb-8f1a-906da3e390e2.jpeg');
+    background-size:cover;
+    background-repeat:no-repeat;
     margin: 50px auto;
     padding: 23px 25px 20px 25px;
     max-height:93.8%;
@@ -446,7 +446,7 @@ const TitleContainer = styled.div`
   flex-direction: row;
   justify-content: space-between;
   margin-bottom: 38px;
-  @media (max-width: 500px) {
+  @media (max-width: 750px) {
     display: none;
   }
 `;
@@ -457,7 +457,7 @@ const Title = styled.span`
   height: 60px;
   font-size: 22px;
   font-weight: 400;
-  @media (max-width: 500px) {
+  @media (max-width: 750px) {
     width: 180px;
     min-width: 180px;
     font-size: 18px;

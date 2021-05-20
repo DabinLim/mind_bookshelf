@@ -397,8 +397,8 @@ const CardModal = (props) => {
                           {v.questionTopic[0] === "사랑" && (
                             <BooksSubject
                               style={{
-                                background: "#B5BDFF",
-                                boxShadow: "0px 0px 15px #C3C9FE",
+                                color: "#D34242",
+                                border: "2px solid #D34242",
                               }}
                             >
                               <span>#사랑</span>
@@ -407,8 +407,8 @@ const CardModal = (props) => {
                           {v.questionTopic[0] === "우정" && (
                             <BooksSubject
                               style={{
-                                background: "#B5BDFF",
-                                boxShadow: "0px 0px 15px #C3C9FE",
+                                color: "#E0692D",
+                                border: "2px solid #E0692D",
                               }}
                             >
                               <span>#우정</span>
@@ -417,8 +417,8 @@ const CardModal = (props) => {
                           {v.questionTopic[0] === "꿈" && (
                             <BooksSubject
                               style={{
-                                background: "#B5BDFF",
-                                boxShadow: "0px 0px 15px #C3C9FE",
+                                color: "#E6BA28",
+                                border: "2px solid #E6BA28",
                               }}
                             >
                               <span>#꿈</span>
@@ -427,8 +427,8 @@ const CardModal = (props) => {
                           {v.questionTopic[0] === "가치" && (
                             <BooksSubject
                               style={{
-                                background: "#B5BDFF",
-                                boxShadow: "0px 0px 15px #C3C9FE",
+                                color: "#7249B4",
+                                border: "2px solid #7249B4",
                               }}
                             >
                               <span>#가치</span>
@@ -437,8 +437,8 @@ const CardModal = (props) => {
                           {v.questionTopic[0] === "관계" && (
                             <BooksSubject
                               style={{
-                                background: "#B5BDFF",
-                                boxShadow: "0px 0px 15px #C3C9FE",
+                                color: "#2761CC",
+                                border: "2px solid #2761CC",
                               }}
                             >
                               <span>#관계</span>
@@ -447,8 +447,8 @@ const CardModal = (props) => {
                           {v.questionTopic[0] === "나" && (
                             <BooksSubject
                               style={{
-                                background: "#B5BDFF",
-                                boxShadow: "0px 0px 15px #C3C9FE",
+                                color: "#458857",
+                                border: "2px solid #458857",
                               }}
                             >
                               <span>#나</span>
@@ -552,8 +552,8 @@ const CardModal = (props) => {
                             {v.questionTopic[0] === "사랑" && (
                               <BooksSubject
                                 style={{
-                                  background: "#FFAAAA",
-                                  boxShadow: "0px 0px 15px #FFAAAA",
+                                  color: "#D34242",
+                                  border: "2px solid #D34242",
                                 }}
                               >
                                 <span>#사랑</span>
@@ -562,8 +562,8 @@ const CardModal = (props) => {
                             {v.questionTopic[0] === "우정" && (
                               <BooksSubject
                                 style={{
-                                  background: "#B9FFC4",
-                                  boxShadow: "0px 0px 15px #B9FFC4",
+                                  color: "#E0692D",
+                                  border: "2px solid #E0692D",
                                 }}
                               >
                                 <span>#우정</span>
@@ -572,8 +572,8 @@ const CardModal = (props) => {
                             {v.questionTopic[0] === "꿈" && (
                               <BooksSubject
                                 style={{
-                                  background: "#B7E6FF",
-                                  boxShadow: "0px 0px 15px #B7E6FF",
+                                  color: "#E6BA28",
+                                  border: "2px solid #E6BA28",
                                 }}
                               >
                                 <span>#꿈</span>
@@ -582,8 +582,8 @@ const CardModal = (props) => {
                             {v.questionTopic[0] === "가치" && (
                               <BooksSubject
                                 style={{
-                                  background: "#B5BDFF",
-                                  boxShadow: "0px 0px 15px #B5BDFF",
+                                  color: "#7249B4",
+                                  border: "2px solid #7249B4",
                                 }}
                               >
                                 <span>#가치</span>
@@ -592,8 +592,8 @@ const CardModal = (props) => {
                             {v.questionTopic[0] === "관계" && (
                               <BooksSubject
                                 style={{
-                                  background: "#FFF09D",
-                                  boxShadow: "0px 0px 15px #FFF09D",
+                                  color: "#2761CC",
+                                  border: "2px solid #2761CC",
                                 }}
                               >
                                 <span>#관계</span>
@@ -602,8 +602,8 @@ const CardModal = (props) => {
                             {v.questionTopic[0] === "나" && (
                               <BooksSubject
                                 style={{
-                                  background: "#F9D1FD",
-                                  boxShadow: "0px 0px 15px #F9D1FD",
+                                  color: "#458857",
+                                  border: "2px solid #458857",
                                 }}
                               >
                                 <span>#나</span>
@@ -1141,7 +1141,7 @@ const ModalContent = styled.div`
 const HashTag = styled.span`
   min-width: 72px;
   max-width: 72px;
-  padding: 8px 12px;
+  padding: 6px 0px;
   border-radius: 24px;
   text-align: center;
   font: normal normal bold 14px/19px Noto Sans CJK KR;
@@ -1149,10 +1149,7 @@ const HashTag = styled.span`
   color: #363636;
   font-size: 14px;
   margin-right: 10px;
-  :hover {
-    cursor: pointer;
-  }
-
+  cursor: pointer;
   @media (max-width: 750px) {
     display: none;
   }
@@ -1234,7 +1231,7 @@ const CardWriterLeft = styled.div`
   align-items: center;
   width: auto;
   height: 100%;
-  margin: 0 40px;
+  margin: 0 20px 0 40px;
   @media (max-width: 750px) {
     margin: 0;
   }
@@ -1556,8 +1553,8 @@ const BooksSubject = styled.div`
   align-items: center;
   min-width: 72px;
   height: 31px;
-  background-color: #a2acff;
-  box-shadow: 0px 3px 15px #c3c9fe;
+  // background-color: #a2acff;
+  // box-shadow: 0px 3px 15px #c3c9fe;
   opacity: 0.8;
   border-radius: 45px;
   font-size: 14px;

@@ -18,6 +18,7 @@ import { api as commentActions } from "../../redux/modules/comment";
 import { api as communityActions } from "../../redux/modules/community";
 import {history} from '../../redux/configStore';
 import {CheckOutlined} from "@ant-design/icons";
+import swal from "sweetalert";
 
 const MyAnswers = (props) => {
   const dispatch = useDispatch();
@@ -32,12 +33,13 @@ const MyAnswers = (props) => {
   const is_next = useSelector((state) => state.custom.next);
   const pop_next = useSelector((state) => state.custom.pop_next);
   const now_view = useSelector((state) => state.custom.now_view);
+  const is_login = useSelector(state => state.user.is_login);
   const container = React.useRef();
   const pop_container = React.useRef();
   const [openFilter, setOpenFilter] = React.useState(false);
 
   const openCard = (a) => {
-    if(window.innerWidth <= 500){
+    if(window.innerWidth <= 750){
       history.push(`/carddetail/${a.answerId}`)
       return
     }
@@ -295,12 +297,41 @@ const MyAnswers = (props) => {
                             {v.currentLike ? (
                               <>
                                 <FavoriteIcon
-                                  style={{ color: "#443870",fontSize:'20px' }}
+                                  style={{ color: "#443870",fontSize:'20px',cursor:'pointer' }}
+                                  onClick={()=>{
+                                    if (!is_login) {
+                                      swal({
+                                        title: "좋아요 누르기 실패",
+                                        text: "로그인 후 이용 가능한 서비스입니다.",
+                                        icon: "error",
+                                      });
+                                      return;
+                                    }
+                                    dispatch(
+                                      communityActions.deleteLikeAnswers(
+                                        v.answerId,
+                                      )
+                                    );
+                                  }}
                                 />{" "}
                               </>
                             ) : (
                               <>
-                                <FavoriteBorderIcon style={{ fontSize:'20px' }} />{" "}
+                                <FavoriteBorderIcon onClick={()=>{
+                      if (!is_login) {
+                        swal({
+                          title: "좋아요 누르기 실패",
+                          text: "로그인 후 이용 가능한 서비스입니다.",
+                          icon: "error",
+                        });
+                        return;
+                      }
+                      dispatch(
+                        communityActions.addLikeAnswers(
+                          v.answerId,
+                        )
+                      );
+                    }} style={{ fontSize:'20px',cursor:'pointer' }} />{" "}
                               </>
                             )}
                             <LikeCount>{v.likeCount}</LikeCount>
@@ -432,17 +463,45 @@ const MyAnswers = (props) => {
                           <LikeBox>
                             {v.currentLike ? (
                               <>
-                                <FavoriteIcon style={{ color: "#443870",fontSize:'20px' }} />{" "}
+                                <FavoriteIcon onClick={()=>{
+                                    if (!is_login) {
+                                      swal({
+                                        title: "좋아요 누르기 실패",
+                                        text: "로그인 후 이용 가능한 서비스입니다.",
+                                        icon: "error",
+                                      });
+                                      return;
+                                    }
+                                    dispatch(
+                                      communityActions.deleteLikeAnswers(
+                                        v.answerId,
+                                      )
+                                    );
+                                  }} style={{ color: "#443870",fontSize:'20px',cursor:'pointer'}} />{" "}
                               </>
                             ) : (
                               <>
-                                <FavoriteBorderIcon style={{ fontSize:'20px' }} />{" "}
+                                <FavoriteBorderIcon onClick={()=>{
+                      if (!is_login) {
+                        swal({
+                          title: "좋아요 누르기 실패",
+                          text: "로그인 후 이용 가능한 서비스입니다.",
+                          icon: "error",
+                        });
+                        return;
+                      }
+                      dispatch(
+                        communityActions.addLikeAnswers(
+                          v.answerId,
+                        )
+                      );
+                    }} style={{ fontSize:'20px',cursor:'pointer' }} />{" "}
                               </>
                             )}
                             <LikeCount>{v.likeCount}</LikeCount>
                           </LikeBox>
                           <CommentBox>
-                            <ChatBubbleOutlineIcon style={{ fontSize:'20px',marginTop:'3px' }} />
+                            <ChatBubbleOutlineIcon style={{ fontSize:'20px',marginTop:'3px'}} />
                             <CommentCount>{v.commentCount}</CommentCount>
                           </CommentBox>
                         </IconBox>
@@ -478,10 +537,10 @@ const Container = styled.section`
   margin: 50px auto;
   border-radius: 20px;
   overflow: hidden;
-  background-image: url('https://user-images.githubusercontent.com/77369674/118459848-1b0f3d80-b737-11eb-8f1a-906da3e390e2.jpeg');
-  background-size:cover;
-  background-repeat:no-repeat;
   @media (max-width: 750px) {
+    background-image: url('https://user-images.githubusercontent.com/77369674/118459848-1b0f3d80-b737-11eb-8f1a-906da3e390e2.jpeg');
+    background-size:cover;
+    background-repeat:no-repeat;
     margin:50px auto;
     padding: 23px 25px 20px 25px;
     max-height: 93.8%;
@@ -725,6 +784,33 @@ const CommentBox = styled.div`
   display: flex;
   align-items: center;
 `;
+
+const LikeIcon = styled.img`
+  cursor: pointer;
+  width: 16px;
+  height: 15px;
+  margin-right: 6px;
+  @media (max-width: 500px) {
+    width:13px;
+    height: 12px;
+    margin-right: 6px;
+  }
+  
+`
+
+const CommentIcon = styled.img`
+  cursor: pointer;
+  width: 16px;
+  height: 15px;
+  margin-right: 6px;
+  @media (max-width: 500px) {
+    width:13px;
+    height: 12px;
+    margin-right: 6px;
+  }
+
+
+`
 
 const LikeCount = styled.span`
   font-size: 12px;
