@@ -332,7 +332,9 @@ const CardModal = (props) => {
                     return (
                       <DetailContainer key={idx}>
                         <Head>
+                          <div style={{minWidth:'72px'}}>
                         <Subject topic={v.questionTopic[0]} borderRadius='25px'/>
+                          </div>
                           <TitleBox>
                             <Title
                               disabled={card_loading}
@@ -400,7 +402,9 @@ const CardModal = (props) => {
                       return (
                         <DetailContainer key={idx}>
                           <Head>
+                            <div style={{minWidth:'72px'}}>
                             <Subject topic={v.questionTopic[0]} borderRadius='25px'/>
+                            </div>
                             <TitleBox>
                               <Title
                                 disabled={card_loading}
