@@ -85,7 +85,7 @@ const CommunityQnA = (props) => {
                     }}
                   >
                     <AnswerProfileImg src={a.profileImg} />
-                    <AnswerNickname onClick={() => {
+                    <AnswerNickname style={{cursor: "pointer"}} onClick={() => {
                       if (a.userId === user.id) {
                         history.push("/mybook");
                         return;
