@@ -151,10 +151,6 @@ const CommentInput = (pros) => {
         setComments("");
       };
     
-      let topic = "";
-      if (answerInfo?.questionTopic?.length > 0) {
-        topic = answerInfo?.questionTopic[0];
-      }
     
 
     return(

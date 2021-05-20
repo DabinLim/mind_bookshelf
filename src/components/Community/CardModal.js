@@ -6,6 +6,7 @@ import {
   changeDate,
   setBookDetailModal,
 } from "../../redux/modules/books";
+// import CommentInput from "./CommentInput"
 import { api as communityActions } from "../../redux/modules/community";
 import { useDispatch, useSelector } from "react-redux";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
@@ -600,7 +601,16 @@ const CardModal = (props) => {
                     }}
                   />
                   <CardWriterNickNameLeft>
-                    <span style={{ fontWeight: "bold", letterSpacing: "-1px" }}>
+                    <span style={{ fontWeight: "bold", letterSpacing: "-1px" }} onClick={() => {
+                      if (
+                        user_info?.nickname !== "" &&
+                        user_info?.nickname === answerInfo?.nickname
+                      ) {
+                        history.push(`/mybook`);
+                        return;
+                      }
+                      history.push(`/others/${answerInfo?.answerUserId}`);
+                    }}>
                       {answerInfo?.nickname}님
                     </span>
                     <span
@@ -644,6 +654,7 @@ const CardModal = (props) => {
                         {...answerInfo}
                         setCancelModal={setCancelModal}
                         close={props.close}
+                        type="web"
                       />
                     ) : null}
                     <MoreVertIcon

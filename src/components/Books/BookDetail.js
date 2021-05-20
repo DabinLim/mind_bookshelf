@@ -190,6 +190,7 @@ const BookDetail = (props) => {
                               {...answerInfo}
                               setCancelModal={setCancelModal}
                               close={props.close}
+                              type="mobile"
                             />
                           ) : null}
                           <MoreVertIcon onClick={() => {

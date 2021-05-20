@@ -46,7 +46,7 @@ html {
 
 body {
   margin: 0;
-  /* height: 100vh; */
+  /* height: 100%; */
   font-family: "Noto Sans CJK KR", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

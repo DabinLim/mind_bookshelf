@@ -106,7 +106,9 @@ const Post = (props) => {
                 history.push(`/others/${props.createdUserId}`);
               }}
             ></CardWriterProfile>
-            <CardWriter style={{ opacity: opacity }}>
+            <CardWriter style={{ opacity: opacity }} onClick={() => {
+                history.push(`/others/${props.createdUserId}`);
+              }}>
               <b>{props.createdUser}님</b>의 질문
             </CardWriter>
           </CardWriterInfo>

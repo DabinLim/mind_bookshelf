@@ -46,6 +46,7 @@ const CommunityQnA = (props) => {
             }
             return (
               <Topic
+                onClick={() => {history.push(`/topic/:${t}`)}}
                 style={{
                   border: `1px solid ${color}`,
                   marginBottom: "5px",
@@ -84,7 +85,13 @@ const CommunityQnA = (props) => {
                     }}
                   >
                     <AnswerProfileImg src={a.profileImg} />
-                    <AnswerNickname>
+                    <AnswerNickname onClick={() => {
+                      if (a.userId === user.id) {
+                        history.push("/mybook");
+                        return;
+                      }
+                      history.push(`/others/${a.userId}`);
+                    }}>
                       <b>{a.nickname}</b>님
                     </AnswerNickname>
                     
@@ -301,6 +308,7 @@ const DateYMD = styled.div`
 const Topic = styled.div`
   margin-top: 30px;
   margin-right: 10px;
+  cursor: pointer;
   // display: inline-block;
   min-width: 72px;
   max-width: 72px;
