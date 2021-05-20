@@ -9,7 +9,7 @@ const CardUpdateModal = (props) => {
   return(
     <React.Fragment>
         {/* <Background onClick={()=>{props.setUpdateModal(false)}} /> */}
-        <UpdateComponent>
+        <UpdateComponent detail={props.detail}>
           <ModalButtonContainer>
               <ModalSubmitBtn onClick={() =>{
                 props.setAnswer(answerInfo.answerContents)
@@ -59,12 +59,17 @@ const UpdateComponent = styled.div`
   background-color: white;
   z-index: 500;
   box-shadow: 0px 0px 20px #00000026;
-  @media (max-width: 500px) {
+  ${props=>props.detail === 'book' ? `@media (max-width: 750px) {
   top: 110px;
   right: 20px;
   width: 120px;
   height: 80px;
-  }
+  }` : `@media (max-width: 750px) {
+  top: 25px;
+  right: 0px;
+  width: 120px;
+  height: 80px;
+  }`}
 `
 
 const ModalButtonContainer = styled.div`
