@@ -35,6 +35,10 @@ const CardDetail = (props) => {
     const [answer, setAnswer] = React.useState();
     const [isOpen, setOpen] = React.useState(true);
 
+    const gotoWeb = () => {
+        console.log('나도 가고야 싶지 어려운걸 어떡하니')
+    }
+
     const othersPage = () => {
         if(answerInfo?.answerUserId === user_info?.id){
             history.push('/mybooks')
@@ -77,7 +81,10 @@ const CardDetail = (props) => {
 
     return(
         <React.Fragment>
-            <Noti>모바일 전용 페이지 입니다. 웹에서 보고 계신다면 뒤로가기 후 다시 시도하세요.</Noti>
+      <Notification>
+        <NotiContent>모바일 전용 페이지 입니다. 웹 전용 페이지 버튼을 클릭해주세요.</NotiContent>
+        <GotoWeb onClick={gotoWeb}>웹 전용 페이지</GotoWeb>
+      </Notification>
             <Container>
                 <Head>
                     <GoBackBtn>
@@ -187,16 +194,34 @@ const CardDetail = (props) => {
     )
 }
 
-const Noti = styled.div`
-    text-align:center;
-    margin:auto;
+const NotiContent = styled.span`
     font-weight:600;
-    background-color:#ffffff;
-    width:600px;
-    height:500px;
+    font-size:20px;
+`;
+
+const Notification = styled.div`
+    position:fixed;
+    width:300px;
+    height:300px;
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%);
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
     @media(max-width:750px){
         display:none;
     }
+`;
+
+const GotoWeb = styled.button`
+  margin-top:20px;
+  width:150px;
+  height:35px;
+  border-radius:20px;
+  border-style:none;
+  background-color:lavender;
 `;
 
 const Container = styled.section`
