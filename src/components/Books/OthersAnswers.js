@@ -19,6 +19,7 @@ import { api as communityActions } from "../../redux/modules/community";
 import {history} from '../../redux/configStore';
 import {CheckOutlined} from "@ant-design/icons";
 import swal from "sweetalert";
+import Like from '../../shared/Like';
 
 const OthersAnswers = (props) => {
   const dispatch = useDispatch();
@@ -294,46 +295,7 @@ const OthersAnswers = (props) => {
                       <Footer>
                         <IconBox>
                           <LikeBox>
-                            {v.currentLike ? (
-                              <>
-                                <FavoriteIcon
-                                  style={{ color: "#443870",fontSize:'20px',cursor:'pointer' }}
-                                  onClick={()=>{
-                                    if (!is_login) {
-                                      swal({
-                                        title: "좋아요 누르기 실패",
-                                        text: "로그인 후 이용 가능한 서비스입니다.",
-                                        icon: "error",
-                                      });
-                                      return;
-                                    }
-                                    dispatch(
-                                      communityActions.deleteLikeAnswers(
-                                        v.answerId,
-                                      )
-                                    );
-                                  }}
-                                />{" "}
-                              </>
-                            ) : (
-                              <>
-                                <FavoriteBorderIcon onClick={()=>{
-                      if (!is_login) {
-                        swal({
-                          title: "좋아요 누르기 실패",
-                          text: "로그인 후 이용 가능한 서비스입니다.",
-                          icon: "error",
-                        });
-                        return;
-                      }
-                      dispatch(
-                        communityActions.addLikeAnswers(
-                          v.answerId,
-                        )
-                      );
-                    }} style={{ fontSize:'20px' ,cursor:'pointer'}} />{" "}
-                              </>
-                            )}
+                          <Like m_width='16px' m_height='15px' currentLike={v.currentLike} answerId={v.answerId} page='answers'/>
                             <LikeCount>{v.likeCount}</LikeCount>
                           </LikeBox>
                           <CommentBox>
@@ -461,46 +423,7 @@ const OthersAnswers = (props) => {
                       <Footer>
                         <IconBox>
                           <LikeBox>
-                            {v.currentLike ? (
-                              <>
-                                <FavoriteIcon
-                                  style={{ color: "#443870",fontSize:'20px' ,cursor:'pointer'}}
-                                  onClick={()=>{
-                                    if (!is_login) {
-                                      swal({
-                                        title: "좋아요 누르기 실패",
-                                        text: "로그인 후 이용 가능한 서비스입니다.",
-                                        icon: "error",
-                                      });
-                                      return;
-                                    }
-                                    dispatch(
-                                      communityActions.deleteLikeAnswers(
-                                        v.answerId,
-                                      )
-                                    );
-                                  }}
-                                />{" "}
-                              </>
-                            ) : (
-                              <>
-                                <FavoriteBorderIcon onClick={()=>{
-                      if (!is_login) {
-                        swal({
-                          title: "좋아요 누르기 실패",
-                          text: "로그인 후 이용 가능한 서비스입니다.",
-                          icon: "error",
-                        });
-                        return;
-                      }
-                      dispatch(
-                        communityActions.addLikeAnswers(
-                          v.answerId,
-                        )
-                      );
-                    }} style={{ fontSize:'20px',cursor:'pointer' }} />{" "}
-                              </>
-                            )}
+                          <Like m_width='16px' m_height='15px' currentLike={v.currentLike} answerId={v.answerId} page='answers'/>
                             <LikeCount>{v.likeCount}</LikeCount>
                           </LikeBox>
                           <CommentBox>

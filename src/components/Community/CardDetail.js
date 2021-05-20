@@ -16,6 +16,8 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
 import swal from "sweetalert";
 import ChannelService from "../../shared/ChannelService";
+import Like from '../../shared/Like';
+import Subject from '../../shared/Subject';
 
 
 const CardDetail = (props) => {
@@ -118,60 +120,9 @@ const CardDetail = (props) => {
                 <Body>
                     <SubjectBox>
                     {answerInfo.questionTopic?.length && answerInfo.questionTopic.map((v,idx) => {
-                        if(v === '나'){
-                            return(
-                                <Subject style={{border:'1px solid #458857',color:'#458857'}}>
-                                    <span>
-                                    #{v}
-                                    </span>
-                                </Subject>
-                            )
-                        }
-                        if(v === '사랑'){
-                            return(
-                                <Subject style={{border:'1px solid #D34242',color:'#D34242'}}>
-                                    <span>
-                                    #{v}
-                                    </span>
-                                </Subject>
-                            )
-                        }
-                        if(v === '관계'){
-                            return(
-                                <Subject style={{border:'1px solid #2761CC',color:'#2761CC'}}>
-                                    <span>
-                                    #{v}
-                                    </span>
-                                </Subject>
-                            )
-                        }
-                        if(v === '우정'){
-                            return(
-                                <Subject style={{border:'1px solid #E0692D',color:'#E0692D'}}>
-                                    <span>
-                                    #{v}
-                                    </span>
-                                </Subject>
-                            )
-                        }
-                        if(v === '가치'){
-                            return(
-                                <Subject style={{border:'1px solid #7249B4',color:'#7249B4'}}>
-                                    <span>
-                                    #{v}
-                                    </span>
-                                </Subject>
-                            )
-                        }
-                        if(v === '꿈'){
-                            return(
-                                <Subject style={{border:'1px solid #E6BA28',color:'#E6BA28'}}>
-                                    <span>
-                                    #{v}
-                                    </span>
-                                </Subject>
-                            )
-                        }
+                        return(
+                            <Subject topic={v}/>
+                        )
                     })}
                     </SubjectBox>
                     <Question>
@@ -201,40 +152,10 @@ const CardDetail = (props) => {
                 </Body>
                 <MiddleBelt>
                     <IconBox>
-                        <Like>
-                            {answerInfo?.like ? <FavoriteIcon cursor='pointer' onClick={() => {
-                        if (!is_login) {
-                          swal({
-                            title: "좋아요 누르기 실패",
-                            text: "로그인 후 이용 가능한 서비스입니다.",
-                            icon: "error",
-                          });
-                          return;
-                        }
-                        dispatch(
-                          communityActions.deleteLikeAX(
-                            answerInfo.answerId,
-                            answerInfo.questionId
-                          )
-                        );
-                      }} style={{fontSize:'20px', color:'#061366'}}/>:<FavoriteBorderIcon cursor='pointer' onClick={() => {
-                        if (!is_login) {
-                          swal({
-                            title: "좋아요 누르기 실패",
-                            text: "로그인 후 이용 가능한 서비스입니다.",
-                            icon: "error",
-                          });
-                          return;
-                        }
-                        dispatch(
-                          communityActions.addLikeAX(
-                            answerInfo.answerId,
-                            answerInfo.questionId
-                          )
-                        );
-                      }} style={{fontSize:'20px'}}/>}
+                        <LikeBox>
+                            <Like m_width='16px' m_height='15px' currentLike={answerInfo?.like} answerId={answerInfo?.answerId} questionId={answerInfo?.questionId}/>
                             <Count>{answerInfo?.likeCount}</Count>
-                        </Like>
+                        </LikeBox>
                         <Comment>
                             <ChatBubbleOutlineIcon style={{fontSize:'20px',marginTop:'3px'}}/>
                             <Count>{comment_list?.length}</Count>
@@ -281,7 +202,7 @@ const Container = styled.section`
     @media(max-height:700px){
         height:82%;
     }
-    @media(max-height:850px){
+    @media(min-height:850px){
         height:100%;
     }
     @media(min-width:750px){
@@ -348,18 +269,7 @@ const SubjectBox = styled.div`
     align-items:center;
     margin-bottom:13px;
 `;
-const Subject = styled.div`
-    margin-right:10px;
-    width: 58px;
-    height: 25px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    border-radius:16px;
-    font-size:11px;
-    font-weight:900;
-    letter-spacing: 0px;
-`;
+
 
 const Question = styled.div`
     width:100%;
@@ -460,7 +370,7 @@ const IconBox = styled.div`
     align-items:center;
 `;
 
-const Like = styled.div`
+const LikeBox = styled.div`
     display:flex;
     flex-direction:row;
     align-items:center;

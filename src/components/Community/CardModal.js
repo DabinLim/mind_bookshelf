@@ -26,6 +26,8 @@ import CustomSwitch from "../../shared/CustomSwitch";
 import CancelConfirm from "./CancelConfirm";
 import { LeftOutlined } from "@ant-design/icons";
 import ChannelService from "../../shared/ChannelService";
+import Like from '../../shared/Like';
+import Subject from '../../shared/Subject';
 
 
 const CardModal = (props) => {
@@ -395,66 +397,7 @@ const CardModal = (props) => {
                     return (
                       <DetailContainer key={idx}>
                         <Head>
-                          {v.questionTopic[0] === "사랑" && (
-                            <BooksSubject
-                              style={{
-                                color: "#D34242",
-                                border: "2px solid #D34242",
-                              }}
-                            >
-                              <span>#사랑</span>
-                            </BooksSubject>
-                          )}
-                          {v.questionTopic[0] === "우정" && (
-                            <BooksSubject
-                              style={{
-                                color: "#E0692D",
-                                border: "2px solid #E0692D",
-                              }}
-                            >
-                              <span>#우정</span>
-                            </BooksSubject>
-                          )}
-                          {v.questionTopic[0] === "꿈" && (
-                            <BooksSubject
-                              style={{
-                                color: "#E6BA28",
-                                border: "2px solid #E6BA28",
-                              }}
-                            >
-                              <span>#꿈</span>
-                            </BooksSubject>
-                          )}
-                          {v.questionTopic[0] === "가치" && (
-                            <BooksSubject
-                              style={{
-                                color: "#7249B4",
-                                border: "2px solid #7249B4",
-                              }}
-                            >
-                              <span>#가치</span>
-                            </BooksSubject>
-                          )}
-                          {v.questionTopic[0] === "관계" && (
-                            <BooksSubject
-                              style={{
-                                color: "#2761CC",
-                                border: "2px solid #2761CC",
-                              }}
-                            >
-                              <span>#관계</span>
-                            </BooksSubject>
-                          )}
-                          {v.questionTopic[0] === "나" && (
-                            <BooksSubject
-                              style={{
-                                color: "#458857",
-                                border: "2px solid #458857",
-                              }}
-                            >
-                              <span>#나</span>
-                            </BooksSubject>
-                          )}
+                        <Subject topic={v.questionTopic[0]} borderRadius='25px'/>
                           <TitleBox>
                             <Title
                               disabled={card_loading}
@@ -550,66 +493,7 @@ const CardModal = (props) => {
                       return (
                         <DetailContainer key={idx}>
                           <Head>
-                            {v.questionTopic[0] === "사랑" && (
-                              <BooksSubject
-                                style={{
-                                  color: "#D34242",
-                                  border: "2px solid #D34242",
-                                }}
-                              >
-                                <span>#사랑</span>
-                              </BooksSubject>
-                            )}
-                            {v.questionTopic[0] === "우정" && (
-                              <BooksSubject
-                                style={{
-                                  color: "#E0692D",
-                                  border: "2px solid #E0692D",
-                                }}
-                              >
-                                <span>#우정</span>
-                              </BooksSubject>
-                            )}
-                            {v.questionTopic[0] === "꿈" && (
-                              <BooksSubject
-                                style={{
-                                  color: "#E6BA28",
-                                  border: "2px solid #E6BA28",
-                                }}
-                              >
-                                <span>#꿈</span>
-                              </BooksSubject>
-                            )}
-                            {v.questionTopic[0] === "가치" && (
-                              <BooksSubject
-                                style={{
-                                  color: "#7249B4",
-                                  border: "2px solid #7249B4",
-                                }}
-                              >
-                                <span>#가치</span>
-                              </BooksSubject>
-                            )}
-                            {v.questionTopic[0] === "관계" && (
-                              <BooksSubject
-                                style={{
-                                  color: "#2761CC",
-                                  border: "2px solid #2761CC",
-                                }}
-                              >
-                                <span>#관계</span>
-                              </BooksSubject>
-                            )}
-                            {v.questionTopic[0] === "나" && (
-                              <BooksSubject
-                                style={{
-                                  color: "#458857",
-                                  border: "2px solid #458857",
-                                }}
-                              >
-                                <span>#나</span>
-                              </BooksSubject>
-                            )}
+                            <Subject topic={v.questionTopic[0]} borderRadius='25px'/>
                             <TitleBox>
                               <Title
                                 disabled={card_loading}
@@ -915,50 +799,7 @@ const CardModal = (props) => {
             <IconContainer type={answerInfo?.type}>
               <IconBox>
                 <LikeContainer>
-                  {answerInfo.like ? (
-                    <LikeBtn
-                      style={{ color: "#061366" }}
-                      onClick={() => {
-                        if (!is_login) {
-                          swal({
-                            title: "좋아요 누르기 실패",
-                            text: "로그인 후 이용 가능한 서비스입니다.",
-                            icon: "error",
-                          });
-                          return;
-                        }
-                        dispatch(
-                          communityActions.deleteLikeAX(
-                            answerInfo.answerId,
-                            answerInfo.questionId
-                          )
-                        );
-                      }}
-                    >
-                      <FavoriteIcon />
-                    </LikeBtn>
-                  ) : (
-                    <LikeBtn
-                      onClick={() => {
-                        if (!is_login) {
-                          swal({
-                            title: "좋아요 누르기 실패",
-                            text: "로그인 후 이용 가능한 서비스입니다.",
-                            icon: "error",
-                          });
-                          return;
-                        }
-                        dispatch(
-                          communityActions.addLikeAX(
-                            answerInfo.answerId,
-                            answerInfo.questionId
-                          )
-                        );
-                      }}
-                    >
-                      <FavoriteBorderIcon />
-                    </LikeBtn>
-                  )}
+                <Like width='20px' height='19px' currentLike={answerInfo?.like} answerId={answerInfo?.answerId} questionId={answerInfo?.questionId}/>
                   <LikeCount>{answerInfo?.likeCount}개</LikeCount>
                 </LikeContainer>
                 <CommentContainer>
@@ -1409,6 +1250,8 @@ const IconBox = styled.div`
 
 const LikeContainer = styled.div`
   display: flex;
+  align-items:center;
+  justify-content:center;
 `;
 
 const CommentContainer = styled.div`
@@ -1547,20 +1390,6 @@ const Head = styled.div`
   display: flex;
   flex-direction: row;
   margin-bottom: 17px;
-`;
-
-const BooksSubject = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-width: 72px;
-  height: 31px;
-  // background-color: #a2acff;
-  // box-shadow: 0px 3px 15px #c3c9fe;
-  opacity: 0.8;
-  border-radius: 45px;
-  font-size: 14px;
-  font-weight: 600;
 `;
 
 const TitleBox = styled.div`
