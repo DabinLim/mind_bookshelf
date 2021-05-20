@@ -20,7 +20,7 @@ const BookShelf = (props) => {
 
   const openBook = (givendate) => {
     dispatch(changeDate(`20${givendate}`));
-    if(window.innerWidth <= 500){
+    if(window.innerWidth <= 750){
       if (id === "mybook") {
         dispatch(booksActions.getBookDetail(givendate, history, 'move'));
       } else {

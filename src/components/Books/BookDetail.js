@@ -154,6 +154,7 @@ const BookDetail = (props) => {
 
     return(
         <React.Fragment>
+          <Noti>모바일 전용 페이지 입니다. 웹에서 보고 계신다면 뒤로가기 후 다시 시도하세요.</Noti>
             <Container>
                 <Head>
                     <GoBackBtn>
@@ -179,6 +180,7 @@ const BookDetail = (props) => {
                               close={props.close}
                               setUpdateModal={setUpdateModal}
                               {...answerInfo}
+                              detail='book'
                             />
                           ) : null}
                           {cancelModal ? (
@@ -402,6 +404,18 @@ const BookDetail = (props) => {
     )
 }
 
+const Noti = styled.div`
+    text-align:center;
+    margin:auto;
+    font-weight:600;
+    background-color:#ffffff;
+    width:600px;
+    height:500px;
+    @media(max-width:750px){
+        display:none;
+    }
+`;
+
 const Container = styled.section`
     margin-top: 50px;
     width:100%;
@@ -409,9 +423,15 @@ const Container = styled.section`
     overflow-y:auto;
     border: 0.5px solid #D3D3D3;
     border-radius:16px 16px 0px 0px;
-    background-color: white;
+    background-color: #ffffff;
     @media(max-height:700px){
         height:82%;
+    }
+    @media(max-height:850px){
+        height:100%;
+    }
+    @media(min-width:750px){
+        display:none;
     }
 `;
 
