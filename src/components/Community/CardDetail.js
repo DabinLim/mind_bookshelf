@@ -41,7 +41,7 @@ const CardDetail = (props) => {
 
     const othersPage = () => {
         if(answerInfo?.answerUserId === user_info?.id){
-            history.push('/mybooks')
+            history.push('/mybook')
             return
         }
         history.push(`/others/${answerInfo.answerUserId}`)

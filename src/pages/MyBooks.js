@@ -81,6 +81,7 @@ const Container = styled.div`
     background-size: cover;
     background-repeat: no-repeat;
     width: 100%;
+    // height: 100%;
     display:flex;
     flex-direction:column;
     justify-content:space-between;

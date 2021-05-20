@@ -787,6 +787,7 @@ const Container = styled.section`
 
   @media (max-width: 750px) {
     margin: 5px 0px;
+    padding-bottom: 0px;
   }
 `;
 

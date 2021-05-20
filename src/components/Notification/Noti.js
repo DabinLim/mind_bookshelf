@@ -14,34 +14,44 @@ const Noti = (props) => {
   let time_data = time(`20${props.time}`);
   if (props.eventType === "like") {
     eventType = "좋아요";
-    text = "회원님의 글을 좋아합니다.";
+    text = "회원님의 글에 좋아요를 눌렀습니다.";
   } else if (props.eventType === "comment") {
     eventType = "댓글";
-    text = "댓글을 남겼습니다.";
+    text = "회원님의 글에 댓글을 남겼습니다.";
   } else if (props.eventType === "tag") {
     eventType = "태그";
-    text = "태그를 남겼습니다."
+    text = "회원님을 언급했습니다."
+  } else if (props.eventType ==="follow"){
+    eventType = "팔로우";
+    text = "회원님을 팔로우하기 시작했습니다."
   } else {
     eventType = "커스텀";
-    text = "질문 답변을 남겼습니다."
+    text = "회원님이 만든 질문에 답변을 남겼습니다."
   }
 
-  const openCard = () => {
-    if(window.innerWidth <= 750){
-      history.push(`/carddetail/${props.cardId}`)
-      return
+  const eventAction = () => {
+    if(eventType === "팔로우"){
+      history.push(`/others/${props.cardId}`);
+    } else if(eventType ==="커스텀"){
+      history.push(`/community/${props.cardId}`);
+    } else{
+      if(window.innerWidth <= 750){
+        history.push(`/carddetail/${props.cardId}`)
+        return
+      }
+      const type = "noti";
+      props.close();
+      dispatch(communityActions.getCardDetail(props.cardId, type));
+      dispatch(commentActions.getCommentAX(props.cardId));
+      props.setCardModal(true);
     }
-    const type = "noti";
-    props.close();
-    dispatch(communityActions.getCardDetail(props.cardId, type));
-    dispatch(commentActions.getCommentAX(props.cardId));
-    props.setCardModal(true);
+
   };
 
   if(props.type === "notiList"){
     return (
       <>
-        {eventType === "커스텀" ? (
+        {/* {eventType === "커스텀" ? (
           <NotiFrame
             onClick={() => {
               history.push(`/community/${props.cardId}`);
@@ -59,8 +69,8 @@ const Noti = (props) => {
             </div>
             <NotiTime>{time_data}</NotiTime>
           </NotiFrame>
-        ) : (
-          <NotiFrame onClick={openCard}>
+        ) : ( */}
+          <NotiFrame onClick={eventAction}>
             <div style={{display:'flex', alignItems: "center", cursor: 'pointer' }} >
               <NotiProfileInfo>
                 <NotiProfile src={props.recentProfileImg}></NotiProfile>
@@ -73,13 +83,13 @@ const Noti = (props) => {
             </div>
             <NotiTime>{time_data}</NotiTime>
           </NotiFrame>
-        )}
+        {/* )} */}
       </>
     );
   } else{
     return (
       <>
-        {eventType === "커스텀" ? (
+        {/* {eventType === "커스텀" ? (
           <NotiFrame
             onClick={() => {
               history.push(`/community/${props.cardId}`);
@@ -93,8 +103,8 @@ const Noti = (props) => {
             </div>
             <NotiTime>{time_data}</NotiTime>
           </NotiFrame>
-        ) : (
-          <NotiFrame onClick={openCard}>
+        ) : ( */}
+          <NotiFrame onClick={eventAction}>
             <div style={{display:'flex', alignItems: "center", cursor: 'pointer' }} >
               <NotiProfileInfo>
                 <NotiProfile src={props.recentProfileImg}></NotiProfile>
@@ -103,7 +113,7 @@ const Noti = (props) => {
             </div>
             <NotiTime>{time_data}</NotiTime>
           </NotiFrame>
-        )}
+        {/* )} */}
       </>
     );
   }
@@ -121,12 +131,12 @@ const NotiFrame = styled.div`
 const NotiProfileInfo = styled.div`
   display: flex;
   align-items: center;
-  width: 250px;
 `;
 
 const NotiProfile = styled.img`
   width: 35px;
   height: 35px;
+  object-fit: cover;
   border-radius: 50%;
   background: gray;
 `;
@@ -134,9 +144,13 @@ const NotiProfile = styled.img`
 const NotiProfileName = styled.span`
   margin-left: 8px;
   font-size: 14px;
+  width: 250px;
   &:hover{
     font-weight: bold;
   }
+  // @media (max-width: 500px){
+    
+  // }
 `;
 
 const NotiContent = styled.p`
