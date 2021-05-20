@@ -319,7 +319,14 @@ const addQuest = (topic, contents) => {
         };
 
         axios(options).then((response)=> {
-            dispatch(addCustomQuestion(response.data.CustomQuestion))
+            let custom = response.data.CustomQuestion
+            dispatch(addCustomQuestion({
+                answerCount: 0,
+                questionContents: custom.contents,
+                questionCreatedAt: custom.createdAt,
+                questionId: custom.questionId,
+                questionTopic : custom.topic, 
+            }))
             dispatch(setCustomCount(custom_count + 1))
 
 
