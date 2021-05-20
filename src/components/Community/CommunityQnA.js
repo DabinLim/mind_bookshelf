@@ -344,7 +344,7 @@ const Topic = styled.div`
   // display: inline-block;
   min-width: 72px;
   max-width: 72px;
-  padding: 8px 12px;
+  padding: 5px 0px;
   letter-spacing: 0px;
   border-radius: 18px;
   font-weight: 600;
