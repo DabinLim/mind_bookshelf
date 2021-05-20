@@ -71,27 +71,30 @@ const CommunityQnA = (props) => {
           {props.answers.map((a) => {
             return (
               <Answer key={a.id}>
-                <AnswerHeader
-                  onClick={() => {
-                    if (a.userId === user.id) {
-                      history.push("/mybook");
-                      return;
-                    }
-                    history.push(`/others/${a.userId}`);
-                  }}
-                >
-                  <AnswerProfileImg src={a.profileImg} />
-                  <AnswerNickname>
-                    <b>{a.nickname}</b>님
-                  </AnswerNickname>
+                <AnswerHeader>
+                  <div style={{display:"flex", alignItems:"center"}} 
+                     onClick={() => {
+                      if (a.userId === user.id) {
+                        history.push("/mybook");
+                        return;
+                      }
+                      history.push(`/others/${a.userId}`);
+                    }}
+                  >
+                    <AnswerProfileImg src={a.profileImg} />
+                    <AnswerNickname>
+                      <b>{a.nickname}</b>님
+                    </AnswerNickname>
+                    
+                  </div>
+                  <AnswerContents
+                    onClick={() => {
+                      props.openCard(a);
+                    }}
+                  >
+                    {a.contents}
+                  </AnswerContents>
                 </AnswerHeader>
-                <AnswerContents
-                  onClick={() => {
-                    props.openCard(a);
-                  }}
-                >
-                  {a.contents}
-                </AnswerContents>
                 <AnswerLikes>
                   <IconBox>
                     <LikeBox>
@@ -228,7 +231,7 @@ const Answer = styled.div`
 
 const AnswerHeader = styled.div`
   display: flex;
-  align-items: center;
+  flex-direction: column;
   cursor: pointer;
   padding: 17px 18px 0;
 `;
@@ -246,16 +249,17 @@ const AnswerNickname = styled.div`
 `;
 
 const AnswerContents = styled.div`
-  max-height: 63px;
-  min-height: 63px;
-  padding: 0px 18px;
+  // height값을 주면 -webkit-line-clamp: 3;를 설정해도
+  // 그 뒤에값이 나옵니다.
+  // max-height: 63px;
+  // min-height: 63px;
+  margin-top: 20px;
   font: normal normal normal 12px/18px Noto Sans CJK KR;
-  font-family: Sans KR, sans-serif;
   letter-spacing: 0px;
   color: #262626;
   display: -webkit-box;
-  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
   overflow: hidden;
   text-overflow: ellipsis;
   &:hover {
@@ -263,8 +267,6 @@ const AnswerContents = styled.div`
   }
   cursor: pointer;
   @media (max-width: 750px) {
-    max-height: 40px;
-    min-height: auto;
     -webkit-line-clamp: 2;
   }
 `;

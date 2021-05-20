@@ -27,17 +27,18 @@ const AnswerCard2 = (props) => {
     <>
       <CardFrame>
         <AnswerHeader>
-          <CardWriterProfile
-            src={props.userProfileImg}
-            onClick={() => {
-              if (props.userId === user_info?.id) {
-                history.push("/mybook");
-              }
-              history.push(`/others/${props.userId}`);
-            }}
-          />
-          <CardWriter><b>{props.userNickname}</b>님</CardWriter>
-        </AnswerHeader>
+          <div style={{display:"flex", alignItems:"center"}}>
+            <CardWriterProfile
+              src={props.userProfileImg}
+              onClick={() => {
+                if (props.userId === user_info?.id) {
+                  history.push("/mybook");
+                }
+                history.push(`/others/${props.userId}`);
+              }}
+            />
+            <CardWriter><b>{props.userNickname}</b>님</CardWriter>
+          </div>
         <AnswerContents
           onClick={() => {
             props.openCard(props.answerId);
@@ -45,6 +46,7 @@ const AnswerCard2 = (props) => {
         >
           {props.answerContents}
         </AnswerContents>
+        </AnswerHeader>
         <AnswerLikes>
           <IconBox>
             <LikeBox>
@@ -125,7 +127,7 @@ const CardFrame = styled.div`
 
 const AnswerHeader = styled.div`
   display: flex;
-  align-items: center;
+  flex-direction: column;
   cursor: pointer;
   padding: 17px 18px 0;
 `;
@@ -175,9 +177,9 @@ const CardWriter = styled.span`
 `;
 
 const AnswerContents = styled.div`
-  max-height: 63px;
-  min-height: 63px;
-  padding: 0px 18px;
+  // max-height: 63px;
+  // min-height: 63px;
+  margin-top: 20px;
   font: normal normal normal 12px/18px Noto Sans KR;
   letter-spacing: 0px;
   color: #262626;

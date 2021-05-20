@@ -473,7 +473,6 @@ const HashTag = styled.div`
   min-width: 72px;
   max-width: 72px;
   max-height: 31px;
-  background: #ededed;
   padding: 8px 12px;
   border-radius: 24px;
   display: flex;

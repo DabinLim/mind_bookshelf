@@ -65,10 +65,12 @@
 }
 
 body {
-  background-image: url("https://user-images.githubusercontent.com/77574867/116995144-a7236d00-ad14-11eb-9021-940b83e5089e.png");
+  background-image: url("https://user-images.githubusercontent.com/77369674/118811425-f73f2980-b8e7-11eb-919a-d4421378e117.png");
   background-size: cover;
   background-repeat: no-repeat;
   font-family: "Noto Sans CJK KR", sans-serif;
+  /* 불필요한 커서는 context-menu가 default값이 되게 했습니다. */
+  cursor: context-menu;
 }
 
 @media screen and (max-width: 500px) {
