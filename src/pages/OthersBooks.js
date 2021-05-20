@@ -66,7 +66,7 @@ const OthersBooks = (props) => {
 
 const ContainerBox = styled.div`
     height: 100vh;
-    margin: 100px 0px 0px 0px;
+    margin: 50px 0px 0px 0px;
     padding-left: 20px;
     display: flex;
     flex-direction: column;
@@ -80,7 +80,7 @@ const ContainerBox = styled.div`
     display: none;
     };
     @media (max-width: 750px) {
-        margin: 30px 0px 0px 0px;
+        margin: 50px 0px 0px 0px;
       }
 `
 

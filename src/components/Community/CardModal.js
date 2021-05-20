@@ -1081,7 +1081,6 @@ const ModalComponent = styled.div`
   background-color: white;
   z-index: 130;
   display: flex;
-  cursor: context-menu;
   /* box-shadow: 0px 0px 15px #c1c7fc; */
   @media (max-width: 950px) {
     width: 750px;

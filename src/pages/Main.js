@@ -280,7 +280,7 @@ const MainFrame = styled.div`
 
 const MainContainer = styled.div`
   height: 100vh;
-  margin: 120px 0px 0px 0px;
+  margin: 50px 0px 0px 0px;
   display: flex;
   flex-direction: column;
   overflow: auto;

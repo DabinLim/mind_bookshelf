@@ -31,14 +31,14 @@ const TagModal = (props) => {
 
 const TagContainer = styled.div`
   position: absolute;
-  width: 300px;
-  height: 200px;
+  width: 250px;
+  height: 180px;
   display: flex;
   flex-direction: column;
   background-color: white;
   z-index: 30;
   bottom: 66px;
-  border-radius: 10px;
+  // border-radius: 10px;
   box-shadow: 0 3px 6px rgba(0,0,0,0.12), 0 2px 5px rgba(0,0,0,0.24);
   @media (max-width: 750px) {
     left:5px;
@@ -52,9 +52,7 @@ const SpinContainer = styled.div`
 `
 
 const UserContainer = styled.div`
-  margin-top: 30px;
-  margin-bottom: 15px;
-  width: 80%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   overflow-y: scroll;
@@ -65,7 +63,9 @@ const UserContainer = styled.div`
 
 const UserInfoContainer = styled.div`
   display: flex;
+  align-items: center;
   padding: 15px 8px;
+  width: 100%;
   cursor: pointer;
   &:hover{
     background: silver;
@@ -76,7 +76,7 @@ const ProfileImage = styled.img`
   background-size: cover;
   height: 30px;
   width: 30px;
-  margin-right: 20px;
+  margin-right: 10px;
 `
 
 const Username = styled.div`
@@ -86,7 +86,8 @@ const Username = styled.div`
 
 const UserText = styled.div`
   margin: auto;
-  font-weight: 600;
+  margin-top: 30px;
+  font-weight: medium;
   font-size: 14px;
 `
 export default TagModal

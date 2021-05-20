@@ -153,21 +153,15 @@
 
 /* main header */
 .main {
-  border: 1px solid black;
-  padding: 8px 12px;
-  border-radius: 20px;
+  font-weight: bold;
 }
 
 .bookshelf {
-  border: 1px solid black;
-  padding: 8px 12px;
-  border-radius: 20px;
+  font-weight: bold;
 }
 
 .community {
-  border: 1px solid black;
-  padding: 8px 12px;
-  border-radius: 20px;
+  font-weight: bold;
 }
 
 /* 메인 나눔명조 */
