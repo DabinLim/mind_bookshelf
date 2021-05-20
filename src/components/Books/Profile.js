@@ -608,7 +608,7 @@ const HeadBody = styled.div`
   @media (max-width: 750px) {
     display: flex;
     justify-content: center;
-    width: 178px;
+    width: 100%;
     height: 20px;
     box-sizing: border-box;
     flex-direction: row;

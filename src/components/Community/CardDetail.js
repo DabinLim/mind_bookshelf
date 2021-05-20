@@ -35,6 +35,14 @@ const CardDetail = (props) => {
     const [answer, setAnswer] = React.useState();
     const [isOpen, setOpen] = React.useState(true);
 
+    const othersPage = () => {
+        if(answerInfo?.answerUserId === user_info?.id){
+            history.push('/mybooks')
+            return
+        }
+        history.push(`/others/${answerInfo.answerUserId}`)
+    }
+
     function clickOpen() {
         if (isOpen) {
           setOpen(false);
@@ -76,7 +84,7 @@ const CardDetail = (props) => {
                     <LeftOutlined style={{fontSize:'20px'}} onClick={()=>{history.goBack()}}/>
                     </GoBackBtn>
                     <Nickname>
-                        <span style={{fontWeight:'600'}}>
+                        <span onClick={othersPage} style={{fontWeight:'600',cursor:'pointer'}}>
                         {answerInfo?.nickname}
                         </span>님
                         <QuestionCreatedUser>
