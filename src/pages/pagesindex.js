@@ -6,4 +6,5 @@ import OthersBooks from './OthersBooks';
 import MobileSearch from './MobileSearch'
 import MobileNotification from './MobileNotification'
 import NotFound from './NotFound'
-export {NotFound, Auth, Community, Main, MyBooks, OthersBooks, MobileSearch, MobileNotification};
+import Topic from './Topic'
+export {Topic, NotFound, Auth, Community, Main, MyBooks, OthersBooks, MobileSearch, MobileNotification};
