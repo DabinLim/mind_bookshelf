@@ -39,7 +39,7 @@ const MyAnswers = (props) => {
   const [openFilter, setOpenFilter] = React.useState(false);
 
   const openCard = (a) => {
-    if(window.innerWidth <= 500){
+    if(window.innerWidth <= 750){
       history.push(`/carddetail/${a.answerId}`)
       return
     }

@@ -440,7 +440,7 @@ const TitleContainer = styled.div`
   flex-direction: row;
   justify-content: space-between;
   margin-bottom: 38px;
-  @media (max-width: 500px) {
+  @media (max-width: 750px) {
     display:none;
   }
 `;
@@ -451,7 +451,7 @@ const Title = styled.span`
   height: 60px;
   font-size: 22px;
   font-weight: 400;
-  @media (max-width: 500px) {
+  @media (max-width: 750px) {
     width: 180px;
     min-width: 180px;
     font-size: 18px;
@@ -499,19 +499,19 @@ const AddQuestion = styled.div`
   color: #061366;
   cursor: pointer;
   min-width:100px;
-  @media (max-width: 500px) {
+  @media (max-width: 750px) {
     font-size:14px;
     align-items:flex-end;
   }
 `;
 
 const AddText = styled.span`
-  @media (max-width: 500px) {
+  @media (max-width: 750px) {
     display: none;
   }
 `;
 const AddTextMobile = styled.span`
-  @media (min-width: 500px) {
+  @media (min-width: 750px) {
     display: none;
   }
 `;

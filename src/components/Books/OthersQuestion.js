@@ -446,7 +446,7 @@ const TitleContainer = styled.div`
   flex-direction: row;
   justify-content: space-between;
   margin-bottom: 38px;
-  @media (max-width: 500px) {
+  @media (max-width: 750px) {
     display: none;
   }
 `;
@@ -457,7 +457,7 @@ const Title = styled.span`
   height: 60px;
   font-size: 22px;
   font-weight: 400;
-  @media (max-width: 500px) {
+  @media (max-width: 750px) {
     width: 180px;
     min-width: 180px;
     font-size: 18px;

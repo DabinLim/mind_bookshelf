@@ -40,7 +40,7 @@ const OthersAnswers = (props) => {
   const id = url[url.length - 1];
 
   const openCard = (a) => {
-    if(window.innerWidth <= 500){
+    if(window.innerWidth <= 750){
       history.push(`/carddetail/${a.answerId}`)
       return
     }
