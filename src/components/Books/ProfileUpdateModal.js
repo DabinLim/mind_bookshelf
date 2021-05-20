@@ -217,7 +217,8 @@ const ProfileUpdateModal = (props) => {
   return (
     <React.Fragment>
       {withdrawal ? <WithdrawalModal setWidthdrawal={setWidthdrawal} /> : null}
-      {user_info.first? null 
+      {user_info.first? 
+      <Background style={{backgroundColor:"transparent"}} /> 
       :
       <Background onClick={props.close} />
       }

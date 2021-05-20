@@ -204,7 +204,10 @@ const NewQuestion = (props) => {
               ) : (
                 <CheckedLabel
                   onClick={checkedFriendship}
-                  style={{ background: "#F4F4F4" }}
+                  style={{ 
+                    background: "#F4F4F4",
+                    border: "2px solid #F4F4F4",
+                  }}
                 >
                   #우정
                 </CheckedLabel>
@@ -223,7 +226,10 @@ const NewQuestion = (props) => {
               ) : (
                 <CheckedLabel
                   onClick={checkedLove}
-                  style={{ background: "#F4F4F4" }}
+                  style={{ 
+                    background: "#F4F4F4",
+                    border: "2px solid #F4F4F4"
+                  }}
                 >
                   #사랑
                 </CheckedLabel>
@@ -242,7 +248,10 @@ const NewQuestion = (props) => {
               ) : (
                 <CheckedLabel
                   onClick={checkedDream}
-                  style={{ background: "#F4F4F4" }}
+                  style={{ 
+                    background: "#F4F4F4",
+                    border: "2px solid #F4F4F4"
+                  }}
                 >
                   #꿈
                 </CheckedLabel>
@@ -263,7 +272,10 @@ const NewQuestion = (props) => {
               ) : (
                 <CheckedLabel
                   onClick={checkedWorth}
-                  style={{ background: "#F4F4F4" }}
+                  style={{ 
+                    background: "#F4F4F4",
+                    border: "2px solid #F4F4F4",
+                  }}
                 >
                   #가치
                 </CheckedLabel>
@@ -282,7 +294,10 @@ const NewQuestion = (props) => {
               ) : (
                 <CheckedLabel
                   onClick={checkedRelationship}
-                  style={{ background: "#F4F4F4" }}
+                  style={{ 
+                    background: "#F4F4F4", 
+                    border: "2px solid #F4F4F4"
+                  }}
                 >
                   #관계
                 </CheckedLabel>
@@ -301,7 +316,10 @@ const NewQuestion = (props) => {
               ) : (
                 <CheckedLabel
                   onClick={checkedMyself}
-                  style={{ background: "#F4F4F4" }}
+                  style={{ 
+                    background: "#F4F4F4",
+                    border: "2px solid #F4F4F4",
+                  }}
                 >
                   #나
                 </CheckedLabel>
@@ -345,7 +363,7 @@ const ModalInner = styled.div`
   box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.5);
   background-color: #fff;
   height: auto;
-  width: 480px;
+  width: 290px;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
@@ -401,6 +419,7 @@ const CheckedLabel = styled.div`
   padding: 6px 0;
   text-align: center;
   border-radius: 20px;
+  border: "2px solid #F4F4F4";
 `;
 
 const InputContainer = styled.div`
