@@ -55,12 +55,11 @@ const Community = () => {
           <ReplayIcon fontSize="large" />
         </CommunityBtn>
       )}
-      {/* <ImgRight /> */}
-      {/* <ImgLeft /> */}
       <CommunityContainer>
         {is_loading ? (
           <div style={{ marginTop: "250px" }}>
-            <Loader type="Oval" color="#3d66ba" height={50} width={50} />
+            {/* <Loader type="Oval" color="#3d66ba" height={50} width={50} /> */}
+            <LoadImage src="https://user-images.githubusercontent.com/67696504/118778023-a964fa00-b8c4-11eb-833b-571bae2f476f.png" />
           </div>
         ) : (
           <CommunityBox>
@@ -149,38 +148,11 @@ const CommunityContainer = styled.div`
   }
 `;
 
-const ImgRight = styled.div`
-  // z-index:-1;
-  position: fixed;
-  background-image: url("https://user-images.githubusercontent.com/77574867/116996886-0c785d80-ad17-11eb-9afd-175a104b7f33.png");
-  background-size: contain;
-  background-repeat: no-repeat;
-  right: -70px;
-  bottom: -13px;
-  width: 593px;
-  height: 731px;
-  opacity: 0.8;
-  pointer-events: none;
-  @media (max-width: 1400px) {
-    display: none;
-  }
-`;
+const LoadImage = styled.img`
+  width: 200px;
+  height: 200px;
 
-const ImgLeft = styled.div`
-  // z-index:2;
-  position: fixed;
-  background-image: url("https://user-images.githubusercontent.com/77574867/116996878-0b473080-ad17-11eb-8910-108950e25cb8.png");
-  background-size: contain;
-  background-repeat: no-repeat;
-  left: -20px;
-  top: 249px;
-  width: 365px;
-  height: 341px;
-  opacity: 0.8;
-  pointer-events: none;
-  @media (max-width: 1400px) {
-    display: none;
-  }
-`;
+
+`
 
 export default Community;
