@@ -19,6 +19,7 @@ const communitySlice = createSlice({
     is_loading: true,
     card_loading: true,
     card_detail: {},
+    topic : [],
   },
   reducers: {
     setCardDetail: (state, action) => {
@@ -432,6 +433,16 @@ const editAnswerAX = (answer) => {
   }
 }
 
+const getTopicQuestion = (topic, page=1) => {
+  return function (dispatch, getState) {
+    axios
+      .get(`/topic/${topic}?page=${page}`)
+      .then((res) => {
+        console.log(res)
+      })
+  }
+}
+
 export const {
   setCommunity,
   editLikeInfo,
@@ -458,7 +469,8 @@ export const api = {
   addLikeDetail,
   deleteLikeDetail,
   addLikeAnswers,
-  deleteLikeAnswers
+  deleteLikeAnswers,
+  getTopicQuestion
 };
 
 export default communitySlice.reducer;

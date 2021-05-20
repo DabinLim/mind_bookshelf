@@ -5,9 +5,6 @@ import { CardModal } from "./communityindex";
 import { useSelector, useDispatch } from "react-redux";
 import swal from "sweetalert";
 import { api as communityActions } from "../../redux/modules/community";
-import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
-import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
-import FavoriteIcon from "@material-ui/icons/Favorite";
 
 const CommunityQnA = (props) => {
   const user = useSelector((state) => state.user.user);
@@ -45,6 +42,7 @@ const CommunityQnA = (props) => {
             }
             return (
               <Topic
+                onClick={() => {history.push(`/topic/:${t}`)}}
                 style={{
                   border: `1px solid ${color}`,
                   marginBottom: "5px",
@@ -341,6 +339,7 @@ const DateYMD = styled.div`
 const Topic = styled.div`
   margin-top: 30px;
   margin-right: 10px;
+  cursor: pointer;
   // display: inline-block;
   min-width: 72px;
   max-width: 72px;

@@ -6,6 +6,7 @@ import {
   changeDate,
   setBookDetailModal,
 } from "../../redux/modules/books";
+// import CommentInput from "./CommentInput"
 import { api as communityActions } from "../../redux/modules/community";
 import { useDispatch, useSelector } from "react-redux";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
@@ -760,6 +761,7 @@ const CardModal = (props) => {
                         {...answerInfo}
                         setCancelModal={setCancelModal}
                         close={props.close}
+                        type="web"
                       />
                     ) : null}
                     <MoreVertIcon
