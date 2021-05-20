@@ -38,7 +38,7 @@ const MyAnswers = (props) => {
   const container = React.useRef();
   const pop_container = React.useRef();
   const [openFilter, setOpenFilter] = React.useState(false);
-  const height = window.innerHeight-20;
+
   const openCard = (a) => {
     if(window.innerWidth <= 750){
       history.push(`/carddetail/${a.answerId}`)
@@ -65,7 +65,7 @@ const MyAnswers = (props) => {
 
   return (
     <React.Fragment>
-      <Container height={height}>
+      <Container>
         <Background />
         {cardModal && <CardModal close={closeCardModal}/>}
         <TitleContainerMobile>
@@ -472,7 +472,6 @@ const Container = styled.section`
     max-height: 93.8%;
     border-radius:0px;
   }
-
 `;
 const Background = styled.div`
   z-index: -1;
@@ -717,7 +716,6 @@ const CommentIcon = styled.img`
   width: 16px;
   height: 15px;
   margin-right: 6px;
-
 `
 
 const LikeCount = styled.span`
@@ -780,11 +778,9 @@ margin: 0 -18px 0 0;
 letter-spacing: 0px;
 color: #121212;
 }
-
 & > div > span {
   margin-left: 8px;
 }
-
 & > div:nth-child(2) {
   border-top: 1px solid #00000026;
 }

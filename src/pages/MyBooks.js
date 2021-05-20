@@ -58,7 +58,6 @@ const MyBook = (props) => {
 }
 
 const ContainerBox = styled.div`
-    // height: 100vh;
     margin: 50px 0px 0px 0px;
     padding-left: 20px;
     display: flex;
@@ -74,19 +73,18 @@ const ContainerBox = styled.div`
     };
     @media (max-width: 750px) {
         margin: 50px 0px 0px 0px;
-        /* height: 100vh; */
       }
 `
 
 const Container = styled.div`
+    background-image: url("https://user-images.githubusercontent.com/77369674/118811425-f73f2980-b8e7-11eb-919a-d4421378e117.png");
+    background-size: cover;
+    background-repeat: no-repeat;
     width: 100%;
     display:flex;
     flex-direction:column;
     justify-content:space-between;
-    background-image: url("https://user-images.githubusercontent.com/77369674/118811425-f73f2980-b8e7-11eb-919a-d4421378e117.png");
-    background-size: cover;
-    background-repeat: no-repeat;
-    // overflow:auto;
+    overflow:auto;
     ::-webkit-scrollbar {
     display:none;
     width: 10px; /* width of the entire scrollbar */

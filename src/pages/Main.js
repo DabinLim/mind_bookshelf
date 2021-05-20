@@ -274,7 +274,12 @@ const MainFrame = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  /* overflow-y: auto; */
+  overflow-y: auto;
+  background-image: url("https://user-images.githubusercontent.com/77369674/118811425-f73f2980-b8e7-11eb-919a-d4421378e117.png");
+  background-repeat: no-repeat;
+  @media (max-width:750px){
+    background-image: url("https://user-images.githubusercontent.com/67696504/118986623-7b61e180-b9ba-11eb-9719-f898c5c5b7a2.png");
+}
 `;
 
 const MainContainer = styled.div`
@@ -283,9 +288,6 @@ const MainContainer = styled.div`
   flex-direction: column;
   overflow: auto;
   overflow-y: scroll;
-  background-image: url("https://user-images.githubusercontent.com/77369674/118811425-f73f2980-b8e7-11eb-919a-d4421378e117.png");
-  background-size: cover;
-  background-repeat: no-repeat;
   ::-webkit-scrollbar {
     display: none;
     width: 10px; /* width of the entire scrollbar */
@@ -303,7 +305,6 @@ const MainContainer = styled.div`
   }
 
   @media (max-width: 750px) {
-    background-image: url("https://user-images.githubusercontent.com/67696504/118986623-7b61e180-b9ba-11eb-9719-f898c5c5b7a2.png");
     margin: 50px 0px 0px 0px;
   }
   @media (max-width: 500px) {
