@@ -38,7 +38,12 @@ const AnswerCard2 = (props) => {
                 history.push(`/others/${props.userId}`);
               }}
             />
-            <CardWriter><b>{props.userNickname}</b>님</CardWriter>
+            <CardWriter onClick={() => {
+                if (props.userId === user_info?.id) {
+                  history.push("/mybook");
+                }
+                history.push(`/others/${props.userId}`);
+              }}><b>{props.userNickname}</b>님</CardWriter>
           </div>
         <AnswerContents
           onClick={() => {

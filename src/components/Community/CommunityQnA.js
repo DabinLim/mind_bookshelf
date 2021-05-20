@@ -84,7 +84,13 @@ const CommunityQnA = (props) => {
                     }}
                   >
                     <AnswerProfileImg src={a.profileImg} />
-                    <AnswerNickname>
+                    <AnswerNickname onClick={() => {
+                      if (a.userId === user.id) {
+                        history.push("/mybook");
+                        return;
+                      }
+                      history.push(`/others/${a.userId}`);
+                    }}>
                       <b>{a.nickname}</b>님
                     </AnswerNickname>
                     

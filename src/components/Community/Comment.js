@@ -56,7 +56,13 @@ const Comment = (props) => {
               history.push(`/others/${props.userId}`);
             }}
           />
-          <CommentProfileName>{props.nickname}</CommentProfileName>
+          <CommentProfileName onClick={() => {
+              if (userInfo?.id === props.userId) {
+                history.push(`/mybook`);
+                return;
+              }
+              history.push(`/others/${props.userId}`);
+            }}>{props.nickname}</CommentProfileName>
         </div>
         {userInfo?.id === props.userId ? (
           <DeleteBtn onClick={deleteComment}>

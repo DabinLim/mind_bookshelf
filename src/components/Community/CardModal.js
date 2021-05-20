@@ -717,7 +717,16 @@ const CardModal = (props) => {
                     }}
                   />
                   <CardWriterNickNameLeft>
-                    <span style={{ fontWeight: "bold", letterSpacing: "-1px" }}>
+                    <span style={{ fontWeight: "bold", letterSpacing: "-1px" }} onClick={() => {
+                      if (
+                        user_info?.nickname !== "" &&
+                        user_info?.nickname === answerInfo?.nickname
+                      ) {
+                        history.push(`/mybook`);
+                        return;
+                      }
+                      history.push(`/others/${answerInfo?.answerUserId}`);
+                    }}>
                       {answerInfo?.nickname}님
                     </span>
                     <span
