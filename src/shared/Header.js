@@ -276,27 +276,11 @@ const Header = () => {
             </NaviContainer>
             <IconContainer>
               <Icon>
-                {is_checked ? <AlarmBadge /> : null}
-                {notiModal ? (
-                  <Notification
-                    close={closeNotiModal}
-                    setCardModal={setCardModal}
-                  />
-                ) : null}
-                <NotificationsIcon
-                  style={{ cursor: "pointer" }}
-                  onClick={() => {
-                    setNoti(true);
-                    dispatch(notiActions.openAlarmIO(user.id));
-                  }}
-                />
-              </Icon>
-              <Icon>
                 {searchModal ? (
                   <Search
-                    recent_list={recent_list}
-                    setLoading={setLoading}
-                    loading={loading}
+                  recent_list={recent_list}
+                  setLoading={setLoading}
+                  loading={loading}
                   />
                 ) : null}
                 <SearchIcon
@@ -305,6 +289,22 @@ const Header = () => {
                     recentUser();
                     // dispatch(userActions.getRecentUserAX())
                     dispatch(setSearch(true));
+                  }}
+                />
+              </Icon>
+              <Icon>
+                {is_checked ? <AlarmBadge /> : null}
+                {notiModal ? (
+                  <Notification
+                    close={closeNotiModal}
+                    setCardModal={setCardModal}
+                  />
+                ) : null}
+                <NotificationsNoneOutlinedIcon
+                  style={{ cursor: "pointer" }}
+                  onClick={() => {
+                    setNoti(true);
+                    dispatch(notiActions.openAlarmIO(user.id));
                   }}
                 />
               </Icon>
@@ -680,6 +680,11 @@ const TextBtn = styled.div`
     display: none;
   } ;
 `;
+
+const IconImg = styled.img`
+
+
+`
 
 const Icon = styled.div`
   position: relative;
