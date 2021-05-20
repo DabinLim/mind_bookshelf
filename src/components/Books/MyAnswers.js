@@ -38,7 +38,7 @@ const MyAnswers = (props) => {
   const container = React.useRef();
   const pop_container = React.useRef();
   const [openFilter, setOpenFilter] = React.useState(false);
-
+  const height = window.innerHeight-20;
   const openCard = (a) => {
     if(window.innerWidth <= 750){
       history.push(`/carddetail/${a.answerId}`)
@@ -65,7 +65,7 @@ const MyAnswers = (props) => {
 
   return (
     <React.Fragment>
-      <Container>
+      <Container height={height}>
         <Background />
         {cardModal && <CardModal close={closeCardModal}/>}
         <TitleContainerMobile>
@@ -469,7 +469,7 @@ const Container = styled.section`
     background-repeat:no-repeat;
     margin:50px auto;
     padding: 23px 25px 20px 25px;
-    max-height: 93.8%;
+    max-height: ${props=>props.height};
     border-radius:0px;
   }
 

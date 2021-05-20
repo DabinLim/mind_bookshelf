@@ -46,7 +46,7 @@ const CommunityQnA = (props) => {
             }
             return (
               <Topic
-                onClick={() => {history.push(`/topic/:${t}`)}}
+                // onClick={() => {history.push(`/topic/:${t}`)}}
                 style={{
                   border: `1px solid ${color}`,
                   marginBottom: "5px",
@@ -76,7 +76,7 @@ const CommunityQnA = (props) => {
               <Answer key={a.id}>
                 <AnswerHeader>
                   <div style={{display:"flex", alignItems:"center"}} 
-                     onClick={() => {
+                    onClick={() => {
                       if (a.userId === user.id) {
                         history.push("/mybook");
                         return;

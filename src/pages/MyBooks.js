@@ -58,6 +58,7 @@ const MyBook = (props) => {
 }
 
 const ContainerBox = styled.div`
+    height: 100%;
     margin: 50px 0px 0px 0px;
     padding-left: 20px;
     display: flex;

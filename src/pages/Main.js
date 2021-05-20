@@ -271,7 +271,6 @@ function Main() {
 
 const MainFrame = styled.div`
   width: 100%;
-  // height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -279,7 +278,6 @@ const MainFrame = styled.div`
 `;
 
 const MainContainer = styled.div`
-  height: 100vh;
   margin: 50px 0px 0px 0px;
   display: flex;
   flex-direction: column;
