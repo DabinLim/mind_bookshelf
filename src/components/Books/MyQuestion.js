@@ -283,7 +283,7 @@ const MyQuestion = (props) => {
           {now_view ==='pop' && <InfinityScroll
             callNext={() => {
               
-              console.log("scroooolled!");
+              // console.log("scroooolled!");
               dispatch(customActions.getMyPopQuest());
             }}
             is_next={pop_next ? true : false}

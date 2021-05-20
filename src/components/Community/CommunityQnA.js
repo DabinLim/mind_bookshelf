@@ -48,9 +48,10 @@ const CommunityQnA = (props) => {
                 style={{
                   border: `1px solid ${color}`,
                   marginBottom: "5px",
+                  color: color
                 }}
               >
-                <span style={{ color: color }}>#{t}</span>
+                #{t}
               </Topic>
             );
           })}
@@ -183,8 +184,7 @@ const QuestionBox = styled.div`
 `;
 
 const Question = styled.div`
-  font-size: 30px;
-  font-weight: 600;
+  font: normal normal bold 30px Nanum Myeongjo;
   width: 500px;
   @media (max-width: 750px) {
     width: 270px;
@@ -195,7 +195,8 @@ const Question = styled.div`
 const DetailBtn = styled.div`
   padding-top: 5px;
   cursor: pointer;
-  font-size: 14px;
+  font: normal normal normal 14px Noto Sans CJK KR;
+
   :hover {
     font-weight: bold;
   }
@@ -245,7 +246,7 @@ const AnswerProfileImg = styled.img`
 
 const AnswerNickname = styled.div`
   margin-left: 10px;
-  font-family: Sans KR, sans-serif;
+  font-family: Noto Sans CJK KR, sans-serif;
 `;
 
 const AnswerContents = styled.div`
@@ -340,11 +341,10 @@ const DateYMD = styled.div`
 const Topic = styled.div`
   margin-top: 30px;
   margin-right: 10px;
-  display: inline-block;
+  // display: inline-block;
   min-width: 72px;
   max-width: 72px;
-  max-height: 31px;
-  padding: 8px 12px;
+  padding: 5px 0px;
   letter-spacing: 0px;
   border-radius: 18px;
   font-weight: 600;

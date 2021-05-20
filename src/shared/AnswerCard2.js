@@ -116,9 +116,9 @@ const CardFrame = styled.div`
   justify-content: space-between;
   background-color: #ffffff;
   margin: 0px 20px 20px 0px;
+  box-shadow: 0px 0px 20px #0000001a;
   @media(max-width:750px){
     margin: 20px 20px 20px 0px;
-    box-shadow: 0px 0px 20px #0000001a;
     width:100%;
     min-width:100%;
     max-width:100%;
@@ -170,6 +170,7 @@ const CommentIcon = styled.img`
 
 const CardWriter = styled.span`
   margin-left: 10px;
+  font-family: Noto Sans CJK KR;
   @media(max-width:750px){
     font: normal normal normal 11px/17px Noto Sans CJK KR;
     margin-left:6px;
@@ -180,7 +181,7 @@ const AnswerContents = styled.div`
   // max-height: 63px;
   // min-height: 63px;
   margin-top: 20px;
-  font: normal normal normal 12px/18px Noto Sans KR;
+  font: normal normal normal 12px/18px Noto Sans CJK KR;
   letter-spacing: 0px;
   color: #262626;
   display: -webkit-box;
