@@ -323,10 +323,12 @@ const CardLeft = styled.div`
 const SmallCardLeft = styled.span`
   min-width: 58px;
   max-width: 58px;
-  padding: 8px 12px;
+  max-height: 25px;
   border-radius: 24px;
   border: 1px solid #7249b4;
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font: normal normal bold 11px/15px Noto Sans CJK KR;
   letter-spacing: 0px;
   color: #7249b4;
