@@ -349,7 +349,6 @@ const HashTag = styled.span`
   text-align: center;
   font: normal normal bold 22px Noto Sans CJK KR;
   letter-spacing: 0px;
-
   @media (min-width: 500px) {
     font-size: 11px;
   }
