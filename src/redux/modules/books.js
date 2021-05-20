@@ -5,6 +5,7 @@ import { getCookie } from '../../shared/Cookie';
 import {api as communityActions, setCardLoading} from './community';
 import { api as commentActions } from "./comment";
 import swal from "sweetalert";
+import {addCustomQuestion, setCustomCount} from "./custom"
 
 axios.defaults.baseURL = 'https://lkj99.shop';
 axios.defaults.headers.common["Authorization"]= `Bearer ${getCookie('is_login')}`;
@@ -306,8 +307,8 @@ const getPreviousOthersBookDetail = (date,id) => {
 }
 
 const addQuest = (topic, contents) => {
-    return function(getState){
-
+    return function(dispatch, getState){
+        const custom_count = getState().custom.custom_count;
         const options = {
             url:'bookshelf/question',
             method:'POST',
@@ -318,6 +319,10 @@ const addQuest = (topic, contents) => {
         };
 
         axios(options).then((response)=> {
+            dispatch(addCustomQuestion(response.data.CustomQuestion))
+            dispatch(setCustomCount(custom_count + 1))
+
+
             swal({
                 title: "정상적으로 등록되었습니다.",
                 text: `질문이 등록되었습니다.`,

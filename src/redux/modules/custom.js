@@ -40,6 +40,9 @@ const customSlice = createSlice({
                 state.custom_question.push(v);
             })
         },
+        addCustomQuestion: (state, action) => {
+            state.custom_question.unshift(action.payload);
+        },
         setPopPage: (state, action) => {
             state.pop_page = action.payload;
         },
@@ -150,6 +153,7 @@ const getMyQuest = () => {
             method:"GET"
         };
         axios(options).then(response => {
+            console.log(response.data)
             if(response.data.myQuestion.length < 15){
                 dispatch(setCustomQuestion(response.data.myQuestion));
                 dispatch(setCustomCount(response.data.myQuestionCount));
@@ -483,7 +487,8 @@ export const {
     setPopLoading,
     setAnswerList,
     setAnswerPopList,
-    editAnswersLikeInfo
+    editAnswersLikeInfo,
+    addCustomQuestion,
 } = customSlice.actions;
 
 export const api = {

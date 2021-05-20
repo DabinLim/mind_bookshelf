@@ -37,6 +37,7 @@ const CardModal = (props) => {
   const is_login = useSelector((state) => state.user.is_login);
   const card_loading = useSelector((state) => state.community.card_loading);
   const answerQuantity = useSelector((state) => state.books.book_detail);
+  const bookdate = useSelector((state) => state.books.book_detail_modal);
   const thisMonthBooks = useSelector((state) => state.books.books);
   const nowdate = useSelector((state) => state.books.date);
   const dispatch = useDispatch();
@@ -53,6 +54,7 @@ const CardModal = (props) => {
   const ok_submit = comments ? true : false;
   const url = window.location.href.split("/");
   const id = url[url.length - 1];
+  const others = url[url.length-2];
 
   React.useEffect(() => {
     ChannelService.shutdown();
@@ -62,6 +64,18 @@ const CardModal = (props) => {
       });
     };
   }, []);
+
+  const gotoMobile = () => {
+    if(id ==='mybook'){
+      history.push(`/bookdetail/${bookdate}/${answerInfo.answerId}`);
+      return
+    }
+    if(others ==='others'){
+      history.push(`/othersdetail/${bookdate}/${id}/${answerInfo.answerId}`);
+      return
+    }
+    history.push(`/carddetail/${answerInfo.answerId}`);
+  }
 
   function clickOpen() {
     if (isOpen) {
@@ -133,89 +147,6 @@ const CardModal = (props) => {
     }
   };
 
-  const nextCard = () => {
-    const nowindex = answerQuantity.findIndex((v) => {
-      if (v.answerId === answerInfo.answerId) {
-        return v;
-      }
-    });
-    if (nowindex === answerQuantity.length - 1) {
-      const nowBook = thisMonthBooks.findIndex((v) => {
-        if (v._id === nowdate.format("YYMMDD")) {
-          return v;
-        }
-      });
-      if (nowBook === thisMonthBooks.length - 1) {
-        window.alert("이번달에는 작성하신 카드가 더 이상 없습니다.");
-        return;
-      }
-
-      dispatch(changeDate(`20${thisMonthBooks[nowBook + 1]._id}`));
-      if (id === "mybook") {
-        dispatch(booksActions.getNextDetail(thisMonthBooks[nowBook + 1]._id));
-        dispatch(
-          booksActions.getNextOthersBookDetail(
-            thisMonthBooks[nowBook + 1]._id,
-            id
-          )
-        );
-      }
-      return;
-    }
-    dispatch(
-      communityActions.getCardDetail(
-        answerQuantity[nowindex + 1].answerId,
-        "book"
-      )
-    );
-    dispatch(
-      commentActions.getCommentAX(answerQuantity[nowindex + 1].answerId)
-    );
-  };
-
-  const previousCard = () => {
-    const nowindex = answerQuantity.findIndex((v) => {
-      if (v.answerId === answerInfo.answerId) {
-        return v;
-      }
-    });
-
-    if (nowindex === 0) {
-      const nowBook = thisMonthBooks.findIndex((v) => {
-        if (v._id === nowdate.format("YYMMDD")) {
-          return v;
-        }
-      });
-      if (nowBook === 0) {
-        window.alert("이번달에는 작성하신 카드가 더 이상 없습니다.");
-        return;
-      }
-
-      dispatch(changeDate(`20${thisMonthBooks[nowBook - 1]._id}`));
-      if (id === "mybook") {
-        dispatch(
-          booksActions.getPreviousDetail(thisMonthBooks[nowBook - 1]._id)
-        );
-      } else {
-        dispatch(
-          booksActions.getPreviousOthersBookDetail(
-            thisMonthBooks[nowBook - 1]._id,
-            id
-          )
-        );
-      }
-      return;
-    }
-    dispatch(
-      communityActions.getCardDetail(
-        answerQuantity[nowindex - 1].answerId,
-        "book"
-      )
-    );
-    dispatch(
-      commentActions.getCommentAX(answerQuantity[nowindex - 1].answerId)
-    );
-  };
 
   const debounce = _.debounce((words) => {
     setLoading(true);
@@ -379,6 +310,10 @@ const CardModal = (props) => {
 
   return (
     <React.Fragment>
+      <Notification>
+        <NotiContent>웹 전용 페이지 입니다. 모바일 전용 페이지 버튼을 클릭해주세요.</NotiContent>
+        <GotoMobile onClick={gotoMobile}>모바일 전용 페이지</GotoMobile>
+      </Notification>
       <Component
         onClick={() => {
           props.close();
@@ -397,7 +332,9 @@ const CardModal = (props) => {
                     return (
                       <DetailContainer key={idx}>
                         <Head>
+                          <div style={{minWidth:'72px'}}>
                         <Subject topic={v.questionTopic[0]} borderRadius='25px'/>
+                          </div>
                           <TitleBox>
                             <Title
                               disabled={card_loading}
@@ -451,34 +388,6 @@ const CardModal = (props) => {
                   }}
                 />
               </CardDate>
-              {/* <LeftArrowBtn
-                disabled={card_loading}
-                onClick={() => {
-                  setUpdateAnswer(false);
-                  previousCard();
-                }}
-              >
-                <ArrowBackIosIcon
-                  style={{
-                    fontSize: "60px",
-                    fontWeight: "400",
-                  }}
-                />
-              </LeftArrowBtn>
-              <RightArrowBtn
-                disabled={card_loading}
-                onClick={() => {
-                  setUpdateAnswer(false);
-                  nextCard();
-                }}
-              >
-                <ArrowForwardIosIcon
-                  style={{
-                    fontSize: "60px",
-                    fontWeight: "400",
-                  }}
-                />
-              </RightArrowBtn> */}
             </>
           )}
         </ModalComponent>
@@ -493,7 +402,9 @@ const CardModal = (props) => {
                       return (
                         <DetailContainer key={idx}>
                           <Head>
+                            <div style={{minWidth:'72px'}}>
                             <Subject topic={v.questionTopic[0]} borderRadius='25px'/>
+                            </div>
                             <TitleBox>
                               <Title
                                 disabled={card_loading}
@@ -550,34 +461,6 @@ const CardModal = (props) => {
                   }}
                 />
               </CardDate>
-              {/* <LeftArrowBtn
-                disabled={card_loading}
-                onClick={() => {
-                  setUpdateAnswer(false);
-                  previousCard();
-                }}
-              >
-                <ArrowBackIosIcon
-                  style={{
-                    fontSize: "60px",
-                    fontWeight: "400",
-                  }}
-                />
-              </LeftArrowBtn>
-              <RightArrowBtn
-                disabled={card_loading}
-                onClick={() => {
-                  setUpdateAnswer(false);
-                  nextCard();
-                }}
-              >
-                <ArrowForwardIosIcon
-                  style={{
-                    fontSize: "60px",
-                    fontWeight: "400",
-                  }}
-                />
-              </RightArrowBtn> */}
             </>
           )}
           <ModalContent type={answerInfo?.type}>
@@ -675,10 +558,6 @@ const CardModal = (props) => {
               </CardQuestionContent>
             </CardWriterBox>
             <CardWriteLeftBody type={answerInfo?.type}>
-              <SmallHashTag>{topic}</SmallHashTag>
-              <SmallQuestionContent>
-                {answerInfo?.questionContents}
-              </SmallQuestionContent>
               {updateAnswer ? (
                 <AnswerUpdateBox>
                   <CardAnswerInput value={answer} onChange={changeAnswer} />
@@ -711,100 +590,7 @@ const CardModal = (props) => {
                   {answerInfo?.answerContents}
                 </CardAnswerContent>
               )}
-              {answerInfo?.type ==='book' && <TodayCards>
-                <DateBox>
-                <Date>
-                <ArrowForwardIosIcon
-                  disabled={card_loading}
-                  onClick={() => {
-                    setUpdateAnswer(false);
-                    previousDay();
-                  }}
-                  style={{
-                    cursor: "pointer",
-                    transform: "rotateZ(180deg)",
-                    color: "#000000",
-                    fontSize: "16px",
-                  }}
-                />
-                <span
-                  style={{
-                    fontWeight: "600",
-                    fontSize: "14px",
-                    color: "#000000",
-                  }}
-                >
-                  {nowdate.format("M")}월{nowdate.format("D")}일
-                </span>
-                <ArrowForwardIosIcon
-                  disabled={card_loading}
-                  onClick={() => {
-                    setUpdateAnswer(false);
-                    nextDay();
-                  }}
-                  style={{
-                    cursor: "pointer",
-                    color: "#000000",
-                    fontSize: "16px",
-                  }}
-                />
-                    </Date>
-                    </DateBox>
-                  <Cards>
-                    {answerQuantity.length && answerQuantity.map((v,idx)=> {
-                      console.log(v)
-                      if(v.answerId === answerInfo.answerId){
-                        return(
-                          <div style={{display:'flex',flexDirection:'row',alignItems:'center'}}>
-                            <Selected>{v.questionContents}</Selected>
-                            <span style={{font:'normal normal 300 10px/15px Noto Sans KR',color:'#939393',marginLeft:'10px'}}>현재글</span>
-                          </div>
-                        )
-                      } else{
-                        return(
-                          <NotSelected disabled={card_loading}
-                          onClick={() => {
-                            setUpdateAnswer(false);
-                            selectedCard(v.answerId);
-                          }}>{v.questionContents}</NotSelected>
-                        )
-                      }
-                    })}
-                  </Cards>
-              </TodayCards>}
-              
             </CardWriteLeftBody>
-            {/* <IconContainer>
-              <IconBox>
-              <LikeContainer>
-                {answerInfo.like ? (
-                  <LikeBtn
-                    style={{ color: "red" }}
-              {updateAnswer ? (
-                <AnswerUpdateBox>
-                  <CardAnswerInput value={answer} onChange={changeAnswer} />
-                  <CardAnswerBtn
-                    onClick={() => {
-                      let _answer = {
-                        answerId: answerInfo.answerId,
-                        questionId: answerInfo.questionId,
-                        contents: answer,
-                        isOpen: isOpen,
-                      };
-                      dispatch(communityActions.editAnswerAX(_answer));
-                      setUpdateAnswer(false);
-                    }}
-                  >
-                    수정
-                  </CardAnswerBtn>
-                  <CustomSwitch isOpen={isOpen} onClick={clickOpen} />
-                </AnswerUpdateBox>
-              ) : (
-                <CardAnswerContent style={{ whiteSpace: "pre-wrap" }}>
-                  {answerInfo?.answerContents}
-                </CardAnswerContent>
-              )}
-            </CardWriteLeftBody> */}
             <IconContainer type={answerInfo?.type}>
               <IconBox>
                 <LikeContainer>
@@ -867,47 +653,6 @@ const CardModal = (props) => {
                   <ModalUpload style={{ opacity: "0.3" }}>게시</ModalUpload>
                 )}
               </WebModalInputBox>
-              <SmallInputBox>
-                <ModalCmtInput
-                  type="text"
-                  placeholder="게시물에 대해 이야기를 나눠보세요."
-                  onChange={selectComment}
-                  value={comments}
-                  ref={cmtInput}
-                  onKeyPress={(e) => {
-                    if (e.key === "Enter") {
-                      addComment();
-                    }
-                  }}
-                  onKeyUp={(e) => {
-                    if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
-                      selectComment(e);
-                    }
-                  }}
-                  onClick={selectComment}
-                />
-                {ok_submit ? (
-                  <ModalUpload
-                    onClick={() => {
-                      if (!is_login) {
-                        swal({
-                          title: "댓글 추가 실패",
-                          text: "로그인 후 이용 가능한 서비스입니다.",
-                          icon: "error",
-                        });
-                        setComments("");
-                        return;
-                      }
-                      addComment();
-                    }}
-                    style={{ cursor: "pointer" }}
-                  >
-                    게시
-                  </ModalUpload>
-                ) : (
-                  <ModalUpload style={{ opacity: "0.3" }}>게시</ModalUpload>
-                )}
-              </SmallInputBox>
             </ModalCmtInputBox>
             {tagModal ? (
               <TagModal
@@ -937,6 +682,43 @@ const Component = styled.div`
   }
 `;
 
+const Notification = styled.div`
+  padding:20px;
+  position:fixed;
+  width:300px;
+  height:300px;
+  top:50%;
+  left:50%;
+  transform: translate(-50%, -50%);
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  background-color:#ffffff;
+  z-index:400;
+  border-radius:10%;
+  @media(min-width:750px){
+    display:none;
+  }
+`;
+
+const NotiContent = styled.span`
+  font-size:18px;
+  font-weight:600;
+  @media(min-width:750px){
+    display:none;
+  }
+`;
+
+const GotoMobile = styled.button`
+  margin-top:20px;
+  width:150px;
+  height:35px;
+  border-radius:20px;
+  border-style:none;
+  background-color:lavender;
+`;
+
 const ModalComponent = styled.div`
   /* overflow: hidden; */
   border-radius: 50px;
@@ -955,17 +737,7 @@ const ModalComponent = styled.div`
   }
 
   @media (max-width: 750px) {
-    overflow-y:auto;
-    border-radius: 16px;
-    top: 0%;
-    left: 0%;
-    width: 100%;
-    height: 100%;
-    flex-direction: column;
-    align-items: center;
-    background: none;
-    transform: translate(0%, 0%);
-    z-index: 350;
+    display:none;
   }
 
 `;
@@ -1013,44 +785,12 @@ const GoBackBtn = styled.span`
   }
 `;
 
-const SmallHashTag = styled.div`
-  min-width: 58px;
-  max-width: 58px;
-  background: #c3c9fe;
-  padding: 8px 12px;
-  border-radius: 24px;
-  text-align: center;
-  font: normal normal bold 14px/19px Roboto;
-  box-shadow: 0px 0px 15px #c1c7fc;
-  letter-spacing: 0px;
-  color: #363636;
-  font-size: 11px;
-  :hover {
-    cursor: pointer;
-  }
-
-  @media (min-width: 750px) {
-    display: none;
-  }
-`;
-
 const CardWriteLeftBody = styled.div`
   min-height: 50%;
   max-height: 50%;
   border-bottom: 1px solid #efefef;
   box-sizing: border-box;
 
-  @media (max-width: 750px) {
-    margin-top:30px;
-    min-height: 180px;
-    ${props => props.type === 'book' ? `max-height: 360px` :`max-height: 360px`};
-    ${props => props.type === 'book' ? `padding: 20px 29px 0px 20px` :`padding: 20px 29px 150px 20px`};
-    /* padding: 20px 29px 0 20px; */
-    border-bottom: none;
-    display: flex;
-    width: 100%;
-    flex-direction: column;
-  }
 `;
 
 const CardWriterBox = styled.div`
@@ -1058,11 +798,6 @@ const CardWriterBox = styled.div`
   min-height: 30%;
   max-height: 30%;
 
-  @media (max-width: 750px) {
-    border: none;
-    min-height: 33px;
-    max-height: 33px;
-  }
 `;
 
 const CardWriterInfoLeft = styled.div`
@@ -1071,10 +806,6 @@ const CardWriterInfoLeft = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  @media (max-width: 750px) {
-    padding: 20px 29px 10px 20px;
-    border-bottom: 1px solid #d3d3d3;
-  }
 `;
 
 const CardWriterLeft = styled.div`
@@ -1084,9 +815,6 @@ const CardWriterLeft = styled.div`
   width: auto;
   height: 100%;
   margin: 0 20px 0 40px;
-  @media (max-width: 750px) {
-    margin: 0;
-  }
 `;
 
 const CardWriterProfileLeft = styled.div`
@@ -1096,10 +824,6 @@ const CardWriterProfileLeft = styled.div`
   background-image: url(${(props) => props.src});
   background-size: cover;
   cursor: pointer;
-
-  @media (max-width: 750px) {
-    display: none;
-  }
 `;
 
 const CardWriterNickNameLeft = styled.span`
@@ -1113,22 +837,8 @@ const CardQuestionContent = styled.div`
   letter-spacing: 0px;
   color: #363636;
   opacity: 1;
-  @media (max-width: 750px) {
-    display: none;
-  }
 `;
 
-const SmallQuestionContent = styled.div`
-  
-  font: normal normal bold 19px/27px Noto Sans KR;
-  padding: 0;
-  font-weight: bold;
-  margin: 10px 0;
-
-  @media (min-width: 750px) {
-    display: none;
-  }
-`;
 
 const CardAnswerContent = styled.div`
   margin: 20px 40px 0;
@@ -1137,13 +847,6 @@ const CardAnswerContent = styled.div`
   overflow-y: scroll;
   ::-webkit-scrollbar {
     display: none;
-  };
-  @media (max-width: 750px) {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    overflow-y: scroll;
-    ${props => props.type === 'book' ? `min-height:160px`:'min-height:110px'};
   };
 `;
 
@@ -1189,12 +892,6 @@ const ModalRightContainer = styled.div`
   background-color: white;
   padding: 25px 0 0 0;
   border-radius: 0px 50px 50px 0px;
-  @media (max-width: 750px) {
-    width: 100%;
-    padding: 0;
-    border-radius: 0 0 20px 20px;
-    height: 43%;
-  }
 `;
 
 const ModalCmtInputBox = styled.div`
@@ -1207,12 +904,6 @@ const ModalCmtInputBox = styled.div`
   align-items: center;
   box-sizing: border-box;
   border-top: 1px solid #efefef;
-
-  @media (max-width: 750px) {
-    min-height: 80px;
-    max-height: 80px;
-    border-top: 1px solid #d3d3d3;
-  }
 `;
 const ModalCmtInput = styled.input`
   background: transparent;
@@ -1226,10 +917,6 @@ const ModalUpload = styled.div`
   font-size: 14px;
   color: #3897f0;
   font-weight: 600;
-
-  @media (max-width: 750px) {
-    margin: 0;
-  }
 `;
 
 const IconContainer = styled.div`
@@ -1242,14 +929,6 @@ const IconContainer = styled.div`
   box-sizing: border-box;
   margin: 0 0 0 40px;
 
-  @media (max-width: 750px) {
-    min-height: 50px;
-    max-height: 50px;
-    padding: 0 0 0 20px;
-    ${props => props.type === 'book' ? `margin: 160px 0px 0px 0px`:`margin: 0px 0px 0px 0px`};
-    border-top: 1px solid #d3d3d3;
-    border-bottom: 1px solid #d3d3d3;
-  }
 `;
 
 const IconBox = styled.div`
@@ -1288,15 +967,6 @@ margin-left: 5px;
   font-size: 17px;
 `;
 
-const LikeBtn = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 18px;
-  cursor: pointer;
-  margin-right: 5px;
-`;
-
 const LikeCount = styled.div`
   font-size: 17px;
 `;
@@ -1311,75 +981,6 @@ const CardDate = styled.div`
   position: absolute;
   top: -60px;
   left: 42%;
-  @media(max-width:750px){
-    display:none;
-  }
-`;
-
-const LeftArrowBtn = styled.button`
-  z-index: 40;
-  width: 109px;
-  height: 109px;
-  border-radius: 50%;
-  outline: none;
-  border: none;
-  opacity: 1;
-  position: absolute;
-  left: -20%;
-  top: 40%;
-  color: #ffffff;
-  cursor: pointer;
-  text-align: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding-left: 20px;
-  background: none;
-
-  :hover {
-    transform: scale(1.1);
-    box-shadow: 0px 0px 20px #ffffff;
-  }
-  @media(max-width:1100px){
-    top:-100px;
-    left:25%;
-  }
-  @media(max-width:750px){
-    display:none;
-  }
-`;
-
-const RightArrowBtn = styled.button`
-  z-index: 40;
-  width: 109px;
-  height: 109px;
-  border-radius: 50%;
-  outline: none;
-  border: none;
-  opacity: 1;
-  position: absolute;
-  right: -20%;
-  top: 40%;
-  background: none;
-  color: #ffffff;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding-left: 20px;
-  background: none;
-
-  :hover {
-    transform: scale(1.1);
-    box-shadow: 0px 0px 20px #ffffff;
-  }
-  @media(max-width:1100px){
-    top:-100px;
-    left:65%;
-  }
-  @media(max-width:750px){
-    display:none;
-  }
 `;
 
 const BooksDetailBox = styled.div`
@@ -1396,9 +997,7 @@ const DetailContainer = styled.div`
   width: 50%;
   height: 100%;
   margin: 0px 45px 0px 10px;
-  @media(max-width:750px){
-    display:none;
-  }
+ 
 `;
 
 const Head = styled.div`
@@ -1449,78 +1048,6 @@ display: flex;
   justify-content: space-between;
   flex-direction:row;
   align-items: center;
-  @media(max-width:750px){
-    display:none;
-  }
-`;
-
-const SmallInputBox = styled.div`
-  border-radius: 45px;
-  background: #f5f5f5;
-  display: flex;
-  width: 100%;
-  padding: 8px 12px;
-  justify-content: space-between;
-  @media (min-width: 750px) {
-    display: none;
-  }
-`;
-
-const TodayCards = styled.div`
-  width:100%;
-  min-height:160px;
-  border: 0.5px solid #D9D9D9;
-  box-sizing:border-box;
-  padding:15px;
-  @media(min-width:750px){
-    display:none;
-  }
-`;
-
-const DateBox = styled.div`
-  display:flex;
-  flex-direction:row;
-  justify-content: flex-start;
-  margin-bottom:10px;
-`;
-
-const Date = styled.div`
-  display:flex;
-  flex-direction:row;
-  align-items:center;
-  justify-content:space-between;
-`;
-
-const Cards = styled.div`
-  display:flex;
-  flex-direction:column;
-  width:100%;
-`;
-
-const Selected = styled.span`
-  width:80%;
-  margin-bottom:10px;
-  max-height:24px;
-  font:normal normal normal 12px/30px Noto Sans KR;
-  color:#000000;
-  opacity:0.9;
-  -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
-`;
-
-const NotSelected = styled.span`
-width:80%;
-margin-bottom:10px;
-max-height:24px;
-  font:normal normal normal 12px/30px Noto Sans KR;
-  color:#D3D3D3;
-  opacity:0.9;
-  -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
 `;
 
 
