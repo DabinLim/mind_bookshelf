@@ -201,7 +201,7 @@ const Container = styled.section`
     @media(max-height:700px){
         height:82%;
     }
-    @media(max-height:850px){
+    @media(min-height:850px){
         height:100%;
     }
     @media(min-width:750px){
