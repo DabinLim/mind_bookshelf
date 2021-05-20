@@ -456,16 +456,12 @@ const LeftArrowBtn = styled.button`
   outline: none;
   border: none;
   opacity: 1;
-  color: #ffffff;
+  color: black;
   cursor: pointer;
   text-align: center;
   padding-left: 20px;
   background: none;
 
-  :hover {
-    transform: scale(1.1);
-    box-shadow: 0px 0px 20px #0000001f;
-  }
   @media (max-width: 500px) {
     display: none;
   }
@@ -479,14 +475,9 @@ const RightArrowBtn = styled.button`
   outline: none;
   border: none;
   opacity: 1;
-  color: #ffffff;
+  color: black;
   cursor: pointer;
   background: none;
-
-  :hover {
-    transform: scale(1.1);
-    box-shadow: 0px 0px 20px #0000001f;
-  }
 
   @media (max-width: 500px) {
     display: none;

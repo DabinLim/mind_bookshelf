@@ -82,6 +82,16 @@
   }
 }
 
+@media screen and (max-width: 900px) {
+  .preselected {
+    display: none;
+  }
+
+  .proselected {
+    display: none;
+  }
+}
+
 .true {
   transform: scale(1.4) !important;
   color: #ffffff !important;
