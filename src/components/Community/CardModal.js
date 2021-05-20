@@ -721,62 +721,64 @@ const CardModal = (props) => {
                     </span>
                   </CardWriterNickNameLeft>
                 </CardWriterLeft>
-                {answerInfo.questionTopic?.length && answerInfo.questionTopic.map((v,idx) => {
-                    if(v === '나'){
-                        return(
-                            <HashTag style={{border:'1px solid #458857',color:'#458857'}}>
-                                <span>
-                                #{v}
-                                </span>
-                            </HashTag>
-                        )
-                    }
-                    if(v === '사랑'){
-                        return(
-                            <HashTag style={{border:'1px solid #D34242',color:'#D34242'}}>
-                                <span>
-                                #{v}
-                                </span>
-                            </HashTag>
-                        )
-                    }
-                    if(v === '관계'){
-                        return(
-                            <HashTag style={{border:'1px solid #2761CC',color:'#2761CC'}}>
-                                <span>
-                                #{v}
-                                </span>
-                            </HashTag>
-                        )
-                    }
-                    if(v === '우정'){
-                        return(
-                            <HashTag style={{border:'1px solid #E0692D',color:'#E0692D'}}>
-                                <span>
-                                #{v}
-                                </span>
-                            </HashTag>
-                        )
-                    }
-                    if(v === '가치'){
-                        return(
-                            <HashTag style={{border:'1px solid #7249B4',color:'#7249B4'}}>
-                                <span>
-                                #{v}
-                                </span>
-                            </HashTag>
-                        )
-                    }
-                    if(v === '꿈'){
-                        return(
-                            <HashTag style={{border:'1px solid #E6BA28',color:'#E6BA28'}}>
-                                <span>
-                                #{v}
-                                </span>
-                            </HashTag>
-                        )
-                    }
-                })}
+                <div style={{display: "flex"}}>
+                  {answerInfo.questionTopic?.length && answerInfo.questionTopic.map((v,idx) => {
+                      if(v === '나'){
+                          return(
+                              <HashTag style={{border:'1px solid #458857',color:'#458857'}}>
+                                  <span>
+                                  #{v}
+                                  </span>
+                              </HashTag>
+                          )
+                      }
+                      if(v === '사랑'){
+                          return(
+                              <HashTag style={{border:'1px solid #D34242',color:'#D34242'}}>
+                                  <span>
+                                  #{v}
+                                  </span>
+                              </HashTag>
+                          )
+                      }
+                      if(v === '관계'){
+                          return(
+                              <HashTag style={{border:'1px solid #2761CC',color:'#2761CC'}}>
+                                  <span>
+                                  #{v}
+                                  </span>
+                              </HashTag>
+                          )
+                      }
+                      if(v === '우정'){
+                          return(
+                              <HashTag style={{border:'1px solid #E0692D',color:'#E0692D'}}>
+                                  <span>
+                                  #{v}
+                                  </span>
+                              </HashTag>
+                          )
+                      }
+                      if(v === '가치'){
+                          return(
+                              <HashTag style={{border:'1px solid #7249B4',color:'#7249B4'}}>
+                                  <span>
+                                  #{v}
+                                  </span>
+                              </HashTag>
+                          )
+                      }
+                      if(v === '꿈'){
+                          return(
+                              <HashTag style={{border:'1px solid #E6BA28',color:'#E6BA28'}}>
+                                  <span>
+                                  #{v}
+                                  </span>
+                              </HashTag>
+                          )
+                      }
+                  })}
+                </div>
                 {answerInfo.answerUserId === user_info.id ? (
                   <div
                     style={{
@@ -1189,7 +1191,6 @@ const HashTag = styled.span`
   font-size: 14px;
   margin-right: 10px;
   cursor: pointer;
-
   @media (max-width: 750px) {
     display: none;
   }
@@ -1271,7 +1272,7 @@ const CardWriterLeft = styled.div`
   align-items: center;
   width: auto;
   height: 100%;
-  margin: 0 40px;
+  margin: 0 20px 0 40px;
   @media (max-width: 750px) {
     margin: 0;
   }

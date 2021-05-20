@@ -58,8 +58,8 @@ const Community = () => {
       <CommunityContainer>
         {is_loading ? (
           <div style={{ marginTop: "250px" }}>
-            {/* <Loader type="Oval" color="#3d66ba" height={50} width={50} /> */}
-            <LoadImage src="https://user-images.githubusercontent.com/67696504/118778023-a964fa00-b8c4-11eb-833b-571bae2f476f.png" />
+            {/* <LoadImage src="https://user-images.githubusercontent.com/67696504/118778023-a964fa00-b8c4-11eb-833b-571bae2f476f.png" /> */}
+            <Loader type="Oval" color="#000000" height={100} width={100} />
           </div>
         ) : (
           <CommunityBox>
