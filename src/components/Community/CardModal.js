@@ -358,6 +358,22 @@ const CardModal = (props) => {
     return full_date;
   };
 
+  let color = "";
+
+    if (topic === "가치") {
+      color = "#7249B4";
+    } else if (topic === "관계") {
+      color = "#2761CC";
+    } else if (topic === "우정") {
+      color = "#E0692D";
+    } else if (topic === "나") {
+      color = "#458857";
+    } else if (topic === "사랑") {
+      color = "#D34242";
+    } else {
+      color = "#E6BA28";
+    }
+
   return (
     <React.Fragment>
       <Component
@@ -721,64 +737,7 @@ const CardModal = (props) => {
                     </span>
                   </CardWriterNickNameLeft>
                 </CardWriterLeft>
-                <div style={{display: "flex"}}>
-                  {answerInfo.questionTopic?.length && answerInfo.questionTopic.map((v,idx) => {
-                      if(v === '나'){
-                          return(
-                              <HashTag style={{border:'1px solid #458857',color:'#458857'}}>
-                                  <span>
-                                  #{v}
-                                  </span>
-                              </HashTag>
-                          )
-                      }
-                      if(v === '사랑'){
-                          return(
-                              <HashTag style={{border:'1px solid #D34242',color:'#D34242'}}>
-                                  <span>
-                                  #{v}
-                                  </span>
-                              </HashTag>
-                          )
-                      }
-                      if(v === '관계'){
-                          return(
-                              <HashTag style={{border:'1px solid #2761CC',color:'#2761CC'}}>
-                                  <span>
-                                  #{v}
-                                  </span>
-                              </HashTag>
-                          )
-                      }
-                      if(v === '우정'){
-                          return(
-                              <HashTag style={{border:'1px solid #E0692D',color:'#E0692D'}}>
-                                  <span>
-                                  #{v}
-                                  </span>
-                              </HashTag>
-                          )
-                      }
-                      if(v === '가치'){
-                          return(
-                              <HashTag style={{border:'1px solid #7249B4',color:'#7249B4'}}>
-                                  <span>
-                                  #{v}
-                                  </span>
-                              </HashTag>
-                          )
-                      }
-                      if(v === '꿈'){
-                          return(
-                              <HashTag style={{border:'1px solid #E6BA28',color:'#E6BA28'}}>
-                                  <span>
-                                  #{v}
-                                  </span>
-                              </HashTag>
-                          )
-                      }
-                  })}
-                </div>
+                <HashTag style={{color: color, border: `1px solid ${color}`}}>#{topic}</HashTag>
                 {answerInfo.answerUserId === user_info.id ? (
                   <div
                     style={{
@@ -1182,10 +1141,10 @@ const ModalContent = styled.div`
 const HashTag = styled.span`
   min-width: 72px;
   max-width: 72px;
-  padding: 5px 0px;
+  padding: 6px 0px;
   border-radius: 24px;
   text-align: center;
-  font: normal normal bold 14px/19px Roboto;
+  font: normal normal bold 14px/19px Noto Sans CJK KR;
   letter-spacing: 0px;
   color: #363636;
   font-size: 14px;
@@ -1298,7 +1257,7 @@ const CardWriterNickNameLeft = styled.span`
 const CardQuestionContent = styled.div`
   margin: 0px 40px;
   padding: 15px 0;
-  font: normal normal bold 17px/23px Roboto;
+  font: normal normal bold 17px/23px Nanum Myeongjo;
   letter-spacing: 0px;
   color: #363636;
   opacity: 1;
@@ -1464,6 +1423,7 @@ const CommentBtn = styled.div`
 `;
 
 const CommentCount = styled.div`
+margin-left: 5px;
   font-size: 17px;
 `;
 
