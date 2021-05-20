@@ -1,8 +1,4 @@
-html {
-  /* min-height: 100%; */
-  height: 100%;
-  overflow-x: hidden;
-}
+
 
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&family=Noto+Serif+KR:wght@300&display=swap");
 
@@ -45,17 +41,17 @@ html {
 
 
 body {
+  font-family: "Noto Sans CJK KR";
   margin: 0;
-  /* height: 100%; */
-  font-family: "Noto Sans CJK KR", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* 불필요한 커서는 default가 default값이 되게 했습니다. */
+  cursor: default;
 }
 
 
-/* #root {
-  height: 100%;
-} */
+
+
 
 code {
   font-family: "Noto Sans CJK KR", sans-serif;

@@ -469,7 +469,7 @@ const Container = styled.section`
     background-repeat:no-repeat;
     margin:50px auto;
     padding: 23px 25px 20px 25px;
-    max-height: ${props=>props.height};
+    max-height: 93.8%;
     border-radius:0px;
   }
 
