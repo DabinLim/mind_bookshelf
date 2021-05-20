@@ -165,7 +165,7 @@ const CardDetail = (props) => {
                             <Count>{answerInfo?.likeCount}</Count>
                         </LikeBox>
                         <Comment>
-                            <ChatBubbleOutlineIcon style={{fontSize:'20px',marginTop:'3px'}}/>
+                        <CommentIcon src="https://user-images.githubusercontent.com/77369674/118684657-5e53d400-b83d-11eb-861f-41aa269aa89e.png" />
                             <Count>{comment_list?.length}</Count>
                         </Comment>
                     </IconBox>
@@ -369,7 +369,7 @@ const MiddleBelt = styled.div`
 `;
 
 const IconBox = styled.div`
-    width:90px;
+    width:75px;
     height:20px;
     margin-left:7px;
     display:flex;
@@ -392,9 +392,15 @@ const Comment = styled.div`
     justify-content:center;
 `;
 
+const CommentIcon = styled.img`
+  cursor: pointer;
+  width: 16px;
+  height: 15px;
+margin-right:6px;
+`;
+
 const Count = styled.span`
     text-align:center;
-    margin-left:7px;
     margin-bottom:2px;
     font: normal normal normal 14px/20px Noto Sans CJK KR;
     letter-spacing: 0px;
