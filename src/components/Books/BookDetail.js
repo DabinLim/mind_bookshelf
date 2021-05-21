@@ -602,7 +602,7 @@ const CommentBox = styled.div`
     box-sizing:border-box;
     width:100%;
     height:auto;
-    padding:20px 0px;
+    padding:10px 0px 40px 0px;
 `;
 
 
