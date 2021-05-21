@@ -21,6 +21,9 @@ const communitySlice = createSlice({
     card_detail: {},
     topic : [],
     topic_loading: false,
+    topic_page: 1,
+    topic_next: false,
+    
   },
   reducers: {
     setCardDetail: (state, action) => {
@@ -97,11 +100,21 @@ const communitySlice = createSlice({
     },
     addTopic : (state, action) => {
       state.topic.push(...action.payload)
+      state.topic_page += 1;
       state.topic_loading = false;
     },
     setTopicLoading : (state, action) => {
-      state.topic_loading = action.payload
-    }
+      state.topic_loading = action.payload;
+    },
+    editTopicNext : (state, action) => {
+      state.topic_next = action.payload;
+    },
+    resetTopicInfo: (state) => {
+      state.topic = [];
+      state.topic_page = 1;
+      state.topic_loading = false;
+      state.topic_next = false;
+    },
   },
 });
 
@@ -441,16 +454,23 @@ const editAnswerAX = (answer) => {
   }
 }
 
-const getTopicQuestion = (topic, page=1) => {
+const getTopicQuestion = (topic) => {
   return function (dispatch, getState) {
+    dispatch(setTopicLoading(true));
+    const page = getState().community.topic_page;
     axios
       .get(`/topic/${encodeURIComponent(topic)}?page=${page}`)
       .then((res) => {
         console.log(res)
         dispatch(addTopic(res.data.result))
+        if(res.data.result.length === 15){
+          dispatch(editTopicNext(true));
+        }else{
+          dispatch(editTopicNext(false));
+        }
       })
       .catch((err) => {
-        console.log(err)
+        console.log(err);
       })
   }
 }
@@ -469,6 +489,8 @@ export const {
   editAnswer,
   addTopic,
   setTopicLoading,
+  editTopicNext,
+  resetTopicInfo,
 } = communitySlice.actions;
 
 export const api = {

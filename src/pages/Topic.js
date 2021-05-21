@@ -1,19 +1,27 @@
 import React from 'react'
 import styled from 'styled-components'
-import {useDispatch} from 'react-redux'
-import {api as communityActions} from '../redux/modules/community'
+import {useDispatch, useSelector} from 'react-redux'
+import {api as communityActions, resetTopicInfo} from '../redux/modules/community'
+import {history} from '../redux/configStore'
+import InfinityScroll2 from '../shared/InfinityScroll2'
+
 
 
 const Topic = (props) => {
-  const topic = props.match.params.topic.split(':')[1];
+  const topic = props.match.params.topic;
   const dispatch = useDispatch();
+  const topic_info = useSelector((state) => state.community.topic)
+  const next = useSelector((state) => state.community.topic_next)
+  const is_loading = useSelector((state) => state.community.topic_loading)
 
   React.useEffect(() => {
     dispatch(communityActions.getTopicQuestion(topic))
+    return () => {
+      dispatch(resetTopicInfo())
+    };
   },[])
 
-  console.log(topic)
-  console.log(props.match.params)
+
   let color = "";
 
     if (topic === "가치") {
@@ -42,20 +50,32 @@ const Topic = (props) => {
               </TopicText>
             </Header>
             <Body>
-              <Card>
-                <div>
-                  <UserInfo>
-                    <UserProfileImg />
-                    <UserNickname>행복한_이순신</UserNickname>
-                  </UserInfo>
-                  <QuestionContent>
-                    카레맛 똥 vs 똥맛 카레카레맛 똥 vs 똥맛 카레카레맛 똥 vs 똥맛 카레카레맛 똥 vs 똥맛 카레
-                  </QuestionContent>
-                </div>
-                <AnswerCount>
-                  0명 낙서중
-                </AnswerCount>
-              </Card>
+              <InfinityScroll2
+                callNext={() => {
+                  dispatch(communityActions.getTopicQuestion(topic))
+                }}
+                is_next={next}
+                loading={is_loading}
+              >
+                {topic_info.map((t) => {
+                  return(
+                    <Card>
+                      <div>
+                        <UserInfo onClick={() => {history.push(`/others/${t.createdUserId}`)}} >
+                          <UserProfileImg src={t.createdUserProfileImg} />
+                          <UserNickname>{t.createdUserNickname}</UserNickname>
+                        </UserInfo>
+                        <QuestionContent onClick={() => {history.push(`/community/${t.questionId}`)}} >
+                          {t.contents}
+                        </QuestionContent>
+                      </div>
+                      <AnswerCount>
+                        {t.answerCount}명 낙서중
+                      </AnswerCount>
+                    </Card>
+                  )
+                })}
+              </InfinityScroll2>
             </Body>
         </TopicBox>
       </TopicContainer>
@@ -66,12 +86,16 @@ const Topic = (props) => {
 
 const TopicContainer = styled.div`
   width: 100%;
+  height: 100vh;
 `
 
 const TopicBox = styled.div`
 margin-top: 50px;
 width: 100%;
 padding: 40px 50px;
+background-image: url("https://user-images.githubusercontent.com/77369674/118811425-f73f2980-b8e7-11eb-919a-d4421378e117.png");
+background-size: cover;
+background-repeat: no-repeat;
 `
 
 const Header = styled.div`
@@ -117,6 +141,7 @@ const AnswerCount = styled.div`
 
 const UserInfo = styled.div`
   display: flex;
+  cursor: pointer;
   align-items: center;
   margin: 20px;
 `
@@ -125,9 +150,11 @@ const UserProfileImg = styled.img`
   width: 25px;
   height: 25px;
   margin-right: 10px;
+  border-radius: 25px;
+  object-fit: cover;
 `
 const UserNickname = styled.div`
-  
+  font-weight: bold;
 `
 
 const QuestionContent = styled.div`
@@ -137,8 +164,11 @@ const QuestionContent = styled.div`
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+  cursor:pointer;
+  &:hover {
+    font-weight: bold;
+  };
 `
-
 
 
 const TopicText = styled.div`

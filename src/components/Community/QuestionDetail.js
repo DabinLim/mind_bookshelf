@@ -104,6 +104,7 @@ const QuestionDetail = (props) => {
             <ContainerUpper>
               <ContainerUpperLeft>
                 <HashTag
+                  onClick={() => {history.push(`/topic/${question_info.questionTopic}`)}}
                   style={{
                     color: color,
                     border: border,
@@ -373,20 +374,18 @@ const QuestionDetail = (props) => {
 
 const Outer = styled.section`
   width: 100%;
-  height: 100%;
+  height: 100vh;
   display: flex;
   justify-content: center;
-  align-items: center;
-  margin-top: 150px;
-  @media (max-width: 650px) {
-    margin-top: 100px;
-  }
+  // align-items: center;
+  background-image: url("https://user-images.githubusercontent.com/77369674/118811425-f73f2980-b8e7-11eb-919a-d4421378e117.png");
+  background-size: cover;
+  background-repeat: no-repeat;
   @media (max-width: 500px) {
-    margin: 50px 0px 0px 0px;
+    background-image: url("https://user-images.githubusercontent.com/77369674/118459848-1b0f3d80-b737-11eb-8f1a-906da3e390e2.jpeg");
     background-size: cover;
     background-repeat: no-repeat;
-    background-image: url("https://user-images.githubusercontent.com/77369674/118459848-1b0f3d80-b737-11eb-8f1a-906da3e390e2.jpeg");
-  }
+  };
 `;
 
 const Component = styled.div`
@@ -402,23 +401,30 @@ const CommunityContainer = styled.div`
   width: 100%;
   max-width: 1200px;
   box-sizing: border-box;
-  // height:100vh;
+  height:100%;
+  margin-top: 150px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  overflow-y: auto;
+  // overflow-y: auto;
   @media (max-width: 750px){
     height: 100%;
-  }
+  };
+  @media (max-width: 650px) {
+    margin-top: 100px;
+  };
+  @media (max-width: 500px) {
+    margin: 50px 0px 0px 0px;
+  };
 `;
 
 const Container = styled.section`
   width: 100%;
-  height: 100%;
+  height: 100vh;
   display: flex;
   flex-direction: column;
-  overflow-y: auto;
+  // overflow-y: auto;
   ::-webkit-scrollbar {
     width: 10px; /* width of the entire scrollbar */
   }
@@ -590,8 +596,10 @@ const AnswersBox = styled.div`
   ${(props) => (props.view === "new" ? `margin: 140px 0px` : ` margin: 0px`)};
   width: 100%;
   max-height: 649px;
+  // height: 100%;
   display: flex;
   flex-direction: row;
+  align-content: flex-start;
   justify-content: flex-start;
   flex-wrap: wrap;
   overflow-y: auto;

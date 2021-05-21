@@ -46,7 +46,7 @@ const CommunityQnA = (props) => {
             }
             return (
               <Topic
-                // onClick={() => {history.push(`/topic/:${t}`)}}
+                onClick={() => {history.push(`/topic/${t}`)}}
                 style={{
                   border: `1px solid ${color}`,
                   marginBottom: "5px",

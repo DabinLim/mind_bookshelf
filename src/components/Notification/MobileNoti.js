@@ -104,6 +104,7 @@ const NotiProfileInfo = styled.div`
 const NotiProfile = styled.img`
   width: 40px;
   height: 40px;
+  object-fit: cover;
   border-radius: 50%;
   background: gray;
 `;
