@@ -11,16 +11,24 @@ const LikeModal = (props) => {
   const dispatch = useDispatch();
   const [UnfollowModal, setUnfollowModal] = React.useState(false);
   const [userId, setUserId] = React.useState();
+  const [ref, setRef] = React.useState();
   const like_list = useSelector(state => state.community.like_list);
   const is_next = useSelector(state => state.community.like_next);
-  const is_loading = useSelector(state => state.community.is_loading);
+  const is_loading = useSelector(state => state.community.like_loading);
   const container = React.useRef();
+  const url = window.location.href;
+  console.log(ref);
+  const wtf = document.getElementById('likelist');
+  console.log(wtf);
 
   const clickOther = (id) => {
     history.push(`/others/${id}`);
     props.close();
   };
 
+  React.useEffect(() => {
+    setRef(container.current);
+  },[url])
 
   return (
     <React.Fragment>
@@ -47,15 +55,16 @@ const LikeModal = (props) => {
             좋아하는 사람
           </span>
         </div>
-        <UserContainer ref={container}>
+        <UserContainer id='likelist' ref={props.container}>
           <InfinityScroll
           callNext={() => {
             console.log("scroooolled!");
-            dispatch(communityActions.getLikeList());
+            dispatch(communityActions.getLikeList(props.answerId));
           }}
+          modal
           is_next={is_next ? true : false}
           is_loading={is_loading}
-          ref_value={container.current}
+          ref_value={props.container}
           >
             {like_list.map((f, idx) => {
               return (

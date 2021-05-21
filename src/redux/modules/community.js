@@ -511,6 +511,7 @@ const getTopicQuestion = (topic) => {
 
 const getLikeList = (id) => {
   return function(dispatch, getState){
+    
 
     const loading = getState().community.like_loading;
     const next = getState().community.like_next;
@@ -524,6 +525,7 @@ const getLikeList = (id) => {
       console.log('안되지 요놈아')
       return
     }
+    console.log(id, page)
 
     dispatch(setLikeLoading(true));
 
@@ -532,7 +534,8 @@ const getLikeList = (id) => {
       method:"GET",
     }
     axios(options).then(response => {
-      if(response.data.likeList.length < 15){
+      console.log(response.data)
+      if(response.data.likeList.length < 7){
         dispatch(setLikeList(response.data.likeList));
         dispatch(setLikeNext(false));
         dispatch(setLikeLoading(false));

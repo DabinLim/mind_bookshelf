@@ -64,15 +64,18 @@ const Comment = (props) => {
               history.push(`/others/${props.userId}`);
             }}>{props.nickname}</CommentProfileName>
         </div>
+        <div>
         {userInfo?.id === props.userId ? (
           <DeleteBtn onClick={deleteComment}>
             <DeleteOutlined />
           </DeleteBtn>
         ) : null}
+        </div>
       </CommentProfileInfo>
       <CommentContent>{contents}</CommentContent>
       <CommentBottom>
         <TimeIndicator>{timeFormat}</TimeIndicator>
+        <LikeCount>좋아요 99개</LikeCount>
       </CommentBottom>
     </CommentFrame>
   );
@@ -105,27 +108,36 @@ const CommentProfile = styled.img`
 
 const CommentProfileName = styled.span`
   margin-left: 8px;
-  font: normal normal bold 13px/18px Roboto;
+  font: normal normal bold 13px/18px Noto Sans CJK KR;
   letter-spacing: 0px;
 `;
 
 const CommentContent = styled.p`
   margin: 0 0 0 38px;
-  font: normal normal normal 13px/18px Roboto;
+  font: normal normal normal 13px/18px Noto Sans CJK KR;
   letter-spacing: 0px;
   color: #000000;
 `;
 
 const TimeIndicator = styled.span`
-  margin: 9px 0 0 38px;
-  font: normal normal normal 12px/16px Roboto;
+  margin:0 0 0 38px;
+  font: normal normal normal 12px/16px Noto Sans CJK KR;
+  letter-spacing: 0px;
+  color: #c4c4c4;
+`;
+
+const LikeCount = styled.span`
+  margin-left:10px;
+  font: normal normal bold 12px/16px Noto Sans CJK KR;
   letter-spacing: 0px;
   color: #c4c4c4;
 `;
 
 const CommentBottom = styled.div`
+  margin-top:9px;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
+  align-items:center;
 `;
 
 const DeleteBtn = styled.button`

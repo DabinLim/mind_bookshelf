@@ -35,7 +35,7 @@ const CardDetail = (props) => {
     const [cancelModal, setCancelModal] = React.useState(false);
     const [answer, setAnswer] = React.useState();
     const [isOpen, setOpen] = React.useState(true);
-
+    const container = React.useRef();
     const closeModal = () => {
         setLikeModal(false);
       };
@@ -199,7 +199,7 @@ const CardDetail = (props) => {
                 {like_list.length ? 
                 
                 <LikeList>
-                    {likeModal? <LikeModal close={closeModal}/>:null}
+                    {likeModal? <LikeModal answerId={id} container={container} close={closeModal}/>:null}
                     {like_list.length > 1 ? 
                     <LikePeople onClick={()=>{setLikeModal(true)}}>
                         <span style={{fontWeight:'600'}}>{like_list[0].nickname}</span>님 외 <span style={{fontWeight:'600'}}>{answerInfo?.likeCount -1}</span>명이 좋아합니다.
