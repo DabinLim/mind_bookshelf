@@ -112,6 +112,16 @@ const communitySlice = createSlice({
     setLikeLoading: (state, action) => {
       state.like_loading = action.payload;
     },
+    deleteLikeList: (state, action) => {
+      const idx = state.like_list.findIndex(v => {
+        if(v.userId === action.payload){
+          return v
+        }
+      })
+      if(idx !== -1){
+        state.like_list.pop(idx);
+      }
+    },
     resetAll: (state) => {
       state.like_page = 1;
       state.like_list = [];
@@ -519,6 +529,7 @@ export const {
   setLikePage,
   setLikeNext,
   setLikeLoading,
+  deleteLikeList,
   resetAll
 } = communitySlice.actions;
 

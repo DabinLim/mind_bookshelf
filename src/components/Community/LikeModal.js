@@ -60,13 +60,13 @@ const LikeModal = (props) => {
             {like_list.map((f, idx) => {
               return (
                 <Body>
-                  <UserInfoContainer key={idx} onClick={() => clickOther(f._id)}>
+                  <UserInfoContainer key={idx} onClick={() => clickOther(f.userId)}>
                     <ProfileImage src={f.profileImg} />
                     <Username>{f.nickname}</Username>
                   </UserInfoContainer>
                   {props.typeFollow? 
                     <FollowBtn onClick={()=>{
-                      setUserId(f._id)
+                      setUserId(f.userId)
                       setUnfollowModal(true)
                       }} >
                       <FollowBtnText>
