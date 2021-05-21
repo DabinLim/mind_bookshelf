@@ -20,6 +20,10 @@ const communitySlice = createSlice({
     card_loading: true,
     card_detail: {},
     topic : [],
+    like_list: [],
+    like_loading: true,
+    like_page: 1,
+    like_next:true,
   },
   reducers: {
     setCardDetail: (state, action) => {
@@ -94,6 +98,26 @@ const communitySlice = createSlice({
       );
       state.question[idx].answers[answerIdx].contents = action.payload.contents
     },
+    setLikeList: (state, action) => {
+      action.payload.forEach(v => {
+        state.like_list.push(v);
+      });
+    },
+    setLikePage: (state, action) => {
+      state.like_page = action.payload;
+    },
+    setLikeNext: (state, action) => {
+      state.like_next = action.payload;
+    },
+    setLikeLoading: (state, action) => {
+      state.like_loading = action.payload;
+    },
+    resetAll: (state) => {
+      state.like_page = 1;
+      state.like_list = [];
+      state.like_next = true;
+      state.like_loading = true;
+    }
   },
 });
 
@@ -443,6 +467,42 @@ const getTopicQuestion = (topic, page=1) => {
   }
 }
 
+const getLikeList = (id) => {
+  return function(dispatch, getState){
+
+    const loading = getState().community.like_loading;
+    const next = getState().community.like_next;
+    const page = getState().community.like_page;
+
+    if(!next){
+      console.log('next is none');
+      return
+    }
+    if(loading && page > 1){
+      console.log('안되지 요놈아')
+      return
+    }
+
+    dispatch(setLikeLoading(true));
+
+    const options = {
+      url:`/bookshelf/like/list/${id}?page=${page}`,
+      method:"GET",
+    }
+    axios(options).then(response => {
+      if(response.data.likeList.length < 15){
+        dispatch(setLikeList(response.data.likeList));
+        dispatch(setLikeNext(false));
+        dispatch(setLikeLoading(false));
+        return
+      }
+      dispatch(setLikeList(response.data.likeList));
+      dispatch(setLikePage(page+1));
+      dispatch(setLikeLoading(false));
+    })
+  }
+}
+
 export const {
   setCommunity,
   editLikeInfo,
@@ -455,6 +515,11 @@ export const {
   deleteAnswer,
   editAnswerCard,
   editAnswer,
+  setLikeList,
+  setLikePage,
+  setLikeNext,
+  setLikeLoading,
+  resetAll
 } = communitySlice.actions;
 
 export const api = {
@@ -470,7 +535,8 @@ export const api = {
   deleteLikeDetail,
   addLikeAnswers,
   deleteLikeAnswers,
-  getTopicQuestion
+  getTopicQuestion,
+  getLikeList
 };
 
 export default communitySlice.reducer;

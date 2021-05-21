@@ -3,7 +3,8 @@ import styled from 'styled-components';
 import {history} from '../../redux/configStore';
 import {useDispatch, useSelector} from 'react-redux';
 import { api as commentActions } from "../../redux/modules/comment";
-import { api as communityActions } from "../../redux/modules/community";
+import { api as communityActions, resetAll } from "../../redux/modules/community";
+import { api as userActions } from '../../redux/modules/user';
 import CommentList from './CommentList';
 import CommentInput from './CommentInput';
 import CardUpdateModal from './CardUpdateModal';
@@ -11,13 +12,10 @@ import CancelConfirm from './CancelConfirm';
 import CustomSwitch from '../../shared/CustomSwitch';
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import { LeftOutlined } from "@ant-design/icons";
-import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
-import FavoriteIcon from "@material-ui/icons/Favorite";
-import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
-import swal from "sweetalert";
 import ChannelService from "../../shared/ChannelService";
 import Like from '../../shared/Like';
 import Subject from '../../shared/Subject';
+import LikeModal from './LikeModal';
 
 
 const CardDetail = (props) => {
@@ -29,11 +27,18 @@ const CardDetail = (props) => {
     const comment_list = useSelector(state => state.comment.list);
     const answerInfo = useSelector(state => state.community.card_detail);
     const is_login = useSelector(state => state.user.is_login);
+    const like_list = useSelector(state => state.community.like_list);
+    const [likeModal, setLikeModal] = React.useState(false);
+    // const friend_list = useSelector(state => state.user.friends);
     const [updateAnswer, setUpdateAnswer] = React.useState(false);
     const [updateModal, setUpdateModal] = React.useState(false);
     const [cancelModal, setCancelModal] = React.useState(false);
     const [answer, setAnswer] = React.useState();
     const [isOpen, setOpen] = React.useState(true);
+
+    const closeModal = () => {
+        setLikeModal(false);
+      };
 
     const gotoWeb = () => {
         console.log('나도 가고야 싶지 어려운걸 어떡하니')
@@ -67,6 +72,12 @@ const CardDetail = (props) => {
         const type = 'not_book';
         dispatch(communityActions.getCardDetail(id, type));
         dispatch(commentActions.getCommentAX(id));
+        dispatch(communityActions.getLikeList(id));
+        dispatch(userActions.myFollowListAX());
+        
+        return () => {
+            dispatch(resetAll());
+        }
 
     },[id])
 
@@ -165,7 +176,7 @@ const CardDetail = (props) => {
                         {answerInfo?.answerContents}
                     </Answer>}
                 </Body>
-                <MiddleBelt>
+                <MiddleBelt>          
                     <IconBox>
                         <LikeBox>
                             <Like m_width='16px' m_height='15px' currentLike={answerInfo?.like} answerId={answerInfo?.answerId} questionId={answerInfo?.questionId}/>
@@ -185,6 +196,22 @@ const CardDetail = (props) => {
                         </span>
                     </DateBox>
                 </MiddleBelt>
+                {like_list.length ? 
+                
+                <LikeList>
+                    {likeModal? <LikeModal close={closeModal}/>:null}
+                    {like_list.length > 1 ? 
+                    <LikePeople onClick={()=>{setLikeModal(true)}}>
+                        <span style={{fontWeight:'600'}}>{like_list[0].nickname}</span>님 외 <span style={{fontWeight:'600'}}>{answerInfo?.likeCount -1}</span>명이 좋아합니다.
+                    </LikePeople> :
+                    <LikePeople onClick={()=>{setLikeModal(true)}}>
+                        <span style={{fontWeight:'600'}}>
+                        {like_list[0].nickname}
+                        </span>님이 좋아합니다.
+                    </LikePeople>
+                    }
+                </LikeList>
+                :''}
                 <CommentBox>
                     <CommentList mobile/>
                 </CommentBox>
@@ -193,6 +220,19 @@ const CardDetail = (props) => {
         </React.Fragment>
     )
 }
+
+const LikeList = styled.div`
+    display:flex;
+    flex-direction:row;
+    align-items:center;
+    justify-content:flex-start;
+    padding-left: 24px;
+    border-bottom:0.5px solid #D3D3D3;
+`;
+
+const LikePeople = styled.span`
+    font-size:14px;
+`;
 
 const NotiContent = styled.span`
     font-weight:600;
