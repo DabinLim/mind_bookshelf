@@ -3,10 +3,20 @@ import styled from "styled-components";
 import _ from "lodash";
 import { history } from "../../redux/configStore";
 import {UnfollowConfirmModal} from "./booksindex"
+import {useDispatch, useSelector} from "react-redux"
+import InfinityScroll2 from "../../shared/InfinityScroll2"
+import InfinityScroll from "../../shared/InfinityScroll"
+import {api as userActions} from '../../redux/modules/user'
 
-const FollowModal = (props) => {
+const FollowerModal = (props) => {
   const [UnfollowModal, setUnfollowModal] = useState(false);
-  const [userId, setUserId] = useState();
+  const [followerId, setFollowerId] = useState();
+  const dispatch = useDispatch();
+ 
+  const [ref_value, setRef] = useState(null);
+  const next = useSelector((state) => state.user.follow_next);
+  const is_loading = useSelector((state) => state.user.follow_loading);
+
   const clickOther = (id) => {
     history.push(`/others/${id}`);
     props.close();
@@ -16,7 +26,7 @@ const FollowModal = (props) => {
   return (
     <React.Fragment>
       {UnfollowModal? 
-        <UnfollowConfirmModal setUnfollowModal={setUnfollowModal} id={userId} />
+        <UnfollowConfirmModal setUnfollowModal={setUnfollowModal} id={followerId} />
       :null}
       <Background onClick={props.close} />
       <FollowContainer>
@@ -38,32 +48,43 @@ const FollowModal = (props) => {
             구독
           </span>
         </div>
-        <UserContainer>
-          {props.friend_list.length !== 0 ? (
-            props.friend_list.map((f, idx) => {
-              return (
-                <Body>
-                  <UserInfoContainer key={idx} onClick={() => clickOther(f.id)}>
-                    <ProfileImage src={f.profileImg} />
-                    <Username>{f.nickname}</Username>
-                  </UserInfoContainer>
-                  {props.typeFollow? 
-                    <FollowBtn onClick={()=>{
-                      setUserId(f.id)
-                      setUnfollowModal(true)
-                      }} >
-                      <FollowBtnText>
-                        구독중 
-                      </FollowBtnText>
-                      <FollowCheckIcon src="https://user-images.githubusercontent.com/77369674/118684692-64e24b80-b83d-11eb-81fb-4976c2b190b4.png" />
-                    </FollowBtn>
-                  :null}
-                </Body>
-              );
-            })
-          ) : (
-            <UserText>구독하는 유저가 없습니다.</UserText>
-          )}
+        <UserContainer ref={props.container} >
+          {props.follower_list.length !== 0 ? (
+          <InfinityScroll
+            callNext={() => {
+              console.log('하이')
+              dispatch(userActions.getFollower(props.userId, props.follower_list[props.follower_list.length-1].userId))
+            }}
+            is_next={next}
+            is_loading={is_loading}
+            ref_value={props.container}
+            // height={50}
+          >
+              {props.follower_list.map((f, idx) => {
+                return (
+                  <Body>
+                    <UserInfoContainer key={idx} onClick={() => clickOther(f.userId)}>
+                      <ProfileImage src={f.profileImg} />
+                      <Username>{f.nickname}</Username>
+                    </UserInfoContainer>
+                    {/* {props.typeFollow? 
+                      <FollowBtn onClick={()=>{
+                        setUserId(f.id)
+                        setUnfollowModal(true)
+                        }} >
+                        <FollowBtnText>
+                          구독중 
+                        </FollowBtnText>
+                        <FollowCheckIcon src="https://user-images.githubusercontent.com/77369674/118684692-64e24b80-b83d-11eb-81fb-4976c2b190b4.png" />
+                      </FollowBtn>
+                    :null} */}
+                  </Body>
+                );
+              })}
+            </InfinityScroll>
+            ) : (
+              <UserText>구독하는 유저가 없습니다.</UserText>
+            )}
         </UserContainer>
       </FollowContainer>
     </React.Fragment>
@@ -169,4 +190,4 @@ const UserText = styled.div`
   font-size: 15px;
 `;
 
-export default FollowModal;
+export default FollowerModal;

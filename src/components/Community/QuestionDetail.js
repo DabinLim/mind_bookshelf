@@ -373,7 +373,7 @@ const QuestionDetail = (props) => {
 };
 
 const Outer = styled.section`
- height:100vh;
+//  height:100vh;
   width: 100%;
   height: 100vh;
   display: flex;
@@ -406,7 +406,7 @@ const CommunityContainer = styled.div`
   width: 100%;
   max-width: 1200px;
   box-sizing: border-box;
-  height:100%;
+  // height:100%;
   margin-top: 150px;
   display: flex;
   flex-direction: column;

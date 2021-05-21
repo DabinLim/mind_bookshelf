@@ -33,6 +33,7 @@
     "react-card-flip": "^1.1.1",
     "react-dom": "^17.0.2",
     "react-icons": "^4.2.0",
+    "react-infinite-scroll-component": "^6.1.0",
     "react-loader-spinner": "^4.0.0",
     "react-redux": "^7.2.3",
     "react-router-dom": "^5.2.0",
@@ -56,7 +57,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "sitemap": "babel-node ./src/sitemapGenerator.js",
-    "predeploy": "npm run sitemap" 
+    "predeploy": "npm run sitemap"
   },
   "eslintConfig": {
     "extends": [

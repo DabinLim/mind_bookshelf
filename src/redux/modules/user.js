@@ -27,6 +27,10 @@ const userSlice = createSlice({
     },
     friends: [],
     otherFriends: [],
+    follower: [],
+    following: [],
+    follow_loading: false,
+    follow_next: false,
     is_login: false,
     is_userLoading: true,
     is_friendLoading: true,
@@ -79,8 +83,68 @@ const userSlice = createSlice({
     setPreview: (state, action) => {
       state.preview = action.payload;
     },
+    addfollowing: (state, action) => {
+      state.following.push(...action.payload); 
+      state.follow_loading = false;
+    },
+    addfollower: (state, action) => {
+      state.follower.push(...action.payload);
+      state.follow_loading = false;
+    },
+    setFollowLoading : (state, action) => {
+      state.follow_loading = action.payload;
+    },
+    setFollowNext: (state,action) => {
+      state.follow_next = action.payload;
+    },
+    resetFollow: (state) => {
+      state.following = [];
+      state.follower = [];
+      state.follow_loading = false;
+      state.follow_next = false;
+    }
   },
 });
+
+const getFollowing = (userId, lastId="") => {
+  return function(dispatch, getState) {
+    dispatch(setFollowLoading(true))
+    axios
+      .get(`/friends/following/${userId}?lastId=${lastId}`)
+      .then((res) => {
+        console.log(res)
+        dispatch(addfollowing(res.data.following))
+        if(res.data.following.length === 10){
+          dispatch(setFollowNext(true))
+        } else{
+          dispatch(setFollowNext(false))
+        }
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
+}
+
+const getFollower = (userId, lastId="") => {
+  return function(dispatch, getState) {
+    dispatch(setFollowLoading(true))
+    axios
+      .get(`/friends/follower/${userId}?lastId=${lastId}`)
+      .then((res) => {
+        console.log(res)
+        dispatch(addfollower(res.data.follower))
+        if(res.data.follower.length === 10){
+          dispatch(setFollowNext(true))
+        } else{
+          dispatch(setFollowNext(false))
+        }
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
+}
 
 const LoginCheckAX = () => {
   return function (dispatch) {
@@ -327,6 +391,11 @@ export const {
   getRecent,
   addRecent,
   setPreview,
+  addfollowing,
+  addfollower,
+  setFollowLoading,
+  setFollowNext,
+  resetFollow
 } = userSlice.actions;
 
 export const api = {
@@ -340,6 +409,8 @@ export const api = {
   withdrawalAX,
   addRecentUserAX,
   UpdateProfileAX,
+  getFollowing,
+  getFollower
 };
 
 export default userSlice.reducer;

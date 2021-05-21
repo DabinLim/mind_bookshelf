@@ -4,6 +4,7 @@ import Spinner from '../elements/Spinner';
 
 const InfinityScroll = (props) => {
     const {callNext, is_next, is_loading} = props;
+    const [current, setCurrent] = React.useState();
 
     // 이벤트 발생 300ms 후에 callNext 함수 호출하기
     const _handleScroll = _.throttle(() => {
@@ -11,11 +12,11 @@ const InfinityScroll = (props) => {
             return;
         }
 
-        const {clientHeight} = props.ref_value;
-        const {scrollHeight} = props.ref_value;
+        const {clientHeight} = props.ref_value.current;
+        const {scrollHeight} = props.ref_value.current;
   
         // 브라우저마다 document에 접근해서 scrollTop을 가지고 오는 방법이 다름
-        const {scrollTop} = props.ref_value;
+        const {scrollTop} = props.ref_value.current;
         // (document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop;
    
         if(scrollHeight - clientHeight - scrollTop < 100) {
@@ -29,19 +30,23 @@ const InfinityScroll = (props) => {
     React.useEffect(() => {
         // 다음 데이터가 없으면 이벤트 구독해제
         if(is_loading){
+            console.log('1')
             return;
         };
         if(!props.ref_value){
+            console.log(props.ref_value)
             return
         }
         if(is_next){
-            props.ref_value.addEventListener('scroll', handleScroll);
+            setCurrent(props.ref_value)
+            console.log(props.ref_value, 3)
+            props.ref_value.current.addEventListener('scroll', handleScroll);
         }else{
-            props.ref_value.removeEventListener('scroll', handleScroll)
+            props.ref_value.current.removeEventListener('scroll', handleScroll)
         }
 
         // 이벤트 구독 해제, Clean up
-        return () => props.ref_value.removeEventListener('scroll', handleScroll);
+        // return () => props.ref_value.current.removeEventListener('scroll', handleScroll);
     },[is_next, is_loading]);
 
     return (

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import {BookShelf, Profile, OthersQuestion, OthersAnswers, UnfollowConfirmModal} from '../components/Books/booksindex';
-import {api as userActions} from '../redux/modules/user';
+import {api as userActions, resetFollow} from '../redux/modules/user';
 import {useSelector, useDispatch} from 'react-redux';
 import { getCookie } from "../shared/Cookie";
 import {changeDate, setComponent} from '../redux/modules/books';
@@ -18,7 +18,6 @@ const OthersBooks = (props) => {
     const [UnfollowModal, setUnfollowModal] = React.useState(false) 
 
     let url = window.location.href.split('/');
-    console.log(url)
     let id = url[url.length -2];
     let others_id = url[url.length -1];
     
@@ -37,8 +36,11 @@ const OthersBooks = (props) => {
     },[])
 
     React.useEffect(() => {
+        dispatch(resetFollow());
         dispatch(userActions.othersInfoAX(userId))
         dispatch(userActions.otherFriendListAX(userId))
+        dispatch(userActions.getFollowing(userId));
+        dispatch(userActions.getFollower(userId));
     },[userId])
 
     return(
