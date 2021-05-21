@@ -10,6 +10,7 @@ import Comment from "../redux/modules/comment";
 import Noti from "../redux/modules/noti";
 import Moreview from "../redux/modules/moreview";
 import Custom from "../redux/modules/custom";
+import Friends from "../redux/modules/friends";
 
 export const history = createBrowserHistory();
 
@@ -22,6 +23,7 @@ const rootReducer = combineReducers({
   comment: Comment,
   moreview: Moreview,
   custom: Custom,
+  friends: Friends,
   router: connectRouter(history),
 });
 

@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Loader from "react-loader-spinner";
 import { api as answerActions } from "../redux/modules/answer";
+import {setLoading} from "../redux/modules/answer";
 import { useDispatch, useSelector } from "react-redux";
 import { getCookie } from "../shared/Cookie";
 import { history } from "../redux/configStore";
@@ -151,6 +152,10 @@ function Main() {
       return;
     }
     dispatch(answerActions.getQuestionAX_NOTLOGIN());
+
+    return () => {
+      dispatch(setLoading(true));
+    };
   }, []);
 
   return (

@@ -29,40 +29,29 @@ const MobileNoti = (props) => {
     text = "회원님이 만든 질문에 답변을 남겼습니다."
   }
 
-  const openCard = () => {
-    if(window.innerWidth <= 750){
-      history.push(`/carddetail/${props.cardId}`)
-      return
+  const eventAction = () => {
+    if(eventType === "팔로우"){
+      history.push(`/others/${props.cardId}`);
+    } else if(eventType ==="커스텀"){
+      history.push(`/community/${props.cardId}`);
+    } else{
+      if(window.innerWidth <= 750){
+        history.push(`/carddetail/${props.cardId}`)
+        return
+      }
+      const type = "noti";
+      props.close();
+      dispatch(communityActions.getCardDetail(props.cardId, type));
+      dispatch(commentActions.getCommentAX(props.cardId));
+      props.setCardModal(true);
     }
-    const type = "noti";
-    dispatch(communityActions.getCardDetail(props.cardId, type));
-    dispatch(commentActions.getCommentAX(props.cardId));
-    props.setCardModal(true);
+
   };
 
   if(props.type === "notiList"){
     return (
       <>
-        {eventType === "커스텀" ? (
-          <NotiFrame
-            onClick={() => {
-              history.push(`/community/${props.cardId}`);
-            }}
-          >
-            <div style={{display:'flex', alignItems: "center", cursor: 'pointer' }} >
-              <NotiProfileInfo>
-                <NotiProfile src={props.recentProfileImg}></NotiProfile>
-                {props.countOthers >= 1? 
-                <NotiProfileName><span style={{fontWeight: '600'}}>{props.recentNickname} 님 외 {props.countOthers}명</span>이 {text}</NotiProfileName>
-                :
-                <NotiProfileName><span style={{fontWeight: '600'}}>{props.recentNickname}</span> 님으로부터 {text}</NotiProfileName>
-                }
-              </NotiProfileInfo>
-            </div>
-            <NotiTime>{time_data}</NotiTime>
-          </NotiFrame>
-        ) : (
-          <NotiFrame onClick={openCard}>
+          <NotiFrame onClick={eventAction}>
             <div style={{display:'flex', alignItems: "center", cursor: 'pointer' }} >
               <NotiProfileInfo>
                 <NotiProfile src={props.recentProfileImg}></NotiProfile>
@@ -75,18 +64,12 @@ const MobileNoti = (props) => {
             </div>
             <NotiTime>{time_data}</NotiTime>
           </NotiFrame>
-        )}
       </>
     );
   } else{
     return (
       <>
-        {eventType === "커스텀" ? (
-          <NotiFrame
-            onClick={() => {
-              history.push(`/community/${props.cardId}`);
-            }}
-          >
+          <NotiFrame onClick={eventAction}>
             <div style={{display:'flex', alignItems: "center", cursor: 'pointer' }} >
               <NotiProfileInfo>
                 <NotiProfile src={props.recentProfileImg}></NotiProfile>
@@ -95,17 +78,7 @@ const MobileNoti = (props) => {
             </div>
             <NotiTime>{time_data}</NotiTime>
           </NotiFrame>
-        ) : (
-          <NotiFrame onClick={openCard}>
-            <div style={{display:'flex', alignItems: "center", cursor: 'pointer' }} >
-              <NotiProfileInfo>
-                <NotiProfile src={props.recentProfileImg}></NotiProfile>
-                <NotiProfileName><span style={{fontWeight: '600'}}>{props.recentNickname}</span>님이 {text}</NotiProfileName>
-              </NotiProfileInfo>
-            </div>
-            <NotiTime>{time_data}</NotiTime>
-          </NotiFrame>
-        )}
+        {/* )} */}
       </>
     );
   }
@@ -131,6 +104,7 @@ const NotiProfileInfo = styled.div`
 const NotiProfile = styled.img`
   width: 40px;
   height: 40px;
+  object-fit: cover;
   border-radius: 50%;
   background: gray;
 `;

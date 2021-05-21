@@ -7,4 +7,5 @@ import MobileSearch from './MobileSearch'
 import MobileNotification from './MobileNotification'
 import NotFound from './NotFound'
 import Topic from './Topic'
-export {Topic, NotFound, Auth, Community, Main, MyBooks, OthersBooks, MobileSearch, MobileNotification};
+import FriendsGround from "./FriendsGround";
+export {Topic, NotFound, Auth, Community, Main, MyBooks, OthersBooks, MobileSearch, MobileNotification, FriendsGround};

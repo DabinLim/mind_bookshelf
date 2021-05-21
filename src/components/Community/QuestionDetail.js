@@ -104,6 +104,7 @@ const QuestionDetail = (props) => {
             <ContainerUpper>
               <ContainerUpperLeft>
                 <HashTag
+                  onClick={() => {history.push(`/topic/${question_info.questionTopic}`)}}
                   style={{
                     color: color,
                     border: border,
@@ -374,6 +375,7 @@ const QuestionDetail = (props) => {
 const Outer = styled.section`
  height:100vh;
   width: 100%;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -388,8 +390,7 @@ const Outer = styled.section`
     margin: 50px 0px 0px 0px;
     background-size: cover;
     background-repeat: no-repeat;
-    background-image: url("https://user-images.githubusercontent.com/77369674/118459848-1b0f3d80-b737-11eb-8f1a-906da3e390e2.jpeg");
-  }
+  };
 `;
 
 const Component = styled.div`
@@ -404,14 +405,23 @@ const CommunityContainer = styled.div`
   z-index: 2;
   width: 100%;
   max-width: 1200px;
-  height: 100%;
   box-sizing: border-box;
-  // height:100vh;
+  height:100%;
+  margin-top: 150px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  overflow-y: auto;
+  // overflow-y: auto;
+  @media (max-width: 750px){
+    height: 100%;
+  };
+  @media (max-width: 650px) {
+    margin-top: 100px;
+  };
+  @media (max-width: 500px) {
+    margin: 50px 0px 0px 0px;
+  };
 `;
 
 const Container = styled.section`
@@ -419,7 +429,7 @@ const Container = styled.section`
   width: 100%;
   display: flex;
   flex-direction: column;
-  overflow-y: auto;
+  // overflow-y: auto;
   ::-webkit-scrollbar {
     width: 10px; /* width of the entire scrollbar */
   }

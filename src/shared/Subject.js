@@ -1,12 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
+import {history} from '../redux/configStore'
 
 const Subject = (props) => {
     const {topic} = props
 
     return(
         <React.Fragment>
-            <SubjectBtn {...props}><span>#{topic}</span></SubjectBtn>
+            <SubjectBtn {...props}
+                onClick={() => {history.push(`/topic/${topic}`)}}
+            >
+                <span>#{topic}</span>
+            </SubjectBtn>
         </React.Fragment>
     )
 }

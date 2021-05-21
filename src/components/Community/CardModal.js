@@ -28,6 +28,7 @@ import { LeftOutlined } from "@ant-design/icons";
 import ChannelService from "../../shared/ChannelService";
 import Like from '../../shared/Like';
 import Subject from '../../shared/Subject';
+import { CenterFocusStrong } from "@material-ui/icons";
 
 
 const CardModal = (props) => {
@@ -514,43 +515,45 @@ const CardModal = (props) => {
                     </span>
                   </CardWriterNickNameLeft>
                 </CardWriterLeft>
-                <HashTag style={{color: color, border: `1px solid ${color}`}}>#{topic}</HashTag>
-                {answerInfo.answerUserId === user_info.id ? (
-                  <div
-                    style={{
-                      cursor: "pointer",
-                      position: "relative",
-                    }}
-                  >
-                    {updateModal ? (
-                      <CardUpdateModal
-                        setCancelModal={setCancelModal}
-                        setAnswer={setAnswer}
-                        setUpdateAnswer={setUpdateAnswer}
-                        close={props.close}
-                        setUpdateModal={setUpdateModal}
-                        {...answerInfo}
-                      />
-                    ) : null}
-                    {cancelModal ? (
-                      <CancelConfirm
-                        {...answerInfo}
-                        setCancelModal={setCancelModal}
-                        close={props.close}
-                        type="web"
-                      />
-                    ) : null}
-                    <MoreVertIcon
-                      onClick={() => {
-                        if (updateModal) {
-                          setUpdateModal(false);
-                        } else {
-                          setUpdateModal(true);
-                        }
+                <div style={{display:'flex', alignItems: "center"}}>
+                  <HashTag style={{color: color, border: `1px solid ${color}`}}>#{topic}</HashTag>
+                  {answerInfo.answerUserId === user_info.id ? (
+                    <div
+                      style={{
+                        cursor: "pointer",
+                        position: "relative",
                       }}
-                    />
-                  </div>
-                ) : null}
+                    >
+                      {updateModal ? (
+                        <CardUpdateModal
+                          setCancelModal={setCancelModal}
+                          setAnswer={setAnswer}
+                          setUpdateAnswer={setUpdateAnswer}
+                          close={props.close}
+                          setUpdateModal={setUpdateModal}
+                          {...answerInfo}
+                        />
+                      ) : null}
+                      {cancelModal ? (
+                        <CancelConfirm
+                          {...answerInfo}
+                          setCancelModal={setCancelModal}
+                          close={props.close}
+                          type="web"
+                        />
+                      ) : null}
+                      <MoreVertIcon
+                        onClick={() => {
+                          if (updateModal) {
+                            setUpdateModal(false);
+                          } else {
+                            setUpdateModal(true);
+                          }
+                        }}
+                      />
+                    </div>
+                  ) : null}
+                </div>
               </CardWriterInfoLeft>
               {/* 카드 질문 내용 */}
               <CardQuestionContent>
@@ -621,6 +624,15 @@ const CardModal = (props) => {
                   ref={cmtInput}
                   onKeyPress={(e) => {
                     if (e.key === "Enter") {
+                      if (!is_login) {
+                        swal({
+                          title: "댓글 추가 실패",
+                          text: "로그인 후 이용 가능한 서비스입니다.",
+                          icon: "error",
+                        });
+                        setComments("");
+                        return;
+                      }
                       addComment();
                     }
                   }}

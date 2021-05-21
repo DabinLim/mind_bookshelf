@@ -165,6 +165,15 @@ const CommentInput = (pros) => {
                   ref={cmtInput}
                   onKeyPress={(e) => {
                     if (e.key === "Enter") {
+                      if (!is_login) {
+                        swal({
+                          title: "댓글 추가 실패",
+                          text: "로그인 후 이용 가능한 서비스입니다.",
+                          icon: "error",
+                        });
+                        setComments("");
+                        return;
+                      }
                       addComment();
                     }
                   }}
