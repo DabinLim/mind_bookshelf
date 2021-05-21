@@ -51,25 +51,6 @@ const Noti = (props) => {
   if(props.type === "notiList"){
     return (
       <>
-        {/* {eventType === "커스텀" ? (
-          <NotiFrame
-            onClick={() => {
-              history.push(`/community/${props.cardId}`);
-            }}
-          >
-            <div style={{display:'flex', alignItems: "center", cursor: 'pointer' }} >
-              <NotiProfileInfo>
-                <NotiProfile src={props.recentProfileImg}></NotiProfile>
-                {props.countOthers >= 1? 
-                <NotiProfileName><span style={{fontWeight: '600'}}>{props.recentNickname}님 외 {props.countOthers}명</span>이 {text}</NotiProfileName>
-                :
-                <NotiProfileName><span style={{fontWeight: '600'}}>{props.recentNickname}</span>님이 {text}</NotiProfileName>
-                }
-              </NotiProfileInfo>
-            </div>
-            <NotiTime>{time_data}</NotiTime>
-          </NotiFrame>
-        ) : ( */}
           <NotiFrame onClick={eventAction}>
             <div style={{display:'flex', alignItems: "center", cursor: 'pointer' }} >
               <NotiProfileInfo>
@@ -83,27 +64,11 @@ const Noti = (props) => {
             </div>
             <NotiTime>{time_data}</NotiTime>
           </NotiFrame>
-        {/* )} */}
       </>
     );
   } else{
     return (
       <>
-        {/* {eventType === "커스텀" ? (
-          <NotiFrame
-            onClick={() => {
-              history.push(`/community/${props.cardId}`);
-            }}
-          >
-            <div style={{display:'flex', alignItems: "center", cursor: 'pointer' }} >
-              <NotiProfileInfo>
-                <NotiProfile src={props.recentProfileImg}></NotiProfile>
-                <NotiProfileName><span style={{fontWeight: '600'}}>{props.recentNickname}</span>님이 {text}</NotiProfileName>
-              </NotiProfileInfo>
-            </div>
-            <NotiTime>{time_data}</NotiTime>
-          </NotiFrame>
-        ) : ( */}
           <NotiFrame onClick={eventAction}>
             <div style={{display:'flex', alignItems: "center", cursor: 'pointer' }} >
               <NotiProfileInfo>
@@ -113,7 +78,6 @@ const Noti = (props) => {
             </div>
             <NotiTime>{time_data}</NotiTime>
           </NotiFrame>
-        {/* )} */}
       </>
     );
   }

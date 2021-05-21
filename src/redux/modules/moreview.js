@@ -242,7 +242,7 @@ const getAnswers = (id) => {
 const getLikeAnswer = (id) => {
   return function (dispatch, getState) {
     const loading = getState().moreview.like_loading;
-    const page = getState().moreview.page;
+    const page = getState().moreview.like_page;
     const next = getState().moreview.like_next;
     if (!next) {
       return;
