@@ -341,14 +341,11 @@ const Noti = styled.div`
 const Container = styled.section`
     margin-top: 50px;
     width:100%;
-    height:85%;
+    height:84.5%;
     overflow-y:auto;
     border: 0.5px solid #D3D3D3;
     border-radius:16px 16px 0px 0px;
     background-color: #ffffff;
-    @media(max-height:700px){
-        height:82%;
-    }
     @media(min-height:850px){
         height:100%;
     }
@@ -405,7 +402,7 @@ const Body = styled.div`
     box-sizing:border-box;
     padding:20px 25px;
     border-bottom: 0.5px solid #D3D3D3;
-    height:500px;
+    height:auto;
 `;
 
 const SubjectBox = styled.div`
@@ -431,8 +428,6 @@ const Question = styled.div`
 
 const Answer = styled.div`
     width:100%;
-    min-height:130px;
-    max-height:130px;
     overflow-y:auto;
     font: normal normal normal 13px/19px Noto Sans CJK KR;
     letter-spacing: 0px;
@@ -560,6 +555,7 @@ const DateBox = styled.div`
 `;
 
 const CommentBox = styled.div`
+    box-sizing:border-box;
     width:100%;
     height:auto;
     padding:20px 0px;

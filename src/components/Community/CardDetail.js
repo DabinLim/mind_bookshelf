@@ -225,16 +225,14 @@ const GotoWeb = styled.button`
 `;
 
 const Container = styled.section`
+    box-sizing:border-box;
     margin-top: 50px;
     width:100%;
-    height:85%;
+    height:84.5%;
     overflow-y:auto;
     border: 0.5px solid #D3D3D3;
     background-color: #ffffff;
     border-radius:16px 16px 0px 0px;
-    @media(max-height:700px){
-        height:82%;
-    }
     @media(min-height:850px){
         height:100%;
     }
@@ -292,7 +290,7 @@ const Body = styled.div`
     box-sizing:border-box;
     padding:20px 25px;
     border-bottom: 0.5px solid #D3D3D3;
-    height:330px;
+    height:auto;
 `;
 
 const SubjectBox = styled.div`
@@ -319,7 +317,6 @@ const Question = styled.div`
 
 const Answer = styled.div`
     width:100%;
-    max-height:135px;
     overflow-y:auto;
     font: normal normal normal 13px/19px Noto Sans CJK KR;
     letter-spacing: 0px;
