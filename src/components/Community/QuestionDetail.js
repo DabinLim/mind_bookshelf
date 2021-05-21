@@ -373,16 +373,21 @@ const QuestionDetail = (props) => {
 };
 
 const Outer = styled.section`
+ height:100vh;
   width: 100%;
   height: 100vh;
   display: flex;
   justify-content: center;
-  // align-items: center;
-  background-image: url("https://user-images.githubusercontent.com/77369674/118811425-f73f2980-b8e7-11eb-919a-d4421378e117.png");
+  align-items: center;
   background-size: cover;
-  background-repeat: no-repeat;
-  @media (max-width: 500px) {
-    background-image: url("https://user-images.githubusercontent.com/77369674/118459848-1b0f3d80-b737-11eb-8f1a-906da3e390e2.jpeg");
+    background-repeat: no-repeat;
+    background-image: url("https://user-images.githubusercontent.com/77369674/118811425-f73f2980-b8e7-11eb-919a-d4421378e117.png");
+  @media (max-width: 650px) {
+    margin-top: 100px;
+  }
+  @media (max-width: 750px) {
+    height:100%;
+    margin: 50px 0px 0px 0px;
     background-size: cover;
     background-repeat: no-repeat;
   };
@@ -420,8 +425,8 @@ const CommunityContainer = styled.div`
 `;
 
 const Container = styled.section`
+  padding-top:150px;
   width: 100%;
-  height: 100vh;
   display: flex;
   flex-direction: column;
   // overflow-y: auto;
@@ -437,9 +442,13 @@ const Container = styled.section`
     background-color: #ffffff; /* color of the scroll thumb */
     border-radius: 20px; /* roundness of the scroll thumb */
   }
+  @media (max-width: 750px) {
+    padding:0px;
+  }
 `;
 
 const ContainerUpper = styled.div`
+
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -593,13 +602,12 @@ color: #121212;
 const AnswersBox = styled.div`
   padding: 0px 20px;
   box-sizing: border-box;
-  ${(props) => (props.view === "new" ? `margin: 140px 0px` : ` margin: 0px`)};
+  ${(props) => (props.view === "new" ? `margin-top:140px` : ` margin: 0px`)};
   width: 100%;
-  max-height: 649px;
-  // height: 100%;
+  max-height:800px;
   display: flex;
   flex-direction: row;
-  align-content: flex-start;
+  align-content:flex-start;
   justify-content: flex-start;
   flex-wrap: wrap;
   overflow-y: auto;
@@ -634,11 +642,12 @@ const AnswersBox = styled.div`
 const AnswersBoxLike = styled.div`
   padding: 0px 20px;
   box-sizing: border-box;
-  ${(props) => (props.view === "like" ? `margin: 140px 0px` : ` margin: 0px`)};
+  ${(props) => (props.view === "like" ? `margin-top:140px` : ` margin: 0px`)};
   width: 100%;
-  max-height: 649px;
+  max-height:800px;
   display: flex;
   flex-direction: row;
+  align-content:flex-start;
   justify-content: flex-start;
   flex-wrap: wrap;
   overflow-y: auto;
@@ -674,11 +683,12 @@ const AnswersBoxFriends = styled.div`
   padding: 0px 20px;
   box-sizing: border-box;
   ${(props) =>
-    props.view === "friends" ? `margin: 140px 0px` : ` margin: 0px`};
+    props.view === "friends" ? `margin-top:140px` : ` margin: 0px`};
   width: 100%;
-  max-height: 649px;
+  max-height:800px;
   display: flex;
   flex-direction: row;
+  align-content: flex-start;
   justify-content: flex-start;
   flex-wrap: wrap;
   overflow-y: auto;

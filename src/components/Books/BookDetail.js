@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import {history} from '../../redux/configStore';
 import {useDispatch, useSelector} from 'react-redux';
 import { api as commentActions } from "../../redux/modules/comment";
-import { api as communityActions } from "../../redux/modules/community";
+import { api as communityActions,resetAll } from "../../redux/modules/community";
 import {
     api as booksActions,
     changeDate,
@@ -23,6 +23,7 @@ import ChannelService from "../../shared/ChannelService";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 import Like from '../../shared/Like';
 import Subject from '../../shared/Subject';
+import LikeModal from '../Community/LikeModal';
 
 
 const BookDetail = (props) => {
@@ -37,12 +38,20 @@ const BookDetail = (props) => {
     const thisMonthBooks = useSelector((state) => state.books.books);
     const nowdate = useSelector((state) => state.books.date);
     const card_loading = useSelector((state) => state.community.card_loading);
+    const like_list = useSelector(state => state.community.like_list);
+    const [likeModal, setLikeModal] = React.useState(false);
     const book_detail = useSelector((state) => state.books.book_detail);
     const [updateAnswer, setUpdateAnswer] = React.useState(false);
     const [updateModal, setUpdateModal] = React.useState(false);
     const [cancelModal, setCancelModal] = React.useState(false);
     const [answer, setAnswer] = React.useState();
     const [isOpen, setOpen] = React.useState(true);
+
+
+    const closeModal = () => {
+      setLikeModal(false);
+    };
+
 
     function clickOpen() {
         if (isOpen) {
@@ -142,6 +151,12 @@ const BookDetail = (props) => {
         const type = 'book';
         dispatch(communityActions.getCardDetail(id, type));
         dispatch(commentActions.getCommentAX(id));
+
+        dispatch(communityActions.getLikeList(id));
+        
+        return () => {
+            dispatch(resetAll());
+        }
 
     },[id])
 
@@ -317,6 +332,21 @@ const BookDetail = (props) => {
                         </span>
                     </DateBox>
                 </MiddleBelt>
+                {like_list.length ? 
+                <LikeList>
+                    {likeModal? <LikeModal close={closeModal}/>:null}
+                    {like_list.length > 1 ? 
+                    <LikePeople onClick={()=>{setLikeModal(true)}}>
+                        <span style={{fontWeight:'600'}}>{like_list[0].nickname}</span>님 외 <span style={{fontWeight:'600'}}>{answerInfo?.likeCount -1}</span>명이 좋아합니다.
+                    </LikePeople> :
+                    <LikePeople onClick={()=>{setLikeModal(true)}}>
+                        <span style={{fontWeight:'600'}}>
+                        {like_list[0].nickname}
+                        </span>님이 좋아합니다.
+                    </LikePeople>
+                    }
+                </LikeList>
+                :''}
                 <CommentBox>
                     <CommentList mobile/>
                 </CommentBox>
@@ -325,6 +355,20 @@ const BookDetail = (props) => {
         </React.Fragment>
     )
 }
+
+
+const LikeList = styled.div`
+    display:flex;
+    flex-direction:row;
+    align-items:center;
+    justify-content:flex-start;
+    padding-left: 24px;
+    border-bottom:0.5px solid #D3D3D3;
+`;
+
+const LikePeople = styled.span`
+    font-size:14px;
+`;
 
 const Noti = styled.div`
     text-align:center;
@@ -558,7 +602,7 @@ const CommentBox = styled.div`
     box-sizing:border-box;
     width:100%;
     height:auto;
-    padding:20px 0px;
+    padding:10px 0px 40px 0px;
 `;
 
 
