@@ -20,6 +20,7 @@ const communitySlice = createSlice({
     card_loading: true,
     card_detail: {},
     topic : [],
+    topic_loading: false,
   },
   reducers: {
     setCardDetail: (state, action) => {
@@ -94,6 +95,13 @@ const communitySlice = createSlice({
       );
       state.question[idx].answers[answerIdx].contents = action.payload.contents
     },
+    addTopic : (state, action) => {
+      state.topic.push(...action.payload)
+      state.topic_loading = false;
+    },
+    setTopicLoading : (state, action) => {
+      state.topic_loading = action.payload
+    }
   },
 });
 
@@ -439,6 +447,10 @@ const getTopicQuestion = (topic, page=1) => {
       .get(`/topic/${encodeURIComponent(topic)}?page=${page}`)
       .then((res) => {
         console.log(res)
+        dispatch(addTopic(res.data.result))
+      })
+      .catch((err) => {
+        console.log(err)
       })
   }
 }
@@ -455,6 +467,8 @@ export const {
   deleteAnswer,
   editAnswerCard,
   editAnswer,
+  addTopic,
+  setTopicLoading,
 } = communitySlice.actions;
 
 export const api = {

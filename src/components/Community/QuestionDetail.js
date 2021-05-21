@@ -373,6 +373,7 @@ const QuestionDetail = (props) => {
 
 const Outer = styled.section`
   width: 100%;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -400,7 +401,6 @@ const CommunityContainer = styled.div`
   z-index: 2;
   width: 100%;
   max-width: 1200px;
-  height: 100%;
   box-sizing: border-box;
   // height:100vh;
   display: flex;
@@ -408,6 +408,9 @@ const CommunityContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   overflow-y: auto;
+  @media (max-width: 750px){
+    height: 100%;
+  }
 `;
 
 const Container = styled.section`

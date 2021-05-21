@@ -527,7 +527,7 @@ const Header = () => {
                 setLogin(true);
               }}
             >
-              Login
+              로그인
             </TextBtn>
           </IconContainer>
         </HeaderInnerContainer>

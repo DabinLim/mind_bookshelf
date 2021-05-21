@@ -98,7 +98,12 @@ const Card = styled.div`
   width: 272px;
   height: 189px;
   background: #ffffff;
-  box-shadow: 0px 0px 20px #0000001a;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.12), 0 2px 5px rgba(0,0,0,0.24);
+  transition: box-shadow 0.25s ease-in 0s, transform 0.25s ease-in 0s;
+  &:hover{
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+    transform: translateY(-8px);
+  };
 `
 
 const AnswerCount = styled.div`
