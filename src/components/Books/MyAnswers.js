@@ -287,7 +287,7 @@ const MyAnswers = (props) => {
 const Container = styled.section`
   position: relative;
   box-sizing: border-box;
-  padding: 45px 0px;
+  padding: 45px 25px;
   width: 100%;
   height: 100%;
   max-width: 1065px;
@@ -323,7 +323,7 @@ const Background = styled.div`
 
 const TitleContainer = styled.div`
   box-sizing: border-box;
-  padding: 0px 12.5px;
+  padding: 0px 15px;
   width: 100%;
   height: 60px;
   display: flex;
@@ -372,7 +372,6 @@ const EmptyDiv = styled.div`
 
 const CardContainer = styled.section`
   box-sizing: border-box;
-  padding-right: 50px;
   ${(props) => (props.view === "new" ? `width:100%` : `width:0`)};
   ${(props) => (props.view === "new" ? `height:100%` : `height:0`)};
   display: flex;
@@ -391,7 +390,6 @@ const CardContainer = styled.section`
 
 const CardContainerPop = styled.section`
   box-sizing: border-box;
-  padding-right: 50px;
   ${(props) => (props.view === "pop" ? `width:100%` : `width:0`)};
   ${(props) => (props.view === "pop" ? `height:100%` : `height:0`)};
   display: flex;
