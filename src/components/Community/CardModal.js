@@ -724,6 +724,7 @@ const LikeList = styled.div`
 
 const LikePeople = styled.span`
     font-size:14px;
+    cursor:pointer;
 `;
 
 const Component = styled.div`

@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { history } from "../../redux/configStore";
-import {UnfollowConfirmModal} from "../Books/booksindex"
+import {UnfollowConfirmModal, FollowConfirmModal} from "../Books/booksindex"
 import {useSelector, useDispatch} from 'react-redux';
 import InfinityScroll from '../../shared/InfinityScroll';
 import { api as communityActions } from "../../redux/modules/community";
@@ -12,9 +12,13 @@ const LikeModal = (props) => {
   const [UnfollowModal, setUnfollowModal] = React.useState(false);
   const [userId, setUserId] = React.useState();
   const [ref, setRef] = React.useState();
+  const [followModal, setFollowModal] = React.useState(false)
+  const [followerId, setFollowerId] = React.useState();
+  const [followerNickname, setFollowerNickname] = React.useState();
   const like_list = useSelector(state => state.community.like_list);
   const is_next = useSelector(state => state.community.like_next);
   const is_loading = useSelector(state => state.community.like_loading);
+  const user_info = useSelector(state => state.user.user);
   const container = React.useRef();
   const url = window.location.href;
   const wtf = document.getElementById('likelist');
@@ -31,8 +35,12 @@ const LikeModal = (props) => {
   return (
     <React.Fragment>
       {UnfollowModal? 
-        <UnfollowConfirmModal setUnfollowModal={setUnfollowModal} id={userId} />
+        <UnfollowConfirmModal like nickname={followerNickname} setUnfollowModal={setUnfollowModal} id={userId} />
       :null}
+      {followModal?
+        <FollowConfirmModal like setFollowModal={setFollowModal} nickname={followerNickname} id={followerId} />
+        :null
+      }
       <Background web={props.web} onClick={props.close} />
       <FollowContainer>
         <div
@@ -71,7 +79,7 @@ const LikeModal = (props) => {
                     <ProfileImage src={f.profileImg} />
                     <Username>{f.nickname}</Username>
                   </UserInfoContainer>
-                  {props.typeFollow? 
+                  {f.userId !== user_info.id ? f.isFollowing ? 
                     <FollowBtn onClick={()=>{
                       setUserId(f.userId)
                       setUnfollowModal(true)
@@ -81,7 +89,16 @@ const LikeModal = (props) => {
                       </FollowBtnText>
                       <FollowCheckIcon src="https://user-images.githubusercontent.com/77369674/118684692-64e24b80-b83d-11eb-81fb-4976c2b190b4.png" />
                     </FollowBtn>
-                  :null}
+                  :<UnfollowBtn onClick={()=>{
+                    
+                    setFollowerId(f.userId);
+                    setFollowModal(true);
+                    setFollowerNickname(f.nickname);
+                    }} >
+                    <FollowBtnText>
+                      구독하기
+                    </FollowBtnText>
+                  </UnfollowBtn> :''}
                 </Body>
               );
             })}
@@ -159,6 +176,18 @@ const FollowBtn = styled.div`
     background: #473674 0% 0% no-repeat padding-box;
     color: #FFFFFF;
   };
+`
+
+const UnfollowBtn = styled.div`
+  width: 90px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #473674 0% 0% no-repeat padding-box;
+  color: #FFFFFF;
+  border-radius: 30px;
+  cursor: pointer;
 `
 
 const FollowCheckIcon = styled.img`

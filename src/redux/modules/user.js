@@ -4,6 +4,7 @@ import { history } from "../configStore";
 import { getCookie, deleteCookie } from "../../shared/Cookie";
 import { api as notiActions } from "./noti";
 import swal from "sweetalert";
+import {addFollowLike,deleteFollowLike} from '../modules/community';
 
 axios.defaults.baseURL = "https://lkj99.shop";
 axios.defaults.headers.common["Authorization"] = `Bearer ${getCookie(
@@ -386,9 +387,12 @@ const othersInfoAX = (id) => {
   };
 };
 
-const followOtherAX = (id) => {
+const followOtherAX = (id, like=false) => {
   return function (dispatch) {
     axios.post(`/bookshelf/addfriend`, { friendId: id }).then((res) => {
+      if(like){
+        dispatch(addFollowLike(id));
+      }
       dispatch(addFollow(id));
 
       swal({
@@ -399,11 +403,14 @@ const followOtherAX = (id) => {
   };
 };
 
-const unfollowOtherAX = (id) => {
+const unfollowOtherAX = (id, like=false) => {
   return function (dispatch) {
     axios
       .delete(`/bookshelf/friend/${id}`)
       .then((res) => {
+        if(like){
+          dispatch(deleteFollowLike(id));
+        }
         dispatch(deleteFollow(id));
         swal({
           title: "정상적으로 취소되었습니다.",

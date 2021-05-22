@@ -145,6 +145,20 @@ const communitySlice = createSlice({
         state.like_list.splice(idx, 1)
       }
     },
+    addFollowLike: (state, action) => {
+      const idx = state.like_list.findIndex(v => v.userId === action.payload);
+      console.log(idx);
+      if(idx !== -1){
+        state.like_list[idx].isFollowing = true;
+      };
+    },
+    deleteFollowLike: (state, action) => {
+      const idx = state.like_list.findIndex(v => v.userId === action.payload);
+      console.log(idx);
+      if(idx !== -1){
+        state.like_list[idx].isFollowing = false;
+      };
+    },
     resetAll: (state) => {
       state.like_page = 1;
       state.like_list = [];
@@ -563,6 +577,8 @@ export const {
   setLikeNext,
   setLikeLoading,
   deleteLikeList,
+  addFollowLike,
+  deleteFollowLike,
   resetAll
 } = communitySlice.actions;
 
