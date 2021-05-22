@@ -155,6 +155,13 @@ font: normal normal bold 14px/20px Noto Sans CJK KR;
 letter-spacing: 0px;
 color: #262626;
 opacity: 1;
+@media(max-width:650px){
+display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 `;
 
 const AnswerContents = styled.div`
@@ -175,6 +182,7 @@ const AnswerContents = styled.div`
   cursor: pointer;
   @media(max-width:650px){
     font-size:12px;
+    -webkit-line-clamp: 2;
   }
 `;
 
