@@ -38,8 +38,8 @@ const friendsSlice = createSlice({
           if (index !== -1){
             state.answer_list[index] = {
               ...state.answer_list[index],
-              like: state.answer_list[index].like? false : true,
-              likeCount: state.answer_list[index].like? state.answer_list[index].likeCount - 1 : state.answer_list[index].likeCount + 1,
+              like: action.payload.like,
+              likeCount: action.payload.likeCount,
             };
           }
       },
@@ -120,6 +120,44 @@ const friendsSlice = createSlice({
         });
     };
   }
+
+  const addLikeFriend = (answerId) => {
+    return function (dispatch, getState) {
+      axios
+        .post("/bookshelf/like/answerCard", { answerCardId: answerId })
+        .then((res) => {
+          dispatch(
+            editFriendLikeInfo({
+              answerId: answerId,
+              likeCount: res.data.likeCountNum,
+              like: res.data.currentLike,
+            })
+          );
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }
+  
+  const deleteLikeFriend = (answerId) => {
+    return function (dispatch, getState) {
+      axios
+        .patch("/bookshelf/like/answerCard", { answerCardId: answerId })
+        .then((res) => {
+          dispatch(
+            editFriendLikeInfo({
+              answerId: answerId,
+              likeCount: res.data.likeCountNum,
+              like: res.data.currentLike,
+            })
+          );
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }
   export const {
     setAnswerList,
     addAnswerList,
@@ -131,7 +169,9 @@ const friendsSlice = createSlice({
 
   export const api = {
     getFriendAnswers,
-    getNextFriendAnswers
+    getNextFriendAnswers,
+    addLikeFriend,
+    deleteLikeFriend
   };
 
   export default friendsSlice.reducer;

@@ -739,7 +739,7 @@ const GotoMobile = styled.button`
 
 const ModalComponent = styled.div`
   /* overflow: hidden; */
-  border-radius: 50px;
+  // border-radius: 50px;
   position: fixed;
   width: 840px;
   height: 500px;
@@ -771,7 +771,7 @@ const ModalContent = styled.div`
     width: 100%;
     ${props => props.type === 'book'? `height:100%`:`height:100%`};
     border: none;
-    border-radius: 20px 20px 0 0;
+    // border-radius: 20px 20px 0 0;
     background: white;
     padding: 0;
     display: flex;
@@ -909,7 +909,7 @@ const ModalRightContainer = styled.div`
   justify-content: space-between;
   background-color: white;
   padding: 25px 0 0 0;
-  border-radius: 0px 50px 50px 0px;
+  // border-radius: 0px 50px 50px 0px;
 `;
 
 const ModalCmtInputBox = styled.div`
