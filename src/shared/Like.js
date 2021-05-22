@@ -3,6 +3,7 @@ import styled from "styled-components";
 import {useDispatch, useSelector} from 'react-redux';
 import swal from 'sweetalert';
 import {api as communityActions} from '../redux/modules/community';
+import {editFriendLikeInfo} from "../redux/modules/friends";
 
 const Like = (props) => {
     const dispatch = useDispatch();
@@ -51,6 +52,11 @@ const Like = (props) => {
         );
         return
       }
+      if (page === "friends") {
+        dispatch(editFriendLikeInfo(answerId));
+        console.log(`friends clicked ${answerId}`)
+        return;
+      }
       dispatch(communityActions.addLikeAX(
         answerId,
         questionId
@@ -91,6 +97,11 @@ const Like = (props) => {
           )
         );
         return
+      }
+      if (page === "friends") {
+        dispatch(editFriendLikeInfo(answerId));
+        console.log(`friends clicked ${answerId}`)
+        return;
       }
       dispatch(communityActions.deleteLikeAX(
         answerId,

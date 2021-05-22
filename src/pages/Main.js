@@ -218,12 +218,12 @@ function Main() {
                 alignItems: "center",
               }}
             >
-              <LeftArrowBtn onClick={turnLeft}>
-                <ArrowBackIosIcon
+              <LeftArrowBtn onClick={turnLeft} src={"https://user-images.githubusercontent.com/77369674/119218353-c430ac00-bb1a-11eb-9f8e-b8f8d447895d.png"}>
+                {/* <ArrowBackIosIcon
                   style={{
                     fontSize: "60px",
                   }}
-                />
+                /> */}
               </LeftArrowBtn>
               <CardContainer>
                 <EachCard className={card_1}>
@@ -236,12 +236,12 @@ function Main() {
                   <Post {...question_list[2]} allChecked={allChecked} />
                 </EachCard>
               </CardContainer>
-              <RightArrowBtn onClick={turnRight}>
-                <ArrowForwardIosIcon
+              <RightArrowBtn onClick={turnRight} src={"https://user-images.githubusercontent.com/77369674/119218351-c430ac00-bb1a-11eb-9f2e-5854b6be524e.png"}>
+                {/* <ArrowForwardIosIcon
                   style={{
                     fontSize: "60px",
                   }}
-                />
+                /> */}
               </RightArrowBtn>
             </LargeCardContainer>
             <DotQueue>
@@ -459,10 +459,10 @@ const CardContainer = styled.div`
   }
 `;
 
-const LeftArrowBtn = styled.button`
+const LeftArrowBtn = styled.img`
   z-index: 2;
-  width: 109px;
-  height: 109px;
+  width: 36px;
+  height: 72px;
   border-radius: 50%;
   outline: none;
   border: none;
@@ -470,7 +470,6 @@ const LeftArrowBtn = styled.button`
   color: black;
   cursor: pointer;
   text-align: center;
-  padding-left: 20px;
   background: none;
 
   @media (max-width: 500px) {
@@ -478,10 +477,10 @@ const LeftArrowBtn = styled.button`
   }
 `;
 
-const RightArrowBtn = styled.button`
+const RightArrowBtn = styled.img`
   z-index: 2;
-  width: 109px;
-  height: 109px;
+  width: 36px;
+  height: 72px;
   border-radius: 50%;
   outline: none;
   border: none;

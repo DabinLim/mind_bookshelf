@@ -58,7 +58,7 @@ const FriendPost = (props) => {
         <AnswerLikes>
           <IconBox>
             <LikeBox>
-            <Like currentLike={props.like} answerId={props._id} page='detail'/>
+            <Like currentLike={props.like} answerId={props._id} page='friends'/>
               <LikeCount>{props.likeCount}</LikeCount>
             </LikeBox>
             <CommentBox>
@@ -74,9 +74,8 @@ const FriendPost = (props) => {
 };
 
 const CardFrame = styled.div`
-  min-width: 272px;
-  max-width: 272px;
-  height: 189px;
+  width: 100%;
+  min-height: 210px;
   display: flex;
   margin-bottom: 40px;
   flex-direction: column;
@@ -87,8 +86,6 @@ const CardFrame = styled.div`
   @media(max-width:750px){
     margin: 20px 20px 20px 0px;
     width:100%;
-    min-width:100%;
-    max-width:100%;
   }
 `;
 
@@ -146,6 +143,7 @@ const CardWriter = styled.span`
 
 const QuestionContents = styled.div`
 text-align: left;
+padding-top: 12px;
 font: normal normal bold 14px/20px Noto Sans CJK KR;
 letter-spacing: 0px;
 color: #262626;
@@ -155,8 +153,8 @@ opacity: 1;
 const AnswerContents = styled.div`
   // max-height: 63px;
   // min-height: 63px;
-  margin-top: 20px;
-  font: normal normal normal 12px/18px Noto Sans CJK KR;
+  margin: 15px 0;
+  font: normal normal normal 13px/18px Noto Sans CJK KR;
   letter-spacing: 0px;
   color: #262626;
   display: -webkit-box;
@@ -185,6 +183,7 @@ const AnswerLikes = styled.div`
 `;
 
 const IconBox = styled.div`
+min-height: 50px;
   display: flex;
   & > div > svg {
     margin-right: 5px;

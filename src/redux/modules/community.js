@@ -3,6 +3,7 @@ import { getCookie } from "../../shared/Cookie";
 import axios from "axios";
 import swal from "sweetalert";
 import { editDetailLikeInfo, deleteMoreview, editMoreviewAnswer } from "./moreview";
+import { ed} from "./friends";
 import {editAnswersLikeInfo} from './custom';
 import { deleteNoti } from "./noti";
 

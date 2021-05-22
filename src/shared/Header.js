@@ -151,7 +151,7 @@ const Header = () => {
                   }}
                   className={bookshelf}
                 >
-                  나의책장
+                  나의 책장
                   <p
                     style={{
                       textAlign: "left",
@@ -163,31 +163,11 @@ const Header = () => {
                   </p>
                 </MenuLi>
                 <MenuLi
-                  onClick={() => {
-                    history.push("/community");
-                    dispatch(setComponent(""));
-                    setMenuOpen(false);
-                  }}
-                  className={community}
-                >
-                  생각의 바다
-                  <p
-                  style={{
-                    textAlign: "left",
-                    fontSize: "11px",
-                    color: "#909090",
-                  }}
-                >
-                  랜덤으로 다양한 질문과 답변 즐기기
-                </p>
-                </MenuLi>
-                <MenuLi
                 onClick={() => {
                   history.push("/friends");
                   dispatch(setComponent(""));
                   setMenuOpen(false);
                 }}
-                style={{ marginBottom: "105px" }}
                 className={friends}
               >
                 너의 생각
@@ -201,7 +181,26 @@ const Header = () => {
                   팔로우한 친구들의 생각 모아보기
                 </p>
               </MenuLi>
-
+              <MenuLi
+                  onClick={() => {
+                    history.push("/community");
+                    dispatch(setComponent(""));
+                    setMenuOpen(false);
+                  }}
+                  className={community}
+                  style={{ marginBottom: "105px" }}
+                >
+                  생각의 바다
+                  <p
+                  style={{
+                    textAlign: "left",
+                    fontSize: "11px",
+                    color: "#909090",
+                  }}
+                >
+                  랜덤으로 다양한 질문과 답변 즐기기
+                </p>
+                </MenuLi>
                 <MenuText
                   onClick={() => {
                     setAboutModal(true);
@@ -300,7 +299,16 @@ const Header = () => {
                 }}
                 className={bookshelf}
               >
-                나의책장
+                나의 책장
+              </PageButton>
+              <PageButton
+                onClick={() => {
+                  history.push("/friends");
+                  dispatch(setComponent(""));
+                }}
+                className={friends}
+              >
+                너의 생각
               </PageButton>
               <PageButton
                 onClick={() => {
@@ -310,15 +318,6 @@ const Header = () => {
                 className={community}
               >
                 생각의 바다
-              </PageButton>
-              <PageButton
-                onClick={() => {
-                  history.push("/friends");
-                  dispatch(setComponent(""));
-                }}
-                className={friends}
-              >
-                너의 생각낙서
               </PageButton>
             </NaviContainer>
             <IconContainer>
@@ -432,7 +431,7 @@ const Header = () => {
                 }}
                 className={bookshelf}
               >
-                나의책장
+                나의 책장
                 <p
                   style={{
                     textAlign: "left",
@@ -445,30 +444,10 @@ const Header = () => {
               </MenuLi>
               <MenuLi
                 onClick={() => {
-                  history.push("/community");
-                  dispatch(setComponent(""));
-                  setMenuOpen(false);
-                }}
-                className={community}
-              >
-                생각의 바다
-                <p
-                  style={{
-                    textAlign: "left",
-                    fontSize: "11px",
-                    color: "#909090",
-                  }}
-                >
-                  랜덤으로 다양한 질문과 답변 즐기기
-                </p>
-              </MenuLi>
-              <MenuLi
-                onClick={() => {
                   history.push("/friends");
                   dispatch(setComponent(""));
                   setMenuOpen(false);
                 }}
-                style={{ marginBottom: "105px" }}
                 className={friends}
               >
                 너의 생각
@@ -482,7 +461,26 @@ const Header = () => {
                   팔로우한 친구들의 생각 모아보기
                 </p>
               </MenuLi>
-
+              <MenuLi
+                onClick={() => {
+                  history.push("/community");
+                  dispatch(setComponent(""));
+                  setMenuOpen(false);
+                }}
+                className={community}
+                style={{ marginBottom: "105px" }}
+              >
+                생각의 바다
+                <p
+                  style={{
+                    textAlign: "left",
+                    fontSize: "11px",
+                    color: "#909090",
+                  }}
+                >
+                  랜덤으로 다양한 질문과 답변 즐기기
+                </p>
+              </MenuLi>
               <MenuText
                 onClick={() => {
                   setAboutModal(true);
@@ -554,16 +552,7 @@ const Header = () => {
               }}
               className={bookshelf}
             >
-              나의책장
-            </PageButton>
-            <PageButton
-              onClick={() => {
-                history.push("/community");
-                dispatch(setComponent(""));
-              }}
-              className={community}
-            >
-              생각의 바다
+              나의 책장
             </PageButton>
             <PageButton
                 onClick={() => {
@@ -574,6 +563,15 @@ const Header = () => {
               >
                 너의 생각
               </PageButton>
+            <PageButton
+              onClick={() => {
+                history.push("/community");
+                dispatch(setComponent(""));
+              }}
+              className={community}
+            >
+              생각의 바다
+            </PageButton>
           </NaviContainer>
           <IconContainer>
             <Icon
