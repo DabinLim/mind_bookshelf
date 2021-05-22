@@ -7,7 +7,7 @@ import {
   setBookDetailModal,
 } from "../../redux/modules/books";
 // import CommentInput from "./CommentInput"
-import { api as communityActions, resetAll, editLikeCardFriend } from "../../redux/modules/community";
+import { api as communityActions, editLikeCardFriend, resetAll} from "../../redux/modules/community";
 import { useDispatch, useSelector } from "react-redux";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import FavoriteIcon from "@material-ui/icons/Favorite";

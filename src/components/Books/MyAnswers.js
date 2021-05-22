@@ -207,91 +207,6 @@ const MyAnswers = (props) => {
                 answer_list.map((v, idx) => {
                   return (
                     <Card key={idx} {...v}>
-                      <Head>
-                        <SubjectBox>
-                          {v.questiontopic?.length &&
-                            v.questiontopic[0] === "사랑" && (
-                              <Subject
-                                style={{
-                                  background: "#FFAAAA",
-                                  boxShadow: "0px 0px 15px #FFAAAA",
-                                }}
-                              >
-                                <span>#사랑</span>
-                              </Subject>
-                            )}
-                          {v.questiontopic?.length &&
-                            v.questiontopic[0] === "우정" && (
-                              <Subject
-                                key={idx}
-                                style={{
-                                  background: "#B9FFC4",
-                                  boxShadow: "0px 0px 15px #B9FFC4",
-                                }}
-                              >
-                                <span>#우정</span>
-                              </Subject>
-                            )}
-                          {v.questiontopic?.length &&
-                            v.questiontopic[0] === "꿈" && (
-                              <Subject
-                                key={idx}
-                                style={{
-                                  background: "#B7E6FF",
-                                  boxShadow: "0px 0px 15px #B7E6FF",
-                                }}
-                              >
-                                <span>#꿈</span>
-                              </Subject>
-                            )}
-                          {v.questiontopic?.length &&
-                            v.questiontopic[0] === "가치" && (
-                              <Subject
-                                key={idx}
-                                style={{
-                                  background: "#B5BDFF",
-                                  boxShadow: "0px 0px 15px #B5BDFF",
-                                }}
-                              >
-                                <span>#가치</span>
-                              </Subject>
-                            )}
-                          {v.questiontopic?.length &&
-                            v.questiontopic[0] === "관계" && (
-                              <Subject
-                                key={idx}
-                                style={{
-                                  background: "#FFF09D",
-                                  boxShadow: "0px 0px 15px #FFF09D",
-                                }}
-                              >
-                                <span>#관계</span>
-                              </Subject>
-                            )}
-                          {v.questiontopic?.length &&
-                            v.questiontopic[0] === "나" && (
-                              <Subject
-                                key={idx}
-                                style={{
-                                  background: "#F9D1FD",
-                                  boxShadow: "0px 0px 15px #F9D1FD",
-                                }}
-                              >
-                                <span>#나</span>
-                              </Subject>
-                            )}
-                        </SubjectBox>
-                        <div
-                          style={{
-                            marginLeft: "10px",
-                            fontWeight: "600",
-                            display: "flex",
-                            alignItems: "center",
-                          }}
-                        >
-                          <span>{v.questionCreatedUserNickname}님의 질문</span>
-                        </div>
-                      </Head>
                       <QuestionContents>{v.questionContents}</QuestionContents>
                       <AnswerContents onClick={()=>{openCard(v)}}>{v.answerContents}</AnswerContents>
                       <Footer>
@@ -335,91 +250,6 @@ const MyAnswers = (props) => {
                 pop_list.map((v, idx) => {
                   return (
                     <Card key={idx} {...v}>
-                      <Head>
-                        <SubjectBox>
-                          {v.questiontopic?.length &&
-                            v.questiontopic[0] === "사랑" && (
-                              <Subject
-                                style={{
-                                  background: "#FFAAAA",
-                                  boxShadow: "0px 0px 15px #FFAAAA",
-                                }}
-                              >
-                                <span>#사랑</span>
-                              </Subject>
-                            )}
-                          {v.questiontopic?.length &&
-                            v.questiontopic[0] === "우정" && (
-                              <Subject
-                                key={idx}
-                                style={{
-                                  background: "#B9FFC4",
-                                  boxShadow: "0px 0px 15px #B9FFC4",
-                                }}
-                              >
-                                <span>#우정</span>
-                              </Subject>
-                            )}
-                          {v.questiontopic?.length &&
-                            v.questiontopic[0] === "꿈" && (
-                              <Subject
-                                key={idx}
-                                style={{
-                                  background: "#B7E6FF",
-                                  boxShadow: "0px 0px 15px #B7E6FF",
-                                }}
-                              >
-                                <span>#꿈</span>
-                              </Subject>
-                            )}
-                          {v.questiontopic?.length &&
-                            v.questiontopic[0] === "가치" && (
-                              <Subject
-                                key={idx}
-                                style={{
-                                  background: "#B5BDFF",
-                                  boxShadow: "0px 0px 15px #B5BDFF",
-                                }}
-                              >
-                                <span>#가치</span>
-                              </Subject>
-                            )}
-                          {v.questiontopic?.length &&
-                            v.questiontopic[0] === "관계" && (
-                              <Subject
-                                key={idx}
-                                style={{
-                                  background: "#FFF09D",
-                                  boxShadow: "0px 0px 15px #FFF09D",
-                                }}
-                              >
-                                <span>#관계</span>
-                              </Subject>
-                            )}
-                          {v.questiontopic?.length &&
-                            v.questiontopic[0] === "나" && (
-                              <Subject
-                                key={idx}
-                                style={{
-                                  background: "#F9D1FD",
-                                  boxShadow: "0px 0px 15px #F9D1FD",
-                                }}
-                              >
-                                <span>#나</span>
-                              </Subject>
-                            )}
-                        </SubjectBox>
-                        <div
-                          style={{
-                            marginLeft: "10px",
-                            fontWeight: "600",
-                            display: "flex",
-                            alignItems: "center",
-                          }}
-                        >
-                          <span>{v.questionCreatedUserNickname}님의 질문</span>
-                        </div>
-                      </Head>
                       <QuestionContents>{v.questionContents}</QuestionContents>
                       <AnswerContents onClick={()=>{openCard(v)}}>{v.answerContents}</AnswerContents>
                       <Footer>
@@ -457,13 +287,12 @@ const MyAnswers = (props) => {
 const Container = styled.section`
   position: relative;
   box-sizing: border-box;
-  padding: 45px 10px 45px 45px;
+  padding: 45px 25px;
   width: 100%;
   height: 100%;
-  max-width: 988px;
+  max-width: 1065px;
   max-height: 632px;
   margin: 50px auto;
-  border-radius: 20px;
   overflow: hidden;
   @media (max-width: 750px) {
     background-image: url('https://user-images.githubusercontent.com/77369674/118459848-1b0f3d80-b737-11eb-8f1a-906da3e390e2.jpeg');
@@ -493,7 +322,7 @@ const Background = styled.div`
 
 const TitleContainer = styled.div`
   box-sizing: border-box;
-  padding-right: 70px;
+  padding: 0px 15px;
   width: 100%;
   height: 60px;
   display: flex;
@@ -512,6 +341,7 @@ const Title = styled.span`
   font-size: 22px;
   font-weight: 400;
   letter-spacing: 0px;
+  
 `;
 
 const TitleContainerMobile = styled.div`
@@ -541,7 +371,6 @@ const EmptyDiv = styled.div`
 
 const CardContainer = styled.section`
   box-sizing: border-box;
-  padding-right: 50px;
   ${(props) => (props.view === "new" ? `width:100%` : `width:0`)};
   ${(props) => (props.view === "new" ? `height:100%` : `height:0`)};
   display: flex;
@@ -560,7 +389,6 @@ const CardContainer = styled.section`
 
 const CardContainerPop = styled.section`
   box-sizing: border-box;
-  padding-right: 50px;
   ${(props) => (props.view === "pop" ? `width:100%` : `width:0`)};
   ${(props) => (props.view === "pop" ? `height:100%` : `height:0`)};
   display: flex;
@@ -582,16 +410,15 @@ const Card = styled.div`
   flex-direction: column;
   width: 100%;
   height: 100%;
-  max-width: 410px;
-  max-height: 230px;
-  min-height: 180px;
-  margin: 0px 20px 25px 0px;
+  max-width: 480px;
+  max-height: 170px;
+  min-height: 170px;
+  margin: 0px 12.5px 25px 12.5px;
   background: #ffffff;
   box-shadow: 0px 0px 20px #0000001a;
   opacity: 0.9;
-  border-radius: 20px;
   box-sizing: border-box;
-  padding: 18px;
+  padding: 15px 0px;
   @media (max-width: 750px) {
     box-shadow: 0px 0px 10px #0000001a;
     padding: 14px 0px 10px 0px;
@@ -602,52 +429,19 @@ const Card = styled.div`
   }
 `;
 
-const Head = styled.div`
-  width: 100%;
-  height: 26px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: flex-start;
-  @media (max-width: 750px) {
-    display: none;
-  }
-`;
-
-const SubjectBox = styled.div`
-  display: flex;
-  flex-direction: row;
-  width: auto;
-  height: 100%;
-  @media (max-width: 750px) {
-    display: none;
-  }
-`;
-
-const Subject = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 63px;
-  height: 26px;
-  opacity: 0.8;
-  border-radius: 45px;
-  font-size: 14px;
-  font-weight: 600;
-`;
-
 const QuestionContents = styled.span`
-  font-size: 15px;
-  font-weight: 600;
+  font: normal normal bold 14px/20px Noto Sans CJK KR;
+  letter-spacing: 0px;
+  color: #262626;
   width: 100%;
-  height: 55px;
-  margin-top: 17px;
+  height: 30px;
   display: -webkit-box;
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
   letter-spacing: 0px;
+  padding:0px 16px;
   @media (max-width: 750px) {
     height: 25px;
     margin-top: 0px;
@@ -657,17 +451,20 @@ const QuestionContents = styled.span`
 `;
 
 const AnswerContents = styled.span`
-  font-size: 15px;
+  font: normal normal normal 13px/19px Noto Sans CJK KR;
+  letter-spacing: 0px;
+  color: #262626; 
   width: 100%;
   height: 100%;
-  margin-top: 13px;
+  margin-top: 7px;
   display: -webkit-box;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
   letter-spacing: 0px;
   cursor:pointer;
+  padding:0px 16px;
   &:hover{
     font-weight:600;
   }
@@ -687,7 +484,7 @@ const Footer = styled.div`
   justify-content: space-between;
   box-sizing: border-box;
   border-top: 1px solid #bbbbbb;
-  padding-top: 13px;
+  padding: 13px 16px 0px 16px;
   margin-top: 10px;
   @media (max-width: 750px) {
     margin-top: 0px;
@@ -721,15 +518,15 @@ const CommentIcon = styled.img`
 `
 
 const LikeCount = styled.span`
-  font-size: 12px;
+  font: normal normal normal 14px/20px Noto Sans CJK KR;
 `;
 
 const CommentCount = styled.span`
-  font-size: 12px;
+  font: normal normal normal 14px/20px Noto Sans CJK KR;
 `;
 
 const CreatedAt = styled.span`
-  font-size: 11px;
+  font: normal normal normal 11px/16px Noto Sans CJK KR;
 `;
 
 const FilterBtnBoxMobile = styled.div`
