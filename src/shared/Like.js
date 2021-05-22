@@ -62,10 +62,13 @@ const Like = (props) => {
         );
         return
       }
+
       if (page === "friends") {
         dispatch(editFriendLikeInfo(answerId));
         console.log(`friends clicked ${answerId}`)
         return;
+      }
+        
       if(page === 'component'){
         dispatch(communityActions.addLikeAX(
           answerId,
@@ -81,7 +84,7 @@ const Like = (props) => {
         )
       );
     }
-  }
+  
 
     const deleteLike = () => {
       if (!is_login) {
@@ -126,6 +129,7 @@ const Like = (props) => {
         dispatch(editFriendLikeInfo(answerId));
         console.log(`friends clicked ${answerId}`)
         return;
+      }
       if(page === 'component'){
         dispatch(communityActions.deleteLikeAX(
           answerId,
@@ -141,7 +145,6 @@ const Like = (props) => {
         )
       );
     }
-  }
     
         return (<React.Fragment>
         {currentLike? <LikeIcon {...styles} src="https://user-images.githubusercontent.com/77369674/118684666-5f850100-b83d-11eb-884e-cb0ffbb34dca.png" 
