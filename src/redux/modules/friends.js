@@ -31,7 +31,7 @@ const friendsSlice = createSlice({
       editFriendLikeInfo: (state, action) => {
         console.log(action.payload);
         let index = state.answer_list.findIndex(
-          (a) => a._id === action.payload
+          (a) => a._id === action.payload._id
         );
         console.log(index);
   
@@ -46,8 +46,9 @@ const friendsSlice = createSlice({
       editFriendCommentInfo: (state, action) => {
         let decision = action.payload.decision;
         let index = state.answer_list.findIndex(
-          (a) => a.answerId === action.payload.answerId
+          (a) => a._id === action.payload._id
         );
+        console.log(index);
   
         if (decision === "add") {
           state.answer_list[index] = {
@@ -128,7 +129,7 @@ const friendsSlice = createSlice({
         .then((res) => {
           dispatch(
             editFriendLikeInfo({
-              answerId: answerId,
+              _id: answerId,
               likeCount: res.data.likeCountNum,
               like: res.data.currentLike,
             })
@@ -147,7 +148,7 @@ const friendsSlice = createSlice({
         .then((res) => {
           dispatch(
             editFriendLikeInfo({
-              answerId: answerId,
+              _id: answerId,
               likeCount: res.data.likeCountNum,
               like: res.data.currentLike,
             })

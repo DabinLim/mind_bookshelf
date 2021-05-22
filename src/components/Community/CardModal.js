@@ -7,7 +7,8 @@ import {
   setBookDetailModal,
 } from "../../redux/modules/books";
 // import CommentInput from "./CommentInput"
-import { api as communityActions } from "../../redux/modules/community";
+import { api as communityActions, editLikeCardFriend } from "../../redux/modules/community";
+import { api as communityActions, resetAll } from "../../redux/modules/community";
 import { useDispatch, useSelector } from "react-redux";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import FavoriteIcon from "@material-ui/icons/Favorite";
@@ -29,6 +30,8 @@ import ChannelService from "../../shared/ChannelService";
 import Like from '../../shared/Like';
 import Subject from '../../shared/Subject';
 import { CenterFocusStrong } from "@material-ui/icons";
+import {editFriendCommentInfo} from "../../redux/modules/friends";
+import LikeModal from './LikeModal';
 
 
 const CardModal = (props) => {
@@ -58,14 +61,27 @@ const CardModal = (props) => {
   const id = url[url.length - 1];
   const others = url[url.length-2];
   const component = useSelector(state => state.books.component);
+  const currentLocation = useSelector(state => state.router.location.pathname);
+  console.log(currentLocation);
+  const like_list = useSelector(state => state.community.like_list);
+  const [likeModal, setLikeModal] = React.useState(false);
+  const container = React.useRef();
+
+  const closeModal = () => {
+    setLikeModal(false);
+  };
 
 
   React.useEffect(() => {
     if(component === 'myanswers' || 'othersanswers'){
       setPage('component');
     }
+    if (currentLocation === "/friends") {
+      setPage('friends');
+    }
     ChannelService.shutdown();
     return () => {
+      dispatch(resetAll());
       ChannelService.boot({
         pluginKey: "1e06f0ed-5da8-42f4-bb69-7e215b14ec18",
       });
@@ -100,7 +116,9 @@ const CardModal = (props) => {
   };
 
   const selectedCard = (id) => {
+    dispatch(resetAll())
     dispatch(communityActions.getCardDetail(id, "book"));
+    dispatch(communityActions.getLikeList(id));
     dispatch(commentActions.getCommentAX(id));
   };
 
@@ -283,6 +301,9 @@ const CardModal = (props) => {
         answerInfo?.questionId
       )
     );
+    if (currentLocation === "/friends") {
+      dispatch(editFriendCommentInfo({_id: answerInfo?.answerId, decision: "add"}))
+    }
     setComments("");
   };
 
@@ -600,6 +621,22 @@ const CardModal = (props) => {
                 </CardAnswerContent>
               )}
             </CardWriteLeftBody>
+            {like_list.length ? 
+                
+                <LikeList>
+                    {likeModal? <LikeModal web answerId={answerInfo.answerId} container={container} close={closeModal}/>:null}
+                    {like_list.length > 1 ? 
+                    <LikePeople onClick={()=>{setLikeModal(true)}}>
+                        <span style={{fontWeight:'600'}}>{like_list[0].nickname}</span>님 외 <span style={{fontWeight:'600'}}>{answerInfo?.likeCount -1}</span>명이 좋아합니다.
+                    </LikePeople> :
+                    <LikePeople onClick={()=>{setLikeModal(true)}}>
+                        <span style={{fontWeight:'600'}}>
+                        {like_list[0].nickname}
+                        </span>님이 좋아합니다.
+                    </LikePeople>
+                    }
+                </LikeList>
+                :<LikeList><span>아직 좋아요가 없습니다.</span></LikeList>}
             <IconContainer type={answerInfo?.type}>
               <IconBox>
                 <LikeContainer>
@@ -685,6 +722,20 @@ const CardModal = (props) => {
     </React.Fragment>
   );
 };
+
+const LikeList = styled.div`
+    display:flex;
+    flex-direction:row;
+    align-items:center;
+    justify-content:flex-start;
+    padding-left: 24px;
+    border-bottom:0.5px solid #D3D3D3;
+`;
+
+const LikePeople = styled.span`
+    font-size:14px;
+    cursor:pointer;
+`;
 
 const Component = styled.div`
   position: fixed;
@@ -804,7 +855,7 @@ const GoBackBtn = styled.span`
 `;
 
 const CardWriteLeftBody = styled.div`
-  min-height: 50%;
+  min-height: 45%;
   max-height: 50%;
   border-bottom: 1px solid #efefef;
   box-sizing: border-box;

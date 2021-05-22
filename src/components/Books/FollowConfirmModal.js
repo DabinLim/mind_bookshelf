@@ -21,6 +21,15 @@ const FollowConfirmModal = (props) => {
         <Body>
           <Button 
             onClick={() => {
+              if(props.like){
+                dispatch(
+                  userActions.followOtherAX(
+                    props.id,props.like
+                  )
+                );
+                props.setFollowModal(false);
+                return
+              }
               dispatch(
                 userActions.followOtherAX(
                   props.id,

@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { time } from "../../shared/Time";
 import { useDispatch } from "react-redux";
 import { api as commentActions } from "../../redux/modules/comment";
-import { api as communityActions } from "../../redux/modules/community";
+import { api as communityActions, resetAll } from "../../redux/modules/community";
 import { history } from "../../redux/configStore";
 
 const Noti = (props) => {
@@ -44,7 +44,9 @@ const Noti = (props) => {
       }
       const type = "noti";
       props.close();
+      dispatch(resetAll);
       dispatch(communityActions.getCardDetail(props.cardId, type));
+      dispatch(communityActions.getLikeList(props.cardId));
       dispatch(commentActions.getCommentAX(props.cardId));
       props.setCardModal(true);
     }

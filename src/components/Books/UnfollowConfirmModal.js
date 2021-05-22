@@ -20,6 +20,15 @@ const UnfollowConfirmModal = (props) => {
         <Body>
           <Button 
             onClick={() => {
+              if(props.like){
+                dispatch(
+                  userActions.unfollowOtherAX(
+                    props.id,props.like
+                  )
+                );
+                props.setUnfollowModal(false);
+                return
+              }
               dispatch(
                 userActions.unfollowOtherAX(
                   props.id,

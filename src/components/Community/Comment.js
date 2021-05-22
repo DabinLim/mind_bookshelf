@@ -7,12 +7,15 @@ import reactStringReplace from "react-string-replace";
 import { DeleteOutlined } from "@ant-design/icons";
 import swal from 'sweetalert';
 import { time } from "../../shared/Time";
+import {editFriendCommentInfo} from "../../redux/modules/friends";
 
 const Comment = (props) => {
   const dispatch = useDispatch();
   const is_login = useSelector(state => state.user.is_login);
   const userInfo = useSelector((state) => state.user.user);
   const answerInfo = useSelector((state) => state.community.card_detail);
+  const currentLocation = useSelector(state => state.router.location.pathname);
+  console.log(currentLocation);
 
   const deleteComment = () => {
     if (!is_login) {
@@ -30,6 +33,9 @@ const Comment = (props) => {
         answerInfo?.answerId
       )
     );
+    if (currentLocation === "/friends") {
+      dispatch(editFriendCommentInfo({_id: answerInfo?.answerId, decision: "unadd"}))
+    }
   };
   
   const addLike = () => {

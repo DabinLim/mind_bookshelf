@@ -54,6 +54,14 @@ const communitySlice = createSlice({
         like: action.payload.like,
       };
     },
+    editLikeCardFriend: (state, action) => {
+      let decision = action.payload.decision;
+      state.card_detail = {
+        ...state.card_detail,
+        likeCount: decision === "like"? state.card_detail.likeCount + 1 : state.card_detail.likeCount - 1 ,
+        like: decision === "like"? true : false,
+      };
+    },
     editLikeInfo: (state, action) => {
       let idx = state.question.findIndex(
         (q) => q.id === action.payload.questionId
@@ -140,9 +148,24 @@ const communitySlice = createSlice({
           return v
         }
       })
+      console.log(idx)
       if(idx !== -1){
-        state.like_list.pop(idx);
+        state.like_list.splice(idx, 1)
       }
+    },
+    addFollowLike: (state, action) => {
+      const idx = state.like_list.findIndex(v => v.userId === action.payload);
+      console.log(idx);
+      if(idx !== -1){
+        state.like_list[idx].isFollowing = true;
+      };
+    },
+    deleteFollowLike: (state, action) => {
+      const idx = state.like_list.findIndex(v => v.userId === action.payload);
+      console.log(idx);
+      if(idx !== -1){
+        state.like_list[idx].isFollowing = false;
+      };
     },
     resetAll: (state) => {
       state.like_page = 1;
@@ -329,7 +352,12 @@ const addLikeAX = (answerId, questionId) => {
               like: res.data.currentLike,
             })
           );
-        } else {
+        } 
+        else if (type === "friends") {
+          dispatch(editLikeCard({likeCount: res.data.likeCountNum,
+            like: res.data.currentLike}))
+        }
+        else {
           dispatch(
             editLikeCard({
               likeCount: res.data.likeCountNum,
@@ -386,7 +414,12 @@ const deleteLikeAX = (answerId, questionId) => {
               like: res.data.currentLike,
             })
           );
-        } else {
+        } 
+        else if (type === "friends") {
+          dispatch(editLikeCard({likeCount: res.data.likeCountNum,
+            like: res.data.currentLike}))
+        }
+        else {
           dispatch(
             editLikeCard({
               likeCount: res.data.likeCountNum,
@@ -547,6 +580,7 @@ export const {
   setCardLoading,
   setCardDetail,
   editLikeCard,
+  editLikeCardFriend,
   editCommentInfo,
   changeType,
   deleteAnswer,
@@ -561,6 +595,8 @@ export const {
   setLikeNext,
   setLikeLoading,
   deleteLikeList,
+  addFollowLike,
+  deleteFollowLike,
   resetAll
 } = communitySlice.actions;
 
