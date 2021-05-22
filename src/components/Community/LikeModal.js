@@ -17,9 +17,7 @@ const LikeModal = (props) => {
   const is_loading = useSelector(state => state.community.like_loading);
   const container = React.useRef();
   const url = window.location.href;
-  console.log(ref);
   const wtf = document.getElementById('likelist');
-  console.log(wtf);
 
   const clickOther = (id) => {
     history.push(`/others/${id}`);
