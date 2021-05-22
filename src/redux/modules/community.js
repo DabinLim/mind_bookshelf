@@ -20,11 +20,17 @@ const communitySlice = createSlice({
     is_loading: true,
     card_loading: true,
     card_detail: {},
+
     topic : [],
     topic_loading: false,
     topic_page: 1,
     topic_next: false,
     
+    topicLike : [],
+    topicLike_loading: false,
+    topicLike_page: 1,
+    topicLike_next: false,
+
     like_list: [],
     like_loading: true,
     like_page: 1,
@@ -122,11 +128,26 @@ const communitySlice = createSlice({
     editTopicNext : (state, action) => {
       state.topic_next = action.payload;
     },
+    addTopicLike : (state, action) => {
+      state.topicLike.push(...action.payload)
+      state.topicLike_page += 1;
+      state.topicLike_loading = false;
+    },
+    setTopicLikeLoading : (state, action) => {
+      state.topicLike_loading = action.payload;
+    },
+    editTopicLikeNext : (state, action) => {
+      state.topicLike_next = action.payload;
+    },
     resetTopicInfo: (state) => {
       state.topic = [];
+      state.topicLike = [];
       state.topic_page = 1;
+      state.topicLike_page = 1;
       state.topic_loading = false;
+      state.topicLike_loading = false;
       state.topic_next = false;
+      state.topicLike_next = false;
     },
     setLikeList: (state, action) => {
       action.payload.forEach(v => {
@@ -513,19 +534,61 @@ const editAnswerAX = (answer) => {
   }
 }
 
-const getTopicQuestion = (topic) => {
+const getTopicQuestion = (topic, type) => {
+  return function (dispatch, getState) {
+    if(type === "new"){
+      dispatch(setTopicLoading(true));
+      const page = getState().community.topic_page;
+      axios
+        .get(`/topic/${encodeURIComponent(topic)}?page=${page}`)
+        .then((res) => {
+          console.log(res)
+          dispatch(addTopic(res.data.result))
+          if(res.data.result.length === 15){
+            dispatch(editTopicNext(true));
+          }else{
+            dispatch(editTopicNext(false));
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+    }else{
+      dispatch(setTopicLikeLoading(true));
+      const page = getState().community.topicLike_page;
+      axios
+        .get(`/topic/like/${encodeURIComponent(topic)}?page=${page}`)
+        .then((res) => {
+          console.log(res)
+          dispatch(addTopicLike(res.data.result))
+          if(res.data.result.length === 15){
+            dispatch(editTopicLikeNext(true));
+          }else{
+            dispatch(editTopicLikeNext(false));
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+    }
+
+
+  }
+}
+
+const getTopicLikeQuestion = (topic) => {
   return function (dispatch, getState) {
     dispatch(setTopicLoading(true));
-    const page = getState().community.topic_page;
+    const page = getState().community.topicLike_page;
     axios
-      .get(`/topic/${encodeURIComponent(topic)}?page=${page}`)
+      .get(`/topic/like/${encodeURIComponent(topic)}?page=${page}`)
       .then((res) => {
         console.log(res)
-        dispatch(addTopic(res.data.result))
+        dispatch(addTopicLike(res.data.result))
         if(res.data.result.length === 15){
-          dispatch(editTopicNext(true));
+          dispatch(editTopicLikeNext(true));
         }else{
-          dispatch(editTopicNext(false));
+          dispatch(editTopicLikeNext(false));
         }
       })
       .catch((err) => {
@@ -533,6 +596,7 @@ const getTopicQuestion = (topic) => {
       })
   }
 }
+
 
 const getLikeList = (id) => {
   return function(dispatch, getState){
@@ -597,7 +661,10 @@ export const {
   deleteLikeList,
   addFollowLike,
   deleteFollowLike,
-  resetAll
+  resetAll,
+  addTopicLike,
+  setTopicLikeLoading,
+  editTopicLikeNext
 } = communitySlice.actions;
 
 export const api = {
@@ -614,7 +681,8 @@ export const api = {
   addLikeAnswers,
   deleteLikeAnswers,
   getTopicQuestion,
-  getLikeList
+  getLikeList,
+  getTopicLikeQuestion
 };
 
 export default communitySlice.reducer;

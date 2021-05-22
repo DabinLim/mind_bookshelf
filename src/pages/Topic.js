@@ -4,6 +4,8 @@ import {useDispatch, useSelector} from 'react-redux'
 import {api as communityActions, resetTopicInfo} from '../redux/modules/community'
 import {history} from '../redux/configStore'
 import InfinityScroll from '../shared/InfinityScroll'
+import { LeftOutlined } from "@ant-design/icons";
+import {CheckOutlined} from "@ant-design/icons";
 
 
 
@@ -11,12 +13,19 @@ const Topic = (props) => {
   const topic = props.match.params.topic;
   const dispatch = useDispatch();
   const topic_info = useSelector((state) => state.community.topic)
+  const topicLike_info = useSelector((state) => state.community.topicLike)
   const next = useSelector((state) => state.community.topic_next)
+  const nextLike = useSelector((state) => state.community.topicLike_next)
   const is_loading = useSelector((state) => state.community.topic_loading)
+  const is_loadingLike = useSelector((state) => state.community.topicLike_loading)
   const container = React.useRef();
+  const containerLike = React.useRef();
+  const [type, setType] = React.useState('like')
+  const [typeModal, setTypeModal] = React.useState(false);
 
   React.useEffect(() => {
-    dispatch(communityActions.getTopicQuestion(topic))
+    dispatch(communityActions.getTopicQuestion(topic, "like"))
+    dispatch(communityActions.getTopicQuestion(topic, "new"))
     return () => {
       dispatch(resetTopicInfo())
     };
@@ -52,16 +61,147 @@ const Topic = (props) => {
               </TopicText>
               <HeaderBox>
                 <HeaderText>질문카드 결과</HeaderText>
+                {type === "like" ? 
                 <HeaderRight>
-                  <HeaderRightText>인기순</HeaderRightText>
-                  <HeaderRightText>최신순</HeaderRightText>
+                  <HeaderRightText style={{fontWeight:"bold"}} >
+                  <span style={{fontSize:"18px"}} >•</span> &nbsp; <span>인기순</span> 
+                  </HeaderRightText>
+                  <HeaderRightText onClick={()=>{
+                    setType('new')
+                  }}>
+                    최신순
+                  </HeaderRightText>
                 </HeaderRight>
+                :
+                <HeaderRight>
+                  <HeaderRightText onClick={()=>{
+                    setType('like')
+                  }}>
+                    인기순
+                  </HeaderRightText>
+                  <HeaderRightText style={{fontWeight:"bold"}}>
+                  <span style={{fontSize:"18px"}} >•</span> &nbsp; <span>최신순</span> 
+                  </HeaderRightText>
+                </HeaderRight>
+                }
+                <HeaderRightMobile>
+                  {typeModal? 
+                    <HeaderRightModal>
+                      {type === "like"?
+                      <> 
+                      <ModalText 
+                        style={{borderBottom: "0.5px solid #D3D4D3", fontWeight:"bold"}} >
+                        인기순
+                      </ModalText>
+                      <ModalText 
+                        onClick={()=>{setType("new"); setTypeModal(false);}} 
+                      >
+                        최신순
+                      </ModalText>
+                      </>
+                      :
+                      <>
+                      <ModalText 
+                        style={{borderBottom: "0.5px solid #D3D4D3"}}
+                        onClick={()=>{setType("like"); setTypeModal(false);}}
+                      >
+                        인기순
+                      </ModalText>
+                      <ModalText style={{fontWeight:"bold"}} >
+                        최신순
+                      </ModalText>
+                      </>
+                      }
+                    </HeaderRightModal>
+                  :null}
+                  {type === "like"? 
+                  <HeaderRightText onClick={()=>{
+                    if(!typeModal){
+                      setTypeModal(true);
+                    }else{
+                      setTypeModal(false);
+                    }
+                  }}>인기순</HeaderRightText>
+                  :
+                  <HeaderRightText onClick={()=>{
+                    if(!typeModal){
+                      setTypeModal(true);
+                    }else{
+                      setTypeModal(false);
+                    }
+                  }} >최신순</HeaderRightText>
+                  }
+                  {typeModal?
+                  <LeftOutlined
+                    style={{
+                      color: "black",
+                      fontSize: "12px",
+                      transform:'rotateZ(90deg)',
+                      marginLeft:'5px'
+                    }}
+                  />
+                  :
+                  <LeftOutlined
+                    style={{
+                      color: "black",
+                      fontSize: "12px",
+                      transform:'rotateZ(270deg)',
+                      marginLeft:'5px'
+                    }}
+                  />
+                  }
+
+                </HeaderRightMobile>
               </HeaderBox>
             </Header>
-            <Body ref={container} >
+            {type === "like"? 
+            <BodyLike ref={containerLike} >
+            <InfinityScroll
+              callNext={() => {
+                // if(type === "like"){
+                //   dispatch(communityActions.getTopicLikeQuestion(topic))
+                // }else{
+                //   dispatch(communityActions.getTopicQuestion(topic))
+                // }
+                dispatch(communityActions.getTopicQuestion(topic, type))
+              }}
+              is_next={nextLike}
+              loading={is_loadingLike}
+              ref_value={containerLike}
+              modal
+              height={100}
+            >
+              {topicLike_info.map((t) => {
+                return(
+                  <Card>
+                    <div>
+                      <UserInfo onClick={() => {history.push(`/others/${t.createdUserId}`)}} >
+                        <UserProfileImg src={t.createdUserProfileImg} />
+                        <UserNickname>{t.createdUserNickname}</UserNickname>
+                      </UserInfo>
+                      <QuestionContent onClick={() => {history.push(`/community/${t.questionId}`)}} >
+                        {t.contents}
+                      </QuestionContent>
+                    </div>
+                    <AnswerCount>
+                      <div>{t.answerCount}명 낙서중</div>
+                      <div>{t.createdAt.substring(6,7)}월 {t.createdAt.substring(8,10)}일</div>
+                    </AnswerCount>
+                  </Card>
+                )
+              })}
+            </InfinityScroll>
+            </BodyLike>
+            :
+            <Body ref={container}>
               <InfinityScroll
                 callNext={() => {
-                  dispatch(communityActions.getTopicQuestion(topic))
+                  // if(type === "like"){
+                  //   dispatch(communityActions.getTopicLikeQuestion(topic))
+                  // }else{
+                  //   dispatch(communityActions.getTopicQuestion(topic))
+                  // }
+                  dispatch(communityActions.getTopicQuestion(topic, type))
                 }}
                 is_next={next}
                 loading={is_loading}
@@ -90,6 +230,7 @@ const Topic = (props) => {
                 })}
               </InfinityScroll>
             </Body>
+            }
           </Container>
         </TopicBox>
       </TopicContainer>
@@ -108,10 +249,10 @@ const TopicContainer = styled.div`
   background-repeat: no-repeat;
   background-image: url("https://user-images.githubusercontent.com/77369674/118459848-1b0f3d80-b737-11eb-8f1a-906da3e390e2.jpeg");
 
-  @media (max-width: 650px) {
-  }
+
   @media (max-width: 500px) {
     margin: 50px 0px 0px 0px;
+    height: 100%;
 }
 `
 
@@ -127,10 +268,13 @@ const TopicBox = styled.div`
   justify-content: space-between;
   align-items: center;
   overflow-y: auto;
+  @media (max-width: 500px) {
+    
+  }
 `
 
 const Container = styled.div`
-  width: 800px;
+  width: 330px;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -139,7 +283,7 @@ const Container = styled.div`
   margin: auto;
   
 
-  @media (max-width: 600px) {
+  @media (max-width: 500px) {
     padding: 30px 0 0 0;
   }
 `
@@ -170,7 +314,7 @@ overflow-y: auto;
   background-color: #ffffff; /* color of the scroll thumb */
   border-radius: 20px; /* roundness of the scroll thumb */
 }
-@media (max-width: 650px) {
+@media (max-width: 500px) {
   ::-webkit-scrollbar {
     display: none;
   }
@@ -184,7 +328,45 @@ overflow-y: auto;
   }
   width: 100%;
   padding: 0;
-  max-height: 649px;
+  flex-wrap: nowrap;
+  flex-direction: column;
+}
+`
+const BodyLike = styled.div`
+box-sizing: border-box;
+padding: 15px 0;
+width: 100%;
+display: flex;
+flex-wrap: wrap;
+overflow-y: auto;
+::-webkit-scrollbar {
+  width: 10px; /* width of the entire scrollbar */
+}
+
+::-webkit-scrollbar-track {
+  background: none; /* color of the tracking area */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #ffffff; /* color of the scroll thumb */
+  border-radius: 20px; /* roundness of the scroll thumb */
+}
+@media (max-width: 500px) {
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: none; /* color of the tracking area */
+  }
+
+  ::-webkit-scrollbar-thumb {
+    display: none;
+  }
+  width: 100%;
+  padding: 0;
+  flex-wrap: nowrap;
+  flex-direction: column;
 }
 `
 
@@ -199,9 +381,10 @@ const Card = styled.div`
   box-shadow: 0px 0px 20px #0000001A;
 
   @media (max-width: 500px) {
-    width: 150px;
-    height: 140px;
-    margin: 0px 15px 30px 0px;  
+    width: 326px;
+    min-height: 120px;
+    max-height: 120px;
+    margin: 0px 15px 16px 0px;  
   }
 `
 
@@ -215,7 +398,8 @@ const AnswerCount = styled.div`
   justify-content: space-between;
   align-items: center;
   @media (max-width: 500px) {
-    padding: 0 10px 0 10px;
+    padding: 0 12px 0 12px;
+    height: 30px;
   }
 `
 
@@ -226,7 +410,7 @@ const UserInfo = styled.div`
   align-items: center;
   margin: 14px 15px 10px 15px;
   @media (max-width: 500px) {
-    margin: 10px;
+    margin: 12px 12px 6px 12px;
   }
 `
 
@@ -239,23 +423,21 @@ const UserProfileImg = styled.img`
 `
 const UserNickname = styled.div`
 font: normal normal bold 12px/17px Noto Sans CJK KR;
+@media (max-width: 500px) {
+  font: normal normal bold 11px/16px Noto Sans CJK KR;
+}
 `
 
 const QuestionContent = styled.div`
   margin: 0 15px 0 15px;
-  // display: -webkit-box;
-  // -webkit-line-clamp: 3;
-  // -webkit-box-orient: vertical;
-  // overflow: hidden;
-  // text-overflow: ellipsis;
   font: normal normal bold 14px/20px Noto Sans CJK KR;
   cursor:pointer;
   &:hover {
     font-weight: bold;
   };
   @media (max-width: 500px) {
-    margin: 0 10px 0 10px;
-    -webkit-line-clamp: 2;
+    margin: 0 12px 0 12px;
+    font: normal normal bold 13px/19px Noto Sans CJK KR;
   }
 `
 
@@ -270,6 +452,9 @@ const HeaderBox = styled.div`
 const HeaderText = styled.div`
   font: normal normal 800 26px/38px NanumMyeongjo;
   color: #262626;
+  @media (max-width: 500px) {
+    font: normal normal 800 19px/27px NanumMyeongjo;
+  }
 `
 
 const HeaderRight = styled.div`
@@ -277,12 +462,46 @@ const HeaderRight = styled.div`
   align-items: center;
   font: normal normal normal 13px/19px Noto Sans CJK KR;
   margin-right: 40px;
+  @media (max-width: 500px) {
+    display: none;
+  }
 `
 
+const HeaderRightMobile = styled.div`
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-right: 5px;
+  font: normal normal medium 12px/17px Noto Sans CJK KR;
+  @media (min-width: 500px) {
+    display: none;
+  }
+`
 
 const HeaderRightText = styled.div`
+  display: flex;
+  align-items: center;
   margin-left: 10px;
   cursor: pointer;
+`
+
+const HeaderRightModal = styled.div`
+  position: absolute;
+  top:35px;
+  right:0;
+  z-index: 10;
+  width: 120px;
+  height: 80px;
+  background-color: white;
+  box-shadow: 0px 0px 20px #00000026;
+`
+
+const ModalText = styled.div`
+display: flex;
+justify-content: center;
+align-items: center;
+height: 40px;
+font: normal normal medium 14px/20px Noto Sans CJK KR;
 `
 
 const TopicText = styled.div`
@@ -298,6 +517,11 @@ const TopicText = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  @media (max-width: 500px) {
+    min-width: 58px;
+    max-width: 58px;
+    height: 25px;
+  }
 `
 
 export default Topic
