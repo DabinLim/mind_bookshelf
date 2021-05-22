@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { CommunityQnA } from "../components/Community/communityindex";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
-import { api as communityActions } from "../redux/modules/community";
+import { api as communityActions,resetAll } from "../redux/modules/community";
 import Loader from "react-loader-spinner";
 import { setLoading } from "../redux/modules/community";
 import ReplayIcon from "@material-ui/icons/Replay";
@@ -30,7 +30,9 @@ const Community = () => {
     }
     const type = "community";
     setCardModal(true);
+    dispatch(resetAll());
     dispatch(communityActions.getCardDetail(a.answerId, type));
+    dispatch(communityActions.getLikeList(a.answerId));
     dispatch(commentActions.getCommentAX(a.answerId));
   };
 

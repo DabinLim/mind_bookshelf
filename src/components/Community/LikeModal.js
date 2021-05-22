@@ -33,7 +33,7 @@ const LikeModal = (props) => {
       {UnfollowModal? 
         <UnfollowConfirmModal setUnfollowModal={setUnfollowModal} id={userId} />
       :null}
-      <Background onClick={props.close} />
+      <Background web={props.web} onClick={props.close} />
       <FollowContainer>
         <div
           style={{
@@ -180,10 +180,11 @@ const Background = styled.div`
   top: 0;
   left: 0;
   opacity: 0.4;
-  height: 100vh;
-  width: 100vw;
-  background-color: black;
+  height: 100%;
+  width: 100%;
+  background-color:black;
   z-index: 20;
+
 `;
 const UserText = styled.div`
   margin: auto;

@@ -7,7 +7,7 @@ import {
   setBookDetailModal,
 } from "../../redux/modules/books";
 // import CommentInput from "./CommentInput"
-import { api as communityActions } from "../../redux/modules/community";
+import { api as communityActions, resetAll } from "../../redux/modules/community";
 import { useDispatch, useSelector } from "react-redux";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import FavoriteIcon from "@material-ui/icons/Favorite";
@@ -69,13 +69,12 @@ const CardModal = (props) => {
 
 
   React.useEffect(() => {
-    console.log(answerInfo.answerId)
-    dispatch(communityActions.getLikeList(answerInfo.answerId));
     if(component === 'myanswers' || 'othersanswers'){
       setPage('component');
     }
     ChannelService.shutdown();
     return () => {
+      dispatch(resetAll());
       ChannelService.boot({
         pluginKey: "1e06f0ed-5da8-42f4-bb69-7e215b14ec18",
       });
@@ -110,7 +109,9 @@ const CardModal = (props) => {
   };
 
   const selectedCard = (id) => {
+    dispatch(resetAll())
     dispatch(communityActions.getCardDetail(id, "book"));
+    dispatch(communityActions.getLikeList(id));
     dispatch(commentActions.getCommentAX(id));
   };
 
@@ -613,7 +614,7 @@ const CardModal = (props) => {
             {like_list.length ? 
                 
                 <LikeList>
-                    {likeModal? <LikeModal answerId={id} container={container} close={closeModal}/>:null}
+                    {likeModal? <LikeModal web answerId={answerInfo.answerId} container={container} close={closeModal}/>:null}
                     {like_list.length > 1 ? 
                     <LikePeople onClick={()=>{setLikeModal(true)}}>
                         <span style={{fontWeight:'600'}}>{like_list[0].nickname}</span>님 외 <span style={{fontWeight:'600'}}>{answerInfo?.likeCount -1}</span>명이 좋아합니다.
@@ -625,7 +626,7 @@ const CardModal = (props) => {
                     </LikePeople>
                     }
                 </LikeList>
-                :''}
+                :<LikeList><span>아직 좋아요가 없습니다.</span></LikeList>}
             <IconContainer type={answerInfo?.type}>
               <IconBox>
                 <LikeContainer>
@@ -843,7 +844,7 @@ const GoBackBtn = styled.span`
 `;
 
 const CardWriteLeftBody = styled.div`
-  min-height: 50%;
+  min-height: 45%;
   max-height: 50%;
   border-bottom: 1px solid #efefef;
   box-sizing: border-box;

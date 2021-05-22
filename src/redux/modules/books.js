@@ -179,6 +179,7 @@ const getNextDetail = (date) => {
             const book_detail = getState().books.book_detail
             
             dispatch(communityActions.getCardDetail(book_detail[0].answerId,'book'))
+            dispatch(communityActions.getLikeList(book_detail[0].answerId))
             dispatch(commentActions.getCommentAX(book_detail[0].answerId))
             dispatch(setBookLoading(false))
         }).catch((err) => {
@@ -211,6 +212,7 @@ const getPreviousDetail = (date) => {
             const book_detail = getState().books.book_detail
             
             dispatch(communityActions.getCardDetail(book_detail[book_detail.length-1].answerId,'book'))
+            dispatch(communityActions.getLikeList(book_detail[book_detail.length-1].answerId))
             dispatch(commentActions.getCommentAX(book_detail[book_detail.length-1].answerId))
             dispatch(setBookLoading(false))
         }).catch((err) => {
@@ -310,6 +312,7 @@ const getNextOthersBookDetail = (date,id) => {
             const book_detail = getState().books.book_detail
             
             dispatch(communityActions.getCardDetail(book_detail[0].answerId,'book'))
+            dispatch(communityActions.getLikeList(book_detail[0].answerId))
             dispatch(commentActions.getCommentAX(book_detail[0].answerId))
             dispatch(setBookLoading(false));
         }).catch((err) => {
@@ -346,6 +349,7 @@ const getPreviousOthersBookDetail = (date,id) => {
             const book_detail = getState().books.book_detail
             
             dispatch(communityActions.getCardDetail(book_detail[book_detail.length-1].answerId,'book'))
+            dispatch(communityActions.getLikeList(book_detail[book_detail.length-1].answerId))
             dispatch(commentActions.getCommentAX(book_detail[book_detail.length-1].answerId))
             dispatch(setBookLoading(false));
         }).catch((err) => {
