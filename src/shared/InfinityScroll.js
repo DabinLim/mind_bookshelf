@@ -29,11 +29,11 @@ const InfinityScroll = (props) => {
             return
         }
 
-        const {clientHeight} = props.ref_value.current;
-        const {scrollHeight} = props.ref_value.current;
+        const {clientHeight} = props.ref_value;
+        const {scrollHeight} = props.ref_value;
   
         // 브라우저마다 document에 접근해서 scrollTop을 가지고 오는 방법이 다름
-        const {scrollTop} = props.ref_value.current;
+        const {scrollTop} = props.ref_value;
         // (document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop;
    
         if(scrollHeight - clientHeight - scrollTop < 100) {

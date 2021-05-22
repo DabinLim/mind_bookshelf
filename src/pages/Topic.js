@@ -90,7 +90,6 @@ const TopicContainer = styled.div`
 `
 
 const TopicBox = styled.div`
-margin: auto;
 margin-top: 50px;
 width: 100%;
 padding: 40px 50px;
