@@ -5,14 +5,24 @@ import { api as commentActions } from "../../redux/modules/comment";
 import { history } from "../../redux/configStore";
 import reactStringReplace from "react-string-replace";
 import { DeleteOutlined } from "@ant-design/icons";
+import swal from 'sweetalert';
 import { time } from "../../shared/Time";
 
 const Comment = (props) => {
   const dispatch = useDispatch();
+  const is_login = useSelector(state => state.user.is_login);
   const userInfo = useSelector((state) => state.user.user);
   const answerInfo = useSelector((state) => state.community.card_detail);
 
   const deleteComment = () => {
+    if (!is_login) {
+        swal({
+          title: "좋아요 누르기 실패",
+          text: "로그인 후 이용 가능한 서비스입니다.",
+          icon: "error",
+        });
+        return;
+      }
     dispatch(
       commentActions.deleteCommentAX(
         props.commentId,
@@ -21,6 +31,22 @@ const Comment = (props) => {
       )
     );
   };
+  
+  const addLike = () => {
+    dispatch(commentActions.addCommentLike(props.commentId));
+  }
+
+  const deleteLike = () => {
+    if (!is_login) {
+      swal({
+        title: "좋아요 누르기 실패",
+        text: "로그인 후 이용 가능한 서비스입니다.",
+        icon: "error",
+      });
+      return;
+    }
+    dispatch(commentActions.deleteCommentLike(props.commentId));
+  }
 
   let timeFormat =
     props.commentCreatedAt !== "방금전"
@@ -65,7 +91,11 @@ const Comment = (props) => {
             }}>{props.nickname}</CommentProfileName>
         </div>
         <div>
-        {props.like? <LikeBtn src="https://user-images.githubusercontent.com/77369674/118684666-5f850100-b83d-11eb-884e-cb0ffbb34dca.png" />:<LikeBtn src="https://user-images.githubusercontent.com/77369674/118684661-5eec6a80-b83d-11eb-8eba-7ad33f5a05e2.png"/>}
+        {props.like? <LikeBtn src="https://user-images.githubusercontent.com/77369674/118684666-5f850100-b83d-11eb-884e-cb0ffbb34dca.png" 
+        onClick={deleteLike}
+        />:<LikeBtn src="https://user-images.githubusercontent.com/77369674/118684661-5eec6a80-b83d-11eb-8eba-7ad33f5a05e2.png"
+        onClick={addLike}
+        />}
         {userInfo?.id === props.userId ? (
           <DeleteBtn onClick={deleteComment}>
             <DeleteOutlined />

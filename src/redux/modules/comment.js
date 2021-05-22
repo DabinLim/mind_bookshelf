@@ -37,6 +37,20 @@ const commentSlice = createSlice({
       const index = state.list.findIndex((c) => c.commentId === action.payload);
       state.list.splice(index, 1);
     },
+    addLike:(state, action) => {
+      const index = state.list.findIndex(v => v.commentId === action.payload);
+      if(index !== -1){
+        state.list[index].commentLikeCount += 1;
+        state.list[index].like = true;
+      }
+    },
+    subtractLike:(state, action) => {
+      const index = state.list.findIndex(v => v.commentId === action.payload);
+      if(index !== -1){
+        state.list[index].commentLikeCount -= 1;
+        state.list[index].like = false;
+      }
+    }
   },
 });
 
@@ -134,18 +148,48 @@ const deleteCommentAX = (commentId, questionId, cardId) => {
   };
 };
 
+const addCommentLike = (id) => {
+  return function(dispatch, getState){
+    const options = {
+      url:`comment/like/${id}`,
+      method:"POST"
+    }
+    axios(options).then((response) => {
+      console.log(response.data);
+      dispatch(addLike(id));
+    }).catch(err => console.log(err));
+  }
+}
+
+const deleteCommentLike = (id) => {
+  return function(dispatch, getState){
+    const options = {
+      url:`comment/like/${id}`,
+      method:"PATCH"
+    }
+    axios(options).then((response) => {
+      console.log(response.data);
+      dispatch(subtractLike(id));
+    }).catch(err => console.log(err));
+  }
+}
+
 export const {
   setComment,
   addComment,
   deleteComment,
   setAnswerInfo,
   editAnswerInfo,
+  addLike,
+  subtractLike
 } = commentSlice.actions;
 
 export const api = {
   getCommentAX,
   sendCommentAX,
   deleteCommentAX,
+  addCommentLike,
+  deleteCommentLike,
 };
 
 export default commentSlice.reducer;
