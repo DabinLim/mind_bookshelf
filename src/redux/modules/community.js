@@ -3,7 +3,8 @@ import { getCookie } from "../../shared/Cookie";
 import axios from "axios";
 import swal from "sweetalert";
 import { editDetailLikeInfo, deleteMoreview, editMoreviewAnswer } from "./moreview";
-import {addAnswersLikeInfo, deleteAnswersLikeInfo} from './custom';
+import { ed} from "./friends";
+import {addAnswersLikeInfo, deleteAnswersLikeInfo, editAnswersLikeInfo} from './custom';
 import { deleteNoti } from "./noti";
 
 axios.defaults.baseURL = "https://lkj99.shop";

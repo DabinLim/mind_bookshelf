@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import {useDispatch, useSelector} from 'react-redux';
 import swal from 'sweetalert';
+import {editFriendLikeInfo} from "../redux/modules/friends";
 import {api as communityActions, setLikeList, deleteLikeList} from '../redux/modules/community';
 import {addAnswersLikeInfo, deleteAnswersLikeInfo} from '../redux/modules/custom';
 
@@ -61,6 +62,10 @@ const Like = (props) => {
         );
         return
       }
+      if (page === "friends") {
+        dispatch(editFriendLikeInfo(answerId));
+        console.log(`friends clicked ${answerId}`)
+        return;
       if(page === 'component'){
         dispatch(communityActions.addLikeAX(
           answerId,
@@ -76,6 +81,7 @@ const Like = (props) => {
         )
       );
     }
+  }
 
     const deleteLike = () => {
       if (!is_login) {
@@ -116,6 +122,10 @@ const Like = (props) => {
         );
         return
       }
+      if (page === "friends") {
+        dispatch(editFriendLikeInfo(answerId));
+        console.log(`friends clicked ${answerId}`)
+        return;
       if(page === 'component'){
         dispatch(communityActions.deleteLikeAX(
           answerId,
@@ -131,6 +141,7 @@ const Like = (props) => {
         )
       );
     }
+  }
     
         return (<React.Fragment>
         {currentLike? <LikeIcon {...styles} src="https://user-images.githubusercontent.com/77369674/118684666-5f850100-b83d-11eb-884e-cb0ffbb34dca.png" 

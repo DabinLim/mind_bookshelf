@@ -10,7 +10,6 @@ const friendsSlice = createSlice({
     name: "frieinds",
     initialState: {
       answer_list: [],
-      page: 1,
       next: true,
       is_loading: true,
     },
@@ -24,23 +23,27 @@ const friendsSlice = createSlice({
       setAnswerList: (state, action) => {
         state.answer_list = action.payload;
       },
-      setPage: (state, action) => {
-        state.page = action.payload;
+      addAnswerList: (state, action) => {
+        action.payload.forEach((a) => {
+          state.answer_list.push(a);
+        })
       },
-      editDetailLikeInfo: (state, action) => {
+      editFriendLikeInfo: (state, action) => {
+        console.log(action.payload);
         let index = state.answer_list.findIndex(
-          (a) => a.answerId === action.payload.answerId
+          (a) => a._id === action.payload
         );
+        console.log(index);
   
           if (index !== -1){
             state.answer_list[index] = {
               ...state.answer_list[index],
-              like: action.payload.like,
-              answerLikes: action.payload.likeCount,
+              like: state.answer_list[index].like? false : true,
+              likeCount: state.answer_list[index].like? state.answer_list[index].likeCount - 1 : state.answer_list[index].likeCount + 1,
             };
           }
       },
-      editDetailCommentInfo: (state, action) => {
+      editFriendCommentInfo: (state, action) => {
         let decision = action.payload.decision;
         let index = state.answer_list.findIndex(
           (a) => a.answerId === action.payload.answerId
@@ -63,15 +66,10 @@ const friendsSlice = createSlice({
   
   const getFriendAnswers = () => {
     return function (dispatch, getState) {
-      const loading = getState().friends.is_loading;
-      // const page = getState().friends.page;
       const next = getState().friends.next;
       if (!next) {
         return;
       }
-    //   if (loading && page > 1) {
-    //     return;
-    //   }
       dispatch(setLoading(true));
       const options = {
         url: `/friendFeed`,
@@ -80,7 +78,7 @@ const friendsSlice = createSlice({
       axios(options).then((response) => {
           console.log(response.data.friendCards);
           let is_more = response.data.friendCards.length >= 10 ? true : false;
-
+          console.log(is_more);
           if (!is_more) {
             dispatch(setAnswerList(response.data.friendCards));
             dispatch(setNext(false));
@@ -90,29 +88,50 @@ const friendsSlice = createSlice({
           dispatch(setAnswerList(response.data.friendCards));
           dispatch(setNext(true));
           dispatch(setLoading(false));
-
-    //     if (response.data.answer.length < 10) {
-    //       dispatch(setAnswers(response.data.answer));
-    //       dispatch(setNext(false));
-    //       dispatch(setLoading(false));
-    //       return;
-    //     }
-    //     dispatch(setAnswers(response.data.answer));
-    //     dispatch(setPage(page + 1));
-    //     dispatch(setLoading(false));
         });
     };
   };
 
+  const getNextFriendAnswers = (lastId) => {
+    console.log("NEXT 실행됐다!!!!");
+    return function (dispatch, getState) {
+      const next = getState().friends.next;
+      if (!next) {
+        return;
+      }
+      dispatch(setLoading(true));
+      const options = {
+        url: `/friendFeed?lastId=${lastId}`,
+        method: "GET",
+      };
+      axios(options).then((response) => {
+          console.log(response.data.friendCards);
+          let is_more = response.data.friendCards.length >= 10 ? true : false;
+
+          if (!is_more) {
+            dispatch(addAnswerList(response.data.friendCards));
+            dispatch(setNext(false));
+            dispatch(setLoading(false));
+            return;
+          }
+          dispatch(addAnswerList(response.data.friendCards));
+          dispatch(setNext(true));
+          dispatch(setLoading(false));
+        });
+    };
+  }
   export const {
     setAnswerList,
+    addAnswerList,
     setLoading,
     setNext,
-    setPage,
+    editFriendLikeInfo,
+    editFriendCommentInfo,
   } = friendsSlice.actions;
 
   export const api = {
     getFriendAnswers,
+    getNextFriendAnswers
   };
 
   export default friendsSlice.reducer;
