@@ -87,7 +87,7 @@ const sendCommentAX = (cardId, content, tagId = [], questionId) => {
     axios(options)
       .then((response) => {
         dispatch(
-          addComment({ ...response.data.result, commentCreatedAt: "방금전" })
+          addComment({ ...response.data.result, commentLikeCount:0, commentCreatedAt: "방금전" })
         );
         if (getState().community.card_detail.type === "detail") {
           dispatch(

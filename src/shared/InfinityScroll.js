@@ -8,9 +8,11 @@ const InfinityScroll = (props) => {
     // 이벤트 발생 300ms 후에 callNext 함수 호출하기
     const _handleScroll = _.throttle(() => {
         if(is_loading){
+            console.log('1')
             return;
         }
         if(!props.ref_value){
+            console.log('2')
             return
         }
         if(props.modal){
@@ -22,13 +24,13 @@ const InfinityScroll = (props) => {
             const {scrollTop} = props.ref_value.current;
             // (document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop;
     
-            if(scrollHeight - clientHeight - scrollTop < 20) {
+            if(scrollHeight - clientHeight - scrollTop < props.height) {
                 console.log('whyrano')
                 callNext();
             }
             return
         }
-
+        console.log('하이')
         const {clientHeight} = props.ref_value;
         const {scrollHeight} = props.ref_value;
   

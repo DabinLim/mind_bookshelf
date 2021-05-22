@@ -62,7 +62,7 @@ const FollowingModal = (props) => {
             is_loading={is_loading}
             ref_value={props.container}
             modal
-            // height={50}
+            height={20}
           >
               {props.following_list.map((f, idx) => {
                 return (
