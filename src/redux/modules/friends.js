@@ -171,7 +171,7 @@ const friendsSlice = createSlice({
     getFriendAnswers,
     getNextFriendAnswers,
     addLikeFriend,
-    deleteLikeFriend
+    deleteLikeFriend 
   };
 
   export default friendsSlice.reducer;
