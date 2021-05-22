@@ -164,6 +164,14 @@ const Header = () => {
                 </MenuLi>
                 <MenuLi
                 onClick={() => {
+                  if (!getCookie("is_login")) {
+                    swal({
+                      title: "로그인 필수!",
+                      text: "로그인 후 이용가능해요",
+                      icon: "info",
+                    });
+                    return;
+                  }
                   history.push("/friends");
                   dispatch(setComponent(""));
                   setMenuOpen(false);
@@ -303,6 +311,14 @@ const Header = () => {
               </PageButton>
               <PageButton
                 onClick={() => {
+                  if (!getCookie("is_login")) {
+                    swal({
+                      title: "로그인 필수!",
+                      text: "로그인 후 이용가능해요",
+                      icon: "info",
+                    });
+                    return;
+                  }
                   history.push("/friends");
                   dispatch(setComponent(""));
                 }}
@@ -444,6 +460,14 @@ const Header = () => {
               </MenuLi>
               <MenuLi
                 onClick={() => {
+                  if (!getCookie("is_login")) {
+                    swal({
+                      title: "로그인 필수!",
+                      text: "로그인 후 이용가능해요",
+                      icon: "info",
+                    });
+                    return;
+                  }
                   history.push("/friends");
                   dispatch(setComponent(""));
                   setMenuOpen(false);
@@ -556,6 +580,14 @@ const Header = () => {
             </PageButton>
             <PageButton
                 onClick={() => {
+                  if (!getCookie("is_login")) {
+                    swal({
+                      title: "로그인 필수!",
+                      text: "로그인 후 이용가능해요",
+                      icon: "info",
+                    });
+                    return;
+                  }
                   history.push("/friends");
                   dispatch(setComponent(""));
                 }}
