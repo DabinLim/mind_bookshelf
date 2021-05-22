@@ -102,31 +102,45 @@ const customSlice = createSlice({
         setLoading: (state, action) => {
             state.loading = action.payload;
         },
-        editAnswersLikeInfo: (state, action) => {
+        addAnswersLikeInfo: (state, action) => {
             let index = state.custom_question.findIndex(
-              (a) => a.answerId === action.payload.answerId
+              (a) => a.answerId === action.payload
             );
       
             let pop_index = state.pop_list.findIndex(
-              (a) => a.answerId === action.payload.answerId
+              (a) => a.answerId === action.payload
             );
 
       
               if (index !== -1){
-                state.custom_question[index] = {
-                  ...state.custom_question[index],
-                  currentLike: action.payload.like,
-                  likeCount: action.payload.likeCount,
-                };
+                state.custom_question[index].currentLike = true
+                state.custom_question[index].likeCount += 1
               }
               
               if (pop_index !== -1){
-                state.pop_list[pop_index] = {
-                  ...state.pop_list[pop_index],
-                  currentLike: action.payload.like,
-                  likeCount: action.payload.likeCount,
-                };
+                state.pop_list[index].currentLike = true
+                state.pop_list[index].likeCount += 1
               }
+          },
+          deleteAnswersLikeInfo: (state, action) => {
+            let index = state.custom_question.findIndex(
+                (a) => a.answerId === action.payload
+              );
+        
+              let pop_index = state.pop_list.findIndex(
+                (a) => a.answerId === action.payload
+              );
+  
+        
+                if (index !== -1){
+                  state.custom_question[index].currentLike = false
+                  state.custom_question[index].likeCount -= 1
+                }
+                
+                if (pop_index !== -1){
+                  state.pop_list[index].currentLike = false
+                  state.pop_list[index].likeCount -= 1
+                }
           },
           
     }
@@ -487,7 +501,8 @@ export const {
     setPopLoading,
     setAnswerList,
     setAnswerPopList,
-    editAnswersLikeInfo,
+    addAnswersLikeInfo,
+    deleteAnswersLikeInfo,
     addCustomQuestion,
 } = customSlice.actions;
 

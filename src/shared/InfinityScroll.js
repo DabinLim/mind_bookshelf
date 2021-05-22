@@ -48,15 +48,15 @@ const InfinityScroll = (props) => {
         // 다음 데이터가 없으면 이벤트 구독해제
         console.log(props.ref_value);
         if(is_loading){
-            console.log('로딩에서')
+            
             return;
         };
         if(!props.ref_value){
-            console.log('ref에서')
+            
             return
         }
         if(is_next){
-            console.log('add')
+            
             console.log(props.ref_value)
             if(props.modal){
                 props.ref_value.current.addEventListener('scroll', handleScroll);

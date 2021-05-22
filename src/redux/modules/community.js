@@ -3,7 +3,7 @@ import { getCookie } from "../../shared/Cookie";
 import axios from "axios";
 import swal from "sweetalert";
 import { editDetailLikeInfo, deleteMoreview, editMoreviewAnswer } from "./moreview";
-import {editAnswersLikeInfo} from './custom';
+import {addAnswersLikeInfo, deleteAnswersLikeInfo} from './custom';
 import { deleteNoti } from "./noti";
 
 axios.defaults.baseURL = "https://lkj99.shop";
@@ -221,11 +221,7 @@ const addLikeAnswers = (answerId) => {
       .then((res) => {
         console.log(res.data)
         dispatch(
-          editAnswersLikeInfo({
-            answerId: answerId,
-            likeCount: res.data.likeCountNum,
-            like: res.data.currentLike,
-          })
+          addAnswersLikeInfo(answerId)
         );
       })
       .catch((err) => {
@@ -241,11 +237,7 @@ const deleteLikeAnswers = (answerId) => {
       .then((res) => {
         console.log(res.data)
         dispatch(
-          editAnswersLikeInfo({
-            answerId: answerId,
-            likeCount: res.data.likeCountNum,
-            like: res.data.currentLike,
-          })
+          deleteAnswersLikeInfo(answerId)
         );
       })
       .catch((err) => {

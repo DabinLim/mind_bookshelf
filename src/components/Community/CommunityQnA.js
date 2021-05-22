@@ -175,6 +175,17 @@ const AnswerContainer = styled.div`
   width: 100%;
   overflow-x: auto;
   overflow-y: hidden;
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  ::-webkit-scrollbar-track {
+    display: none;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    display: none;
+  }
   @media (max-width: 500px) {
     margin-top: 20px;
   }

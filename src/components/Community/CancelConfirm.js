@@ -1,11 +1,31 @@
 import React from 'react' 
 import styled from 'styled-components'
-import {useDispatch} from 'react-redux'
+import {useDispatch,useSelector} from 'react-redux'
 import {api as communityActions} from '../../redux/modules/community'
-import {history} from '../../redux/configStore'
+import {deleteBook} from '../../redux/modules/books';
+import {history} from '../../redux/configStore';
 
 const CancelConfirm = (props) => {
+  const books = useSelector(state => state.books.books);
+  const book_detail = useSelector(state => state.books.book_detail);
   const dispatch = useDispatch()
+
+  const deleteAnswer = () => {
+    dispatch(communityActions.deleteAnswerAX(props.answerId, props.questionId));
+    if(book_detail.length && books.length){
+      dispatch(deleteBook({
+        answerId:props.answerId,
+        date:book_detail[0].date
+      }));
+    }
+
+
+    if(props.type === "mobile"){
+      history.goBack();
+    }else{
+      props.close();
+    }
+  }
   return(
     <React.Fragment>
       <Background onClick={()=>{props.setCancelModal(false)}} />
@@ -15,16 +35,7 @@ const CancelConfirm = (props) => {
         </Question>
         <BtnBox>
           <ConfirmBtn style={{color:"#EB5959", borderBottom: '0.5px solid #D3D4D3'}}
-            onClick={()=>{
-              if(props.type === "mobile"){
-                history.goBack();
-                dispatch(communityActions.deleteAnswerAX(props.answerId, props.questionId))
-              }else{
-                props.close();
-                dispatch(communityActions.deleteAnswerAX(props.answerId, props.questionId))
-              }
-            }}
-          >
+            onClick={deleteAnswer}>
             삭제
           </ConfirmBtn>
           <ConfirmBtn onClick={()=>{props.setCancelModal(false)}} >
