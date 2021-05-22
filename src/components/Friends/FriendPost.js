@@ -20,8 +20,11 @@ const FriendPost = (props) => {
     let unformatted = date.split("-");
     let year = unformatted[0];
     let month = unformatted[1];
+    if (month[0] === "0") {
+      month = month[1];
+    }
     let day = unformatted[2];
-    let full_date = year + "년 " + month + "월 " + day + "일";
+    let full_date = month + "월 " + day + "일";
     return full_date;
   };
 
@@ -46,7 +49,9 @@ const FriendPost = (props) => {
                 history.push(`/others/${props.userId}`);
               }}><b>{props.nickname}</b>님</CardWriter>
           </div>
-          <QuestionContents>{props.questionTitle}</QuestionContents>
+          <QuestionContents onClick={() => {
+            props.openCard(props._id);
+          }}>{props.questionTitle}</QuestionContents>
         <AnswerContents
           onClick={() => {
             props.openCard(props._id);
@@ -62,7 +67,9 @@ const FriendPost = (props) => {
               <LikeCount>{props.likeCount}</LikeCount>
             </LikeBox>
             <CommentBox>
-              <CommentIcon src="https://user-images.githubusercontent.com/77369674/118684657-5e53d400-b83d-11eb-861f-41aa269aa89e.png"/>
+              <CommentIcon onClick={() => {
+            props.openCard(props._id);
+          }} src="https://user-images.githubusercontent.com/77369674/118684657-5e53d400-b83d-11eb-861f-41aa269aa89e.png"/>
               <CommentCount>{props.commentCount}</CommentCount>
             </CommentBox>
           </IconBox>
@@ -154,7 +161,7 @@ const AnswerContents = styled.div`
   // max-height: 63px;
   // min-height: 63px;
   margin: 15px 0;
-  font: normal normal normal 13px/18px Noto Sans CJK KR;
+  font: normal normal normal 13px/19px Noto Sans CJK KR;
   letter-spacing: 0px;
   color: #262626;
   display: -webkit-box;

@@ -3,7 +3,7 @@ import styled from "styled-components";
 import FriendPostList from "../components/Friends/FriendPostList";
 import {useDispatch, useSelector} from "react-redux";
 import {api as friendsActions} from "../redux/modules/friends";
-import {setLoading} from "../redux/modules/friends";
+import {setLoading, setInitialLoading} from "../redux/modules/friends";
 import {history} from "../redux/configStore";
 import swal from "sweetalert";
 import CardModal from "../components/Community/CardModal";
@@ -11,7 +11,7 @@ import { api as commentActions } from "../redux/modules/comment";
 import { api as communityActions } from "../redux/modules/community";
 import FriendPost from "../components/Friends/FriendPost";
 import InfinityScroll from '../shared/InfinityScroll'
-
+import Loader from "react-loader-spinner";
 
 const FriendsGround = (props) => {
     const dispatch = useDispatch();
@@ -20,6 +20,7 @@ const FriendsGround = (props) => {
     console.log(lastId);
     const is_next = useSelector((state) => state.friends?.next);
     const is_loading = useSelector((state) => state.friends.is_loading);
+    const is_initialLoading = useSelector((state) => state.friends.is_initialLoading);
     const [cardModal, setCardModal] = useState(false);
     const container = React.useRef();
 
@@ -39,7 +40,7 @@ const FriendsGround = (props) => {
     };
 
     React.useEffect(() => {
-        dispatch(friendsActions.getFriendAnswers());
+          dispatch(friendsActions.getFriendAnswers());
         // else {
         //     swal({
         //         title: "접근 실패 😢",
@@ -56,10 +57,14 @@ const FriendsGround = (props) => {
     return (<>
     <Outer>
     {cardModal ? <CardModal close={closeCardModal} /> : null}
-        <CommunityContainer>
+    {is_initialLoading ?  <LoadingDiv>
+            <Loader type="Oval" color="#000000" height={100} width={100} />
+          </LoadingDiv>: 
+          <>
+          <CommunityContainer>
             <Container>
                 <QuestionTitle>친구들의 생각을<br/>살펴보세요</QuestionTitle>
-                <AnswersBox ref={container}>
+                {friends_list?.length > 0 ? <><AnswersBox ref={container}>
                   {lastId && <InfinityScroll
                     callNext={() => {
                       dispatch(friendsActions.getNextFriendAnswers(lastId));
@@ -72,9 +77,11 @@ const FriendsGround = (props) => {
                           return (<><FriendPost openCard={openCard} {...f} key={idx}/></>)
                         })}
                     </InfinityScroll>}
-                </AnswersBox>
+                </AnswersBox></>: <><div>아직 친구가 없으시군요..ㅜㅜ</div></>}
             </Container>
-        </CommunityContainer>
+          </CommunityContainer>
+        </>
+        }
     </Outer>
     </>)
 }
@@ -94,6 +101,10 @@ const Outer = styled.section`
   @media (max-width: 500px) {
     margin: 50px 0px 0px 0px;
   }
+`;
+
+const LoadingDiv = styled.div`
+  margin: auto;
 `;
 
 const CommunityContainer = styled.div`

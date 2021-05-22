@@ -12,16 +12,21 @@ const friendsSlice = createSlice({
       answer_list: [],
       next: true,
       is_loading: true,
+      is_initialLoading: true,
     },
     reducers: {
       setLoading: (state, action) => {
         state.is_loading = action.payload;
+      },
+      setInitialLoading: (state, action) => {
+        state.is_initialLoading = action.payload;
       },
       setNext: (state, action) => {
         state.next = action.payload;
       },
       setAnswerList: (state, action) => {
         state.answer_list = action.payload;
+        state.is_initialLoading = false;
       },
       addAnswerList: (state, action) => {
         action.payload.forEach((a) => {
@@ -71,6 +76,7 @@ const friendsSlice = createSlice({
       if (!next) {
         return;
       }
+      dispatch(setInitialLoading(true));
       dispatch(setLoading(true));
       const options = {
         url: `/friendFeed`,
@@ -163,6 +169,7 @@ const friendsSlice = createSlice({
     setAnswerList,
     addAnswerList,
     setLoading,
+    setInitialLoading,
     setNext,
     editFriendLikeInfo,
     editFriendCommentInfo,
