@@ -29,8 +29,10 @@ const userSlice = createSlice({
     otherFriends: [],
     follower: [],
     following: [],
-    follow_loading: false,
-    follow_next: false,
+    follower_loading: false,
+    following_loading: false,
+    follower_next: true,
+    following_next: true,
     is_login: false,
     is_userLoading: true,
     is_friendLoading: true,
@@ -71,6 +73,34 @@ const userSlice = createSlice({
         }
       });
     },
+    addFollow: (state, action) => {
+      let followerIdx = state.follower.findIndex(
+        (f) => f.userId === action.payload
+      );
+      let followingIdx = state.following.findIndex(
+        (f) => f.userId === action.payload
+      );
+      if(followerIdx !== -1){
+        state.follower[followerIdx].isFollowing = true;
+      }
+      if(followingIdx !== -1){
+        state.following[followingIdx].isFollowing = true;
+      }
+    },
+    deleteFollow: (state, action) => {
+      let followerIdx = state.follower.findIndex(
+        (f) => f.userId === action.payload
+      );
+      let followingIdx = state.following.findIndex(
+        (f) => f.userId === action.payload
+      );
+      if(followerIdx !== -1){
+        state.follower[followerIdx].isFollowing = false;
+      }
+      if(followingIdx !== -1){
+        state.following[followingIdx].isFollowing = false;
+      }
+    },
     setOtherFriend: (state, action) => {
       state.otherFriends = action.payload;
     },
@@ -85,64 +115,140 @@ const userSlice = createSlice({
     },
     addfollowing: (state, action) => {
       state.following.push(...action.payload); 
-      state.follow_loading = false;
+      state.following_loading = false;
     },
     addfollower: (state, action) => {
       state.follower.push(...action.payload);
-      state.follow_loading = false;
+      state.follower_loading = false;
     },
-    setFollowLoading : (state, action) => {
-      state.follow_loading = action.payload;
+    setFollowerLoading : (state, action) => {
+      state.follower_loading = action.payload;
     },
-    setFollowNext: (state,action) => {
-      state.follow_next = action.payload;
+    setFollowingLoading : (state, action) => {
+      state.following_loading = action.payload;
     },
-    resetFollow: (state) => {
-      state.following = [];
+    setFollowerNext: (state,action) => {
+      state.follower_next = action.payload;
+    },
+    setFollowingNext: (state,action) => {
+      state.following_next = action.payload;
+    },
+    resetFollower: (state) => {
       state.follower = [];
-      state.follow_loading = false;
-      state.follow_next = false;
-    }
+      state.follower_loading = false;
+      state.follower_next = true;
+    },
+    resetFollowing: (state) => {
+      state.following = [];
+      state.following_loading = false;
+      state.following_next = true;
+    },
   },
 });
 
-const getFollowing = (userId, lastId="") => {
+const getFollowing = (userId) => {
   return function(dispatch, getState) {
-    dispatch(setFollowLoading(true))
-    axios
-      .get(`/friends/following/${userId}?lastId=${lastId}`)
-      .then((res) => {
-        console.log(res)
-        dispatch(addfollowing(res.data.following))
-        if(res.data.following.length === 10){
-          dispatch(setFollowNext(true))
-        } else{
-          dispatch(setFollowNext(false))
-        }
-      })
-      .catch((err) => {
-        console.log(err)
-      })
+    const next = getState().user.following_next;
+    const loading = getState().user.following_loading;
+    const following = getState().user.following;
+
+
+    // if(!next){
+    //   console.log('next is none');
+    //   return
+    // }
+    // if(loading){
+    //   console.log('안되지 요놈아')
+    //   return
+    // }
+    dispatch(setFollowingLoading(true))
+
+    if(following.length !== 0){
+      const lastId = following[following.length -1].userId
+      axios
+        .get(`/friends/following/${userId}?lastId=${lastId}`)
+        .then((res) => {
+          console.log(res)
+          dispatch(addfollowing(res.data.following))
+          if(res.data.following.length === 10){
+            dispatch(setFollowingNext(true))
+          } else{
+            dispatch(setFollowingNext(false))
+          }
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    }else{
+      const lastId = ""
+      axios
+        .get(`/friends/following/${userId}?lastId=${lastId}`)
+        .then((res) => {
+          console.log(res)
+          dispatch(addfollowing(res.data.following))
+          if(res.data.following.length === 10){
+            dispatch(setFollowingNext(true))
+          } else{
+            dispatch(setFollowingNext(false))
+          }
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    }
+
   }
 }
 
-const getFollower = (userId, lastId="") => {
+const getFollower = (userId) => {
   return function(dispatch, getState) {
-    dispatch(setFollowLoading(true))
-    axios
-      .get(`/friends/follower/${userId}?lastId=${lastId}`)
-      .then((res) => {
-        console.log(res)
-        dispatch(addfollower(res.data.follower))
-        if(res.data.follower.length === 10){
-          dispatch(setFollowNext(true))
-        } else{
-          dispatch(setFollowNext(false))
-        }
-      })
-      .catch((err) => {
-        console.log(err)
-      })
+    const next = getState().user.follower_next;
+    const loading = getState().user.follower_loading;
+    const follower = getState().user.follower;
+
+    // if(!next){
+    //   console.log('next is none');
+    //   return
+    // }
+    // if(loading){
+    //   console.log('안되지 요놈아')
+    //   return
+    // }
+
+    dispatch(setFollowerLoading(true))
+    if(follower.length !== 0){
+      const lastId = follower[follower.length -1].userId
+      axios
+        .get(`/friends/follower/${userId}?lastId=${lastId}`)
+        .then((res) => {
+          console.log(res)
+          dispatch(addfollower(res.data.follower))
+          if(res.data.follower.length === 10){
+            dispatch(setFollowerNext(true))
+          } else{
+            dispatch(setFollowerNext(false))
+          }
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    }else{
+      const lastId = ""
+      axios
+        .get(`/friends/follower/${userId}?lastId=${lastId}`)
+        .then((res) => {
+          console.log(res)
+          dispatch(addfollower(res.data.follower))
+          if(res.data.follower.length === 10){
+            dispatch(setFollowerNext(true))
+          } else{
+            dispatch(setFollowerNext(false))
+          }
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    }
   }
 }
 
@@ -259,6 +365,7 @@ const othersInfoAX = (id) => {
     axios
       .get(`/bookshelf/auth/user/${id}`)
       .then((res) => {
+        console.log(res)
         dispatch(
           setOther({
             otherAnswerCount: res.data.otherAnswerCount,
@@ -267,6 +374,8 @@ const othersInfoAX = (id) => {
             profileImg: res.data.profileImg,
             nickname: res.data.nickname,
             topic: res.data.topic,
+            followerCount: res.data.followerCount,
+            followingCount: res.data.followingCount,
           })
         );
       })
@@ -276,19 +385,13 @@ const othersInfoAX = (id) => {
   };
 };
 
-const followOtherAX = (id, nickname, profileImg) => {
+const followOtherAX = (id) => {
   return function (dispatch) {
     axios.post(`/bookshelf/addfriend`, { friendId: id }).then((res) => {
-      dispatch(
-        addFriend({
-          id: id,
-          nickname: nickname,
-          profileImg: profileImg,
-        })
-      );
+      dispatch(addFollow(id));
+
       swal({
         title: "정상적으로 추가되었습니다.",
-        text: `${nickname}님을 구독하였습니다.`,
         icon: "success",
       });
     });
@@ -300,7 +403,7 @@ const unfollowOtherAX = (id) => {
     axios
       .delete(`/bookshelf/friend/${id}`)
       .then((res) => {
-        dispatch(deleteFriend(id));
+        dispatch(deleteFollow(id));
         swal({
           title: "정상적으로 취소되었습니다.",
           icon: "success",
@@ -393,9 +496,14 @@ export const {
   setPreview,
   addfollowing,
   addfollower,
-  setFollowLoading,
-  setFollowNext,
-  resetFollow
+  setFollowerLoading,
+  setFollowingLoading,
+  setFollowerNext,
+  setFollowingNext,
+  resetFollower,
+  resetFollowing,
+  addFollow,
+  deleteFollow,
 } = userSlice.actions;
 
 export const api = {

@@ -5,7 +5,7 @@ import {BookShelf, Profile, MyQuestion, MyAnswers, ProfileUpdateModal} from '../
 import {useSelector, useDispatch} from 'react-redux';
 import {setComponent, setBookDetailModal, setDateVisible} from '../redux/modules/books';
 import { getCookie } from '../shared/Cookie';
-import {api as userActions, resetFollow} from '../redux/modules/user'
+import {api as userActions, resetFollower, resetFollowing} from '../redux/modules/user'
 import { changeType } from '../redux/modules/community'
 
 const MyBook = (props) => {
@@ -29,11 +29,12 @@ const MyBook = (props) => {
             history.replace('/');
         };
         dispatch(setComponent(''));
-        dispatch(userActions.myFollowListAX());
+        dispatch(userActions.othersInfoAX(userId))
         dispatch(userActions.getFollowing(userId));
         dispatch(userActions.getFollower(userId));
         return()=>{
-            dispatch(resetFollow());
+            dispatch(resetFollower());
+            dispatch(resetFollowing());
             if(answerInfo.length !== 0){
                 dispatch(changeType(null))
             }

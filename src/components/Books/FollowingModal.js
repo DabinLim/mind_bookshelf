@@ -7,13 +7,13 @@ import {useDispatch, useSelector} from "react-redux"
 import InfinityScroll from "../../shared/InfinityScroll"
 import {api as userActions} from '../../redux/modules/user'
 
-const FollowerModal = (props) => {
+const FollowingModal = (props) => {
   const [UnfollowModal, setUnfollowModal] = useState(false);
   const [followModal, setFollowModal] = useState(false)
   const [followerId, setFollowerId] = useState();
   const [followerNickname, setFollowerNickname] = useState();
   const dispatch = useDispatch();
-  const next = useSelector((state) => state.user.follower_next);
+  const next = useSelector((state) => state.user.following_next);
   const is_loading = useSelector((state) => state.user.follow_loading);
   const myId = useSelector((state) => state.user.user.id)
 
@@ -22,12 +22,11 @@ const FollowerModal = (props) => {
     props.close();
   };
 
-
   return (
     <React.Fragment>
       {UnfollowModal? 
-        <UnfollowConfirmModal setUnfollowModal={setUnfollowModal} id={followerId} />
-      :null}
+        <UnfollowConfirmModal setUnfollowModal={setUnfollowModal} nickname={followerNickname} id={followerId} />
+        :null}
       {followModal?
         <FollowConfirmModal setFollowModal={setFollowModal} nickname={followerNickname} id={followerId} />
         :null
@@ -49,14 +48,15 @@ const FollowerModal = (props) => {
               font: "normal normal bold 14px/20px Noto Sans CJK KR",
             }}
           >
-            팔로워
+            팔로잉
           </span>
         </div>
         <UserContainer ref={props.container} >
-          {props.follower_list.length !== 0 ? (
+          {props.following_list.length !== 0 ? (
           <InfinityScroll
             callNext={() => {
-              dispatch(userActions.getFollower(props.userId))
+              console.log(props.following_list)
+              dispatch(userActions.getFollowing(props.userId))
             }}
             is_next={next}
             is_loading={is_loading}
@@ -64,7 +64,7 @@ const FollowerModal = (props) => {
             modal
             // height={50}
           >
-              {props.follower_list.map((f, idx) => {
+              {props.following_list.map((f, idx) => {
                 return (
                   <Body>
                     <UserInfoContainer key={idx} onClick={() => clickOther(f.userId)}>
@@ -75,17 +75,17 @@ const FollowerModal = (props) => {
                       null
                     :
                       f.isFollowing? 
-                      <FollowBtn onClick={()=>{
-                        setFollowerId(f.userId);
-                        setUnfollowModal(true);
-                        setFollowerNickname(f.nickname);
-                        }} >
-                        <FollowBtnText>
-                          구독중 
-                        </FollowBtnText>
-                        <FollowCheckIcon src="https://user-images.githubusercontent.com/77369674/118684692-64e24b80-b83d-11eb-81fb-4976c2b190b4.png" />
-                      </FollowBtn>
-                    :
+                        <FollowBtn onClick={()=>{
+                          setFollowerId(f.userId);
+                          setUnfollowModal(true);
+                          setFollowerNickname(f.nickname);
+                          }} >
+                          <FollowBtnText>
+                            구독중 
+                          </FollowBtnText>
+                          <FollowCheckIcon src="https://user-images.githubusercontent.com/77369674/118684692-64e24b80-b83d-11eb-81fb-4976c2b190b4.png" />
+                        </FollowBtn>
+                      :
                       <UnfollowBtn onClick={()=>{
                         setFollowerId(f.userId);
                         setFollowModal(true);
@@ -177,6 +177,7 @@ const FollowBtn = styled.div`
     color: #FFFFFF;
   };
 `
+
 const UnfollowBtn = styled.div`
   width: 90px;
   height: 30px;
@@ -219,4 +220,4 @@ const UserText = styled.div`
   font-size: 15px;
 `;
 
-export default FollowerModal;
+export default FollowingModal;

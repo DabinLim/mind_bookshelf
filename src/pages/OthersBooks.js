@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import {BookShelf, Profile, OthersQuestion, OthersAnswers, UnfollowConfirmModal} from '../components/Books/booksindex';
-import {api as userActions, resetFollow} from '../redux/modules/user';
+import {api as userActions, resetFollower, resetFollowing} from '../redux/modules/user';
 import {useSelector, useDispatch} from 'react-redux';
 import { getCookie } from "../shared/Cookie";
 import {changeDate, setComponent} from '../redux/modules/books';
@@ -36,11 +36,14 @@ const OthersBooks = (props) => {
     },[])
 
     React.useEffect(() => {
-        dispatch(resetFollow());
+        
         dispatch(userActions.othersInfoAX(userId))
-        dispatch(userActions.otherFriendListAX(userId))
         dispatch(userActions.getFollowing(userId));
         dispatch(userActions.getFollower(userId));
+        return()=>{
+            dispatch(resetFollower());
+            dispatch(resetFollowing());
+        }
     },[userId])
 
     return(
