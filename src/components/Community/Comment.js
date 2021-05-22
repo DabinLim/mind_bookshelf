@@ -91,7 +91,7 @@ const Comment = (props) => {
             }}>{props.nickname}</CommentProfileName>
         </div>
         <div>
-        {props.like? <LikeBtn src="https://user-images.githubusercontent.com/77369674/118684666-5f850100-b83d-11eb-884e-cb0ffbb34dca.png" 
+        {props.currentLike? <LikeBtn src="https://user-images.githubusercontent.com/77369674/118684666-5f850100-b83d-11eb-884e-cb0ffbb34dca.png" 
         onClick={deleteLike}
         />:<LikeBtn src="https://user-images.githubusercontent.com/77369674/118684661-5eec6a80-b83d-11eb-8eba-7ad33f5a05e2.png"
         onClick={addLike}

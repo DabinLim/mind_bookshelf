@@ -41,14 +41,14 @@ const commentSlice = createSlice({
       const index = state.list.findIndex(v => v.commentId === action.payload);
       if(index !== -1){
         state.list[index].commentLikeCount += 1;
-        state.list[index].like = true;
+        state.list[index].currentLike = true;
       }
     },
     subtractLike:(state, action) => {
       const index = state.list.findIndex(v => v.commentId === action.payload);
       if(index !== -1){
         state.list[index].commentLikeCount -= 1;
-        state.list[index].like = false;
+        state.list[index].currentLike = false;
       }
     }
   },
