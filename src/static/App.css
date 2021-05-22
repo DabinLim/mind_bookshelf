@@ -17,17 +17,6 @@
   background-repeat:no-repeat;
 } */
 
-.react-3d-carousel
-  .slider-container
-  .slider-content
-  .slider-single
-  .slider-single-content {
-  border-top-left-radius: 20px;
-  max-height: 400px;
-  max-width: 600px;
-  margin: auto;
-}
-
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;

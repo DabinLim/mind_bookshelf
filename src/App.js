@@ -17,6 +17,7 @@ import {
   MobileNotification,
   NotFound,
   Topic,
+  FriendsGround
 } from "./pages/pagesindex";
 import { getCookie } from "./shared/Cookie";
 import QuestionDetail from "./components/Community/QuestionDetail";
@@ -74,6 +75,7 @@ function App() {
             <Route exact path="/search" component={MobileSearch} />
             <Route exact path="/noti" component={MobileNotification} />
             <Route exact path="/topic/:topic" component={Topic} />
+            <Route exact path="/friends" component={FriendsGround}/>
             <Route exact component={NotFound}/>
           </Switch>
         </ConnectedRouter>

@@ -4,12 +4,29 @@ import Spinner from '../elements/Spinner';
 
 const InfinityScroll = (props) => {
     const {callNext, is_next, is_loading} = props;
-    const [current, setCurrent] = React.useState();
 
     // 이벤트 발생 300ms 후에 callNext 함수 호출하기
     const _handleScroll = _.throttle(() => {
         if(is_loading){
             return;
+        }
+        if(!props.ref_value){
+            return
+        }
+        if(props.modal){
+            console.log('하이')
+            const {clientHeight} = props.ref_value.current;
+            const {scrollHeight} = props.ref_value.current;
+    
+            // 브라우저마다 document에 접근해서 scrollTop을 가지고 오는 방법이 다름
+            const {scrollTop} = props.ref_value.current;
+            // (document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop;
+    
+            if(scrollHeight - clientHeight - scrollTop < 20) {
+                console.log('whyrano')
+                callNext();
+            }
+            return
         }
 
         const {clientHeight} = props.ref_value.current;
@@ -20,7 +37,7 @@ const InfinityScroll = (props) => {
         // (document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop;
    
         if(scrollHeight - clientHeight - scrollTop < 100) {
-            // console.log('whyrano')
+            console.log('whyrano')
             callNext();
         }
     },300)
@@ -29,24 +46,44 @@ const InfinityScroll = (props) => {
 
     React.useEffect(() => {
         // 다음 데이터가 없으면 이벤트 구독해제
+        console.log(props.ref_value);
         if(is_loading){
-            console.log('1')
+            console.log('로딩에서')
             return;
         };
         if(!props.ref_value){
-            console.log(props.ref_value)
+            console.log('ref에서')
             return
         }
         if(is_next){
-            setCurrent(props.ref_value)
-            console.log(props.ref_value, 3)
-            props.ref_value.current.addEventListener('scroll', handleScroll);
+            console.log('add')
+            console.log(props.ref_value)
+            if(props.modal){
+                props.ref_value.current.addEventListener('scroll', handleScroll);
+            }else{
+                props.ref_value.addEventListener('scroll', handleScroll);
+            }
         }else{
-            props.ref_value.current.removeEventListener('scroll', handleScroll)
+            if(props.modal){
+                console.log('end', is_next)
+                props.ref_value.current.removeEventListener('scroll', handleScroll)
+            }else{
+                props.ref_value.removeEventListener('scroll', handleScroll);
+            }
         }
+        
 
         // 이벤트 구독 해제, Clean up
-        // return () => props.ref_value.current.removeEventListener('scroll', handleScroll);
+        // if(props.modal && props.ref_value.current !== null){
+        //    console.log(props.ref_value.current)
+        //     return () => props.ref_value.current.removeEventListener('scroll', handleScroll);
+        // } else{
+            if(!props.modal){
+
+                return () => props.ref_value.removeEventListener('scroll', handleScroll);
+            }
+        // }
+
     },[is_next, is_loading]);
 
     return (

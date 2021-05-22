@@ -2,11 +2,12 @@ import React from "react";
 import styled from "styled-components";
 import {useDispatch, useSelector} from 'react-redux';
 import swal from 'sweetalert';
-import {api as communityActions} from '../redux/modules/community';
+import {api as communityActions, setLikeList, deleteLikeList} from '../redux/modules/community';
 
 const Like = (props) => {
     const dispatch = useDispatch();
     const is_login = useSelector(state => state.user.is_login);
+    const user_info = useSelector(state => state.user.user);
     const {currentLike, answerId, questionId, page, width, height, margin,  m_width, m_height, m_margin} = props;
     const styles = {
       width,
@@ -26,6 +27,14 @@ const Like = (props) => {
         });
         return;
       }
+      if(props.detail){
+        dispatch(setLikeList([{
+          nickname:user_info.nickname,
+          profileImg:user_info.profileImg,
+          userId:user_info.id,
+        }]))
+      }
+
       if( page ==='QnA'){
         dispatch(
           communityActions.addLikeQnA(
@@ -67,6 +76,11 @@ const Like = (props) => {
         });
         return;
       }
+
+      if(props.detail){
+        dispatch(deleteLikeList(user_info.id))
+      }
+
       if( page ==='QnA'){
         dispatch(
           communityActions.deleteLikeQnA(

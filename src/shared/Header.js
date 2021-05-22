@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import LoginModal from "./LoginModal";
 import Search from "./Search";
 import { useSelector, useDispatch } from "react-redux";
@@ -40,19 +40,29 @@ const Header = () => {
   let main = "";
   let bookshelf = "";
   let community = "";
+  let friends ="";
 
   if (pathname === "/") {
     main = "main";
     bookshelf = "";
     community = "";
+    friends ="";
   } else if (pathname === "/mybook" || pathname.includes("others")) {
     main = "";
     bookshelf = "bookshelf";
     community = "";
-  } else {
+    friends ="";
+  } else if (pathname === "/community") {
     main = "";
     bookshelf = "";
     community = "community";
+    friends ="";
+  }
+  else {
+    main = "";
+    bookshelf = "";
+    community = "";
+    friends ="friends";
   }
 
   const closeNotiModal = () => {
@@ -153,7 +163,6 @@ const Header = () => {
                   </p>
                 </MenuLi>
                 <MenuLi
-                  style={{ marginBottom: "105px" }}
                   onClick={() => {
                     history.push("/community");
                     dispatch(setComponent(""));
@@ -161,8 +170,37 @@ const Header = () => {
                   }}
                   className={community}
                 >
-                  커뮤니티
+                  생각의 바다
+                  <p
+                  style={{
+                    textAlign: "left",
+                    fontSize: "11px",
+                    color: "#909090",
+                  }}
+                >
+                  랜덤으로 다양한 질문과 답변 즐기기
+                </p>
                 </MenuLi>
+                <MenuLi
+                onClick={() => {
+                  history.push("/friends");
+                  dispatch(setComponent(""));
+                  setMenuOpen(false);
+                }}
+                style={{ marginBottom: "105px" }}
+                className={friends}
+              >
+                너의 생각
+                <p
+                  style={{
+                    textAlign: "left",
+                    fontSize: "11px",
+                    color: "#909090",
+                  }}
+                >
+                  팔로우한 친구들의 생각 모아보기
+                </p>
+              </MenuLi>
 
                 <MenuText
                   onClick={() => {
@@ -271,7 +309,16 @@ const Header = () => {
                 }}
                 className={community}
               >
-                커뮤니티
+                생각의 바다
+              </PageButton>
+              <PageButton
+                onClick={() => {
+                  history.push("/friends");
+                  dispatch(setComponent(""));
+                }}
+                className={friends}
+              >
+                너의 생각낙서
               </PageButton>
             </NaviContainer>
             <IconContainer>
@@ -402,11 +449,40 @@ const Header = () => {
                   dispatch(setComponent(""));
                   setMenuOpen(false);
                 }}
-                style={{ marginBottom: "105px" }}
                 className={community}
               >
-                커뮤니티
+                생각의 바다
+                <p
+                  style={{
+                    textAlign: "left",
+                    fontSize: "11px",
+                    color: "#909090",
+                  }}
+                >
+                  랜덤으로 다양한 질문과 답변 즐기기
+                </p>
               </MenuLi>
+              <MenuLi
+                onClick={() => {
+                  history.push("/friends");
+                  dispatch(setComponent(""));
+                  setMenuOpen(false);
+                }}
+                style={{ marginBottom: "105px" }}
+                className={friends}
+              >
+                너의 생각
+                <p
+                  style={{
+                    textAlign: "left",
+                    fontSize: "11px",
+                    color: "#909090",
+                  }}
+                >
+                  팔로우한 친구들의 생각 모아보기
+                </p>
+              </MenuLi>
+
               <MenuText
                 onClick={() => {
                   setAboutModal(true);
@@ -487,8 +563,17 @@ const Header = () => {
               }}
               className={community}
             >
-              커뮤니티
+              생각의 바다
             </PageButton>
+            <PageButton
+                onClick={() => {
+                  history.push("/friends");
+                  dispatch(setComponent(""));
+                }}
+                className={friends}
+              >
+                너의 생각
+              </PageButton>
           </NaviContainer>
           <IconContainer>
             <Icon
