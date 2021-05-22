@@ -76,6 +76,20 @@ const booksSlice = createSlice({
     setBookLoading: (state, action) => {
         state.book_loading = action.payload;
     },
+    deleteBook: (state, action) => {
+        const now_book = state.books.find(v => v._id === action.payload.date);
+        if(now_book){
+            const now_book_idx = state.books.findIndex(v => v === now_book);
+            if(now_book.count < 2){
+                state.books.pop(now_book_idx);
+            } else{
+                state.books[now_book_idx].count -= 1
+            }
+            const idx = state.book_detail.findIndex(v => v.answerId === action.payload.answerId);
+            state.book_detail.pop(idx);
+        }
+
+    },
     // setSelect : (state, action) => {
     //     state.selected_card = action.payload
     // }
@@ -122,8 +136,14 @@ const getBookDetail = (date, history, type=null) => {
             method:'GET',
         };
         axios(options).then((response) => {
-
-            dispatch(setBookDetail(response.data.booksDiary))
+            let book_list = []
+            response.data.booksDiary.forEach((v) => {
+                book_list.push({
+                    ...v,
+                    date:date
+                })
+            })
+            dispatch(setBookDetail(book_list))
             dispatch(setBookLoading(false))
             if(type){
                 history.push(`/bookdetail/${date}/${response.data.booksDiary[0].answerId}`)
@@ -147,8 +167,14 @@ const getNextDetail = (date) => {
             method:'GET',
         };
         axios(options).then((response) => {
-
-            dispatch(setBookDetail(response.data.booksDiary))
+            let book_list = []
+            response.data.booksDiary.forEach((v) => {
+                book_list.push({
+                    ...v,
+                    date:date
+                })
+            })
+            dispatch(setBookDetail(book_list))
         }).then(()=> {
             const book_detail = getState().books.book_detail
             
@@ -173,8 +199,14 @@ const getPreviousDetail = (date) => {
             method:'GET',
         };
         axios(options).then((response) => {
-
-            dispatch(setBookDetail(response.data.booksDiary))
+            let book_list = []
+            response.data.booksDiary.forEach((v) => {
+                book_list.push({
+                    ...v,
+                    date:date
+                })
+            })
+            dispatch(setBookDetail(book_list))
         }).then(()=> {
             const book_detail = getState().books.book_detail
             
@@ -233,7 +265,14 @@ const getOthersBookDetail = (date,id,history,type=null) => {
             method:'GET',
         };
         axios(options).then((response) => {
-            dispatch(setBookDetail(response.data.booksDiary));
+            let book_list = []
+            response.data.booksDiary.forEach((v) => {
+                book_list.push({
+                    ...v,
+                    date:date
+                })
+            })
+            dispatch(setBookDetail(book_list));
             dispatch(setBookLoading(false));
             if(type){
                 history.push(`/othersdetail/${date}/${id}/${response.data.booksDiary[0].answerId}`)
@@ -259,7 +298,14 @@ const getNextOthersBookDetail = (date,id) => {
             method:'GET',
         };
         axios(options).then((response) => {
-            dispatch(setBookDetail(response.data.booksDiary));
+            let book_list = []
+            response.data.booksDiary.forEach((v) => {
+                book_list.push({
+                    ...v,
+                    date:date
+                })
+            })
+            dispatch(setBookDetail(book_list));
         }).then(()=>{
             const book_detail = getState().books.book_detail
             
@@ -287,7 +333,14 @@ const getPreviousOthersBookDetail = (date,id) => {
             method:'GET',
         };
         axios(options).then((response) => {
-            dispatch(setBookDetail(response.data.booksDiary));
+            let book_list = []
+            response.data.booksDiary.forEach((v) => {
+                book_list.push({
+                    ...v,
+                    date:date
+                })
+            })
+            dispatch(setBookDetail(book_list));
             
         }).then(()=>{
             const book_detail = getState().books.book_detail
@@ -380,6 +433,7 @@ export const {
     setBookLoading,
     setDateVisible,
     setBookDetailModal,
+    deleteBook,
     resetBooks
     // setCardAnswers,
     // setOther

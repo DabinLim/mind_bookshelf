@@ -331,7 +331,7 @@ const CardModal = (props) => {
         />
       {card_loading ? (
         <ModalComponent book={props.book}>
-          {answerInfo?.type === "book" && component !=='myanswers' && component!== 'othersanswers' (
+          {answerInfo?.type === "book" && component !=='myanswers' && component!== 'othersanswers' &&(
             <>
               {answerQuantity.length &&
                 answerQuantity.map((v, idx) => {
@@ -400,7 +400,7 @@ const CardModal = (props) => {
         </ModalComponent>
       ) : (
         <ModalComponent book={props.book}>
-          {answerInfo?.type === "book" && component !=='myanswers' && component!== 'othersanswers' (
+          {answerInfo?.type === "book" && component !=='myanswers' && component!== 'othersanswers'&& (
             <>
               <BooksDetailBox>
                 {answerQuantity.length &&
