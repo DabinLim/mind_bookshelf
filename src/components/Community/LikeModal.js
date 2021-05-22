@@ -63,6 +63,7 @@ const LikeModal = (props) => {
           is_next={is_next ? true : false}
           is_loading={is_loading}
           ref_value={props.container}
+          height={20}
           >
             {like_list.map((f, idx) => {
               return (

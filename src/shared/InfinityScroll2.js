@@ -3,20 +3,20 @@ import _ from "lodash";
 import Spinner from "../elements/Spinner";
 
 const InfinityScroll2 = (props) => {
-    console.log(props)
+    // console.log(props)
 ;    const {callNext, is_next, loading} = props;
 
     const _handleScroll = _.throttle(() => {
         if(loading){
             return;
         }
-
+        
         const {innerHeight} = window;
         const {scrollHeight} = document.body;
 
         const scrollTop = (document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop;
 
-        //console.log(innerHeight, scrollHeight, scrollTop);
+        console.log(innerHeight, scrollHeight, scrollTop);
         
         if(scrollHeight - innerHeight - scrollTop < 200) {
             console.log(innerHeight, scrollHeight, scrollTop);

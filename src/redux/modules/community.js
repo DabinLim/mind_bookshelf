@@ -402,7 +402,7 @@ const deleteLikeAX = (answerId, questionId) => {
 };
 
 const getCardDetail = (a_id, type) => {
-  return function (dispatch, getState) {
+  return function (dispatch) {
     dispatch(setCardLoading(true));
     const options = {
       url: `/bookshelf/bookCardDetail/${a_id}`,
@@ -413,7 +413,6 @@ const getCardDetail = (a_id, type) => {
         dispatch(
           setCardDetail({ ...response.data.bookCardDetail[0], type: type })
         );
-
         dispatch(setCardLoading(false));
       })
       .catch((err) => {
