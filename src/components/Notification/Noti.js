@@ -20,10 +20,13 @@ const Noti = (props) => {
     text = "회원님의 글에 댓글을 남겼습니다.";
   } else if (props.eventType === "tag") {
     eventType = "태그";
-    text = "회원님을 언급했습니다."
+    text = "댓글에서 회원님을 언급했습니다."
   } else if (props.eventType ==="follow"){
     eventType = "팔로우";
     text = "회원님을 팔로우하기 시작했습니다."
+  } else if (props.eventType === "commentLike"){
+    eventType = "댓글 좋아요";
+    text = "회원님의 댓글에 좋아요를 눌렀습니다. "
   } else {
     eventType = "커스텀";
     text = "회원님이 만든 질문에 답변을 남겼습니다."

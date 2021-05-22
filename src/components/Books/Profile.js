@@ -12,7 +12,6 @@ import {
   userLoading as loading,
 } from "../../redux/modules/user";
 import Loader from "react-loader-spinner";
-import { Container } from "@material-ui/core";
 import {history} from '../../redux/configStore';
 
 const Profile = (props) => {
@@ -25,7 +24,6 @@ const Profile = (props) => {
   const is_other = props.id ? true : false;
   const other_info = useSelector((state) => state.user.other);
   const myfriend_list = useSelector((state) => state.user.friends);
-  const otherfriend_list = useSelector((state) => state.user.otherFriends);
   const idx = myfriend_list.findIndex((f) => f.id === props.id);
   const followed = idx !== -1 ? true : false;
   const is_login = useSelector((state) => state.user.is_login);
@@ -373,7 +371,7 @@ const Profile = (props) => {
                         }}
                       >
                         낙서
-                        <CountText>{user_info.myAnswerCount}</CountText>
+                        <CountText>{other_info.otherAnswerCount}</CountText>
                       </Answers>
                       <Line />
                       <MyQuestionBtn
@@ -386,7 +384,7 @@ const Profile = (props) => {
                         }}
                       >
                         질문
-                        <CountText>{user_info.myCustomQuestionCount}</CountText>
+                        <CountText>{other_info.otherCustomQuestionCount}</CountText>
                       </MyQuestionBtn>
                       <Line />
                       <Myfollowers
@@ -517,7 +515,7 @@ const Profile = (props) => {
                     }}
                   >
                     낙서
-                    <CountText>{user_info.myAnswerCount}</CountText>
+                    <CountText>{other_info.otherAnswerCount}</CountText>
                   </Answers>
                   <Line />
                   <MyQuestionBtn
@@ -530,7 +528,7 @@ const Profile = (props) => {
                     }}
                   >
                     질문
-                    <CountText>{user_info.myCustomQuestionCount}</CountText>
+                    <CountText>{other_info.otherCustomQuestionCount}</CountText>
                   </MyQuestionBtn>
                   <Line />
                   <Myfollowers

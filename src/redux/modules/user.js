@@ -376,6 +376,7 @@ const othersInfoAX = (id) => {
             topic: res.data.topic,
             followerCount: res.data.followerCount,
             followingCount: res.data.followingCount,
+            createdQuestion: res.data.createdQuestion,
           })
         );
       })

@@ -445,6 +445,7 @@ const Textarea = styled.textarea`
   padding: 10px 22px;
   font-size: 14px;
   border: none;
+  resize: none;
   box-sizing: border-box;
   margin-top: 5px;
 `;
