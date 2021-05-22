@@ -28,7 +28,7 @@ const FriendsGround = (props) => {
         history.push(`/carddetail/${a}`)
         return
       }
-      const type = "detail";
+      const type = "friends";
       dispatch(communityActions.getCardDetail(a, type));
       dispatch(commentActions.getCommentAX(a));
       setCardModal(true);

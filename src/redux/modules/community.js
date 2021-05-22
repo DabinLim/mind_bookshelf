@@ -54,6 +54,14 @@ const communitySlice = createSlice({
         like: action.payload.like,
       };
     },
+    editLikeCardFriend: (state, action) => {
+      let decision = action.payload.decision;
+      state.card_detail = {
+        ...state.card_detail,
+        likeCount: decision === "like"? state.card_detail.likeCount + 1 : state.card_detail.likeCount - 1 ,
+        like: decision === "like"? true : false,
+      };
+    },
     editLikeInfo: (state, action) => {
       let idx = state.question.findIndex(
         (q) => q.id === action.payload.questionId
@@ -329,7 +337,12 @@ const addLikeAX = (answerId, questionId) => {
               like: res.data.currentLike,
             })
           );
-        } else {
+        } 
+        else if (type === "friends") {
+          dispatch(editLikeCard({likeCount: res.data.likeCountNum,
+            like: res.data.currentLike}))
+        }
+        else {
           dispatch(
             editLikeCard({
               likeCount: res.data.likeCountNum,
@@ -386,7 +399,12 @@ const deleteLikeAX = (answerId, questionId) => {
               like: res.data.currentLike,
             })
           );
-        } else {
+        } 
+        else if (type === "friends") {
+          dispatch(editLikeCard({likeCount: res.data.likeCountNum,
+            like: res.data.currentLike}))
+        }
+        else {
           dispatch(
             editLikeCard({
               likeCount: res.data.likeCountNum,
@@ -548,6 +566,7 @@ export const {
   setCardLoading,
   setCardDetail,
   editLikeCard,
+  editLikeCardFriend,
   editCommentInfo,
   changeType,
   deleteAnswer,

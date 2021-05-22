@@ -2,14 +2,17 @@ import React from "react";
 import styled from "styled-components";
 import {useDispatch, useSelector} from 'react-redux';
 import swal from 'sweetalert';
-import {editFriendLikeInfo} from "../redux/modules/friends";
+import {api as friendsActions} from "../redux/modules/friends";
 import {api as communityActions, setLikeList, deleteLikeList} from '../redux/modules/community';
 import {addAnswersLikeInfo, deleteAnswersLikeInfo} from '../redux/modules/custom';
+import {editLikeCardFriend} from "../redux/modules/community";
 
 const Like = (props) => {
     const dispatch = useDispatch();
     const is_login = useSelector(state => state.user.is_login);
     const user_info = useSelector(state => state.user.user);
+    const currentLocation = useSelector(state => state.router.location.pathname);
+    console.log(currentLocation);
     const {currentLike, answerId, questionId, page, width, height, margin,  m_width, m_height, m_margin} = props;
     const styles = {
       width,
@@ -64,7 +67,11 @@ const Like = (props) => {
       }
 
       if (page === "friends") {
-        dispatch(editFriendLikeInfo(answerId));
+        dispatch(friendsActions.addLikeFriend(answerId));
+        if (currentLocation === "/friends") {
+          dispatch(editLikeCardFriend({
+            decision: "like",}));
+        }
         console.log(`friends clicked ${answerId}`)
         return;
       }
@@ -126,7 +133,11 @@ const Like = (props) => {
         return
       }
       if (page === "friends") {
-        dispatch(editFriendLikeInfo(answerId));
+        dispatch(friendsActions.deleteLikeFriend(answerId));
+        if (currentLocation === "/friends") {
+          dispatch(editLikeCardFriend({
+            decision: "dislike",}));
+        }
         console.log(`friends clicked ${answerId}`)
         return;
       }

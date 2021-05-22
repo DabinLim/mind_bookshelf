@@ -7,7 +7,7 @@ import {
   setBookDetailModal,
 } from "../../redux/modules/books";
 // import CommentInput from "./CommentInput"
-import { api as communityActions } from "../../redux/modules/community";
+import { api as communityActions, editLikeCardFriend } from "../../redux/modules/community";
 import { useDispatch, useSelector } from "react-redux";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import FavoriteIcon from "@material-ui/icons/Favorite";
@@ -29,7 +29,7 @@ import ChannelService from "../../shared/ChannelService";
 import Like from '../../shared/Like';
 import Subject from '../../shared/Subject';
 import { CenterFocusStrong } from "@material-ui/icons";
-
+import {editFriendCommentInfo} from "../../redux/modules/friends";
 
 const CardModal = (props) => {
   const answerInfo = useSelector((state) => state.community.card_detail);
@@ -58,11 +58,15 @@ const CardModal = (props) => {
   const id = url[url.length - 1];
   const others = url[url.length-2];
   const component = useSelector(state => state.books.component);
-
+  const currentLocation = useSelector(state => state.router.location.pathname);
+  console.log(currentLocation);
 
   React.useEffect(() => {
     if(component === 'myanswers' || 'othersanswers'){
       setPage('component');
+    }
+    if (currentLocation === "/friends") {
+      setPage('friends');
     }
     ChannelService.shutdown();
     return () => {
@@ -283,6 +287,9 @@ const CardModal = (props) => {
         answerInfo?.questionId
       )
     );
+    if (currentLocation === "/friends") {
+      dispatch(editFriendCommentInfo({_id: answerInfo?.answerId, decision: "add"}))
+    }
     setComments("");
   };
 
