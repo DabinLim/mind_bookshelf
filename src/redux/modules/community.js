@@ -140,8 +140,9 @@ const communitySlice = createSlice({
           return v
         }
       })
+      console.log(idx)
       if(idx !== -1){
-        state.like_list.pop(idx);
+        state.like_list.splice(idx, 1)
       }
     },
     resetAll: (state) => {

@@ -29,6 +29,7 @@ import ChannelService from "../../shared/ChannelService";
 import Like from '../../shared/Like';
 import Subject from '../../shared/Subject';
 import { CenterFocusStrong } from "@material-ui/icons";
+import LikeModal from './LikeModal';
 
 
 const CardModal = (props) => {
@@ -58,9 +59,18 @@ const CardModal = (props) => {
   const id = url[url.length - 1];
   const others = url[url.length-2];
   const component = useSelector(state => state.books.component);
+  const like_list = useSelector(state => state.community.like_list);
+  const [likeModal, setLikeModal] = React.useState(false);
+  const container = React.useRef();
+
+  const closeModal = () => {
+    setLikeModal(false);
+  };
 
 
   React.useEffect(() => {
+    console.log(answerInfo.answerId)
+    dispatch(communityActions.getLikeList(answerInfo.answerId));
     if(component === 'myanswers' || 'othersanswers'){
       setPage('component');
     }
@@ -600,6 +610,22 @@ const CardModal = (props) => {
                 </CardAnswerContent>
               )}
             </CardWriteLeftBody>
+            {like_list.length ? 
+                
+                <LikeList>
+                    {likeModal? <LikeModal answerId={id} container={container} close={closeModal}/>:null}
+                    {like_list.length > 1 ? 
+                    <LikePeople onClick={()=>{setLikeModal(true)}}>
+                        <span style={{fontWeight:'600'}}>{like_list[0].nickname}</span>님 외 <span style={{fontWeight:'600'}}>{answerInfo?.likeCount -1}</span>명이 좋아합니다.
+                    </LikePeople> :
+                    <LikePeople onClick={()=>{setLikeModal(true)}}>
+                        <span style={{fontWeight:'600'}}>
+                        {like_list[0].nickname}
+                        </span>님이 좋아합니다.
+                    </LikePeople>
+                    }
+                </LikeList>
+                :''}
             <IconContainer type={answerInfo?.type}>
               <IconBox>
                 <LikeContainer>
@@ -685,6 +711,19 @@ const CardModal = (props) => {
     </React.Fragment>
   );
 };
+
+const LikeList = styled.div`
+    display:flex;
+    flex-direction:row;
+    align-items:center;
+    justify-content:flex-start;
+    padding-left: 24px;
+    border-bottom:0.5px solid #D3D3D3;
+`;
+
+const LikePeople = styled.span`
+    font-size:14px;
+`;
 
 const Component = styled.div`
   position: fixed;

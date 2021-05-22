@@ -81,12 +81,12 @@ const booksSlice = createSlice({
         if(now_book){
             const now_book_idx = state.books.findIndex(v => v === now_book);
             if(now_book.count < 2){
-                state.books.pop(now_book_idx);
+                state.books.splice(now_book_idx,1);
             } else{
                 state.books[now_book_idx].count -= 1
             }
             const idx = state.book_detail.findIndex(v => v.answerId === action.payload.answerId);
-            state.book_detail.pop(idx);
+            state.book_detail.splice(idx,1);
         }
 
     },
