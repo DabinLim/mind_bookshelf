@@ -3,32 +3,33 @@ import styled from 'styled-components'
 import {api as userActions} from "../../redux/modules/user";
 import { useSelector, useDispatch } from "react-redux";
 
-const UnfollowConfirmModal = (props) => {
+const FollowConfirmModal = (props) => {
   const dispatch = useDispatch()
+
   return(
     <React.Fragment>
-      <Background onClick={()=>{props.setUnfollowModal(false)}} />
+      <Background onClick={()=>{props.setFollowModal(false)}} />
       <Container>
         <Header>
           <div>
             <b>{props.nickname}</b>님을
           </div>
           <div>
-            팔로우 해제하시겠어요?
+            팔로우 하시겠어요?
           </div> 
         </Header>
         <Body>
           <Button 
             onClick={() => {
               dispatch(
-                userActions.unfollowOtherAX(
+                userActions.followOtherAX(
                   props.id,
                 )
               );
-              props.setUnfollowModal(false)
+              props.setFollowModal(false);
             }}
-            style={{color:"#EB5959", borderBottom: '0.5px solid #D3D4D3'}} >해제</Button>
-          <Button onClick={()=>{props.setUnfollowModal(false)}} >취소</Button>
+            style={{color:"#EB5959", borderBottom: '0.5px solid #D3D4D3'}} >확인</Button>
+          <Button onClick={()=>{props.setFollowModal(false)}} >취소</Button>
         </Body>
       </Container>
     </React.Fragment>
@@ -64,7 +65,6 @@ const Header = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  text-align:center;
   font: normal normal medium 14px/20px Noto Sans CJK KR  ;
   border-bottom: 0.5px solid #D3D4D3;
 `
@@ -86,4 +86,4 @@ const Button = styled.div`
   cursor: pointer;
 `
 
-export default UnfollowConfirmModal
+export default FollowConfirmModal

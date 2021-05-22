@@ -405,7 +405,7 @@ const CommunityContainer = styled.div`
   width: 100%;
   max-width: 1200px;
   box-sizing: border-box;
-  height:100%;
+  // height:100%;
   margin-top: 150px;
   display: flex;
   flex-direction: column;

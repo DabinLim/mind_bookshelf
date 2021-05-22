@@ -14,6 +14,7 @@ const InfinityScroll = (props) => {
             return
         }
         if(props.modal){
+            console.log('하이')
             const {clientHeight} = props.ref_value.current;
             const {scrollHeight} = props.ref_value.current;
     
@@ -22,21 +23,21 @@ const InfinityScroll = (props) => {
             // (document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop;
     
             if(scrollHeight - clientHeight - scrollTop < 20) {
-                // console.log('whyrano')
+                console.log('whyrano')
                 callNext();
             }
             return
         }
 
-        const {clientHeight} = props.ref_value;
-        const {scrollHeight} = props.ref_value;
+        const {clientHeight} = props.ref_value.current;
+        const {scrollHeight} = props.ref_value.current;
   
         // 브라우저마다 document에 접근해서 scrollTop을 가지고 오는 방법이 다름
-        const {scrollTop} = props.ref_value;
+        const {scrollTop} = props.ref_value.current;
         // (document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop;
    
         if(scrollHeight - clientHeight - scrollTop < 100) {
-            // console.log('whyrano')
+            console.log('whyrano')
             callNext();
         }
     },300)
@@ -64,12 +65,13 @@ const InfinityScroll = (props) => {
             }
         }else{
             if(props.modal){
+                console.log('end', is_next)
                 props.ref_value.current.removeEventListener('scroll', handleScroll)
             }else{
-
                 props.ref_value.removeEventListener('scroll', handleScroll);
             }
         }
+        
 
         // 이벤트 구독 해제, Clean up
         // if(props.modal && props.ref_value.current !== null){
@@ -82,7 +84,7 @@ const InfinityScroll = (props) => {
             }
         // }
 
-    },[is_next, is_loading, props.ref_value]);
+    },[is_next, is_loading]);
 
     return (
         <React.Fragment>

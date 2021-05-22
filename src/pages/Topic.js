@@ -70,7 +70,7 @@ const Topic = (props) => {
                         </QuestionContent>
                       </div>
                       <AnswerCount>
-                        {t.answerCount}명 낙서중
+                        <b>{t.answerCount}</b>명 낙서중
                       </AnswerCount>
                     </Card>
                   )
@@ -90,12 +90,16 @@ const TopicContainer = styled.div`
 `
 
 const TopicBox = styled.div`
+margin: auto;
 margin-top: 50px;
 width: 100%;
 padding: 40px 50px;
 background-image: url("https://user-images.githubusercontent.com/77369674/118811425-f73f2980-b8e7-11eb-919a-d4421378e117.png");
 background-size: cover;
 background-repeat: no-repeat;
+@media (max-width: 500px) {
+  padding: 20px 10px 20px 20px
+}
 `
 
 const Header = styled.div`
@@ -112,6 +116,9 @@ const Body = styled.div`
   flex-direction: row;
   justify-content: flex-start;
   flex-wrap: wrap;
+  @media (max-width: 500px) {
+    margin-top: 20px;
+  }
 `
 
 const Card = styled.div`
@@ -123,11 +130,16 @@ const Card = styled.div`
   height: 189px;
   background: #ffffff;
   box-shadow: 0 3px 6px rgba(0,0,0,0.12), 0 2px 5px rgba(0,0,0,0.24);
-  transition: box-shadow 0.25s ease-in 0s, transform 0.25s ease-in 0s;
-  &:hover{
-    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
-    transform: translateY(-8px);
-  };
+  // transition: box-shadow 0.25s ease-in 0s, transform 0.25s ease-in 0s;
+  // &:hover{
+  //   box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+  //   transform: translateY(-8px);
+  // };
+  @media (max-width: 500px) {
+    width: 150px;
+    height: 140px;
+    margin: 0px 15px 30px 0px;  
+  }
 `
 
 const AnswerCount = styled.div`
@@ -136,6 +148,9 @@ const AnswerCount = styled.div`
   padding: 0 20px 0 20px;
   display: flex;
   align-items: center;
+  @media (max-width: 500px) {
+    padding: 0 10px 0 10px;
+  }
 `
 
 
@@ -144,6 +159,9 @@ const UserInfo = styled.div`
   cursor: pointer;
   align-items: center;
   margin: 20px;
+  @media (max-width: 500px) {
+    margin: 10px;
+  }
 `
 
 const UserProfileImg = styled.img`
@@ -168,6 +186,10 @@ const QuestionContent = styled.div`
   &:hover {
     font-weight: bold;
   };
+  @media (max-width: 500px) {
+    margin: 0 10px 0 10px;
+    -webkit-line-clamp: 2;
+  }
 `
 
 

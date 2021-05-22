@@ -1,19 +1,27 @@
 import React from 'react';
 import {history} from '../redux/configStore';
 import styled from 'styled-components';
-import {BookShelf, Profile, MyQuestion, MyAnswers, ProfileUpdateModal} from '../components/Books/booksindex';
+import {NewQuestion, BookShelf, Profile, MyQuestion, MyAnswers, ProfileUpdateModal} from '../components/Books/booksindex';
 import {useSelector, useDispatch} from 'react-redux';
 import {setComponent, setBookDetailModal, setDateVisible} from '../redux/modules/books';
 import { getCookie } from '../shared/Cookie';
-import {api as userActions} from '../redux/modules/user'
-import { changeType } from '../redux/modules/community'
+import {api as userActions, resetFollower, resetFollowing} from '../redux/modules/user'
+import { changeType } from '../redux/modules/community';
+import swal from "sweetalert";
+import AddIcon from '@material-ui/icons/Add';
+import DoneIcon from '@material-ui/icons/Done';
 
 const MyBook = (props) => {
     const dispatch = useDispatch();
     const component = useSelector(state => state.books.component)
     const date = useSelector(state => state.books.date)
     const answerInfo = useSelector((state) => state.community.card_detail);
+    const is_login = useSelector((state) => state.user.is_login);
     const [UpdateModal, setUpdateModal] = React.useState(false);
+    const [modalVisable, setModalVisible] = React.useState(false);
+    const userId = useSelector((state) => state.user.user.id);
+    const createdQuestion = useSelector((state) => state.user.other.createdQuestion)
+
     let url = window.location.href.split('/');
     let id = url[url.length -1];
     
@@ -26,9 +34,13 @@ const MyBook = (props) => {
             window.alert('로그인 상태가 아닙니다.');
             history.replace('/');
         };
-        dispatch(setComponent(''))
-        dispatch(userActions.myFollowListAX())
+        dispatch(setComponent(''));
+        dispatch(userActions.othersInfoAX(userId));
+        dispatch(userActions.getFollowing(userId));
+        dispatch(userActions.getFollower(userId));
         return()=>{
+            dispatch(resetFollower());
+            dispatch(resetFollowing());
             if(answerInfo.length !== 0){
                 dispatch(changeType(null))
             }
@@ -37,6 +49,30 @@ const MyBook = (props) => {
     return(
         <React.Fragment>
             {UpdateModal ? <ProfileUpdateModal close={closeUpdateModal} /> : null}
+            {modalVisable? 
+                <NewQuestion setModalVisible={setModalVisible} />
+            :null}
+            {createdQuestion ? 
+            <CustomBtn
+                onClick={() => {
+                    setModalVisible(true)
+                }}
+            >
+                <AddIcon fontSize="large" />
+            </CustomBtn>
+            :
+            <CustomBtn
+                style={{backgroundColor:"silver"}}
+                onClick={() => {
+                    swal({
+                        title: "질문은 하루에 한 번만 만들 수 있어요.",
+                        icon: "error",
+                    });
+                }}
+            >
+                <DoneIcon fontSize="large" />
+            </CustomBtn>
+            }
             <Container>
                 <ContainerBox>
                     {/* {id === 'mybook' && component === '' && <ImgLeft/>} */}
@@ -56,6 +92,28 @@ const MyBook = (props) => {
         </React.Fragment>
     )
 }
+
+const CustomBtn = styled.div`
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  right: 26px;
+  bottom: 100px;
+  width: 63px;
+  height: 63px;
+  border-radius: 50px;
+  background: white;
+  z-index: 50;
+  cursor: pointer;
+  box-shadow: 0px 0px 20px #0000001a;
+  @media (max-width: 500px) {
+    width: 50px;
+    height: 50px;
+    right: 14px;
+    bottom: 80px;
+  }
+`;
 
 const ContainerBox = styled.div`
     margin: 50px 0px 0px 0px;
@@ -140,40 +198,6 @@ const ProfileContainer = styled.section`
     }
 `;
 
-const ImgRight = styled.div`
-    z-index:25;
-    position:fixed;
-    background-image:url('https://user-images.githubusercontent.com/77574867/116996886-0c785d80-ad17-11eb-9afd-175a104b7f33.png');
-    background-size:contain;
-    background-repeat:no-repeat;
-    right:-70px;
-    bottom:-13px;
-    width:593px;
-    height:731px;
-    opacity:0.8;
-    pointer-events: none;
-    @media (max-width:1400px){
-        display:none;
-    }
-    
-`;
 
-
-const ImgLeft = styled.div`
-    z-index:25;
-    position:fixed;
-    background-image:url('https://user-images.githubusercontent.com/77574867/116996878-0b473080-ad17-11eb-8910-108950e25cb8.png');
-    background-size:contain;
-    background-repeat:no-repeat;
-    left:-20px;
-    top:249px;
-    width:365px;
-    height:341px;
-    opacity:0.8;
-    pointer-events: none;
-    @media (max-width:1400px){
-        display:none;
-    }
-`;
 
 export default MyBook;

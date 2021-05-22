@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
-import { FollowModal } from "./booksindex";
+import { FollowerModal, FollowingModal } from "./booksindex";
 import {
   setComponent,
   setPageOwner,
@@ -12,30 +12,35 @@ import {
   userLoading as loading,
 } from "../../redux/modules/user";
 import Loader from "react-loader-spinner";
-import { Container } from "@material-ui/core";
 import {history} from '../../redux/configStore';
 
 const Profile = (props) => {
   const dispatch = useDispatch();
-  const [followModal, setFollowModal] = useState(false);
-  const [typeFollow, setTypeFollow] = useState(false);
+  const [followerModal, setFollowerModal] = useState(false);
+  const [followingModal, setFollowingModal] = useState(false);
+  const follower_list = useSelector((state) => state.user.follower);
+  const following_list = useSelector((state) => state.user.following);
   const user_info = useSelector((state) => state.user.user);
   const is_other = props.id ? true : false;
   const other_info = useSelector((state) => state.user.other);
   const myfriend_list = useSelector((state) => state.user.friends);
-  const otherfriend_list = useSelector((state) => state.user.otherFriends);
   const idx = myfriend_list.findIndex((f) => f.id === props.id);
   const followed = idx !== -1 ? true : false;
   const is_login = useSelector((state) => state.user.is_login);
   const userLoading = useSelector((state) => state.user.is_userLoading);
   const url = window.location.href.split('/');
   const id = url[url.length -1];
+  const container = React.useRef();
 
 
 
-  const closeFollowModal = () => {
-    setFollowModal(false);
+  const closeFollowerModal = () => {
+    setFollowerModal(false);
   };
+
+  const closeFollowingModal = () => {
+    setFollowingModal(false)
+  }
 
   React.useEffect(() => {
     dispatch(setPageOwner(props.id));
@@ -54,11 +59,20 @@ const Profile = (props) => {
             </SpinnerContainer>
           ) : (
             <>
-              {followModal ? (
-                <FollowModal
-                  friend_list={otherfriend_list}
-                  close={closeFollowModal}
-                  typeFollow={typeFollow}
+              {followerModal ? (
+                <FollowerModal
+                  close={closeFollowerModal}
+                  follower_list = {follower_list}
+                  container={container}
+                  userId={props.id}
+                />
+              ) : null}
+              {followingModal ? (
+                <FollowingModal
+                  close={closeFollowingModal}
+                  following_list = {following_list}
+                  container={container}
+                  userId={props.id}
                 />
               ) : null}
               <Background/>
@@ -98,10 +112,18 @@ const Profile = (props) => {
                       <Line />
                       <Myfollowers
                         onClick={() => {
-                          setFollowModal(true);
+                          setFollowingModal(true);
                         }}
                       >
-                        구독<CountText>{otherfriend_list.length}</CountText>
+                        팔로잉<CountText>{other_info.followingCount}</CountText>
+                      </Myfollowers>
+                      <Line />
+                      <Myfollowers
+                        onClick={() => {
+                          setFollowerModal(true);
+                        }}
+                      >
+                        팔로워<CountText>{other_info.followerCount}</CountText>
                       </Myfollowers>
                     </HeadBody>
                     {is_login && other_info.nickname !== "알 수 없는 유저" ? (
@@ -111,7 +133,7 @@ const Profile = (props) => {
                             props.setUnfollowModal(true)
                           }}
                         >
-                          구독취소
+                          팔로우취소
                         </FollowerBtn>
                       ) : (
                         <FollowerBtn
@@ -119,13 +141,11 @@ const Profile = (props) => {
                             dispatch(
                               userActions.followOtherAX(
                                 props.id,
-                                other_info.nickname,
-                                other_info.profileImg
                               )
                             );
                           }}
                         >
-                          구독하기
+                          팔로우하기
                         </FollowerBtn>
                       )
                     ) : null}
@@ -256,10 +276,18 @@ const Profile = (props) => {
                   <Line />
                   <Myfollowers
                     onClick={() => {
-                      setFollowModal(true);
+                      setFollowingModal(true);
                     }}
                   >
-                    구독<CountText>{otherfriend_list.length}</CountText>
+                    팔로잉<CountText>{other_info.followingCount}</CountText>
+                  </Myfollowers>
+                  <Line />
+                  <Myfollowers
+                    onClick={() => {
+                      setFollowerModal(true);
+                    }}
+                  >
+                    팔로워<CountText>{other_info.followerCount}</CountText>
                   </Myfollowers>
                 </Body>
                 <Bottom>
@@ -272,7 +300,7 @@ const Profile = (props) => {
                         props.setUnfollowModal(true)
                       }}
                     >
-                      구독중
+                      팔로잉
                     </UnFollowBtnMobile>
                   ) : (
                     <FollowBtnMobile
@@ -280,13 +308,11 @@ const Profile = (props) => {
                         dispatch(
                           userActions.followOtherAX(
                             props.id,
-                            other_info.nickname,
-                            other_info.profileImg
                           )
                         );
                       }}
                     >
-                      구독
+                      팔로우
                     </FollowBtnMobile>
                   )
                 ) : null}
@@ -296,11 +322,20 @@ const Profile = (props) => {
         </React.Fragment>
       ) : (
         <React.Fragment>
-          {followModal ? (
-            <FollowModal 
-              friend_list={myfriend_list} 
-              close={closeFollowModal}
-              typeFollow={typeFollow}
+          {followerModal ? (
+            <FollowerModal 
+              close={closeFollowerModal}
+              follower_list = {follower_list}
+              container={container}
+              userId={user_info.id}
+            />
+          ) : null}
+          {followingModal ? (
+            <FollowingModal 
+              close={closeFollowingModal}
+              following_list = {following_list}
+              container={container}
+              userId={user_info.id}
             />
           ) : null}
           {!is_login ? (
@@ -336,7 +371,7 @@ const Profile = (props) => {
                         }}
                       >
                         낙서
-                        <CountText>{user_info.myAnswerCount}</CountText>
+                        <CountText>{other_info.otherAnswerCount}</CountText>
                       </Answers>
                       <Line />
                       <MyQuestionBtn
@@ -349,17 +384,25 @@ const Profile = (props) => {
                         }}
                       >
                         질문
-                        <CountText>{user_info.myCustomQuestionCount}</CountText>
+                        <CountText>{other_info.otherCustomQuestionCount}</CountText>
                       </MyQuestionBtn>
                       <Line />
                       <Myfollowers
                         onClick={() => {
-                          setTypeFollow(true);
-                          setFollowModal(true);
+                          setFollowingModal(true);
                         }}
                       >
-                        구독
-                        <CountText>{myfriend_list.length}</CountText>
+                        팔로잉
+                        <CountText>{other_info.followingCount}</CountText>
+                      </Myfollowers>
+                      <Line />
+                      <Myfollowers
+                        onClick={() => {
+                          setFollowerModal(true);
+                        }}
+                      >
+                        팔로워
+                        <CountText>{other_info.followerCount}</CountText>
                       </Myfollowers>
                     </HeadBody>
                     </HeadBox>
@@ -472,7 +515,7 @@ const Profile = (props) => {
                     }}
                   >
                     낙서
-                    <CountText>{user_info.myAnswerCount}</CountText>
+                    <CountText>{other_info.otherAnswerCount}</CountText>
                   </Answers>
                   <Line />
                   <MyQuestionBtn
@@ -485,17 +528,25 @@ const Profile = (props) => {
                     }}
                   >
                     질문
-                    <CountText>{user_info.myCustomQuestionCount}</CountText>
+                    <CountText>{other_info.otherCustomQuestionCount}</CountText>
                   </MyQuestionBtn>
                   <Line />
                   <Myfollowers
                     onClick={() => {
-                      setTypeFollow(true);
-                      setFollowModal(true);
+                      setFollowingModal(true);
                     }}
                   >
-                    구독
-                    <CountText>{myfriend_list.length}</CountText>
+                    팔로잉
+                    <CountText>{other_info.followingCount}</CountText>
+                  </Myfollowers>
+                  <Line />
+                  <Myfollowers
+                    onClick={() => {
+                      setFollowerModal(true);
+                    }}
+                  >
+                    팔로워
+                    <CountText>{other_info.followerCount}</CountText>
                   </Myfollowers>
                 </Body>
                 <Bottom>
