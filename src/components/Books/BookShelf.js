@@ -169,7 +169,7 @@ const BookShelf = (props) => {
                           {v._id.charAt(v._id.length - 2)}
                           {v._id.charAt(v._id.length - 1)}
                         </Date>
-                        <BookImage src="https://user-images.githubusercontent.com/77574867/117760850-53a7a680-b261-11eb-8a8e-2727d0edbc91.png" />
+                        <BookImage src="https://user-images.githubusercontent.com/77574867/119233318-66748200-bb63-11eb-878b-ac1096da3591.png" />
                       </Book>
                     )}
                     {v.count === 2 && (
@@ -190,7 +190,7 @@ const BookShelf = (props) => {
                           {v._id.charAt(v._id.length - 2)}
                           {v._id.charAt(v._id.length - 1)}
                         </Date>
-                        <BookImage src="https://user-images.githubusercontent.com/77574867/117760848-530f1000-b261-11eb-8593-6e8d9699c0b4.png" />
+                        <BookImage src="https://user-images.githubusercontent.com/77574867/119233322-670d1880-bb63-11eb-9e11-adec3ea8b442.png" />
                       </Book>
                     )}
                     {v.count >= 3 && (
@@ -211,7 +211,7 @@ const BookShelf = (props) => {
                           {v._id.charAt(v._id.length - 2)}
                           {v._id.charAt(v._id.length - 1)}
                         </Date>
-                        <BookImage src="https://user-images.githubusercontent.com/77574867/117760845-51dde300-b261-11eb-8d57-7bdd1870d003.png" />
+                        <BookImage src="https://user-images.githubusercontent.com/77574867/119233325-67a5af00-bb63-11eb-92b0-f0ae48fda11e.png" />
                       </Book>
                     )}
                   </>
@@ -247,7 +247,7 @@ const BookShelf = (props) => {
                           {v._id.charAt(v._id.length - 2)}
                           {v._id.charAt(v._id.length - 1)}
                         </Date>
-                        <BookImage src="https://user-images.githubusercontent.com/77574867/117760850-53a7a680-b261-11eb-8a8e-2727d0edbc91.png" />
+                        <BookImage src="https://user-images.githubusercontent.com/77574867/119233318-66748200-bb63-11eb-878b-ac1096da3591.png" />
                       </Book>
                     )}
                     {v.count === 2 && (
@@ -268,7 +268,7 @@ const BookShelf = (props) => {
                           {v._id.charAt(v._id.length - 2)}
                           {v._id.charAt(v._id.length - 1)}
                         </Date>
-                        <BookImage src="https://user-images.githubusercontent.com/77574867/117760848-530f1000-b261-11eb-8593-6e8d9699c0b4.png" />
+                        <BookImage src="https://user-images.githubusercontent.com/77574867/119233322-670d1880-bb63-11eb-9e11-adec3ea8b442.png" />
                       </Book>
                     )}
                     {v.count >= 3 && (
@@ -289,7 +289,7 @@ const BookShelf = (props) => {
                           {v._id.charAt(v._id.length - 2)}
                           {v._id.charAt(v._id.length - 1)}
                         </Date>
-                        <BookImage src="https://user-images.githubusercontent.com/77574867/117760845-51dde300-b261-11eb-8d57-7bdd1870d003.png" />
+                        <BookImage src="https://user-images.githubusercontent.com/77574867/119233325-67a5af00-bb63-11eb-92b0-f0ae48fda11e.png" />
                       </Book>
                     )}
                   </>
@@ -904,8 +904,8 @@ const Book = styled.div`
 
 const Date = styled.span`
   position: absolute;
-  top: 20px;
-  left: 14px;
+  top: 30px;
+  left: 13px;
   z-index: 2;
   color: #ffffff;
   font-weight: 600;
@@ -917,7 +917,7 @@ const Date = styled.span`
 
 const BookImage = styled.img`
   position: absolute;
-  top: -10px;
+  top: 0px;
   left: -23px;
   z-index: 1;
   @media (max-width: 750px) {
