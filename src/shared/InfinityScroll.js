@@ -10,6 +10,23 @@ const InfinityScroll = (props) => {
         if(is_loading){
             return;
         }
+        if(!props.ref_value){
+            return
+        }
+        if(props.modal){
+            const {clientHeight} = props.ref_value.current;
+            const {scrollHeight} = props.ref_value.current;
+    
+            // 브라우저마다 document에 접근해서 scrollTop을 가지고 오는 방법이 다름
+            const {scrollTop} = props.ref_value.current;
+            // (document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop;
+    
+            if(scrollHeight - clientHeight - scrollTop < 20) {
+                // console.log('whyrano')
+                callNext();
+            }
+            return
+        }
 
         const {clientHeight} = props.ref_value;
         const {scrollHeight} = props.ref_value;
@@ -28,21 +45,44 @@ const InfinityScroll = (props) => {
 
     React.useEffect(() => {
         // 다음 데이터가 없으면 이벤트 구독해제
+        console.log(props.ref_value);
         if(is_loading){
+            
             return;
         };
         if(!props.ref_value){
+            
             return
         }
         if(is_next){
-            props.ref_value.addEventListener('scroll', handleScroll);
+            
+            console.log(props.ref_value)
+            if(props.modal){
+                props.ref_value.current.addEventListener('scroll', handleScroll);
+            }else{
+                props.ref_value.addEventListener('scroll', handleScroll);
+            }
         }else{
-            props.ref_value.removeEventListener('scroll', handleScroll)
+            if(props.modal){
+                props.ref_value.current.removeEventListener('scroll', handleScroll)
+            }else{
+
+                props.ref_value.removeEventListener('scroll', handleScroll);
+            }
         }
 
         // 이벤트 구독 해제, Clean up
-        return () => props.ref_value.removeEventListener('scroll', handleScroll);
-    },[is_next, is_loading]);
+        // if(props.modal && props.ref_value.current !== null){
+        //    console.log(props.ref_value.current)
+        //     return () => props.ref_value.current.removeEventListener('scroll', handleScroll);
+        // } else{
+            if(!props.modal){
+
+                return () => props.ref_value.removeEventListener('scroll', handleScroll);
+            }
+        // }
+
+    },[is_next, is_loading, props.ref_value]);
 
     return (
         <React.Fragment>

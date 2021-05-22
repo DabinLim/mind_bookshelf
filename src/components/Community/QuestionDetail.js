@@ -373,7 +373,6 @@ const QuestionDetail = (props) => {
 };
 
 const Outer = styled.section`
- height:100vh;
   width: 100%;
   height: 100vh;
   display: flex;
@@ -386,7 +385,7 @@ const Outer = styled.section`
     margin-top: 100px;
   }
   @media (max-width: 750px) {
-    height:100%;
+    height:100vh;
     margin: 50px 0px 0px 0px;
     background-size: cover;
     background-repeat: no-repeat;
@@ -623,7 +622,8 @@ const AnswersBox = styled.div`
     background-color: #ffffff; /* color of the scroll thumb */
     border-radius: 20px; /* roundness of the scroll thumb */
   }
-  @media (max-width: 650px) {
+  @media (max-width: 750px) {
+    max-height:400px;
     ::-webkit-scrollbar {
       display: none;
     }
@@ -663,7 +663,7 @@ const AnswersBoxLike = styled.div`
     background-color: #ffffff; /* color of the scroll thumb */
     border-radius: 20px; /* roundness of the scroll thumb */
   }
-  @media (max-width: 650px) {
+  @media (max-width: 750px) {
     ::-webkit-scrollbar {
       display: none;
     }
@@ -704,7 +704,7 @@ const AnswersBoxFriends = styled.div`
     background-color: #ffffff; /* color of the scroll thumb */
     border-radius: 20px; /* roundness of the scroll thumb */
   }
-  @media (max-width: 650px) {
+  @media (max-width: 750px) {
     ::-webkit-scrollbar {
       display: none;
     }

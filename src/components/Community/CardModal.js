@@ -50,14 +50,20 @@ const CardModal = (props) => {
   const [updateAnswer, setUpdateAnswer] = useState(false);
   const [answer, setAnswer] = useState();
   const [isOpen, setOpen] = useState(true);
+  const [page, setPage] = useState(null);
   const [cancelModal, setCancelModal] = useState(false);
   const cmtInput = useRef();
   const ok_submit = comments ? true : false;
   const url = window.location.href.split("/");
   const id = url[url.length - 1];
   const others = url[url.length-2];
+  const component = useSelector(state => state.books.component);
+
 
   React.useEffect(() => {
+    if(component === 'myanswers' || 'othersanswers'){
+      setPage('component');
+    }
     ChannelService.shutdown();
     return () => {
       ChannelService.boot({
@@ -325,7 +331,7 @@ const CardModal = (props) => {
         />
       {card_loading ? (
         <ModalComponent book={props.book}>
-          {answerInfo?.type === "book" && (
+          {answerInfo?.type === "book" && component !=='myanswers' && component!== 'othersanswers' &&(
             <>
               {answerQuantity.length &&
                 answerQuantity.map((v, idx) => {
@@ -394,7 +400,7 @@ const CardModal = (props) => {
         </ModalComponent>
       ) : (
         <ModalComponent book={props.book}>
-          {answerInfo?.type === "book" && (
+          {answerInfo?.type === "book" && component !=='myanswers' && component!== 'othersanswers'&& (
             <>
               <BooksDetailBox>
                 {answerQuantity.length &&
@@ -597,7 +603,7 @@ const CardModal = (props) => {
             <IconContainer type={answerInfo?.type}>
               <IconBox>
                 <LikeContainer>
-                <Like width='20px' height='19px' currentLike={answerInfo?.like} answerId={answerInfo?.answerId} questionId={answerInfo?.questionId}/>
+                <Like page={page} width='20px' height='19px' currentLike={answerInfo?.like} answerId={answerInfo?.answerId} questionId={answerInfo?.questionId}/>
                   <LikeCount>{answerInfo?.likeCount}개</LikeCount>
                 </LikeContainer>
                 <CommentContainer>

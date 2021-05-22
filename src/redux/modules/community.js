@@ -4,7 +4,7 @@ import axios from "axios";
 import swal from "sweetalert";
 import { editDetailLikeInfo, deleteMoreview, editMoreviewAnswer } from "./moreview";
 import { ed} from "./friends";
-import {editAnswersLikeInfo} from './custom';
+import {addAnswersLikeInfo, deleteAnswersLikeInfo, editAnswersLikeInfo} from './custom';
 import { deleteNoti } from "./noti";
 
 axios.defaults.baseURL = "https://lkj99.shop";
@@ -134,6 +134,16 @@ const communitySlice = createSlice({
     setLikeLoading: (state, action) => {
       state.like_loading = action.payload;
     },
+    deleteLikeList: (state, action) => {
+      const idx = state.like_list.findIndex(v => {
+        if(v.userId === action.payload){
+          return v
+        }
+      })
+      if(idx !== -1){
+        state.like_list.pop(idx);
+      }
+    },
     resetAll: (state) => {
       state.like_page = 1;
       state.like_list = [];
@@ -212,11 +222,7 @@ const addLikeAnswers = (answerId) => {
       .then((res) => {
         console.log(res.data)
         dispatch(
-          editAnswersLikeInfo({
-            answerId: answerId,
-            likeCount: res.data.likeCountNum,
-            like: res.data.currentLike,
-          })
+          addAnswersLikeInfo(answerId)
         );
       })
       .catch((err) => {
@@ -232,11 +238,7 @@ const deleteLikeAnswers = (answerId) => {
       .then((res) => {
         console.log(res.data)
         dispatch(
-          editAnswersLikeInfo({
-            answerId: answerId,
-            likeCount: res.data.likeCountNum,
-            like: res.data.currentLike,
-          })
+          deleteAnswersLikeInfo(answerId)
         );
       })
       .catch((err) => {
@@ -502,6 +504,7 @@ const getTopicQuestion = (topic) => {
 
 const getLikeList = (id) => {
   return function(dispatch, getState){
+    
 
     const loading = getState().community.like_loading;
     const next = getState().community.like_next;
@@ -515,6 +518,7 @@ const getLikeList = (id) => {
       console.log('안되지 요놈아')
       return
     }
+    console.log(id, page)
 
     dispatch(setLikeLoading(true));
 
@@ -523,7 +527,8 @@ const getLikeList = (id) => {
       method:"GET",
     }
     axios(options).then(response => {
-      if(response.data.likeList.length < 15){
+      console.log(response.data)
+      if(response.data.likeList.length < 7){
         dispatch(setLikeList(response.data.likeList));
         dispatch(setLikeNext(false));
         dispatch(setLikeLoading(false));
@@ -556,6 +561,7 @@ export const {
   setLikePage,
   setLikeNext,
   setLikeLoading,
+  deleteLikeList,
   resetAll
 } = communitySlice.actions;
 

@@ -315,7 +315,7 @@ const BookDetail = (props) => {
                 <MiddleBelt>
                     <IconBox>
                         <LikeBox>
-                        <Like m_width='16px' m_height='15px' currentLike={answerInfo?.like} answerId={answerInfo?.answerId} questionId={answerInfo?.questionId}/>
+                        <Like detail m_width='16px' m_height='15px' currentLike={answerInfo?.like} answerId={answerInfo?.answerId} questionId={answerInfo?.questionId}/>
                             <Count>{answerInfo?.likeCount}</Count>
                         </LikeBox>
                         <Comment>
