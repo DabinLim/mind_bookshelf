@@ -3,6 +3,7 @@ import styled from "styled-components";
 import {useDispatch, useSelector} from 'react-redux';
 import swal from 'sweetalert';
 import {api as communityActions, setLikeList, deleteLikeList} from '../redux/modules/community';
+import {addAnswersLikeInfo, deleteAnswersLikeInfo} from '../redux/modules/custom';
 
 const Like = (props) => {
     const dispatch = useDispatch();
@@ -60,6 +61,15 @@ const Like = (props) => {
         );
         return
       }
+      if(page === 'component'){
+        dispatch(communityActions.addLikeAX(
+          answerId,
+          questionId
+          )
+        );
+        dispatch(addAnswersLikeInfo(answerId))
+        return
+      }
       dispatch(communityActions.addLikeAX(
         answerId,
         questionId
@@ -104,6 +114,15 @@ const Like = (props) => {
             answerId
           )
         );
+        return
+      }
+      if(page === 'component'){
+        dispatch(communityActions.deleteLikeAX(
+          answerId,
+          questionId
+          )
+        );
+        dispatch(deleteAnswersLikeInfo(answerId))
         return
       }
       dispatch(communityActions.deleteLikeAX(

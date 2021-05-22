@@ -44,7 +44,7 @@ const MyAnswers = (props) => {
       history.push(`/carddetail/${a.answerId}`)
       return
     }
-    const type = "community";
+    const type = "book";
     setCardModal(true);
     dispatch(communityActions.getCardDetail(a.answerId, type));
     dispatch(commentActions.getCommentAX(a.answerId));
