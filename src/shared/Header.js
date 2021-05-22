@@ -52,7 +52,7 @@ const Header = () => {
     bookshelf = "bookshelf";
     community = "";
     friends ="";
-  } else if (pathname === "/community") {
+  } else if (pathname === "/community" || pathname.includes("topic")) {
     main = "";
     bookshelf = "";
     community = "community";
@@ -681,8 +681,8 @@ const HeaderInnerContainer = styled.div`
   padding: 0 100px 0 100px;
   box-sizing: border-box;
   overflow: visible;
-  @media (max-width: 900px) {
-    padding: 0 40px 0 40px;
+  @media (max-width: 1000px) {
+    padding: 0 20px 0 20px;
   }
   @media (max-width: 750px) {
     padding: 0 20px 0 20px;
