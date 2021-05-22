@@ -274,7 +274,7 @@ const TopicBox = styled.div`
 `
 
 const Container = styled.div`
-  width: 330px;
+  width: 800px;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -284,6 +284,7 @@ const Container = styled.div`
   
 
   @media (max-width: 500px) {
+    width: 330px;
     padding: 30px 0 0 0;
   }
 `
@@ -298,6 +299,7 @@ const Header = styled.div`
 const Body = styled.div`
 box-sizing: border-box;
 padding: 15px 0;
+flex-direction: row;
 width: 100%;
 display: flex;
 flex-wrap: wrap;
@@ -335,6 +337,7 @@ overflow-y: auto;
 const BodyLike = styled.div`
 box-sizing: border-box;
 padding: 15px 0;
+flex-direction: row;
 width: 100%;
 display: flex;
 flex-wrap: wrap;
