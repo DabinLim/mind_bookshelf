@@ -15,7 +15,7 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import { LeftOutlined } from "@ant-design/icons";
 import { CardModal } from "../Community/communityindex";
 import { api as commentActions } from "../../redux/modules/comment";
-import { api as communityActions } from "../../redux/modules/community";
+import { api as communityActions, resetAll as LikeReset } from "../../redux/modules/community";
 import {history} from '../../redux/configStore';
 import {CheckOutlined} from "@ant-design/icons";
 import swal from "sweetalert";
@@ -46,7 +46,9 @@ const MyAnswers = (props) => {
     }
     const type = "book";
     setCardModal(true);
+    dispatch(LikeReset());
     dispatch(communityActions.getCardDetail(a.answerId, type));
+    dispatch(communityActions.getLikeList(a.answerId));
     dispatch(commentActions.getCommentAX(a.answerId));
   };
 

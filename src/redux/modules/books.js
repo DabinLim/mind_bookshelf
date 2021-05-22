@@ -81,12 +81,12 @@ const booksSlice = createSlice({
         if(now_book){
             const now_book_idx = state.books.findIndex(v => v === now_book);
             if(now_book.count < 2){
-                state.books.pop(now_book_idx);
+                state.books.splice(now_book_idx,1);
             } else{
                 state.books[now_book_idx].count -= 1
             }
             const idx = state.book_detail.findIndex(v => v.answerId === action.payload.answerId);
-            state.book_detail.pop(idx);
+            state.book_detail.splice(idx,1);
         }
 
     },
@@ -179,6 +179,7 @@ const getNextDetail = (date) => {
             const book_detail = getState().books.book_detail
             
             dispatch(communityActions.getCardDetail(book_detail[0].answerId,'book'))
+            dispatch(communityActions.getLikeList(book_detail[0].answerId))
             dispatch(commentActions.getCommentAX(book_detail[0].answerId))
             dispatch(setBookLoading(false))
         }).catch((err) => {
@@ -211,6 +212,7 @@ const getPreviousDetail = (date) => {
             const book_detail = getState().books.book_detail
             
             dispatch(communityActions.getCardDetail(book_detail[book_detail.length-1].answerId,'book'))
+            dispatch(communityActions.getLikeList(book_detail[book_detail.length-1].answerId))
             dispatch(commentActions.getCommentAX(book_detail[book_detail.length-1].answerId))
             dispatch(setBookLoading(false))
         }).catch((err) => {
@@ -310,6 +312,7 @@ const getNextOthersBookDetail = (date,id) => {
             const book_detail = getState().books.book_detail
             
             dispatch(communityActions.getCardDetail(book_detail[0].answerId,'book'))
+            dispatch(communityActions.getLikeList(book_detail[0].answerId))
             dispatch(commentActions.getCommentAX(book_detail[0].answerId))
             dispatch(setBookLoading(false));
         }).catch((err) => {
@@ -346,6 +349,7 @@ const getPreviousOthersBookDetail = (date,id) => {
             const book_detail = getState().books.book_detail
             
             dispatch(communityActions.getCardDetail(book_detail[book_detail.length-1].answerId,'book'))
+            dispatch(communityActions.getLikeList(book_detail[book_detail.length-1].answerId))
             dispatch(commentActions.getCommentAX(book_detail[book_detail.length-1].answerId))
             dispatch(setBookLoading(false));
         }).catch((err) => {
