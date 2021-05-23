@@ -818,6 +818,7 @@ const ModalContent = styled.div`
   box-sizing: border-box;
   padding-top:20px;
   min-width: 520px;
+  max-width: 520px;
   height: 500px;
   border-right: 1px solid #efefef;
 
