@@ -6,5 +6,6 @@ import CommentList from './CommentList';
 import CommunityQnA from './CommunityQnA';
 import QuestionDetail from './QuestionDetail';
 import CardUpdateModal from './CardUpdateModal';
+import DeleteCommentComfirm from './DeleteCommentConfirm';
 
-export {CardModal, Comment, CommentList, CommunityQnA, QuestionDetail, TagModal, HideModal, CardUpdateModal};
+export {CardModal, Comment, DeleteCommentComfirm, CommentList, CommunityQnA, QuestionDetail, TagModal, HideModal, CardUpdateModal};
