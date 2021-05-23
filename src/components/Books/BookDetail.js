@@ -15,10 +15,6 @@ import CancelConfirm from '../Community/CancelConfirm';
 import CustomSwitch from '../../shared/CustomSwitch';
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import { LeftOutlined } from "@ant-design/icons";
-import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
-import FavoriteIcon from "@material-ui/icons/Favorite";
-import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
-import swal from "sweetalert";
 import ChannelService from "../../shared/ChannelService";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 import Like from '../../shared/Like';
@@ -70,6 +66,7 @@ const BookDetail = (props) => {
       };
 
     const selectedCard = (id) => {
+      dispatch(resetAll())
         dispatch(communityActions.getCardDetail(id, "book"));
         dispatch(commentActions.getCommentAX(id));
       };
@@ -88,10 +85,12 @@ const BookDetail = (props) => {
     
         dispatch(changeDate(`20${thisMonthBooks[nowBook + 1]._id}`));
         if (is_my === "bookdetail") {
+          dispatch(resetAll())
           dispatch(booksActions.getNextDetail(thisMonthBooks[nowBook + 1]._id));
           // history.push(`/bookdetail/${thisMonthBooks[nowBook + 1]._id}/${id}`)
         } else {
             const user_id = url[url.length-2];
+            dispatch(resetAll())
           dispatch(
             booksActions.getNextOthersBookDetail(
               thisMonthBooks[nowBook + 1]._id,
@@ -115,12 +114,14 @@ const BookDetail = (props) => {
     
         dispatch(changeDate(`20${thisMonthBooks[nowBook - 1]._id}`));
         if (is_my === 'bookdetail') {
+          dispatch(resetAll())
           // 이 부분 전날로 돌아가서 첫번째 답변 띄우려고 getNext 호출입니다.
           // 혹시 수정 하실 일 있으시면 참고해 주세요.
           dispatch(booksActions.getNextDetail(thisMonthBooks[nowBook - 1]._id));
           // history.push(`/bookdetail/${thisMonthBooks[nowBook - 1]._id}/${id}`)
         } else {
             const user_id = url[url.length-2];
+            dispatch(resetAll())
           dispatch(
             booksActions.getNextOthersBookDetail(
               thisMonthBooks[nowBook - 1]._id,

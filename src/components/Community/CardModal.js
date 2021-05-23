@@ -133,8 +133,10 @@ const CardModal = (props) => {
 
     dispatch(changeDate(`20${thisMonthBooks[nowBook + 1]._id}`));
     if (id === "mybook") {
+      dispatch(resetAll())
       dispatch(booksActions.getNextDetail(thisMonthBooks[nowBook + 1]._id));
     } else {
+      dispatch(resetAll())
       dispatch(
         booksActions.getNextOthersBookDetail(
           thisMonthBooks[nowBook + 1]._id,
@@ -157,10 +159,12 @@ const CardModal = (props) => {
 
     dispatch(changeDate(`20${thisMonthBooks[nowBook - 1]._id}`));
     if (id === "mybook") {
+      dispatch(resetAll())
       // 이 부분 전날로 돌아가서 첫번째 답변 띄우려고 getNext 호출입니다.
       // 혹시 수정 하실 일 있으시면 참고해 주세요.
       dispatch(booksActions.getNextDetail(thisMonthBooks[nowBook - 1]._id));
     } else {
+      dispatch(resetAll())
       dispatch(
         booksActions.getNextOthersBookDetail(
           thisMonthBooks[nowBook - 1]._id,
