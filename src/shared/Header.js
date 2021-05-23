@@ -239,6 +239,8 @@ const Header = () => {
               >
                 <MenuIcon />
               </MobileIcon>
+              <LogoBox>
+              <LogoImg src='https://user-images.githubusercontent.com/77574867/119253354-dc243080-bbeb-11eb-9a85-621dda409a76.png'/>
               <Logo
                 onClick={() => {
                   history.push("/");
@@ -246,6 +248,7 @@ const Header = () => {
               >
                 생각낙서
               </Logo>
+              </LogoBox>
               <div style={{ display: "flex" }}>
                 <MobileIcon style={{ marginRight: "10px" }}>
                   {/* {searchModal ? (
@@ -535,13 +538,16 @@ const Header = () => {
             >
               <MenuIcon />
             </MobileIcon>
-            <Logo
-              onClick={() => {
-                history.push("/");
-              }}
-            >
-              생각낙서
-            </Logo>
+            <LogoBox>
+              <LogoImg src='https://user-images.githubusercontent.com/77574867/119253354-dc243080-bbeb-11eb-9a85-621dda409a76.png'/>
+              <Logo
+                onClick={() => {
+                  history.push("/");
+                }}
+              >
+                생각낙서
+              </Logo>
+              </LogoBox>
             <div style={{ display: "flex" }}>
               <MobileIcon style={{ marginLeft: "35px" }}>
                 <SearchIcon
@@ -655,7 +661,7 @@ const HeaderContainer = styled.div`
   position: fixed;
   padding-top: 10px;
   padding-bottom: 10px;
-  background: black;
+  background: #191919;
   color: white;
   height: 50px;
   left: 0;
@@ -754,6 +760,20 @@ const NaviContainer = styled.div`
     justify-content: space-between;
     width: 100%;
   } ;
+`;
+
+const LogoBox = styled.div`
+  width:auto;
+  display:flex;
+  flex-direction:row;
+  align-items:center;
+`;
+
+const LogoImg = styled.img`
+  cursor:pointer;
+  width: 24px;
+  height:24px;
+  margin-right: 8px;
 `;
 
 const Logo = styled.div`
