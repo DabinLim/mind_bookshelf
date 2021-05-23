@@ -14,7 +14,7 @@ import swal from "sweetalert";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 import CardModal from "./CardModal";
 import { api as commentActions } from "../../redux/modules/comment";
-import { api as communityActions } from "../../redux/modules/community";
+import { api as communityActions,resetAll as LikeReset } from "../../redux/modules/community";
 import {history} from '../../redux/configStore';
 import {CheckOutlined} from "@ant-design/icons";
 
@@ -52,7 +52,9 @@ const QuestionDetail = (props) => {
       return
     }
     const type = "detail";
+    dispatch(LikeReset());
     dispatch(communityActions.getCardDetail(a, type));
+    dispatch(communityActions.getLikeList(a));
     dispatch(commentActions.getCommentAX(a));
     setCardModal(true);
   };

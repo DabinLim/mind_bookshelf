@@ -514,7 +514,7 @@ const CardModal = (props) => {
                     }}
                   />
                   <CardWriterNickNameLeft>
-                    <span style={{ fontWeight: "bold", letterSpacing: "-1px", cursor: "pointer"}} onClick={() => {
+                    <span style={{ font: 'normal normal bold 13px/19px Noto Sans CJK KR',letterSpacing: '0px',color: '#121212',cursor: "pointer"}} onClick={() => {
                       if (
                         user_info?.nickname !== "" &&
                         user_info?.nickname === answerInfo?.nickname
@@ -526,26 +526,18 @@ const CardModal = (props) => {
                     }}>
                       {answerInfo?.nickname}님
                     </span>
+                    <img alt='그냥 점'src='https://user-images.githubusercontent.com/77574867/119256677-d6831680-bbfc-11eb-8be2-11f15c7caa2b.png' style={{width:'4px',height:'4px',margin:'0px 7px 3px 7px'}}/>
                     <span
                       style={{
-                        fontSize: "20px",
-                        margin: "0 5px",
-                        verticalAlign: "middle",
-                      }}
-                    >
-                      ˚
-                    </span>
-                    <span
-                      style={{
-                        letterSpacing: "-2.5px",
+                        letterSpacing: "0px",
+                        font: 'normal normal normal 13px/19px Noto Sans CJK KR',color: '#474747',
                       }}
                     >
                       {answerInfo?.questionCreatedUserNickname}님의 질문
                     </span>
                   </CardWriterNickNameLeft>
                 </CardWriterLeft>
-                <div style={{display:'flex', alignItems: "center"}}>
-                  <HashTag style={{color: color, border: `1px solid ${color}`}}>#{topic}</HashTag>
+                <div style={{marginTop:'5px',display:'flex', alignItems: "center"}}>
                   {answerInfo.answerUserId === user_info.id ? (
                     <div
                       style={{
@@ -586,7 +578,10 @@ const CardModal = (props) => {
               </CardWriterInfoLeft>
               {/* 카드 질문 내용 */}
               <CardQuestionContent>
+              <HashTag style={{color: color, border: `1px solid ${color}`}}><span>#{topic}</span></HashTag>
+              <span>
                 {answerInfo?.questionContents}
+              </span>
               </CardQuestionContent>
             </CardWriterBox>
             <CardWriteLeftBody type={answerInfo?.type}>
@@ -596,11 +591,12 @@ const CardModal = (props) => {
                   <div
                     style={{
                       display: "flex",
-                      justifyContent: "flex-end",
-                      marginTop: "20px",
+                      justifyContent: "space-between",
+                      alignItems:'center',
                     }}
                   >
                     <CustomSwitch isOpen={isOpen} onClick={clickOpen} />
+                    <div style={{display:'flex',flexDirection:'row',alignItems:'center'}}>
                     <CardAnswerBtn
                       onClick={() => {
                         let _answer = {
@@ -615,6 +611,14 @@ const CardModal = (props) => {
                     >
                       수정
                     </CardAnswerBtn>
+                    <CardAnswerBtn
+                      onClick={() => {
+                        setUpdateAnswer(false);
+                      }}
+                    >
+                      취소
+                    </CardAnswerBtn>
+                      </div>
                   </div>
                 </AnswerUpdateBox>
               ) : (
@@ -623,7 +627,20 @@ const CardModal = (props) => {
                 </CardAnswerContent>
               )}
             </CardWriteLeftBody>
-            {like_list.length ? 
+            <IconContainer type={answerInfo?.type}>
+              <IconBox>
+                <LikeContainer>
+                <Like page={page} width='20px' height='19px' currentLike={answerInfo?.like} answerId={answerInfo?.answerId} questionId={answerInfo?.questionId}/>
+                  <LikeCount>{answerInfo?.likeCount}개</LikeCount>
+                </LikeContainer>
+                <CommentContainer>
+                  <CommentBtn>
+                  <CommentIcon src="https://user-images.githubusercontent.com/77369674/118684657-5e53d400-b83d-11eb-861f-41aa269aa89e.png" />
+                    <CommentCount>{comment_list?.length}개</CommentCount>
+                  </CommentBtn>
+                </CommentContainer>
+              </IconBox>
+              {like_list.length ? 
                 
                 <LikeList>
                     {likeModal? <LikeModal web answerId={answerInfo.answerId} container={container} close={closeModal}/>:null}
@@ -638,23 +655,7 @@ const CardModal = (props) => {
                     </LikePeople>
                     }
                 </LikeList>
-                :<LikeList><span>아직 좋아요가 없습니다.</span></LikeList>}
-            <IconContainer type={answerInfo?.type}>
-              <IconBox>
-                <LikeContainer>
-                <Like page={page} width='20px' height='19px' currentLike={answerInfo?.like} answerId={answerInfo?.answerId} questionId={answerInfo?.questionId}/>
-                  <LikeCount>{answerInfo?.likeCount}개</LikeCount>
-                </LikeContainer>
-                <CommentContainer>
-                  <CommentBtn>
-                  <CommentIcon src="https://user-images.githubusercontent.com/77369674/118684657-5e53d400-b83d-11eb-861f-41aa269aa89e.png" />
-                    <CommentCount>{comment_list?.length}개</CommentCount>
-                  </CommentBtn>
-                </CommentContainer>
-              </IconBox>
-              <span style={{ marginRight: "20px" }}>
-                {getDate(answerInfo.answerCreatedAt)}
-              </span>
+                :''}
             </IconContainer>
           </ModalContent>
           <ModalRightContainer>
@@ -663,7 +664,7 @@ const CardModal = (props) => {
               <WebModalInputBox>
             <ModalCmtInput
                   type="text"
-                  placeholder="게시물에 대해 이야기를 나눠보세요."
+                  placeholder="댓글 달기..."
                   onChange={selectComment}
                   value={comments}
                   ref={cmtInput}
@@ -730,12 +731,12 @@ const LikeList = styled.div`
     flex-direction:row;
     align-items:center;
     justify-content:flex-start;
-    padding-left: 24px;
-    border-bottom:0.5px solid #D3D3D3;
 `;
 
 const LikePeople = styled.span`
-    font-size:14px;
+    font: normal normal normal 13px/19px Noto Sans CJK KR;
+    letter-spacing: 0px;
+    color: #2F2F2F;
     cursor:pointer;
 `;
 
@@ -815,7 +816,7 @@ const ModalComponent = styled.div`
 
 const ModalContent = styled.div`
   box-sizing: border-box;
-  padding: 40px 0 0 0;
+  padding-top:20px;
   width: 500px;
   height: 500px;
   border-right: 1px solid #efefef;
@@ -833,16 +834,19 @@ const ModalContent = styled.div`
   }
 `;
 
-const HashTag = styled.span`
-  min-width: 72px;
-  max-width: 72px;
-  padding: 6px 0px;
-  border-radius: 24px;
+const HashTag = styled.div`
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  min-width: 58px;
+  max-width: 58px;
+  min-height:25px;
+  max-height:25px;
+  border-radius: 25px;
   text-align: center;
-  font: normal normal bold 14px/19px Noto Sans CJK KR;
+  font: normal normal bold 11px/16px Noto Sans CJK KR;
   letter-spacing: 0px;
-  color: #363636;
-  font-size: 14px;
+  color: #7249B4;
   margin-right: 10px;
   cursor: pointer;
   @media (max-width: 750px) {
@@ -857,17 +861,18 @@ const GoBackBtn = styled.span`
 `;
 
 const CardWriteLeftBody = styled.div`
-  min-height: 45%;
-  max-height: 50%;
+padding:0px 25px;
   border-bottom: 1px solid #efefef;
   box-sizing: border-box;
 
 `;
 
 const CardWriterBox = styled.div`
+  padding:0px 25px;
   border-bottom: 1px solid #efefef;
-  min-height: 30%;
-  max-height: 30%;
+  min-height: 52px;
+  max-height: 52px;
+  margin-bottom:85px;
 
 `;
 
@@ -875,7 +880,7 @@ const CardWriterInfoLeft = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   width: 100%;
 `;
 
@@ -885,7 +890,8 @@ const CardWriterLeft = styled.div`
   align-items: center;
   width: auto;
   height: 100%;
-  margin: 0 20px 0 40px;
+  margin-right:20px;
+  margin-bottom: 30px;
 `;
 
 const CardWriterProfileLeft = styled.div`
@@ -902,19 +908,26 @@ const CardWriterNickNameLeft = styled.span`
 `;
 
 const CardQuestionContent = styled.div`
-  margin: 0px 40px;
+  display:flex;
+  flex-direction:row;
+  margin-right:20px;
+  margin-bottom: 25px;
   padding: 15px 0;
-  font: normal normal bold 17px/23px Nanum Myeongjo;
+  font: normal normal 800 16px/19px NanumMyeongjo;
   letter-spacing: 0px;
-  color: #363636;
+  color: #121212;
   opacity: 1;
 `;
 
 
 const CardAnswerContent = styled.div`
-  margin: 20px 40px 0;
+  margin: 20px 40px 17px 0px;
   padding: 10px 0 10px 0;
-  max-height: 210px;
+  font: normal normal normal 14px/20px Noto Sans CJK KR;
+  letter-spacing: 0px;
+  color: #363636;
+  min-height:270px;
+  max-height: 270px;
   overflow-y: scroll;
   ::-webkit-scrollbar {
     display: none;
@@ -925,27 +938,31 @@ const AnswerUpdateBox = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  min-height:270px;
+  max-height: 270px;
+  margin-bottom:17px;
+  padding-bottom:3px;
 `;
 
 const CardAnswerInput = styled.textarea`
-  margin: 0 40px 0;
-  padding: 30px 0 0 0;
   border: none;
-  width: 85%;
-  height: 155px;
+  width: 100%;
+  height: 175px;
   box-sizing: border-box;
   outline: none;
   line-height: 1.5;
   resize: none;
 `;
-const CardAnswerBtn = styled.div`
-  margin-right: 20px;
-  margin-left: 20px;
+const CardAnswerBtn = styled.button`
+  margin-left: 10px;
+  width:80px;
+  height:38px;
   font-size: 16px;
   cursor: pointer;
   color: white;
-  padding: 6px 20px;
+  /* padding: 6px 20px; */
   background: #303685;
+  border-style:none;
   border-radius: 20px;
   &:hover {
     font-weight: 600;
@@ -967,8 +984,8 @@ const ModalRightContainer = styled.div`
 
 const ModalCmtInputBox = styled.div`
   width: 100%;
-  min-height: 74px;
-  max-height: 74px;
+  min-height: 56px;
+  max-height: 56px;
   padding: 10px 16px;
   display: flex;
   justify-content: space-between;
@@ -984,21 +1001,21 @@ const ModalCmtInput = styled.input`
 `;
 
 const ModalUpload = styled.div`
-  margin-right: 20px;
-  font-size: 14px;
-  color: #3897f0;
+  margin-right: 16px;
+  font: normal normal bold 13px/19px Noto Sans CJK KR;
+  letter-spacing: 0px;
+  color: #363636;
   font-weight: 600;
 `;
 
 const IconContainer = styled.div`
   z-index:1;
   display: flex;
-  min-height: 16%;
-  max-height: 20%;
+  min-height:55px;
   justify-content: space-between;
   align-items: center;
   box-sizing: border-box;
-  margin: 0 0 0 40px;
+  padding:0px 17px 0px 25px ;
 
 `;
 

@@ -314,6 +314,21 @@ const BookDetail = (props) => {
                   </Cards>
               </TodayCards>}
                 </Body>
+                {like_list.length ? 
+                <LikeList>
+                    {likeModal? <LikeModal answerId={id} container={container} close={closeModal}/>:null}
+                    {like_list.length > 1 ? 
+                    <LikePeople onClick={()=>{setLikeModal(true)}}>
+                        <span style={{fontWeight:'600'}}>{like_list[0].nickname}</span>님 외 <span style={{fontWeight:'600'}}>{answerInfo?.likeCount -1}</span>명이 좋아합니다.
+                    </LikePeople> :
+                    <LikePeople onClick={()=>{setLikeModal(true)}}>
+                        <span style={{fontWeight:'600'}}>
+                        {like_list[0].nickname}
+                        </span>님이 좋아합니다.
+                    </LikePeople>
+                    }
+                </LikeList>
+                :''}
                 <MiddleBelt>
                     <IconBox>
                         <LikeBox>
@@ -334,21 +349,6 @@ const BookDetail = (props) => {
                         </span>
                     </DateBox>
                 </MiddleBelt>
-                {like_list.length ? 
-                <LikeList>
-                    {likeModal? <LikeModal answerId={id} container={container} close={closeModal}/>:null}
-                    {like_list.length > 1 ? 
-                    <LikePeople onClick={()=>{setLikeModal(true)}}>
-                        <span style={{fontWeight:'600'}}>{like_list[0].nickname}</span>님 외 <span style={{fontWeight:'600'}}>{answerInfo?.likeCount -1}</span>명이 좋아합니다.
-                    </LikePeople> :
-                    <LikePeople onClick={()=>{setLikeModal(true)}}>
-                        <span style={{fontWeight:'600'}}>
-                        {like_list[0].nickname}
-                        </span>님이 좋아합니다.
-                    </LikePeople>
-                    }
-                </LikeList>
-                :''}
                 <CommentBox>
                     <CommentList mobile/>
                 </CommentBox>
@@ -365,11 +365,12 @@ const LikeList = styled.div`
     align-items:center;
     justify-content:flex-start;
     padding-left: 24px;
-    border-bottom:0.5px solid #D3D3D3;
+    border-bottom:0.1px solid #d3d3d34f;
 `;
 
 const LikePeople = styled.span`
-    font-size:14px;
+    margin:9px 0px;
+    font: normal normal normal 13px/19px Noto Sans CJK KR;
     cursor:pointer;
 `;
 

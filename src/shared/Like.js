@@ -32,13 +32,13 @@ const Like = (props) => {
         });
         return;
       }
-      if(props.detail){
+ 
         dispatch(setLikeList([{
           nickname:user_info.nickname,
           profileImg:user_info.profileImg,
           userId:user_info.id,
         }]))
-      }
+      
 
       if( page ==='QnA'){
         dispatch(
@@ -103,9 +103,9 @@ const Like = (props) => {
         return;
       }
 
-      if(props.detail){
+
         dispatch(deleteLikeList(user_info.id))
-      }
+      
 
       if( page ==='QnA'){
         dispatch(
