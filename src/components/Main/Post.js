@@ -137,7 +137,7 @@ const Post = (props) => {
           </ExtraGroup>
         </CardInfo>
         {/* 질문 보여주는 곳 */}
-        <SmallCardContent style={{ opacity: opacity, fontWeight: "bold" }}>
+        <SmallCardContent style={{ opacity: opacity, fontWeight: "bold" }} onClick={()=> {history.push(`/community/${props.cardId}`)}}>
           {props.contents}
         </SmallCardContent>
         <CardUpper>
@@ -226,7 +226,7 @@ const Post = (props) => {
             <CompletedBox>
               <CompletedBoxInner>
                 <CheckCircle src={"https://user-images.githubusercontent.com/77369674/118619262-61c86a80-b7ff-11eb-9cf4-fc5154e9145d.png"}/>
-                <p style={{ fontSize: "24px", margin: "0" }}>답변완료</p>
+                <p style={{ fontSize: "24px", margin: "0", fontFamily: "Noto Sans CJK KR" }}>답변완료</p>
                 {props.allChecked ? (
                   <>
                     <div
@@ -239,8 +239,8 @@ const Post = (props) => {
                         padding: "10px",
                       }}
                     >
-                      <span>오늘 질문은 모두 끝났습니다.</span>
-                      <span>내일을 기대해주세요!</span>
+                      <CompletedText>오늘 질문은 모두 끝났습니다.</CompletedText>
+                      <CompletedText>내일을 기대해주세요!</CompletedText>
                     </div>
                   </>
                 ) : null}
@@ -261,7 +261,7 @@ const CardFrame = styled.div`
   background: white;
   text-align: center;
   box-shadow: 0px 0px 20px #2211481A;
-  @media (max-width: 600px) {
+  @media (max-width: 500px) {
     width: 95%;
     padding: 17px 18px;
     box-shadow: 0px 0px 20px #0000001a;
@@ -519,6 +519,10 @@ const CompletedBoxInner = styled.div`
 & > span {
   font: normal normal normal 13px Noto Sans CJK KR;
 }
+`;
+
+const CompletedText = styled.span`
+font: normal normal medium 12px/17px Noto Sans CJK KR;
 `;
 
 const PreLoginText = styled.span`

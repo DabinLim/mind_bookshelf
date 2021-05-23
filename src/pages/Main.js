@@ -211,13 +211,7 @@ function Main() {
                 <Post {...question_list[2]} allChecked={allChecked} />
               </Slider>
             </SmallCardContainer>
-            <LargeCardContainer
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
+            <LargeCardContainer>
               <LeftArrowBtn onClick={turnLeft} src={"https://user-images.githubusercontent.com/77369674/119218353-c430ac00-bb1a-11eb-9f8e-b8f8d447895d.png"}>
                 {/* <ArrowBackIosIcon
                   style={{
@@ -321,6 +315,10 @@ const MainContainer = styled.div`
 `;
 
 const LargeCardContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   @media (max-width: 500px) {
     display: none;
   }
@@ -454,6 +452,7 @@ const CardContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
   @media (max-width: 500px) {
     display: none;
   }
@@ -463,6 +462,7 @@ const LeftArrowBtn = styled.img`
   z-index: 2;
   width: 36px;
   height: 72px;
+  margin-right: 88px;
   border-radius: 50%;
   outline: none;
   border: none;
@@ -481,6 +481,7 @@ const RightArrowBtn = styled.img`
   z-index: 2;
   width: 36px;
   height: 72px;
+  margin-left: 88px;
   border-radius: 50%;
   outline: none;
   border: none;
@@ -504,39 +505,5 @@ const DotQueue = styled.div`
     display: none;
   }
 `;
-
-// const ImgRight = styled.div`
-//   z-index: 2;
-//   position: fixed;
-//   background-image: url("https://user-images.githubusercontent.com/77574867/116996886-0c785d80-ad17-11eb-9afd-175a104b7f33.png");
-//   background-size: contain;
-//   background-repeat: no-repeat;
-//   right: -70px;
-//   bottom: -13px;
-//   width: 593px;
-//   height: 731px;
-//   opacity: 0.8;
-//   pointer-events: none;
-//   @media (max-width: 1400px) {
-//     display: none;
-//   }
-// `;
-
-// const ImgLeft = styled.div`
-//   z-index: 2;
-//   position: fixed;
-//   background-image: url("https://user-images.githubusercontent.com/77574867/116996878-0b473080-ad17-11eb-8910-108950e25cb8.png");
-//   background-size: contain;
-//   background-repeat: no-repeat;
-//   left: -20px;
-//   top: 249px;
-//   width: 365px;
-//   height: 341px;
-//   opacity: 0.8;
-//   pointer-events: none;
-//   @media (max-width: 1400px) {
-//     display: none;
-//   }
-// `;
 
 export default Main;
