@@ -606,6 +606,7 @@ const getLikeList = (id) => {
     const next = getState().community.like_next;
     const page = getState().community.like_page;
 
+
     if(!next){
       console.log('next is none');
       return

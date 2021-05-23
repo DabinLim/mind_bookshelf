@@ -102,7 +102,55 @@ const moreviewSlice = createSlice({
       let friends_index = state.friends_answers.findIndex(
         (a) => a.answerId === action.payload.answerId
       );
+      if(action.payload.decision){
+        if (index !== -1){
+          if(action.payload.decision ==='dislike'){
+            state.answers[index] = {
+              ...state.answers[index],
+              like: false,
+              answerLikes: state.answers[index].answerLikes -1,
+            };
+          }else{
+            state.answers[index] = {
+              ...state.answers[index],
+              like: true,
+              answerLikes: state.answers[index].answerLikes +1,
+            };
+          }
+        }
+        
+        if (like_index !== -1){
+          if(action.payload.decision ==='dislike'){
+            state.like_answers[like_index] = {
+              ...state.like_answers[like_index],
+              like: false,
+              answerLikes: state.like_answers[index].answerLikes -1,
+            };
+          } else{
+            state.like_answers[like_index] = {
+              ...state.like_answers[like_index],
+              like: true,
+              answerLikes: state.like_answers[index].answerLikes+1,
+            };
+          }
+        }
 
+        if (friends_index !== -1) {
+          if(action.payload.decistion ==='dislike'){
+            state.friends_answers[friends_index] = {
+              ...state.friends_answers[friends_index],
+              like: false,
+              answerLikes: state.friends_answers[index].answerLikes -1,
+            };
+          } else{
+            state.friends_answers[friends_index] = {
+              ...state.friends_answers[friends_index],
+              like: true,
+              answerLikes: state.friends_answers[index].answerLikes +1,
+            };
+          }
+        }
+      }else{
         if (index !== -1){
           state.answers[index] = {
             ...state.answers[index],
@@ -126,6 +174,7 @@ const moreviewSlice = createSlice({
             answerLikes: action.payload.likeCount,
           };
         }
+      }
     },
     editDetailCommentInfo: (state, action) => {
       let decision = action.payload.decision;
