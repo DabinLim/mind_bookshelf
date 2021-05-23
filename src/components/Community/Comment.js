@@ -182,6 +182,7 @@ const LikeBtn = styled.img`
   width:13px;
   height:12px;
   margin-right:5px;
+  margin-bottom:2px;
 `;
 
 const DeleteBtn = styled.button`
