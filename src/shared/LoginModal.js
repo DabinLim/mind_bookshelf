@@ -7,7 +7,13 @@ const LoginModal = (props) => {
     <React.Fragment>
       <Background onClick={props.close} />
       <LoginBox>
+        <Logo src="https://user-images.githubusercontent.com/77574867/119253354-dc243080-bbeb-11eb-9a85-621dda409a76.png" />
         <Header>로그인</Header>
+        <MobileHeader>생각낙서</MobileHeader>
+        <MobileBodyText>
+        5분만에 완성되는 나만의 책장 <br/>
+        로그인 시 이용 가능합니다.
+        </MobileBodyText>
         <ButtonContainer>
           <Button
             style={{ background: "#FAE100", border:"none", marginBottom:"10px" }}
@@ -53,8 +59,7 @@ const LoginBox = styled.div`
   position: fixed;
   top: 50%;
   left: 50%;
-  width: 500px;
-  height: 400px;
+  width: 380px;
   transform: translate(-50%, -50%);
   background-color: #FFFFFF;
   z-index: 30;
@@ -68,14 +73,30 @@ const LoginBox = styled.div`
   } ;
 `;
 
+const Logo = styled.img`
+width: 140px;
+height: 140px;
+object-fit: cover;
+margin-top: 45px;
+`
+const MobileHeader = styled.div`
+font: normal normal bold 20px/29px Noto Sans CJK KR;
+margin-top: 23px;
+`
+
+const MobileBodyText = styled.div`
+font: normal normal normal 14px/20px Noto Sans CJK KR;
+text-align: center;
+margin-top: 10px;
+`
+
 const Header = styled.div`
-  font-weight: 600;
-  font-size: 20px;
+  font: normal normal bold 14px/20px Sans CJK KR;
   color: #121212;
   margin-top: 22px;
   margin-bottom: 22px;
-  @media (max-width: 500px) {
-    font: normal normal bold 14px/20px Sans KR;
+  @media (min-width: 500px) {
+    display:none;
   } ;
 `;
 
@@ -89,12 +110,13 @@ const ButtonContainer = styled.div`
 `;
 
 const Button = styled.a`
-  height: 50px;
-  width: 300px;
+  height: 46px;
+  width: 290px;
   padding: 8px 0;
-  margin-top: 8px;
+  margin-top: 48px;
   display: flex;
   align-items: center;
+  border-radius: 5px;
   cursor: pointer;
   text-decoration: none;
   color: black;
@@ -110,16 +132,15 @@ const ButtonIcon = styled.img`
   height: auto;
   padding: 0px 10px;
   @media (max-width: 500px) {
-    
+
   } ;
 `;
 const ButtonText = styled.div`
   text-align: center;
   margin: auto;
-  font: normal normal medium 20px Sans KR;
-  font-weight: 600;
+  font: normal normal normal 16px/24px Noto Sans CJK KR;
   @media (max-width: 500px) {
-    font: normal normal medium 14px/20px Sans KR;
+    font: normal normal medium 14px/20px Sans CJK KR;
   } ;
 `;
 

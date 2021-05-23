@@ -62,9 +62,8 @@ const FriendsGround = (props) => {
           </LoadingDiv>: 
           <>
           <CommunityContainer>
-            <Container>
+                {friends_list?.length > 0 ? <><Container><AnswersBox ref={container}>
                 <QuestionTitle>친구들의 생각을<br/>살펴보세요</QuestionTitle>
-                {friends_list?.length > 0 ? <><AnswersBox ref={container}>
                   {lastId && <InfinityScroll
                     callNext={() => {
                       dispatch(friendsActions.getNextFriendAnswers(lastId));
@@ -77,8 +76,8 @@ const FriendsGround = (props) => {
                           return (<><FriendPost openCard={openCard} {...f} key={idx}/></>)
                         })}
                     </InfinityScroll>}
-                </AnswersBox></>: <><div>아직 친구가 없으시군요..ㅜㅜ</div></>}
-            </Container>
+                </AnswersBox>
+                </Container></>: <><NoFriendText>아직 아무도 팔로우하고 있지 않군요! <br/> <span>다양한 사람을 팔로우해서 <br/> 더 많은 낙서를 즐기세요!</span></NoFriendText></>}
           </CommunityContainer>
         </>
         }
@@ -119,6 +118,9 @@ const CommunityContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   overflow-y: auto;
+  @media (max-width:500px) {
+    
+  }
 `;
 
 const Container = styled.section`
@@ -127,7 +129,7 @@ const Container = styled.section`
   display: flex;
   flex-direction: column;
   overflow-y: auto;
-  padding: 100px 0 0 0;
+  padding: 88px 0 0 0;
   margin: auto;
   ::-webkit-scrollbar {
     width: 10px; /* width of the entire scrollbar */
@@ -218,5 +220,26 @@ font: normal normal bold 30px/39px Nanum Myeongjo;
     opacity: 0.9;
   }
 `;
+
+const NoFriendText = styled.div`
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  font: normal normal bold 34px/39px NanumMyeongjo;
+  align-items: center;
+  @media (max-width: 500px) {
+    font: normal normal 800 22px/27px NanumMyeongjo;
+
+  }
+  & > span {
+    margin-top: 18px;
+    text-align: center;
+    font: normal normal normal 15px/21px Noto Sans CJK KR;
+    @media (max-width: 500px) {
+      font: normal normal normal 13px/19px Noto Sans CJK KR;
+    }
+  }
+`; 
 
 export default FriendsGround;

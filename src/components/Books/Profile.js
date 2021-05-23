@@ -189,6 +189,7 @@ const Profile = (props) => {
                               color: "#E0692D",
                               border: "2px solid #E0692D",
                             }}
+                            onClick={() => {history.push(`/topic/우정`)}}
                           >
                             <span>#우정</span>
                           </Subject1>
@@ -199,6 +200,7 @@ const Profile = (props) => {
                               color: "#D34242",
                               border: "2px solid #D34242",
                             }}
+                            onClick={() => {history.push(`/topic/사랑`)}}
                           >
                             <span>#사랑</span>
                           </Subject1>
@@ -209,6 +211,7 @@ const Profile = (props) => {
                               color: "#E6BA28",
                               border: "2px solid #E6BA28",
                             }}
+                            onClick={() => {history.push(`/topic/꿈`)}}
                           >
                             <span>#꿈</span>
                           </Subject1>
@@ -219,6 +222,7 @@ const Profile = (props) => {
                               color: "#7249B4",
                               border: "2px solid #7249B4",
                             }}
+                            onClick={() => {history.push(`/topic/가치`)}}
                           >
                             <span>#가치</span>
                           </Subject1>
@@ -229,6 +233,7 @@ const Profile = (props) => {
                               color: "#2761CC",
                               border: "2px solid #2761CC",
                             }}
+                            onClick={() => {history.push(`/topic/관계`)}}
                           >
                             <span>#관계</span>
                           </Subject1>
@@ -239,6 +244,7 @@ const Profile = (props) => {
                               color: "#458857",
                               border: "2px solid #458857",
                             }}
+                            onClick={() => {history.push(`/topic/나`)}}
                           >
                             <span>#나</span>
                           </Subject1>
@@ -446,6 +452,7 @@ const Profile = (props) => {
                               color: "#E0692D",
                               border: "2px solid #E0692D",
                             }}
+                            onClick={() => {history.push(`/topic/우정`)}}
                           >
                             <span>#우정</span>
                           </Subject1>
@@ -456,6 +463,7 @@ const Profile = (props) => {
                               color: "#D34242",
                               border: "2px solid #D34242",
                             }}
+                            onClick={() => {history.push(`/topic/사랑`)}}
                           >
                             <span>#사랑</span>
                           </Subject1>
@@ -466,6 +474,7 @@ const Profile = (props) => {
                               color: "#E6BA28",
                               border: "2px solid #E6BA28",
                             }}
+                            onClick={() => {history.push(`/topic/꿈`)}}
                           >
                             <span>#꿈</span>
                           </Subject1>
@@ -476,6 +485,7 @@ const Profile = (props) => {
                               color: "#7249B4",
                               border: "2px solid #7249B4",
                             }}
+                            onClick={() => {history.push(`/topic/가치`)}}
                           >
                             <span>#가치</span>
                           </Subject1>
@@ -486,6 +496,7 @@ const Profile = (props) => {
                               color: "#2761CC",
                               border: "2px solid #2761CC",
                             }}
+                            onClick={() => {history.push(`/topic/관계`)}}
                           >
                             <span>#관계</span>
                           </Subject1>
@@ -496,6 +507,7 @@ const Profile = (props) => {
                               color: "#458857",
                               border: "2px solid #458857",
                             }}
+                            onClick={() => {history.push(`/topic/나`)}}
                           >
                             <span>#나</span>
                           </Subject1>
@@ -817,6 +829,7 @@ const TagContainer = styled.span`
 `
 
 const Subject1 = styled.div`
+  cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
