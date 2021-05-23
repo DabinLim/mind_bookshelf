@@ -76,6 +76,7 @@ const MyBook = (props) => {
             </CustomBtn>
             </>
             :
+            <>
             <CustomBtnIcon
                 style={{backgroundColor:"silver"}}
                 onClick={() => {
@@ -87,6 +88,17 @@ const MyBook = (props) => {
             >
                 <DoneIcon fontSize="large" style={{color:"white"}} />
             </CustomBtnIcon>
+            <CustomBtn
+                onClick={() => {
+                    swal({
+                        title: "질문은 하루에 한 번만 만들 수 있어요.",
+                        icon: "error",
+                    });
+                }}
+            >
+                질문 완료
+            </CustomBtn>
+            </>
             }
             <Container>
                 <ContainerBox>
