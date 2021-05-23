@@ -280,7 +280,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   overflow-y: auto;
-  padding: 100px 0 40px 0;
+  padding: 50px 0 40px 0;
   margin: auto;
   
 

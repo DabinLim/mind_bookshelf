@@ -138,7 +138,7 @@ const QuestionDetail = (props) => {
                           setOpenFilter(false);
                         } else{
                           setOpenFilter(true);
-                        }}}>구독자</span>}
+                        }}}>팔로우</span>}
                   {openFilter ? (
                     <>
                     <Component onClick={()=> {setOpenFilter(false)}}/>
@@ -195,7 +195,7 @@ const QuestionDetail = (props) => {
                         dispatch(setView("friends"));
                       }}
                     >
-                      구독자
+                      팔로우
                     </div>
                   </FilterWhiteBox>
                 )}
@@ -221,7 +221,7 @@ const QuestionDetail = (props) => {
                         dispatch(setView("friends"));
                       }}
                     >
-                      구독자
+                      팔로우
                     </div>
                   </FilterWhiteBox>
                 )}
@@ -248,7 +248,7 @@ const QuestionDetail = (props) => {
                       onClick={() => {
                         dispatch(setView("friends"));
                       }}
-                    >구독자 <span><CheckOutlined /></span></div>
+                    >팔로우 <span><CheckOutlined /></span></div>
                   </FilterWhiteBox>
                 )}
                 </FilterToggle>
@@ -306,7 +306,7 @@ const QuestionDetail = (props) => {
                       dispatch(setView("friends"));
                     }}
                   >
-                    •<span style={{ marginLeft: "5px" }}>구독자</span>
+                    •<span style={{ marginLeft: "5px" }}>팔로우</span>
                   </FilterBtn>
                 ) : (
                   <FilterBtn
@@ -440,7 +440,7 @@ const CommunityContainer = styled.div`
 `;
 
 const Container = styled.section`
-  padding: 100px 0 40px 0;
+  padding: 50px 0 40px 0;
   width: 800px;
   display: flex;
   flex-direction: column;
