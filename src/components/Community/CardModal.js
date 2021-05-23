@@ -31,6 +31,7 @@ import Subject from '../../shared/Subject';
 import { CenterFocusStrong } from "@material-ui/icons";
 import {editFriendCommentInfo} from "../../redux/modules/friends";
 import LikeModal from './LikeModal';
+import DeleteCommentComfirm from './DeleteCommentConfirm';
 
 
 const CardModal = (props) => {
@@ -356,25 +357,23 @@ const CardModal = (props) => {
         <ModalComponent book={props.book}>
           {answerInfo?.type === "book" && component !=='myanswers' && component!== 'othersanswers' &&(
             <>
-              {answerQuantity.length &&
-                answerQuantity.map((v, idx) => {
-                  if (!card_loading) {
-                    return (
-                      <DetailContainer key={idx}>
-                            <Title
-                              disabled={card_loading}
-                              onClick={() => {
-                                setUpdateAnswer(false);
-                                selectedCard(v.answerId);
-                              }}
-                            >
-                              {idx+1}.{v.questionContents}
-                            </Title>
-                        <Contents>{v.answerContents}</Contents>
-                      </DetailContainer>
-                    );
-                  }
-                })}
+            <BooksDetailBox>
+                {answerQuantity.length &&
+                  answerQuantity.map((v, idx) => {
+                      return(
+                        <DetailContainer disabled={card_loading}
+                        onClick={() => {
+                          setUpdateAnswer(false);
+                          selectedCard(v.answerId);
+                        }} key={idx}>
+                              <Title>
+                                {idx+1}.{v.questionContents}
+                              </Title>
+                          <Contents>{v.answerContents}</Contents>
+                        </DetailContainer>
+                      )
+                  })}
+              </BooksDetailBox>
               <CardDate>
                 <LeftOutlined
                   disabled={card_loading}
@@ -388,15 +387,18 @@ const CardModal = (props) => {
                     fontSize: "25px",
                   }}
                 />
+
                 <span
                   style={{
-                    fontWeight: "600",
-                    fontSize: "22px",
+                    font:'normal normal bold 18px/26px Noto Sans CJK KR',
                     color: "#ffffff",
+                    letterSpacing: '0px',
+                    textShadow: '0px 0px 10px #00000080'
                   }}
                 >
                   {nowdate.format("M")}월{nowdate.format("D")}일
                 </span>
+
                 <LeftOutlined
                   disabled={card_loading}
                   onClick={() => {
@@ -404,7 +406,7 @@ const CardModal = (props) => {
                     nextDay();
                   }}
                   style={{
-                    transform:'rotateZ(180deg)',
+                    transform: "rotateZ(180deg)",
                     cursor: "pointer",
                     color: "white",
                     fontSize: "25px",
@@ -421,25 +423,34 @@ const CardModal = (props) => {
               <BooksDetailBox>
                 {answerQuantity.length &&
                   answerQuantity.map((v, idx) => {
-                    if (!card_loading) {
-                      return (
-                        <DetailContainer key={idx}>
-                   
-                              <Title
-                                disabled={card_loading}
-                                onClick={() => {
-                                  setUpdateAnswer(false);
-                                  selectedCard(v.answerId);
-                                }}
-                              >
+                    if(answerInfo.answerId === v.answerId){
+                      console.log('hi')
+                      return(
+                        <DetailContainer selected disabled={card_loading}
+                        onClick={() => {
+                          setUpdateAnswer(false);
+                          selectedCard(v.answerId);
+                        }} key={idx}>
+                              <Title>
                                 {idx+1}.{v.questionContents}
                               </Title>
-                          
                           <Contents>{v.answerContents}</Contents>
                         </DetailContainer>
-                      );
-                    }
-                  })}
+                      )
+                    } 
+                    return (
+                      <DetailContainer disabled={card_loading}
+                      onClick={() => {
+                        setUpdateAnswer(false);
+                        selectedCard(v.answerId);
+                      }} key={idx}>
+                            <Title>
+                              {idx+1}.{v.questionContents}
+                            </Title>
+                        <Contents>{v.answerContents}</Contents>
+                      </DetailContainer>
+                    );
+                    })}
               </BooksDetailBox>
               <CardDate>
                 <LeftOutlined
@@ -1075,14 +1086,19 @@ const DetailContainer = styled.div`
   height: 100%;
   margin-right:40px;
   cursor: pointer;
-  & span {
+  ${props => props.selected ?
+  `& span {
+    opacity:1;
+  }`
+  :
+  `& span {
     opacity:0.6;
   }
   &:hover{
     & span{
       opacity:1;
-      font-weight:600;
     }
+  }`
   }
 `;
 
