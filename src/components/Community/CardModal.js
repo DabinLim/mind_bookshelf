@@ -357,25 +357,23 @@ const CardModal = (props) => {
         <ModalComponent book={props.book}>
           {answerInfo?.type === "book" && component !=='myanswers' && component!== 'othersanswers' &&(
             <>
-              {answerQuantity.length &&
-                answerQuantity.map((v, idx) => {
-                  if (!card_loading) {
-                    return (
-                      <DetailContainer key={idx}>
-                            <Title
-                              disabled={card_loading}
-                              onClick={() => {
-                                setUpdateAnswer(false);
-                                selectedCard(v.answerId);
-                              }}
-                            >
-                              {idx+1}.{v.questionContents}
-                            </Title>
-                        <Contents>{v.answerContents}</Contents>
-                      </DetailContainer>
-                    );
-                  }
-                })}
+            <BooksDetailBox>
+                {answerQuantity.length &&
+                  answerQuantity.map((v, idx) => {
+                      return(
+                        <DetailContainer disabled={card_loading}
+                        onClick={() => {
+                          setUpdateAnswer(false);
+                          selectedCard(v.answerId);
+                        }} key={idx}>
+                              <Title>
+                                {idx+1}.{v.questionContents}
+                              </Title>
+                          <Contents>{v.answerContents}</Contents>
+                        </DetailContainer>
+                      )
+                  })}
+              </BooksDetailBox>
               <CardDate>
                 <LeftOutlined
                   disabled={card_loading}
@@ -425,25 +423,34 @@ const CardModal = (props) => {
               <BooksDetailBox>
                 {answerQuantity.length &&
                   answerQuantity.map((v, idx) => {
-                    if (!card_loading) {
-                      return (
-                        <DetailContainer key={idx}>
-                   
-                              <Title
-                                disabled={card_loading}
-                                onClick={() => {
-                                  setUpdateAnswer(false);
-                                  selectedCard(v.answerId);
-                                }}
-                              >
+                    if(answerInfo.answerId === v.answerId){
+                      console.log('hi')
+                      return(
+                        <DetailContainer selected disabled={card_loading}
+                        onClick={() => {
+                          setUpdateAnswer(false);
+                          selectedCard(v.answerId);
+                        }} key={idx}>
+                              <Title>
                                 {idx+1}.{v.questionContents}
                               </Title>
-                          
                           <Contents>{v.answerContents}</Contents>
                         </DetailContainer>
-                      );
-                    }
-                  })}
+                      )
+                    } 
+                    return (
+                      <DetailContainer disabled={card_loading}
+                      onClick={() => {
+                        setUpdateAnswer(false);
+                        selectedCard(v.answerId);
+                      }} key={idx}>
+                            <Title>
+                              {idx+1}.{v.questionContents}
+                            </Title>
+                        <Contents>{v.answerContents}</Contents>
+                      </DetailContainer>
+                    );
+                    })}
               </BooksDetailBox>
               <CardDate>
                 <LeftOutlined
@@ -1079,14 +1086,19 @@ const DetailContainer = styled.div`
   height: 100%;
   margin-right:40px;
   cursor: pointer;
-  & span {
+  ${props => props.selected ?
+  `& span {
+    opacity:1;
+  }`
+  :
+  `& span {
     opacity:0.6;
   }
   &:hover{
     & span{
       opacity:1;
-      font-weight:600;
     }
+  }`
   }
 `;
 
