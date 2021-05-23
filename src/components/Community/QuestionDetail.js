@@ -121,15 +121,34 @@ const QuestionDetail = (props) => {
               </ContainerUpperLeft>
               <FilterBtnBoxMobile>
                 <FilterToggle>
-                  {now_view === "new" && <span>최신순</span>}
-                  {now_view === "like" && <span>인기순</span>}
-                  {now_view === "friends" && <span>구독자</span>}
+                  {now_view === "new" && 
+                        <span onClick={() => {if(openFilter){
+                          setOpenFilter(false);
+                        } else{
+                          setOpenFilter(true);
+                        }}}>최신순</span>}
+                  {now_view === "like" && 
+                        <span onClick={() => {if(openFilter){
+                          setOpenFilter(false);
+                        } else{
+                          setOpenFilter(true);
+                        }}}>인기순</span>}
+                  {now_view === "friends" && 
+                        <span onClick={() => {if(openFilter){
+                          setOpenFilter(false);
+                        } else{
+                          setOpenFilter(true);
+                        }}}>구독자</span>}
                   {openFilter ? (
                     <>
                     <Component onClick={()=> {setOpenFilter(false)}}/>
                     <ArrowForwardIosIcon
                       onClick={() => {
-                        setOpenFilter(false);
+                        if(openFilter){
+                          setOpenFilter(false);
+                        } else{
+                          setOpenFilter(true);
+                        }
                       }}
                       style={{
                         cursor: "pointer",
@@ -154,15 +173,16 @@ const QuestionDetail = (props) => {
                       }}
                     />
                   )}
-                </FilterToggle>
-                {openFilter && now_view === "new" && (
+                  {openFilter && now_view === "new" && (
                   <FilterWhiteBox>
                     <div
+                      style={{height:"40px"}}
                       onClick={() => {
                         dispatch(setView("new"));
                       }}
                     >최신순 <span><CheckOutlined /></span></div>
                     <div
+                      style={{height:"40px"}}
                       onClick={() => {
                         dispatch(setView("like"));
                       }}
@@ -170,6 +190,7 @@ const QuestionDetail = (props) => {
                       인기순
                     </div>
                     <div
+                      style={{height:"40px"}}
                       onClick={() => {
                         dispatch(setView("friends"));
                       }}
@@ -181,6 +202,7 @@ const QuestionDetail = (props) => {
                 {openFilter && now_view === "like" && (
                   <FilterWhiteBox>
                     <div
+                      style={{height:"40px"}}
                       onClick={() => {
                         dispatch(setView("new"));
                       }}
@@ -188,11 +210,13 @@ const QuestionDetail = (props) => {
                       최신순
                     </div>
                     <div
+                      style={{height:"40px"}}
                       onClick={() => {
                         dispatch(setView("like"));
                       }}
                     >인기순<span><CheckOutlined /></span></div>
                     <div
+                      style={{height:"40px"}}
                       onClick={() => {
                         dispatch(setView("friends"));
                       }}
@@ -204,6 +228,7 @@ const QuestionDetail = (props) => {
                 {openFilter && now_view === "friends" && (
                   <FilterWhiteBox>
                     <div
+                      style={{height:"40px"}}
                       onClick={() => {
                         dispatch(setView("new"));
                       }}
@@ -211,6 +236,7 @@ const QuestionDetail = (props) => {
                       최신순
                     </div>
                     <div
+                      style={{height:"40px"}}
                       onClick={() => {
                         dispatch(setView("like"));
                       }}
@@ -218,12 +244,15 @@ const QuestionDetail = (props) => {
                       인기순
                     </div>
                     <div
+                      style={{height:"40px"}}
                       onClick={() => {
                         dispatch(setView("friends"));
                       }}
                     >구독자 <span><CheckOutlined /></span></div>
                   </FilterWhiteBox>
                 )}
+                </FilterToggle>
+                
               </FilterBtnBoxMobile>
               <FilterBtnBox>
                 {now_view === "new" ? (
@@ -501,6 +530,7 @@ const FilterBtnBoxMobile = styled.div`
 `;
 
 const FilterToggle = styled.div`
+  position: relative;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -546,8 +576,12 @@ const FilterBtn = styled.button`
 
 const FilterWhiteBox = styled.div`
 z-index: 5;
+position: absolute;
+top: 25px;
+right: 10px;
 width: 120px;
 min-height: 120px;
+max-height: 120px;
 display: flex;
 flex-direction: column;
 background: #FFFFFF 0% 0% no-repeat padding-box;
