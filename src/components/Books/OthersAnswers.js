@@ -290,7 +290,7 @@ const Container = styled.section`
   padding: 45px 25px;
   width: 100%;
   height: 100%;
-  max-width: 1065px;
+  max-width: 1080px;
   max-height: 632px;
   margin: 50px auto;
   border-radius: 20px;
@@ -419,7 +419,7 @@ const Card = styled.div`
   box-shadow: 0px 0px 20px #0000001a;
   opacity: 0.9;
   box-sizing: border-box;
-  padding: 15px 0px;
+  padding: 15px 0px 10px 0px;
   @media (max-width: 750px) {
     box-shadow: 0px 0px 10px #0000001a;
     padding: 14px 0px 10px 0px;
@@ -435,7 +435,7 @@ const QuestionContents = styled.span`
   letter-spacing: 0px;
   color: #262626;
   width: 100%;
-  height: 30px;
+  height: 40px;
   display: -webkit-box;
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
@@ -485,7 +485,7 @@ const Footer = styled.div`
   justify-content: space-between;
   box-sizing: border-box;
   border-top: 1px solid #bbbbbb;
-  padding: 13px 16px 0px 16px;
+  padding: 10px 16px 0px 16px;
   margin-top: 10px;
   @media (max-width: 750px) {
     margin-top: 0px;

@@ -138,7 +138,7 @@ const QuestionDetail = (props) => {
                           setOpenFilter(false);
                         } else{
                           setOpenFilter(true);
-                        }}}>구독자</span>}
+                        }}}>팔로우</span>}
                   {openFilter ? (
                     <>
                     <Component onClick={()=> {setOpenFilter(false)}}/>
@@ -195,7 +195,7 @@ const QuestionDetail = (props) => {
                         dispatch(setView("friends"));
                       }}
                     >
-                      구독자
+                      팔로우
                     </div>
                   </FilterWhiteBox>
                 )}
@@ -221,7 +221,7 @@ const QuestionDetail = (props) => {
                         dispatch(setView("friends"));
                       }}
                     >
-                      구독자
+                      팔로우
                     </div>
                   </FilterWhiteBox>
                 )}
@@ -248,7 +248,7 @@ const QuestionDetail = (props) => {
                       onClick={() => {
                         dispatch(setView("friends"));
                       }}
-                    >구독자 <span><CheckOutlined /></span></div>
+                    >팔로우 <span><CheckOutlined /></span></div>
                   </FilterWhiteBox>
                 )}
                 </FilterToggle>
@@ -306,7 +306,7 @@ const QuestionDetail = (props) => {
                       dispatch(setView("friends"));
                     }}
                   >
-                    •<span style={{ marginLeft: "5px" }}>구독자</span>
+                    •<span style={{ marginLeft: "5px" }}>팔로우</span>
                   </FilterBtn>
                 ) : (
                   <FilterBtn
@@ -440,7 +440,7 @@ const CommunityContainer = styled.div`
 `;
 
 const Container = styled.section`
-  padding: 100px 0 40px 0;
+  padding: 50px 0 40px 0;
   width: 800px;
   display: flex;
   flex-direction: column;
@@ -517,6 +517,7 @@ const HashTag = styled.div`
 const FilterBtnBoxMobile = styled.div`
   width: 40%;
   display: flex;
+  margin-top: 14px;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-end;
@@ -536,7 +537,7 @@ const FilterToggle = styled.div`
   align-items: center;
   font: normal normal medium 11px/17px Noto Sans CJK KR;
   justify-content: flex-end;
-  margin-right: -18px;
+  margin-right: -20px;
 `;
 
 const FilterBtnBox = styled.div`
@@ -544,8 +545,8 @@ const FilterBtnBox = styled.div`
   height: 100%;
   justify-content: flex-end;
   align-items: flex-end;
-  width: 40%;
-  @media (max-width: 650px) {
+  width: 50%;
+  @media (max-width: 500px) {
     flex-direction: column;
     min-width: 80px;
     justify-content: center;
@@ -556,8 +557,6 @@ const FilterBtnBox = styled.div`
 
 const FilterBtn = styled.button`
   cursor: pointer;
-  max-width: 80px;
-  max-height: 17px;
   text-align: left;
   font: normal normal normal 14px/19px Roboto;
   border: none;
@@ -569,7 +568,7 @@ const FilterBtn = styled.button`
   :hover {
     font-weight: bold;
   }
-  @media (max-width: 650px) {
+  @media (max-width: 500px) {
     margin-bottom: 10px;
   }
 `;

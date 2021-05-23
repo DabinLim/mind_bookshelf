@@ -59,7 +59,11 @@ const CommunityQnA = (props) => {
           })}
         </div>
         <QuestionBox>
-          <Question>{props.contents}</Question>
+          <Question
+            onClick={()=>{
+              history.push(`/community/${props.id}`);
+            }}
+          >{props.contents}</Question>
           {props.answers?.length >= 4 ? (
             <DetailBtn
               onClick={() => {
@@ -151,6 +155,7 @@ const QuestionBox = styled.div`
 `;
 
 const Question = styled.div`
+  cursor:pointer;
   font: normal normal bold 30px Nanum Myeongjo;
   width: 500px;
   @media (max-width: 750px) {

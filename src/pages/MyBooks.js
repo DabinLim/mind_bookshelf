@@ -24,7 +24,7 @@ const MyBook = (props) => {
 
     let url = window.location.href.split('/');
     let id = url[url.length -1];
-    
+    console.log(userId)
     const closeUpdateModal = () => {
         setUpdateModal(false);
       };
@@ -33,7 +33,13 @@ const MyBook = (props) => {
         if(!getCookie('is_login')){
             window.alert('로그인 상태가 아닙니다.');
             history.replace('/');
+            return
         };
+        if(getCookie('is_login') || !is_login){
+            dispatch(userActions.LoginCheckAX(true));
+            dispatch(setComponent(''));
+            return
+        }
         dispatch(setComponent(''));
         dispatch(userActions.othersInfoAX(userId));
         dispatch(userActions.getFollowing(userId));
