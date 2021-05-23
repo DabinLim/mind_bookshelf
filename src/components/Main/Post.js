@@ -522,7 +522,9 @@ const CompletedBoxInner = styled.div`
 `;
 
 const CompletedText = styled.span`
-font: normal normal medium 12px/17px Noto Sans CJK KR;
+font-size: 12px/17px;
+font-family: 'Noto Sans KR';
+
 `;
 
 const PreLoginText = styled.span`

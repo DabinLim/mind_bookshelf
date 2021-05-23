@@ -100,9 +100,8 @@ const Search = (props) => {
 
 const SearchContainer = styled.div`
   position: absolute;
-  border-radius:20px;
   top: 190px;
-  right: -115px;
+  right: -130px;
   width: 250px;
   height: 300px;
   background: #FFFFFF;
@@ -122,8 +121,7 @@ const SearchInput = styled.input`
   padding: 5px 15px;
   background: #F2F2F2;
   opacity:0.8;
-  margin-top: 30px;
-  border-radius: 30px;
+  margin-top: 23px;
   border-style: none;
   outline: none;
 `

@@ -32,11 +32,10 @@ color: #333333;
 `
 
 const SearchContainer = styled.div`
-  border-radius:20px;
   position: absolute;
   top: 190px;
-  right: -180px;
-  width: 380px;
+  right: -210px;
+  width: 420px;
   height: 300px;
   background: #ffffff;
   align-items: center;

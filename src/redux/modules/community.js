@@ -625,7 +625,7 @@ const getLikeList = (id) => {
     }
     axios(options).then(response => {
       console.log(response.data)
-      if(response.data.likeList.length < 7){
+      if(response.data.likeList.length < 10){
         dispatch(setLikeList(response.data.likeList));
         dispatch(setLikeNext(false));
         dispatch(setLikeLoading(false));
