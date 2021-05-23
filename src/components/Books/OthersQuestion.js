@@ -175,92 +175,6 @@ const OthersQuestion = (props) => {
                 custom_question.map((v, idx) => {
                   return (
                     <Card key={idx} {...v}>
-                      <Head>
-                        <SubjectBox>
-                          {v.questionTopic?.length &&
-                            v.questionTopic.map((v, idx) => {
-                              if (v === "사랑") {
-                                return (
-                                  <Subject
-                                    key={idx}
-                                    style={{
-                                      background: "#FFAAAA",
-                                      boxShadow: "0px 0px 15px #FFAAAA",
-                                    }}
-                                  >
-                                    <span>#사랑</span>
-                                  </Subject>
-                                );
-                              }
-                              if (v === "우정") {
-                                return (
-                                  <Subject
-                                    key={idx}
-                                    style={{
-                                      background: "#B9FFC4",
-                                      boxShadow: "0px 0px 15px #B9FFC4",
-                                    }}
-                                  >
-                                    <span>#우정</span>
-                                  </Subject>
-                                );
-                              }
-                              if (v === "꿈") {
-                                return (
-                                  <Subject
-                                    key={idx}
-                                    style={{
-                                      background: "#B7E6FF",
-                                      boxShadow: "0px 0px 15px #B7E6FF",
-                                    }}
-                                  >
-                                    <span>#꿈</span>
-                                  </Subject>
-                                );
-                              }
-                              if (v === "가치") {
-                                return (
-                                  <Subject
-                                    key={idx}
-                                    style={{
-                                      background: "#B5BDFF",
-                                      boxShadow: "0px 0px 15px #B5BDFF",
-                                    }}
-                                  >
-                                    <span>#가치</span>
-                                  </Subject>
-                                );
-                              }
-                              if (v === "관계") {
-                                return (
-                                  <Subject
-                                    key={idx}
-                                    style={{
-                                      background: "#FFF09D",
-                                      boxShadow: "0px 0px 15px #FFF09D",
-                                    }}
-                                  >
-                                    <span>#관계</span>
-                                  </Subject>
-                                );
-                              }
-                              if (v === "나") {
-                                return (
-                                  <Subject
-                                    key={idx}
-                                    style={{
-                                      background: "#F9D1FD",
-                                      boxShadow: "0px 0px 15px #F9D1FD",
-                                    }}
-                                  >
-                                    <span>#나</span>
-                                  </Subject>
-                                );
-                              }
-                            })}
-                        </SubjectBox>
-                        <AnswerCount>{v.answerCount}명 낙서중</AnswerCount>
-                      </Head>
                       <QuestionContents
                         onClick={() => {
                           history.push(`/community/${v.questionId}`);
@@ -294,92 +208,6 @@ const OthersQuestion = (props) => {
                 pop_list.map((v, idx) => {
                   return (
                     <Card key={idx} {...v}>
-                      <Head>
-                        <SubjectBox>
-                          {v.questionTopic?.length &&
-                            v.questionTopic.map((v, idx) => {
-                              if (v === "사랑") {
-                                return (
-                                  <Subject
-                                    key={idx}
-                                    style={{
-                                      background: "#FFAAAA",
-                                      boxShadow: "0px 0px 15px #FFAAAA",
-                                    }}
-                                  >
-                                    <span>#사랑</span>
-                                  </Subject>
-                                );
-                              }
-                              if (v === "우정") {
-                                return (
-                                  <Subject
-                                    key={idx}
-                                    style={{
-                                      background: "#B9FFC4",
-                                      boxShadow: "0px 0px 15px #B9FFC4",
-                                    }}
-                                  >
-                                    <span>#우정</span>
-                                  </Subject>
-                                );
-                              }
-                              if (v === "꿈") {
-                                return (
-                                  <Subject
-                                    key={idx}
-                                    style={{
-                                      background: "#B7E6FF",
-                                      boxShadow: "0px 0px 15px #B7E6FF",
-                                    }}
-                                  >
-                                    <span>#꿈</span>
-                                  </Subject>
-                                );
-                              }
-                              if (v === "가치") {
-                                return (
-                                  <Subject
-                                    key={idx}
-                                    style={{
-                                      background: "#B5BDFF",
-                                      boxShadow: "0px 0px 15px #B5BDFF",
-                                    }}
-                                  >
-                                    <span>#가치</span>
-                                  </Subject>
-                                );
-                              }
-                              if (v === "관계") {
-                                return (
-                                  <Subject
-                                    key={idx}
-                                    style={{
-                                      background: "#FFF09D",
-                                      boxShadow: "0px 0px 15px #FFF09D",
-                                    }}
-                                  >
-                                    <span>#관계</span>
-                                  </Subject>
-                                );
-                              }
-                              if (v === "나") {
-                                return (
-                                  <Subject
-                                    key={idx}
-                                    style={{
-                                      background: "#F9D1FD",
-                                      boxShadow: "0px 0px 15px #F9D1FD",
-                                    }}
-                                  >
-                                    <span>#나</span>
-                                  </Subject>
-                                );
-                              }
-                            })}
-                        </SubjectBox>
-                        <AnswerCount>{v.answerCount}명 낙서중</AnswerCount>
-                      </Head>
                       <QuestionContents
                         onClick={() => {
                           history.push(`/community/${v.questionId}`);
@@ -407,19 +235,18 @@ const OthersQuestion = (props) => {
 const Container = styled.section`
   position: relative;
   box-sizing: border-box;
-  padding: 45px 10px 45px 45px;
+  padding: 45px 25px;
   width: 100%;
   height: 100%;
-  max-width: 988px;
+  max-width: 1062px;
   max-height: 632px;
-  margin: 50px auto;
-  border-radius: 20px;
+  margin:50px auto;
   overflow: hidden;
   @media (max-width: 750px) {
     background-image: url('https://user-images.githubusercontent.com/77369674/118459848-1b0f3d80-b737-11eb-8f1a-906da3e390e2.jpeg');
     background-size:cover;
     background-repeat:no-repeat;
-    margin: 50px auto;
+    margin: 50px auto ;
     padding: 23px 25px 20px 25px;
     max-height:93.8%;
     border-radius:0px;
@@ -433,21 +260,22 @@ const Background = styled.div`
   max-width: 988px;
   width: 100%;
   padding: 100%;
+  background-color: #ffffff;
   box-shadow: 0px 0px 20px;
   opacity: 0.3;
 `;
 
 const TitleContainer = styled.div`
   box-sizing: border-box;
-  padding-right: 70px;
   width: 100%;
   height: 60px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   margin-bottom: 38px;
+  padding:0px 12.5px;
   @media (max-width: 750px) {
-    display: none;
+    display:none;
   }
 `;
 
@@ -465,21 +293,21 @@ const Title = styled.span`
 `;
 
 const TitleContainerMobile = styled.div`
-  width: 100%;
-  height: 25px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 25px;
-  @media (min-width: 750px) {
-    display: none;
+  width:100%;
+  height:25px;
+  display:flex;
+  flex-direction:row;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:25px;
+  @media(min-width:750px){
+    display:none;
   }
 `;
 
 const TitleMobile = styled.span`
-  width: auto;
-  text-align: center;
+  width:auto;
+  text-align:center;
   font: normal normal bold 15px/22px Noto Sans CJK KR;
 `;
 
@@ -488,18 +316,17 @@ const EmptyDiv = styled.div`
   height: 100%;
 `;
 
+
 const CardContainer = styled.section`
   box-sizing: border-box;
-  padding-right: 50px;
-  ${(props) => (props.view === "new" ? `width:100%` : `width:0`)};
-  ${(props) => (props.view === "new" ? `height:100%` : `height:0`)};
+  ${props => props.view === 'new' ? `width:100%`: `width:0`};
+  ${props => props.view === 'new' ? `height:100%`: `height:0`};
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   flex-wrap: wrap;
   overflow: auto;
-  ${(props) =>
-    props.view === "new" ? `padding-bottom:60px` : `padding-bottom:0px`};
+  ${props => props.view === 'new' ? `padding-bottom:60px`: `padding-bottom:0px`};
   @media (max-width: 750px) {
     align-content:flex-start;
     padding-right:0px;
@@ -508,16 +335,14 @@ const CardContainer = styled.section`
 
 const CardContainerPop = styled.section`
   box-sizing: border-box;
-  padding-right: 50px;
-  ${(props) => (props.view === "pop" ? `width:100%` : `width:0`)};
-  ${(props) => (props.view === "pop" ? `height:100%` : `height:0`)};
+  ${props => props.view === 'pop' ? `width:100%`: `width:0`};
+  ${props => props.view === 'pop' ? `height:100%`: `height:0`};
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   flex-wrap: wrap;
   overflow: auto;
-  ${(props) =>
-    props.view === "pop" ? `padding-bottom:60px` : `padding-bottom:0px`};
+  ${props => props.view === 'pop' ? `padding-bottom:60px`: `padding-bottom:0px`};
   @media (max-width: 750px) {
     align-content:flex-start;
     padding-right:0px;
@@ -529,14 +354,13 @@ const Card = styled.div`
   flex-direction: column;
   width: 100%;
   height: 100%;
-  max-width: 272px;
-  max-height: 189px;
-  margin: 0px 20px 25px 0px;
+  max-width: 312px;
+  max-height: 130px;
+  margin: 20px 12.5px 0px 12.5px;
   background: #ffffff;
   box-shadow: 0px 0px 20px #0000001a;
-  border-radius: 20px;
   box-sizing: border-box;
-  padding: 18px;
+  padding: 15px 0px 12px 0px;
   @media (max-width: 750px) {
     padding: 12px 0px 10px 0px;
     box-shadow: 0px 0px 10px #0000001A;
@@ -545,68 +369,39 @@ const Card = styled.div`
     min-height:118px;
     max-height:118px;
     border-radius:0px;
+    
   }
 `;
 
-const Head = styled.div`
-  width: 100%;
-  height: 26px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  @media (max-width: 750px) {
-    display: none;
-  }
-`;
-
-const SubjectBox = styled.div`
-  display: flex;
-  flex-direction: row;
-  width: 50%;
-  height: 100%;
-`;
-
-const Subject = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 63px;
-  height: 26px;
-  opacity: 0.8;
-  border-radius: 45px;
-  font-size: 14px;
-  font-weight: 600;
-`;
 
 const AnswerCount = styled.span`
   font-size: 11px;
 `;
 
 const AnswerCountMobile = styled.span`
-  font-size: 11px;
-  @media (min-width: 750px) {
-    display: none;
-  }
+  font: normal normal normal 11px/16px Noto Sans CJK KR;
+  letter-spacing: 0px;
+  color: #8B8B8B;
+  
 `;
 
 const QuestionContents = styled.span`
-  cursor: pointer;
+  cursor:pointer;
   font-size: 15px;
   font-weight: 600;
   width: 100%;
   height: 100%;
-  margin-top: 17px;
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+  padding:0px 15px;
   &:hover {
-    font-weight: 800;
-    font-size: 16px;
+    font-weight:800;
+    font-size:16px;
   }
-  @media (max-width: 750px) {
+  @media(max-width:750px){
     padding:0px 12px;
     height: 100px;
     margin-bottom:13px;
@@ -616,9 +411,12 @@ const QuestionContents = styled.span`
 `;
 
 const CreatedAtBox = styled.div`
+  display:flex;
+  flex-direction:row;
+  justify-content:space-between;
   box-sizing: border-box;
   border-top: 0.5px solid #E2E2E2;
-  padding-top: 13px;
+  padding: 10px 15px 0px 15px;
   @media(max-width:750px){
     padding:0px 12px;
     padding-top:5px;
@@ -627,25 +425,29 @@ const CreatedAtBox = styled.div`
 
 const CreatedAt = styled.span`
   font-size: 11px;
-  @media (max-width: 750px) {
-    display: none;
+  font: normal normal normal 11px/16px Noto Sans CJK KR;
+  letter-spacing: 0px;
+  color: #8B8B8B;
+  @media(max-width:750px){
+    display:none;
   }
 `;
 
+
 const FilterBtnBoxMobile = styled.div`
   position:relative;
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: flex-end;
-  font-size: 12px;
-  margin-right: 20px;
-  padding-right: 20px;
+  width:100%;
+  display:flex;
+  flex-direction:row;
+  justify-content:space-between;
+  align-items:flex-end;
+  font-size:12px;
+  margin-right:20px;
+  padding-right:20px;
   padding-bottom: 20px;
-  box-sizing: border-box;
-  @media (min-width: 750px) {
-    display: none;
+  box-sizing:border-box;
+  @media(min-width:750px){
+    display:none;
   }
 `;
 
@@ -699,12 +501,12 @@ const QuestionCount = styled.span`
 `;
 
 const FilterToggle = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  font-weight: 600;
-  justify-content: flex-end;
-  margin-right: -17px;
+ display:flex;
+ flex-direction:row;
+ align-items:center;
+ font-weight:600;
+ justify-content:flex-end;
+ margin-right:-17px;
 `;
 
 const FilterBtnBox = styled.div`
@@ -712,23 +514,25 @@ const FilterBtnBox = styled.div`
   justify-content: flex-end;
   align-items: flex-end;
   width: 100%;
+  
 `;
 
 const FilterBtn = styled.button`
   cursor: pointer;
-  max-width: 80px;
+  max-width:80px;
   max-height: 17px;
   text-align: left;
-  font: normal normal normal 14px/19px Roboto;
+  font: normal normal normal 14px/19px Noto Sans CJK KR;
   border: none;
   outline: none;
   background: none;
   letter-spacing: -1px;
   margin-left: 5px;
+  padding: 0px 0px 0px 10px;
   color: #333333;
   :hover {
     font-weight: bold;
   }
+  
 `;
-
 export default OthersQuestion;

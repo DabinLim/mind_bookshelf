@@ -381,11 +381,11 @@ const Card = styled.div`
   height: 100%;
   max-width: 312px;
   max-height: 130px;
-  margin: 0px 12.5px 0px 12.5px;
+  margin: 20px 12.5px 0px 12.5px;
   background: #ffffff;
   box-shadow: 0px 0px 20px #0000001a;
   box-sizing: border-box;
-  padding: 18px;
+  padding: 15px 0px 12px 0px;
   @media (max-width: 750px) {
     padding: 12px 0px 10px 0px;
     box-shadow: 0px 0px 10px #0000001A;
@@ -398,46 +398,16 @@ const Card = styled.div`
   }
 `;
 
-const Head = styled.div`
-  width: 100%;
-  height: 26px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  @media(max-width:750px){
-    display:none;
-  }
-`;
-
-const SubjectBox = styled.div`
-  display: flex;
-  flex-direction: row;
-  width: 50%;
-  height: 100%;
-`;
-
-const Subject = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 63px;
-  height: 26px;
-  opacity: 0.8;
-  border-radius: 45px;
-  font-size: 14px;
-  font-weight: 600;
-`;
 
 const AnswerCount = styled.span`
   font-size: 11px;
 `;
 
 const AnswerCountMobile = styled.span`
-  font-size:11px;
-  @media(min-width:750px){
-    display:none;
-  }
+  font: normal normal normal 11px/16px Noto Sans CJK KR;
+  letter-spacing: 0px;
+  color: #8B8B8B;
+  
 `;
 
 const QuestionContents = styled.span`
@@ -446,12 +416,12 @@ const QuestionContents = styled.span`
   font-weight: 600;
   width: 100%;
   height: 100%;
-  margin-top: 17px;
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+  padding:0px 15px;
   &:hover {
     font-weight:800;
     font-size:16px;
@@ -466,9 +436,12 @@ const QuestionContents = styled.span`
 `;
 
 const CreatedAtBox = styled.div`
+  display:flex;
+  flex-direction:row;
+  justify-content:space-between;
   box-sizing: border-box;
   border-top: 0.5px solid #E2E2E2;
-  padding-top: 13px;
+  padding: 10px 15px 0px 15px;
   @media(max-width:750px){
     padding:0px 12px;
     padding-top:5px;
@@ -477,6 +450,9 @@ const CreatedAtBox = styled.div`
 
 const CreatedAt = styled.span`
   font-size: 11px;
+  font: normal normal normal 11px/16px Noto Sans CJK KR;
+  letter-spacing: 0px;
+  color: #8B8B8B;
   @media(max-width:750px){
     display:none;
   }
