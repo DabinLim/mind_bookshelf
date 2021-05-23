@@ -8,6 +8,7 @@ import { DeleteOutlined } from "@ant-design/icons";
 import swal from 'sweetalert';
 import { time } from "../../shared/Time";
 import {editFriendCommentInfo} from "../../redux/modules/friends";
+import DeleteCommentComfirm from './DeleteCommentConfirm';
 
 const Comment = (props) => {
   const dispatch = useDispatch();
@@ -15,7 +16,9 @@ const Comment = (props) => {
   const userInfo = useSelector((state) => state.user.user);
   const answerInfo = useSelector((state) => state.community.card_detail);
   const currentLocation = useSelector(state => state.router.location.pathname);
-  console.log(currentLocation);
+  const [deleteCommentModal, setDeleteComment] = useState(false);
+
+
 
   const deleteComment = () => {
     if (!is_login) {
@@ -76,6 +79,9 @@ const Comment = (props) => {
 
   return (
     <CommentFrame>
+      {deleteCommentModal? 
+        <DeleteCommentComfirm commentId={props.commentId} setDeleteComment={setDeleteComment} />
+      :null}
       <CommentProfileInfo>
         <div>
           <CommentProfile
@@ -103,7 +109,7 @@ const Comment = (props) => {
         onClick={addLike}
         />}
         {userInfo?.id === props.userId ? (
-          <DeleteBtn onClick={deleteComment}>
+          <DeleteBtn onClick={()=>{setDeleteComment(true)}}>
             <DeleteOutlined />
           </DeleteBtn>
         ) : null}

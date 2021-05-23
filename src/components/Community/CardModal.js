@@ -31,6 +31,7 @@ import Subject from '../../shared/Subject';
 import { CenterFocusStrong } from "@material-ui/icons";
 import {editFriendCommentInfo} from "../../redux/modules/friends";
 import LikeModal from './LikeModal';
+import DeleteCommentComfirm from './DeleteCommentConfirm';
 
 
 const CardModal = (props) => {

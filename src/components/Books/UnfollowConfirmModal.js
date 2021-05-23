@@ -73,7 +73,6 @@ const Container = styled.div`
   transform: translate(-50%, -50%);
   background: #FFFFFF;
   z-index: 81;
-  cursor: context-menu;
 `
 
 const Header = styled.div`
