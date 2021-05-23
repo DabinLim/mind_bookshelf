@@ -256,7 +256,7 @@ const getFollower = (userId) => {
   }
 }
 
-const LoginCheckAX = () => {
+const LoginCheckAX = (mybook) => {
   return function (dispatch) {
     axios
       .get(`/auth/user`)
@@ -274,6 +274,11 @@ const LoginCheckAX = () => {
           })
         );
         dispatch(notiActions.joinAlarmIO());
+        if(mybook){
+          dispatch(othersInfoAX(res.data.userId));
+          dispatch(getFollowing(res.data.userId));
+          dispatch(getFollower(res.data.userId));
+        }
       })
       .catch((error) => {
         console.log(error);
