@@ -571,7 +571,7 @@ const CardModal = (props) => {
               {/* 카드 질문 내용 */}
               <CardQuestionContent>
               <HashTag style={{color: color, border: `1px solid ${color}`}}><span>#{topic}</span></HashTag>
-              <span>
+              <span style={{display: "flex", alignItems: "center"}}>
                 {answerInfo?.questionContents}
               </span>
               </CardQuestionContent>

@@ -47,17 +47,23 @@ const Header = () => {
     bookshelf = "";
     community = "";
     friends ="";
-  } else if (pathname === "/mybook" || pathname.includes("others")) {
+  } else if (pathname === "/mybook") {
     main = "";
     bookshelf = "bookshelf";
     community = "";
     friends ="";
-  } else if (pathname === "/community" || pathname.includes("topic")) {
+  } else if (pathname.includes("community") || pathname.includes("topic")) {
     main = "";
     bookshelf = "";
     community = "community";
     friends ="";
   }
+  else if (pathname.includes("others")) {
+    main = "";
+    bookshelf = "";
+    community = "";
+    friends ="";
+  } 
   else {
     main = "";
     bookshelf = "";
