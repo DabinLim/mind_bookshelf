@@ -59,15 +59,24 @@ const MyBook = (props) => {
                 <NewQuestion setModalVisible={setModalVisible} />
             :null}
             {createdQuestion ? 
+            <>
+            <CustomBtnIcon
+                onClick={() => {
+                    setModalVisible(true)
+                }}
+            >
+                <AddIcon fontSize="large" style={{color:"white"}} />
+            </CustomBtnIcon>
             <CustomBtn
                 onClick={() => {
                     setModalVisible(true)
                 }}
             >
-                <AddIcon fontSize="large" />
+                질문 작성
             </CustomBtn>
+            </>
             :
-            <CustomBtn
+            <CustomBtnIcon
                 style={{backgroundColor:"silver"}}
                 onClick={() => {
                     swal({
@@ -76,8 +85,8 @@ const MyBook = (props) => {
                     });
                 }}
             >
-                <DoneIcon fontSize="large" />
-            </CustomBtn>
+                <DoneIcon fontSize="large" style={{color:"white"}} />
+            </CustomBtnIcon>
             }
             <Container>
                 <ContainerBox>
@@ -99,26 +108,53 @@ const MyBook = (props) => {
     )
 }
 
+const CustomBtnIcon = styled.div`
+position: fixed;
+display: flex;
+justify-content: center;
+font-weight: bold;
+align-items: center;
+right: 26px;
+// right: 34px;
+bottom: 100px;
+width: 63px;
+height: 63px;
+border-radius: 50px;
+background: black;
+z-index: 60;
+cursor: pointer;
+box-shadow: 0px 0px 20px #0000001a;
+@media (max-width: 500px) {
+  width: 50px;
+  height: 50px;
+  right: 14px;
+  bottom: 80px;
+}
+
+
+`
+
 const CustomBtn = styled.div`
-  position: fixed;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  right: 26px;
-  bottom: 100px;
-  width: 63px;
-  height: 63px;
-  border-radius: 50px;
-  background: white;
-  z-index: 50;
-  cursor: pointer;
-  box-shadow: 0px 0px 20px #0000001a;
-  @media (max-width: 500px) {
-    width: 50px;
-    height: 50px;
-    right: 14px;
-    bottom: 80px;
-  }
+position: fixed;
+display: flex;
+// justify-content: center;
+padding-left: 20px;
+// font-family: Noto Sans CJK KR;
+font-weight: bold;
+align-items: center;
+// right: 26px;
+right: 34px;
+bottom: 102px;
+width: 150px;
+height: 58px;
+border-radius: 50px;
+background: white;
+z-index: 50;
+cursor: pointer;
+box-shadow: 0px 0px 20px #0000001a;
+@media (max-width: 500px) {
+  display:none;
+}
 `;
 
 const ContainerBox = styled.div`
