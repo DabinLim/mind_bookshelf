@@ -358,14 +358,9 @@ const CardModal = (props) => {
             <>
               {answerQuantity.length &&
                 answerQuantity.map((v, idx) => {
-                  if (v.answerId !== answerInfo.answerId && !card_loading) {
+                  if (!card_loading) {
                     return (
                       <DetailContainer key={idx}>
-                        <Head>
-                          <div style={{minWidth:'72px'}}>
-                        <Subject topic={v.questionTopic[0]} borderRadius='25px'/>
-                          </div>
-                          <TitleBox>
                             <Title
                               disabled={card_loading}
                               onClick={() => {
@@ -373,17 +368,15 @@ const CardModal = (props) => {
                                 selectedCard(v.answerId);
                               }}
                             >
-                              {v.questionContents}
+                              {idx+1}.{v.questionContents}
                             </Title>
-                          </TitleBox>
-                        </Head>
                         <Contents>{v.answerContents}</Contents>
                       </DetailContainer>
                     );
                   }
                 })}
               <CardDate>
-                <ArrowForwardIosIcon
+                <LeftOutlined
                   disabled={card_loading}
                   onClick={() => {
                     setUpdateAnswer(false);
@@ -391,7 +384,6 @@ const CardModal = (props) => {
                   }}
                   style={{
                     cursor: "pointer",
-                    transform: "rotateY(180deg)",
                     color: "white",
                     fontSize: "25px",
                   }}
@@ -405,13 +397,14 @@ const CardModal = (props) => {
                 >
                   {nowdate.format("M")}월{nowdate.format("D")}일
                 </span>
-                <ArrowForwardIosIcon
+                <LeftOutlined
                   disabled={card_loading}
                   onClick={() => {
                     setUpdateAnswer(false);
                     nextDay();
                   }}
                   style={{
+                    transform:'rotateZ(180deg)',
                     cursor: "pointer",
                     color: "white",
                     fontSize: "25px",
@@ -428,14 +421,10 @@ const CardModal = (props) => {
               <BooksDetailBox>
                 {answerQuantity.length &&
                   answerQuantity.map((v, idx) => {
-                    if (v.answerId !== answerInfo.answerId && !card_loading) {
+                    if (!card_loading) {
                       return (
                         <DetailContainer key={idx}>
-                          <Head>
-                            <div style={{minWidth:'72px'}}>
-                            <Subject topic={v.questionTopic[0]} borderRadius='25px'/>
-                            </div>
-                            <TitleBox>
+                   
                               <Title
                                 disabled={card_loading}
                                 onClick={() => {
@@ -443,10 +432,9 @@ const CardModal = (props) => {
                                   selectedCard(v.answerId);
                                 }}
                               >
-                                {v.questionContents}
+                                {idx+1}.{v.questionContents}
                               </Title>
-                            </TitleBox>
-                          </Head>
+                          
                           <Contents>{v.answerContents}</Contents>
                         </DetailContainer>
                       );
@@ -454,7 +442,7 @@ const CardModal = (props) => {
                   })}
               </BooksDetailBox>
               <CardDate>
-                <ArrowForwardIosIcon
+                <LeftOutlined
                   disabled={card_loading}
                   onClick={() => {
                     setUpdateAnswer(false);
@@ -462,7 +450,6 @@ const CardModal = (props) => {
                   }}
                   style={{
                     cursor: "pointer",
-                    transform: "rotateZ(180deg)",
                     color: "white",
                     fontSize: "25px",
                   }}
@@ -470,21 +457,23 @@ const CardModal = (props) => {
 
                 <span
                   style={{
-                    fontWeight: "600",
-                    fontSize: "22px",
+                    font:'normal normal bold 18px/26px Noto Sans CJK KR',
                     color: "#ffffff",
+                    letterSpacing: '0px',
+                    textShadow: '0px 0px 10px #00000080'
                   }}
                 >
                   {nowdate.format("M")}월{nowdate.format("D")}일
                 </span>
 
-                <ArrowForwardIosIcon
+                <LeftOutlined
                   disabled={card_loading}
                   onClick={() => {
                     setUpdateAnswer(false);
                     nextDay();
                   }}
                   style={{
+                    transform: "rotateZ(180deg)",
                     cursor: "pointer",
                     color: "white",
                     fontSize: "25px",
@@ -744,7 +733,7 @@ const Component = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  opacity: 0.4;
+  opacity: 0.5;
   height: 100vh;
   width: 100vw;
   background: black;
@@ -795,9 +784,9 @@ const ModalComponent = styled.div`
   /* overflow: hidden; */
   // border-radius: 50px;
   position: fixed;
-  width: 840px;
+  width: 850px;
   height: 500px;
-  ${(props) => (props.book ? `top:47%` : `top:50%`)};
+  top:50%;
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: white;
@@ -817,7 +806,7 @@ const ModalComponent = styled.div`
 const ModalContent = styled.div`
   box-sizing: border-box;
   padding-top:20px;
-  width: 500px;
+  min-width: 520px;
   height: 500px;
   border-right: 1px solid #efefef;
 
@@ -1064,67 +1053,63 @@ const CardDate = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  width: 150px;
+  width: 140px;
   height: 30px;
   position: absolute;
-  top: -60px;
+  top: -150px;
   left: 42%;
 `;
 
 const BooksDetailBox = styled.div`
   position: absolute;
-  width: 100%;
-  top: 550px;
+  width: 900px;
+  top: -80px;
   left: 0;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: flex-start;
 `;
 
 const DetailContainer = styled.div`
-  width: 50%;
+  width: 254px;
   height: 100%;
-  margin: 0px 45px 0px 10px;
- 
-`;
-
-const Head = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  margin-bottom: 17px;
-`;
-
-const TitleBox = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  margin-right:40px;
+  cursor: pointer;
+  & span {
+    opacity:0.6;
+  }
+  &:hover{
+    & span{
+      opacity:1;
+      font-weight:600;
+    }
+  }
 `;
 
 const Title = styled.span`
-  font-size: 17px;
-  margin-left: 16px;
-  color: #ffffff;
-  font-weight: 400;
+  color:#ffffff;
+  height:25px;
+  font: normal normal bold 17px/25px Noto Sans CJK KR;
+  letter-spacing: 0px;
+  text-shadow: 0px 0px 7px #000000;
+  margin-bottom:8px;
   display: -webkit-box;
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
-  cursor: pointer;
-  &:hover {
-    font-weight: 800;
-  }
 `;
 
 const Contents = styled.span`
   width: 100%;
-  height: 100%;
-  font-size: 14px;
+  height: 20px;
   color: #ffffff;
+  font: normal normal bold 14px/20px Noto Sans CJK KR;
+  letter-spacing: 0px;
+  text-shadow: 0px 0px 7px #000000;
 
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;

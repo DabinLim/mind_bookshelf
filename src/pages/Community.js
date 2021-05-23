@@ -44,19 +44,26 @@ const Community = () => {
     <React.Fragment>
       {cardModal ? <CardModal close={closeCardModal} /> : null}
       {is_loading ? (
-        <CommunityBtn style={{ paddingTop: "5px" }}>
-          <Loader type="TailSpin" color="Black" height={30} width={30} />
-        </CommunityBtn>
+        <CommunityBtnIcon style={{ paddingTop: "5px" }}>
+          <Loader type="TailSpin" color="white" height={30} width={30} />
+        </CommunityBtnIcon>
       ) : (
-        <CommunityBtn
+        <CommunityBtnIcon
           onClick={() => {
             dispatch(communityActions.communityQuestionAX());
             dispatch(setLoading(true));
           }}
         >
-          <ReplayIcon fontSize="large" />
-        </CommunityBtn>
+          <ReplayIcon fontSize="large" style={{color:"white"}} />
+        </CommunityBtnIcon>
       )}
+       <CommunityBtn
+          onClick={() => {
+            dispatch(communityActions.communityQuestionAX());
+            dispatch(setLoading(true));
+          }}
+        > 새로 고침
+        </CommunityBtn>
       <CommunityContainer>
         {is_loading ? (
           <div style={{ marginTop: "250px" }}>
@@ -77,25 +84,51 @@ const Community = () => {
   );
 };
 
+const CommunityBtnIcon = styled.div`
+position: fixed;
+display: flex;
+justify-content: center;
+font-weight: bold;
+align-items: center;
+right: 26px;
+// right: 34px;
+bottom: 100px;
+width: 63px;
+height: 63px;
+border-radius: 50px;
+background: black;
+z-index: 60;
+cursor: pointer;
+box-shadow: 0px 0px 20px #0000001a;
+@media (max-width: 500px) {
+  width: 50px;
+  height: 50px;
+  right: 14px;
+  bottom: 80px;
+}
+
+`
+
 const CommunityBtn = styled.div`
   position: fixed;
   display: flex;
-  justify-content: center;
+  // justify-content: center;
+  padding-left: 20px;
+  // font-family: Noto Sans CJK KR;
+  font-weight: bold;
   align-items: center;
-  right: 26px;
-  bottom: 100px;
-  width: 63px;
-  height: 63px;
+  // right: 26px;
+  right: 34px;
+  bottom: 102px;
+  width: 150px;
+  height: 58px;
   border-radius: 50px;
   background: white;
   z-index: 50;
   cursor: pointer;
   box-shadow: 0px 0px 20px #0000001a;
   @media (max-width: 500px) {
-    width: 50px;
-    height: 50px;
-    right: 14px;
-    bottom: 80px;
+    display:none;
   }
 `;
 
