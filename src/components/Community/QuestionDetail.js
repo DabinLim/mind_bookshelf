@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import AnswerCard from "../../shared/AnswerCard2";
+import AnswerCard from "../../shared/AnswerCard3";
 // import {response} from '../redux/Mock/Answers';
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -310,7 +310,7 @@ const QuestionDetail = (props) => {
                   {answers.length ? (
                     answers.map((v, idx) => {
                       return (
-                        <AnswerCard openCard={openCard} key={idx} {...v} />
+                        <AnswerCard questionContents={question_info.questionContents} openCard={openCard} key={idx} {...v} />
                       );
                     })
                   ) : (
@@ -333,7 +333,7 @@ const QuestionDetail = (props) => {
                   {like_answers.length ? (
                     like_answers.map((v, idx) => {
                       return (
-                        <AnswerCard openCard={openCard} key={idx} {...v} />
+                        <AnswerCard questionContents={question_info.questionContents} openCard={openCard} key={idx} {...v} />
                       );
                     })
                   ) : (
@@ -356,7 +356,7 @@ const QuestionDetail = (props) => {
                   {friends_answers.length ? (
                     friends_answers.map((v, idx) => {
                       return (
-                        <AnswerCard openCard={openCard} key={idx} {...v} />
+                        <AnswerCard questionContents={question_info.questionContents} openCard={openCard} key={idx} {...v} />
                       );
                     })
                   ) : (
@@ -374,21 +374,16 @@ const QuestionDetail = (props) => {
 
 const Outer = styled.section`
   width: 100%;
-  height: 100vh;
+  margin-top: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
   background-size: cover;
-    background-repeat: no-repeat;
-    background-image: url("https://user-images.githubusercontent.com/77369674/118811425-f73f2980-b8e7-11eb-919a-d4421378e117.png");
-  @media (max-width: 650px) {
-    margin-top: 100px;
-  }
-  @media (max-width: 750px) {
-    height:100vh;
+  background-repeat: no-repeat;
+  background-image: url("https://user-images.githubusercontent.com/77369674/118811425-f73f2980-b8e7-11eb-919a-d4421378e117.png");
+  @media (max-width: 500px) {
+    background-image: url("https://user-images.githubusercontent.com/67696504/118986623-7b61e180-b9ba-11eb-9719-f898c5c5b7a2.png");
     margin: 50px 0px 0px 0px;
-    background-size: cover;
-    background-repeat: no-repeat;
   };
 `;
 
@@ -405,30 +400,20 @@ const CommunityContainer = styled.div`
   width: 100%;
   max-width: 1200px;
   box-sizing: border-box;
-  // height:100%;
-  margin-top: 150px;
+  height:100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  // overflow-y: auto;
-  @media (max-width: 750px){
-    height: 100%;
-  };
-  @media (max-width: 650px) {
-    margin-top: 100px;
-  };
-  @media (max-width: 500px) {
-    margin: 50px 0px 0px 0px;
-  };
+  overflow-y: auto;
 `;
 
 const Container = styled.section`
-  padding-top:150px;
-  width: 100%;
+  padding: 100px 0 40px 0;
+  width: 800px;
   display: flex;
   flex-direction: column;
-  // overflow-y: auto;
+  overflow-y: auto;
   ::-webkit-scrollbar {
     width: 10px; /* width of the entire scrollbar */
   }
@@ -441,20 +426,19 @@ const Container = styled.section`
     background-color: #ffffff; /* color of the scroll thumb */
     border-radius: 20px; /* roundness of the scroll thumb */
   }
-  @media (max-width: 750px) {
-    padding:0px;
+  @media (max-width: 500px) {
+    width: 360px;
+    padding: 30px 0 30px 0;
   }
 `;
 
 const ContainerUpper = styled.div`
-
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  height: 80px;
   padding: 15px 20px;
   @media (max-width: 500px) {
-    margin-top: 10px;
+    padding: 0px 20px;
   }
 `;
 
@@ -464,24 +448,14 @@ const ContainerUpperLeft = styled.div`
 `;
 
 const QuestionTitle = styled.h2`
-font: normal normal bold 30px/39px Nanum Myeongjo;
+  font: normal normal 800 26px/38px NanumMyeongjo;
   letter-spacing: 0px;
-  width: 60%;
-  margin: 29px 0 0 0;
-  @media (max-width: 750px) {
-    margin: 12px 0;
-    font: normal normal bold 22px/24px Nanum Myeongjo;
-    width: 80%;
-    min-height: 100px;
-    max-height: 100px;
-    overflow: scroll;
-  }
-  @media (max-width: 650px) {
-    width: 226;
+  // width: 60%;
+  margin: 18px 0 0 0;
+  @media (max-width: 500px) {
     text-align: left;
-    font: normal normal 800 19px/27px Nanum Myeongjo;
+    font: normal normal 800 19px/27px NanumMyeongjo;
     letter-spacing: 0px;
-    color: #000000;
     opacity: 0.9;
   }
 `;
@@ -601,14 +575,10 @@ color: #121212;
 const AnswersBox = styled.div`
   padding: 0px 20px;
   box-sizing: border-box;
-  ${(props) => (props.view === "new" ? `margin-top:140px` : ` margin: 0px`)};
+  ${(props) => (props.view === "new" ? `margin-top:33px` : ` margin: 0px`)};
   width: 100%;
-  max-height:800px;
   display: flex;
-  flex-direction: row;
-  align-content:flex-start;
-  justify-content: flex-start;
-  flex-wrap: wrap;
+  flex-direction: column;
   overflow-y: auto;
   ::-webkit-scrollbar {
     width: 10px; /* width of the entire scrollbar */
@@ -622,8 +592,7 @@ const AnswersBox = styled.div`
     background-color: #ffffff; /* color of the scroll thumb */
     border-radius: 20px; /* roundness of the scroll thumb */
   }
-  @media (max-width: 750px) {
-    max-height:400px;
+  @media (max-width: 500px) {
     ::-webkit-scrollbar {
       display: none;
     }
@@ -635,14 +604,14 @@ const AnswersBox = styled.div`
     ::-webkit-scrollbar-thumb {
       display: none;
     }
-    ${(props) => (props.view === "new" ? `margin: 80px 0px` : ` margin: 0px`)};
+    ${(props) => (props.view === "new" ? `margin-top: 25px` : ` margin: 0px`)};
   }
 `;
 
 const AnswersBoxLike = styled.div`
   padding: 0px 20px;
   box-sizing: border-box;
-  ${(props) => (props.view === "like" ? `margin-top:140px` : ` margin: 0px`)};
+  ${(props) => (props.view === "like" ? `margin-top:33px` : ` margin: 0px`)};
   width: 100%;
   max-height:800px;
   display: flex;
@@ -663,7 +632,7 @@ const AnswersBoxLike = styled.div`
     background-color: #ffffff; /* color of the scroll thumb */
     border-radius: 20px; /* roundness of the scroll thumb */
   }
-  @media (max-width: 750px) {
+  @media (max-width: 500px) {
     ::-webkit-scrollbar {
       display: none;
     }
@@ -675,7 +644,7 @@ const AnswersBoxLike = styled.div`
     ::-webkit-scrollbar-thumb {
       display: none;
     }
-    ${(props) => (props.view === "like" ? `margin: 80px 0px` : ` margin: 0px`)};
+    ${(props) => (props.view === "like" ? `margin-top: 25px` : ` margin: 0px`)};
   }
 `;
 
@@ -683,7 +652,7 @@ const AnswersBoxFriends = styled.div`
   padding: 0px 20px;
   box-sizing: border-box;
   ${(props) =>
-    props.view === "friends" ? `margin-top:140px` : ` margin: 0px`};
+    props.view === "friends" ? `margin-top:33px` : ` margin: 0px`};
   width: 100%;
   max-height:800px;
   display: flex;
@@ -704,7 +673,7 @@ const AnswersBoxFriends = styled.div`
     background-color: #ffffff; /* color of the scroll thumb */
     border-radius: 20px; /* roundness of the scroll thumb */
   }
-  @media (max-width: 750px) {
+  @media (max-width: 500px) {
     ::-webkit-scrollbar {
       display: none;
     }
@@ -718,7 +687,7 @@ const AnswersBoxFriends = styled.div`
     }
 
     ${(props) =>
-      props.view === "friends" ? `margin: 80px 0px` : ` margin: 0px`};
+      props.view === "friends" ? `margin-top: 25px` : ` margin: 0px`};
   }
 `;
 
