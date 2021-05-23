@@ -38,19 +38,19 @@ const MyBook = (props) => {
         if(getCookie('is_login') || !is_login){
             dispatch(userActions.LoginCheckAX(true));
             dispatch(setComponent(''));
-            return
+        
+        }else{
+            dispatch(setComponent(''));
+            dispatch(userActions.othersInfoAX(userId));
+            dispatch(userActions.getFollowing(userId));
+            dispatch(userActions.getFollower(userId));
         }
-        dispatch(setComponent(''));
-        dispatch(userActions.othersInfoAX(userId));
-        dispatch(userActions.getFollowing(userId));
-        dispatch(userActions.getFollower(userId));
         return()=>{
             dispatch(resetFollower());
             dispatch(resetFollowing());
             if(answerInfo.length !== 0){
                 dispatch(changeType(null))
-            }
-        }
+            }}
     },[])
     return(
         <React.Fragment>
