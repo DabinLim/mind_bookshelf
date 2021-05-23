@@ -114,8 +114,7 @@ const CommunityBtn = styled.div`
   display: flex;
   // justify-content: center;
   padding-left: 20px;
-  // font-family: Noto Sans CJK KR;
-  font-weight: bold;
+  font-family: Noto Sans CJK KR;
   align-items: center;
   // right: 26px;
   right: 34px;

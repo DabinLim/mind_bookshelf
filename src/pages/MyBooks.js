@@ -127,7 +127,6 @@ justify-content: center;
 font-weight: bold;
 align-items: center;
 right: 26px;
-// right: 34px;
 bottom: 100px;
 width: 63px;
 height: 63px;
@@ -142,8 +141,6 @@ box-shadow: 0px 0px 20px #0000001a;
   right: 14px;
   bottom: 80px;
 }
-
-
 `
 
 const CustomBtn = styled.div`
@@ -151,8 +148,7 @@ position: fixed;
 display: flex;
 // justify-content: center;
 padding-left: 20px;
-// font-family: Noto Sans CJK KR;
-font-weight: bold;
+font-family: Noto Sans CJK KR;
 align-items: center;
 // right: 26px;
 right: 34px;
