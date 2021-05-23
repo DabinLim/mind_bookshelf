@@ -514,7 +514,7 @@ const CardModal = (props) => {
                     }}
                   />
                   <CardWriterNickNameLeft>
-                    <span style={{ fontWeight: "bold", letterSpacing: "-1px", cursor: "pointer"}} onClick={() => {
+                    <span style={{ font: 'normal normal bold 13px/19px Noto Sans CJK KR',letterSpacing: '0px',color: '#121212',cursor: "pointer"}} onClick={() => {
                       if (
                         user_info?.nickname !== "" &&
                         user_info?.nickname === answerInfo?.nickname
@@ -526,25 +526,18 @@ const CardModal = (props) => {
                     }}>
                       {answerInfo?.nickname}님
                     </span>
+                    <img alt='그냥 점'src='https://user-images.githubusercontent.com/77574867/119256677-d6831680-bbfc-11eb-8be2-11f15c7caa2b.png' style={{width:'4px',height:'4px',margin:'0px 7px 3px 7px'}}/>
                     <span
                       style={{
-                        fontSize: "20px",
-                        margin: "0 5px",
-                        verticalAlign: "middle",
-                      }}
-                    >
-                      ˚
-                    </span>
-                    <span
-                      style={{
-                        letterSpacing: "-2.5px",
+                        letterSpacing: "0px",
+                        font: 'normal normal normal 13px/19px Noto Sans CJK KR',color: '#474747',
                       }}
                     >
                       {answerInfo?.questionCreatedUserNickname}님의 질문
                     </span>
                   </CardWriterNickNameLeft>
                 </CardWriterLeft>
-                <div style={{display:'flex', alignItems: "center"}}>
+                <div style={{marginTop:'5px',display:'flex', alignItems: "center"}}>
                   {answerInfo.answerUserId === user_info.id ? (
                     <div
                       style={{
@@ -598,11 +591,12 @@ const CardModal = (props) => {
                   <div
                     style={{
                       display: "flex",
-                      justifyContent: "flex-end",
-                      marginTop: "20px",
+                      justifyContent: "space-between",
+                      alignItems:'center',
                     }}
                   >
                     <CustomSwitch isOpen={isOpen} onClick={clickOpen} />
+                    <div style={{display:'flex',flexDirection:'row',alignItems:'center'}}>
                     <CardAnswerBtn
                       onClick={() => {
                         let _answer = {
@@ -617,6 +611,14 @@ const CardModal = (props) => {
                     >
                       수정
                     </CardAnswerBtn>
+                    <CardAnswerBtn
+                      onClick={() => {
+                        setUpdateAnswer(false);
+                      }}
+                    >
+                      취소
+                    </CardAnswerBtn>
+                      </div>
                   </div>
                 </AnswerUpdateBox>
               ) : (
@@ -878,7 +880,7 @@ const CardWriterInfoLeft = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   width: 100%;
 `;
 
@@ -936,27 +938,31 @@ const AnswerUpdateBox = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  min-height:270px;
+  max-height: 270px;
+  margin-bottom:17px;
+  padding-bottom:3px;
 `;
 
 const CardAnswerInput = styled.textarea`
-  margin: 0 40px 0;
-  padding: 30px 0 0 0;
   border: none;
-  width: 85%;
-  height: 155px;
+  width: 100%;
+  height: 175px;
   box-sizing: border-box;
   outline: none;
   line-height: 1.5;
   resize: none;
 `;
-const CardAnswerBtn = styled.div`
-  margin-right: 20px;
-  margin-left: 20px;
+const CardAnswerBtn = styled.button`
+  margin-left: 10px;
+  width:80px;
+  height:38px;
   font-size: 16px;
   cursor: pointer;
   color: white;
-  padding: 6px 20px;
+  /* padding: 6px 20px; */
   background: #303685;
+  border-style:none;
   border-radius: 20px;
   &:hover {
     font-weight: 600;
