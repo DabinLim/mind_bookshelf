@@ -116,6 +116,7 @@ const Header = () => {
               >
                 <CloseOutlined />
               </MenuCloseBtn>
+              <LogoImgMobile src='https://user-images.githubusercontent.com/77574867/119253354-dc243080-bbeb-11eb-9a85-621dda409a76.png'/>
               <MenuUl>
                 <MenuLi
                   onClick={() => {
@@ -415,6 +416,7 @@ const Header = () => {
             >
               <CloseOutlined />
             </MenuCloseBtn>
+            <LogoImgMobile src='https://user-images.githubusercontent.com/77574867/119253354-dc243080-bbeb-11eb-9a85-621dda409a76.png'/>
             <MenuUl>
               <MenuLi
                 onClick={() => {
@@ -713,10 +715,10 @@ const Menu = styled.div`
   cursor: default;
   width: 240px;
   height: 100%;
-  background: black;
+  background: #191919;
   z-index: 140;
   color: white;
-  padding: 102px 0px 0 0px;
+  padding: 40px 0px 0 0px;
 `;
 
 const MenuCloseBtn = styled.button`
@@ -762,6 +764,13 @@ const NaviContainer = styled.div`
   } ;
 `;
 
+const LogoImgMobile = styled.img`
+  width:40px;
+  height:40px;
+  margin-bottom:20px;
+  margin-left:16px;
+`;
+
 const LogoBox = styled.div`
   width:auto;
   display:flex;
@@ -774,6 +783,9 @@ const LogoImg = styled.img`
   width: 24px;
   height:24px;
   margin-right: 8px;
+  @media(max-width:750px){
+    display:none;
+  }
 `;
 
 const Logo = styled.div`

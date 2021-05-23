@@ -911,7 +911,7 @@ const Date = styled.span`
   font-weight: 600;
   @media (max-width: 750px) {
     top: 10px;
-    left: 13px;
+    left: 12px;
   }
 `;
 
