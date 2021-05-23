@@ -61,7 +61,6 @@ const CardModal = (props) => {
   const others = url[url.length-2];
   const component = useSelector(state => state.books.component);
   const currentLocation = useSelector(state => state.router.location.pathname);
-  console.log(currentLocation);
   const like_list = useSelector(state => state.community.like_list);
   const [likeModal, setLikeModal] = React.useState(false);
   const container = React.useRef();

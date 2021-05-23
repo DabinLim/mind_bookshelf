@@ -16,6 +16,7 @@ const OthersBooks = (props) => {
     const answerInfo = useSelector((state) => state.community.card_detail);
     const cookie = getCookie("is_login") ? true : false;
     const [UnfollowModal, setUnfollowModal] = React.useState(false) 
+    const other_info = useSelector((state) => state.user.other);
 
     let url = window.location.href.split('/');
     let id = url[url.length -2];
@@ -49,7 +50,7 @@ const OthersBooks = (props) => {
     return(
         <React.Fragment>
             {UnfollowModal? 
-                <UnfollowConfirmModal id={userId} setUnfollowModal={setUnfollowModal} />
+                <UnfollowConfirmModal id={userId} setUnfollowModal={setUnfollowModal} other  nickname={other_info.nickname} />
             :null}
             <Container>
                 <ContainerBox>

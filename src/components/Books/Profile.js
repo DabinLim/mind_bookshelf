@@ -127,7 +127,7 @@ const Profile = (props) => {
                       </Myfollowers>
                     </HeadBody>
                     {is_login && other_info.nickname !== "알 수 없는 유저" ? (
-                      followed ? (
+                      other_info.isFollowing ? (
                         <FollowerBtn
                           onClick={() => {
                             props.setUnfollowModal(true)
@@ -140,7 +140,7 @@ const Profile = (props) => {
                           onClick={() => {
                             dispatch(
                               userActions.followOtherAX(
-                                props.id,
+                                props.id, "other"
                               )
                             );
                           }}
@@ -294,25 +294,25 @@ const Profile = (props) => {
                   <Introduce>{other_info.introduce}</Introduce>
                 </Bottom>
                 {is_login && other_info.nickname !== "알 수 없는 유저" ? (
-                  followed ? (
+                  other_info.isFollowing ? (
                     <UnFollowBtnMobile
                       onClick={() => {
                         props.setUnfollowModal(true)
                       }}
                     >
-                      팔로잉
+                      팔로우 취소
                     </UnFollowBtnMobile>
                   ) : (
                     <FollowBtnMobile
                       onClick={() => {
                         dispatch(
                           userActions.followOtherAX(
-                            props.id,
+                            props.id, "other"
                           )
                         );
                       }}
                     >
-                      팔로우
+                      팔로우 하기
                     </FollowBtnMobile>
                   )
                 ) : null}

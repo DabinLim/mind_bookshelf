@@ -23,7 +23,16 @@ const UnfollowConfirmModal = (props) => {
               if(props.like){
                 dispatch(
                   userActions.unfollowOtherAX(
-                    props.id,props.like
+                    props.id, "like"
+                  )
+                );
+                props.setUnfollowModal(false);
+                return
+              }
+              if(props.other){
+                dispatch(
+                  userActions.unfollowOtherAX(
+                    props.id, "other"
                   )
                 );
                 props.setUnfollowModal(false);
@@ -31,10 +40,10 @@ const UnfollowConfirmModal = (props) => {
               }
               dispatch(
                 userActions.unfollowOtherAX(
-                  props.id,
+                  props.id, "profile"
                 )
               );
-              props.setUnfollowModal(false)
+              props.setUnfollowModal(false);
             }}
             style={{color:"#EB5959", borderBottom: '0.5px solid #D3D4D3'}} >해제</Button>
           <Button onClick={()=>{props.setUnfollowModal(false)}} >취소</Button>

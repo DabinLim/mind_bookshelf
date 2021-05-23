@@ -74,6 +74,9 @@ const userSlice = createSlice({
         }
       });
     },
+    editFollowOther : (state, action) => {
+      state.other.isFollowing = action.payload;
+    },
     addFollow: (state, action) => {
       let followerIdx = state.follower.findIndex(
         (f) => f.userId === action.payload
@@ -378,6 +381,7 @@ const othersInfoAX = (id) => {
             followerCount: res.data.followerCount,
             followingCount: res.data.followingCount,
             createdQuestion: res.data.createdQuestion,
+            isFollowing: res.data.isFollowing,
           })
         );
       })
@@ -387,13 +391,16 @@ const othersInfoAX = (id) => {
   };
 };
 
-const followOtherAX = (id, like=false) => {
+const followOtherAX = (id, type) => {
   return function (dispatch) {
     axios.post(`/bookshelf/addfriend`, { friendId: id }).then((res) => {
-      if(like){
+      if(type === "like"){
         dispatch(addFollowLike(id));
+      } else if(type === "profile"){
+        dispatch(addFollow(id));
+      } else {
+        dispatch(editFollowOther(true))
       }
-      dispatch(addFollow(id));
 
       swal({
         title: "정상적으로 추가되었습니다.",
@@ -403,15 +410,21 @@ const followOtherAX = (id, like=false) => {
   };
 };
 
-const unfollowOtherAX = (id, like=false) => {
+const unfollowOtherAX = (id, type) => {
   return function (dispatch) {
     axios
       .delete(`/bookshelf/friend/${id}`)
       .then((res) => {
-        if(like){
+        if(type === "like"){
+          console.log('1')
           dispatch(deleteFollowLike(id));
+        } else if(type === "profile"){
+          console.log('2')
+          dispatch(deleteFollow(id));
+        } else{
+          console.log('3')
+          dispatch(editFollowOther(false))
         }
-        dispatch(deleteFollow(id));
         swal({
           title: "정상적으로 취소되었습니다.",
           icon: "success",
@@ -512,6 +525,7 @@ export const {
   resetFollowing,
   addFollow,
   deleteFollow,
+  editFollowOther,
 } = userSlice.actions;
 
 export const api = {

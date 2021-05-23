@@ -24,7 +24,7 @@ const FollowConfirmModal = (props) => {
               if(props.like){
                 dispatch(
                   userActions.followOtherAX(
-                    props.id,props.like
+                    props.id, "like"
                   )
                 );
                 props.setFollowModal(false);
@@ -32,7 +32,7 @@ const FollowConfirmModal = (props) => {
               }
               dispatch(
                 userActions.followOtherAX(
-                  props.id,
+                  props.id, "profile"
                 )
               );
               props.setFollowModal(false);
