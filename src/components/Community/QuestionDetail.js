@@ -517,6 +517,7 @@ const HashTag = styled.div`
 const FilterBtnBoxMobile = styled.div`
   width: 40%;
   display: flex;
+  margin-top: 14px;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-end;
@@ -536,7 +537,7 @@ const FilterToggle = styled.div`
   align-items: center;
   font: normal normal medium 11px/17px Noto Sans CJK KR;
   justify-content: flex-end;
-  margin-right: -18px;
+  margin-right: -20px;
 `;
 
 const FilterBtnBox = styled.div`
@@ -544,8 +545,8 @@ const FilterBtnBox = styled.div`
   height: 100%;
   justify-content: flex-end;
   align-items: flex-end;
-  width: 40%;
-  @media (max-width: 650px) {
+  width: 50%;
+  @media (max-width: 500px) {
     flex-direction: column;
     min-width: 80px;
     justify-content: center;
@@ -556,8 +557,6 @@ const FilterBtnBox = styled.div`
 
 const FilterBtn = styled.button`
   cursor: pointer;
-  max-width: 80px;
-  max-height: 17px;
   text-align: left;
   font: normal normal normal 14px/19px Roboto;
   border: none;
@@ -569,7 +568,7 @@ const FilterBtn = styled.button`
   :hover {
     font-weight: bold;
   }
-  @media (max-width: 650px) {
+  @media (max-width: 500px) {
     margin-bottom: 10px;
   }
 `;
