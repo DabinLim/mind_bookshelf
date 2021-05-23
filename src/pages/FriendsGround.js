@@ -8,7 +8,7 @@ import {history} from "../redux/configStore";
 import swal from "sweetalert";
 import CardModal from "../components/Community/CardModal";
 import { api as commentActions } from "../redux/modules/comment";
-import { api as communityActions } from "../redux/modules/community";
+import { api as communityActions, resetAll } from "../redux/modules/community";
 import FriendPost from "../components/Friends/FriendPost";
 import InfinityScroll from '../shared/InfinityScroll'
 import Loader from "react-loader-spinner";
@@ -30,7 +30,9 @@ const FriendsGround = (props) => {
         return
       }
       const type = "friends";
+      dispatch(resetAll());
       dispatch(communityActions.getCardDetail(a, type));
+      dispatch(communityActions.getLikeList(a));
       dispatch(commentActions.getCommentAX(a));
       setCardModal(true);
     };
