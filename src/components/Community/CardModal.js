@@ -388,15 +388,18 @@ const CardModal = (props) => {
                     fontSize: "25px",
                   }}
                 />
+
                 <span
                   style={{
-                    fontWeight: "600",
-                    fontSize: "22px",
+                    font:'normal normal bold 18px/26px Noto Sans CJK KR',
                     color: "#ffffff",
+                    letterSpacing: '0px',
+                    textShadow: '0px 0px 10px #00000080'
                   }}
                 >
                   {nowdate.format("M")}월{nowdate.format("D")}일
                 </span>
+
                 <LeftOutlined
                   disabled={card_loading}
                   onClick={() => {
@@ -404,7 +407,7 @@ const CardModal = (props) => {
                     nextDay();
                   }}
                   style={{
-                    transform:'rotateZ(180deg)',
+                    transform: "rotateZ(180deg)",
                     cursor: "pointer",
                     color: "white",
                     fontSize: "25px",
