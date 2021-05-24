@@ -115,11 +115,12 @@ const CommunityBtn = styled.div`
   // justify-content: center;
   padding-left: 20px;
   font-family: Noto Sans CJK KR;
+  font-weight: bold;
   align-items: center;
   // right: 26px;
   right: 34px;
   bottom: 102px;
-  width: 150px;
+  width: 140px;
   height: 58px;
   border-radius: 50px;
   background: white;
