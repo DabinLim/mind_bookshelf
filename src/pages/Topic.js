@@ -61,11 +61,14 @@ const Topic = (props) => {
                 <div style={{width:"30px", height:"20px"}}></div>
               </HeaderBox2>
               <HeaderBox>
-              <TopicText
-                style={{color: color, border: `1px solid ${color}`}}
-              >
-                <span>#{topic}</span>
-              </TopicText>
+              <div>
+                <TopicText
+                  style={{color: color, border: `1px solid ${color}`}}
+                  >
+                  <span>#{topic}</span>
+                </TopicText>
+                <HeaderText2>질문카드 결과</HeaderText2>
+              </div>
                 {type === "like" ? 
                 <HeaderRight>
                   <HeaderRightText style={{fontWeight:"bold"}} >
@@ -452,14 +455,31 @@ const HeaderBox2 =styled.div`
   display: flex;
   align-items:center;
   justify-content: space-between;
+  @media (min-width: 500px) {
+    display: none;
+  }
 `
 
 const HeaderBox = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: flex-end;
   width: 100%;
-  margin-top: 21px;
-  margin-bottom: 12px;
+  margin-bottom: 20px;
+  @media (max-width: 500px) {
+    margin-top: 21px;
+    margin-bottom: 12px;
+  }
+`
+
+const HeaderText2 = styled.div`
+  font: normal normal 800 26px/38px NanumMyeongjo;
+  color: #262626;
+  display: flex;
+  margin-top: 20px;
+  @media (max-width: 500px) {
+    display: none;
+  }
 `
 
 const HeaderText = styled.div`
