@@ -702,9 +702,12 @@ const CountText = styled.span`
   }
 `;
 
-const CountText2 = styled.span`
+const CountText2 = styled.div`
+  display: inline-block;
   font: normal normal 100 27px/39px Noto Sans CJK KR;
   margin-left: 7px;
+  line-height: 28px;
+  height: 29px;
 `
 
 const CheckIcon = styled.img`
@@ -731,7 +734,7 @@ font: normal normal normal 12px/17px Noto Sans CJK KR;
 
 const Answers = styled.div`
   display: flex;
-  align-items: flex-start;
+  // align-items: flex-start;
   cursor: pointer;
   margin-right: 29px;
   font: normal normal medium 14px/20px Noto Sans KR;
@@ -789,7 +792,7 @@ const UnFollowBtnMobile = styled.button`
 
 const MyQuestionBtn = styled.div`
   display: flex;
-  align-items: flex-start;
+  // align-items: center;
   cursor: pointer;
   font: normal normal medium 14px/20px Noto Sans CJK KR;
   @media (max-width: 750px) {
