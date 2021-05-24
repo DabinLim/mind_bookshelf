@@ -108,25 +108,14 @@ const MyQuestion = (props) => {
                     </div>
                   </FilterWhiteBox>}
                 </FilterBtnBoxMobile>
+                <GotoBookShelf><LeftOutlined style={{fontSize:'14px',margin:'0px 4px 1px 0px'}}/>책장으로</GotoBookShelf>
         <TitleContainer>
           <Title>
             <span style={{ fontWeight: "600" }}>{user_info?.nickname}</span>님의
             질문카드는{" "}
             <span style={{ fontWeight: "600" }}>{custom_count}개</span>입니다.
           </Title>
-          <div style={{display:'flex',flexDirection:'column'}}>
-          <AddQuestion
-            onClick={() => {
-              setModalVisible(true);
-            }}
-          >
-            {" "}
-            <AddBtn>
-            <span style={{ fontSize: "24px", fontWeight:'600'}}> + </span>
-            <AddText> 질문 등록하기</AddText>
-            <AddTextMobile>질문등록</AddTextMobile>
-            </AddBtn>
-          </AddQuestion>
+          <div style={{display:'flex',flexDirection:'column',justifyContent:'flex-end'}}>
           <FilterBtnBox>
           {now_view === "new" ? (
                   <FilterBtn
@@ -226,7 +215,7 @@ const MyQuestion = (props) => {
 const Container = styled.section`
   position: relative;
   box-sizing: border-box;
-  padding: 45px 25px;
+  padding: 10px 25px 45px 25px;
   width: 100%;
   height: 100%;
   max-width: 1062px;
@@ -264,6 +253,7 @@ const TitleContainer = styled.div`
   flex-direction: row;
   justify-content: space-between;
   margin-bottom: 38px;
+  margin-top:10px;
   padding:0px 12.5px;
   @media (max-width: 750px) {
     display:none;
@@ -311,36 +301,21 @@ const AddBtnMobile = styled.div`
   cursor:pointer;
 `;
 
-const AddBtn = styled.div`
+
+
+const GotoBookShelf = styled.span`
   display:flex;
-  flex-direction:row;
+  justify-content: flex-start;
   align-items:center;
-  justify-content:flex-end;
-`;
-
-const AddQuestion = styled.div`
-  display:flex;
-  flex-direction:column;
+  margin-left:15px;
   font-size: 16px;
-  color: #061366;
-  cursor: pointer;
-  min-width:100px;
+  color: #000000;
+  cursor:pointer;
   @media (max-width: 750px) {
-    font-size:14px;
-    align-items:flex-end;
+    display: none;
   }
 `;
 
-const AddText = styled.span`
-  @media (max-width: 750px) {
-    display: none;
-  }
-`;
-const AddTextMobile = styled.span`
-  @media (min-width: 750px) {
-    display: none;
-  }
-`;
 
 const CardContainer = styled.section`
   box-sizing: border-box;
@@ -398,10 +373,6 @@ const Card = styled.div`
   }
 `;
 
-
-const AnswerCount = styled.span`
-  font-size: 11px;
-`;
 
 const AnswerCountMobile = styled.span`
   font: normal normal normal 11px/16px Noto Sans CJK KR;
