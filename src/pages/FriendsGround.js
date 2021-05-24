@@ -12,6 +12,8 @@ import { api as communityActions, resetAll } from "../redux/modules/community";
 import FriendPost from "../components/Friends/FriendPost";
 import InfinityScroll from '../shared/InfinityScroll'
 import Loader from "react-loader-spinner";
+import { RightOutlined } from "@ant-design/icons";
+import GoBackBtn from "../elements/GoBack";
 
 const FriendsGround = (props) => {
     const dispatch = useDispatch();
@@ -65,8 +67,10 @@ const FriendsGround = (props) => {
           </LoadingDiv>: 
           <>
           <CommunityContainer>
-                {friends_list?.length > 0 ? <><Container><AnswersBox ref={container}>
-                <QuestionTitle>친구들의 생각을<br/>살펴보세요</QuestionTitle>
+                {friends_list?.length > 0 ? <><Container>
+                  {/* <GoBackBox><GoBackBtn/></GoBackBox> */}
+                  <QuestionTitle>친구들의 생각을<br/>살펴보세요</QuestionTitle>
+                <AnswersBox ref={container}>
                   {lastId && <InfinityScroll
                     callNext={() => {
                       dispatch(friendsActions.getNextFriendAnswers(lastId));
@@ -80,7 +84,17 @@ const FriendsGround = (props) => {
                         })}
                     </InfinityScroll>}
                 </AnswersBox>
-                </Container></>: <><NoFriendText>아직 아무도 팔로우하고 있지 않군요! <br/> <span>다양한 사람을 팔로우해서 <br/> 더 많은 낙서를 즐기세요!</span></NoFriendText></>}
+                </Container></>: <><NoFriendText>팔로우가 없습니다. <br/> <span>생각의 바다에서 다양한 사람의 생각을 보고 <br/> 팔로우를 하시면 좋은 생각들을 모아볼 수 있습니다.</span> 
+                <br/><br/>
+                <ToCommunity
+                  onClick={() => {
+                    history.push("/community");
+                  }}
+                >
+                  생각의 바다로 이동하기 <RightOutlined />
+                </ToCommunity>
+                </NoFriendText>
+                </>}
           </CommunityContainer>
         </>
         }
@@ -89,7 +103,7 @@ const FriendsGround = (props) => {
 }
 
 const Outer = styled.section`
-  height:100vh;
+  // height:100vh;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -103,11 +117,34 @@ const Outer = styled.section`
   }
   @media (max-width: 500px) {
     margin: 50px 0px 0px 0px;
+    height: auto;
   }
 `;
 
+// const GoBackBox = styled.div`
+//   @media (max-width: 500px) {
+//     width: 100%;
+//     margin-bottom: 29px;
+//   }
+// `;
+
 const LoadingDiv = styled.div`
   margin: auto;
+`;
+
+const ToCommunity = styled.button`
+  font-size: 12px;
+  color: #333333;
+  font-weight: 600;
+  background: none;
+  outline: none;
+  border: none;
+  font-family: Noto Sans KR;
+  cursor: pointer;
+
+  @media (min-width: 800px) {
+    font-size: 14px;
+  }
 `;
 
 const CommunityContainer = styled.div`
@@ -133,7 +170,7 @@ const Container = styled.section`
   display: flex;
   flex-direction: column;
   overflow-y: auto;
-  padding: 88px 0 0 0;
+  padding: 88px 0 30px 0;
   margin: auto;
   ::-webkit-scrollbar {
     width: 10px; /* width of the entire scrollbar */
@@ -149,7 +186,7 @@ const Container = styled.section`
   }
 
   @media (max-width: 600px) {
-    padding: 30px 0 0 0;
+    padding: 30px 0 30px 0;
   }
 `;
 
@@ -199,7 +236,6 @@ const AnswersBox = styled.div`
     }
     width: 100%;
     padding: 0;
-    max-height: 649px;
   }
 `;
 

@@ -113,7 +113,7 @@ const Post = (props) => {
             </CardWriter>
           </CardWriterInfo>
           {/* 500px 아래로 내려갈 때!!!! */}
-          <SmallCardLeft style={{ color: color, border: `1px solid ${color}`, opacity: opacity}}>
+          <SmallCardLeft style={{ color: color, border: `1px solid ${color}`, opacity: opacity}} onClick={()=> {history.push(`/topic/${topic}`)}}>
             #{topic}
           </SmallCardLeft>
           {/* 바로 위까지 모바일 화면 */}
@@ -142,7 +142,7 @@ const Post = (props) => {
         </SmallCardContent>
         <CardUpper>
           <CardLeft style={{ opacity: opacity }}>
-            <HashTag style={{color: color, border: `1px solid ${color}`, fontSize: "14px", opacity: opacity}}>#{topic}</HashTag>
+            <HashTag style={{color: color, border: `1px solid ${color}`, fontSize: "14px", opacity: opacity}} onClick={()=> {history.push(`/topic/${topic}`)}}>#{topic}</HashTag>
           </CardLeft>
           <CardRight style={{ opacity: opacity }}>
             <CardContent>{props.contents}</CardContent>

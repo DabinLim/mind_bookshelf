@@ -167,7 +167,7 @@ const CommunityBox = styled.div`
     border-radius: 20px; /* roundness of the scroll thumb */
   }
   @media (max-width: 750px) {
-    margin: 50px 0px 0px 0px;
+    margin: 70px 0px 0px 0px;
     // padding: 20px 20px;
   }
 `;

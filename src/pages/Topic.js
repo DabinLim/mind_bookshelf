@@ -6,6 +6,7 @@ import {history} from '../redux/configStore'
 import InfinityScroll from '../shared/InfinityScroll'
 import { LeftOutlined } from "@ant-design/icons";
 import {CheckOutlined} from "@ant-design/icons";
+import GoBack from '../elements/GoBack'
 
 
 
@@ -54,13 +55,17 @@ const Topic = (props) => {
         <TopicBox>
           <Container>
             <Header>
+              <HeaderBox2>
+                <GoBack/>
+                <HeaderText>질문카드 결과</HeaderText>
+                <div style={{width:"30px", height:"20px"}}></div>
+              </HeaderBox2>
+              <HeaderBox>
               <TopicText
                 style={{color: color, border: `1px solid ${color}`}}
               >
                 <span>#{topic}</span>
               </TopicText>
-              <HeaderBox>
-                <HeaderText>질문카드 결과</HeaderText>
                 {type === "like" ? 
                 <HeaderRight>
                   <HeaderRightText style={{fontWeight:"bold"}} >
@@ -253,7 +258,6 @@ const TopicContainer = styled.div`
   @media (max-width: 500px) {
     background-image: url("https://user-images.githubusercontent.com/67696504/118986623-7b61e180-b9ba-11eb-9719-f898c5c5b7a2.png");
     margin: 50px 0px 0px 0px;
-    height: 100%;
 }
 `
 
@@ -286,10 +290,9 @@ const Container = styled.div`
 
   @media (max-width: 500px) {
     width: 330px;
-    padding: 30px 0 0 0;
+    padding: 23px 0 30px 0;
   }
 `
-
 const Header = styled.div`
   display: flex;
   flex-direction: column;
@@ -445,19 +448,26 @@ const QuestionContent = styled.div`
   }
 `
 
+const HeaderBox2 =styled.div`
+  display: flex;
+  align-items:center;
+  justify-content: space-between;
+`
+
 const HeaderBox = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
-  margin-top: 14px;
-  margin-bottom: 20px;
+  margin-top: 21px;
+  margin-bottom: 12px;
 `
 
 const HeaderText = styled.div`
   font: normal normal 800 26px/38px NanumMyeongjo;
   color: #262626;
+  display: flex;
   @media (max-width: 500px) {
-    font: normal normal 800 19px/27px NanumMyeongjo;
+    font: normal normal bold 14px/20px Noto Sans CJK KR;
   }
 `
 

@@ -8,15 +8,15 @@ const InfinityScroll = (props) => {
     // 이벤트 발생 300ms 후에 callNext 함수 호출하기
     const _handleScroll = _.throttle(() => {
         if(is_loading){
-            console.log('1')
+            // console.log('1')
             return;
         }
         if(!props.ref_value){
-            console.log('2')
+            // console.log('2')
             return
         }
         if(props.modal){
-            console.log('하이')
+            // console.log('하이')
             const {clientHeight} = props.ref_value.current;
             const {scrollHeight} = props.ref_value.current;
     
@@ -25,12 +25,12 @@ const InfinityScroll = (props) => {
             // (document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop;
     
             if(scrollHeight - clientHeight - scrollTop < props.height) {
-                console.log('whyrano')
+                // console.log('whyrano')
                 callNext();
             }
             return
         }
-        console.log('하이')
+        // console.log('하이')
         const {clientHeight} = props.ref_value;
         const {scrollHeight} = props.ref_value;
   
@@ -39,7 +39,7 @@ const InfinityScroll = (props) => {
         // (document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop;
    
         if(scrollHeight - clientHeight - scrollTop < 100) {
-            console.log('whyrano')
+            // console.log('whyrano')
             callNext();
         }
     },300)
@@ -48,7 +48,7 @@ const InfinityScroll = (props) => {
 
     React.useEffect(() => {
         // 다음 데이터가 없으면 이벤트 구독해제
-        console.log(props.ref_value);
+        // console.log(props.ref_value);
         if(is_loading){
             
             return;
@@ -59,7 +59,7 @@ const InfinityScroll = (props) => {
         }
         if(is_next){
             
-            console.log(props.ref_value)
+            // console.log(props.ref_value)
             if(props.modal){
                 props.ref_value.current.addEventListener('scroll', handleScroll);
             }else{
@@ -67,7 +67,7 @@ const InfinityScroll = (props) => {
             }
         }else{
             if(props.modal){
-                console.log('end', is_next)
+                // console.log('end', is_next)
                 props.ref_value.current.removeEventListener('scroll', handleScroll)
             }else{
                 props.ref_value.removeEventListener('scroll', handleScroll);
