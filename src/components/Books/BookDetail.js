@@ -68,6 +68,7 @@ const BookDetail = (props) => {
     const selectedCard = (id) => {
       dispatch(resetAll())
         dispatch(communityActions.getCardDetail(id, "book"));
+        dispatch(communityActions.getLikeList(id));
         dispatch(commentActions.getCommentAX(id));
       };
 
