@@ -65,8 +65,9 @@ const FriendsGround = (props) => {
           </LoadingDiv>: 
           <>
           <CommunityContainer>
-                {friends_list?.length > 0 ? <><Container><AnswersBox ref={container}>
+                {friends_list?.length > 0 ? <><Container>
                 <QuestionTitle>친구들의 생각을<br/>살펴보세요</QuestionTitle>
+                  <AnswersBox ref={container}>
                   {lastId && <InfinityScroll
                     callNext={() => {
                       dispatch(friendsActions.getNextFriendAnswers(lastId));
@@ -89,7 +90,7 @@ const FriendsGround = (props) => {
 }
 
 const Outer = styled.section`
-  height:100vh;
+  // height:100vh;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -103,6 +104,7 @@ const Outer = styled.section`
   }
   @media (max-width: 500px) {
     margin: 50px 0px 0px 0px;
+    height:auto;
   }
 `;
 
@@ -133,7 +135,7 @@ const Container = styled.section`
   display: flex;
   flex-direction: column;
   overflow-y: auto;
-  padding: 88px 0 0 0;
+  padding: 88px 0 30px 0;
   margin: auto;
   ::-webkit-scrollbar {
     width: 10px; /* width of the entire scrollbar */
@@ -149,7 +151,7 @@ const Container = styled.section`
   }
 
   @media (max-width: 600px) {
-    padding: 30px 0 0 0;
+    padding: 30px 0 30px 0;
   }
 `;
 
@@ -199,7 +201,7 @@ const AnswersBox = styled.div`
     }
     width: 100%;
     padding: 0;
-    max-height: 649px;
+    // max-height: 649px;
   }
 `;
 

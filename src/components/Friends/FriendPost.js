@@ -91,7 +91,7 @@ const CardFrame = styled.div`
   margin: 0px 20px 20px 0px;
   box-shadow: 0px 0px 20px #0000001a;
   @media(max-width:750px){
-    margin: 20px 20px 20px 0px;
+    margin: 10px 20px 10px 0px;
     width:100%;
   }
 `;
