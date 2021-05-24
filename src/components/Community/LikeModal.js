@@ -26,6 +26,7 @@ const LikeModal = (props) => {
   const clickOther = (id) => {
     history.push(`/others/${id}`);
     props.close();
+    props.cardClose();
   };
 
   React.useEffect(() => {

@@ -38,19 +38,19 @@ const MyBook = (props) => {
         if(getCookie('is_login') || !is_login){
             dispatch(userActions.LoginCheckAX(true));
             dispatch(setComponent(''));
-            return
+        
+        }else{
+            dispatch(setComponent(''));
+            dispatch(userActions.othersInfoAX(userId));
+            dispatch(userActions.getFollowing(userId));
+            dispatch(userActions.getFollower(userId));
         }
-        dispatch(setComponent(''));
-        dispatch(userActions.othersInfoAX(userId));
-        dispatch(userActions.getFollowing(userId));
-        dispatch(userActions.getFollower(userId));
         return()=>{
             dispatch(resetFollower());
             dispatch(resetFollowing());
             if(answerInfo.length !== 0){
                 dispatch(changeType(null))
-            }
-        }
+            }}
     },[])
     return(
         <React.Fragment>
@@ -127,7 +127,6 @@ justify-content: center;
 font-weight: bold;
 align-items: center;
 right: 26px;
-// right: 34px;
 bottom: 100px;
 width: 63px;
 height: 63px;
@@ -142,8 +141,6 @@ box-shadow: 0px 0px 20px #0000001a;
   right: 14px;
   bottom: 80px;
 }
-
-
 `
 
 const CustomBtn = styled.div`
@@ -151,13 +148,13 @@ position: fixed;
 display: flex;
 // justify-content: center;
 padding-left: 20px;
-// font-family: Noto Sans CJK KR;
+font-family: Noto Sans CJK KR;
 font-weight: bold;
 align-items: center;
 // right: 26px;
 right: 34px;
 bottom: 102px;
-width: 150px;
+width: 140px;
 height: 58px;
 border-radius: 50px;
 background: white;

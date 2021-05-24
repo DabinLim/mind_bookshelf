@@ -16,7 +16,7 @@ const ProfileUpdateModal = (props) => {
   const dispatch = useDispatch();
   const user_info = useSelector((state) => state.user.user);
   const [nickname, setNickname] = useState(
-    user_info.nickname ? user_info.nickname : ""
+    user_info.nickname
   );
   const [introduce, setIntroduce] = useState(
     user_info.introduce
@@ -216,9 +216,9 @@ const ProfileUpdateModal = (props) => {
 
   return (
     <React.Fragment>
-      {withdrawal ? <WithdrawalModal setWidthdrawal={setWidthdrawal} /> : null}
+      {withdrawal ? <WithdrawalModal nickname={user_info.nickname} setWidthdrawal={setWidthdrawal} /> : null}
       {user_info.first? 
-      <Background style={{backgroundColor:"transparent"}} /> 
+      <Background /> 
       :
       <Background onClick={props.close} />
       }
@@ -229,7 +229,11 @@ const ProfileUpdateModal = (props) => {
           :
           <ProfileCancelButton onClick={props.close} >취소</ProfileCancelButton>
           }
+          {user_info.first? 
+          <ProfileHeaderText>프로필 설정</ProfileHeaderText>
+          :
           <ProfileHeaderText>프로필 편집</ProfileHeaderText>
+          }
           {user_info.first? 
           <ProfileHeaderButton onClick={addProfile} >가입</ProfileHeaderButton>
           :
@@ -432,9 +436,9 @@ const ProfileUpdateModal = (props) => {
             </div>
           </TypeContainer>
         </TypeBox>
+        {user_info.first? null
+        :
         <BottomContainer>
-          {user_info.first? null 
-          :
           <Withdrawal
             onClick={() => {
               setWidthdrawal(true);
@@ -442,13 +446,8 @@ const ProfileUpdateModal = (props) => {
           >
             회원탈퇴
           </Withdrawal>
-          }
-          {user_info.first? 
-          <UpdateButton onClick={addProfile}>가입</UpdateButton>
-          :
-          <UpdateButton onClick={editProfile}>저장</UpdateButton>
-          }
         </BottomContainer>
+        }
       </UpdateBox>
     </React.Fragment>
   );

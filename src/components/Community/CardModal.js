@@ -643,7 +643,7 @@ const CardModal = (props) => {
               {like_list.length ? 
                 
                 <LikeList>
-                    {likeModal? <LikeModal web answerId={answerInfo.answerId} container={container} close={closeModal}/>:null}
+                    {likeModal? <LikeModal web cardClose={props.close} answerId={answerInfo.answerId} container={container} close={closeModal}/>:null}
                     {like_list.length > 1 ? 
                     <LikePeople onClick={()=>{setLikeModal(true)}}>
                         <span style={{fontWeight:'600'}}>{like_list[0].nickname}</span>님 외 <span style={{fontWeight:'600'}}>{answerInfo?.likeCount -1}</span>명이 좋아합니다.
