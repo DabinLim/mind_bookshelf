@@ -6,6 +6,7 @@ import {history} from '../redux/configStore'
 import InfinityScroll from '../shared/InfinityScroll'
 import { LeftOutlined } from "@ant-design/icons";
 import {CheckOutlined} from "@ant-design/icons";
+import GoBack from '../elements/GoBack'
 
 
 
@@ -54,13 +55,16 @@ const Topic = (props) => {
         <TopicBox>
           <Container>
             <Header>
+              <HeaderBox2>
+                <GoBack/>
+                <HeaderText>질문카드 결과</HeaderText>
+              </HeaderBox2>
+              <HeaderBox>
               <TopicText
                 style={{color: color, border: `1px solid ${color}`}}
               >
                 <span>#{topic}</span>
               </TopicText>
-              <HeaderBox>
-                <HeaderText>질문카드 결과</HeaderText>
                 {type === "like" ? 
                 <HeaderRight>
                   <HeaderRightText style={{fontWeight:"bold"}} >
@@ -288,7 +292,6 @@ const Container = styled.div`
     padding: 50px 0 30px 0;
   }
 `
-
 const Header = styled.div`
   display: flex;
   flex-direction: column;
@@ -442,6 +445,12 @@ const QuestionContent = styled.div`
     margin: 0 12px 0 12px;
     font: normal normal bold 13px/19px Noto Sans CJK KR;
   }
+`
+
+const HeaderBox2 =styled.div`
+  display: flex;
+  align-items:center;
+
 `
 
 const HeaderBox = styled.div`

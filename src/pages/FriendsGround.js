@@ -101,7 +101,7 @@ const FriendsGround = (props) => {
 }
 
 const Outer = styled.section`
-  height:100vh;
+  // height:100vh;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -161,7 +161,7 @@ const Container = styled.section`
   display: flex;
   flex-direction: column;
   overflow-y: auto;
-  padding: 88px 0 0 0;
+  padding: 88px 0 30px 0;
   margin: auto;
   ::-webkit-scrollbar {
     width: 10px; /* width of the entire scrollbar */
