@@ -12,7 +12,6 @@ const Like = (props) => {
     const is_login = useSelector(state => state.user.is_login);
     const user_info = useSelector(state => state.user.user);
     const currentLocation = useSelector(state => state.router.location.pathname);
-    console.log(currentLocation);
     const {currentLike, answerId, questionId, page, width, height, margin,  m_width, m_height, m_margin} = props;
     const styles = {
       width,

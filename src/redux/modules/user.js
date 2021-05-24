@@ -188,7 +188,6 @@ const getFollowing = (userId) => {
       axios
         .get(`/friends/following/${userId}?lastId=${lastId}`)
         .then((res) => {
-          console.log(res)
           dispatch(addfollowing(res.data.following))
           if(res.data.following.length === 10){
             dispatch(setFollowingNext(true))
@@ -225,7 +224,6 @@ const getFollower = (userId) => {
       axios
         .get(`/friends/follower/${userId}?lastId=${lastId}`)
         .then((res) => {
-          console.log(res)
           dispatch(addfollower(res.data.follower))
           if(res.data.follower.length === 10){
             dispatch(setFollowerNext(true))
@@ -241,7 +239,6 @@ const getFollower = (userId) => {
       axios
         .get(`/friends/follower/${userId}?lastId=${lastId}`)
         .then((res) => {
-          console.log(res)
           dispatch(addfollower(res.data.follower))
           if(res.data.follower.length === 10){
             dispatch(setFollowerNext(true))
@@ -374,7 +371,7 @@ const othersInfoAX = (id) => {
     axios
       .get(`/bookshelf/auth/user/${id}`)
       .then((res) => {
-        console.log(res)
+        // console.log(res)
         dispatch(
           setOther({
             otherAnswerCount: res.data.otherAnswerCount,

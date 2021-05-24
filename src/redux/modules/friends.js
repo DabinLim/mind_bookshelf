@@ -83,9 +83,9 @@ const friendsSlice = createSlice({
         method: "GET",
       };
       axios(options).then((response) => {
-          console.log(response.data.friendCards);
+          // console.log(response.data.friendCards);
           let is_more = response.data.friendCards.length >= 10 ? true : false;
-          console.log(is_more);
+          // console.log(is_more);
           if (!is_more) {
             dispatch(setAnswerList(response.data.friendCards));
             dispatch(setNext(false));

@@ -155,7 +155,7 @@ const addCommentLike = (id) => {
       method:"POST"
     }
     axios(options).then((response) => {
-      console.log(response.data);
+      // console.log(response.data);
       dispatch(addLike(id));
     }).catch(err => console.log(err));
   }
@@ -168,7 +168,7 @@ const deleteCommentLike = (id) => {
       method:"PATCH"
     }
     axios(options).then((response) => {
-      console.log(response.data);
+      // console.log(response.data);
       dispatch(subtractLike(id));
     }).catch(err => console.log(err));
   }
