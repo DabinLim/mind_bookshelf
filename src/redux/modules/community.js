@@ -163,6 +163,12 @@ const communitySlice = createSlice({
     setLikeLoading: (state, action) => {
       state.like_loading = action.payload;
     },
+    addLikeList:(state, action) => {
+      const idx = state.like_list.findIndex(v => v.userId === action.payload.userId);
+      if(idx === -1){
+        state.like_list.push(action.payload);
+      }
+    },
     deleteLikeList: (state, action) => {
       const idx = state.like_list.findIndex(v => {
         if(v.userId === action.payload){
@@ -659,6 +665,7 @@ export const {
   setLikePage,
   setLikeNext,
   setLikeLoading,
+  addLikeList,
   deleteLikeList,
   addFollowLike,
   deleteFollowLike,

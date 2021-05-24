@@ -26,6 +26,7 @@ const FriendsGround = (props) => {
 
     const openCard = (a) => {
       if(window.innerWidth <= 750){
+        dispatch(resetAll());
         history.push(`/carddetail/${a}`)
         return
       }

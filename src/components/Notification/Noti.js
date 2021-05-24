@@ -39,12 +39,13 @@ const Noti = (props) => {
       history.push(`/community/${props.cardId}`);
     } else{
       if(window.innerWidth <= 750){
+        dispatch(resetAll());
         history.push(`/carddetail/${props.cardId}`)
         return
       }
       const type = "noti";
       props.close();
-      dispatch(resetAll);
+      dispatch(resetAll());
       dispatch(communityActions.getCardDetail(props.cardId, type));
       dispatch(communityActions.getLikeList(props.cardId));
       dispatch(commentActions.getCommentAX(props.cardId));
