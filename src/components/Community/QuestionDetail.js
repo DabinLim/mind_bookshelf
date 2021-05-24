@@ -17,7 +17,11 @@ import { api as commentActions } from "../../redux/modules/comment";
 import { api as communityActions,resetAll as LikeReset } from "../../redux/modules/community";
 import {history} from '../../redux/configStore';
 import {CheckOutlined} from "@ant-design/icons";
+<<<<<<< HEAD
 import Loader from "react-loader-spinner";
+=======
+import GoBack from '../../elements/GoBack'
+>>>>>>> b10f8b2d70669d83fec237ce811a01ce06abee8f
 
 const QuestionDetail = (props) => {
   const dispatch = useDispatch();
@@ -109,6 +113,9 @@ const QuestionDetail = (props) => {
           </LoadingDiv>: <>
         <CommunityContainer>
           <Container>
+            <div style={{margin:"0px 0px 29px 20px"}}>
+              <GoBack/>
+            </div>
             <ContainerUpper>
               <ContainerUpperLeft>
                 <HashTag
@@ -470,7 +477,7 @@ const Container = styled.section`
   }
   @media (max-width: 500px) {
     width: 360px;
-    padding: 50px 0 30px 0;
+    padding: 25px 0 30px 0;
   }
 `;
 
@@ -528,13 +535,11 @@ const HashTag = styled.div`
 const FilterBtnBoxMobile = styled.div`
   width: 40%;
   display: flex;
-  margin-top: 14px;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-end;
   font-size: 12px;
   margin-right: 20px;
-  padding-top: 35px;
   box-sizing: border-box;
   @media (min-width: 650px) {
     display: none;

@@ -16,6 +16,7 @@ const FollowingModal = (props) => {
   const next = useSelector((state) => state.user.following_next);
   const is_loading = useSelector((state) => state.user.follow_loading);
   const myId = useSelector((state) => state.user.user.id)
+  const is_login = useSelector((state) => state.user.is_login);
 
   const clickOther = (id) => {
     history.push(`/others/${id}`);
@@ -71,7 +72,7 @@ const FollowingModal = (props) => {
                       <ProfileImage src={f.profileImg} />
                       <Username>{f.nickname}</Username>
                     </UserInfoContainer>
-                    {myId === f.userId ? 
+                    {myId === f.userId || !is_login ? 
                       null
                     :
                       f.isFollowing? 

@@ -58,6 +58,7 @@ const Topic = (props) => {
               <HeaderBox2>
                 <GoBack/>
                 <HeaderText>질문카드 결과</HeaderText>
+                <div style={{width:"30px", height:"20px"}}></div>
               </HeaderBox2>
               <HeaderBox>
               <TopicText
@@ -289,7 +290,7 @@ const Container = styled.div`
 
   @media (max-width: 500px) {
     width: 330px;
-    padding: 50px 0 30px 0;
+    padding: 23px 0 30px 0;
   }
 `
 const Header = styled.div`
@@ -450,22 +451,23 @@ const QuestionContent = styled.div`
 const HeaderBox2 =styled.div`
   display: flex;
   align-items:center;
-
+  justify-content: space-between;
 `
 
 const HeaderBox = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
-  margin-top: 14px;
-  margin-bottom: 20px;
+  margin-top: 21px;
+  margin-bottom: 12px;
 `
 
 const HeaderText = styled.div`
   font: normal normal 800 26px/38px NanumMyeongjo;
   color: #262626;
+  display: flex;
   @media (max-width: 500px) {
-    font: normal normal 800 19px/27px NanumMyeongjo;
+    font: normal normal bold 14px/20px Noto Sans CJK KR;
   }
 `
 
