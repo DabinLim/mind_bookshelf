@@ -17,11 +17,8 @@ import { api as commentActions } from "../../redux/modules/comment";
 import { api as communityActions,resetAll as LikeReset } from "../../redux/modules/community";
 import {history} from '../../redux/configStore';
 import {CheckOutlined} from "@ant-design/icons";
-<<<<<<< HEAD
 import Loader from "react-loader-spinner";
-=======
 import GoBack from '../../elements/GoBack'
->>>>>>> b10f8b2d70669d83fec237ce811a01ce06abee8f
 
 const QuestionDetail = (props) => {
   const dispatch = useDispatch();
