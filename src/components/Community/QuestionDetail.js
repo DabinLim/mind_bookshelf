@@ -17,6 +17,7 @@ import { api as commentActions } from "../../redux/modules/comment";
 import { api as communityActions,resetAll as LikeReset } from "../../redux/modules/community";
 import {history} from '../../redux/configStore';
 import {CheckOutlined} from "@ant-design/icons";
+import Loader from "react-loader-spinner";
 
 const QuestionDetail = (props) => {
   const dispatch = useDispatch();
@@ -45,6 +46,7 @@ const QuestionDetail = (props) => {
   const container = React.useRef();
   const like_container = React.useRef();
   const friends_container = React.useRef();
+  const is_initialLoading = useSelector((state) => state.moreview.is_initialLoading);
 
   const openCard = (a) => {
     if(window.innerWidth <= 750){
@@ -102,6 +104,9 @@ const QuestionDetail = (props) => {
     <React.Fragment>
       <Outer>
         {cardModal ? <CardModal close={closeCardModal} /> : null}
+        {is_initialLoading ?  <LoadingDiv>
+            <Loader type="Oval" color="#000000" height={100} width={100} />
+          </LoadingDiv>: <>
         <CommunityContainer>
           <Container>
             <ContainerUpper>
@@ -399,6 +404,7 @@ const QuestionDetail = (props) => {
             </AnswersBoxFriends>
           </Container>
         </CommunityContainer>
+        </>}
       </Outer>
     </React.Fragment>
   );
@@ -417,6 +423,10 @@ const Outer = styled.section`
     background-image: url("https://user-images.githubusercontent.com/67696504/118986623-7b61e180-b9ba-11eb-9719-f898c5c5b7a2.png");
     margin: 50px 0px 0px 0px;
   };
+`;
+
+const LoadingDiv = styled.div`
+  margin: auto;
 `;
 
 const Component = styled.div`

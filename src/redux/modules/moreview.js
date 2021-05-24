@@ -25,6 +25,7 @@ const moreviewSlice = createSlice({
     is_loading: true,
     like_loading: true,
     friends_loading: true,
+    is_initialLoading: true,
   },
   reducers: {
     setLoading: (state, action) => {
@@ -45,10 +46,15 @@ const moreviewSlice = createSlice({
     setNext: (state, action) => {
       state.next = action.payload;
     },
+    setInitialLoading: (state, action) => {
+      state.is_initialLoading = action.payload;
+    }
+    ,
     setAnswers: (state, action) => {
       action.payload.forEach((v) => {
         state.answers.push(v);
       });
+      state.is_initialLoading = false;
     },
     setPage: (state, action) => {
       state.page = action.payload;
@@ -269,6 +275,7 @@ const getAnswers = (id) => {
     if (loading && page > 1) {
       return;
     }
+    dispatch(setInitialLoading(true));
     dispatch(setLoading(true));
     const options = {
       url: `/bookshelf/moreInfoCard/${id}?page=${page}&sort=new`,
@@ -363,6 +370,7 @@ const getQuestionInfo = (id) => {
 
 export const {
   resetAll,
+  setInitialLoading,
   setAnswers,
   setPage,
   setNext,

@@ -12,6 +12,7 @@ import { api as communityActions, resetAll } from "../redux/modules/community";
 import FriendPost from "../components/Friends/FriendPost";
 import InfinityScroll from '../shared/InfinityScroll'
 import Loader from "react-loader-spinner";
+import { RightOutlined } from "@ant-design/icons";
 
 const FriendsGround = (props) => {
     const dispatch = useDispatch();
@@ -81,7 +82,17 @@ const FriendsGround = (props) => {
                         })}
                     </InfinityScroll>}
                 </AnswersBox>
-                </Container></>: <><NoFriendText>아직 아무도 팔로우하고 있지 않군요! <br/> <span>다양한 사람을 팔로우해서 <br/> 더 많은 낙서를 즐기세요!</span></NoFriendText></>}
+                </Container></>: <><NoFriendText>팔로우가 없습니다. <br/> <span>생각의 바다에서 다양한 사람의 생각을 보고 <br/> 팔로우를 하시면 좋은 생각들을 모아볼 수 있습니다.</span> 
+                <br/><br/>
+                <ToCommunity
+                  onClick={() => {
+                    history.push("/community");
+                  }}
+                >
+                  생각의 바다로 이동하기 <RightOutlined />
+                </ToCommunity>
+                </NoFriendText>
+                </>}
           </CommunityContainer>
         </>
         }
@@ -110,6 +121,21 @@ const Outer = styled.section`
 
 const LoadingDiv = styled.div`
   margin: auto;
+`;
+
+const ToCommunity = styled.button`
+  font-size: 12px;
+  color: #333333;
+  font-weight: 600;
+  background: none;
+  outline: none;
+  border: none;
+  font-family: Noto Sans KR;
+  cursor: pointer;
+
+  @media (min-width: 800px) {
+    font-size: 14px;
+  }
 `;
 
 const CommunityContainer = styled.div`
