@@ -261,6 +261,7 @@ const CardFrame = styled.div`
   background: white;
   text-align: center;
   box-shadow: 0px 0px 20px #2211481A;
+
   @media (max-width: 500px) {
     width: 95%;
     padding: 17px 18px;

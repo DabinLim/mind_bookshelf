@@ -359,7 +359,7 @@ const DateIndicator = styled.div`
   opacity: 1;
   margin-top: 50px;
 
-  @media (max-width: 750px) {
+  @media (max-width: 500px) {
     display: flex;
     justify-content: space-between;
     font-size: 12px;
@@ -402,7 +402,7 @@ const ToMyBookShelf = styled.button`
     font-weight: bold;
   }
 
-  @media (max-width: 750px) {
+  @media (max-width: 500px) {
     display: none;
   }
 `;
@@ -415,7 +415,7 @@ const SmallToMyBookShelf = styled.button`
   outline: none;
   border: none;
   cursor: pointer;
-  @media (min-width: 750px) {
+  @media (min-width: 501px) {
     display: none;
   }
 `;
