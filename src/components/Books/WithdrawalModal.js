@@ -103,9 +103,7 @@ font: normal normal normal 13px/19px Noto Sans CJK KR;
 width: 170px;
 border: none;
 box-sizing: border-box;
-border-radius: 15px;
-
-
+border-radius: 5px;
 ::placeholder {
   color: silver;
 }
