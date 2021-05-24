@@ -18,6 +18,7 @@ const LikeModal = (props) => {
   const like_list = useSelector(state => state.community.like_list);
   const is_next = useSelector(state => state.community.like_next);
   const is_loading = useSelector(state => state.community.like_loading);
+  const is_login = useSelector(state => state.user.is_login);
   const user_info = useSelector(state => state.user.user);
   const container = React.useRef();
   const url = window.location.href;
@@ -81,7 +82,7 @@ const LikeModal = (props) => {
                     <ProfileImage src={f.profileImg} />
                     <Username>{f.nickname}</Username>
                   </UserInfoContainer>
-                  {f.userId !== user_info.id ? f.isFollowing ? 
+                  {is_login ? (f.userId !== user_info.id ? f.isFollowing ? 
                     <FollowBtn onClick={()=>{
                       setUserId(f.userId)
                       setUnfollowModal(true)
@@ -100,7 +101,7 @@ const LikeModal = (props) => {
                     <FollowBtnText>
                       구독하기
                     </FollowBtnText>
-                  </UnfollowBtn> :''}
+                  </UnfollowBtn> :'') : ''}
                 </Body>
               );
             })}

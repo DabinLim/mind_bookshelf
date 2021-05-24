@@ -55,7 +55,7 @@ const NotFoundButton = styled.div`
   margin-top: 24px;
   font-weight: 600;
   padding: 10px 20px;
-  background: #303685;
+  background: #473674;
   color: white;
   border-radius: 45px;
   cursor: pointer;

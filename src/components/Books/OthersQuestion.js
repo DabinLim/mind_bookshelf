@@ -116,6 +116,7 @@ const OthersQuestion = (props) => {
                     </div>
                   </FilterWhiteBox>}
         </FilterBtnBoxMobile>
+        <GotoBookShelf onClick={()=>dispatch(setComponent(''))}><LeftOutlined style={{fontSize:'14px',margin:'0px 4px 1px 0px'}}/>책장으로</GotoBookShelf>
         <TitleContainer>
           <Title>
             <span style={{ fontWeight: "600" }}>{user_info?.nickname}</span>님의
@@ -235,7 +236,7 @@ const OthersQuestion = (props) => {
 const Container = styled.section`
   position: relative;
   box-sizing: border-box;
-  padding: 45px 25px;
+  padding: 10px 25px 45px 25px;
   width: 100%;
   height: 100%;
   max-width: 1062px;
@@ -273,6 +274,7 @@ const TitleContainer = styled.div`
   flex-direction: row;
   justify-content: space-between;
   margin-bottom: 38px;
+  margin-top:10px;
   padding:0px 12.5px;
   @media (max-width: 750px) {
     display:none;
@@ -314,6 +316,19 @@ const TitleMobile = styled.span`
 const EmptyDiv = styled.div`
   width: 24px;
   height: 100%;
+`;
+
+const GotoBookShelf = styled.span`
+  display:flex;
+  justify-content: flex-start;
+  align-items:center;
+  margin-left:15px;
+  font-size: 16px;
+  color: #000000;
+  cursor:pointer;
+  @media (max-width: 750px) {
+    display: none;
+  }
 `;
 
 

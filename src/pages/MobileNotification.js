@@ -6,6 +6,7 @@ import ChannelService from "../shared/ChannelService"
 import MobileNotiList from '../components/Notification/MobileNotiList'
 import MobileNewNotiList from '../components/Notification/MobileNewNotiList'
 import {CardModal} from '../components/Community/communityindex'
+import GoBack from '../elements/GoBack'
 
 const MobileNoti = (props) => {
   const dispatch = useDispatch()
@@ -32,9 +33,13 @@ const MobileNoti = (props) => {
         <CardModal close={closeCard} />
         :null}
       <NotiContainer>
-        <NotiHeader>
-          알람
-        </NotiHeader>
+        <NotiHeaderContainer>
+          <GoBack/>
+          <NotiHeader>
+            알람
+          </NotiHeader>
+          <div style={{width:"30px", height:"20px"}}></div>
+        </NotiHeaderContainer>
         <MobileNotiList setCardModal={setCardModal} />
         <MobileNewNotiList setCardModal={setCardModal} />
       </NotiContainer>
@@ -46,7 +51,6 @@ const NotiContainer = styled.div`
   background: white;
   width: 100vw;
   height: 100vh;
-  align-items: center;
   color: black;
   display: none;
   flex-direction: column;
@@ -56,14 +60,20 @@ const NotiContainer = styled.div`
   }
 `
 
+const NotiHeaderContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0px 20px;
+  margin-top: 25px;
+  margin-bottom: 15px;
+  align-items: center;
+`
+
 const NotiHeader = styled.div`
-width: 100%;
-padding: 10px 20px;
-text-align: left;
-margin-top: 25px;
-font: normal normal bold 14px/16px Roboto;
-letter-spacing: 0px;
-color: #333333;
+  font: normal normal bold 14px/16px Roboto;
+  letter-spacing: 0px;
+  color: #333333;
 `
 
 

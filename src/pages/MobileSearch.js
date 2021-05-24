@@ -78,7 +78,10 @@ const MobileSearch = (props) => {
   return(
     <React.Fragment>
       <SearchContainer>
-            <SearchInput placeholder='유저를 검색해보세요.' onChange={onChange}/>
+            <InputContainer>
+              <SearchInput placeholder='유저를 검색해보세요.' onChange={onChange}/>
+              <GobackText onClick={()=>{history.goBack()}}>취소</GobackText>
+            </InputContainer>
             {loading?
             <SpinContainer>
               <Loader type="Oval" color="#3d66ba" height={50} width={50} />
@@ -128,18 +131,29 @@ const SearchContainer = styled.div`
   @media (max-width: 750px) {
     display: flex;
   }
+`
 
+const InputContainer = styled.div`
+  display: flex;  
+  justify-content: space-betweem;
+  width: 90%;
+  margin-top: 30px;
+  align-items: center;
+`
+
+const GobackText = styled.div`
+  font: normal normal normal 14px/19px Roboto;
+  margin-left: 15px;
 `
 
 const SearchInput = styled.input`
-  width: 90%;
+  width: 85%;
   min-height: 50px;
   max-height: 50px;
   font-size: 13px;
   padding: 0px 25px;
   background: #F2F2F2;
   opacity:0.8;
-  margin-top: 30px;
   border-radius: 30px;
   border-style: none;
   outline: none;
