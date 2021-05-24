@@ -76,6 +76,9 @@ const Profile = (props) => {
                 />
               ) : null}
               <Background/>
+              <MobileProfileImgContainer>
+                <ProfileImg src={other_info.profileImg} />
+              </MobileProfileImgContainer>
               <ProfileImgContainer>
                 <ProfileImg src={other_info.profileImg} />
               </ProfileImgContainer>
@@ -126,62 +129,7 @@ const Profile = (props) => {
                         팔로워<CountText>{other_info.followerCount}</CountText>
                       </Myfollowers>
                     </HeadBody>
-                    {is_login && other_info.nickname !== "알 수 없는 유저" ? (
-                      other_info.isFollowing ? (
-                        <FollowerBtn
-                          onClick={() => {
-                            props.setUnfollowModal(true)
-                          }}
-                        >
-                          팔로우취소
-                        </FollowerBtn>
-                      ) : (
-                        <FollowerBtn
-                          onClick={() => {
-                            dispatch(
-                              userActions.followOtherAX(
-                                props.id, "other"
-                              )
-                            );
-                          }}
-                        >
-                          팔로우하기
-                        </FollowerBtn>
-                      )
-                    ) : null}
-                  </HeadBox>
-                  {other_info.topic?.friendship === false &&
-                  other_info.topic?.love === false &&
-                  other_info.topic?.dream === false &&
-                  other_info.topic?.relationship === false &&
-                  other_info.topic?.myself === false &&
-                  other_info.topic?.worth === false ? (
                     <SubjectContainer>
-                      <div style={{ display: "flex", alignItems: "center" }}>
-                        <Tagtext
-                          style={{
-                            fontSize: "14px",
-                            marginRight: "17px",
-                            fontWeight: "800",
-                          }}
-                        >
-                          선택하신 선호 태그가 없습니다.
-                        </Tagtext>
-                      </div>
-                    </SubjectContainer>
-                  ) : (
-                    <SubjectContainer>
-                      <div style={{ display: "flex", alignItems: "center" }}>
-                        <Tagtext
-                          style={{
-                            fontSize: "14px",
-                            marginRight: "17px",
-                            fontWeight: "800",
-                          }}
-                        >
-                          선호 태그
-                        </Tagtext>
-                      </div>
                       <TagContainer>
                         {other_info.topic.friendship ? (
                           <Subject1
@@ -251,35 +199,34 @@ const Profile = (props) => {
                         ) : null}
                       </TagContainer>
                     </SubjectContainer>
-                  )}
+                  </HeadBox>
+                  {is_login && other_info.nickname !== "알 수 없는 유저" ? (
+                      other_info.isFollowing ? (
+                        <FollowerBtn 
+                          style={{backgroundColor:"#E8E8E8", color:"#121212" }}
+                          onClick={() => {
+                            props.setUnfollowModal(true)
+                          }}
+                        >
+                          팔로우
+                          <CheckIcon src="https://user-images.githubusercontent.com/77369674/119218304-a95e3780-bb1a-11eb-977e-c981a9b52504.png"/>
+                        </FollowerBtn>
+                      ) : (
+                        <FollowerBtn
+                          onClick={() => {
+                            dispatch(
+                              userActions.followOtherAX(
+                                props.id, "other"
+                              )
+                            );
+                          }}
+                        >
+                          팔로우
+                        </FollowerBtn>
+                      )
+                    ) : null}
                 </Head>
                 <Body>
-                  <Answers
-                    onClick={() => {
-                      if(window.innerWidth <= 750){
-                        history.push(`/otheranswers/${id}`);
-                        return
-                      };
-                      dispatch(setComponent("othersanswers"));
-                    }}
-                  >
-                    낙서
-                    <CountText>{other_info.otherAnswerCount}</CountText>
-                  </Answers>
-                  <Line />
-                  <MyQuestionBtn
-                    onClick={() => {
-                      if(window.innerWidth <= 750){
-                        history.push(`/othersquestion/${id}`);
-                        return
-                      };
-                      dispatch(setComponent("othersquestion"));
-                    }}
-                  >
-                    질문
-                    <CountText>{other_info.otherCustomQuestionCount}</CountText>
-                  </MyQuestionBtn>
-                  <Line />
                   <Myfollowers
                     onClick={() => {
                       setFollowingModal(true);
@@ -298,6 +245,32 @@ const Profile = (props) => {
                 </Body>
                 <Bottom>
                   <Introduce>{other_info.introduce}</Introduce>
+                  <BottomRight>
+                    <Answers
+                      onClick={() => {
+                        if(window.innerWidth <= 750){
+                          history.push(`/otheranswers/${id}`);
+                          return
+                        };
+                        dispatch(setComponent("othersanswers"));
+                      }}
+                    >
+                      낙서
+                      <CountText2>{other_info.otherAnswerCount}</CountText2>
+                    </Answers>
+                    <MyQuestionBtn
+                      onClick={() => {
+                        if(window.innerWidth <= 750){
+                          history.push(`/othersquestion/${id}`);
+                          return
+                        };
+                        dispatch(setComponent("othersquestion"));
+                      }}
+                    >
+                      질문
+                      <CountText2>{other_info.otherCustomQuestionCount}</CountText2>
+                    </MyQuestionBtn>
+                  </BottomRight>
                 </Bottom>
                 {is_login && other_info.nickname !== "알 수 없는 유저" ? (
                   other_info.isFollowing ? (
@@ -351,7 +324,7 @@ const Profile = (props) => {
           ) : (
             <>
               <Background/>
-              <ProfileImgContainer
+              <MobileProfileImgContainer
                 onClick={() => {
                   props.setUpdateModal(true);
                 }}
@@ -361,6 +334,9 @@ const Profile = (props) => {
                   src={user_info.profileImg}
                 />
                 <SettingIcon src="https://cdn3.iconfinder.com/data/icons/google-material-design-icons/48/ic_settings_48px-512.png" />
+              </MobileProfileImgContainer>
+              <ProfileImgContainer>
+                <ProfileImg src={user_info.profileImg}/>
               </ProfileImgContainer>
               <ProfileDetail>
                 <Head>
@@ -411,40 +387,7 @@ const Profile = (props) => {
                         <CountText>{other_info.followerCount}</CountText>
                       </Myfollowers>
                     </HeadBody>
-                    </HeadBox>
-                  {}
-                  {user_info.topic?.friendship === false &&
-                  user_info.topic?.love === false &&
-                  user_info.topic?.dream === false &&
-                  user_info.topic?.relationship === false &&
-                  user_info.topic?.myself === false &&
-                  user_info.topic?.worth === false ? (
                     <SubjectContainer>
-                      <div style={{ display: "flex", alignItems: "center" }}>
-                        <Tagtext
-                          style={{
-                            fontSize: "14px",
-                            marginRight: "17px",
-                            fontWeight: "800",
-                          }}
-                        >
-                          선택하신 선호 태그가 없습니다.
-                        </Tagtext>
-                      </div>
-                    </SubjectContainer>
-                  ) : (
-                    <SubjectContainer>
-                      <div style={{ display: "flex", alignItems: "center" }}>
-                        <Tagtext
-                          style={{
-                            fontSize: "14px",
-                            marginRight: "17px",
-                            fontWeight: "800",
-                          }}
-                        >
-                          선호 태그
-                        </Tagtext>
-                      </div>
                       <TagContainer>
                         {user_info.topic.friendship ? (
                           <Subject1
@@ -514,35 +457,16 @@ const Profile = (props) => {
                         ) : null}
                       </TagContainer>
                     </SubjectContainer>
-                  )}
+                    </HeadBox>
+                    <ToggleBox 
+                      onClick={() => {
+                      props.setUpdateModal(true);
+                    }}>
+                      <ToggleImg src="https://user-images.githubusercontent.com/77369674/119218309-aa8f6480-bb1a-11eb-9be7-2327b9d9e3cf.png" />
+                    </ToggleBox>
                 </Head>
                 <Body>
-                  <Answers
-                    onClick={() => {
-                      if(window.innerWidth <= 750){
-                        history.push(`/myanswers`);
-                        return
-                      };
-                      dispatch(setComponent("myanswers"));
-                    }}
-                  >
-                    낙서
-                    <CountText>{other_info.otherAnswerCount}</CountText>
-                  </Answers>
-                  <Line />
-                  <MyQuestionBtn
-                    onClick={() => {
-                      if(window.innerWidth <= 750){
-                        history.push(`/myquestion`);
-                        return
-                      };
-                      dispatch(setComponent("myquestion"));
-                    }}
-                  >
-                    질문
-                    <CountText>{other_info.otherCustomQuestionCount}</CountText>
-                  </MyQuestionBtn>
-                  <Line />
+                  
                   <Myfollowers
                     onClick={() => {
                       setFollowingModal(true);
@@ -563,6 +487,32 @@ const Profile = (props) => {
                 </Body>
                 <Bottom>
                   <Introduce>{user_info.introduce}</Introduce>
+                  <BottomRight >
+                    <Answers
+                      onClick={() => {
+                        if(window.innerWidth <= 750){
+                          history.push(`/myanswers`);
+                          return
+                        };
+                        dispatch(setComponent("myanswers"));
+                      }}
+                    >
+                      낙서
+                      <CountText2>{other_info.otherAnswerCount}</CountText2>
+                    </Answers>
+                    <MyQuestionBtn
+                      onClick={() => {
+                        if(window.innerWidth <= 750){
+                          history.push(`/myquestion`);
+                          return
+                        };
+                        dispatch(setComponent("myquestion"));
+                      }}
+                    >
+                      질문
+                      <CountText2>{other_info.otherCustomQuestionCount}</CountText2>
+                    </MyQuestionBtn>
+                  </BottomRight>
                 </Bottom>
               </ProfileDetail>
             </>
@@ -575,6 +525,7 @@ const Profile = (props) => {
 
 const Background = styled.div`
   position: absolute;
+  display: none;
   width: 100%;
   height: 100%;
   background-color: #ffffff;
@@ -583,7 +534,8 @@ const Background = styled.div`
   opacity: 0.5;
   box-shadow: 0px 0px 6px #ffffff;
   border-radius: 20px;
-  @media (max-width: 750px) {
+  @media (max-width: 750px){
+    display: block;
     opacity: 0.9;
     box-shadow: 0px 0px 20px #aea1e590;
     border-top-left-radius: 0px;
@@ -591,19 +543,27 @@ const Background = styled.div`
   }
 `;
 
+const MobileProfileImgContainer = styled.div`
+position: relative;
+width: 68px;
+height: 68px;
+@media (min-width: 750px) {
+  display: none;
+}
+`
+
 const ProfileImgContainer = styled.div`
   position: relative;
   width: 126px;
   height: 100%;
   @media (max-width: 750px) {
-    width: 68px;
-    height: 68px;
+    display: none;
   }
 `;
 
 const ProfileImg = styled.img`
-  width: 126px;
-  height: 126px;
+  width: 112px;
+  height: 112px;
   border-radius: 50%;
   object-fit: cover;
   @media (max-width: 750px) {
@@ -633,7 +593,7 @@ const SettingIcon = styled.img`
 
 const ProfileDetail = styled.div`
   z-index: 1;
-  margin: 0px 0px 0px 45px;
+  margin: 0px 0px 0px 34px;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -679,12 +639,25 @@ const HeadBody = styled.div`
     margin-top: 10px;
   }
 `
+const ToggleBox = styled.div`
+  padding: 2px 0px 2px 8px;
+  cursor: pointer;
+  @media (max-width: 750px) {
+    display: none;
+  }
+`
+
+const ToggleImg = styled.img`
+  width: 4px;
+  height: 18px;
+`
 
 const Body = styled.div`
   display: flex;
   width: 100%;
   flex-direction: row;
   align-items: center;
+  margin-top: 18px;
   @media (max-width: 750px) {
     display: none;
   }
@@ -695,7 +668,7 @@ const Line = styled.div`
   height: 9px;
   border: 0.5px solid #707070;
   @media (min-width: 750px) {
-    display: none;
+    margin: 0px 11px;
   }
 `;
 
@@ -703,7 +676,7 @@ const Bottom = styled.div`
   display: flex;
   width: 100%;
   justify-content: space-between;
-  margin-top: 20px;
+  margin-top: 15px;
   font-family: Noto Sans CJK KR, sans-serif;
   @media (max-width: 750px) {
     margin-top: 0px;
@@ -714,8 +687,7 @@ const Bottom = styled.div`
 `;
 
 const Nickname = styled.div`
-  font-weight: 600;
-  font-size: 22px;
+  font: normal normal bold 20px/29px Noto Sans CJK KR;
   @media (max-width: 750px) {
     text-align: center;
     font: normal normal bold 17px/25px Noto Sans CJK KR;
@@ -723,16 +695,33 @@ const Nickname = styled.div`
 `;
 
 const CountText = styled.span`
-  font-weight: 600;
+  font: normal normal bold 14px/20px Noto Sans CJK KR;
   margin-left: 5px;
   @media (max-width: 750px) {
     font: normal normal bold 14px/20px Noto Sans CJK KR;
   }
 `;
 
+const CountText2 = styled.span`
+  font: normal normal 100 27px/39px Noto Sans CJK KR;
+  margin-left: 7px;
+`
+
+const CheckIcon = styled.img`
+  width: 10px;
+  height:7px;
+  margin-left:6px;
+`
+
+const BottomRight = styled.div`
+display: flex;
+@media (max-width: 750px) {
+  display: none;
+}
+`
+
 const Introduce = styled.div`
-  margin-top: 20px;
-  font-size: 14px;
+font: normal normal normal 12px/17px Noto Sans CJK KR;
   text-align:center;
   @media (max-width: 750px) {
     font: normal normal normal 12px/18px Noto Sans CJK KR;
@@ -741,11 +730,11 @@ const Introduce = styled.div`
 `;
 
 const Answers = styled.div`
+  display: flex;
+  align-items: flex-start;
   cursor: pointer;
-  margin-top: 11px;
-  margin-right: 20px;
-  font-weight: 400;
-  font-size: 14px;
+  margin-right: 29px;
+  font: normal normal medium 14px/20px Noto Sans KR;
   @media (max-width: 750px) {
     display: flex;
     align-items: center;
@@ -756,10 +745,16 @@ const Answers = styled.div`
 `;
 
 const FollowerBtn = styled.div`
-  margin-left: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 180px;
+  height: 40px;
+  border-radius: 20px;
   cursor: pointer;
-  font-weight: 600;
-  font-size: 14px;
+  background: #473674 0% 0% no-repeat padding-box;
+  font: normal normal normal 13px/19px Noto Sans CJK KR;
+  color: #FFFFFF;
   @media (max-width: 750px) {
     display: none;
   }
@@ -793,11 +788,10 @@ const UnFollowBtnMobile = styled.button`
 `;
 
 const MyQuestionBtn = styled.div`
-  margin-top: 11px;
-  margin-right: 20px;
+  display: flex;
+  align-items: flex-start;
   cursor: pointer;
-  font-weight: 400;
-  font-size: 14px;
+  font: normal normal medium 14px/20px Noto Sans CJK KR;
   @media (max-width: 750px) {
     display: flex;
     align-items: center;
@@ -822,9 +816,11 @@ const Tagtext = styled.span`
 
 const TagContainer = styled.span`
   display: flex;
+  margin-left: 8px;
   @media (max-width: 750px) {
     display: flex;
     margin-top: 13px;
+    margin-left: 0px;
   };
 `
 
@@ -833,14 +829,13 @@ const Subject1 = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 72px;
-  height: 31px;
+  width: 58px;
+  height: 25px;
   opacity: 0.8;
-  margin-left: 5px;
-  margin-right: 5px;
+  margin-left: 4px;
+  margin-right: 4px;
   border-radius: 45px;
-  font-size: 14px;
-  font-weight: 600;
+  font: normal normal bold 11px/16px Noto Sans CJK KR;
   @media (max-width: 750px) {
     width: 58px;
     height: 25px;
@@ -849,11 +844,9 @@ const Subject1 = styled.div`
 `;
 
 const Myfollowers = styled.div`
-  margin-top: 11px;
-  margin-right: 20px;
-  font-size: 14px;
+  // margin-right: 11px;
+  font: normal normal medium 12px/17px Noto Sans CJK KR;
   cursor: pointer;
-  font-weight: 400;
   @media (max-width: 750px) {
     display: flex;
     align-items: center;

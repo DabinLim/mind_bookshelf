@@ -614,11 +614,11 @@ const getLikeList = (id) => {
 
 
     if(!next){
-      console.log('next is none');
+      // console.log('next is none');
       return
     }
     if(loading && page > 1){
-      console.log('안되지 요놈아')
+      // console.log('안되지 요놈아')
       return
     }
     // console.log(id, page)
