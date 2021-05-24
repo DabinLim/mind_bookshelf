@@ -16,14 +16,14 @@ const LoginModal = (props) => {
         </MobileBodyText>
         <ButtonContainer>
           <Button
-            style={{ background: "#FAE100", border:"none", marginBottom:"16px" }}
+            style={{ background: "#FAE100", border:"none" }}
             href="http://lkj99.shop/auth/kakao"
           >
             <ButtonIcon src="https://blog.kakaocdn.net/dn/RvGHm/btq0c3b6Thg/7CI0zUHJcapuNgqLP1K5xK/img.png" />
             <ButtonText>카카오로 로그인</ButtonText>
           </Button>
           <Button
-            style={{ background: "#FFFFFF", marginTop: "0", marginBottom:"16px" }}
+            style={{ background: "#FFFFFF", marginTop: "0" }}
             href="http://lkj99.shop/auth/naver"
           >
             <ButtonIcon src="https://m.animalplanet.co.kr/assets/image/icon/icon_main_naver.png" />
@@ -32,7 +32,7 @@ const LoginModal = (props) => {
             </ButtonText>
           </Button>
           <Button
-            style={{ background: "#FFFFFF", marginTop: "0" }}
+            style={{ background: "#FFFFFF", marginTop: "0", marginBottom: "0" }}
             href="http://lkj99.shop/auth/google"
           >
             <ButtonIcon src="https://www.freedomforuminstitute.org/wp-content/uploads/2016/10/google-icon.png" />
@@ -68,7 +68,7 @@ const LoginBox = styled.div`
   justify-content: space-between;
   align-items: center;
   @media (max-width: 500px) {
-    height: 256px;
+    // height: 256px;
     width: 280px;
   } ;
 `;
@@ -78,20 +78,29 @@ width: 140px;
 height: 140px;
 object-fit: cover;
 margin-top: 45px;
+@media (max-width: 500px) {
+  display: none;
+} ;
 `
 const MobileHeader = styled.div`
 font: normal normal bold 20px/29px Noto Sans CJK KR;
 margin-top: 23px;
+@media (max-width: 500px) {
+  display: none;
+} ;
 `
 
 const MobileBodyText = styled.div`
 font: normal normal normal 14px/20px Noto Sans CJK KR;
 text-align: center;
 margin-top: 10px;
+@media (max-width: 500px) {
+  display: none;
+} ;
 `
 
 const Header = styled.div`
-  font: normal normal bold 14px/20px Sans CJK KR;
+  font: normal normal bold 16px/20px Sans CJK KR;
   color: #121212;
   margin-top: 22px;
   margin-bottom: 22px;
@@ -122,9 +131,12 @@ const Button = styled.a`
   color: black;
   border: 0.699999988079071px solid #D3D3D3;
   box-sizing: border-box;
+  margin-bottom: 16px;
   @media (max-width: 500px) {
     width: 200px;
     height: 46px;
+    margin-top: 0px;
+    margin-bottom: 10px;
   } ;
 `;
 const ButtonIcon = styled.img`
