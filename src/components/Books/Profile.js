@@ -458,12 +458,13 @@ const Profile = (props) => {
                       </TagContainer>
                     </SubjectContainer>
                     </HeadBox>
-                    <ToggleBox 
+                    <ProfileUpdateBtn 
                       onClick={() => {
                       props.setUpdateModal(true);
                     }}>
-                      <ToggleImg src="https://user-images.githubusercontent.com/77369674/119218309-aa8f6480-bb1a-11eb-9be7-2327b9d9e3cf.png" />
-                    </ToggleBox>
+                      <SettingImg src="https://user-images.githubusercontent.com/67696504/119390859-96a95580-bd08-11eb-9aba-110a41fe53f9.png" />
+                      <ProfileUpdateText>프로필 편집</ProfileUpdateText>
+                    </ProfileUpdateBtn>
                 </Head>
                 <Body>
                   
@@ -639,18 +640,34 @@ const HeadBody = styled.div`
     margin-top: 10px;
   }
 `
-const ToggleBox = styled.div`
-  padding: 2px 0px 2px 8px;
-  cursor: pointer;
-  @media (max-width: 750px) {
-    display: none;
-  }
+
+
+const ProfileUpdateBtn = styled.div`
+cursor: pointer;
+display: flex;
+justify-content: center;
+align-items: center;
+height: 36px;
+width: 150px;
+border: 1px solid #848484;
+border-radius: 5px;
+@media (max-width: 750px) {
+  display: none;
+}
 `
 
-const ToggleImg = styled.img`
-  width: 4px;
-  height: 18px;
+const ProfileUpdateText = styled.div`
+  margin-left: 8px;
+  font: normal normal normal 13px/19px Noto Sans CJK KR;
+  color: #121212;
 `
+
+const SettingImg = styled.img`
+  width: 16px;
+  height: 16px;
+
+`
+
 
 const Body = styled.div`
   display: flex;
@@ -717,7 +734,9 @@ const CheckIcon = styled.img`
 `
 
 const BottomRight = styled.div`
+// width: 179px;
 display: flex;
+// justify-content: space-between;
 @media (max-width: 750px) {
   display: none;
 }

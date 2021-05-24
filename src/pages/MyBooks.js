@@ -231,7 +231,7 @@ const ProfileContainer = styled.section`
     width: 100%;
     margin: auto;
     margin-top: 70px;
-    max-width:988px;
+    max-width:1100px;
     min-height:190px;
     display: flex;
     flex-direction: row;
