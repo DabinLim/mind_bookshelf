@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { time } from "../../shared/Time";
 import { useDispatch } from "react-redux";
 import { api as commentActions } from "../../redux/modules/comment";
-import { api as communityActions } from "../../redux/modules/community";
+import { api as communityActions, resetAll } from "../../redux/modules/community";
 import { history } from "../../redux/configStore";
 
 const MobileNoti = (props) => {
@@ -39,11 +39,13 @@ const MobileNoti = (props) => {
       history.push(`/community/${props.cardId}`);
     } else{
       if(window.innerWidth <= 750){
+        dispatch(resetAll());
         history.push(`/carddetail/${props.cardId}`)
         return
       }
       const type = "noti";
       props.close();
+      dispatch(resetAll());
       dispatch(communityActions.getCardDetail(props.cardId, type));
       dispatch(commentActions.getCommentAX(props.cardId));
       props.setCardModal(true);

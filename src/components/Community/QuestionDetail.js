@@ -48,6 +48,7 @@ const QuestionDetail = (props) => {
 
   const openCard = (a) => {
     if(window.innerWidth <= 750){
+      dispatch(LikeReset())
       history.push(`/carddetail/${a}`)
       return
     }

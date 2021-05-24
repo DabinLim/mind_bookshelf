@@ -3,7 +3,7 @@ import styled from "styled-components";
 import {useDispatch, useSelector} from 'react-redux';
 import swal from 'sweetalert';
 import {api as friendsActions} from "../redux/modules/friends";
-import {api as communityActions, setLikeList, deleteLikeList} from '../redux/modules/community';
+import {api as communityActions, addLikeList, deleteLikeList} from '../redux/modules/community';
 import {addAnswersLikeInfo, deleteAnswersLikeInfo} from '../redux/modules/custom';
 import {editLikeCardFriend} from "../redux/modules/community";
 
@@ -33,11 +33,11 @@ const Like = (props) => {
         return;
       }
  
-        dispatch(setLikeList([{
+        dispatch(addLikeList({
           nickname:user_info.nickname,
           profileImg:user_info.profileImg,
           userId:user_info.id,
-        }]))
+        }))
       
 
       if( page ==='QnA'){
