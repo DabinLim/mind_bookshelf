@@ -13,6 +13,7 @@ import FriendPost from "../components/Friends/FriendPost";
 import InfinityScroll from '../shared/InfinityScroll'
 import Loader from "react-loader-spinner";
 import { RightOutlined } from "@ant-design/icons";
+import GoBackBtn from "../elements/GoBack";
 
 const FriendsGround = (props) => {
     const dispatch = useDispatch();
@@ -67,6 +68,7 @@ const FriendsGround = (props) => {
           <>
           <CommunityContainer>
                 {friends_list?.length > 0 ? <><Container>
+                  {/* <GoBackBox><GoBackBtn/></GoBackBox> */}
                   <QuestionTitle>친구들의 생각을<br/>살펴보세요</QuestionTitle>
                 <AnswersBox ref={container}>
                   {lastId && <InfinityScroll
@@ -118,6 +120,13 @@ const Outer = styled.section`
     height: auto;
   }
 `;
+
+// const GoBackBox = styled.div`
+//   @media (max-width: 500px) {
+//     width: 100%;
+//     margin-bottom: 29px;
+//   }
+// `;
 
 const LoadingDiv = styled.div`
   margin: auto;
