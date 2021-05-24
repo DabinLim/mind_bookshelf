@@ -108,7 +108,7 @@ const MyQuestion = (props) => {
                     </div>
                   </FilterWhiteBox>}
                 </FilterBtnBoxMobile>
-                <GotoBookShelf><LeftOutlined style={{fontSize:'14px',margin:'0px 4px 1px 0px'}}/>책장으로</GotoBookShelf>
+                <GotoBookShelf onClick={()=>dispatch(setComponent(''))}><LeftOutlined style={{fontSize:'14px',margin:'0px 4px 1px 0px'}}/>책장으로</GotoBookShelf>
         <TitleContainer>
           <Title>
             <span style={{ fontWeight: "600" }}>{user_info?.nickname}</span>님의
