@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import {history} from '../redux/configStore'
+import { LeftOutlined } from "@ant-design/icons";
 
 const GoBack = (props) => {
 

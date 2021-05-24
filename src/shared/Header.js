@@ -148,12 +148,9 @@ const Header = () => {
                 </MenuLi>
                 <MenuLi
                   onClick={() => {
-                    if (!getCookie("is_login")) {
-                      swal({
-                        title: "로그인 필수!",
-                        text: "로그인 후 이용가능해요",
-                        icon: "info",
-                      });
+                    if (!is_login) {
+                      setLogin(true);
+                      setMenuOpen(false);
                       return;
                     }
                     dispatch(setComponent(""));
@@ -175,12 +172,9 @@ const Header = () => {
                 </MenuLi>
                 <MenuLi
                 onClick={() => {
-                  if (!getCookie("is_login")) {
-                    swal({
-                      title: "로그인 필수!",
-                      text: "로그인 후 이용가능해요",
-                      icon: "info",
-                    });
+                  if (!is_login) {
+                    setLogin(true);
+                    setMenuOpen(false);
                     return;
                   }
                   history.push("/friends");
@@ -300,12 +294,8 @@ const Header = () => {
               </PageButton>
               <PageButton
                 onClick={() => {
-                  if (!getCookie("is_login")) {
-                    swal({
-                      title: "로그인 필수!",
-                      text: "로그인 후 이용가능해요",
-                      icon: "info",
-                    });
+                  if (!is_login) {
+                    setLogin(true);
                     return;
                   }
                   dispatch(setComponent(""));
@@ -317,12 +307,8 @@ const Header = () => {
               </PageButton>
               <PageButton
                 onClick={() => {
-                  if (!getCookie("is_login")) {
-                    swal({
-                      title: "로그인 필수!",
-                      text: "로그인 후 이용가능해요",
-                      icon: "info",
-                    });
+                  if (!is_login) {
+                    setLogin(true);
                     return;
                   }
                   history.push("/friends");
@@ -443,12 +429,9 @@ const Header = () => {
               </MenuLi>
               <MenuLi
                 onClick={() => {
-                  if (!getCookie("is_login")) {
-                    swal({
-                      title: "로그인 필수!",
-                      text: "로그인 후 이용가능해요",
-                      icon: "info",
-                    });
+                  if (!is_login) {
+                    setLogin(true);
+                    setMenuOpen(false);
                     return;
                   }
                   dispatch(setComponent(""));
@@ -470,12 +453,9 @@ const Header = () => {
               </MenuLi>
               <MenuLi
                 onClick={() => {
-                  if (!getCookie("is_login")) {
-                    swal({
-                      title: "로그인 필수!",
-                      text: "로그인 후 이용가능해요",
-                      icon: "info",
-                    });
+                  if (!is_login) {
+                    setLogin(true);
+                    setMenuOpen(false);
                     return;
                   }
                   history.push("/friends");
@@ -581,11 +561,7 @@ const Header = () => {
             <PageButton
               onClick={() => {
                 if (!is_login) {
-                  swal({
-                    title: "로그인 필수!",
-                    text: "로그인 후 이용가능해요.",
-                    icon: "info",
-                  });
+                  setLogin(true);
                   return;
                 }
                 dispatch(setComponent(""));
@@ -597,12 +573,8 @@ const Header = () => {
             </PageButton>
             <PageButton
                 onClick={() => {
-                  if (!getCookie("is_login")) {
-                    swal({
-                      title: "로그인 필수!",
-                      text: "로그인 후 이용가능해요",
-                      icon: "info",
-                    });
+                  if (!is_login) {
+                    setLogin(true);
                     return;
                   }
                   history.push("/friends");
