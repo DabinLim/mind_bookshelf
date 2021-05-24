@@ -4,12 +4,13 @@ import {history} from '../redux/configStore'
 import { LeftOutlined } from "@ant-design/icons";
 
 const GoBack = (props) => {
-
-  <React.Fragment>
-    <GoBackBtn>
-      <LeftOutlined style={{fontSize:'20px'}} onClick={()=>{history.goBack()}}/>
-    </GoBackBtn>
-  </React.Fragment>
+  return(
+    <React.Fragment>
+      <GoBackBtn>
+        <LeftOutlined style={{fontSize:'20px'}} onClick={()=>{history.goBack()}}/>
+      </GoBackBtn>
+    </React.Fragment>
+  )
 
 }
 
