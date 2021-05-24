@@ -122,7 +122,11 @@ const Header = () => {
               >
                 <CloseOutlined />
               </MenuCloseBtn>
-              <LogoImgMobile src='https://user-images.githubusercontent.com/77574867/119253354-dc243080-bbeb-11eb-9a85-621dda409a76.png'/>
+              <LogoImgMobile 
+                onClick={() => {
+                  history.push("/");
+                }}
+                src='https://user-images.githubusercontent.com/77574867/119253354-dc243080-bbeb-11eb-9a85-621dda409a76.png'/>
               <MenuUl>
                 <MenuLi
                   onClick={() => {
@@ -247,7 +251,11 @@ const Header = () => {
                 <MenuIcon />
               </MobileIcon>
               <LogoBox>
-              <LogoImg src='https://user-images.githubusercontent.com/77574867/119253354-dc243080-bbeb-11eb-9a85-621dda409a76.png'/>
+              <LogoImg src='https://user-images.githubusercontent.com/77574867/119253354-dc243080-bbeb-11eb-9a85-621dda409a76.png'
+                onClick={() => {
+                  history.push("/");
+                }}
+              />
               <Logo
                 onClick={() => {
                   history.push("/");
@@ -258,19 +266,9 @@ const Header = () => {
               </LogoBox>
               <div style={{ display: "flex" }}>
                 <MobileIcon style={{ marginRight: "10px" }}>
-                  {/* {searchModal ? (
-                  <Search
-                    recent_list={recent_list}
-                    setLoading={setLoading}
-                    loading={loading}
-                  />
-                ) : null} */}
                   <SearchIcon
                     style={{ cursor: "pointer" }}
                     onClick={() => {
-                      // recentUser();
-                      // // dispatch(userActions.getRecentUserAX())
-                      // dispatch(setSearch(true));
                       history.push("/search");
                     }}
                   />
@@ -285,9 +283,7 @@ const Header = () => {
                   ) : null}
                   <NotificationsNoneOutlinedIcon
                     style={{ cursor: "pointer" }}
-                    onClick={() => {
-                      // setNoti(true);
-                      // dispatch(notiActions.openAlarmIO(user.id));
+                    onClick={() => {                      
                       history.push("/noti");
                     }}
                   />
@@ -359,7 +355,6 @@ const Header = () => {
                   style={{ cursor: "pointer" }}
                   onClick={() => {
                     recentUser();
-                    // dispatch(userActions.getRecentUserAX())
                     dispatch(setSearch(true));
                   }}
                 />
@@ -422,7 +417,11 @@ const Header = () => {
             >
               <CloseOutlined />
             </MenuCloseBtn>
-            <LogoImgMobile src='https://user-images.githubusercontent.com/77574867/119253354-dc243080-bbeb-11eb-9a85-621dda409a76.png'/>
+            <LogoImgMobile 
+              onClick={() => {
+                history.push("/");
+              }}
+              src='https://user-images.githubusercontent.com/77574867/119253354-dc243080-bbeb-11eb-9a85-621dda409a76.png'/>
             <MenuUl>
               <MenuLi
                 onClick={() => {
@@ -547,7 +546,11 @@ const Header = () => {
               <MenuIcon />
             </MobileIcon>
             <LogoBox>
-              <LogoImg src='https://user-images.githubusercontent.com/77574867/119253354-dc243080-bbeb-11eb-9a85-621dda409a76.png'/>
+              <LogoImg 
+                onClick={() => {
+                  history.push("/");
+                }}
+                src='https://user-images.githubusercontent.com/77574867/119253354-dc243080-bbeb-11eb-9a85-621dda409a76.png'/>
               <Logo
                 onClick={() => {
                   history.push("/");
@@ -623,7 +626,6 @@ const Header = () => {
             <Icon
               onClick={() => {
                 recentUser();
-                // dispatch(userActions.getRecentUserAX())
                 setSearch(true);
               }}
             >

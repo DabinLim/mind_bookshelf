@@ -16,7 +16,7 @@ const ProfileUpdateModal = (props) => {
   const dispatch = useDispatch();
   const user_info = useSelector((state) => state.user.user);
   const [nickname, setNickname] = useState(
-    user_info.nickname ? user_info.nickname : ""
+    user_info.nickname
   );
   const [introduce, setIntroduce] = useState(
     user_info.introduce
@@ -216,9 +216,9 @@ const ProfileUpdateModal = (props) => {
 
   return (
     <React.Fragment>
-      {withdrawal ? <WithdrawalModal setWidthdrawal={setWidthdrawal} /> : null}
+      {withdrawal ? <WithdrawalModal nickname={user_info.nickname} setWidthdrawal={setWidthdrawal} /> : null}
       {user_info.first? 
-      <Background style={{backgroundColor:"transparent"}} /> 
+      <Background /> 
       :
       <Background onClick={props.close} />
       }
