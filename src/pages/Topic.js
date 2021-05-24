@@ -253,7 +253,6 @@ const TopicContainer = styled.div`
   @media (max-width: 500px) {
     background-image: url("https://user-images.githubusercontent.com/67696504/118986623-7b61e180-b9ba-11eb-9719-f898c5c5b7a2.png");
     margin: 50px 0px 0px 0px;
-    height: 100%;
 }
 `
 
@@ -286,7 +285,7 @@ const Container = styled.div`
 
   @media (max-width: 500px) {
     width: 330px;
-    padding: 30px 0 0 0;
+    padding: 50px 0 30px 0;
   }
 `
 

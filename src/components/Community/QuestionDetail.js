@@ -460,7 +460,7 @@ const Container = styled.section`
   }
   @media (max-width: 500px) {
     width: 360px;
-    padding: 30px 0 30px 0;
+    padding: 50px 0 30px 0;
   }
 `;
 
