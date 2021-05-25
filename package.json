@@ -49,6 +49,7 @@
     "sweetalert": "^2.1.2",
     "swiper": "^6.5.9",
     "typewriter-effect": "^2.17.0",
+    "use-sound": "^3.0.1",
     "web-vitals": "^1.0.1"
   },
   "scripts": {

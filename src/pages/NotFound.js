@@ -1,12 +1,14 @@
 import React from 'react';
 import styled from 'styled-components'
 import {history} from '../redux/configStore'
+import Sound from '../components/Notification/Sound';
 
 const NotFound = (props) => {
 
   return(
     <React.Fragment>
       <NotFoundContainer>
+        <Sound/>
         <NotFoundNumber>
           404
         </NotFoundNumber>
