@@ -1,11 +1,9 @@
 import React, {useState} from "react";
 import styled from "styled-components";
-import FriendPostList from "../components/Friends/FriendPostList";
 import {useDispatch, useSelector} from "react-redux";
 import {api as friendsActions} from "../redux/modules/friends";
-import {setLoading, setInitialLoading} from "../redux/modules/friends";
+import {setLoading } from "../redux/modules/friends";
 import {history} from "../redux/configStore";
-import swal from "sweetalert";
 import CardModal from "../components/Community/CardModal";
 import { api as commentActions } from "../redux/modules/comment";
 import { api as communityActions, resetAll } from "../redux/modules/community";
@@ -13,13 +11,11 @@ import FriendPost from "../components/Friends/FriendPost";
 import InfinityScroll from '../shared/InfinityScroll'
 import Loader from "react-loader-spinner";
 import { RightOutlined } from "@ant-design/icons";
-import GoBackBtn from "../elements/GoBack";
 
 const FriendsGround = (props) => {
     const dispatch = useDispatch();
     const friends_list = useSelector((state) => state.friends.answer_list);
     const lastId = friends_list[friends_list?.length - 1]?._id;
-    // console.log(lastId);
     const is_next = useSelector((state) => state.friends?.next);
     const is_loading = useSelector((state) => state.friends.is_loading);
     const is_initialLoading = useSelector((state) => state.friends.is_initialLoading);
@@ -46,14 +42,6 @@ const FriendsGround = (props) => {
 
     React.useEffect(() => {
           dispatch(friendsActions.getFriendAnswers());
-        // else {
-        //     swal({
-        //         title: "접근 실패 😢",
-        //         text: "로그인 후 입장 가능합니다❕",
-        //         icon: "error",
-        //       });
-        //       history.replace("/");
-        // }
         return ()=> {
             dispatch(setLoading(true));        
         }
@@ -68,7 +56,6 @@ const FriendsGround = (props) => {
           <>
           <CommunityContainer>
                 {friends_list?.length > 0 ? <><Container>
-                  {/* <GoBackBox><GoBackBtn/></GoBackBox> */}
                   <QuestionTitle>친구들의 생각을<br/>살펴보세요</QuestionTitle>
                 <AnswersBox ref={container}>
                   {lastId && <InfinityScroll
@@ -103,7 +90,6 @@ const FriendsGround = (props) => {
 }
 
 const Outer = styled.section`
-  // height:100vh;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -117,13 +103,6 @@ const Outer = styled.section`
     height: auto;
   }
 `;
-
-// const GoBackBox = styled.div`
-//   @media (max-width: 500px) {
-//     width: 100%;
-//     margin-bottom: 29px;
-//   }
-// `;
 
 const LoadingDiv = styled.div`
   margin: auto;
@@ -150,7 +129,6 @@ const CommunityContainer = styled.div`
   max-width: 1200px;
   height: 100%;
   box-sizing: border-box;
-  // height:100vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -187,25 +165,11 @@ const Container = styled.section`
   }
 `;
 
-const ContainerUpper = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  height: 80px;
-  padding: 15px 20px;
-  @media (max-width: 500px) {
-    margin-top: 10px;
-  }
-`;
-
 const AnswersBox = styled.div`
   box-sizing: border-box;
-  // margin: 140px auto;
   width: 100%;
   display: flex;
   flex-direction: column;
-  // box-shadow: 0px 0px 0px 20px #0000001a; 
-  // justify-content: flex-start;
   overflow-y: auto;
   ::-webkit-scrollbar {
     width: 10px; /* width of the entire scrollbar */

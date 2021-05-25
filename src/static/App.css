@@ -10,13 +10,6 @@
   pointer-events: none;
 }
 
-/* 
-.slider-left {
-  background-image:url('https://user-images.githubusercontent.com/77574867/116895862-94565d00-ac6e-11eb-94df-bf6c1ab6390e.png');
-  background-size:contain;
-  background-repeat:no-repeat;
-} */
-
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;

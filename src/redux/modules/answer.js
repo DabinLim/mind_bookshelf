@@ -2,7 +2,6 @@ import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { getCookie } from "../../shared/Cookie";
 import swal from "sweetalert";
-import { setAnswers } from "./moreview";
 
 axios.defaults.baseURL = "https://lkj99.shop";
 if (getCookie("is_login")) {
@@ -68,7 +67,6 @@ const getQuestionAX = () => {
         dispatch(setQuestion(response.data.cards));
       })
       .catch((err) => {
-        console.log(err);
         if (err.response) {
           console.log(err.response.data);
         }
@@ -89,7 +87,6 @@ const getQuestionAX_NOTLOGIN = () => {
         dispatch(setQuestion(response.data.cards));
       })
       .catch((err) => {
-        console.log(err);
         if (err.response) {
           console.log(err.response.data);
         }
@@ -108,7 +105,6 @@ const getRecentAnswerAX = (userId) => {
         dispatch(setAnswer(response.data.answerData));
       })
       .catch((err) => {
-        console.log(err);
         if (err.response) {
           console.log(err.response.data);
         }
@@ -147,7 +143,6 @@ const sendAnswerAX = (question_id, content, isChecked) => {
         });
       })
       .catch((err) => {
-        console.log(err);
         if (err.response) {
           console.log(err.response.data);
         }

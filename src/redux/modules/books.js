@@ -18,21 +18,13 @@ const booksSlice = createSlice({
     date: moment(),
     formated_date: 0,
     component:'',
-    // selected_card:0,
     book_detail:[],
     page_owner:null,
     book_loading: true,
     book_detail_modal: null,
     date_visible:true,
-    // card_answers:null,
   },
   reducers: {
-    // setOther:(state, action) => {
-    //     state.other = action.payload;
-    // },
-    // setCardAnswers:(state, action) => {
-    //     state.card_answers = action.payload;
-    // },
     setDateVisible: (state, action) => {
         state.date_visible = action.payload;
     },
@@ -65,7 +57,6 @@ const booksSlice = createSlice({
             state.formated_date = state.date.format('YYYY . MM')
         } else {
             const new_date = moment(action.payload, 'YYYYMMDD');
-            // console.log(new_date)
             state.date = new_date;
             state.formated_date = new_date.format('YYYY . MM');
         }
@@ -90,9 +81,6 @@ const booksSlice = createSlice({
         }
 
     },
-    // setSelect : (state, action) => {
-    //     state.selected_card = action.payload
-    // }
     resetBooks: (state) => {
         state.books = [];
     }
@@ -126,8 +114,6 @@ const getBooks = (towhen) => {
     }
 }
 
-
-
 const getBookDetail = (date, history, type=null) => {
     return function(dispatch) { 
 
@@ -149,7 +135,6 @@ const getBookDetail = (date, history, type=null) => {
                 history.push(`/bookdetail/${date}/${response.data.booksDiary[0].answerId}`)
             }
         }).catch((err) => {
-
             if(err.response){
                 console.log(err.response.data)
             }
@@ -183,7 +168,6 @@ const getNextDetail = (date) => {
             dispatch(commentActions.getCommentAX(book_detail[0].answerId))
             dispatch(setBookLoading(false))
         }).catch((err) => {
-            console.log(err);
             if(err.response){
                 console.log(err.response.data)
             }
@@ -216,7 +200,6 @@ const getPreviousDetail = (date) => {
             dispatch(commentActions.getCommentAX(book_detail[book_detail.length-1].answerId))
             dispatch(setBookLoading(false))
         }).catch((err) => {
-            console.log(err);
             if(err.response){
                 console.log(err.response.data)
             }
@@ -225,12 +208,8 @@ const getPreviousDetail = (date) => {
     }
 }
 
-
-
-
 const getOthersBooks = (towhen, id) => {
     return function( dispatch, getState ) {
-
 
         if(towhen === 1){
             dispatch(changeDate(1));
@@ -240,7 +219,6 @@ const getOthersBooks = (towhen, id) => {
         }
 
         const date = getState().books.date.format('YYMM')
-        // console.log(date)
         const options = {
             url:`/bookshelf/other/books/${date}/${id}`,
             method:'GET',
@@ -249,7 +227,6 @@ const getOthersBooks = (towhen, id) => {
 
             dispatch(setBooks(response.data.books))
         }).catch((err) => {
-            console.log(err)
             if(err.response){
                 console.log(err.response.data)
             }
@@ -280,7 +257,6 @@ const getOthersBookDetail = (date,id,history,type=null) => {
                 history.push(`/othersdetail/${date}/${id}/${response.data.booksDiary[0].answerId}`)
             }
         }).catch((err) => {
-            console.log(err);
             if(err.response){
                 console.log(err.response.data);
             };
@@ -316,7 +292,6 @@ const getNextOthersBookDetail = (date,id) => {
             dispatch(commentActions.getCommentAX(book_detail[0].answerId))
             dispatch(setBookLoading(false));
         }).catch((err) => {
-            console.log(err);
             if(err.response){
                 console.log(err.response.data);
             };
@@ -399,7 +374,6 @@ const addQuest = (topic, contents) => {
                 text: `하루에 질문은 한개 만 만들 수 있어요.`,
                 icon: "error",
             });
-            console.log(err)
             if(err.response){
                 console.log(err.response.data)
             }
@@ -407,31 +381,10 @@ const addQuest = (topic, contents) => {
     }
 }
 
-
-// const getCardAnswers = (date,question_id) => {
-//     return function(dispatch){
-//         const options = {
-//             url:`/bookshelf/bookCardDetail/${date}/${question_id}`,
-//             method:'GET',
-//         }
-//         axios(options).then((response) => {
-//             console.log(response.data)
-//             dispatch(setCardDetails(response.data));
-//         }).catch(err => {
-//             console.log(err);
-//             if(err.response){
-//                 console.log(err.response.data)
-//             }
-//         })
-//     }
-// }
-
-
 export const { 
     setBooks,
     changeDate,
     setComponent,
-    // setSelect,
     setBookDetail,
     setPageOwner,
     setBookLoading,
@@ -439,15 +392,12 @@ export const {
     setBookDetailModal,
     deleteBook,
     resetBooks
-    // setCardAnswers,
-    // setOther
  } = booksSlice.actions;
 
 export const api = {
     getBooks,
     getBookDetail,
     addQuest,
-    // getCardAnswers,
     getOthersBooks,
     getOthersBookDetail,
     getNextOthersBookDetail,

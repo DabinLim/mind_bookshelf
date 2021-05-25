@@ -12,16 +12,13 @@ const OthersBooks = (props) => {
     const userId = props.match.params.id;
     const component = useSelector(state => state.books.component);
     const date = useSelector(state => state.books.date);
-    const formated_date = useSelector(state => state.books.formated_date);
     const answerInfo = useSelector((state) => state.community.card_detail);
     const cookie = getCookie("is_login") ? true : false;
     const [UnfollowModal, setUnfollowModal] = React.useState(false) 
     const other_info = useSelector((state) => state.user.other);
 
     let url = window.location.href.split('/');
-    let id = url[url.length -2];
-    let others_id = url[url.length -1];
-    
+    let id = url[url.length -2];    
 
     React.useEffect(() => {
         dispatch(changeDate(0))
@@ -63,8 +60,6 @@ const OthersBooks = (props) => {
                 {component === 'othersquestion' && <OthersQuestion/>}
                 {component === 'othersanswers' && <OthersAnswers/>}
                 </ContainerBox>
-                {/* <ImgLeft/> */}
-            {/* <ImgRight/> */}
             </Container>
         </React.Fragment>
     )
@@ -133,49 +128,12 @@ const ProfileContainer = styled.section`
     flex-direction: row;
     @media(max-width:750px){
         ${props => props.component === 'othersanswers' || props.component === 'othersquestion' ? `display:none`: `display:flex`};
-        // padding:56px 50px 30px 50px;
         margin-top:0px;
         margin-bottom:30px;
         height:100%;
         min-height:330px;
         flex-direction:column;
         align-items:center;
-    }
-`;
-
-const ImgRight = styled.div`
-    z-index:25;
-    position:fixed;
-    background-image:url('https://user-images.githubusercontent.com/77574867/116996886-0c785d80-ad17-11eb-9afd-175a104b7f33.png');
-    background-size:contain;
-    background-repeat:no-repeat;
-    right:-70px;
-    bottom:-13px;
-    width:593px;
-    height:731px;
-    opacity:0.8;
-    pointer-events: none;
-    @media (max-width:1400px){
-        display:none;
-    }
-    
-`;
-
-
-const ImgLeft = styled.div`
-    z-index:25;
-    position:fixed;
-    background-image:url('https://user-images.githubusercontent.com/77574867/116996878-0b473080-ad17-11eb-8910-108950e25cb8.png');
-    background-size:contain;
-    background-repeat:no-repeat;
-    left:-20px;
-    top:249px;
-    width:365px;
-    height:341px;
-    opacity:0.8;
-    pointer-events: none;
-    @media (max-width:1400px){
-        display:none;
     }
 `;
 

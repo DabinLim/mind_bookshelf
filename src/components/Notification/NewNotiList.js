@@ -20,6 +20,4 @@ const NotiListFrame = styled.div`
   width: 100%;
 `;
 
-const No_Noti = styled.div``;
-
 export default NewNotiList;

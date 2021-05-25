@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { useDispatch } from "react-redux";
 import swal from "sweetalert";
 import QuestionConfirm from "./QuestionConfirm";
 

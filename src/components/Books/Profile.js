@@ -5,7 +5,6 @@ import { FollowerModal, FollowingModal } from "./booksindex";
 import {
   setComponent,
   setPageOwner,
-  api as booksActions,
 } from "../../redux/modules/books";
 import {
   api as userActions,
@@ -25,7 +24,6 @@ const Profile = (props) => {
   const other_info = useSelector((state) => state.user.other);
   const myfriend_list = useSelector((state) => state.user.friends);
   const idx = myfriend_list.findIndex((f) => f.id === props.id);
-  const followed = idx !== -1 ? true : false;
   const is_login = useSelector((state) => state.user.is_login);
   const userLoading = useSelector((state) => state.user.is_userLoading);
   const url = window.location.href.split('/');
@@ -671,7 +669,6 @@ const SettingImg = styled.img`
 
 `
 
-
 const Body = styled.div`
   display: flex;
   width: 100%;
@@ -737,9 +734,7 @@ const CheckIcon = styled.img`
 `
 
 const BottomRight = styled.div`
-// width: 179px;
 display: flex;
-// justify-content: space-between;
 @media (max-width: 750px) {
   display: none;
 }
@@ -756,7 +751,6 @@ font: normal normal normal 12px/17px Noto Sans CJK KR;
 
 const Answers = styled.div`
   display: flex;
-  // align-items: flex-start;
   cursor: pointer;
   margin-right: 29px;
   font: normal normal medium 14px/20px Noto Sans KR;
@@ -814,7 +808,6 @@ const UnFollowBtnMobile = styled.button`
 
 const MyQuestionBtn = styled.div`
   display: flex;
-  // align-items: center;
   cursor: pointer;
   font: normal normal medium 14px/20px Noto Sans CJK KR;
   @media (max-width: 750px) {
@@ -869,7 +862,6 @@ const Subject1 = styled.div`
 `;
 
 const Myfollowers = styled.div`
-  // margin-right: 11px;
   font: normal normal medium 12px/17px Noto Sans CJK KR;
   cursor: pointer;
   @media (max-width: 750px) {

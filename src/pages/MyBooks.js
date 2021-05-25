@@ -101,7 +101,6 @@ const MyBook = (props) => {
             }
             <Container>
                 <ContainerBox>
-                    {/* {id === 'mybook' && component === '' && <ImgLeft/>} */}
                     <ProfileContainer component={component}>
                         <Profile setUpdateModal={setUpdateModal} />
                     </ProfileContainer>
@@ -110,9 +109,6 @@ const MyBook = (props) => {
                         }
                         {component === 'myquestion' && <MyQuestion/>}
                         {component === 'myanswers' && <MyAnswers/>}
-                        {/* {id !=='mybook' && component === '' &&
-                        <BookDetail date={date}/>} */}
-                        {/* {id === 'mybook' && component === '' && <ImgRight/>} */}
                 </ContainerBox>
             </Container>
         </React.Fragment>
@@ -145,12 +141,10 @@ box-shadow: 0px 0px 20px #0000001a;
 const CustomBtn = styled.div`
 position: fixed;
 display: flex;
-// justify-content: center;
 padding-left: 20px;
 font-family: Noto Sans CJK KR;
 font-weight: bold;
 align-items: center;
-// right: 26px;
 right: 34px;
 bottom: 102px;
 width: 140px;
@@ -233,7 +227,6 @@ const ProfileContainer = styled.section`
     flex-direction: row;
     @media(max-width:750px){
         ${props => props.component === 'myanswers' || props.component === 'myquestion' ? `display:none`: `display:flex`};
-        // padding:10px 50px 30px 50px;
         margin-top:0px;
         margin-bottom:30px;
         height:100%;

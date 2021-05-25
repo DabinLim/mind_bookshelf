@@ -7,16 +7,16 @@ import reactStringReplace from "react-string-replace";
 import { DeleteOutlined } from "@ant-design/icons";
 import swal from 'sweetalert';
 import { time } from "../../shared/Time";
-import {editFriendCommentInfo} from "../../redux/modules/friends";
 import DeleteCommentComfirm from './DeleteCommentConfirm';
+import useSound from 'use-sound';
+import boopSfx from "../../static/sounds/DDALGGAK.mp3";
 
 const Comment = (props) => {
   const dispatch = useDispatch();
   const is_login = useSelector(state => state.user.is_login);
   const userInfo = useSelector((state) => state.user.user);
-  const answerInfo = useSelector((state) => state.community.card_detail);
-  const currentLocation = useSelector(state => state.router.location.pathname);
   const [deleteCommentModal, setDeleteComment] = useState(false);
+  const [play] = useSound(boopSfx);
   
   const addLike = () => {
     if (!is_login) {
@@ -28,6 +28,7 @@ const Comment = (props) => {
       return;
     }
     dispatch(commentActions.addCommentLike(props.commentId));
+    play();
   }
 
   const deleteLike = () => {
@@ -40,6 +41,7 @@ const Comment = (props) => {
       return;
     }
     dispatch(commentActions.deleteCommentLike(props.commentId));
+    play();
   }
 
   let timeFormat =

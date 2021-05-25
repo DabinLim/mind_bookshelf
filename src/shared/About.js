@@ -10,13 +10,7 @@ const About = (props) => {
         }}
       />
       <ModalComponent>
-        {/* <HeaderContainer>
-          사이트 소개
-        </HeaderContainer> */}
         <ContentsContainer>
-          {/* <div>
-            <ImageContainer src="https://user-images.githubusercontent.com/67696504/118116495-4e935480-b425-11eb-83ac-e1d08bf27ee8.png" />
-          </div> */}
           <div>
             <Content>
               나와 주변의 생각들을 <br />
@@ -79,7 +73,6 @@ const ModalComponent = styled.div`
   background-color: white;
   z-index: 160;
   width: 300px;
-  // height: 300px;
   opacity: 1;
 
 `;
@@ -107,14 +100,6 @@ const ContentsContainer = styled.div`
   }
 
 `;
-
-const ImageContainer = styled.img`
-  width: 100%;
-  height: 200px;
-  border-top-left-radius: 15px;
-  border-top-right-radius: 15px;
-`;
-
 
 const LinkContainer = styled.div`
   text-align: center;

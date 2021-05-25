@@ -1,5 +1,3 @@
-// import BookDetail from './BookDetail';
-// import BookDetailLow from './BookDetailLow';
 import BookShelf from './BookShelf';
 import FollowerModal from './FollowerModal';
 import FollowingModal from './FollowingModal'

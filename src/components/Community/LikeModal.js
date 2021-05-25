@@ -22,7 +22,6 @@ const LikeModal = (props) => {
   const user_info = useSelector(state => state.user.user);
   const container = React.useRef();
   const url = window.location.href;
-  const wtf = document.getElementById('likelist');
 
   const clickOther = (id) => {
     history.push(`/others/${id}`);
@@ -218,11 +217,6 @@ const Background = styled.div`
   background-color:black;
   z-index: 20;
 
-`;
-const UserText = styled.div`
-  margin: auto;
-  font-weight: medium;
-  font-size: 15px;
 `;
 
 export default LikeModal;

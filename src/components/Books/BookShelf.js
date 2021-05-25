@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 import { changeDate, setBookDetailModal } from "../../redux/modules/books";
 import CardModal from "../Community/CardModal";
 import { useSelector, useDispatch } from "react-redux";
@@ -855,7 +854,6 @@ const BookRow = styled.div`
   width: 100%;
   height: 210px;
   max-width: 1055px;
-  /* overflow:hidden; */
   margin: 10px 0px -5px 55px;
   @media (max-width: 1000px) {
     width: 900px;
@@ -872,7 +870,6 @@ const BookRow = styled.div`
     max-width: 300px;
     height: 150px;
     
-    /* overflow:hidden; */
     justify-content: flex-start;
   }
 `;

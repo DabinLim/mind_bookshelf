@@ -6,33 +6,22 @@ import {
   changeDate,
   setBookDetailModal,
 } from "../../redux/modules/books";
-// import CommentInput from "./CommentInput"
 import { api as communityActions, editLikeCardFriend, resetAll} from "../../redux/modules/community";
 import { useDispatch, useSelector } from "react-redux";
-import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
-import FavoriteIcon from "@material-ui/icons/Favorite";
-import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
-import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
-import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 import { CommentList, TagModal, CardUpdateModal } from "./communityindex";
 import { history } from "../../redux/configStore";
 import axios from "axios";
 import { config } from "../../shared/config";
 import _ from "lodash";
 import swal from "sweetalert";
-import { getCookie } from "../../shared/Cookie";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import CustomSwitch from "../../shared/CustomSwitch";
 import CancelConfirm from "./CancelConfirm";
 import { LeftOutlined } from "@ant-design/icons";
 import ChannelService from "../../shared/ChannelService";
 import Like from '../../shared/Like';
-import Subject from '../../shared/Subject';
-import { CenterFocusStrong } from "@material-ui/icons";
 import {editFriendCommentInfo} from "../../redux/modules/friends";
 import LikeModal from './LikeModal';
-import DeleteCommentComfirm from './DeleteCommentConfirm';
-
 
 const CardModal = (props) => {
   const answerInfo = useSelector((state) => state.community.card_detail);
@@ -314,14 +303,6 @@ const CardModal = (props) => {
   if (answerInfo?.questionTopic?.length > 0) {
     topic = answerInfo?.questionTopic[0];
   }
-
-  const getDate = (date) => {
-    let year = "20" + date.substring(0, 2);
-    let month = date.substring(2, 4);
-    let day = date.substring(4, 6);
-    let full_date = year + "년 " + month + "월 " + day + "일";
-    return full_date;
-  };
 
   let color = "";
 
@@ -797,8 +778,6 @@ const GotoMobile = styled.button`
 `;
 
 const ModalComponent = styled.div`
-  /* overflow: hidden; */
-  // border-radius: 50px;
   position: fixed;
   width: 850px;
   height: 500px;
@@ -808,7 +787,6 @@ const ModalComponent = styled.div`
   background-color: white;
   z-index: 130;
   display: flex;
-  /* box-shadow: 0px 0px 15px #c1c7fc; */
   @media (max-width: 950px) {
     width: 750px;
   }
@@ -831,7 +809,6 @@ const ModalContent = styled.div`
     width: 100%;
     ${props => props.type === 'book'? `height:100%`:`height:100%`};
     border: none;
-    // border-radius: 20px 20px 0 0;
     background: white;
     padding: 0;
     display: flex;
@@ -966,7 +943,6 @@ const CardAnswerBtn = styled.button`
   font-size: 16px;
   cursor: pointer;
   color: white;
-  /* padding: 6px 20px; */
   background: #303685;
   border-style:none;
   border-radius: 20px;
@@ -985,7 +961,6 @@ const ModalRightContainer = styled.div`
   justify-content: space-between;
   background-color: white;
   padding: 25px 0 0 0;
-  // border-radius: 0px 50px 50px 0px;
 `;
 
 const ModalCmtInputBox = styled.div`

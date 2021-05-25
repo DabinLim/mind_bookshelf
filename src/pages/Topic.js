@@ -5,10 +5,7 @@ import {api as communityActions, resetTopicInfo} from '../redux/modules/communit
 import {history} from '../redux/configStore'
 import InfinityScroll from '../shared/InfinityScroll'
 import { LeftOutlined } from "@ant-design/icons";
-import {CheckOutlined} from "@ant-design/icons";
 import GoBack from '../elements/GoBack'
-
-
 
 const Topic = (props) => {
   const topic = props.match.params.topic;
@@ -31,7 +28,6 @@ const Topic = (props) => {
       dispatch(resetTopicInfo())
     };
   },[])
-
 
   let color = "";
 
@@ -166,11 +162,6 @@ const Topic = (props) => {
             <BodyLike ref={containerLike} >
             <InfinityScroll
               callNext={() => {
-                // if(type === "like"){
-                //   dispatch(communityActions.getTopicLikeQuestion(topic))
-                // }else{
-                //   dispatch(communityActions.getTopicQuestion(topic))
-                // }
                 dispatch(communityActions.getTopicQuestion(topic, type))
               }}
               is_next={nextLike}
@@ -204,11 +195,6 @@ const Topic = (props) => {
             <Body ref={container}>
               <InfinityScroll
                 callNext={() => {
-                  // if(type === "like"){
-                  //   dispatch(communityActions.getTopicLikeQuestion(topic))
-                  // }else{
-                  //   dispatch(communityActions.getTopicQuestion(topic))
-                  // }
                   dispatch(communityActions.getTopicQuestion(topic, type))
                 }}
                 is_next={next}
@@ -266,7 +252,6 @@ const TopicBox = styled.div`
   max-width: 1200px;
   height: 100%;
   box-sizing: border-box;
-  // height:100vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
