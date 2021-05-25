@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styled, { keyframes } from "styled-components";
+import styled  from "styled-components";
 import LoginModal from "./LoginModal";
 import Search from "./Search";
 import { useSelector, useDispatch } from "react-redux";
@@ -804,11 +804,6 @@ const TextBtn = styled.div`
   } ;
 `;
 
-const IconImg = styled.img`
-
-
-`
-
 const Icon = styled.div`
   position: relative;
   margin-left: 25px;
@@ -839,26 +834,6 @@ const AlarmBadge = styled.div`
   font-weight: 600;
   right: 0px;
   top: 2px;
-`;
-
-const MobileLoginModal = styled.div`
-  position: absolute;
-  width: 100px;
-  height: 50px;
-  bottom: 60px;
-  z-index: 400;
-  font-size: 14px;
-  background: #ebeff2;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  border-top-right-radius: 20px;
-
-  & > h3 {
-    margin: 0;
-    cursor: pointer;
-  }
 `;
 
 export default Header;

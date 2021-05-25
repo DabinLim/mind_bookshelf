@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components'
 import {api as userActions} from "../../redux/modules/user";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 
 const UnfollowConfirmModal = (props) => {
   const dispatch = useDispatch()

@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import Loader from "react-loader-spinner";
 import { api as answerActions } from "../redux/modules/answer";
 import {setLoading} from "../redux/modules/answer";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,8 +8,6 @@ import { history } from "../redux/configStore";
 import moment from "moment";
 import Post from "../components/Main/Post";
 import { RightOutlined } from "@ant-design/icons";
-import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
-import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord";
 import "../static/Card.css";
 
@@ -160,8 +157,6 @@ function Main() {
 
   return (
     <MainFrame>
-      {/* <ImgLeft />
-      <ImgRight /> */}
       {is_loading ? (
         <LoaderBox></LoaderBox>
       ) : (
@@ -212,13 +207,7 @@ function Main() {
               </Slider>
             </SmallCardContainer>
             <LargeCardContainer>
-              <LeftArrowBtn onClick={turnLeft} src={"https://user-images.githubusercontent.com/77369674/119218353-c430ac00-bb1a-11eb-9f8e-b8f8d447895d.png"}>
-                {/* <ArrowBackIosIcon
-                  style={{
-                    fontSize: "60px",
-                  }}
-                /> */}
-              </LeftArrowBtn>
+              <LeftArrowBtn onClick={turnLeft} src={"https://user-images.githubusercontent.com/77369674/119218353-c430ac00-bb1a-11eb-9f8e-b8f8d447895d.png"}/>
               <CardContainer>
                 <EachCard className={card_1}>
                   <Post {...question_list[0]} allChecked={allChecked} />
@@ -230,13 +219,7 @@ function Main() {
                   <Post {...question_list[2]} allChecked={allChecked} />
                 </EachCard>
               </CardContainer>
-              <RightArrowBtn onClick={turnRight} src={"https://user-images.githubusercontent.com/77369674/119218351-c430ac00-bb1a-11eb-9f2e-5854b6be524e.png"}>
-                {/* <ArrowForwardIosIcon
-                  style={{
-                    fontSize: "60px",
-                  }}
-                /> */}
-              </RightArrowBtn>
+              <RightArrowBtn onClick={turnRight} src={"https://user-images.githubusercontent.com/77369674/119218351-c430ac00-bb1a-11eb-9f2e-5854b6be524e.png"}/>
             </LargeCardContainer>
             <DotQueue>
               <FiberManualRecordIcon
@@ -349,8 +332,6 @@ const MainUpper = styled.section`
   }
 `;
 
-// 토글버튼 있어야한다..
-
 const DateIndicator = styled.div`
   text-align: center;
   font: normal normal bold 18px/27px Noto Sans CJK KR;
@@ -423,7 +404,6 @@ const SmallToMyBookShelf = styled.button`
 // 메인의 아래쪽
 const SlideBox = styled.div`
   width: auto;
-  // height: 100%;
   display: flex;
   position: relative;
   flex-direction: column;
@@ -431,11 +411,6 @@ const SlideBox = styled.div`
   @media (max-width: 500px) {
     margin: 0;
     width: 100%;
-    /* flex-direction: row; */
-    /* padding: 27px 28px 27px 28px;
-    box-sizing: border-box;
-    text-align: center;
-    flex-direction: row; */
   }
 `;
 
@@ -448,7 +423,6 @@ const CardContainer = styled.div`
   width: 100%;
   max-width: 900px;
   height: 470px;
-  // margin-top: 200px
   display: flex;
   justify-content: center;
   align-items: center;

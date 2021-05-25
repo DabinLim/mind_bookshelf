@@ -1,7 +1,5 @@
-import React, {useState} from "react";
+import React from "react";
 import styled from "styled-components";
-import { CardModal } from "../Community/communityindex"
-import { useSelector } from "react-redux";
 import NotiList from "./NotiList";
 import NewNotiList from "./NewNotiList";
 

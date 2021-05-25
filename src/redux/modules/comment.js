@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-// import moment from "moment";
 import { getCookie } from "../../shared/Cookie";
 import swal from "sweetalert";
 import { editCommentInfo } from "./community";
@@ -65,7 +64,6 @@ const getCommentAX = (cardId) => {
         dispatch(setComment(response.data.comments));
       })
       .catch((err) => {
-        console.log(err);
         if (err.response) {
           console.log(err.response.data);
         }
@@ -106,7 +104,6 @@ const sendCommentAX = (cardId, content, tagId = [], questionId) => {
         }
       })
       .catch((err) => {
-        console.log(err);
         if (err.response) {
           console.log(err.response.data);
         }
@@ -155,7 +152,6 @@ const addCommentLike = (id) => {
       method:"POST"
     }
     axios(options).then((response) => {
-      // console.log(response.data);
       dispatch(addLike(id));
     }).catch(err => console.log(err));
   }
@@ -168,7 +164,6 @@ const deleteCommentLike = (id) => {
       method:"PATCH"
     }
     axios(options).then((response) => {
-      // console.log(response.data);
       dispatch(subtractLike(id));
     }).catch(err => console.log(err));
   }

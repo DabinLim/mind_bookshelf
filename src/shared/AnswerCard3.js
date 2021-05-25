@@ -1,19 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
-import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
-import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
-import FavoriteIcon from "@material-ui/icons/Favorite";
 import { history } from "../redux/configStore";
-import swal from "sweetalert";
-import { api as communityActions } from "../redux/modules/community"; 
 import Like from './Like';
 
 const AnswerCard3 = (props) => {
   const user_info = useSelector((state) => state.user.user);
-  const is_login = useSelector(state => state.user.is_login);
-  const dispatch = useDispatch();
-
 
   const getDate = (date) => {
     let unformatted = date.split("-");
@@ -80,9 +72,7 @@ const CardFrame = styled.div`
   display: flex;
   margin-bottom: 20px;
   flex-direction: column;
-  // justify-content: space-between;
   background-color: #ffffff;
-  // margin: 0px 20px 20px 0px;
   box-shadow: 0px 0px 20px #0000001a;
   @media(max-width:500px){
     justify-content: space-between;
@@ -117,18 +107,6 @@ const CardWriterProfile = styled.img`
   }
 `;
 
-const LikeIcon = styled.img`
-  cursor: pointer;
-  width: 16px;
-  height: 15px;
-  margin-right: 6px;
-  @media (max-width: 500px) {
-    width:13px;
-    height: 12px;
-    margin-right: 6px;
-  }
-`
-
 const CommentIcon = styled.img`
   cursor: pointer;
   width: 14px;
@@ -161,8 +139,6 @@ const QuestionContents = styled.div`
 `
 
 const AnswerContents = styled.div`
-  // max-height: 63px;
-  // min-height: 63px;
   cursor: pointer;
   margin-top: 8px;
   font: normal normal normal 13px/19px Noto Sans CJK KR;

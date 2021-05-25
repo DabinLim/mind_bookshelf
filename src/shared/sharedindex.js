@@ -2,8 +2,7 @@
 import Header from './Header';
 import LoginModal from './LoginModal';
 import Search from './Search';
-import Sidebar from './Sidebar';
 import Upload from './Upload';
 import About from './About'
 
-export {Header, LoginModal, Search, Sidebar, Upload, About};
+export {Header, LoginModal, Search, Upload, About};

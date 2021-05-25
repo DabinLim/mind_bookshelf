@@ -118,18 +118,8 @@ const NotiProfileName = styled.span`
   &:hover{
     font-weight: bold;
   }
-  // @media (max-width: 500px){
-    
-  // }
 `;
 
-const NotiContent = styled.p`
-  margin: 0 0 0 0px;
-  font-size: 14px;
-  @media (max-width: 500px){
-    font-size: 13px;
-  }
-`;
 const NotiTime = styled.span`
   margin-left: 4px;
   font-size: 10px;

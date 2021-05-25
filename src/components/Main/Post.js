@@ -34,11 +34,6 @@ const Post = (props) => {
   const ok_submit = contents ? true : false;
 
   const changeContents = (e) => {
-    // if (count === 1000) {
-    //   setContents(contents.substring(0, contents.length - 1));
-    //   setCount(contents.length - 1);
-    //   return;
-    // }
     // input 값이 1000자 넘었을 때 부터 추가 안되게
     if (e.target.value.length > 1000) {
       return;
@@ -49,7 +44,6 @@ const Post = (props) => {
   };
 
   const addAnswer = () => {
-    // let str_space = /\s/; // 공백체크
     let check = contents.replaceAll(" ", "");
     if (check === "") {
       swal({
@@ -260,7 +254,6 @@ const CardFrame = styled.div`
   padding: 48px 50px 40px;
   background: white;
   text-align: center;
-  box-shadow: 0px 0px 20px #2211481A;
 
   @media (max-width: 500px) {
     width: 95%;
@@ -421,6 +414,7 @@ const ElTextarea = styled.textarea`
   border: none;
   overflow: auto;
   outline: none;
+  max-height: 160px;
 
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
@@ -543,7 +537,7 @@ const PreLoginBtnBox = styled.div`
     top: 130px;
     justify-content: space-between;
   }
- 
+
   justify-content: flex-end;
   align-items: center;
   opacity: 0.4;

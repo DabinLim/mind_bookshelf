@@ -184,8 +184,6 @@ const MyQuestion = (props) => {
         <CardContainerPop view={now_view} ref={pop_container}>
           {now_view ==='pop' && <InfinityScroll
             callNext={() => {
-              
-              // console.log("scroooolled!");
               dispatch(customActions.getMyPopQuest());
             }}
             is_next={pop_next ? true : false}

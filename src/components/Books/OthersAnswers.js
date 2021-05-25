@@ -9,16 +9,12 @@ import {
 } from "../../redux/modules/custom";
 import { setComponent } from "../../redux/modules/books";
 import InfinityScroll from "../../shared/InfinityScroll";
-import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
-import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
-import FavoriteIcon from "@material-ui/icons/Favorite";
 import { LeftOutlined } from "@ant-design/icons";
 import { CardModal } from "../Community/communityindex";
 import { api as commentActions } from "../../redux/modules/comment";
 import { api as communityActions,resetAll as LikeReset } from "../../redux/modules/community";
 import {history} from '../../redux/configStore';
 import {CheckOutlined} from "@ant-design/icons";
-import swal from "sweetalert";
 import Like from '../../shared/Like';
 
 const OthersAnswers = (props) => {
@@ -33,7 +29,6 @@ const OthersAnswers = (props) => {
   const is_next = useSelector((state) => state.custom.next);
   const pop_next = useSelector((state) => state.custom.pop_next);
   const now_view = useSelector((state) => state.custom.now_view);
-  const is_login = useSelector(state => state.user.is_login);
   const container = React.useRef();
   const pop_container = React.useRef();
   const [openFilter, setOpenFilter] = React.useState(false);

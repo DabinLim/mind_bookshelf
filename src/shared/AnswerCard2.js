@@ -143,8 +143,6 @@ const CardWriter = styled.span`
 `;
 
 const AnswerContents = styled.div`
-  // max-height: 63px;
-  // min-height: 63px;
   margin-top: 20px;
   font: normal normal normal 12px/18px Noto Sans CJK KR;
   letter-spacing: 0px;

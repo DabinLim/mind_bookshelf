@@ -1,19 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { history } from "../../redux/configStore";
-import { CardModal } from "./communityindex";
 import { useSelector, useDispatch } from "react-redux";
-import swal from "sweetalert";
-import { api as communityActions } from "../../redux/modules/community";
-import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
-import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
-import FavoriteIcon from "@material-ui/icons/Favorite";
 import Like from '../../shared/Like';
 
 const CommunityQnA = (props) => {
   const user = useSelector((state) => state.user.user);
-  const is_login = useSelector(state => state.user.is_login);
-  const dispatch = useDispatch();
 
   const getDate = (date) => {
     let year = "20" + date.substring(0, 2);
@@ -150,7 +142,6 @@ const QnAContainer = styled.div`
 const QuestionBox = styled.div`
   width: 100%;
   display: flex;
-  // align-items: center;
   justify-content: space-between;
 `;
 
@@ -233,10 +224,6 @@ const AnswerNickname = styled.div`
 `;
 
 const AnswerContents = styled.div`
-  // height값을 주면 -webkit-line-clamp: 3;를 설정해도
-  // 그 뒤에값이 나옵니다.
-  // max-height: 63px;
-  // min-height: 63px;
   margin-top: 20px;
   font: normal normal normal 12px/18px Noto Sans CJK KR;
   letter-spacing: 0px;
@@ -277,19 +264,6 @@ const IconBox = styled.div`
   }
 `;
 
-const LikeIcon = styled.img`
-  cursor: pointer;
-  width: 16px;
-  height: 15px;
-  margin-right: 6px;
-  @media (max-width: 500px) {
-    width:13px;
-    height: 12px;
-    margin-right: 6px;
-  }
-  
-`
-
 const CommentIcon = styled.img`
   cursor: pointer;
   width: 16px;
@@ -300,8 +274,6 @@ const CommentIcon = styled.img`
     height: 12px;
     margin-right: 6px;
   }
-
-
 `
 
 const LikeBox = styled.div`
@@ -325,7 +297,6 @@ const Topic = styled.div`
   margin-top: 30px;
   margin-right: 10px;
   cursor: pointer;
-  // display: inline-block;
   min-width: 72px;
   max-width: 72px;
   padding: 5px 0px;

@@ -83,7 +83,6 @@ const MobileNoti = (props) => {
             </div>
             <NotiTime>{time_data}</NotiTime>
           </NotiFrame>
-        {/* )} */}
       </>
     );
   }
@@ -125,13 +124,6 @@ const NotiProfileName = styled.span`
   };
 `;
 
-const NotiContent = styled.p`
-  margin: 0 0 0 0px;
-  font-size: 14px;
-  @media (max-width: 500px){
-    font-size: 13px;
-  }
-`;
 const NotiTime = styled.span`
   margin-left: 4px;
   font-size: 10px;

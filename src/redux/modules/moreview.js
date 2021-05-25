@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { getCookie } from "../../shared/Cookie";
 import axios from "axios";
-import { editAnswerInfo } from "./comment";
 
 axios.defaults.baseURL = "https://lkj99.shop";
 axios.defaults.headers.common["Authorization"] = `Bearer ${getCookie(
@@ -250,14 +249,12 @@ const moreviewSlice = createSlice({
         (a) => a.answerId === action.payload.answerId
       );
       if(index !== -1){
-        console.log(1, index)
         state.answers[index].answerContents = action.payload.contents;
       }
       let like_index = state.like_answers.findIndex(
         (a) => a.answerId === action.payload.answerId
       );
       if(like_index !== -1){
-        console.log(2, like_index)
         state.like_answers[like_index].answerContents = action.payload.contents
       }
     }

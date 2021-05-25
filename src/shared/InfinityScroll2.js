@@ -3,7 +3,6 @@ import _ from "lodash";
 import Spinner from "../elements/Spinner";
 
 const InfinityScroll2 = (props) => {
-    // console.log(props)
 ;    const {callNext, is_next, loading} = props;
 
     const _handleScroll = _.throttle(() => {

@@ -3,8 +3,7 @@ import { getCookie } from "../../shared/Cookie";
 import axios from "axios";
 import swal from "sweetalert";
 import { editDetailLikeInfo, deleteMoreview, editMoreviewAnswer } from "./moreview";
-import { ed} from "./friends";
-import {addAnswersLikeInfo, deleteAnswersLikeInfo, editAnswersLikeInfo} from './custom';
+import {addAnswersLikeInfo, deleteAnswersLikeInfo } from './custom';
 import { deleteNoti } from "./noti";
 
 axios.defaults.baseURL = "https://lkj99.shop";
@@ -182,14 +181,12 @@ const communitySlice = createSlice({
     },
     addFollowLike: (state, action) => {
       const idx = state.like_list.findIndex(v => v.userId === action.payload);
-      console.log(idx);
       if(idx !== -1){
         state.like_list[idx].isFollowing = true;
       };
     },
     deleteFollowLike: (state, action) => {
       const idx = state.like_list.findIndex(v => v.userId === action.payload);
-      console.log(idx);
       if(idx !== -1){
         state.like_list[idx].isFollowing = false;
       };
@@ -270,7 +267,6 @@ const addLikeAnswers = (answerId) => {
     axios
       .post("/bookshelf/like/answerCard", { answerCardId: answerId })
       .then((res) => {
-        console.log(res.data)
         dispatch(
           addAnswersLikeInfo(answerId)
         );
@@ -286,7 +282,6 @@ const deleteLikeAnswers = (answerId) => {
     axios
       .patch("/bookshelf/like/answerCard", { answerCardId: answerId })
       .then((res) => {
-        console.log(res.data)
         dispatch(
           deleteAnswersLikeInfo(answerId)
         );
@@ -476,7 +471,6 @@ const getCardDetail = (a_id, type) => {
         dispatch(setCardLoading(false));
       })
       .catch((err) => {
-        console.log(err);
         if (err.response) {
           console.log(err.response);
         }
@@ -548,7 +542,6 @@ const getTopicQuestion = (topic, type) => {
       axios
         .get(`/topic/${encodeURIComponent(topic)}?page=${page}`)
         .then((res) => {
-          // console.log(res)
           dispatch(addTopic(res.data.result))
           if(res.data.result.length === 15){
             dispatch(editTopicNext(true));
@@ -565,7 +558,6 @@ const getTopicQuestion = (topic, type) => {
       axios
         .get(`/topic/like/${encodeURIComponent(topic)}?page=${page}`)
         .then((res) => {
-          // console.log(res)
           dispatch(addTopicLike(res.data.result))
           if(res.data.result.length === 15){
             dispatch(editTopicLikeNext(true));
@@ -589,7 +581,6 @@ const getTopicLikeQuestion = (topic) => {
     axios
       .get(`/topic/like/${encodeURIComponent(topic)}?page=${page}`)
       .then((res) => {
-        // console.log(res)
         dispatch(addTopicLike(res.data.result))
         if(res.data.result.length === 15){
           dispatch(editTopicLikeNext(true));
