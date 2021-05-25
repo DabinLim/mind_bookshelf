@@ -1,4 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&family=Noto+Serif+KR:wght@300&display=swap");
 
 @font-face {
   font-family: 'Noto Sans CJK KR';
@@ -45,8 +44,17 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   cursor: default;
+  background-image: url('./images/web_background.png');
+  background-size:cover;
+  background-repeat: no-repeat;
 }
 
+
+@media only screen and (max-width: 750px) {
+  body {
+    background-image: url('./images/mobile_background.png');
+  }
+}
 
 #root {
   height:100vh;

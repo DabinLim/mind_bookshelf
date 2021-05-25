@@ -109,9 +109,6 @@ const Outer = styled.section`
   justify-content: center;
   align-items: center;
   margin-top: 50px;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-image: url("https://user-images.githubusercontent.com/77369674/118459848-1b0f3d80-b737-11eb-8f1a-906da3e390e2.jpeg");
 
   @media (max-width: 750px) {
   }
