@@ -19,7 +19,7 @@ const FriendsGround = (props) => {
     const dispatch = useDispatch();
     const friends_list = useSelector((state) => state.friends.answer_list);
     const lastId = friends_list[friends_list?.length - 1]?._id;
-    console.log(lastId);
+    // console.log(lastId);
     const is_next = useSelector((state) => state.friends?.next);
     const is_loading = useSelector((state) => state.friends.is_loading);
     const is_initialLoading = useSelector((state) => state.friends.is_initialLoading);

@@ -32,7 +32,7 @@ const QuestionDetail = (props) => {
   const friends_answers = useSelector(
     (state) => state.moreview.friends_answers
   );
-  console.log(friends_answers);
+  // console.log(friends_answers);
   const user_info = useSelector((state) => state.user.user);
   const next = useSelector((state) => state.moreview.next);
   const like_next = useSelector((state) => state.moreview.like_next);
@@ -110,9 +110,9 @@ const QuestionDetail = (props) => {
           </LoadingDiv>: <>
         <CommunityContainer>
           <Container>
-            <div style={{margin:"0px 0px 29px 20px"}}>
+            <ContainerHead style={{margin:"0px 0px 29px 20px"}}>
               <GoBack/>
-            </div>
+            </ContainerHead>
             <ContainerUpper>
               <ContainerUpperLeft>
                 <HashTag
@@ -477,6 +477,14 @@ const Container = styled.section`
     padding: 25px 0 30px 0;
   }
 `;
+
+const ContainerHead = styled.div`
+margin:0px 0px 29px 20px;
+  @media (min-width: 500px) {
+    display: none;
+  }
+
+`
 
 const ContainerUpper = styled.div`
   display: flex;

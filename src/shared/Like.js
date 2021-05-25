@@ -6,13 +6,14 @@ import {api as friendsActions} from "../redux/modules/friends";
 import {api as communityActions, addLikeList, deleteLikeList} from '../redux/modules/community';
 import {addAnswersLikeInfo, deleteAnswersLikeInfo} from '../redux/modules/custom';
 import {editLikeCardFriend} from "../redux/modules/community";
+import useSound from 'use-sound';
+import boopSfx from "../static/sounds/DDALGGAK.mp3";
 
 const Like = (props) => {
     const dispatch = useDispatch();
     const is_login = useSelector(state => state.user.is_login);
     const user_info = useSelector(state => state.user.user);
     const currentLocation = useSelector(state => state.router.location.pathname);
-    console.log(currentLocation);
     const {currentLike, answerId, questionId, page, width, height, margin,  m_width, m_height, m_margin} = props;
     const styles = {
       width,
@@ -22,6 +23,7 @@ const Like = (props) => {
       m_height,
       m_margin,
   }
+  const [play] = useSound(boopSfx);
 
     const addLike =() => {
       if (!is_login) {
@@ -47,6 +49,7 @@ const Like = (props) => {
             questionId
           )
         );
+        play();
         return
       }
       if( page === 'detail'){
@@ -55,6 +58,7 @@ const Like = (props) => {
             answerId
           )
         );
+        play();
         return
       }
       if( page === 'answers'){
@@ -63,6 +67,7 @@ const Like = (props) => {
             answerId
           )
         );
+        play();
         return
       }
 
@@ -72,6 +77,7 @@ const Like = (props) => {
           dispatch(editLikeCardFriend({
             decision: "like",}));
         }
+        play();
         console.log(`friends clicked ${answerId}`)
         return;
       }
@@ -83,6 +89,7 @@ const Like = (props) => {
           )
         );
         dispatch(addAnswersLikeInfo(answerId))
+        play();
         return
       }
       dispatch(communityActions.addLikeAX(
@@ -90,6 +97,7 @@ const Like = (props) => {
         questionId
         )
       );
+      play();
     }
   
 
@@ -114,6 +122,7 @@ const Like = (props) => {
             questionId
           )
         );
+        play();
         return
       }
       if( page === 'detail'){
@@ -122,6 +131,7 @@ const Like = (props) => {
             answerId
           )
         );
+        play();
         return
       }
       if( page === 'answers'){
@@ -130,6 +140,7 @@ const Like = (props) => {
             answerId
           )
         );
+        play();
         return
       }
       if (page === "friends") {
@@ -138,6 +149,7 @@ const Like = (props) => {
           dispatch(editLikeCardFriend({
             decision: "dislike",}));
         }
+        play();
         console.log(`friends clicked ${answerId}`)
         return;
       }
@@ -148,6 +160,7 @@ const Like = (props) => {
           )
         );
         dispatch(deleteAnswersLikeInfo(answerId))
+        play();
         return
       }
       dispatch(communityActions.deleteLikeAX(
@@ -155,6 +168,7 @@ const Like = (props) => {
         questionId
         )
       );
+      play();
     }
     
         return (<React.Fragment>

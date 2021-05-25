@@ -153,6 +153,7 @@ const UserInfoContainer = styled.div`
 const ProfileImage = styled.img`
   border-radius: 50%;
   background-size: cover;
+  object-fit:cover;
   height: 40px;
   width: 40px;
   margin-right: 10px;
