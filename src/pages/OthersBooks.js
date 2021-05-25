@@ -118,8 +118,6 @@ const Container = styled.div`
     margin:0px;
     height:100%;
 }
-
-    
 `;
 
 const ProfileContainer = styled.section`
