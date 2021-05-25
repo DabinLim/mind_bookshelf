@@ -391,8 +391,7 @@ const Container = styled.section`
     margin-top: 50px;
     width:100%;
     height:84.5%;
-    overflow:auto;
-    -webkit-overflow-scrolling: touch;
+    overflow-y:auto;
     border: 0.5px solid #D3D3D3;
     border-radius:16px 16px 0px 0px;
     background-color: #ffffff;
