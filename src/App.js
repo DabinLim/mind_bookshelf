@@ -25,7 +25,7 @@ import CardDetail from './components/Community/CardDetail';
 import {BookDetail, MyAnswers, OthersAnswers, MyQuestion, OthersQuestion} from './components/Books/booksindex';
 // import Boop from './components/Notification/Sound'
 import useSound from 'use-sound';
-import boopSfx from "../../static/sounds/YOO.mp3";
+import boopSfx from "./static/sounds/YOO.mp3";
 import { socket, addNoti } from "./redux/modules/noti";
 import ComponentSlider from "./components/Main/ComponentSlider";
 import axios from "axios";
@@ -35,11 +35,13 @@ function App() {
   axios.defaults.baseURL = "https://lkj99.shop";
   const dispatch = useDispatch();
   const cookie = getCookie("is_login") ? true : false;
+  const [play] = useSound(boopSfx);
+
 
   socket.on("AlarmEvent", function (data) {
     console.log(data);
     dispatch(addNoti(data));
-    useSound(boopSfx);
+    play();
   });
 
   // 로그인이 되어있는지 확인하고 유저정보를 가져옵니다.
