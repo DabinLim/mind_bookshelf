@@ -121,7 +121,7 @@ const OthersAnswers = (props) => {
                         dispatch(setView("pop"));
                       }}
                     >
-                      답변순
+                      인기순
                     </div>
                   </FilterWhiteBox>}
                 {openFilter && now_view === 'pop' && <FilterWhiteBox>
@@ -136,7 +136,7 @@ const OthersAnswers = (props) => {
                         dispatch(setView("pop"));
                       }}
                     >
-                      답변순<span style={{width:'0',overflow:'visible'}}><CheckOutlined /></span>
+                      인기순<span style={{width:'0',overflow:'visible'}}><CheckOutlined /></span>
                     </div>
                   </FilterWhiteBox>}
         </FilterBtnBoxMobile>
