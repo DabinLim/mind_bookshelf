@@ -32,7 +32,7 @@ const QuestionDetail = (props) => {
   const friends_answers = useSelector(
     (state) => state.moreview.friends_answers
   );
-  console.log(friends_answers);
+  // console.log(friends_answers);
   const user_info = useSelector((state) => state.user.user);
   const next = useSelector((state) => state.moreview.next);
   const like_next = useSelector((state) => state.moreview.like_next);

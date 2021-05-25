@@ -24,7 +24,6 @@ const MyBook = (props) => {
 
     let url = window.location.href.split('/');
     let id = url[url.length -1];
-    console.log(userId)
     const closeUpdateModal = () => {
         setUpdateModal(false);
       };
@@ -232,7 +231,7 @@ const ProfileContainer = styled.section`
     width: 100%;
     margin: auto;
     margin-top: 70px;
-    max-width:988px;
+    max-width:1100px;
     min-height:190px;
     display: flex;
     flex-direction: row;

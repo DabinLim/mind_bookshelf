@@ -548,7 +548,7 @@ const getTopicQuestion = (topic, type) => {
       axios
         .get(`/topic/${encodeURIComponent(topic)}?page=${page}`)
         .then((res) => {
-          console.log(res)
+          // console.log(res)
           dispatch(addTopic(res.data.result))
           if(res.data.result.length === 15){
             dispatch(editTopicNext(true));
@@ -565,7 +565,7 @@ const getTopicQuestion = (topic, type) => {
       axios
         .get(`/topic/like/${encodeURIComponent(topic)}?page=${page}`)
         .then((res) => {
-          console.log(res)
+          // console.log(res)
           dispatch(addTopicLike(res.data.result))
           if(res.data.result.length === 15){
             dispatch(editTopicLikeNext(true));
@@ -589,7 +589,7 @@ const getTopicLikeQuestion = (topic) => {
     axios
       .get(`/topic/like/${encodeURIComponent(topic)}?page=${page}`)
       .then((res) => {
-        console.log(res)
+        // console.log(res)
         dispatch(addTopicLike(res.data.result))
         if(res.data.result.length === 15){
           dispatch(editTopicLikeNext(true));
@@ -614,14 +614,14 @@ const getLikeList = (id) => {
 
 
     if(!next){
-      console.log('next is none');
+      // console.log('next is none');
       return
     }
     if(loading && page > 1){
-      console.log('안되지 요놈아')
+      // console.log('안되지 요놈아')
       return
     }
-    console.log(id, page)
+    // console.log(id, page)
 
     dispatch(setLikeLoading(true));
 
@@ -630,7 +630,7 @@ const getLikeList = (id) => {
       method:"GET",
     }
     axios(options).then(response => {
-      console.log(response.data)
+      // console.log(response.data)
       if(response.data.likeList.length < 10){
         dispatch(setLikeList(response.data.likeList));
         dispatch(setLikeNext(false));
