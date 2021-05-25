@@ -167,9 +167,6 @@ const CommunityBox = styled.div`
 `;
 
 const CommunityContainer = styled.div`
-background-image: url("https://user-images.githubusercontent.com/77369674/118811425-f73f2980-b8e7-11eb-919a-d4421378e117.png");
-    background-size: cover;
-    background-repeat: no-repeat;
   z-index: 2;
   width: 100%;
   height:100vh;
@@ -181,7 +178,6 @@ background-image: url("https://user-images.githubusercontent.com/77369674/118811
     z-index: 20;
   }
   @media (max-width:750px){
-    background-image: url("https://user-images.githubusercontent.com/67696504/118986623-7b61e180-b9ba-11eb-9719-f898c5c5b7a2.png");
     height:100%;
 }
 `;

@@ -29,8 +29,11 @@ const Profile = (props) => {
   const url = window.location.href.split('/');
   const id = url[url.length -1];
   const container = React.useRef();
+  const [profileImg, setProfileImg] = useState()
 
-
+  const ImgeError = () => {
+    setProfileImg('https://blog.kakaocdn.net/dn/cyOIpg/btqx7JTDRTq/1fs7MnKMK7nSbrM9QTIbE1/img.jpg')
+  }
 
   const closeFollowerModal = () => {
     setFollowerModal(false);
@@ -75,10 +78,10 @@ const Profile = (props) => {
               ) : null}
               <Background/>
               <MobileProfileImgContainer>
-                <ProfileImg src={other_info.profileImg} />
+                <ProfileImg onError={ImgeError}  src={profileImg? profileImg :other_info.profileImg} />
               </MobileProfileImgContainer>
               <ProfileImgContainer>
-                <ProfileImg src={other_info.profileImg} />
+                <ProfileImg onError={ImgeError} src={profileImg? profileImg :other_info.profileImg} />
               </ProfileImgContainer>
               <ProfileDetail>
                 <Head>
@@ -328,13 +331,13 @@ const Profile = (props) => {
                 }}
               >
                 <ProfileImg
-                  style={{ cursor: "pointer" }}
-                  src={user_info.profileImg}
+                  onError={ImgeError}
+                  src={profileImg? profileImg :user_info.profileImg}
                 />
                 <SettingIcon src="https://cdn3.iconfinder.com/data/icons/google-material-design-icons/48/ic_settings_48px-512.png" />
               </MobileProfileImgContainer>
               <ProfileImgContainer>
-                <ProfileImg src={user_info.profileImg}/>
+                <ProfileImg src={profileImg? profileImg :user_info.profileImg} onError={ImgeError}/>
               </ProfileImgContainer>
               <ProfileDetail>
                 <Head>

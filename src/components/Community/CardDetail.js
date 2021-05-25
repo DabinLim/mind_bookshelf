@@ -268,7 +268,8 @@ const Container = styled.section`
     margin-top: 50px;
     width:100%;
     height:84.5%;
-    overflow-y:auto;
+    overflow-y:scroll;
+    -webkit-overflow-scrolling: touch;
     border: 0.5px solid #D3D3D3;
     background-color: #ffffff;
     border-radius:16px 16px 0px 0px;
@@ -356,7 +357,6 @@ const Question = styled.div`
 
 const Answer = styled.div`
     width:100%;
-    overflow-y:auto;
     font: normal normal normal 13px/19px Noto Sans CJK KR;
     letter-spacing: 0px;
     color: #333333;
@@ -365,9 +365,9 @@ const Answer = styled.div`
 
 const AnswerInputBox = styled.div`
     width:100%;
+    height:auto;
     min-height:130px;
     max-height:130px;
-    overflow-y:auto;
     font: normal normal normal 13px/19px Noto Sans CJK KR;
     letter-spacing: 0px;
     color: #262626;

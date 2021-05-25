@@ -239,13 +239,9 @@ const TopicContainer = styled.div`
   justify-content: center;
   align-items: center;
   margin-top: 50px;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-image: url("https://user-images.githubusercontent.com/77369674/118811425-f73f2980-b8e7-11eb-919a-d4421378e117.png");
 
 
   @media (max-width: 500px) {
-    background-image: url("https://user-images.githubusercontent.com/67696504/118986623-7b61e180-b9ba-11eb-9719-f898c5c5b7a2.png");
     margin: 50px 0px 0px 0px;
 }
 `

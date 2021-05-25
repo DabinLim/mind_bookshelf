@@ -1,5 +1,8 @@
 import React from "react";
-
+import logoImages from "../static/images/logo.png"
+import NaverIcon from "../static/images/naver.png"
+import GoogleIcon from "../static/images/google.png"
+import KaKaoIcon from "../static/images/kakao.png"
 import styled from "styled-components";
 
 const LoginModal = (props) => {
@@ -7,7 +10,7 @@ const LoginModal = (props) => {
     <React.Fragment>
       <Background onClick={props.close} />
       <LoginBox>
-        <Logo src="https://user-images.githubusercontent.com/77574867/119253354-dc243080-bbeb-11eb-9a85-621dda409a76.png" />
+        <Logo src={logoImages} />
         <Header>로그인</Header>
         <MobileHeader>생각낙서</MobileHeader>
         <MobileBodyText>
@@ -19,14 +22,14 @@ const LoginModal = (props) => {
             style={{ background: "#FAE100", border:"none" }}
             href="http://lkj99.shop/auth/kakao"
           >
-            <ButtonIcon src="https://blog.kakaocdn.net/dn/RvGHm/btq0c3b6Thg/7CI0zUHJcapuNgqLP1K5xK/img.png" />
+            <ButtonIcon src={KaKaoIcon} />
             <ButtonText>카카오로 로그인</ButtonText>
           </Button>
           <Button
             style={{ background: "#FFFFFF", marginTop: "0" }}
             href="http://lkj99.shop/auth/naver"
           >
-            <ButtonIcon src="https://m.animalplanet.co.kr/assets/image/icon/icon_main_naver.png" />
+            <ButtonIcon src={NaverIcon} />
             <ButtonText>
               네이버로 로그인
             </ButtonText>
@@ -35,7 +38,7 @@ const LoginModal = (props) => {
             style={{ background: "#FFFFFF", marginTop: "0", marginBottom: "0" }}
             href="http://lkj99.shop/auth/google"
           >
-            <ButtonIcon src="https://www.freedomforuminstitute.org/wp-content/uploads/2016/10/google-icon.png" />
+            <ButtonIcon src={GoogleIcon} />
             <ButtonText>구글로 로그인</ButtonText>
           </Button>
         </ButtonContainer>

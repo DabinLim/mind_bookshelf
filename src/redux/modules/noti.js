@@ -4,6 +4,9 @@ import socketIOClient from "socket.io-client";
 import { logOut } from "./user";
 import { setLoading } from "./answer";
 import { history } from "../configStore";
+import useSound from 'use-sound';
+import boopSfx from "../../static/sounds/YOO.mp3";
+
 
 const notiSlice = createSlice({
   name: "noti",
@@ -57,12 +60,17 @@ const notiSlice = createSlice({
 
 export const socket = socketIOClient(`https://lkj99.shop/alarm`);
 
+// const [play] = useSound(boopSfx);
+
 const joinAlarmIO = () => {
   return function (dispatch) {
     const token = getCookie("is_login");
     socket.emit("joinAlarm", { token: token });
     socket.on("joinAlarm", function (data) {
       dispatch(setNoti(data));
+      if(data.checked){
+        useSound(boopSfx);
+      }
     });
   };
 };
