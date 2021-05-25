@@ -115,9 +115,6 @@ const CommentFrame = styled.div`
   width: 100%;
   padding: 10px 29px 5px 20px;
   margin-bottom: 5px;
-  :hover {
-    background: #fef2f4;
-  }
 `;
 
 const CommentProfileInfo = styled.div`
