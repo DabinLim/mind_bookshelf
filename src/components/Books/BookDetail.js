@@ -383,13 +383,13 @@ const Noti = styled.div`
 `;
 
 const Container = styled.section`
-    margin-top: 50px;
+    padding-top: 50px;
     width:100%;
     height:100%;
-    overflow-y:auto;
+    overflow:auto;
     border-radius:16px 16px 0px 0px;
     background-color: #ffffff;
-    padding-bottom:95px;
+    padding-bottom:50px;
     @media(min-height:850px){
         height:100%;
     }

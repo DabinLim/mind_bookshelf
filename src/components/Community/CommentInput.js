@@ -229,8 +229,7 @@ const Container = styled.div`
   justify-content:center;
   align-items:center;
   background-color:#ffffff;
-  border: 0.5px solid #D3D3D3;
-  border-radius:0px 0px 16px 16px;
+  border-top: 0.5px solid #D3D3D3;
   box-sizing:border-box;
   padding:18px 25px;
 `;
