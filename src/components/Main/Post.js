@@ -146,7 +146,7 @@ const Post = (props) => {
         <PostBox>
           {is_login === false ? (
             <>
-              <div style={{ marginTop: "100px" }}>
+              <div style={{ marginTop: "88px"  }}>
                 <pre>
                   <PreLoginText style={{ fontSize: "13px", fontFamily: "Noto Sans KR, sans-serif" }}>
                     당신이라면 어떻게 대답하시겠나요?
