@@ -5,6 +5,10 @@ import { config } from "../../shared/config";
 import { logOut } from "./user";
 import { setLoading } from "./answer";
 import { history } from "../configStore";
+import useSound from 'use-sound';
+import boopSfx from "./static/sounds/YOO.mp3";
+
+const [play] = useSound(boopSfx);
 
 const notiSlice = createSlice({
   name: "noti",
@@ -65,7 +69,7 @@ const joinAlarmIO = () => {
     socket.on("joinAlarm", function (data) {
       dispatch(setNoti(data));
       if(data.checked){
-        
+        play();
       }
     });
   };
