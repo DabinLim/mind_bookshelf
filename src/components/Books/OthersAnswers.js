@@ -294,7 +294,7 @@ const Container = styled.section`
   height: 100%;
   max-width: 1080px;
   max-height: 632px;
-  margin: 50px auto;
+  margin: 20px auto;
   border-radius: 20px;
   overflow: hidden;
   @media (max-width: 750px) {
