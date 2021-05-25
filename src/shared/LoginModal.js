@@ -52,7 +52,7 @@ const Background = styled.div`
   height: 100vh;
   width: 100vw;
   background-color: black;
-  z-index: 21;
+  z-index: 600;
 `;
 
 const LoginBox = styled.div`
@@ -62,7 +62,7 @@ const LoginBox = styled.div`
   width: 380px;
   transform: translate(-50%, -50%);
   background-color: #FFFFFF;
-  z-index: 30;
+  z-index: 610;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

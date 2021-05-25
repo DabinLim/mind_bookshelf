@@ -23,7 +23,7 @@ import { getCookie } from "./shared/Cookie";
 import QuestionDetail from "./components/Community/QuestionDetail";
 import CardDetail from './components/Community/CardDetail';
 import {BookDetail, MyAnswers, OthersAnswers, MyQuestion, OthersQuestion} from './components/Books/booksindex';
-
+import Boop from './components/Notification/Sound'
 import { socket, addNoti } from "./redux/modules/noti";
 import ComponentSlider from "./components/Main/ComponentSlider";
 import axios from "axios";
@@ -37,6 +37,7 @@ function App() {
   socket.on("AlarmEvent", function (data) {
     console.log(data);
     dispatch(addNoti(data));
+    Boop();
   });
 
   // 로그인이 되어있는지 확인하고 유저정보를 가져옵니다.

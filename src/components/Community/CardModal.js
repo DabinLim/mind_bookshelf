@@ -578,7 +578,12 @@ const CardModal = (props) => {
               </CardWriterInfoLeft>
               {/* 카드 질문 내용 */}
               <CardQuestionContent>
-              <HashTag style={{color: color, border: `1px solid ${color}`}}><span>#{topic}</span></HashTag>
+              <HashTag 
+                style={{color: color, border: `1px solid ${color}`}}
+                onClick={()=>{history.push(`/topic/${topic}`)}}
+              >
+                <span>#{topic}</span>
+              </HashTag>
               <span style={{display: "flex", alignItems: "center"}}>
                 {answerInfo?.questionContents}
               </span>

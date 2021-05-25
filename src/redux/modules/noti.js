@@ -64,6 +64,9 @@ const joinAlarmIO = () => {
     socket.emit("joinAlarm", { token: token });
     socket.on("joinAlarm", function (data) {
       dispatch(setNoti(data));
+      if(data.checked){
+        
+      }
     });
   };
 };

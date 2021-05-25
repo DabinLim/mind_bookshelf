@@ -17,31 +17,16 @@ const Comment = (props) => {
   const answerInfo = useSelector((state) => state.community.card_detail);
   const currentLocation = useSelector(state => state.router.location.pathname);
   const [deleteCommentModal, setDeleteComment] = useState(false);
-
-
-
-  const deleteComment = () => {
-    if (!is_login) {
-        swal({
-          title: "좋아요 누르기 실패",
-          text: "로그인 후 이용 가능한 서비스입니다.",
-          icon: "error",
-        });
-        return;
-      }
-    dispatch(
-      commentActions.deleteCommentAX(
-        props.commentId,
-        answerInfo?.questionId,
-        answerInfo?.answerId
-      )
-    );
-    if (currentLocation === "/friends") {
-      dispatch(editFriendCommentInfo({_id: answerInfo?.answerId, decision: "unadd"}))
-    }
-  };
   
   const addLike = () => {
+    if (!is_login) {
+      swal({
+        title: "좋아요 누르기 실패",
+        text: "로그인 후 이용 가능한 서비스입니다.",
+        icon: "error",
+      });
+      return;
+    }
     dispatch(commentActions.addCommentLike(props.commentId));
   }
 
