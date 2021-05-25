@@ -353,7 +353,7 @@ const DateIndicator = styled.div`
   letter-spacing: 0px;
   color: #262626;
   opacity: 1;
-  margin-top: 50px;
+  margin-top: 30px;
 
   @media (max-width: 500px) {
     display: flex;
@@ -423,7 +423,7 @@ const SlideBox = styled.div`
   display: flex;
   position: relative;
   flex-direction: column;
-  margin: 120px 100px 0px 100px;
+  margin: 60px 100px 0px 100px;
   @media (max-width: 500px) {
     margin: 0;
     width: 100%;

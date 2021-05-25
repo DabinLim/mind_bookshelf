@@ -64,7 +64,7 @@ const CommunityQnA = (props) => {
               history.push(`/community/${props.id}`);
             }}
           >{props.contents}</Question>
-          {props.answers?.length >= 4 ? (
+          {/* {props.answers?.length >= 4 ? ( */}
             <DetailBtn
               onClick={() => {
                 history.push(`/community/${props.id}`);
@@ -72,7 +72,7 @@ const CommunityQnA = (props) => {
             >
               더보기
             </DetailBtn>
-          ) : null}
+          {/* ) : null} */}
         </QuestionBox>
         <AnswerContainer>
           {props.answers.map((a) => {
@@ -157,9 +157,9 @@ const QuestionBox = styled.div`
 const Question = styled.div`
   cursor:pointer;
   font: normal normal bold 30px Nanum Myeongjo;
-  width: 500px;
+  width: 70%;
   @media (max-width: 750px) {
-    width: 270px;
+    width: 80%;
     font: normal normal bold 19px Nanum Myeongjo;
   }
 `;
@@ -168,9 +168,11 @@ const DetailBtn = styled.div`
   padding-top: 5px;
   cursor: pointer;
   font: normal normal normal 14px Noto Sans CJK KR;
-
   :hover {
     font-weight: bold;
+  }
+  @media (min-width: 750px) {
+    display: none;
   }
 `;
 

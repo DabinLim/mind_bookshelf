@@ -808,10 +808,6 @@ const TextBtn = styled.div`
   } ;
 `;
 
-const IconImg = styled.img`
-
-
-`
 
 const Icon = styled.div`
   position: relative;

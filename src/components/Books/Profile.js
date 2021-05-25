@@ -696,7 +696,7 @@ const Bottom = styled.div`
   display: flex;
   width: 100%;
   justify-content: space-between;
-  margin-top: 15px;
+  margin-top: 5px;
   font-family: Noto Sans CJK KR, sans-serif;
   @media (max-width: 750px) {
     margin-top: 0px;
@@ -724,7 +724,7 @@ const CountText = styled.span`
 
 const CountText2 = styled.div`
   display: inline-block;
-  font: normal normal 100 27px/39px Noto Sans CJK KR;
+  font: normal normal normal 27px/39px Noto Sans CJK KR;
   margin-left: 7px;
   line-height: 28px;
   height: 29px;
@@ -748,6 +748,7 @@ display: flex;
 const Introduce = styled.div`
 font: normal normal normal 12px/17px Noto Sans CJK KR;
   text-align:center;
+  margin: auto 0;
   @media (max-width: 750px) {
     font: normal normal normal 12px/18px Noto Sans CJK KR;
     margin-top: 5px;

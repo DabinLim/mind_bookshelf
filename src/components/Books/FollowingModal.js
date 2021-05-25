@@ -17,6 +17,11 @@ const FollowingModal = (props) => {
   const is_loading = useSelector((state) => state.user.follow_loading);
   const myId = useSelector((state) => state.user.user.id)
   const is_login = useSelector((state) => state.user.is_login);
+  const [profileImg, setProfileImg] = useState()
+
+  const ImgeError = () => {
+    setProfileImg('https://blog.kakaocdn.net/dn/cyOIpg/btqx7JTDRTq/1fs7MnKMK7nSbrM9QTIbE1/img.jpg')
+  }
 
   const clickOther = (id) => {
     history.push(`/others/${id}`);
@@ -69,7 +74,7 @@ const FollowingModal = (props) => {
                 return (
                   <Body>
                     <UserInfoContainer key={idx} onClick={() => clickOther(f.userId)}>
-                      <ProfileImage src={f.profileImg} />
+                      <ProfileImage  onError={ImgeError} src={profileImg? profileImg :f.profileImg} />
                       <Username>{f.nickname}</Username>
                     </UserInfoContainer>
                     {myId === f.userId || !is_login ? 
