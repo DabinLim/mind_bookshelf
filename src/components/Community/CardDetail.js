@@ -90,8 +90,7 @@ const CardDetail = (props) => {
     return(
         <React.Fragment>
       <Notification>
-        <NotiContent>모바일 전용 페이지 입니다. 웹 전용 페이지 버튼을 클릭해주세요.</NotiContent>
-        <GotoWeb onClick={gotoWeb}>웹 전용 페이지</GotoWeb>
+        <NotiContent>모바일 전용 페이지 입니다. 뒤로가기 버튼을 눌러주세요.</NotiContent>
       </Notification>
             <Container>
                 <Head>
