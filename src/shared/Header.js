@@ -17,6 +17,8 @@ import { About } from "./sharedindex";
 import { CloseOutlined } from "@ant-design/icons";
 import NotificationsNoneOutlinedIcon from "@material-ui/icons/NotificationsNoneOutlined";
 import "../static/Card.css";
+import logoImages from "../static/images/logo.png"
+import headerLogo from "../static/images/headerLogo.png"
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -122,7 +124,7 @@ const Header = () => {
                 onClick={() => {
                   history.push("/");
                 }}
-                src='https://user-images.githubusercontent.com/77574867/119253354-dc243080-bbeb-11eb-9a85-621dda409a76.png'/>
+                src={headerLogo}/>
               <MenuUl>
                 <MenuLi
                   onClick={() => {
@@ -241,7 +243,7 @@ const Header = () => {
                 <MenuIcon />
               </MobileIcon>
               <LogoBox>
-              <LogoImg src='https://user-images.githubusercontent.com/77574867/119253354-dc243080-bbeb-11eb-9a85-621dda409a76.png'
+              <LogoImg src={headerLogo}
                 onClick={() => {
                   history.push("/");
                 }}
@@ -403,7 +405,7 @@ const Header = () => {
               onClick={() => {
                 history.push("/");
               }}
-              src='https://user-images.githubusercontent.com/77574867/119253354-dc243080-bbeb-11eb-9a85-621dda409a76.png'/>
+              src={headerLogo}/>
             <MenuUl>
               <MenuLi
                 onClick={() => {
@@ -526,7 +528,7 @@ const Header = () => {
                 onClick={() => {
                   history.push("/");
                 }}
-                src='https://user-images.githubusercontent.com/77574867/119253354-dc243080-bbeb-11eb-9a85-621dda409a76.png'/>
+                src={headerLogo}/>
               <Logo
                 onClick={() => {
                   history.push("/");
@@ -745,6 +747,7 @@ const LogoImgMobile = styled.img`
   height:40px;
   margin-bottom:20px;
   margin-left:16px;
+  image-rendering: -webkit-optimize-contrast;
 `;
 
 const LogoBox = styled.div`
@@ -756,9 +759,10 @@ const LogoBox = styled.div`
 
 const LogoImg = styled.img`
   cursor:pointer;
-  width: 24px;
-  height:24px;
-  margin-right: 8px;
+  width: 40px;
+  height:40px;
+  margin-right: 10px;
+  image-rendering: -webkit-optimize-contrast;
   @media(max-width:750px){
     display:none;
   }
@@ -766,7 +770,7 @@ const LogoImg = styled.img`
 
 const Logo = styled.div`
   margin-right: 140px;
-  font: normal normal medium 15px/22px Noto Sans CJK KR;
+  font: normal normal normal 17px Noto Sans CJK KR;
   transition: 0.5s;
   cursor: pointer;
   @media (max-width: 900px) {
