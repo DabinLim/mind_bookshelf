@@ -416,7 +416,7 @@ const getOthersPopAnswers = (id) => {
         dispatch(setPopLoading(true))
 
         const options = {
-            url:`/bookshelf/other/answers/${id}?page=${page}`,
+            url:`/bookshelf/other/answers/${id}/like?page=${page}`,
             method:"GET"
         };
         axios(options).then(response => {
