@@ -770,7 +770,7 @@ const LogoImg = styled.img`
 
 const Logo = styled.div`
   margin-right: 140px;
-  font: normal normal normal 18px Noto Sans CJK KR;
+  font: normal normal normal 17px Noto Sans CJK KR;
   transition: 0.5s;
   cursor: pointer;
   @media (max-width: 900px) {
