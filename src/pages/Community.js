@@ -68,7 +68,6 @@ const Community = () => {
       <CommunityContainer>
         {is_loading ? (
           <div style={{ marginTop: "250px" }}>
-            {/* <LoadImage src="https://user-images.githubusercontent.com/67696504/118778023-a964fa00-b8c4-11eb-833b-571bae2f476f.png" /> */}
             <Loader type="Oval" color="#000000" height={100} width={100} />
           </div>
         ) : (
@@ -92,7 +91,6 @@ justify-content: center;
 font-weight: bold;
 align-items: center;
 right: 26px;
-// right: 34px;
 bottom: 100px;
 width: 63px;
 height: 63px;
@@ -113,12 +111,10 @@ box-shadow: 0px 0px 20px #0000001a;
 const CommunityBtn = styled.div`
   position: fixed;
   display: flex;
-  // justify-content: center;
   padding-left: 20px;
   font-family: Noto Sans CJK KR;
   font-weight: bold;
   align-items: center;
-  // right: 26px;
   right: 34px;
   bottom: 102px;
   width: 140px;
@@ -134,7 +130,6 @@ const CommunityBtn = styled.div`
 `;
 
 const CommunityBox = styled.div`
-  // height: 100vh;
   margin: 50px 0px 0px 0px;
   width: 100%;
   max-width: 1200px;
@@ -168,7 +163,6 @@ const CommunityBox = styled.div`
   }
   @media (max-width: 750px) {
     margin: 70px 0px 0px 0px;
-    // padding: 20px 20px;
   }
 `;
 
@@ -180,7 +174,6 @@ const CommunityContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  // overflow-y: auto;
   @media (max-width: 900px) {
     z-index: 20;
   }
@@ -188,12 +181,5 @@ const CommunityContainer = styled.div`
     height:100%;
 }
 `;
-
-const LoadImage = styled.img`
-  width: 200px;
-  height: 200px;
-
-
-`
 
 export default Community;

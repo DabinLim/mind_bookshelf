@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { getCookie } from "../../shared/Cookie";
 import socketIOClient from "socket.io-client";
-import { config } from "../../shared/config";
 import { logOut } from "./user";
 import { setLoading } from "./answer";
 import { history } from "../configStore";
@@ -61,17 +60,12 @@ const notiSlice = createSlice({
 
 export const socket = socketIOClient(`https://lkj99.shop/alarm`);
 
-// const [play] = useSound(boopSfx);
-
 const joinAlarmIO = () => {
   return function (dispatch) {
     const token = getCookie("is_login");
     socket.emit("joinAlarm", { token: token });
     socket.on("joinAlarm", function (data) {
       dispatch(setNoti(data));
-      if(data.checked){
-        useSound(boopSfx);
-      }
     });
   };
 };

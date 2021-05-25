@@ -385,11 +385,6 @@ const Card = styled.div`
   }
 `;
 
-
-const AnswerCount = styled.span`
-  font-size: 11px;
-`;
-
 const AnswerCountMobile = styled.span`
   font: normal normal normal 11px/16px Noto Sans CJK KR;
   letter-spacing: 0px;

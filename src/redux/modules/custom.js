@@ -19,10 +19,6 @@ const customSlice = createSlice({
         pop_next: true,
         pop_loading: true,
         custom_count:0,
-        // my_answers:[],
-        // answer_page: 1,
-        // answer_next:true,
-        // answer_count:0,
     },
     reducers: {
         setView: (state, action) => {
@@ -30,7 +26,6 @@ const customSlice = createSlice({
         },
         setPage: (state, action) => {
             state.page = action.payload;
-            // state.book_loading = false;
         },
         setNext: (state, action) => {
             state.next = action.payload;
@@ -57,34 +52,6 @@ const customSlice = createSlice({
         setPopLoading: (state, action) => {
             state.pop_loading = action.payload;
         },
-        // setAnswerPage: (state, action) => {
-        //     state.answer_page = action.payload;
-        // },
-        // setAnswerNext: (state, action) => {
-        //     state.answer_next = action.payload;
-        // },
-        // setAnswerList: (state,action) => {
-        //     action.payload.forEach(v => {
-        //         state.answer_list.push(v);
-        //     });
-        // },
-        // setAnswerLoading: (state, action) => {
-        //     state.answer_loading = action.payload;
-        // },
-        // setAnswerPopPage: (state, action) => {
-        //     state.answer_pop_page = action.payload;
-        // },
-        // setAnswerPopNext: (state, action) => {
-        //     state.answer_pop_next = action.payload;
-        // },
-        // setAnswerPopList: (state,action) => {
-        //     action.payload.forEach(v => {
-        //         state.answer_pop_list.push(v);
-        //     });
-        // },
-        // setAnswerPopLoading: (state, action) => {
-        //     state.answer_pop_loading = action.payload;
-        // },
         setCustomCount: (state, action) => {
             state.custom_count = action.payload;
         },
@@ -110,7 +77,6 @@ const customSlice = createSlice({
             let pop_index = state.pop_list.findIndex(
               (a) => a.answerId === action.payload
             );
-
       
               if (index !== -1){
                 state.custom_question[index].currentLike = true
@@ -213,14 +179,12 @@ const getMyPopQuest = () => {
         axios(options).then(response => {
             if(response.data.result.length < 15){
                 dispatch(setPopList(response.data.result));
-                // dispatch(setCustomCount(response.data.myQuestionCount));
                 dispatch(setPopNext(false));
                 dispatch(setPopLoading(false));
                 return
             }
 
             dispatch(setPopList(response.data.result));
-            // dispatch(setCustomCount(response.data.myQuestionCount));
             dispatch(setPopPage(page+1));
             dispatch(setPopLoading(false));
         }).catch(err => {
@@ -297,13 +261,11 @@ const getOthersPopQuest = (id) => {
         axios(options).then(response => {
             if(response.data.result.length < 15){
                 dispatch(setPopList(response.data.result))
-                // dispatch(setCustomCount(response.data.otherQuestionCount));
                 dispatch(setPopNext(false));
                 dispatch(setPopLoading(false));
                 return
             }
             dispatch(setPopList(response.data.result))
-            // dispatch(setCustomCount(response.data.otherQuestionCount));
             dispatch(setPopPage(page+1))
             dispatch(setPopLoading(false));
 
@@ -380,14 +342,12 @@ const getMyPopAnswers = () => {
         axios(options).then(response => {
             if(response.data.allMyAnswer.length < 15){
                 dispatch(setPopList(response.data.allMyAnswer));
-                // dispatch(setCustomCount(response.data.myQuestionCount));
                 dispatch(setPopNext(false));
                 dispatch(setPopLoading(false));
                 return
             }
 
             dispatch(setPopList(response.data.allMyAnswer));
-            // dispatch(setCustomCount(response.data.myQuestionCount));
             dispatch(setPopPage(page+1));
             dispatch(setPopLoading(false));
         }).catch(err => {
@@ -422,13 +382,11 @@ const getOthersAnswers = (id) => {
         axios(options).then(response => {
             if(response.data.allMyAnswer.length < 15){
                 dispatch(setCustomQuestion(response.data.allMyAnswer))
-                // dispatch(setCustomCount(response.data.otherQuestionCount));
                 dispatch(setNext(false));
                 dispatch(setLoading(false));
                 return
             }
             dispatch(setCustomQuestion(response.data.allMyAnswer))
-            // dispatch(setCustomCount(response.data.otherQuestionCount));
             dispatch(setPage(page+1))
             dispatch(setLoading(false));
 
@@ -465,13 +423,11 @@ const getOthersPopAnswers = (id) => {
             console.log(response.data);
             if(response.data.allMyAnswer.length < 15){
                 dispatch(setPopList(response.data.allMyAnswer))
-                // dispatch(setCustomCount(response.data.otherQuestionCount));
                 dispatch(setPopNext(false));
                 dispatch(setPopLoading(false));
                 return
             }
             dispatch(setPopList(response.data.allMyAnswer))
-            // dispatch(setCustomCount(response.data.otherQuestionCount));
             dispatch(setPopPage(page+1))
             dispatch(setPopLoading(false));
 
@@ -484,8 +440,6 @@ const getOthersPopAnswers = (id) => {
         })
     }
 }
-
-
 
 export const {
     setPage,

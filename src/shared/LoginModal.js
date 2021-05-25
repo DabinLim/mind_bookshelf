@@ -71,7 +71,6 @@ const LoginBox = styled.div`
   justify-content: space-between;
   align-items: center;
   @media (max-width: 500px) {
-    // height: 256px;
     width: 280px;
   } ;
 `;

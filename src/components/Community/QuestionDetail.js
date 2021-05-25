@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import AnswerCard from "../../shared/AnswerCard3";
-// import {response} from '../redux/Mock/Answers';
 import { useDispatch, useSelector } from "react-redux";
 import {
   api as moreviewActions,
@@ -9,7 +8,6 @@ import {
   setView,
 } from "../../redux/modules/moreview";
 import InfinityScroll from "../../shared/InfinityScroll";
-import { getCookie } from "../../shared/Cookie";
 import swal from "sweetalert";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 import CardModal from "./CardModal";
@@ -32,7 +30,6 @@ const QuestionDetail = (props) => {
   const friends_answers = useSelector(
     (state) => state.moreview.friends_answers
   );
-  // console.log(friends_answers);
   const user_info = useSelector((state) => state.user.user);
   const next = useSelector((state) => state.moreview.next);
   const like_next = useSelector((state) => state.moreview.like_next);
@@ -504,7 +501,6 @@ const ContainerUpperLeft = styled.div`
 const QuestionTitle = styled.h2`
   font: normal normal 800 26px/38px NanumMyeongjo;
   letter-spacing: 0px;
-  // width: 60%;
   margin: 18px 0 0 0;
   @media (max-width: 500px) {
     text-align: left;

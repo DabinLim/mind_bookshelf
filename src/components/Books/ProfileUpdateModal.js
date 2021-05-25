@@ -696,7 +696,6 @@ const TypeLabel = styled.div`
 const TypeContainer = styled.div`
   display: flex;
   flex-direction: column;
-  // align-items: center;
 `;
 
 const CheckedLabel = styled.div`
@@ -708,26 +707,7 @@ const CheckedLabel = styled.div`
   border-radius: 20px;
   box-sizing: border-box;
 `;
-const UpdateButton = styled.div`
-  font-size: 15px;
-  cursor: pointer;
-  text-align: center;
-  border: 1px solid #707070;
-  border-radius: 45px;
-  padding: 5px 0;
-  width: 73px;
-  margin: auto;
-  display: none;
-  &:hover {
-    border: 1px solid #303685;
-    background: #303685;
-    color: white;
-    font-weight: 600;
-  };
-  @media (max-width: 500px) {
-    display: none;
-  }
-`;
+
 const BottomContainer = styled.div`
   width: 100%;
   display: flex;

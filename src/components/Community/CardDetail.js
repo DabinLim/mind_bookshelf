@@ -22,14 +22,11 @@ const CardDetail = (props) => {
     const dispatch = useDispatch();
     const url = window.location.href.split('/');
     const id = url[url.length -1];
-    const is_answer = url[url.length-2];
     const user_info = useSelector((state) => state.user.user);
     const comment_list = useSelector(state => state.comment.list);
     const answerInfo = useSelector(state => state.community.card_detail);
-    const is_login = useSelector(state => state.user.is_login);
     const like_list = useSelector(state => state.community.like_list);
     const [likeModal, setLikeModal] = React.useState(false);
-    // const friend_list = useSelector(state => state.user.friends);
     const [updateAnswer, setUpdateAnswer] = React.useState(false);
     const [updateModal, setUpdateModal] = React.useState(false);
     const [cancelModal, setCancelModal] = React.useState(false);
@@ -271,8 +268,7 @@ const Container = styled.section`
     margin-top: 50px;
     width:100%;
     height:84.5%;
-    overflow-y:scroll;
-    -webkit-overflow-scrolling: touch;
+    overflow-y:auto;
     border: 0.5px solid #D3D3D3;
     background-color: #ffffff;
     border-radius:16px 16px 0px 0px;

@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React from 'react'
 import {useSelector} from 'react-redux'
 import styled from 'styled-components'
 
@@ -8,7 +8,6 @@ const CardUpdateModal = (props) => {
 
   return(
     <React.Fragment>
-        {/* <Background onClick={()=>{props.setUpdateModal(false)}} /> */}
         <UpdateComponent detail={props.detail}>
           <ModalButtonContainer>
               <ModalSubmitBtn onClick={() =>{
@@ -34,21 +33,6 @@ const CardUpdateModal = (props) => {
       </React.Fragment>
   )
 }
-
-const Background = styled.div`
-  position: fixed;
-  top: 0;
-  left:0;
-  opacity: 0.4;
-  height: 100%;
-  width: 100%;
-  background-color: black;
-  z-index: 450;
-  @media (max-width: 750px) {
-    border-radius: 20px;
-    }
-  // display: none;
-`
 
 const UpdateComponent = styled.div`
   position: absolute;

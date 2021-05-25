@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch} from "react-redux";
 import { LockOutlined } from "@ant-design/icons";
 
 const HideModal = (props) => {
-  const dispatch = useDispatch();
 
   return (
     <React.Fragment>

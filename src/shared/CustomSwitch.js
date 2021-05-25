@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
-import { MinusCircleOutlined, LockFilled } from "@ant-design/icons";
 
 const CustomSwitch = (props) => {
   const onClick = props.onClick;

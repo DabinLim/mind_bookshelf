@@ -43,21 +43,17 @@ const userSlice = createSlice({
     setUser: (state, action) => {
       state.user = action.payload;
       state.is_login = true;
-      // state.is_userLoading = false;
     },
     editUser: (state, action) => {
       state.user = { ...state.user, ...action.payload };
     },
     logOut: (state) => {
       deleteCookie("is_login");
-      // state.user = null;
       state.user.nickname = "";
       state.is_login = false;
-      // window.location.reload();
     },
     setOther: (state, action) => {
       state.other = action.payload;
-      // state.is_userLoading = false;
     },
     setFriend: (state, action) => {
       state.friends = action.payload;
@@ -156,15 +152,6 @@ const getFollowing = (userId) => {
     const loading = getState().user.following_loading;
     const following = getState().user.following;
 
-
-    // if(!next){
-    //   console.log('next is none');
-    //   return
-    // }
-    // if(loading){
-    //   console.log('안되지 요놈아')
-    //   return
-    // }
     dispatch(setFollowingLoading(true))
 
     if(following.length !== 0){
@@ -205,18 +192,7 @@ const getFollowing = (userId) => {
 
 const getFollower = (userId) => {
   return function(dispatch, getState) {
-    const next = getState().user.follower_next;
-    const loading = getState().user.follower_loading;
     const follower = getState().user.follower;
-
-    // if(!next){
-    //   console.log('next is none');
-    //   return
-    // }
-    // if(loading){
-    //   console.log('안되지 요놈아')
-    //   return
-    // }
 
     dispatch(setFollowerLoading(true))
     if(follower.length !== 0){
@@ -371,7 +347,6 @@ const othersInfoAX = (id) => {
     axios
       .get(`/bookshelf/auth/user/${id}`)
       .then((res) => {
-        // console.log(res)
         dispatch(
           setOther({
             otherAnswerCount: res.data.otherAnswerCount,
@@ -440,7 +415,6 @@ const unfollowOtherAX = (id, type) => {
 
 const myFollowListAX = () => {
   return function (dispatch) {
-    // dispatch(friendLoading(true))
     axios.get(`/bookshelf/friendList`).then((res) => {
       let friend_list = [];
       res.data.friends.forEach((_friend) => {

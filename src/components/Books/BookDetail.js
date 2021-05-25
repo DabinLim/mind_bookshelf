@@ -30,7 +30,6 @@ const BookDetail = (props) => {
     const user_info = useSelector((state) => state.user.user);
     const comment_list = useSelector(state => state.comment.list);
     const answerInfo = useSelector(state => state.community.card_detail);
-    const is_login = useSelector(state => state.user.is_login);
     const thisMonthBooks = useSelector((state) => state.books.books);
     const nowdate = useSelector((state) => state.books.date);
     const card_loading = useSelector((state) => state.community.card_loading);
@@ -88,7 +87,6 @@ const BookDetail = (props) => {
         if (is_my === "bookdetail") {
           dispatch(resetAll())
           dispatch(booksActions.getNextDetail(thisMonthBooks[nowBook + 1]._id));
-          // history.push(`/bookdetail/${thisMonthBooks[nowBook + 1]._id}/${id}`)
         } else {
             const user_id = url[url.length-2];
             dispatch(resetAll())
@@ -98,7 +96,6 @@ const BookDetail = (props) => {
               user_id
             )
           );
-          // history.push(`/othersdetail/${thisMonthBooks[nowBook + 1]._id}/${user_id}/${id}`)
         }
       };
     
@@ -119,7 +116,6 @@ const BookDetail = (props) => {
           // 이 부분 전날로 돌아가서 첫번째 답변 띄우려고 getNext 호출입니다.
           // 혹시 수정 하실 일 있으시면 참고해 주세요.
           dispatch(booksActions.getNextDetail(thisMonthBooks[nowBook - 1]._id));
-          // history.push(`/bookdetail/${thisMonthBooks[nowBook - 1]._id}/${id}`)
         } else {
             const user_id = url[url.length-2];
             dispatch(resetAll())
@@ -129,7 +125,6 @@ const BookDetail = (props) => {
               user_id
             )
           );
-          // history.push(`/othersdetail/${thisMonthBooks[nowBook - 1]._id}/${user_id}/${id}`)
         }
       };
     
@@ -391,8 +386,7 @@ const Container = styled.section`
     margin-top: 50px;
     width:100%;
     height:84.5%;
-    overflow-y:scroll;
-    -webkit-overflow-scrolling: touch;
+    overflow-y:auto;
     border: 0.5px solid #D3D3D3;
     border-radius:16px 16px 0px 0px;
     background-color: #ffffff;

@@ -65,7 +65,6 @@ const WithdrawalContainer = styled.div`
   top: 50%;
   left: 50%;
   width: 280px;
-  // height: 250px;
   transform: translate(-50%, -50%);
   background: #FFFFFF;
   z-index: 360;
@@ -84,7 +83,6 @@ const InputContainer = styled.div`
 display:flex;
 flex-direction: column;
 align-items: center;
-// margin:auto;
 margin-bottom: 15px;
 `
 
@@ -124,7 +122,6 @@ align-items: center;
 justify-content: center;
 font: normal normal normal 14px/20px Noto Sans CJK KR;
 cursor: pointer;
-
 `
 
 export default WithdrawalModal

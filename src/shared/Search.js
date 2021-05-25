@@ -172,13 +172,11 @@ const Background = styled.div`
   width: 100vw;
   background-color: transparent;
   z-index: 20;
-  /* pointer-events: none; */
 `
 
 const UserText = styled.div`
   margin: auto;
   margin-top: 30px;
-  // font-weight: 600;
   font-size: 14px;
 `
 
