@@ -118,7 +118,7 @@ const Header = () => {
                   setMenuOpen(false);
                 }}
               >
-                <CloseOutlined />
+                <CloseOutlined style={{fontSize:"20px"}} />
               </MenuCloseBtn>
               <LogoImgMobile 
                 onClick={() => {
@@ -141,7 +141,7 @@ const Header = () => {
                       color: "#909090",
                     }}
                   >
-                    오늘 받은 질문 확인, 답변
+                    오늘 받은 질문 확인과 답변
                   </p>
                 </MenuLi>
                 <MenuLi
@@ -165,7 +165,7 @@ const Header = () => {
                       color: "#909090",
                     }}
                   >
-                    나의 모든 질문과 답변 한눈에 확인
+                    나의 모든 기록 확인
                   </p>
                 </MenuLi>
                 <MenuLi
@@ -189,7 +189,7 @@ const Header = () => {
                     color: "#909090",
                   }}
                 >
-                  팔로우한 친구들의 생각 모아보기
+                  나의 팔로잉 기록 확인
                 </p>
               </MenuLi>
               <MenuLi
@@ -209,7 +209,7 @@ const Header = () => {
                     color: "#909090",
                   }}
                 >
-                  랜덤으로 다양한 질문과 답변 즐기기
+                  다양한 사람의 기록 확인
                 </p>
                 </MenuLi>
                 <MenuText
@@ -399,7 +399,7 @@ const Header = () => {
                 setMenuOpen(false);
               }}
             >
-              <CloseOutlined />
+              <CloseOutlined style={{fontSize:"20px"}} />
             </MenuCloseBtn>
             <LogoImgMobile 
               onClick={() => {
@@ -422,7 +422,7 @@ const Header = () => {
                     color: "#909090",
                   }}
                 >
-                  오늘 받은 질문 확인, 답변
+                  오늘 받은 질문 확인과 답변
                 </p>
               </MenuLi>
               <MenuLi
@@ -446,7 +446,7 @@ const Header = () => {
                     color: "#909090",
                   }}
                 >
-                  나의 모든 질문과 답변 한눈에 확인
+                  나의 모든 기록 확인
                 </p>
               </MenuLi>
               <MenuLi
@@ -470,7 +470,7 @@ const Header = () => {
                     color: "#909090",
                   }}
                 >
-                  팔로우한 친구들의 생각 모아보기
+                  나의 팔로잉 기록 확인
                 </p>
               </MenuLi>
               <MenuLi
@@ -490,7 +490,7 @@ const Header = () => {
                     color: "#909090",
                   }}
                 >
-                  랜덤으로 다양한 질문과 답변 즐기기
+                  다양한 사람의 기록 확인
                 </p>
               </MenuLi>
               <MenuText
