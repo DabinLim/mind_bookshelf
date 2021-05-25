@@ -385,11 +385,11 @@ const Noti = styled.div`
 const Container = styled.section`
     margin-top: 50px;
     width:100%;
-    height:84.5%;
+    height:100%;
     overflow-y:auto;
-    border: 0.5px solid #D3D3D3;
     border-radius:16px 16px 0px 0px;
     background-color: #ffffff;
+    padding-bottom:95px;
     @media(min-height:850px){
         height:100%;
     }
