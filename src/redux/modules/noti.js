@@ -60,17 +60,12 @@ const notiSlice = createSlice({
 
 export const socket = socketIOClient(`https://lkj99.shop/alarm`);
 
-// const [play] = useSound(boopSfx);
-
 const joinAlarmIO = () => {
   return function (dispatch) {
     const token = getCookie("is_login");
     socket.emit("joinAlarm", { token: token });
     socket.on("joinAlarm", function (data) {
       dispatch(setNoti(data));
-      if(data.checked){
-        useSound(boopSfx);
-      }
     });
   };
 };
