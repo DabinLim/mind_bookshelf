@@ -477,7 +477,6 @@ const Question = styled.div`
 
 const Answer = styled.div`
     width:100%;
-    overflow-y:auto;
     font: normal normal normal 13px/19px Noto Sans CJK KR;
     letter-spacing: 0px;
     color: #262626;
@@ -487,9 +486,9 @@ const Answer = styled.div`
 
 const AnswerInputBox = styled.div`
     width:100%;
+    height:auto;
     min-height:130px;
     max-height:130px;
-    overflow-y:auto;
     font: normal normal normal 13px/19px Noto Sans CJK KR;
     letter-spacing: 0px;
     color: #262626;
