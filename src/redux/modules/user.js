@@ -315,12 +315,13 @@ const UpdateProfileAX = (profile) => {
             }
           })
           .catch((err) => {
-            console.log(err);
-            swal({
-              title: "중복된 닉네임입니다. 다른 닉네임을 사용해주세요.",
-              text: `${profile.nickname}은 중복된 닉네임입니다.`,
-              icon: "error",
-            });
+            if(err.response.data.msg === "unavailable_nickname"){
+              swal({
+                title: "중복된 닉네임입니다. 다른 닉네임을 사용해주세요.",
+                text: `${profile.nickname}은 중복된 닉네임입니다.`,
+                icon: "error",
+              });
+            }
           });
       } else {
         const formData = new FormData();
@@ -342,12 +343,13 @@ const UpdateProfileAX = (profile) => {
             };
           })
           .catch((err) => {
-            console.log(err);
-            swal({
-              title: "중복된 닉네임입니다. 다른 닉네임을 사용해주세요.",
-              text: `${profile.nickname}은 중복된 닉네임입니다.`,
-              icon: "error",
-            });
+            if(err.response.data.msg === "unavailable_nickname"){
+              swal({
+                title: "중복된 닉네임입니다. 다른 닉네임을 사용해주세요.",
+                text: `${profile.nickname}은 중복된 닉네임입니다.`,
+                icon: "error",
+              });
+            }
           });
       }
     } else {
@@ -369,12 +371,13 @@ const UpdateProfileAX = (profile) => {
           }
         })
         .catch((err) => {
-          console.log(err);
-          swal({
-            title: "중복된 닉네임입니다. 다른 닉네임을 사용해주세요.",
-            text: `${profile.nickname}은 중복된 닉네임입니다.`,
-            icon: "error",
-          });
+          if(err.response.data.msg === "unavailable_nickname"){
+            swal({
+              title: "중복된 닉네임입니다. 다른 닉네임을 사용해주세요.",
+              text: `${profile.nickname}은 중복된 닉네임입니다.`,
+              icon: "error",
+            });
+          }
         });
     }
   };
