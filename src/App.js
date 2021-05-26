@@ -36,16 +36,15 @@ function App() {
   const dispatch = useDispatch();
   const cookie = getCookie("is_login") ? true : false;
   const is_sound = useSelector((state) => state.noti.is_sound);
-  const [play] = useSound(boopSfx);
+  const [play, {pause}] = useSound(boopSfx);
 
 
   socket.on("AlarmEvent", function (data) {
     dispatch(addNoti(data));
-    // if(!is_sound){
-    //   console.log('하이')
-    //   return
-    // }
-    // console.log('1')
+    if(!is_sound){
+      pause();
+      return
+    }
     play();
   });
 

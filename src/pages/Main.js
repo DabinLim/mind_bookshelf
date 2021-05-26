@@ -371,6 +371,7 @@ const ToMyBookShelf = styled.button`
   border: none;
   cursor: pointer;
   font-size: 14px;
+  font-weight: 600;
   font: normal normal medium 14px/19px Roboto;
   letter-spacing: 0px;
   color: #333333;

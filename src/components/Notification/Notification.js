@@ -4,10 +4,12 @@ import NotiList from "./NotiList";
 import NewNotiList from "./NewNotiList";
 import {useSelector, useDispatch} from 'react-redux';
 import {editSound} from '../../redux/modules/noti';
+import VolumeOffIcon from '@material-ui/icons/VolumeOff';
+import VolumeUpIcon from '@material-ui/icons/VolumeUp';
 
 const Notification = (props) => {
-  // const dispatch = useDispatch()
-  // const is_sound = useSelector((state) => state.noti.is_sound)
+  const dispatch = useDispatch()
+  const is_sound = useSelector((state) => state.noti.is_sound)
 
   return (
     <React.Fragment>
@@ -17,17 +19,17 @@ const Notification = (props) => {
           <div>
             알람
           </div>
-          {/* {is_sound? 
+          {is_sound? 
           <NotiSound 
             onClick={()=>{dispatch(editSound(false))}} > 
-            소리 끄기 
+            소리 끄기 <VolumeOffIcon/>
           </NotiSound> 
           :
           <NotiSound 
             onClick={()=>{dispatch(editSound(true))}}> 
-            소리 켜기 
+            소리 켜기 <VolumeUpIcon/>
           </NotiSound> 
-          } */}
+          }
         </NotiHeader>
         <NewNotiList setCardModal={props.setCardModal} close={props.close} />
         <NotiList setCardModal={props.setCardModal} close={props.close} />
@@ -56,7 +58,7 @@ const NotiSound = styled.div`
   justify-content: center;
   align-items: center;
   height: 30px;
-  width: 75px;
+  width: 90px;
   border: 1px solid #848484;
   border-radius: 5px;
   &:hover{
