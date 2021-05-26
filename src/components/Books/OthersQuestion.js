@@ -40,7 +40,6 @@ const OthersQuestion = (props) => {
   return (
     <React.Fragment>
       <Container>
-        <Background />
         <TitleContainerMobile>
           <LeftOutlined
             onClick={() => {
@@ -239,28 +238,16 @@ const Container = styled.section`
   padding: 10px 25px 45px 25px;
   width: 100%;
   height: 100%;
-  max-width: 1062px;
+  max-width: 1080px;
   max-height: 632px;
   margin:20px auto;
   overflow: hidden;
   @media (max-width: 750px) {
-    margin: 50px auto ;
-    padding: 23px 25px 20px 25px;
-    max-height:93.8%;
+    margin: 0px auto ;
+    padding: 73px 25px 20px 25px;
+    max-height:100%;
     border-radius:0px;
   }
-`;
-const Background = styled.div`
-  z-index: -1;
-  position: absolute;
-  top: 0;
-  left: 0;
-  max-width: 988px;
-  width: 100%;
-  padding: 100%;
-  background-color: #ffffff;
-  box-shadow: 0px 0px 20px;
-  opacity: 0.3;
 `;
 
 const TitleContainer = styled.div`
@@ -316,6 +303,7 @@ const EmptyDiv = styled.div`
 `;
 
 const GotoBookShelf = styled.span`
+  width:80px;
   display:flex;
   justify-content: flex-start;
   align-items:center;
@@ -339,6 +327,9 @@ const CardContainer = styled.section`
   flex-wrap: wrap;
   overflow: auto;
   ${props => props.view === 'new' ? `padding-bottom:60px`: `padding-bottom:0px`};
+  ::-webkit-scrollbar {
+    display: none;
+    };
   @media (max-width: 750px) {
     align-content:flex-start;
     padding-right:0px;
@@ -355,6 +346,9 @@ const CardContainerPop = styled.section`
   flex-wrap: wrap;
   overflow: auto;
   ${props => props.view === 'pop' ? `padding-bottom:60px`: `padding-bottom:0px`};
+  ::-webkit-scrollbar {
+    display: none;
+    };
   @media (max-width: 750px) {
     align-content:flex-start;
     padding-right:0px;

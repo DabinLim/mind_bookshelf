@@ -64,7 +64,6 @@ const OthersAnswers = (props) => {
   return (
     <React.Fragment>
       <Container>
-        <Background />
         {cardModal && <CardModal close={closeCardModal}/>}
         <TitleContainerMobile>
           <LeftOutlined
@@ -290,31 +289,15 @@ const Container = styled.section`
   max-width: 1080px;
   max-height: 632px;
   margin: 20px auto;
-  border-radius: 20px;
   overflow: hidden;
   @media (max-width: 750px) {
     background-image: url('https://user-images.githubusercontent.com/77369674/118459848-1b0f3d80-b737-11eb-8f1a-906da3e390e2.jpeg');
     background-size:cover;
     background-repeat:no-repeat;
-    margin:50px auto;
-    padding: 23px 25px 20px 25px;
-    max-height: 93.8%;
+    margin: 0px auto;
+    padding: 73px 25px 20px 25px;
+    max-height: 100%;
     border-radius:0px;
-  }
-`;
-const Background = styled.div`
-  z-index: -1;
-  position: absolute;
-  top: 0;
-  left: 0;
-  max-width: 988px;
-  width: 100%;
-  padding: 100%;
-  background-color: #ffffff;
-  box-shadow: 0px 0px 20px;
-  opacity: 0.3;
-  @media (max-width: 750px) {
-    display: none;
   }
 `;
 
@@ -369,6 +352,7 @@ const EmptyDiv = styled.div`
 `;
 
 const GotoBookShelf = styled.span`
+  width:80px;
   display:flex;
   justify-content: flex-start;
   align-items:center;
@@ -392,6 +376,9 @@ const CardContainer = styled.section`
   overflow: auto;
   ${(props) =>
     props.view === "new" ? `padding-bottom:60px` : `padding-bottom:0px`};
+    ::-webkit-scrollbar {
+    display: none;
+    };
   @media (max-width: 750px) {
     padding-right: 0px;
     flex-direction: column;
@@ -410,6 +397,9 @@ const CardContainerPop = styled.section`
   overflow: auto;
   ${(props) =>
     props.view === "pop" ? `padding-bottom:60px` : `padding-bottom:0px`};
+    ::-webkit-scrollbar {
+    display: none;
+    };
   @media (max-width: 750px) {
     padding-right: 0px;
     flex-direction: column;
