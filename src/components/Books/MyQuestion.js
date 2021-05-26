@@ -41,7 +41,6 @@ const MyQuestion = (props) => {
   return (
     <React.Fragment>
       <Container>
-        <Background />
         <TitleContainerMobile>
           <LeftOutlined onClick={() => {history.goBack()}}style={{fontSize:'22px' , transform:'scaleX(0.8)'}}/>
           <TitleMobile>{user_info?.nickname}님의 질문</TitleMobile>
@@ -216,7 +215,7 @@ const Container = styled.section`
   padding: 10px 25px 45px 25px;
   width: 100%;
   height: 100%;
-  max-width: 1062px;
+  max-width: 1080px;
   max-height: 632px;
   margin: 20px auto;
   overflow: hidden;
@@ -229,18 +228,6 @@ const Container = styled.section`
     max-height:93.8%;
     border-radius:0px;
   }
-`;
-const Background = styled.div`
-  z-index: -1;
-  position: absolute;
-  top: 0;
-  left: 0;
-  max-width: 988px;
-  width: 100%;
-  padding: 100%;
-  background-color: #ffffff;
-  box-shadow: 0px 0px 20px;
-  opacity: 0.3;
 `;
 
 const TitleContainer = styled.div`

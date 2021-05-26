@@ -64,7 +64,6 @@ const OthersAnswers = (props) => {
   return (
     <React.Fragment>
       <Container>
-        <Background />
         {cardModal && <CardModal close={closeCardModal}/>}
         <TitleContainerMobile>
           <LeftOutlined
@@ -300,21 +299,6 @@ const Container = styled.section`
     padding: 23px 25px 20px 25px;
     max-height: 93.8%;
     border-radius:0px;
-  }
-`;
-const Background = styled.div`
-  z-index: -1;
-  position: absolute;
-  top: 0;
-  left: 0;
-  max-width: 988px;
-  width: 100%;
-  padding: 100%;
-  background-color: #ffffff;
-  box-shadow: 0px 0px 20px;
-  opacity: 0.3;
-  @media (max-width: 750px) {
-    display: none;
   }
 `;
 
