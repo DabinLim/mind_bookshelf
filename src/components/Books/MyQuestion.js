@@ -302,6 +302,7 @@ const AddBtnMobile = styled.div`
 
 
 const GotoBookShelf = styled.span`
+  width:80px;
   display:flex;
   justify-content: flex-start;
   align-items:center;
@@ -325,6 +326,9 @@ const CardContainer = styled.section`
   flex-wrap: wrap;
   overflow: auto;
   ${props => props.view === 'new' ? `padding-bottom:60px`: `padding-bottom:0px`};
+  ::-webkit-scrollbar {
+    display: none;
+    };
   @media (max-width: 750px) {
     align-content:flex-start;
     padding-right:0px;
@@ -341,6 +345,9 @@ const CardContainerPop = styled.section`
   flex-wrap: wrap;
   overflow: auto;
   ${props => props.view === 'pop' ? `padding-bottom:60px`: `padding-bottom:0px`};
+  ::-webkit-scrollbar {
+    display: none;
+    };
   @media (max-width: 750px) {
     align-content:flex-start;
     padding-right:0px;

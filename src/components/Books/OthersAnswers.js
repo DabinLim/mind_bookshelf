@@ -369,6 +369,7 @@ const EmptyDiv = styled.div`
 `;
 
 const GotoBookShelf = styled.span`
+  width:80px;
   display:flex;
   justify-content: flex-start;
   align-items:center;
@@ -392,6 +393,9 @@ const CardContainer = styled.section`
   overflow: auto;
   ${(props) =>
     props.view === "new" ? `padding-bottom:60px` : `padding-bottom:0px`};
+    ::-webkit-scrollbar {
+    display: none;
+    };
   @media (max-width: 750px) {
     padding-right: 0px;
     flex-direction: column;
@@ -410,6 +414,9 @@ const CardContainerPop = styled.section`
   overflow: auto;
   ${(props) =>
     props.view === "pop" ? `padding-bottom:60px` : `padding-bottom:0px`};
+    ::-webkit-scrollbar {
+    display: none;
+    };
   @media (max-width: 750px) {
     padding-right: 0px;
     flex-direction: column;
