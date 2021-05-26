@@ -79,6 +79,9 @@ function Main() {
   const [dot_2, setDot2] = React.useState("proselectedDot");
   const [dot_3, setDot3] = React.useState("preselectedDot");
 
+  const is_first = useSelector((state) => state.user.user.first);
+
+
   const turnLeft = () => {
     if (card_1 === "selected") {
       setCard1("proselected");
@@ -179,14 +182,28 @@ function Main() {
                 </SmallToMyBookShelf>
               ) : null}
             </DateIndicator>
+            {is_first? 
+            <SmallQuestionIndicator>
+              <b>당신</b>의 <br />
+              머리속은?
+            </SmallQuestionIndicator>
+            :
             <SmallQuestionIndicator>
               <b>{user?.nickname ? user?.nickname + "님" : "당신"}</b>의 <br />
               머리속은?
             </SmallQuestionIndicator>
+            }
+            {is_first? 
+            <QuestionIndicator>
+              <b>당신</b>의
+              머리속은?
+            </QuestionIndicator>
+            :
             <QuestionIndicator>
               <b>{user?.nickname ? user?.nickname + "님" : "당신"}</b>의
               머리속은?
             </QuestionIndicator>
+            }
             {user_info ? (
               <ToMyBookShelf
                 onClick={() => {

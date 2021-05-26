@@ -303,10 +303,17 @@ const UpdateProfileAX = (profile) => {
         axios
           .patch("/mypage/profile", formData)
           .then((res) => {
+            console.log(res)
+            // if()
             dispatch(editUser(res.data));
           })
           .catch((err) => {
             console.log(err);
+            swal({
+              title: "중복된 닉네임입니다. 다른 닉네임을 사용해주세요.",
+              text: `${profile.nickname}은 중복된 닉네임입니다.`,
+              icon: "error",
+            });
           });
       } else {
         const formData = new FormData();
@@ -318,10 +325,16 @@ const UpdateProfileAX = (profile) => {
         axios
           .patch("/mypage/profile", formData)
           .then((res) => {
+            console.log(res)
             dispatch(editUser(res.data));
           })
           .catch((err) => {
             console.log(err);
+            swal({
+              title: "중복된 닉네임입니다. 다른 닉네임을 사용해주세요.",
+              text: `${profile.nickname}은 중복된 닉네임입니다.`,
+              icon: "error",
+            });
           });
       }
     } else {
@@ -333,10 +346,16 @@ const UpdateProfileAX = (profile) => {
       axios
         .patch("/mypage/profile", formData)
         .then((res) => {
+          console.log(res.data.msg)
           dispatch(editUser(res.data));
         })
         .catch((err) => {
           console.log(err);
+          swal({
+            title: "중복된 닉네임입니다. 다른 닉네임을 사용해주세요.",
+            text: `${profile.nickname}은 중복된 닉네임입니다.`,
+            icon: "error",
+          });
         });
     }
   };
