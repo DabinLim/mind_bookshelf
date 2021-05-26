@@ -43,7 +43,7 @@
 }
 
 .selectedDot {
-  transform: scale(1.3) !important;
+  transform: scale(2.0) !important;
   color: #474747 !important;
   opacity: 1;
 }
