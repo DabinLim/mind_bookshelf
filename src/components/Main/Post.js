@@ -146,7 +146,7 @@ const Post = (props) => {
         <PostBox>
           {is_login === false ? (
             <>
-              <div style={{ marginTop: "88px"  }}>
+              <div style={{ marginTop: "102px"  }}>
                 <pre>
                   <PreLoginText style={{ fontSize: "13px", fontFamily: "Noto Sans KR, sans-serif" }}>
                     당신이라면 어떻게 대답하시겠나요?
@@ -251,7 +251,7 @@ const CardFrame = styled.div`
   width: 100%;
   min-height: 462px;
   max-height: 462px;
-  padding: 48px 50px 40px;
+  padding: 30px 35px 27px 32px;
   background: white;
   text-align: center;
 
@@ -414,7 +414,7 @@ const ElTextarea = styled.textarea`
   border: none;
   overflow: auto;
   outline: none;
-  max-height: 160px;
+  max-height: 170px;
 
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
@@ -446,9 +446,8 @@ const BtnGroup = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
-  margin-bottom: 10px;
   position: relative;
-  top: 80px;
+  top: 90px;
   & > button {
     cursor: pointer;
   }

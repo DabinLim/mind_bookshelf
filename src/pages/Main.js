@@ -241,21 +241,21 @@ function Main() {
             <DotQueue>
               <FiberManualRecordIcon
                 style={{
-                  fontSize: "15px",
+                  fontSize: "13px",
                   margin: "0 5px",
                 }}
                 className={dot_1}
               />
               <FiberManualRecordIcon
                 style={{
-                  fontSize: "15px",
+                  fontSize: "13px",
                   margin: "0 5px",
                 }}
                 className={dot_2}
               />
               <FiberManualRecordIcon
                 style={{
-                  fontSize: "15px",
+                  fontSize: "13px",
                   margin: "0 5px",
                 }}
                 className={dot_3}
@@ -341,7 +341,7 @@ const MainUpper = styled.section`
   @media (max-width: 500px) {
     text-align: left;
     width: 100%;
-    padding: 0 28px;
+    padding: 0 24px 0 22px;
   }
 `;
 
@@ -409,6 +409,7 @@ const SmallToMyBookShelf = styled.button`
   outline: none;
   border: none;
   cursor: pointer;
+  padding: 0;
   @media (min-width: 501px) {
     display: none;
   }
