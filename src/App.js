@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { ConnectedRouter } from "connected-react-router";
 import { Route, Switch } from "react-router-dom";
 import { history } from "./redux/configStore";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { api as userActions } from "./redux/modules/user";
 import { Header } from "./shared/sharedindex";
 import {
@@ -35,12 +35,17 @@ function App() {
   axios.defaults.baseURL = "https://lkj99.shop";
   const dispatch = useDispatch();
   const cookie = getCookie("is_login") ? true : false;
+  const is_sound = useSelector((state) => state.noti.is_sound);
   const [play] = useSound(boopSfx);
 
 
   socket.on("AlarmEvent", function (data) {
-    console.log(data);
     dispatch(addNoti(data));
+    // if(!is_sound){
+    //   console.log('하이')
+    //   return
+    // }
+    // console.log('1')
     play();
   });
 

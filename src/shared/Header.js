@@ -19,6 +19,13 @@ import NotificationsNoneOutlinedIcon from "@material-ui/icons/NotificationsNoneO
 import "../static/Card.css";
 import logoImages from "../static/images/logo.png"
 import headerLogo from "../static/images/headerLogo.png"
+import aboutIcon from "../static/images/aboutIcon.png";
+import menuIcon from "../static/images/menuIcon.png";
+import mobileNotiIcon from "../static/images/mobileNotiIcon.png";
+import mobileSearchIcon from "../static/images/mobileSearchIcon.png";
+import webNotiIcon from "../static/images/webNotiIcon.png";
+import webSearchIcon from "../static/images/webSearchIcon.png";
+
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -118,7 +125,7 @@ const Header = () => {
                   setMenuOpen(false);
                 }}
               >
-                <CloseOutlined style={{fontSize:"20px"}} />
+                <CloseOutlined/>
               </MenuCloseBtn>
               <LogoImgMobile 
                 onClick={() => {
@@ -134,15 +141,9 @@ const Header = () => {
                   className={main}
                 >
                   오늘의 낙서
-                  <p
-                    style={{
-                      textAlign: "left",
-                      fontSize: "11px",
-                      color: "#909090",
-                    }}
-                  >
+                  <MenuDescription>
                     오늘 받은 질문 확인과 답변
-                  </p>
+                  </MenuDescription>
                 </MenuLi>
                 <MenuLi
                   onClick={() => {
@@ -158,15 +159,9 @@ const Header = () => {
                   className={bookshelf}
                 >
                   나의 책장
-                  <p
-                    style={{
-                      textAlign: "left",
-                      fontSize: "11px",
-                      color: "#909090",
-                    }}
-                  >
+                  <MenuDescription>
                     나의 모든 기록 확인
-                  </p>
+                  </MenuDescription>
                 </MenuLi>
                 <MenuLi
                 onClick={() => {
@@ -182,15 +177,9 @@ const Header = () => {
                 className={friends}
               >
                 너의 생각
-                <p
-                  style={{
-                    textAlign: "left",
-                    fontSize: "11px",
-                    color: "#909090",
-                  }}
-                >
+                <MenuDescription>
                   나의 팔로잉 기록 확인
-                </p>
+                </MenuDescription>
               </MenuLi>
               <MenuLi
                   onClick={() => {
@@ -202,15 +191,9 @@ const Header = () => {
                   style={{ marginBottom: "105px" }}
                 >
                   생각의 바다
-                  <p
-                  style={{
-                    textAlign: "left",
-                    fontSize: "11px",
-                    color: "#909090",
-                  }}
-                >
+                  <MenuDescription>
                   다양한 사람의 기록 확인
-                </p>
+                </MenuDescription>
                 </MenuLi>
                 <MenuText
                   onClick={() => {
@@ -240,7 +223,10 @@ const Header = () => {
                   setMenuOpen(true);
                 }}
               >
-                <MenuIcon />
+                <img 
+                  src={menuIcon}
+                  style={{width:"15px", height:"14px"}}
+                />
               </MobileIcon>
               <LogoBox>
               <LogoImg src={headerLogo}
@@ -256,10 +242,11 @@ const Header = () => {
                 생각낙서
               </Logo>
               </LogoBox>
-              <div style={{ display: "flex" }}>
-                <MobileIcon style={{ marginRight: "10px" }}>
-                  <SearchIcon
-                    style={{ cursor: "pointer" }}
+              <div style={{ display: "flex"}}>
+                <MobileIcon style={{ marginRight: "24px" }}>
+                  <img
+                    src={mobileSearchIcon}
+                    style={{ cursor: "pointer", width:"16px", height:"18px" }}
                     onClick={() => {
                       history.push("/search");
                     }}
@@ -273,8 +260,9 @@ const Header = () => {
                       setCardModal={setCardModal}
                     />
                   ) : null}
-                  <NotificationsNoneOutlinedIcon
-                    style={{ cursor: "pointer" }}
+                  <img
+                    src={mobileNotiIcon}
+                    style={{ cursor: "pointer", width:"16px", height:"18px" }}
                     onClick={() => {                      
                       history.push("/noti");
                     }}
@@ -439,15 +427,9 @@ const Header = () => {
                 className={bookshelf}
               >
                 나의 책장
-                <p
-                  style={{
-                    textAlign: "left",
-                    fontSize: "11px",
-                    color: "#909090",
-                  }}
-                >
+                <MenuDescription>
                   나의 모든 기록 확인
-                </p>
+                </MenuDescription>
               </MenuLi>
               <MenuLi
                 onClick={() => {
@@ -463,15 +445,9 @@ const Header = () => {
                 className={friends}
               >
                 너의 생각
-                <p
-                  style={{
-                    textAlign: "left",
-                    fontSize: "11px",
-                    color: "#909090",
-                  }}
-                >
+                <MenuDescription>
                   나의 팔로잉 기록 확인
-                </p>
+                </MenuDescription>
               </MenuLi>
               <MenuLi
                 onClick={() => {
@@ -483,15 +459,9 @@ const Header = () => {
                 style={{ marginBottom: "105px" }}
               >
                 생각의 바다
-                <p
-                  style={{
-                    textAlign: "left",
-                    fontSize: "11px",
-                    color: "#909090",
-                  }}
-                >
+                <MenuDescription>
                   다양한 사람의 기록 확인
-                </p>
+                </MenuDescription>
               </MenuLi>
               <MenuText
                 onClick={() => {
@@ -664,7 +634,7 @@ const HeaderInnerContainer = styled.div`
   width: 100vw;
   height: 100%;
   justify-content: space-between;
-  padding: 0 100px 0 100px;
+  padding: 0 80px 0 80px;
   box-sizing: border-box;
   overflow: visible;
   @media (max-width: 1000px) {
@@ -701,13 +671,14 @@ const Menu = styled.div`
 
 const MenuCloseBtn = styled.button`
   position: absolute;
-  font-size: 26px;
-  top: 10px;
-  right: 10px;
+  font-size: 20px;
+  top: 8px;
+  right: 3px;
   background: none;
   outline: none;
   border: none;
 `;
+
 
 const MenuUl = styled.ul`
   margin: 0;
@@ -721,6 +692,12 @@ const MenuLi = styled.li`
   font: normal normal normal 20px/29px Noto Sans CJK KR;
   padding-left: 16px;
 `;
+
+const MenuDescription = styled.p`
+  text-align: left;
+  font: normal normal normal 11px/16px Noto Sans CJK KR; 
+  color: #909090;
+`
 
 const MenuText = styled.div`
   font: normal normal normal 16px/24px Noto Sans CJK KR;
@@ -777,13 +754,14 @@ const Logo = styled.div`
     margin-right: 80px;
   }
   @media (max-width: 750px) {
+    font: normal normal normal 14px Noto Sans CJK KR;
     margin-left: 35px;
     margin-right: 0px;
   } ;
 `;
 
 const PageButton = styled.span`
-  margin: 10px;
+  margin-right: 15px;
   font: normal normal medium 15px/22px Noto Sans CJK KR;
   cursor: pointer;
   @media (max-width: 750px) {
@@ -822,7 +800,9 @@ const MobileIcon = styled.div`
   display: none;
   margin-top: 9px;
   @media (max-width: 750px) {
-    display: block;
+    display: flex;
+    align-items: center;
+    margin-top: 0px;
   } ;
 `;
 

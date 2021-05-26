@@ -9,13 +9,14 @@ import WithdrawalModal from "./WithdrawalModal";
 import { setPreview } from "../../redux/modules/user";
 import CasinoIcon from "@material-ui/icons/Casino";
 import swal from "sweetalert";
+import { first } from "lodash";
 
 axios.defaults.baseURL = "http://lkj99.shop";
 
 const ProfileUpdateModal = (props) => {
   const dispatch = useDispatch();
   const user_info = useSelector((state) => state.user.user);
-  const [nickname, setNickname] = useState(
+  const [nickname, setNickname] = useState( user_info.first? "":
     user_info.nickname
   );
   const [introduce, setIntroduce] = useState(
@@ -178,11 +179,6 @@ const ProfileUpdateModal = (props) => {
       topic: topic,
     };
     dispatch(userActions.UpdateProfileAX(profile));
-    swal({
-      title: "가입이 완료되었습니다. 생각을 낙서해볼까요?",
-      text: `${nickname}님 반갑습니다.`,
-      icon: "success",
-    });
   }
 
   const editProfile = () => {
@@ -243,9 +239,12 @@ const ProfileUpdateModal = (props) => {
         <ImageUpdate>
           <Upload setImage={setImage} />
         </ImageUpdate>
-        <Nickname>
-          {user_info.nickname}
-        </Nickname>
+        {user_info.first?
+          null: 
+          <Nickname>
+            {user_info.nickname}
+          </Nickname>
+        }
         <RemoveProfileBtn
           onClick={() => {
             dispatch(
@@ -265,7 +264,7 @@ const ProfileUpdateModal = (props) => {
           <InputContainer style={{ marginBottom: "20px" }}>
             <InputUpper>
               <InputLabel for="nickname">닉네임</InputLabel>
-              <RandomBox
+              {/* <RandomBox
                 onClick={() => {
                   setLoading(true);
                   getNicknameAX();
@@ -288,12 +287,19 @@ const ProfileUpdateModal = (props) => {
                   </InputRandom>
                 )}
                 <InputRandomText>랜덤 돌리기</InputRandomText>
-              </RandomBox>
+              </RandomBox> */}
             </InputUpper>
-            <div style={{ position: "relative" }}>
-              <Input id="nickname" value={nickname} onChange={changeNickname} />
-              <CountNickname>{nickname.length}/10</CountNickname>
-            </div>
+            {user_info.first?
+              <div style={{ position: "relative" }}>
+                <Input id="nickname" onChange={changeNickname} />
+                <CountNickname>{nickname.length}/10</CountNickname>
+              </div>
+            :
+              <div style={{ position: "relative" }}>
+                <Input id="nickname" value={nickname} onChange={changeNickname} />
+                <CountNickname>{nickname.length}/10</CountNickname>
+              </div>
+            }
           </InputContainer>
           <InputContainer>
             <InputLabel for="introduce">소개</InputLabel>
