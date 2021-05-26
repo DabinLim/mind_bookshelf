@@ -84,8 +84,8 @@ const customSlice = createSlice({
               }
               
               if (pop_index !== -1){
-                state.pop_list[index].currentLike = true
-                state.pop_list[index].likeCount += 1
+                state.pop_list[pop_index].currentLike = true
+                state.pop_list[pop_index].likeCount += 1
               }
           },
           deleteAnswersLikeInfo: (state, action) => {
@@ -104,8 +104,8 @@ const customSlice = createSlice({
                 }
                 
                 if (pop_index !== -1){
-                  state.pop_list[index].currentLike = false
-                  state.pop_list[index].likeCount -= 1
+                  state.pop_list[pop_index].currentLike = false
+                  state.pop_list[pop_index].likeCount -= 1
                 }
           },
           

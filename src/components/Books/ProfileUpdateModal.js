@@ -2,20 +2,21 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Upload } from "../../shared/sharedindex";
 import { useSelector, useDispatch } from "react-redux";
-import { api as userActions } from "../../redux/modules/user";
+import { api as userActions, logOut } from "../../redux/modules/user";
 import Loader from "react-loader-spinner";
 import axios from "axios";
 import WithdrawalModal from "./WithdrawalModal";
 import { setPreview } from "../../redux/modules/user";
 import CasinoIcon from "@material-ui/icons/Casino";
 import swal from "sweetalert";
+import { first } from "lodash";
 
 axios.defaults.baseURL = "http://lkj99.shop";
 
 const ProfileUpdateModal = (props) => {
   const dispatch = useDispatch();
   const user_info = useSelector((state) => state.user.user);
-  const [nickname, setNickname] = useState(
+  const [nickname, setNickname] = useState( user_info.first? "":
     user_info.nickname
   );
   const [introduce, setIntroduce] = useState(
@@ -33,15 +34,16 @@ const ProfileUpdateModal = (props) => {
   const [_myself, setMyself] = useState(user_info.topic.myself);
   const [_dream, setDream] = useState(user_info.topic.dream);
 
+
   useEffect(() => {
     dispatch(setPreview(user_info.profileImg));
   }, []);
 
-  const getNicknameAX = async () => {
-    const result = await axios.get(`/myPage/profile/random-nickname`);
-    setNickname(result.data.nickname);
-    setLoading(false);
-  };
+  // const getNicknameAX = async () => {
+  //   const result = await axios.get(`/myPage/profile/random-nickname`);
+  //   setNickname(result.data.nickname);
+  //   setLoading(false);
+  // };
 
   const changeNickname = (e) => {
     if (e.target.value.length > 10) {
@@ -178,11 +180,6 @@ const ProfileUpdateModal = (props) => {
       topic: topic,
     };
     dispatch(userActions.UpdateProfileAX(profile));
-    swal({
-      title: "가입이 완료되었습니다. 생각을 낙서해볼까요?",
-      text: `${nickname}님 반갑습니다.`,
-      icon: "success",
-    });
   }
 
   const editProfile = () => {
@@ -225,7 +222,7 @@ const ProfileUpdateModal = (props) => {
       <UpdateBox>
         <ProfileUpdateHeader>
           {user_info.first? 
-          <ProfileCancelButton style={{color:"#FFFFFF", cursor:"context-menu"}} >취소</ProfileCancelButton>
+          <ProfileCancelButton onClick={()=>{dispatch(logOut());}} >취소</ProfileCancelButton>
           :
           <ProfileCancelButton onClick={props.close} >취소</ProfileCancelButton>
           }
@@ -235,7 +232,7 @@ const ProfileUpdateModal = (props) => {
           <ProfileHeaderText>프로필 편집</ProfileHeaderText>
           }
           {user_info.first? 
-          <ProfileHeaderButton onClick={addProfile} >가입</ProfileHeaderButton>
+          <ProfileHeaderButton onClick={editProfile} >가입</ProfileHeaderButton>
           :
           <ProfileHeaderButton onClick={editProfile} >완료</ProfileHeaderButton>
           }
@@ -243,9 +240,12 @@ const ProfileUpdateModal = (props) => {
         <ImageUpdate>
           <Upload setImage={setImage} />
         </ImageUpdate>
-        <Nickname>
-          {user_info.nickname}
-        </Nickname>
+        {user_info.first?
+          null: 
+          <Nickname>
+            {user_info.nickname}
+          </Nickname>
+        }
         <RemoveProfileBtn
           onClick={() => {
             dispatch(
@@ -265,7 +265,7 @@ const ProfileUpdateModal = (props) => {
           <InputContainer style={{ marginBottom: "20px" }}>
             <InputUpper>
               <InputLabel for="nickname">닉네임</InputLabel>
-              <RandomBox
+              {/* <RandomBox
                 onClick={() => {
                   setLoading(true);
                   getNicknameAX();
@@ -288,12 +288,19 @@ const ProfileUpdateModal = (props) => {
                   </InputRandom>
                 )}
                 <InputRandomText>랜덤 돌리기</InputRandomText>
-              </RandomBox>
+              </RandomBox> */}
             </InputUpper>
-            <div style={{ position: "relative" }}>
-              <Input id="nickname" value={nickname} onChange={changeNickname} />
-              <CountNickname>{nickname.length}/10</CountNickname>
-            </div>
+            {user_info.first?
+              <div style={{ position: "relative" }}>
+                <Input id="nickname" onChange={changeNickname} />
+                <CountNickname>{nickname.length}/10</CountNickname>
+              </div>
+            :
+              <div style={{ position: "relative" }}>
+                <Input id="nickname" value={nickname} onChange={changeNickname} />
+                <CountNickname>{nickname.length}/10</CountNickname>
+              </div>
+            }
           </InputContainer>
           <InputContainer>
             <InputLabel for="introduce">소개</InputLabel>
@@ -436,7 +443,12 @@ const ProfileUpdateModal = (props) => {
             </div>
           </TypeContainer>
         </TypeBox>
-        {user_info.first? null
+        {user_info.first?
+        <BottomContainer>
+          <BottomDescription>
+            가입시에 그 어떤 개인정보도 가져가지 않습니다.
+          </BottomDescription>
+        </BottomContainer>
         :
         <BottomContainer>
           <Withdrawal
@@ -479,7 +491,6 @@ const UpdateBox = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  cursor: context-menu;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.12), 0 2px 5px rgba(0, 0, 0, 0.24);
   @media (max-width: 420px) {
     width: 100%;
@@ -581,6 +592,11 @@ const InputLabel = styled.label`
     font: normal normal bold 13px/19px Noto Sans CJK KR;
   } ;
 `;
+
+const BottomDescription = styled.div`
+  font: normal normal normal 11px Noto Sans CJK KR;
+`
+
 const CountNickname = styled.div`
   position: absolute;
   top: 8px;
@@ -632,7 +648,8 @@ const Input2 = styled.textarea`
   height: 110px;
   padding: 11px 15px;
   font: normal normal normal 13px/19px Noto Sans CJK KR;
-  color: #939393;
+  // color: #939393;
+  color: black;
   width: 350px;
   border: none;
   border-radius: 15px;

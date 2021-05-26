@@ -51,6 +51,7 @@ const userSlice = createSlice({
       deleteCookie("is_login");
       state.user.nickname = "";
       state.is_login = false;
+      state.user.first = false;
     },
     setOther: (state, action) => {
       state.other = action.payload;
@@ -290,6 +291,7 @@ const UpdateProfileAX = (profile) => {
   return function (dispatch, getState) {
     const _image = getState().user.preview;
     const _profileImg = getState().user.user.profileImg;
+    const is_first = getState().user.user.first;
     if (_image !== _profileImg) {
       if (
         _image ==
@@ -304,9 +306,21 @@ const UpdateProfileAX = (profile) => {
           .patch("/mypage/profile", formData)
           .then((res) => {
             dispatch(editUser(res.data));
+            if(is_first){
+              swal({
+                title: "가입을 축하드립니다.",
+                text: `${profile.nickname}님 환영합니다.`,
+                icon: "success",
+              });
+            }
           })
           .catch((err) => {
             console.log(err);
+            swal({
+              title: "중복된 닉네임입니다. 다른 닉네임을 사용해주세요.",
+              text: `${profile.nickname}은 중복된 닉네임입니다.`,
+              icon: "error",
+            });
           });
       } else {
         const formData = new FormData();
@@ -319,9 +333,21 @@ const UpdateProfileAX = (profile) => {
           .patch("/mypage/profile", formData)
           .then((res) => {
             dispatch(editUser(res.data));
+            if(is_first){
+              swal({
+                title: "가입을 축하드립니다.",
+                text: `${profile.nickname}님 환영합니다.`,
+                icon: "success",
+              });
+            };
           })
           .catch((err) => {
             console.log(err);
+            swal({
+              title: "중복된 닉네임입니다. 다른 닉네임을 사용해주세요.",
+              text: `${profile.nickname}은 중복된 닉네임입니다.`,
+              icon: "error",
+            });
           });
       }
     } else {
@@ -334,9 +360,21 @@ const UpdateProfileAX = (profile) => {
         .patch("/mypage/profile", formData)
         .then((res) => {
           dispatch(editUser(res.data));
+          if(is_first){
+            swal({
+              title: "가입을 축하드립니다.",
+              text: `${profile.nickname}님 환영합니다.`,
+              icon: "success",
+            });
+          }
         })
         .catch((err) => {
           console.log(err);
+          swal({
+            title: "중복된 닉네임입니다. 다른 닉네임을 사용해주세요.",
+            text: `${profile.nickname}은 중복된 닉네임입니다.`,
+            icon: "error",
+          });
         });
     }
   };

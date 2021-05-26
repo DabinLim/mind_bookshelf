@@ -45,8 +45,6 @@ function Main() {
   // 스피너 먹이려고
   const is_loading = useSelector((state) => state.answer.is_loading);
 
-  //처음 회원가입했을 때 프로필 수정 모달 상태 관리
-  const [profileUpdate, setProfileUpdate] = React.useState(user.first);
   // 날짜 지정
   let today = moment().format("YYYY-MM-DD").split("-");
   let month = today[1];
@@ -78,6 +76,9 @@ function Main() {
   const [dot_1, setDot1] = React.useState("selectedDot");
   const [dot_2, setDot2] = React.useState("proselectedDot");
   const [dot_3, setDot3] = React.useState("preselectedDot");
+
+  const is_first = useSelector((state) => state.user.user.first);
+
 
   const turnLeft = () => {
     if (card_1 === "selected") {
@@ -139,10 +140,6 @@ function Main() {
     }
   };
 
-  const closeProfileUpdate = () => {
-    setProfileUpdate(false);
-  };
-
   React.useEffect(() => {
     if (getCookie("is_login")) {
       dispatch(answerActions.getQuestionAX());
@@ -162,7 +159,7 @@ function Main() {
       ) : (
         <MainContainer>
           {user.first ? (
-            <ProfileUpdateModal close={closeProfileUpdate} />
+            <ProfileUpdateModal />
           ) : null}
           {/* 메인 위쪽 편 */}
           <MainUpper>
@@ -179,14 +176,28 @@ function Main() {
                 </SmallToMyBookShelf>
               ) : null}
             </DateIndicator>
+            {is_first? 
+            <SmallQuestionIndicator>
+              <b>당신</b>의 <br />
+              머리속은?
+            </SmallQuestionIndicator>
+            :
             <SmallQuestionIndicator>
               <b>{user?.nickname ? user?.nickname + "님" : "당신"}</b>의 <br />
               머리속은?
             </SmallQuestionIndicator>
+            }
+            {is_first? 
+            <QuestionIndicator>
+              <b>당신</b>의
+              머리속은?
+            </QuestionIndicator>
+            :
             <QuestionIndicator>
               <b>{user?.nickname ? user?.nickname + "님" : "당신"}</b>의
               머리속은?
             </QuestionIndicator>
+            }
             {user_info ? (
               <ToMyBookShelf
                 onClick={() => {

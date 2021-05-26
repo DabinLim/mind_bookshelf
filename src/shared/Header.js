@@ -19,6 +19,13 @@ import NotificationsNoneOutlinedIcon from "@material-ui/icons/NotificationsNoneO
 import "../static/Card.css";
 import logoImages from "../static/images/logo.png"
 import headerLogo from "../static/images/headerLogo.png"
+import aboutIcon from "../static/images/aboutIcon.png";
+import menuIcon from "../static/images/menuIcon.png";
+import mobileNotiIcon from "../static/images/mobileNotiIcon.png";
+import mobileSearchIcon from "../static/images/mobileSearchIcon.png";
+import webNotiIcon from "../static/images/webNotiIcon.png";
+import webSearchIcon from "../static/images/webSearchIcon.png";
+
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -216,7 +223,10 @@ const Header = () => {
                   setMenuOpen(true);
                 }}
               >
-                <MenuIcon />
+                <img 
+                  src={menuIcon}
+                  style={{width:"15px", height:"14px"}}
+                />
               </MobileIcon>
               <LogoBox>
               <LogoImg src={headerLogo}
@@ -232,10 +242,11 @@ const Header = () => {
                 생각낙서
               </Logo>
               </LogoBox>
-              <div style={{ display: "flex" }}>
-                <MobileIcon style={{ marginRight: "10px" }}>
-                  <SearchIcon
-                    style={{ cursor: "pointer" }}
+              <div style={{ display: "flex"}}>
+                <MobileIcon style={{ marginRight: "24px" }}>
+                  <img
+                    src={mobileSearchIcon}
+                    style={{ cursor: "pointer", width:"16px", height:"18px" }}
                     onClick={() => {
                       history.push("/search");
                     }}
@@ -249,8 +260,9 @@ const Header = () => {
                       setCardModal={setCardModal}
                     />
                   ) : null}
-                  <NotificationsNoneOutlinedIcon
-                    style={{ cursor: "pointer" }}
+                  <img
+                    src={mobileNotiIcon}
+                    style={{ cursor: "pointer", width:"16px", height:"18px" }}
                     onClick={() => {                      
                       history.push("/noti");
                     }}
@@ -667,6 +679,7 @@ const MenuCloseBtn = styled.button`
   border: none;
 `;
 
+
 const MenuUl = styled.ul`
   margin: 0;
   padding: 0;
@@ -787,7 +800,9 @@ const MobileIcon = styled.div`
   display: none;
   margin-top: 9px;
   @media (max-width: 750px) {
-    display: block;
+    display: flex;
+    align-items: center;
+    margin-top: 0px;
   } ;
 `;
 
