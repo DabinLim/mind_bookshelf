@@ -15,6 +15,7 @@ const notiSlice = createSlice({
     new_list: [],
     is_checked: false,
     searchModal: false,
+    is_sound: true,
   },
   reducers: {
     setSearch: (state, action) => {
@@ -54,7 +55,10 @@ const notiSlice = createSlice({
           return [...state.new_list, n]
         }
       });
-    }
+    },
+    editSound : (state, action) => {
+      state.is_sound = action.payload;
+    },
   },
 });
 
@@ -96,6 +100,7 @@ export const {
   alarmChecked, 
   setSearch, 
   deleteNoti, 
+  editSound,
 } = notiSlice.actions;
 
 export const api = {
