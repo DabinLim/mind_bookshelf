@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Upload } from "../../shared/sharedindex";
 import { useSelector, useDispatch } from "react-redux";
-import { api as userActions } from "../../redux/modules/user";
+import { api as userActions, logOut } from "../../redux/modules/user";
 import Loader from "react-loader-spinner";
 import axios from "axios";
 import WithdrawalModal from "./WithdrawalModal";
@@ -34,15 +34,16 @@ const ProfileUpdateModal = (props) => {
   const [_myself, setMyself] = useState(user_info.topic.myself);
   const [_dream, setDream] = useState(user_info.topic.dream);
 
+
   useEffect(() => {
     dispatch(setPreview(user_info.profileImg));
   }, []);
 
-  const getNicknameAX = async () => {
-    const result = await axios.get(`/myPage/profile/random-nickname`);
-    setNickname(result.data.nickname);
-    setLoading(false);
-  };
+  // const getNicknameAX = async () => {
+  //   const result = await axios.get(`/myPage/profile/random-nickname`);
+  //   setNickname(result.data.nickname);
+  //   setLoading(false);
+  // };
 
   const changeNickname = (e) => {
     if (e.target.value.length > 10) {
@@ -221,7 +222,7 @@ const ProfileUpdateModal = (props) => {
       <UpdateBox>
         <ProfileUpdateHeader>
           {user_info.first? 
-          <ProfileCancelButton style={{color:"#FFFFFF", cursor:"context-menu"}} >취소</ProfileCancelButton>
+          <ProfileCancelButton onClick={()=>{dispatch(logOut());}} >취소</ProfileCancelButton>
           :
           <ProfileCancelButton onClick={props.close} >취소</ProfileCancelButton>
           }
@@ -231,7 +232,7 @@ const ProfileUpdateModal = (props) => {
           <ProfileHeaderText>프로필 편집</ProfileHeaderText>
           }
           {user_info.first? 
-          <ProfileHeaderButton onClick={addProfile} >가입</ProfileHeaderButton>
+          <ProfileHeaderButton onClick={editProfile} >가입</ProfileHeaderButton>
           :
           <ProfileHeaderButton onClick={editProfile} >완료</ProfileHeaderButton>
           }
@@ -442,7 +443,12 @@ const ProfileUpdateModal = (props) => {
             </div>
           </TypeContainer>
         </TypeBox>
-        {user_info.first? null
+        {user_info.first?
+        <BottomContainer>
+          <BottomDescription>
+            가입시에 그 어떤 개인정보도 가져가지 않습니다.
+          </BottomDescription>
+        </BottomContainer>
         :
         <BottomContainer>
           <Withdrawal
@@ -485,7 +491,6 @@ const UpdateBox = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  cursor: context-menu;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.12), 0 2px 5px rgba(0, 0, 0, 0.24);
   @media (max-width: 420px) {
     width: 100%;
@@ -587,6 +592,11 @@ const InputLabel = styled.label`
     font: normal normal bold 13px/19px Noto Sans CJK KR;
   } ;
 `;
+
+const BottomDescription = styled.div`
+  font: normal normal normal 11px Noto Sans CJK KR;
+`
+
 const CountNickname = styled.div`
   position: absolute;
   top: 8px;
@@ -638,7 +648,8 @@ const Input2 = styled.textarea`
   height: 110px;
   padding: 11px 15px;
   font: normal normal normal 13px/19px Noto Sans CJK KR;
-  color: #939393;
+  // color: #939393;
+  color: black;
   width: 350px;
   border: none;
   border-radius: 15px;
