@@ -243,9 +243,9 @@ const Container = styled.section`
   margin:20px auto;
   overflow: hidden;
   @media (max-width: 750px) {
-    margin: 50px auto ;
-    padding: 23px 25px 20px 25px;
-    max-height:93.8%;
+    margin: 0px auto ;
+    padding: 73px 25px 20px 25px;
+    max-height:100%;
     border-radius:0px;
   }
 `;
