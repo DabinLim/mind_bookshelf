@@ -8,6 +8,8 @@
 
 **Development duration:** 04.25.2021 ~ 05.12.2021
 
+<br/>
+
 ## 📌 Table of Contents
 
 1. [Project Overview](#Project-Overview)
@@ -15,6 +17,7 @@
 3. [Core Functions Info](#Core-Functions-Info)
 4. [What We Have Learned](#What-We-Have-Learned)
 
+<br/>
 
 ## 🔑 Project Overview
 
