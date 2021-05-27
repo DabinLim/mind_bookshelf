@@ -2,7 +2,7 @@
 
 ![image](https://user-images.githubusercontent.com/67696504/119813221-f92a6d80-bf23-11eb-8a56-1d2ecea3cd16.png)
 
-**[Website link]**(https://thinknote.us/) / **[YouTube link]**(https://www.youtube.com/watch?v=UEY_Fpl8zn4)
+[**Website link**](https://thinknote.us/) / **[YouTube link]**(https://www.youtube.com/watch?v=UEY_Fpl8zn4)
 
 **Beta version:** 05.13.2021 (MVP launching) ~ Implementing user feedback and still in the process of refinement
 
