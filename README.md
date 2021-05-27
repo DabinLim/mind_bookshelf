@@ -76,6 +76,7 @@ This website enables users to share their thoughts and to have them like how we 
 ### 5. [Google Extension](https://chrome.google.com/webstore/detail/%EC%83%9D%EA%B0%81%EB%82%99%EC%84%9C/bjjoklgeipleefnllgkcmacojnmbplga)
 
 - By creating a google extension for this website, users can see the community page and go to the actual website by clicking a "more view" button placed right next to a question.
+- Created by CRA(Create-React-App)
 
 ---
 
