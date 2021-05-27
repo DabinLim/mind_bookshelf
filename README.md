@@ -8,7 +8,7 @@
 
 **Development duration:** 04.25.2021 ~ 05.12.2021
 
-## Table of Contents
+## 📌 Table of Contents
 
 1. [Project Overview](#Project-Overview)
 2. [Tools](#Tools)
