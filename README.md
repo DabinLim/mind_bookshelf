@@ -3,6 +3,7 @@
 [Website link](https://thinknote.us/) / [YouTube link](https://www.youtube.com/watch?v=UEY_Fpl8zn4)
 
 **Beta version:** 05.13.2021 (MVP launching) ~ Implementing user feedback and still in the process of refinement
+
 **Development duration:** 04.25.2021 ~ 05.12.2021
 
 ## Table of Contents
