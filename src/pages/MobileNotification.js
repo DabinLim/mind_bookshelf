@@ -42,7 +42,7 @@ const MobileNoti = (props) => {
           <NotiHeader>
             알람
           </NotiHeader>
-          {is_sound? 
+          {/* {is_sound? 
           <NotiSound 
             onClick={()=>{dispatch(editSound(false))}} > 
             소리 끄기 <VolumeOffIcon/>
@@ -51,8 +51,8 @@ const MobileNoti = (props) => {
           <NotiSound 
             onClick={()=>{dispatch(editSound(true))}}> 
             소리 켜기 <VolumeUpIcon/>
-          </NotiSound>}
-          {/* <div style={{width:"30px", height:"20px"}}></div> */}
+          </NotiSound>} */}
+          <div style={{width:"30px", height:"20px"}}></div>
         </NotiHeaderContainer>
         <MobileNotiList setCardModal={setCardModal} />
         <MobileNewNotiList setCardModal={setCardModal} />

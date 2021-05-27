@@ -15,7 +15,7 @@ const Upload = (props) => {
   const selectFile = (e) => {
     const reader = new FileReader();
     let file = fileInput.current.files[0]
-    console.log(file)
+    // console.log(file)
     if(file.name.split('.')[1] === 'heic'){
       let blob = fileInput.current.files[0];
       // blob에다가 변환 시키고 싶은 file값을 value로 놓는다.

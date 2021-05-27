@@ -19,7 +19,7 @@ const Notification = (props) => {
           <div>
             알람
           </div>
-          {is_sound? 
+          {/* {is_sound? 
           <NotiSound 
             onClick={()=>{dispatch(editSound(false))}} > 
             소리 끄기 <VolumeOffIcon/>
@@ -29,7 +29,7 @@ const Notification = (props) => {
             onClick={()=>{dispatch(editSound(true))}}> 
             소리 켜기 <VolumeUpIcon/>
           </NotiSound> 
-          }
+          } */}
         </NotiHeader>
         <NewNotiList setCardModal={props.setCardModal} close={props.close} />
         <NotiList setCardModal={props.setCardModal} close={props.close} />
