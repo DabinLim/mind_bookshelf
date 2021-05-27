@@ -33,6 +33,8 @@ This website enables users to share their thoughts and to have them like how we 
 **Back-end(Node.js):**  Chongmyeong Lee, Sanggyun Cho, Taejin Kang ([Github Repo](https://github.com/Lee-ChongMyeong/ThinkNote)) <br/>
 **Designer:** Jiwon Sung ([Web](https://xd.adobe.com/view/c892e36d-df02-4835-b99f-cc191129a465-9dc1/), [Mobile wireframe](https://xd.adobe.com/view/81d74061-14d9-4d79-ad0e-06d3fecc701a-d484/))
 
+<br/>
+
 ## **🛠 Tools**
 
 ```
@@ -44,6 +46,8 @@ This website enables users to share their thoughts and to have them like how we 
 - Design Tool (Adobe XD)
 - Collaboration Tools (Git, Github, Notion, Slack, etc.)
 ```
+
+<br/>
 
 ## **🕹 Core Functions Info**
 
@@ -104,6 +108,8 @@ This website enables users to share their thoughts and to have them like how we 
 
 - Regardless of where a user is, if he or she clicks a certain topic, the website shows him or her a topic page where there are responses to the corresponding questions.
 - This page shows response cards where a user can sort by date and the number of responses.
+
+<br/>
 
 ## **🔎 What We Have Learned**
 
