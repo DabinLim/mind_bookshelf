@@ -13,7 +13,6 @@
 3. [Core Functions Info](#Core Functions Info)
 4. [What We Have Learned](#What We Have Learned)
 
----
 
 ## 🔑 Project Overview
 
