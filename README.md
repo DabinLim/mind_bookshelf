@@ -26,9 +26,9 @@ This website enables users to share their thoughts and to have them like how we 
 
 ### **👨‍👩‍👧‍👧 Team**
 
-[Our Team Notion](https://www.notion.so/e70b704cf035444b805dd95942f6e8ce)
-**Front-end(React.js):** Daeho Lee, Dabin Lim, Hyungseok Cho
-**Back-end(Node.js):**  Chongmyeong Lee, Sanggyun Cho, Taejin Kang ([Github Repo](https://github.com/Lee-ChongMyeong/ThinkNote))
+[Our Team Notion](https://www.notion.so/e70b704cf035444b805dd95942f6e8ce) <br/>
+**Front-end(React.js):** Daeho Lee, Dabin Lim, Hyungseok Cho <br/>
+**Back-end(Node.js):**  Chongmyeong Lee, Sanggyun Cho, Taejin Kang ([Github Repo](https://github.com/Lee-ChongMyeong/ThinkNote)) <br/>
 **Designer:** Jiwon Sung ([Web](https://xd.adobe.com/view/c892e36d-df02-4835-b99f-cc191129a465-9dc1/), [Mobile wireframe](https://xd.adobe.com/view/81d74061-14d9-4d79-ad0e-06d3fecc701a-d484/))
 
 ## **🛠 Tools**
