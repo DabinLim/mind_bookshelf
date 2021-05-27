@@ -8,10 +8,10 @@
 
 ## Table of Contents
 
-1. [Project Overview](#Project Overview)
+1. [Project Overview](#Project-Overview)
 2. [Tools](#Tools)
-3. [Core Functions Info](#Core Functions Info)
-4. [What We Have Learned](#What We Have Learned)
+3. [Core Functions Info](#Core-Functions-Info)
+4. [What We Have Learned](#What-We-Have-Learned)
 
 
 ## 🔑 Project Overview
