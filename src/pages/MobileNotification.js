@@ -8,14 +8,11 @@ import MobileNewNotiList from '../components/Notification/MobileNewNotiList'
 import {CardModal} from '../components/Community/communityindex'
 import GoBack from '../elements/GoBack'
 import {editSound} from '../redux/modules/noti';
-import VolumeOffIcon from '@material-ui/icons/VolumeOff';
-import VolumeUpIcon from '@material-ui/icons/VolumeUp';
 
 const MobileNoti = (props) => {
   const dispatch = useDispatch()
   const user = useSelector((state) => state.user.user);
   const [cardModal, setCardModal] = useState(false);
-  const is_sound = useSelector((state) => state.noti.is_sound)
 
   useEffect(() => {
     dispatch(notiActions.openAlarmIO(user.id));
@@ -42,17 +39,7 @@ const MobileNoti = (props) => {
           <NotiHeader>
             알람
           </NotiHeader>
-          {is_sound? 
-          <NotiSound 
-            onClick={()=>{dispatch(editSound(false))}} > 
-            소리 끄기 <VolumeOffIcon/>
-          </NotiSound> 
-          :
-          <NotiSound 
-            onClick={()=>{dispatch(editSound(true))}}> 
-            소리 켜기 <VolumeUpIcon/>
-          </NotiSound>}
-          {/* <div style={{width:"30px", height:"20px"}}></div> */}
+          <div style={{width:"30px", height:"20px"}}></div>
         </NotiHeaderContainer>
         <MobileNotiList setCardModal={setCardModal} />
         <MobileNewNotiList setCardModal={setCardModal} />
@@ -60,19 +47,6 @@ const MobileNoti = (props) => {
     </React.Fragment>
   )
 }
-
-const NotiSound = styled.div`
-  font: normal normal normal 13px/19px Noto Sans CJK KR;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 30px;
-  width: 90px;
-  border: 1px solid #848484;
-  border-radius: 5px;
-`
-
 
 const NotiContainer = styled.div`
   background: white;
