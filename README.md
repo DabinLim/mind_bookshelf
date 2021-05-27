@@ -35,7 +35,7 @@ This website enables users to share their thoughts and to have them like how we 
 
 ## **🛠 Tools**
 
-- `View (React with JavaScript, React-Router, antd, Material-UI, Styled-components)
+- View (React with JavaScript, React-Router, antd, Material-UI, Styled-components)
 - State Management (Redux-Toolkit)
 - Build Tool (Create React App)
 - Code Quality Tool (ESLint, Prettier)
