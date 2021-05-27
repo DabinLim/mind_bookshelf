@@ -86,7 +86,7 @@ This website enables users to share their thoughts and to have them like how we 
 ### 2. Bookshelf
 
 - Displays a collection of a user's responses that are contained in a book-shaped item, which are sorted by date.
-- Users can modify and update their profile information such as profile image, nickname, status message, and preferred topics (love, friendship, relationship, goals, identity, value) that are distinguished by unique colors.
+- Users can modify and update their profile information such as profile image, nickname, status message, and preferred topics (love, friendship, relationship, goals, identity, and value) that are distinguished by unique colors.
 - Users can create their own custom questions which may be loaded on others' main pages and view the number of responses to the specific question.
 
 ### 3. Friends' Feed
