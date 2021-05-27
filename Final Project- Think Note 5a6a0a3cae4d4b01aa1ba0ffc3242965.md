@@ -1,23 +1,20 @@
+# Final Project- Think Note
+
 # 📔 ThinkNote **- Doodle your thoughts and Share with Others**
 
-![image](https://user-images.githubusercontent.com/67696504/119813221-f92a6d80-bf23-11eb-8a56-1d2ecea3cd16.png)
-
-[**Website link**](https://thinknote.us/) / [**YouTube link**](https://www.youtube.com/watch?v=UEY_Fpl8zn4)
+[**Website link](https://thinknote.us/) / [YouTube link](https://www.youtube.com/watch?v=UEY_Fpl8zn4)**
 
 **Beta version:** 05.13.2021 (MVP launching) ~ Implementing user feedback and still in the process of refinement
-
 **Development duration:** 04.25.2021 ~ 05.12.2021
 
-<br/>
+## Table of Contents
 
-## 📌 Table of Contents
+1. Project Overview
+2. Tools
+3. What We Have Learned
+4. Core Functions Info
 
-1. [Project Overview](#Project-Overview)
-2. [Tools](#Tools)
-3. [Core Functions Info](#Core-Functions-Info)
-4. [What We Have Learned](#What-We-Have-Learned)
-
-<br/>
+---
 
 ## 🔑 Project Overview
 
@@ -31,26 +28,20 @@ This website enables users to share their thoughts and to have them like how we 
 
 ### **👨‍👩‍👧‍👧 Team**
 
-[**Our Team Notion**](https://www.notion.so/e70b704cf035444b805dd95942f6e8ce) <br/>
-**Front-end(React.js):** Daeho Lee, Dabin Lim, Hyungseok Cho <br/>
-**Back-end(Node.js):**  Chongmyeong Lee, Sanggyun Cho, Taejin Kang ([Github Repo](https://github.com/Lee-ChongMyeong/ThinkNote)) <br/>
+[Our Team Notion](https://www.notion.so/e70b704cf035444b805dd95942f6e8ce)
+**Front-end(React.js):** Daeho Lee, Dabin Lim, Hyungseok Cho
+**Back-end(Node.js):**  Chongmyeong Lee, Sanggyun Cho, Taejin Kang ([Github Repo](https://github.com/Lee-ChongMyeong/ThinkNote))
 **Designer:** Jiwon Sung ([Web](https://xd.adobe.com/view/c892e36d-df02-4835-b99f-cc191129a465-9dc1/), [Mobile wireframe](https://xd.adobe.com/view/81d74061-14d9-4d79-ad0e-06d3fecc701a-d484/))
-
-<br/>
 
 ## **🛠 Tools**
 
-```
-- View (React with JavaScript, React-Router, antd, Material-UI, Styled-components)
+- `View (React with JavaScript, React-Router, antd, Material-UI, Styled-components)
 - State Management (Redux-Toolkit)
 - Build Tool (Create React App)
 - Code Quality Tool (ESLint, Prettier)
 - Infrastructure (AWS S3, Route 53, Amazon CloudFront)
 - Design Tool (Adobe XD)
-- Collaboration Tools (Git, Github, Notion, Slack, etc.)
-```
-
-<br/>
+- Collaboration Tools (Git, Github, Notion, Slack, etc.)`
 
 ## **🕹 Core Functions Info**
 
@@ -68,15 +59,19 @@ This website enables users to share their thoughts and to have them like how we 
 - On this component or page, users can interact with others through leaving comments, pressing a like button on it or on a comment that they like, and tagging other users by inserting "@" in front of their nicknames.
 - Users can see a list of people who like the response by clicking the number of people who pressed the like button.
 
-### 4. Alarm
+### 4. Topic Page
+
+- Regardless of where a user is, if he or she clicks a certain topic, the website shows him or her a topic page where there are responses to the corresponding questions.
+- This page shows response cards where a user can sort by date and the number of responses.
+
+### 5. Alarm
 
 - By implementing this alarm function, users immediately know whether someone likes their posts, leaves a comment, tags them, follows them, and even register a response to their custom questions.
 - Even when users are not logged in, they still get notifications that are indicated by a red alarm badge.
 
-### 5. [Google Extension](https://chrome.google.com/webstore/detail/%EC%83%9D%EA%B0%81%EB%82%99%EC%84%9C/bjjoklgeipleefnllgkcmacojnmbplga)
+### 6. [Google Extension](https://chrome.google.com/webstore/detail/%EC%83%9D%EA%B0%81%EB%82%99%EC%84%9C/bjjoklgeipleefnllgkcmacojnmbplga)
 
 - By creating a google extension for this website, users can see the community page and go to the actual website by clicking a "more view" button placed right next to a question.
-- Created by using CRA(Create-React-App)
 
 ---
 
@@ -93,7 +88,7 @@ This website enables users to share their thoughts and to have them like how we 
 ### 2. Bookshelf
 
 - Displays a collection of a user's responses that are contained in a book-shaped item, which are sorted by date.
-- Users can modify and update their profile information such as profile image, nickname, status message, and preferred topics (love, friendship, relationship, goals, identity, and value) that are distinguished by unique colors.
+- Users can modify and update their profile information such as profile image, nickname, status message, and preferred topics (love, friendship, relationship, goals, identity, value) that are distinguished by unique colors.
 - Users can create their own custom questions which may be loaded on others' main pages and view the number of responses to the specific question.
 
 ### 3. Friends' Feed
@@ -107,13 +102,6 @@ This website enables users to share their thoughts and to have them like how we 
 - Here, a newly signed-up user can see colorful ways of responses so that he or she can get access to their profiles and follow them if he or she wants.
 - There is a refresh button if a user wants to see other types of questions.
 - If the number of responses to a certain question is equal to or more than 4, a "more view" button is activated so that uses can enjoy more responses to the question. Once they get to the more view page, there are different responses a user can sort by date, popularity, and his or her friends.
-
-### 5. Topic Page
-
-- Regardless of where a user is, if he or she clicks a certain topic, the website shows him or her a topic page where there are responses to the corresponding questions.
-- This page shows response cards where a user can sort by date and the number of responses.
-
-<br/>
 
 ## **🔎 What We Have Learned**
 
