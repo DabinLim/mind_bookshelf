@@ -61,17 +61,12 @@ This website enables users to share their thoughts and to have them like how we 
 - On this component or page, users can interact with others through leaving comments, pressing a like button on it or on a comment that they like, and tagging other users by inserting "@" in front of their nicknames.
 - Users can see a list of people who like the response by clicking the number of people who pressed the like button.
 
-### 4. Topic Page
-
-- Regardless of where a user is, if he or she clicks a certain topic, the website shows him or her a topic page where there are responses to the corresponding questions.
-- This page shows response cards where a user can sort by date and the number of responses.
-
-### 5. Alarm
+### 4. Alarm
 
 - By implementing this alarm function, users immediately know whether someone likes their posts, leaves a comment, tags them, follows them, and even register a response to their custom questions.
 - Even when users are not logged in, they still get notifications that are indicated by a red alarm badge.
 
-### 6. [Google Extension](https://chrome.google.com/webstore/detail/%EC%83%9D%EA%B0%81%EB%82%99%EC%84%9C/bjjoklgeipleefnllgkcmacojnmbplga)
+### 5. [Google Extension](https://chrome.google.com/webstore/detail/%EC%83%9D%EA%B0%81%EB%82%99%EC%84%9C/bjjoklgeipleefnllgkcmacojnmbplga)
 
 - By creating a google extension for this website, users can see the community page and go to the actual website by clicking a "more view" button placed right next to a question.
 
@@ -104,6 +99,11 @@ This website enables users to share their thoughts and to have them like how we 
 - Here, a newly signed-up user can see colorful ways of responses so that he or she can get access to their profiles and follow them if he or she wants.
 - There is a refresh button if a user wants to see other types of questions.
 - If the number of responses to a certain question is equal to or more than 4, a "more view" button is activated so that uses can enjoy more responses to the question. Once they get to the more view page, there are different responses a user can sort by date, popularity, and his or her friends.
+
+### 5. Topic Page
+
+- Regardless of where a user is, if he or she clicks a certain topic, the website shows him or her a topic page where there are responses to the corresponding questions.
+- This page shows response cards where a user can sort by date and the number of responses.
 
 ## **🔎 What We Have Learned**
 
