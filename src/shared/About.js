@@ -21,8 +21,14 @@ const About = (props) => {
 
             <LinkContainer>
               사이트 설문 :{" "}
-              <Link href="https://forms.gle/SFxL22PrETj23CBD8">
+              <Link target="_blank" href="https://forms.gle/SFxL22PrETj23CBD8">
                 설문지
+              </Link>
+            </LinkContainer>
+            <LinkContainer>
+            크롬 익스텐션 :{" "}
+              <Link target="_blank" href="https://chrome.google.com/webstore/detail/%EC%83%9D%EA%B0%81%EB%82%99%EC%84%9C/bjjoklgeipleefnllgkcmacojnmbplga?hl=ko&">
+                생각낙서
               </Link>
             </LinkContainer>
             <div style={{borderTop:"0.3px black solid", width: '150px', margin:'auto', marginTop:"15px",marginBottom:"15px"}}>
