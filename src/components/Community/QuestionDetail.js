@@ -113,7 +113,7 @@ const QuestionDetail = (props) => {
             <ContainerUpper>
               <ContainerUpperLeft>
                 <HashTag
-                  onClick={() => {history.push(`/topic/${question_info.questionTopic}`)}}
+                  onClick={() => {history.push(`/topic/${question_info.questionTopic[0]}`)}}
                   style={{
                     color: color,
                     border: border,

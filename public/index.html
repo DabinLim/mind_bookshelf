@@ -15,7 +15,7 @@
     <meta property="og:title" content="생각낙서">
     <meta property="og:description" content="나와 주변의 생각들을 책장처럼 정리해둔 서비스입니다.">
     <meta property="og:image" content="https://user-images.githubusercontent.com/77369674/118658651-8df7e180-b827-11eb-89f5-6aeda9796833.png">
-    <meta property="og:url" content="https://thinknote.us/">
+    <meta property="og:url" content="https://thinknote.online/">
     <meta charset="utf-8" />
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
     integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
@@ -53,10 +53,12 @@
       let UA = navigator.userAgent.toLowerCase();
       if (!(!/mobile/i.test(a) || !/inapp|KAKAOTALK|Line\/|FB_IAB\/FB4A|FBAN\/FBIOS|Instagram|DaumDevice\/mobile|SamsungBrowser\/[^1]/i.test(a))) {
         if ( UA.indexOf('android') > -1){
-          location.href="intent://thinknote.us#Intent;scheme=http;package=com.android.chrome;end";
-        } else {
-          location.replace("ftp://ftp.urlopen.link:7035/3b344dd5f7dbac2dd4e7b0466017f404b166e239fbbaedf54f74b0adb81202cc1aeed8466b5ba7f9c45b8998df19182ba8983f66dc3882cc6a3212715b30cfa5.html");
-        }
+          location.href="intent://thinknote.online#Intent;scheme=http;package=com.android.chrome;end";
+        } 
+        //iphone urlopen 주석처리함.
+        // else {
+        //   location.replace("ftp://ftp.urlopen.link:7035/3b344dd5f7dbac2dd4e7b0466017f404b166e239fbbaedf54f74b0adb81202cc1aeed8466b5ba7f9c45b8998df19182ba8983f66dc3882cc6a3212715b30cfa5.html");
+        // }
       }
     </script>
     <script>
