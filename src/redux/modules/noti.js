@@ -26,7 +26,7 @@ const notiSlice = createSlice({
       state.is_checked = action.payload.checked;
     },
     addNoti: (state, action) => {
-      if(action.payload.eventType !== 'tag'){
+      // if(action.payload.eventType !== 'tag'){
         if(state.new_list.findIndex(
           (n) => n.cardId === action.payload.cardId &&
                 n.recentNickname === action.payload.recentNickname &&
@@ -37,9 +37,9 @@ const notiSlice = createSlice({
         state.new_list.unshift(action.payload);
         state.is_checked = true;
         return;
-      }
-      state.new_list.unshift(action.payload);
-      state.is_checked = true;
+      // }
+      // state.new_list.unshift(action.payload);
+      // state.is_checked = true;
     },
     alarmChecked: (state) => {
       state.is_checked = false;

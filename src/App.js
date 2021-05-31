@@ -39,6 +39,7 @@ function App() {
 
 
   socket.on("AlarmEvent", function (data) {
+    console.log(data)
     dispatch(addNoti(data));
     play();
   });

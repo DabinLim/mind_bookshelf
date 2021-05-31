@@ -41,8 +41,8 @@ const MobileNoti = (props) => {
           </NotiHeader>
           <div style={{width:"30px", height:"20px"}}></div>
         </NotiHeaderContainer>
-        <MobileNotiList setCardModal={setCardModal} />
         <MobileNewNotiList setCardModal={setCardModal} />
+        <MobileNotiList setCardModal={setCardModal} />
       </NotiContainer>
     </React.Fragment>
   )

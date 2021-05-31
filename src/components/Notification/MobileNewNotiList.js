@@ -5,6 +5,7 @@ import MobileNoti from "./MobileNoti";
 
 const MobileNewNotiList = (props) => {
   const new_list = useSelector((state) => state.noti.new_list);
+  console.log(new_list)
   return (
     <>
       <NotiListFrame>
