@@ -21,12 +21,12 @@ const OthersBooks = (props) => {
     let id = url[url.length -2];    
 
     React.useEffect(() => {
-        dispatch(changeDate(0))
         dispatch(setComponent(''))
         if(cookie){
             dispatch(userActions.myFollowListAX())
         }
         return()=>{
+            dispatch(changeDate('today'))
             if(answerInfo.length !== 0){
                 dispatch(changeType(null))
             }

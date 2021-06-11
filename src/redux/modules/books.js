@@ -55,6 +55,9 @@ const booksSlice = createSlice({
         }
         else if(action.payload === 0){
             state.formated_date = state.date.format('YYYY . MM')
+        } else if (action.payload === 'today'){
+            state.date = moment();
+            state.formated_date = moment().format('YYYY . MM');
         } else {
             const new_date = moment(action.payload, 'YYYYMMDD');
             state.date = new_date;

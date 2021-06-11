@@ -42,9 +42,11 @@ function App() {
   socket.on("AlarmEvent", function (data) {
     dispatch(addNoti(data));
     if(!is_sound){
+      console.log('notSound');
       pause();
       return
     }
+    console.log('sound');
     play();
   });
 

@@ -333,6 +333,7 @@ const deleteLikeQnA = (answerId, questionId) => {
 }
 
 const addLikeAX = (answerId, questionId) => {
+  console.log('이만큼 보냈어')
   if (!getCookie("is_login")) {
     swal({
       title: "좋아요 실패",

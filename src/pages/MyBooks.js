@@ -3,7 +3,7 @@ import {history} from '../redux/configStore';
 import styled from 'styled-components';
 import {NewQuestion, BookShelf, Profile, MyQuestion, MyAnswers, ProfileUpdateModal} from '../components/Books/booksindex';
 import {useSelector, useDispatch} from 'react-redux';
-import {setComponent, setBookDetailModal, setDateVisible} from '../redux/modules/books';
+import {setComponent, changeDate} from '../redux/modules/books';
 import { getCookie } from '../shared/Cookie';
 import {api as userActions, resetFollower, resetFollowing} from '../redux/modules/user'
 import { changeType } from '../redux/modules/community';
@@ -29,6 +29,7 @@ const MyBook = (props) => {
       };
 
     React.useEffect(() => {
+
         if(!getCookie('is_login')){
             window.alert('로그인 상태가 아닙니다.');
             history.replace('/');
@@ -45,12 +46,15 @@ const MyBook = (props) => {
             dispatch(userActions.getFollower(userId));
         }
         return()=>{
+            dispatch(changeDate('today'))
             dispatch(resetFollower());
             dispatch(resetFollowing());
             if(answerInfo.length !== 0){
                 dispatch(changeType(null))
             }}
     },[])
+
+
     return(
         <React.Fragment>
             {UpdateModal ? <ProfileUpdateModal close={closeUpdateModal} /> : null}
