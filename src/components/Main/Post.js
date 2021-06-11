@@ -338,7 +338,7 @@ const CardRight = styled.div`
 const HashTag = styled.span`
   min-width: 72px;
   max-width: 72px;
-  padding: 8px 12px;
+  padding: 5px 12px;
   border-radius: 24px;
   text-align: center;
   font: normal normal bold 22px Noto Sans CJK KR;

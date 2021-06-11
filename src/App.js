@@ -35,18 +35,12 @@ function App() {
   axios.defaults.baseURL = "https://lkj99.shop";
   const dispatch = useDispatch();
   const cookie = getCookie("is_login") ? true : false;
-  const is_sound = useSelector((state) => state.noti.is_sound);
-  const [play, {pause}] = useSound(boopSfx);
+  const [play] = useSound(boopSfx);
 
 
   socket.on("AlarmEvent", function (data) {
+    console.log(data)
     dispatch(addNoti(data));
-    if(!is_sound){
-      console.log('notSound');
-      pause();
-      return
-    }
-    console.log('sound');
     play();
   });
 

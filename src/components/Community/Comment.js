@@ -49,6 +49,9 @@ const Comment = (props) => {
       ? time(props.commentCreatedAt)
       : "방금 전";
 
+  //reactStringReplace라는 외부 라이브러리를 사용해서 구현했습니다.
+  //commentContents안에서 태그값을 찾고 style과 onClick이벤트를 입혀주는 작업입니다.
+  //한 댓글안에 태그가 두개 이상일 때도  map을 돌려서 해결했습니다.
   let contents = props.commentContents;
   props.tag.map((t) => {
     contents = reactStringReplace(contents, `@${t[0]}`, (match, i) => (

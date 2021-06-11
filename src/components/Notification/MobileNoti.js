@@ -8,6 +8,7 @@ import { history } from "../../redux/configStore";
 
 const MobileNoti = (props) => {
   const dispatch = useDispatch();
+  console.log(props)
 
   let eventType = "";
   let text = "";

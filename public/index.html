@@ -53,8 +53,10 @@
       let UA = navigator.userAgent.toLowerCase();
       if (!(!/mobile/i.test(a) || !/inapp|KAKAOTALK|Line\/|FB_IAB\/FB4A|FBAN\/FBIOS|Instagram|DaumDevice\/mobile|SamsungBrowser\/[^1]/i.test(a))) {
         if ( UA.indexOf('android') > -1){
-          location.href="intent://thinknote.us#Intent;scheme=http;package=com.android.chrome;end";
-        } else {
+          location.href="intent://thinknote.online#Intent;scheme=http;package=com.android.chrome;end";
+        } 
+        //iphone urlopen 주석처리함.
+        else {
           location.replace("ftp://ftp.urlopen.link:7035/3b344dd5f7dbac2dd4e7b0466017f404b166e239fbbaedf54f74b0adb81202cc1aeed8466b5ba7f9c45b8998df19182ba8983f66dc3882cc6a3212715b30cfa5.html");
         }
       }

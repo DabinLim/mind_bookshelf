@@ -323,8 +323,9 @@ const Header = () => {
                   loading={loading}
                   />
                 ) : null}
-                <SearchIcon
-                  style={{ cursor: "pointer" }}
+                <img
+                  src={webSearchIcon}
+                  style={{ cursor: "pointer", width:"21px", height:"21px" }}
                   onClick={() => {
                     recentUser();
                     dispatch(setSearch(true));
@@ -339,8 +340,9 @@ const Header = () => {
                     setCardModal={setCardModal}
                   />
                 ) : null}
-                <NotificationsNoneOutlinedIcon
-                  style={{ cursor: "pointer" }}
+                <img
+                  src={webNotiIcon}
+                  style={{ cursor: "pointer", width:"21px", height:"21px" }}
                   onClick={() => {
                     setNoti(true);
                     dispatch(notiActions.openAlarmIO(user.id));
@@ -349,8 +351,9 @@ const Header = () => {
               </Icon>
               <Icon>
                 {aboutModal ? <About setAboutModal={setAboutModal} /> : null}
-                <InfoOutlinedIcon
-                  style={{ cursor: "pointer" }}
+                <img
+                  src={aboutIcon}
+                  style={{ cursor: "pointer", width:"21px", height:"21px" }}
                   onClick={() => {
                     setAboutModal(true);
                   }}
@@ -491,7 +494,10 @@ const Header = () => {
                 setMenuOpen(true);
               }}
             >
-              <MenuIcon />
+              <img 
+                src={menuIcon}
+                style={{width:"15px", height:"14px"}}
+              />
             </MobileIcon>
             <LogoBox>
               <LogoImg 
@@ -509,8 +515,9 @@ const Header = () => {
               </LogoBox>
             <div style={{ display: "flex" }}>
               <MobileIcon style={{ marginLeft: "35px" }}>
-                <SearchIcon
-                  style={{ cursor: "pointer" }}
+                <img
+                  src={mobileSearchIcon}
+                  style={{ cursor: "pointer", width:"16px", height:"18px"}}
                   onClick={() => {
                     history.push("/search");
                   }}
@@ -576,8 +583,9 @@ const Header = () => {
                   loading={loading}
                 />
               ) : null}
-              <SearchIcon
-                style={{ cursor: "pointer" }}
+              <img
+                src={webSearchIcon}
+                style={{ cursor: "pointer" , width:"21px", height:"21px"}}
                 onClick={() => {
                   recentUser();
                   dispatch(setSearch(true));
@@ -586,8 +594,9 @@ const Header = () => {
             </Icon>
             <Icon>
               {aboutModal ? <About setAboutModal={setAboutModal} /> : null}
-              <InfoOutlinedIcon
-                style={{ cursor: "pointer" }}
+              <img
+                src={aboutIcon}
+                style={{ cursor: "pointer", width:"21px", height:"21px" }}
                 onClick={() => {
                   setAboutModal(true);
                 }}
@@ -780,7 +789,7 @@ const IconContainer = styled.div`
 const TextBtn = styled.div`
   font: normal normal normal 15px/22px Noto Sans CJK KR;
   cursor: pointer;
-  margin-left: 25px;
+  margin-left: 30px;
   @media (max-width: 750px) {
     display: none;
   } ;
@@ -788,8 +797,7 @@ const TextBtn = styled.div`
 
 const Icon = styled.div`
   position: relative;
-  margin-left: 25px;
-  margin-top: 9px;
+  margin-left: 30px;
   @media (max-width: 750px) {
     display: none;
   } ;
@@ -808,8 +816,8 @@ const MobileIcon = styled.div`
 
 const AlarmBadge = styled.div`
   background-color: red;
-  width: 10px;
-  height: 10px;
+  width: 9px;
+  height: 9px;
   font-size: 9px;
   text-align: center;
   border-radius: 10px;
@@ -817,7 +825,7 @@ const AlarmBadge = styled.div`
   color: white;
   font-weight: 600;
   right: 0px;
-  top: 2px;
+  top: 3px;
 `;
 
 export default Header;

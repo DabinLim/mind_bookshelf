@@ -109,8 +109,14 @@ const BookShelf = (props) => {
     dispatch(changeDate(0));
     if (id === "mybook") {
       dispatch(booksActions.getBooks(0));
+      //cardModal을 통해서 다른 책장으로 넘어가면 카드모달이 안닫히는
+      //현상을 해결함 
+      close();
     } else {
       dispatch(booksActions.getOthersBooks(0, id));
+      //cardModal을 통해서 다른 책장으로 넘어가면 카드모달이 안닫히는
+      //현상을 해결함 
+      close();
     }
 
     return () => {
