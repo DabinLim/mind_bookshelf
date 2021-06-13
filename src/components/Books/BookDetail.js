@@ -178,13 +178,9 @@ const BookDetail = (props) => {
                     <LeftOutlined style={{fontSize:'20px'}} onClick={()=>{history.goBack()}}/>
                     </GoBackBtn>
                     <Nickname>
-                        <span style={{fontWeight:'600'}}>
+                        <span style={{font:'normal normal bold Noto Sans CJK KR', fontWeight:'800'}}>
                         {answerInfo?.nickname}
                         </span>님
-                        <QuestionCreatedUser>
-                             <span style={{margin:'0px 3px'}}>•</span> 
-                            {answerInfo?.questionCreatedUserNickname}님의 질문
-                        </QuestionCreatedUser>
                     </Nickname>
                     <Toggle>
                         {answerInfo?.answerUserId === user_info?.id &&(
@@ -220,6 +216,7 @@ const BookDetail = (props) => {
                     </Toggle>
                 </Head>
                 <Body>
+                    <Top>
                     <SubjectBox>
                     {answerInfo.questionTopic?.length && answerInfo.questionTopic.map((v,idx) => {
                         return(
@@ -227,6 +224,8 @@ const BookDetail = (props) => {
                         )
                         })}
                     </SubjectBox>
+                    <QuestionCreatedUser><span style={{font: 'normal normal medium 14px/20px Noto Sans CJK KR',fontWeight:'800'}}>{answerInfo.questionCreatedUserNickname}</span>님의 질문</QuestionCreatedUser>
+                    </Top>
                     <Question>
                         {answerInfo?.questionContents}
                     </Question>
@@ -431,18 +430,8 @@ const Nickname = styled.span`
     width: auto;
     height: 20px;
     letter-spacing: 0px;
-    font: normal normal bold Noto Sans CJK KR;
-    font-weight:800;
-`;
-
-const QuestionCreatedUser = styled.span`
-    width:auto;
-    height:100%;
-    font: normal normal medium 14px/20px Noto Sans CJK KR;
-    letter-spacing:0px;
-    font-weight:600;
-    color: #363636;
-    opacity: 0.7;
+    font: normal normal normal Noto Sans CJK KR;
+    font-weight:400;
 `;
 
 const Toggle = styled.div`
@@ -460,12 +449,29 @@ const Body = styled.div`
     height:auto;
 `;
 
+const Top = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+`;
+
+
 const SubjectBox = styled.div`
     display:flex;
     flex-direction:row;
     justify-content:flex-start;
     align-items:center;
     margin-bottom:13px;
+`;
+
+const QuestionCreatedUser = styled.span`
+    width:auto;
+    height:100%;
+    font-size:13px;
+    letter-spacing:0px;
+    font-weight:400;
+    color: #363636;
+    opacity: 0.7;
 `;
 
 const Question = styled.div`
