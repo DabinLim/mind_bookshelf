@@ -119,7 +119,7 @@ This website enables users to share their thoughts and to have them like how we 
 
 ### 1. **From card modal issue**
 
-- **Problem:** After the initial publishment of our website, we faced a critical error when it comes to converting from the web view to the mobile view. We found out that when users utilized our website on their mobile devices, they confused on their current location once they clicked the back button. 
+- **Problem:** After the initial publishment of our website, we faced a critical error when it comes to converting from the web view to the mobile view. We found out that when users utilized our website on their mobile devices, they are confused about their current location once they clicked the back button. 
 Whereas we could easily close a modal off on the web to see the previous view by clicking the outside area of it, mobile users could not go back to the previous view after they clicked the back button, which used to be the only way to get out of a modal on mobile devices.
 - **Solution:** So Dabin approached with a different way that is to show a page instead of a modal for mobile users. He set a page conversion point which is the max screen width of 750px, using the window.innerWidth. When the value is equal to or less than 750px, a page conversion occurs. Otherwise, a normal modal pops out. By this approach, the back button works well both on the web and mobile devices.
 
